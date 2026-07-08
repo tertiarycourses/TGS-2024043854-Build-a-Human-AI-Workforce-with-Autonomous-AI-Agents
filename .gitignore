@@ -1,0 +1,29 @@
+# WSQ assessment materials (confidential — never pushed)
+/assessment/
+/assessment\ /
+
+# Secrets / env
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+id_rsa
+id_ed25519
+
+# Paperclip local install (learners clone this themselves — see LEARNER_GUIDE.md)
+/paperclip/
+/data/
+paperclip-workspace/
+
+# Python / tooling
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+.DS_Store
+.playwright-mcp/
