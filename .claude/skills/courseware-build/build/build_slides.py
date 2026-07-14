@@ -316,12 +316,12 @@ def dark_rows(tag,title_lines,sub_lines,rows,warn=None,accent=None,numbered=True
         txt(s,Inches(2.2),Inches(wy),Inches(10.2),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 _DKC={"w":RGBColor(0xE8,0xE6,0xDD),"a":RGBColor(0xF5,0xA6,0x23),"b":RGBColor(0x6E,0xA8,0xFF),
-      "g":RGBColor(0x4A,0xDE,0x80),"d":RGBColor(0x8A,0x8D,0x86)}
+      "g":RGBColor(0x4A,0xDE,0x80),"d":RGBColor(0x8A,0x8D,0x86),"r":RGBColor(0xE8,0x6A,0x8A)}
 def _dkruns(spec,size=16):
     """spec: str | (amber,white) tuple | list of (text,colorkey) pairs -> txt() runs line."""
     if isinstance(spec,str): return [(spec,size,_DKC["w"],False)]
     if isinstance(spec,tuple): return [(spec[0],size,_DKC["a"],True),(spec[1],size,_DKC["w"],False)]
-    return [(t,size,_DKC.get(k,_DKC["w"]),k in ("a","b","g")) for t,k in spec]
+    return [(t,size,_DKC.get(k,_DKC["w"]),k in ("a","b","g","r")) for t,k in spec]
 def dark_table(tag,title,col1,col2,rows,foot=None):
     """Masterclass-style dark comparison table: amber vs blue column headers,
     white row labels, thin divider rules, optional mixed-colour footer line."""
@@ -411,6 +411,56 @@ def dark_catalog(tag,title,cards,scope=None,right_tag=None):
         rect(s,Inches(0.85),Inches(sy),Inches(0.05),Inches(1.15),AMBER)
         txt(s,Inches(1.1),Inches(sy+0.12),Inches(1.3),Inches(0.35),[[("SCOPE",15,AMBER,True)]])
         txt(s,Inches(2.5),Inches(sy+0.1),Inches(9.7),Inches(0.98),[[(scope,12.5,IVORY,False)]])
+    footer(s); return s
+def dark_panels(tag,title,panels,foot=None,right_tag=None):
+    """Masterclass-style dark slide: coloured outlined panels ('// HEAD' + body
+    run-lines) and a mixed-colour footer. panels: (colorkey, head, [runlines])."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); FAINT=RGBColor(0x2A,0x2C,0x28); PBG=RGBColor(0x10,0x12,0x0E)
+    AMBER=_DKC["a"]; DIM=_DKC["d"]
+    PCOL={"a":_DKC["a"],"b":_DKC["b"],"g":_DKC["g"],"r":RGBColor(0xE8,0x6A,0x8A)}
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    if right_tag:
+        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    txt(s,Inches(0.85),Inches(0.98),Inches(11.9),Inches(0.78),[[(title.upper(),40,AMBER,True)]])
+    y=2.0; n=len(panels); gap=Inches(0.25)
+    pw=int((Inches(11.63)-gap*(n-1))/n); ph=Inches(3.3); b=Inches(0.02)
+    for i,(ck,head,body) in enumerate(panels):
+        col=PCOL.get(ck,AMBER); x=int(Inches(0.85)+i*(pw+gap)); yv=Inches(y)
+        rect(s,x,yv,pw,ph,PBG)
+        rect(s,x,yv,pw,b,col); rect(s,x,int(yv+ph-b),pw,b,col)
+        rect(s,x,yv,b,ph,col); rect(s,int(x+pw-b),yv,b,ph,col)
+        txt(s,x+Inches(0.28),int(yv+Inches(0.2)),pw-Inches(0.5),Inches(0.4),[[("// "+head.upper(),15,col,True)]])
+        txt(s,x+Inches(0.28),int(yv+Inches(0.72)),pw-Inches(0.52),int(ph-Inches(0.9)),
+            [_dkruns(ln,13) for ln in body],space=6)
+    if foot:
+        txt(s,Inches(0.85),Inches(y+3.3+0.28),Inches(11.63),Inches(0.45),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
+    footer(s); return s
+def dark_flow(tag,title,steps,foot=None,right_tag=None):
+    """Masterclass-style dark slide: amber-outlined step boxes joined by arrows,
+    plus a mixed-colour footer. steps: (head, body)."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); FAINT=RGBColor(0x2A,0x2C,0x28); PBG=RGBColor(0x10,0x12,0x0E)
+    AMBER=_DKC["a"]; IVORY=_DKC["w"]; DIM=_DKC["d"]
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    if right_tag:
+        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    txt(s,Inches(0.85),Inches(1.05),Inches(11.9),Inches(0.85),[[(title.upper(),44,AMBER,True)]])
+    y=2.55; n=len(steps); ag=Inches(0.38); b=Inches(0.02)
+    bw=int((Inches(11.63)-ag*(n-1))/n); bh=Inches(1.55)
+    for i,(head,body) in enumerate(steps):
+        x=int(Inches(0.85)+i*(bw+ag)); yv=Inches(y)
+        rect(s,x,yv,bw,bh,PBG)
+        rect(s,x,yv,bw,b,AMBER); rect(s,x,int(yv+bh-b),bw,b,AMBER)
+        rect(s,x,yv,b,bh,AMBER); rect(s,int(x+bw-b),yv,b,bh,AMBER)
+        txt(s,x,int(yv+Inches(0.16)),bw,Inches(0.36),[[(head.upper(),14,AMBER,True)]],align=PP_ALIGN.CENTER)
+        txt(s,x+Inches(0.12),int(yv+Inches(0.6)),bw-Inches(0.24),Inches(0.85),[[(body,11.5,IVORY,False)]],align=PP_ALIGN.CENTER)
+        if i<n-1:
+            txt(s,int(x+bw),int(yv+bh/2-Inches(0.2)),ag,Inches(0.4),[[("→",18,AMBER,True)]],align=PP_ALIGN.CENTER)
+    if foot:
+        txt(s,Inches(0.85),Inches(y+1.55+0.45),Inches(11.63),Inches(0.8),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
     footer(s); return s
 def dark_cards(tag,title_lines,cards,notes=(),badge=None):
     """Masterclass-style dark slide: amber headline + a row of green-outlined cards
@@ -666,6 +716,57 @@ def _lab_extras(num):
              [("","w")],
              [("gpt-5.5 | 21.4K/272K | 8% | 59s","b")]],
             foot="Every tool call is visible — name, arguments and per-call timing — while the status bar tracks model, context and cost.",
+            win_title="hermes chat",right_tag="LIVE SESSION")
+    if num==7:
+        # Crons section — masterclass slides (three ways to schedule + the tick)
+        dark_panels("masterclass/module-07/entry-points","Three Ways to Schedule.",
+            [("a","CLI",[[("hermes cron create","a")],
+                         [("list · pause · resume","a")],
+                         [("run · remove · status","a")],
+                         [("","w")],
+                         [("The standalone command.","d")]]),
+             ("b","Chat",[[("/cron add 30m \"...\"","b")],
+                          [("","w")],
+                          [("From any messaging platform — Telegram, Discord, the CLI chat.","w")],
+                          [("","w")],
+                          [("Same engine, slash command.","d")]]),
+             ("g","The Agent",[[("The ","w"),("cronjob","g"),(" tool.","w")],
+                               [("","w")],
+                               [("\"Every morning, summarize X and send it to me.\" → it ","w"),("schedules itself","g"),(".","w")],
+                               [("","w")],
+                               [("No CLI required.","d")]])],
+            foot=[("Safety rail: a cron-run session ","w"),("can't create more cron jobs","a"),(". No runaway scheduling loops.","w")],
+            right_tag="THREE WAYS IN")
+        dark_flow("the gateway scheduler","The Tick.",
+            [("Gateway ticks","the daemon, every 60s"),
+             ("Due?","checks each job's next_run_at"),
+             ("Fresh session","a clean agent — no chat memory"),
+             ("Deliver","final response → your channel"),
+             ("Archive","cron/output/<id>/")],
+            foot=[("The ","w"),("gateway must be running","a"),(" — it's the heartbeat. ","w"),("hermes gateway install","a"),
+                  (" makes it a service. A grace window catches up jobs missed during a short restart.","w")],
+            right_tag="EVERY 60 SECONDS")
+    if num==8:
+        # Subagents section — masterclass slides (two problems + delegation in action)
+        dark_panels("masterclass/module-08/the-problem","Two Problems, One Tool.",
+            [("r","Context Poisoning",[[("A long subtask — debugging, a 30-file refactor, deep research — ","w"),("floods the parent's window","r"),(" with tool output it will never need again. Quality drops as the window fills.","w")]]),
+             ("a","Serial Slowness",[[("Researching 10 things one-at-a-time is ","w"),("10× the wall-clock","a"),(". A single loop can only do one thing at a time.","w")]])],
+            foot=[("Delegation fixes both at once — clean isolated contexts, running in parallel.","a")],
+            right_tag="TWO LIMITS")
+        dark_code("hermes chat","Delegation in Action.",
+            "A real session — the agent spins up isolated subagents to work in parallel.",
+            [[("Hermes Agent v0.17.0 · Available Tools: browser, clarify, …","d")],
+             [("","w")],
+             [("● Delegate subagents to check the quants used for all qwen models tested in this experiment","a")],
+             [("Initializing agent...","d")],
+             [("","w")],
+             [("  skill   autonomous-coding-agents                 0.1s","g")],
+             [("  find    *                                        1.9s","b")],
+             [("  $       pwd && git rev-parse --show-toplevel     0.3s","w")],
+             [("  (o_o)  contemplating...","a")],
+             [("","w")],
+             [("gpt-5.5 | 21.4K/272K | 8% | 5m","b")]],
+            foot="delegate_task hands each subtask to a fresh, isolated subagent — the parent's context stays clean.",
             win_title="hermes chat",right_tag="LIVE SESSION")
     if num==3:
         # Memory section — masterclass slides (session search + L1 vs L2)
