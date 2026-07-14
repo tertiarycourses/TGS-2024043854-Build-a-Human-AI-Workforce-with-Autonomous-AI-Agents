@@ -46,6 +46,24 @@ ORANGE=RGBColor(0xEA,0x58,0x0C); RED=RGBColor(0xDC,0x26,0x26)
 # Per-topic accent themes for the section covers: Hermes=orange, OpenClaw=red, Paperclip=blue.
 TOPIC_THEME={1:ORANGE, 2:RED, 3:BLUE}
 
+# ---------------- dark "masterclass" palette (Topic 1 / Hermes only) ----------------
+DK_BG   = RGBColor(0x0D,0x0E,0x0B)   # slide background
+DK_PANEL= RGBColor(0x15,0x17,0x12)   # cards/rows/panels
+DK_AMBER= RGBColor(0xF5,0xA6,0x23)   # headlines, kickers, accents, number chips
+DK_IVORY= RGBColor(0xE8,0xE6,0xDD)   # body text
+DK_FAINT= RGBColor(0x2A,0x2C,0x28)   # divider rules
+DK_DIM  = RGBColor(0x8A,0x8D,0x86)   # captions/footers
+DK_GREEN= RGBColor(0x4A,0xDE,0x80)   # success/test-it accents
+
+# Module-level theme switch — flipped on for Topic 1 (Hermes) in the topic loop.
+THEME={"dark":False}
+def _bg():   return DK_BG    if THEME["dark"] else WHITE
+def _panel():return DK_PANEL if THEME["dark"] else LIGHT
+def _ink():  return DK_IVORY if THEME["dark"] else INK
+def _grey(): return DK_DIM   if THEME["dark"] else GREY
+def _line(): return DK_FAINT if THEME["dark"] else LINE
+def _acc(c): return DK_AMBER if THEME["dark"] else c
+
 prs=Presentation(); prs.slide_width=Inches(13.333); prs.slide_height=Inches(7.5)
 SW,SH=prs.slide_width,prs.slide_height
 BLANK=prs.slide_layouts[6]
@@ -68,14 +86,15 @@ def txt(s,x,y,w,h,runs,align=PP_ALIGN.LEFT,anchor=MSO_ANCHOR.TOP,space=4):
             r=p.add_run(); r.text=t; r.font.size=Pt(sz); r.font.bold=bold
             r.font.color.rgb=col; r.font.name="Arial"
     return tb
-def bullets(s,x,y,w,h,items,size=18,color=INK,gap=10,mcolor=BLUE):
+def bullets(s,x,y,w,h,items,size=18,color=None,gap=10,mcolor=BLUE):
     tb=s.shapes.add_textbox(x,y,w,h); tf=tb.text_frame; tf.word_wrap=True
+    body=color if color is not None else _ink()
     for i,it in enumerate(items):
         p=tf.paragraphs[0] if i==0 else tf.add_paragraph(); p.space_after=Pt(gap)
         lvl=it[1] if isinstance(it,tuple) else 0
         text=it[0] if isinstance(it,tuple) else it
         r=p.add_run(); r.text=("•  " if lvl==0 else "–  ")+text
-        r.font.size=Pt(size if lvl==0 else size-2); r.font.color.rgb=color if lvl==0 else GREY
+        r.font.size=Pt(size if lvl==0 else size-2); r.font.color.rgb=body if lvl==0 else _grey()
         r.font.name="Arial"; r.font.bold=(lvl==0 and isinstance(it,tuple) and len(it)>2 and it[2])
     return tb
 
@@ -83,18 +102,18 @@ PAGE={"n":0}
 def footer(s):
     PAGE["n"]+=1
     txt(s,Inches(0.4),Inches(7.05),Inches(7.5),Inches(0.35),
-        [[(f"{C.SHORT_TITLE}  ·  {C.COURSE_CODE}",9,GREY,False)]])
+        [[(f"{C.SHORT_TITLE}  ·  {C.COURSE_CODE}",9,_grey(),False)]])
     txt(s,Inches(5.0),Inches(7.05),Inches(3.3),Inches(0.35),
-        [[("© 2026 Tertiary Infotech Academy Pte Ltd",9,GREY,False)]],align=PP_ALIGN.CENTER)
+        [[("© 2026 Tertiary Infotech Academy Pte Ltd",9,_grey(),False)]],align=PP_ALIGN.CENTER)
     txt(s,Inches(12.4),Inches(7.05),Inches(0.6),Inches(0.35),
-        [[(str(PAGE["n"]),9,GREY,False)]],align=PP_ALIGN.RIGHT)
+        [[(str(PAGE["n"]),9,_grey(),False)]],align=PP_ALIGN.RIGHT)
 def head(s,title,kicker=None,kcolor=BLUE):
-    rect(s,0,0,SW,SH,WHITE); rect(s,0,0,Inches(0.28),Inches(1.55),kcolor)
-    if kicker: txt(s,Inches(0.85),Inches(0.48),Inches(11.9),Inches(0.4),[[(kicker,14,kcolor,True)]])
+    rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),Inches(1.55),_acc(kcolor))
+    if kicker: txt(s,Inches(0.85),Inches(0.48),Inches(11.9),Inches(0.4),[[(kicker,14,_acc(kcolor),True)]])
     # Auto-fit the title so long lab titles never wrap into the divider rule below.
     L=len(str(title)); tsize = 29 if L<=42 else (25 if L<=56 else 21)
-    txt(s,Inches(0.85),Inches(0.9),Inches(11.95),Inches(0.82),[[(title,tsize,INK,True)]],anchor=MSO_ANCHOR.MIDDLE)
-    rect(s,Inches(0.85),Inches(1.8),Inches(11.63),Inches(0.02),LINE)
+    txt(s,Inches(0.85),Inches(0.9),Inches(11.95),Inches(0.82),[[(title,tsize,_ink(),True)]],anchor=MSO_ANCHOR.MIDDLE)
+    rect(s,Inches(0.85),Inches(1.8),Inches(11.63),Inches(0.02),_line())
     return s
 def _logo(name):
     p=os.path.join(ASSETS,name)
@@ -120,12 +139,13 @@ def cover():
     txt(s,Inches(0.9),Inches(6.85),Inches(12),Inches(0.34),[[("© 2026 Tertiary Infotech Academy Pte Ltd. All rights reserved.  ·  www.tertiarycourses.com.sg",10,GREY,False)]])
 
 def section(kicker,title,n,sub="",accent=BLUE):
-    s=slide(); rect(s,0,0,SW,SH,WHITE); rect(s,0,0,Inches(0.28),SH,accent)
+    s=slide(); rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),SH,accent)
     rect(s,Inches(0.85),Inches(2.5),Inches(0.14),Inches(2.0),accent)
     txt(s,Inches(1.25),Inches(2.55),Inches(11),Inches(0.6),[[(kicker,18,accent,True)]])
-    txt(s,Inches(1.25),Inches(3.0),Inches(11.4),Inches(1.6),[[(title,40,INK,True)]])
-    if sub: txt(s,Inches(1.27),Inches(4.55),Inches(11),Inches(0.8),[[(sub,16,GREY,False)]])
-    txt(s,Inches(10.0),Inches(0.7),Inches(2.8),Inches(1.6),[[(n,72,RGBColor(0xE2,0xE8,0xF0),True)]],align=PP_ALIGN.RIGHT)
+    txt(s,Inches(1.25),Inches(3.0),Inches(11.4),Inches(1.6),[[(title,40,_ink(),True)]])
+    if sub: txt(s,Inches(1.27),Inches(4.55),Inches(11),Inches(0.8),[[(sub,16,_grey(),False)]])
+    ghost=DK_FAINT if THEME["dark"] else RGBColor(0xE2,0xE8,0xF0)
+    txt(s,Inches(10.0),Inches(0.7),Inches(2.8),Inches(1.6),[[(n,72,ghost,True)]],align=PP_ALIGN.RIGHT)
     footer(s)
 def content(title,items,kicker=None,size=20):
     # HARD RULE: no bullet-wall slides — every content slide renders as numbered
@@ -140,27 +160,27 @@ def content(title,items,kicker=None,size=20):
     for idx,it in enumerate(xs):
         r,c=divmod(idx,cols)
         cx=x0+c*(cw+gap); cy=y0+r*(ch+gap)
-        rect(s,cx,cy,cw,ch,LIGHT); rect(s,cx,cy,Inches(0.07),ch,BLUE)
-        oval(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.19)),Inches(0.38),Inches(0.38),BLUE)
+        rect(s,cx,cy,cw,ch,_panel()); rect(s,cx,cy,Inches(0.07),ch,_acc(BLUE))
+        oval(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.19)),Inches(0.38),Inches(0.38),_acc(BLUE))
         txt(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.17)),Inches(0.38),Inches(0.34),
-            [[(str(idx+1),13,WHITE,True)]],align=PP_ALIGN.CENTER)
+            [[(str(idx+1),13,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
         txt(s,cx+Inches(0.74),cy+Inches(0.08),cw-Inches(0.98),ch-Inches(0.16),
-            [[(it,fs,INK,False)]],anchor=MSO_ANCHOR.MIDDLE)
+            [[(it,fs,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def two_col(title,left,right,kicker=None,lhead="",rhead=""):
     s=head(slide(),title,kicker)
-    rect(s,Inches(0.85),Inches(1.95),Inches(5.7),Inches(4.7),LIGHT); rect(s,Inches(6.95),Inches(1.95),Inches(5.55),Inches(4.7),LIGHT)
-    if lhead: txt(s,Inches(1.1),Inches(2.15),Inches(5.2),Inches(0.4),[[(lhead,16,BLUE,True)]])
-    if rhead: txt(s,Inches(7.2),Inches(2.15),Inches(5.0),Inches(0.4),[[(rhead,16,TEAL,True)]])
-    bullets(s,Inches(1.1),Inches(2.7),Inches(5.2),Inches(3.8),left,size=16)
-    bullets(s,Inches(7.2),Inches(2.7),Inches(5.05),Inches(3.8),right,size=16,mcolor=TEAL); footer(s); return s
+    rect(s,Inches(0.85),Inches(1.95),Inches(5.7),Inches(4.7),_panel()); rect(s,Inches(6.95),Inches(1.95),Inches(5.55),Inches(4.7),_panel())
+    if lhead: txt(s,Inches(1.1),Inches(2.15),Inches(5.2),Inches(0.4),[[(lhead,16,_acc(BLUE),True)]])
+    if rhead: txt(s,Inches(7.2),Inches(2.15),Inches(5.0),Inches(0.4),[[(rhead,16,_acc(TEAL),True)]])
+    bullets(s,Inches(1.1),Inches(2.7),Inches(5.2),Inches(3.8),left,size=16,color=_ink())
+    bullets(s,Inches(7.2),Inches(2.7),Inches(5.05),Inches(3.8),right,size=16,color=_ink(),mcolor=TEAL); footer(s); return s
 def cards3(title,cards,kicker):
     s=head(slide(),title,kicker); xs=[Inches(0.85),Inches(5.0),Inches(9.15)]
     for i,c in enumerate(cards[:3]):
         x=xs[i]; col=c[0]
-        rect(s,x,Inches(1.95),Inches(3.65),Inches(4.7),LIGHT); rect(s,x,Inches(1.95),Inches(3.65),Inches(0.12),col)
+        rect(s,x,Inches(1.95),Inches(3.65),Inches(4.7),_panel()); rect(s,x,Inches(1.95),Inches(3.65),Inches(0.12),col)
         txt(s,x+Inches(0.25),Inches(2.2),Inches(3.2),Inches(0.6),[[(c[1],19,col,True)]])
-        bullets(s,x+Inches(0.25),Inches(2.95),Inches(3.2),Inches(3.4),c[2],size=14,mcolor=col,gap=9)
+        bullets(s,x+Inches(0.25),Inches(2.95),Inches(3.2),Inches(3.4),c[2],size=14,color=_ink(),mcolor=col,gap=9)
     footer(s); return s
 def big_statement(line1,line2,kicker,color=BLUE):
     s=slide(); rect(s,0,0,SW,SH,WHITE); rect(s,0,0,Inches(0.28),SH,color)
@@ -182,16 +202,16 @@ def tile_grid(title,items,kicker=None,cols=2,size=15,icons=None,accent=BLUE):
     for i,it in enumerate(items):
         r=i//cols; c=i%cols
         x=int(X0+(cw+gx)*c); y=int(Y0+(ch+gy)*r); col=PALETTE[i%len(PALETTE)]
-        rect(s,x,y,cw,ch,LIGHT); rect(s,x,y,Inches(0.1),ch,col)
+        rect(s,x,y,cw,ch,_panel()); rect(s,x,y,Inches(0.1),ch,col)
         oval(s,x+Inches(0.28),int(y+ch/2-bd/2),bd,bd,col)
         ic=icons[i] if icons else str(i+1)
         txt(s,x+Inches(0.28),int(y+ch/2-bd/2),bd,bd,[[(ic,19,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
         tx=x+Inches(1.08); tw=cw-Inches(1.32)
         if isinstance(it,tuple):
             txt(s,tx,int(y+Inches(0.14)),tw,int(ch-Inches(0.2)),
-                [[(it[0],size+2,INK,True)],[(it[1],size-2,GREY,False)]],anchor=MSO_ANCHOR.MIDDLE,space=3)
+                [[(it[0],size+2,_ink(),True)],[(it[1],size-2,_grey(),False)]],anchor=MSO_ANCHOR.MIDDLE,space=3)
         else:
-            txt(s,tx,int(y+Inches(0.1)),tw,int(ch-Inches(0.16)),[[(it,size,INK,False)]],anchor=MSO_ANCHOR.MIDDLE)
+            txt(s,tx,int(y+Inches(0.1)),tw,int(ch-Inches(0.16)),[[(it,size,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def flow_h(title,steps,kicker=None,color=BLUE):
     """Horizontal numbered flow: coloured chips connected by chevrons."""
@@ -230,23 +250,29 @@ def trainer_slide(kicker,name,role,rows,initials,accent=BLUE):
     footer(s); return s
 def activity_overview(tag,title,desc,build,services,kicker):
     s=head(slide(),title,kicker,kcolor=TEAL)
-    rect(s,Inches(0.85),Inches(1.85),Inches(1.7),Inches(0.5),TEAL)
-    txt(s,Inches(0.85),Inches(1.9),Inches(1.7),Inches(0.4),[[(tag,16,WHITE,True)]],align=PP_ALIGN.CENTER)
-    txt(s,Inches(0.85),Inches(2.55),Inches(11.7),Inches(1.6),[[(desc,21,INK,False)]])
-    rect(s,Inches(0.85),Inches(4.3),Inches(11.7),Inches(2.0),LIGHT)
-    txt(s,Inches(1.1),Inches(4.5),Inches(11),Inches(0.4),[[("You'll build",14,BLUE,True)]])
-    txt(s,Inches(1.1),Inches(4.9),Inches(11),Inches(0.6),[[(build,18,INK,True)]])
-    txt(s,Inches(1.1),Inches(5.6),Inches(11.2),Inches(0.6),[[("Tools:  ",13,GREY,True),(services,13,GREY,False)]]); footer(s); return s
+    rect(s,Inches(0.85),Inches(1.85),Inches(1.7),Inches(0.5),_acc(TEAL))
+    txt(s,Inches(0.85),Inches(1.9),Inches(1.7),Inches(0.4),[[(tag,16,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
+    # Auto-fit the description so long lab goals never clip into the panel below.
+    dL=len(str(desc)); dsize = 21 if dL<=200 else (17 if dL<=320 else 15)
+    txt(s,Inches(0.85),Inches(2.55),Inches(11.7),Inches(1.6),[[(desc,dsize,_ink(),False)]])
+    rect(s,Inches(0.85),Inches(4.3),Inches(11.7),Inches(2.0),_panel())
+    txt(s,Inches(1.1),Inches(4.5),Inches(11),Inches(0.4),[[("You'll build",14,_acc(BLUE),True)]])
+    txt(s,Inches(1.1),Inches(4.9),Inches(11),Inches(0.6),[[(build,18,_ink(),True)]])
+    txt(s,Inches(1.1),Inches(5.6),Inches(11.2),Inches(0.6),[[("Tools:  ",13,_grey(),True),(services,13,_grey(),False)]]); footer(s); return s
 def step_slide(kicker,act_title,n,total,text,cmd=""):
     s=head(slide(),act_title,kicker,TEAL)
-    oval(s,Inches(0.85),Inches(2.5),Inches(1.4),Inches(1.4),TEAL)
-    txt(s,Inches(0.85),Inches(2.74),Inches(1.4),Inches(0.9),[[(str(n),38,WHITE,True)]],align=PP_ALIGN.CENTER)
-    txt(s,Inches(0.95),Inches(1.95),Inches(11),Inches(0.4),[[(f"STEP {n} OF {total}",13,GREY,True)]])
-    txt(s,Inches(2.55),Inches(2.4),Inches(10.1),Inches(1.3),[[(text,23,INK,False)]],anchor=MSO_ANCHOR.MIDDLE)
+    oval(s,Inches(0.85),Inches(2.5),Inches(1.4),Inches(1.4),_acc(TEAL))
+    txt(s,Inches(0.85),Inches(2.74),Inches(1.4),Inches(0.9),[[(str(n),38,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
+    txt(s,Inches(0.95),Inches(1.95),Inches(11),Inches(0.4),[[(f"STEP {n} OF {total}",13,_grey(),True)]])
+    txt(s,Inches(2.55),Inches(2.4),Inches(10.1),Inches(1.3),[[(text,23,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
     # HARD RULE: never render a comment-only "command" (# …) on a slide — the
     # code box appears only for a real, runnable command.
     if cmd and not cmd.lstrip().startswith("#"):
-        rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
+        if THEME["dark"]:
+            # slightly lighter fill + faint border so the box reads against the dark bg
+            rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x10,0x14,0x1E),line=DK_FAINT)
+        else:
+            rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def dark_rows(tag,title_lines,sub_lines,rows):
@@ -273,21 +299,78 @@ def dark_rows(tag,title_lines,sub_lines,rows):
         txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
         txt(s,Inches(1.9),ry,Inches(10.35),Inches(rh),[[(r,16,WHITE,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
+def dark_cards(tag,title_lines,cards,notes=(),badge=None):
+    """Masterclass-style dark slide: amber headline + a row of green-outlined cards
+    (name + subtitle) + optional AUTO-INSTALLED badge line and dim footnotes."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23); GREEN=RGBColor(0x4A,0xDE,0x80)
+    IVORY=RGBColor(0xE8,0xE6,0xDD); FAINT=RGBColor(0x2A,0x2C,0x28); CARDBG=RGBColor(0x10,0x12,0x0E)
+    DIM=RGBColor(0x8A,0x8D,0x86)
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    y=0.98
+    for tl in title_lines:
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
+    y+=0.35
+    n=len(cards); gap=Inches(0.25); cw=int((Inches(11.63)-gap*(n-1))/n); ch=Inches(1.55); b=Inches(0.025)
+    for i,(name,sub) in enumerate(cards):
+        x=int(Inches(0.85)+i*(cw+gap)); yv=Inches(y)
+        rect(s,x,yv,cw,ch,CARDBG)
+        rect(s,x,yv,cw,b,GREEN); rect(s,x,int(yv+ch-b),cw,b,GREEN)
+        rect(s,x,yv,b,ch,GREEN); rect(s,int(x+cw-b),yv,b,ch,GREEN)
+        txt(s,x,int(yv+Inches(0.2)),cw,Inches(0.62),[[(name,26,GREEN,True)]],align=PP_ALIGN.CENTER)
+        txt(s,x,int(yv+Inches(0.92)),cw,Inches(0.42),[[(sub,15,IVORY,False)]],align=PP_ALIGN.CENTER)
+    y+=1.55+0.4
+    rest=list(notes)
+    if badge and rest:
+        rect(s,Inches(0.85),Inches(y),Inches(2.0),Inches(0.36),AMBER)
+        txt(s,Inches(0.85),Inches(y+0.02),Inches(2.0),Inches(0.32),[[(badge,12,DKBG,True)]],align=PP_ALIGN.CENTER)
+        txt(s,Inches(3.0),Inches(y),Inches(9.4),Inches(0.36),[[(rest.pop(0),14,IVORY,True)]],anchor=MSO_ANCHOR.MIDDLE)
+        y+=0.5
+    for nt in rest:
+        txt(s,Inches(0.85),Inches(y),Inches(11.6),Inches(0.34),[[(nt,12,DIM,False)]]); y+=0.36
+    footer(s); return s
+def dark_pairs(tag,title_lines,sub,pairs):
+    """Masterclass-style dark slide: amber headline + a 2-column grid of
+    command/description cells (amber command, light description)."""
+    import math as _m
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
+    IVORY=RGBColor(0xE8,0xE6,0xDD); FAINT=RGBColor(0x2A,0x2C,0x28); ROWBG=RGBColor(0x15,0x17,0x12)
+    DIM=RGBColor(0x8A,0x8D,0x86)
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    y=0.98
+    for tl in title_lines:
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
+    if sub:
+        txt(s,Inches(0.85),Inches(y+0.02),Inches(11.9),Inches(0.36),[[(sub,14,DIM,False)]]); y+=0.44
+    y+=0.18
+    cols=2; rows=_m.ceil(len(pairs)/cols); gx=Inches(0.3); gy=0.13
+    cw=int((Inches(11.63)-gx)/cols); rh=min(0.8,(6.8-y-gy*(rows-1))/rows)
+    for i,(cmd,desc) in enumerate(pairs):
+        r,c=i%rows,i//rows   # fill column-first like the reference
+        x=int(Inches(0.85)+c*(cw+gx)); yv=Inches(y+r*(rh+gy))
+        rect(s,x,yv,cw,Inches(rh),ROWBG)
+        rect(s,x,yv,Inches(0.045),Inches(rh),AMBER)
+        txt(s,x+Inches(0.22),yv,Inches(2.35),Inches(rh),[[(cmd,14,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
+        txt(s,x+Inches(2.6),yv,cw-Inches(2.8),Inches(rh),[[(desc,12.5,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
+    footer(s); return s
 def shot(title,img,kicker=None,caption=""):
     """Screenshot slide — a framed, real UI capture with a caption (16:10 source)."""
     s=head(slide(),title,kicker,TEAL)
     H=Inches(4.5); W=int(H*1440/900)          # native 1440x900 aspect
     x=int((SW-W)/2); y=Inches(2.02)
-    rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),LINE)
+    rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),_line())
     s.shapes.add_picture(img,x,y,height=H)
     if caption:
-        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,12,GREY,False)]],align=PP_ALIGN.CENTER)
+        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,12,_grey(),False)]],align=PP_ALIGN.CENTER)
     footer(s); return s
 def test_slide(act_title,text,kicker):
     s=head(slide(),act_title,kicker,TEAL)
-    rect(s,Inches(0.85),Inches(2.3),Inches(11.7),Inches(2.6),RGBColor(0xE8,0xF7,0xEE))
-    txt(s,Inches(1.2),Inches(2.6),Inches(11),Inches(0.5),[[("✅  Test it",20,RGBColor(0x12,0x7A,0x3E),True)]])
-    txt(s,Inches(1.2),Inches(3.3),Inches(11),Inches(1.4),[[(text,18,INK,False)]]); footer(s); return s
+    rect(s,Inches(0.85),Inches(2.3),Inches(11.7),Inches(2.6),DK_PANEL if THEME["dark"] else RGBColor(0xE8,0xF7,0xEE))
+    txt(s,Inches(1.2),Inches(2.6),Inches(11),Inches(0.5),[[("✅  Test it",20,DK_GREEN if THEME["dark"] else RGBColor(0x12,0x7A,0x3E),True)]])
+    txt(s,Inches(1.2),Inches(3.3),Inches(11),Inches(1.4),[[(text,18,_ink(),False)]]); footer(s); return s
 def brk(kind,dur,color=AMBER):
     s=slide(); rect(s,0,0,SW,SH,WHITE)
     rect(s,0,0,SW,Inches(0.22),color); rect(s,0,Inches(7.28),SW,Inches(0.22),color)
@@ -422,6 +505,25 @@ def _lab_extras(num):
              "It captures a trajectory — tools used, decisions made",
              "It extracts a reusable skill",
              "Next time: faster, cleaner, smarter"])
+        dark_cards("part-02/platform-matrix",
+            ["Will It Run","On My Machine?"],
+            [("macOS","Native ✓"),("Linux","Native ✓"),("Windows","WSL2 only"),("Android","Termux (v0.9.0)")],
+            notes=["Python 3.11, Node.js 22, uv, ripgrep, ffmpeg, git.",
+                   "Native Windows is explicitly unsupported. The installer refuses CYGWIN/MINGW/MSYS."],
+            badge="AUTO-INSTALLED")
+    if num==2:
+        dark_pairs("part-03/top-10-slash",["Top 10 Slash."],
+            "In-chat commands. Type them during a session.",
+            [("/new","start a fresh conversation"),
+             ("/model <name>","swap model mid-session (v0.8.0+)"),
+             ("/fast","priority routing (OpenAI + Anthropic, v0.9.0)"),
+             ("/bg <prompt>","background task, keep chatting"),
+             ("/btw <question>","ephemeral side question"),
+             ("/queue <prompt>","add to next-turn queue"),
+             ("/compress","manually compact context"),
+             ("/skills","browse / invoke a skill"),
+             ("/yolo","toggle dangerous-command approvals"),
+             ("/help","everything else")])
     for f,label,cap in _SHOTS.get(num,[]):
         p=os.path.join(_SHOTDIR,f)
         if os.path.exists(p):
@@ -437,6 +539,7 @@ def _lab_extras(num):
 TOPIC_ACTS = {t["num"]: [a for a in ACTIVITIES if a["topic"]==t["num"]] for t in C.TOPICS}
 CARD_COLORS=[BLUE,TEAL,VIOLET]
 for t in C.TOPICS:
+    THEME["dark"] = (t["num"]==1)   # Topic 1 (Hermes) renders in the dark masterclass theme
     accent=TOPIC_THEME.get(t["num"],BLUE)
     section(f"TOPIC {t['code']}", t["title"], t["code"], t["subtitle"], accent=accent)
     # concept slide(s) — visual tile grid instead of a bullet list (topic-accented)
@@ -468,6 +571,7 @@ for t in C.TOPICS:
             kicker="TOPIC RECAP", size=17)
 
 # ---------------- CLOSE ----------------
+THEME["dark"]=False   # back to the all-white house theme for the wrap-up
 section("WRAP-UP","Course Summary & Next Steps","")
 # "What You Achieved" tiles built straight from the learning outcomes so they can never drift
 _ACH_TITLES=["Analyzed AI Applications","Design & Chatbot Efficiency","Evaluated & Improved RAG"]

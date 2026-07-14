@@ -246,7 +246,7 @@ prodoc.add_version_control(doc,[
  ("1.0","12 July 2026","Initial release — Learner Guide covering the autonomous-AI-agent labs (Hermes Agent, OpenClaw, Paperclip).",C.TRAINER),
  ("1.1","14 July 2026","Revised for the 2-day structure and 34 labs (Hermes 14, OpenClaw 12, Paperclip 8) with per-lab reference videos; learning outcomes aligned to the Course Proposal / TSC.",C.TRAINER),
  ("1.2","14 July 2026","Per-lab step numbering; YouTube links removed (videos remain in the labs); Hermes install lab expanded with the official install methods.",C.TRAINER),
- ("1.3",C.VERSION_DATE,"Added the masterclass-style Hermes intro slides (What is Hermes; The Bet: Compounding Value) and the live Achievements dashboard screenshot to the deck.",C.TRAINER),
+ ("1.3",C.VERSION_DATE,"Added the masterclass-style Hermes slides (What is Hermes; The Bet: Compounding Value; platform matrix; Top-10 slash commands) and the live Achievements dashboard screenshot to the deck.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 
