@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.1 · 14 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.2 · 14 July 2026**
 
 ## Contents
 
@@ -110,7 +110,7 @@ Install & Setup · Deployment · Memory & Plugins · Skills · Providers & Model
 
 Learning outcome: LO1: Install and configure Hermes Agent on a local machine..
 
-Goal: Install Hermes Agent on your laptop, run the first-time setup wizard, and confirm a healthy install. This is the foundation for the Athena chief-of-staff agent you build across the track.
+Goal: Install Hermes Agent on your laptop using any of the official install methods (Desktop installer, install script, PowerShell, from source, or Nix), run the first-time setup wizard, and confirm a healthy install. This is the foundation for the Athena chief-of-staff agent you build across the track. Prerequisite: Git; the installer auto-handles Python 3.11, Node.js v22, ripgrep and ffmpeg.
 
 **What you'll build**
 
@@ -118,32 +118,44 @@ A working Hermes Agent install that passes 'hermes doctor' and opens the TUI.   
 
 **Step-by-step**
 
-1. Watch the reference video Before touching the terminal, watch the reference video end to end so you know what a healthy install looks like and can spot where the UI differs from these written steps: https://www.youtube.com/watch?v=KtlY6ETPyKo&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=11 (https://www.youtube.com/watch?v=KtlY6ETPyKo&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=11)
-2. Install Hermes (macOS / Linux / WSL2) Run the official one-line installer. It downloads the Hermes binary, places it under your user directory, and wires up the hermes command:
+1. Choose your installation method Hermes offers several official install paths — pick the ONE that matches your machine: > If you install via the Desktop app (Option A), you can skip Steps 2–3. If you install via the CLI first, you can add the desktop app later with hermes desktop.
+2. Option B — install script (Linux / macOS / WSL2 / Termux) Run the official one-line installer. It downloads the Hermes runtime, places it under your user directory, and wires up the hermes command:
 
    ```bash
    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
    ```
 
-3. Reload your shell so the hermes command is on PATH The installer adds Hermes to your PATH via your shell profile, but your current terminal session hasn't re-read that file yet. Reload it:
+3. Option C — Windows PowerShell (native Windows) On native Windows (no WSL2), run the PowerShell installer instead:
+
+   ```bash
+   iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+   ```
+
+4. Install Hermes Desktop (macOS / Windows) Hermes Desktop gives you a GUI over the same agent. Either download the installer from <https://hermes-agent.nousresearch.com/> and run it, or — if you already installed the CLI in Step 2/3 — launch it directly:
+
+   ```bash
+   hermes desktop
+   ```
+
+5. Reload your shell so the hermes command is on PATH The installer adds Hermes to your PATH via your shell profile, but your current terminal session hasn't re-read that file yet. Reload it:
 
    ```bash
    source ~/.zshrc
    ```
 
-4. Run the first-time setup wizard Launch the interactive setup wizard and connect Hermes to your Nous Portal account. This is where you sign in, pick defaults, and let Hermes provision a model provider:
+6. Run the first-time setup wizard Launch the interactive setup wizard and connect Hermes to your Nous Portal account. This is where you sign in, pick defaults, and let Hermes provision a model provider:
 
    ```bash
    hermes setup --portal
    ```
 
-5. Check the install is healthy Run the built-in diagnostic. It checks the binary, config, PATH, provider connectivity, and the local runtime:
+7. Check the install is healthy Run the built-in diagnostic. It checks the binary, config, PATH, provider connectivity, and the local runtime:
 
    ```bash
    hermes doctor
    ```
 
-6. Launch the agent and say hello Open the terminal UI (TUI) and start your first conversation with the agent — this is Athena's very first session:
+8. Launch the agent and say hello Open the terminal UI (TUI) and start your first conversation with the agent — this is Athena's very first session:
 
    ```bash
    hermes --tui
@@ -171,28 +183,22 @@ A local Hermes deployment plus the Desktop app, both talking to the same agent. 
 
 **Step-by-step**
 
-1. Watch the reference video for this lab
-
-   ```bash
-   https://www.youtube.com/watch?v=dcXmUUZvDLE&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=3
-   ```
-
-2. Watch the reference videos Watch both videos above. The primary shows the local deployment; the additional walkthrough covers the Desktop app in more depth. Note any UI screens that differ from the steps below.
-3. Confirm the local install runs (preferred deployment) Verify the CLI runtime you installed in Lab 1 is present and check its version. The local install is the preferred deployment — it keeps the agent runtime on your machine:
+1. Watch the reference videos Watch both videos above. The primary shows the local deployment; the additional walkthrough covers the Desktop app in more depth. Note any UI screens that differ from the steps below.
+2. Confirm the local install runs (preferred deployment) Verify the CLI runtime you installed in Lab 1 is present and check its version. The local install is the preferred deployment — it keeps the agent runtime on your machine:
 
    ```bash
    hermes --version
    ```
 
-4. Download and install the Hermes Desktop app Download the Desktop app for your OS from the official site and install it like any normal application:
-5. Open the Desktop app and sign in Launch the Hermes Desktop app and sign in with the same Nous Portal account you used for the CLI in Lab 1. Signing in with the same account is what makes the Desktop app and the CLI drive the same agent. > This step is UI-only — there is no terminal command. In the app, choose Sign in with Nous Portal and complete the browser/authentication prompt.
-6. Verify the local gateway is serving The gateway is the local service that both the CLI and Desktop app connect to. Confirm it is up and healthy:
+3. Download and install the Hermes Desktop app Download the Desktop app for your OS from the official site and install it like any normal application:
+4. Open the Desktop app and sign in Launch the Hermes Desktop app and sign in with the same Nous Portal account you used for the CLI in Lab 1. Signing in with the same account is what makes the Desktop app and the CLI drive the same agent. > This step is UI-only — there is no terminal command. In the app, choose Sign in with Nous Portal and complete the browser/authentication prompt.
+5. Verify the local gateway is serving The gateway is the local service that both the CLI and Desktop app connect to. Confirm it is up and healthy:
 
    ```bash
    hermes gateway status
    ```
 
-7. Keep the runtime up to date Update Hermes to the latest release so the CLI and Desktop app stay compatible:
+6. Keep the runtime up to date Update Hermes to the latest release so the CLI and Desktop app stay compatible:
 
    ```bash
    hermes update
@@ -220,26 +226,25 @@ Athena remembers a stated preference across sessions and runs an enabled plugin.
 
 **Step-by-step**
 
-1. Watch the reference video Watch the video to see how Hermes stores memory across the three layers and how plugins are enabled: https://www.youtube.com/watch?v=ZKZLko9kLm4&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=4 (https://www.youtube.com/watch?v=ZKZLko9kLm4&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=4)
-2. Teach Athena a durable preference Start a session (hermes --tui) and give Athena a clear, memorable instruction that should persist. Explicitly asking it to remember nudges the agent to write the fact into its curated-notes memory layer:
+1. Teach Athena a durable preference Start a session (hermes --tui) and give Athena a clear, memorable instruction that should persist. Explicitly asking it to remember nudges the agent to write the fact into its curated-notes memory layer:
 
    ```bash
    Remember I prefer concise, bulleted summaries.
    ```
 
-3. Start a new session and confirm the preference is recalled Resume the conversation in a fresh session. The --continue flag brings back prior context so you can test cross-session recall:
+2. Start a new session and confirm the preference is recalled Resume the conversation in a fresh session. The --continue flag brings back prior context so you can test cross-session recall:
 
    ```bash
    hermes --continue
    ```
 
-4. Inspect stored memory / sessions List the stored sessions so you can see the memory Hermes is persisting behind the scenes:
+3. Inspect stored memory / sessions List the stored sessions so you can see the memory Hermes is persisting behind the scenes:
 
    ```bash
    hermes sessions list
    ```
 
-5. Enable a plugin to extend the agent Enable a plugin to add capability beyond the base agent. Plugins are toggled from the Hermes plugins UI or config:
+4. Enable a plugin to extend the agent Enable a plugin to add capability beyond the base agent. Plugins are toggled from the Hermes plugins UI or config:
 
 **Test it**
 
@@ -262,26 +267,25 @@ Athena equipped with at least one installed skill that it can invoke on request.
 
 **Step-by-step**
 
-1. Watch the reference video See how skills are discovered, installed, and invoked, and what "self-improving" means in practice: https://www.youtube.com/watch?v=L3WdVeMaYZM&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=5 (https://www.youtube.com/watch?v=L3WdVeMaYZM&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=5)
-2. Browse the skills hub Open the skills catalogue to see what's available to install:
+1. Browse the skills hub Open the skills catalogue to see what's available to install:
 
    ```bash
    hermes skills browse
    ```
 
-3. Search for a skill by keyword Narrow the catalogue to something useful for a chief-of-staff agent — for example calendar, email, research, or pdf:
+2. Search for a skill by keyword Narrow the catalogue to something useful for a chief-of-staff agent — for example calendar, email, research, or pdf:
 
    ```bash
    hermes skills search <keyword>
    ```
 
-4. Install a skill Install a skill by its full identifier (copy it from the search results). The pattern is owner/skills/name:
+3. Install a skill Install a skill by its full identifier (copy it from the search results). The pattern is owner/skills/name:
 
    ```bash
    hermes skills install <owner/skills/name>
    ```
 
-5. Ask the agent to use the new skill and observe self-improvement Open the TUI and ask Athena to perform a task that the new skill enables. Watch it select and run the skill: > This step is conversational — no fixed command. Phrase a request that maps to the skill (e.g. for a summarize skill: "Summarize this article for me: <paste text>"). As the agent uses the skill repeatedly, it refines how it invokes it — that's the self-improvement aspect.
+4. Ask the agent to use the new skill and observe self-improvement Open the TUI and ask Athena to perform a task that the new skill enables. Watch it select and run the skill: > This step is conversational — no fixed command. Phrase a request that maps to the skill (e.g. for a summarize skill: "Summarize this article for me: <paste text>"). As the agent uses the skill repeatedly, it refines how it invokes it — that's the self-improvement aspect.
 
 **Test it**
 
@@ -304,26 +308,25 @@ Athena running on a chosen provider/model, with the ability to switch on demand.
 
 **Step-by-step**
 
-1. Watch the reference video See how providers are connected and how to switch models on demand: https://www.youtube.com/watch?v=1oaaOWy7wSI&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=6 (https://www.youtube.com/watch?v=1oaaOWy7wSI&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=6)
-2. Open the interactive provider/model picker Launch the interactive picker to see available providers and models and select one:
+1. Open the interactive provider/model picker Launch the interactive picker to see available providers and models and select one:
 
    ```bash
    hermes model
    ```
 
-3. Set a model explicitly Instead of (or in addition to) the picker, set the active model directly in config:
+2. Set a model explicitly Instead of (or in addition to) the picker, set the active model directly in config:
 
    ```bash
    hermes config set model anthropic/claude-opus-4.6
    ```
 
-4. Add a provider key if using a cloud endpoint If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API key in config so Hermes can authenticate:
+3. Add a provider key if using a cloud endpoint If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API key in config so Hermes can authenticate:
 
    ```bash
    hermes config set OPENROUTER_API_KEY sk-or-...
    ```
 
-5. Confirm the active model meets the ≥64k context rule Reopen the picker to confirm the active model and its context window:
+4. Confirm the active model meets the ≥64k context rule Reopen the picker to confirm the active model and its context window:
 
    ```bash
    hermes model
@@ -351,9 +354,8 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
 
 **Step-by-step**
 
-1. Watch the reference video See how MCP servers are declared in config and how the Tool Gateway tools are called from chat: https://www.youtube.com/watch?v=U140gP-1bEI&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=7 (https://www.youtube.com/watch?v=U140gP-1bEI&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=7)
-2. Open the Hermes config to add an MCP server Edit your Hermes config file and locate (or create) the mcp_servers: section:
-3. Add a GitHub MCP server entry Add an entry that launches the official GitHub MCP server via npx. A typical block looks like this:
+1. Open the Hermes config to add an MCP server Edit your Hermes config file and locate (or create) the mcp_servers: section:
+2. Add a GitHub MCP server entry Add an entry that launches the official GitHub MCP server via npx. A typical block looks like this:
 
    ```bash
    mcp_servers:
@@ -364,13 +366,13 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
       GITHUB_PERSONAL_ACCESS_TOKEN: "ghp_your_token_here"
    ```
 
-4. Restart so the MCP server is picked up, then verify Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads the new config, then run the diagnostic:
+3. Restart so the MCP server is picked up, then verify Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads the new config, then run the diagnostic:
 
    ```bash
    hermes doctor
    ```
 
-5. Use a Tool Gateway tool from a chat Open the TUI and ask Athena to use a bundled Tool Gateway capability — web search, image generation, or text-to-speech: > This step is conversational. For example: "Search the web for today's top AI agent news and list 3 headlines," or "Generate an image of a friendly robot assistant." Confirm the agent invokes the tool and returns the result.
+4. Use a Tool Gateway tool from a chat Open the TUI and ask Athena to use a bundled Tool Gateway capability — web search, image generation, or text-to-speech: > This step is conversational. For example: "Search the web for today's top AI agent news and list 3 headlines," or "Generate an image of a friendly robot assistant." Confirm the agent invokes the tool and returns the result.
 
 **Test it**
 
@@ -393,16 +395,15 @@ A scheduled job (e.g. a daily briefing) that runs automatically and delivers a r
 
 **Step-by-step**
 
-1. Watch the reference video Watch how recurring jobs (crons/automations) are defined and triggered in Hermes. The exact syntax is version-specific, so follow the video closely: https://www.youtube.com/watch?v=grMNnzCv2gY&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=8 (https://www.youtube.com/watch?v=grMNnzCv2gY&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=8)
-2. Define a recurring job (daily 8am briefing) Create a recurring automation in the Hermes automations/crons section — for example a daily 8am briefing:
-3. Confirm the automation is registered Run the diagnostic to confirm Hermes has picked up the new scheduled job:
+1. Define a recurring job (daily 8am briefing) Create a recurring automation in the Hermes automations/crons section — for example a daily 8am briefing:
+2. Confirm the automation is registered Run the diagnostic to confirm Hermes has picked up the new scheduled job:
 
    ```bash
    hermes doctor
    ```
 
-4. Trigger the job once to confirm it produces output Manually run the job once (rather than waiting for 8am) to confirm it produces the expected briefing. > This is typically a "run now" action in the automations UI, or a trigger command shown in the docs. Confirm the briefing is generated and delivered to your chosen destination.
-5. Confirm the next scheduled run is queued Check that after the manual run, the next run is still scheduled for its normal time (08:00 tomorrow), so the automation keeps recurring.
+3. Trigger the job once to confirm it produces output Manually run the job once (rather than waiting for 8am) to confirm it produces the expected briefing. > This is typically a "run now" action in the automations UI, or a trigger command shown in the docs. Confirm the briefing is generated and delivered to your chosen destination.
+4. Confirm the next scheduled run is queued Check that after the manual run, the next run is still scheduled for its normal time (08:00 tomorrow), so the automation keeps recurring.
 
 **Test it**
 
@@ -425,16 +426,15 @@ A coordinator agent that delegates a task to one or more worker subagents and co
 
 **Step-by-step**
 
-1. Watch the reference video See how a coordinator agent spawns worker subagents on isolated backends and combines their output: https://www.youtube.com/watch?v=KPsMThlFb8Y&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=10 (https://www.youtube.com/watch?v=KPsMThlFb8Y&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=10)
-2. Choose an isolated backend for worker agents Set the terminal backend that worker subagents will run on. docker gives each worker an isolated container:
+1. Choose an isolated backend for worker agents Set the terminal backend that worker subagents will run on. docker gives each worker an isolated container:
 
    ```bash
    hermes config set terminal.backend docker
    ```
 
-3. Ask the coordinator to delegate a multi-part task Open the TUI and give Athena (the coordinator) a task with clearly separable parts so it delegates each to a worker subagent: > Conversational step. For example: "Delegate this: subagent A researches competitor pricing, subagent B drafts a comparison table, subagent C writes a one-paragraph recommendation. Then combine their work." Watch the coordinator spin up workers.
-4. Observe each subagent run in isolation and report back Watch each worker subagent execute on the isolated backend and return its portion of the result. Confirm they run separately (each in its own container/environment when using docker) rather than in the coordinator's session.
-5. Review the coordinator's aggregated result Confirm the coordinator combines the workers' outputs into one coherent deliverable — the research, the table, and the recommendation merged into a single response.
+2. Ask the coordinator to delegate a multi-part task Open the TUI and give Athena (the coordinator) a task with clearly separable parts so it delegates each to a worker subagent: > Conversational step. For example: "Delegate this: subagent A researches competitor pricing, subagent B drafts a comparison table, subagent C writes a one-paragraph recommendation. Then combine their work." Watch the coordinator spin up workers.
+3. Observe each subagent run in isolation and report back Watch each worker subagent execute on the isolated backend and return its portion of the result. Confirm they run separately (each in its own container/environment when using docker) rather than in the coordinator's session.
+4. Review the coordinator's aggregated result Confirm the coordinator combines the workers' outputs into one coherent deliverable — the research, the table, and the recommendation merged into a single response.
 
 **Test it**
 
@@ -457,11 +457,10 @@ A configured agent profile and a Kanban board tracking the agent's live tasks.  
 
 **Step-by-step**
 
-1. Watch the reference video This lab shares the video with Lab 8. Focus on the portions covering the agent profile and the Kanban board view: https://www.youtube.com/watch?v=KPsMThlFb8Y&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=10 (https://www.youtube.com/watch?v=KPsMThlFb8Y&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=10)
-2. Set up the agent profile (identity, defaults, preferences) Configure Athena's profile — its identity, default model/backend, and behavioural preferences. > Open the profile settings in the Desktop app (or the profile section of ~/.hermes/config.yaml). Set the name to Athena, role to personal chief of staff, and default preferences (concise bulleted output, timezone, working hours). The exact profile fields are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-3. Open the Kanban board view Open the Kanban board that visualizes the agent's tasks. > In the Desktop app, open the Kanban / Tasks view. You should see columns such as Todo, In Progress, and Done.
-4. Assign a task and watch it move todo → in progress → done Give Athena a task and watch the corresponding card move across the board: > Assign a task (e.g. "Draft my weekly team update"). A card appears in Todo, moves to In Progress as the agent works, and lands in Done when finished. This is your live oversight of what the agent is doing.
-5. Use the board to review and accept completed work When a card reaches Done, open it, review the agent's output, and accept (or send it back with feedback). This human-in-the-loop review is the point of the board.
+1. Set up the agent profile (identity, defaults, preferences) Configure Athena's profile — its identity, default model/backend, and behavioural preferences. > Open the profile settings in the Desktop app (or the profile section of ~/.hermes/config.yaml). Set the name to Athena, role to personal chief of staff, and default preferences (concise bulleted output, timezone, working hours). The exact profile fields are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+2. Open the Kanban board view Open the Kanban board that visualizes the agent's tasks. > In the Desktop app, open the Kanban / Tasks view. You should see columns such as Todo, In Progress, and Done.
+3. Assign a task and watch it move todo → in progress → done Give Athena a task and watch the corresponding card move across the board: > Assign a task (e.g. "Draft my weekly team update"). A card appears in Todo, moves to In Progress as the agent works, and lands in Done when finished. This is your live oversight of what the agent is doing.
+4. Use the board to review and accept completed work When a card reaches Done, open it, review the agent's output, and accept (or send it back with feedback). This human-in-the-loop review is the point of the board.
 
 **Test it**
 
@@ -484,21 +483,20 @@ A hardened agent that sandboxes execution, protects secrets and prompts for appr
 
 **Step-by-step**
 
-1. Watch the reference video This lab shares the video with Lab 1. Focus on the sections covering isolation, secrets, and approvals: https://www.youtube.com/watch?v=KtlY6ETPyKo&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=11 (https://www.youtube.com/watch?v=KtlY6ETPyKo&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=11)
-2. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host:
+1. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host:
 
    ```bash
    hermes config set terminal.backend docker
    ```
 
-3. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts:
+2. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts:
 
    ```bash
    hermes config set <PROVIDER>_API_KEY <value>
    ```
 
-4. Require approval before the agent runs risky actions Enable approval prompts so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts):
-5. Apply least privilege — grant only the tools/skills the task needs Review the tools, skills, and MCP servers Athena has access to and disable anything not needed for the current work. > Conversational/config step: trim the enabled skills (Lab 4) and MCP servers (Lab 6) to the minimum. Least privilege means the agent can only do what the task actually requires.
+3. Require approval before the agent runs risky actions Enable approval prompts so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts):
+4. Apply least privilege — grant only the tools/skills the task needs Review the tools, skills, and MCP servers Athena has access to and disable anything not needed for the current work. > Conversational/config step: trim the enabled skills (Lab 4) and MCP servers (Lab 6) to the minimum. Least privilege means the agent can only do what the task actually requires.
 
 **Test it**
 
@@ -521,11 +519,10 @@ A short video generated end-to-end by the agent using Hyperframe.   (Tools: Herm
 
 **Step-by-step**
 
-1. Watch the reference video See the full workflow of driving Hyperframe through the agent to produce a video: https://www.youtube.com/watch?v=dcXmUUZvDLE&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=3 (https://www.youtube.com/watch?v=dcXmUUZvDLE&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=3)
-2. Connect / set up the Hyperframe video tool for the agent Wire the Hyperframe tool into Athena so the agent can invoke it. > This may be an MCP server, a skill, or a Tool Gateway integration depending on your build. Add Hyperframe the same way you added tools in Lab 6, supplying any required API key via hermes config set. Verify the exact integration path in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-3. Brief the agent with a short video concept Give Athena a clear, concise creative brief — topic, style, and length: > Conversational step. For example: "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern style, upbeat tone, with on-screen captions." A tight brief yields a better first result.
-4. Have the agent generate the video with Hyperframe Ask Athena to generate the video. The agent calls Hyperframe with your brief and waits for the render: > Confirm the agent invokes Hyperframe and reports back with a link/file to the rendered video. Rendering may take a few minutes.
-5. Review the output and refine the brief to regenerate if needed Play the video, then refine the brief (pacing, style, wording) and ask Athena to regenerate. Iterate until it meets your bar.
+1. Connect / set up the Hyperframe video tool for the agent Wire the Hyperframe tool into Athena so the agent can invoke it. > This may be an MCP server, a skill, or a Tool Gateway integration depending on your build. Add Hyperframe the same way you added tools in Lab 6, supplying any required API key via hermes config set. Verify the exact integration path in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+2. Brief the agent with a short video concept Give Athena a clear, concise creative brief — topic, style, and length: > Conversational step. For example: "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern style, upbeat tone, with on-screen captions." A tight brief yields a better first result.
+3. Have the agent generate the video with Hyperframe Ask Athena to generate the video. The agent calls Hyperframe with your brief and waits for the render: > Confirm the agent invokes Hyperframe and reports back with a link/file to the rendered video. Rendering may take a few minutes.
+4. Review the output and refine the brief to regenerate if needed Play the video, then refine the brief (pacing, style, wording) and ask Athena to regenerate. Iterate until it meets your bar.
 
 **Test it**
 
@@ -548,10 +545,9 @@ A visualization of the agent's workflow / activity you can read and interpret.  
 
 **Step-by-step**
 
-1. Watch the reference video See how Hermes renders workflows/activity visually and how to read the output: https://www.youtube.com/watch?v=JX2RYeKugrc&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=27 (https://www.youtube.com/watch?v=JX2RYeKugrc&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=27)
-2. Open the visualization view for the agent's activity Open the visualization panel that shows Athena's activity. > In the Desktop app, open the Visualization / Activity view. It surfaces the agent's task flow, tool calls, and data. Verify the exact location in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-3. Generate a visualization of a workflow or dataset Ask Athena to produce a visualization of a workflow or a dataset: > Conversational step. For example: "Visualize the steps you took to produce this morning's briefing," or "Chart my task completion over the last week." The agent generates a diagram/chart of the workflow or data.
-4. Interpret the visualization to understand what the agent did Read the visualization: which steps ran, in what order, which tools/subagents were involved, and where time was spent. Use it to confirm the agent did what you expected.
+1. Open the visualization view for the agent's activity Open the visualization panel that shows Athena's activity. > In the Desktop app, open the Visualization / Activity view. It surfaces the agent's task flow, tool calls, and data. Verify the exact location in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+2. Generate a visualization of a workflow or dataset Ask Athena to produce a visualization of a workflow or a dataset: > Conversational step. For example: "Visualize the steps you took to produce this morning's briefing," or "Chart my task completion over the last week." The agent generates a diagram/chart of the workflow or data.
+3. Interpret the visualization to understand what the agent did Read the visualization: which steps ran, in what order, which tools/subagents were involved, and where time was spent. Use it to confirm the agent did what you expected.
 
 **Test it**
 
@@ -574,11 +570,10 @@ A working multi-agent workflow where agents hand off tasks to complete a goal.  
 
 **Step-by-step**
 
-1. Watch the reference video See a full multi-agent workflow composed and run end-to-end, with hand-offs between roles: https://www.youtube.com/watch?v=GzlbC75bYtU&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=19 (https://www.youtube.com/watch?v=GzlbC75bYtU&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=19)
-2. Define the agents and their roles in the workflow Design the workflow by naming each agent and its distinct responsibility. > Conversational/design step. For a chief-of-staff use case, define roles such as: Researcher (gathers facts), Writer (drafts content), Reviewer (checks quality), with Athena as coordinator. Write the roles down before wiring anything.
-3. Connect the agents so outputs hand off between them Wire the agents so each one's output becomes the next one's input (Researcher → Writer → Reviewer). > Use the subagent/delegation mechanism from Lab 8. Instruct Athena that the Researcher's findings feed the Writer, and the Writer's draft feeds the Reviewer. Verify the exact multi-agent wiring in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-4. Run the workflow end-to-end on a sample goal Give the workflow a real goal and run it start to finish: > For example: "Produce a one-page competitor brief on the top 3 AI agent platforms." Watch Researcher → Writer → Reviewer hand off in sequence and produce the final brief.
-5. Verify each stage completed and the final result is correct Check that every stage ran, each hand-off delivered usable input to the next, and the final output is coherent and correct.
+1. Define the agents and their roles in the workflow Design the workflow by naming each agent and its distinct responsibility. > Conversational/design step. For a chief-of-staff use case, define roles such as: Researcher (gathers facts), Writer (drafts content), Reviewer (checks quality), with Athena as coordinator. Write the roles down before wiring anything.
+2. Connect the agents so outputs hand off between them Wire the agents so each one's output becomes the next one's input (Researcher → Writer → Reviewer). > Use the subagent/delegation mechanism from Lab 8. Instruct Athena that the Researcher's findings feed the Writer, and the Writer's draft feeds the Reviewer. Verify the exact multi-agent wiring in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+3. Run the workflow end-to-end on a sample goal Give the workflow a real goal and run it start to finish: > For example: "Produce a one-page competitor brief on the top 3 AI agent platforms." Watch Researcher → Writer → Reviewer hand off in sequence and produce the final brief.
+4. Verify each stage completed and the final result is correct Check that every stage ran, each hand-off delivered usable input to the next, and the final output is coherent and correct.
 
 **Test it**
 
@@ -601,9 +596,8 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
 
 **Step-by-step**
 
-1. Watch the reference video See how a webhook endpoint is configured for the agent and how an incoming payload triggers it: https://www.youtube.com/watch?v=WNYe5mD4fY8&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=31 (https://www.youtube.com/watch?v=WNYe5mD4fY8&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=31)
-2. Configure a webhook trigger/endpoint for the agent Set up a webhook endpoint that Athena listens on. > Configure the webhook in the Hermes automation/integration settings (Desktop app or the webhook section of ~/.hermes/config.yaml), mapping an incoming URL to an agent action. The exact config keys and the endpoint URL are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/). Note the endpoint URL served by your local gateway (from hermes gateway status).
-3. Send a test payload to the webhook Send a test HTTP POST to the endpoint to simulate an external event:
+1. Configure a webhook trigger/endpoint for the agent Set up a webhook endpoint that Athena listens on. > Configure the webhook in the Hermes automation/integration settings (Desktop app or the webhook section of ~/.hermes/config.yaml), mapping an incoming URL to an agent action. The exact config keys and the endpoint URL are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/). Note the endpoint URL served by your local gateway (from hermes gateway status).
+2. Send a test payload to the webhook Send a test HTTP POST to the endpoint to simulate an external event:
 
    ```bash
    curl -X POST <your-webhook-endpoint-url> \
@@ -611,8 +605,8 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
   -d '{"event":"test","message":"Trigger Athena briefing"}'
    ```
 
-4. Confirm the agent receives the event and responds/acts Check that the incoming payload triggered Athena — e.g. it ran the mapped action (a briefing, a reply, a message to a channel). Confirm the action's output where you expect it (chat, channel, or logs).
-5. Secure the webhook (secret/token, allowlist) Lock the endpoint down so only authorized callers can trigger the agent: > Add a shared secret/token that callers must include (e.g. an Authorization header or a signing secret), and/or an IP allowlist. Re-send the test with and without the secret to confirm unauthorized calls are rejected. Verify the exact security options in the video / docs link above.
+3. Confirm the agent receives the event and responds/acts Check that the incoming payload triggered Athena — e.g. it ran the mapped action (a briefing, a reply, a message to a channel). Confirm the action's output where you expect it (chat, channel, or logs).
+4. Secure the webhook (secret/token, allowlist) Lock the endpoint down so only authorized callers can trigger the agent: > Add a shared secret/token that callers must include (e.g. an Authorization header or a signing secret), and/or an IP allowlist. Re-send the test with and without the secret to confirm unauthorized calls are rejected. Verify the exact security options in the video / docs link above.
 
 **Test it**
 
@@ -647,33 +641,27 @@ A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor  
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. Install Node.js 24 LTS (24 recommended; 22.16+ minimum). OpenClaw runs on Node. Windows — download the Node 24 LTS installer from <https://nodejs.org/> and run the .msi (WSL2 is recommended for stability), then check:
+1. Install Node.js 24 LTS (24 recommended; 22.16+ minimum). OpenClaw runs on Node. Windows — download the Node 24 LTS installer from <https://nodejs.org/> and run the .msi (WSL2 is recommended for stability), then check:
 
    ```bash
    node -v
    npm -v
    ```
 
-3. Install OpenClaw — Option A (npm, recommended, cross-platform). After Node is installed:
+2. Install OpenClaw — Option A (npm, recommended, cross-platform). After Node is installed:
 
    ```bash
    npm install -g openclaw@latest
    openclaw onboard
    ```
 
-4. Install OpenClaw — Option B (installer script, fallback if npm fails). macOS / Linux / WSL2:
+3. Install OpenClaw — Option B (installer script, fallback if npm fails). macOS / Linux / WSL2:
 
    ```bash
    curl -fsSL https://openclaw.ai/install.sh | bash
    ```
 
-5. Install OpenClaw — Option C (from source, advanced). Requires git and pnpm:
+4. Install OpenClaw — Option C (from source, advanced). Requires git and pnpm:
 
    ```bash
    git clone https://github.com/openclaw/openclaw.git
@@ -683,7 +671,7 @@ A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor  
    openclaw onboard --install-daemon
    ```
 
-6. (Optional) Install on a VPS so Nimbus Supplies runs 24/7. The same three-step flow works on any Ubuntu host — a Hostinger KVM VPS or an exe.dev sandbox. SSH in first (ssh root@<your-vps-ip>), then run:
+5. (Optional) Install on a VPS so Nimbus Supplies runs 24/7. The same three-step flow works on any Ubuntu host — a Hostinger KVM VPS or an exe.dev sandbox. SSH in first (ssh root@<your-vps-ip>), then run:
 
    ```bash
    # Step 1 — Node.js 24
@@ -698,7 +686,7 @@ A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor  
    openclaw onboard
    ```
 
-7. Verify the installation.
+6. Verify the installation.
 
    ```bash
    openclaw --version
@@ -706,7 +694,7 @@ A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor  
    openclaw gateway status
    ```
 
-8. Confirm the gateway is running (and set to auto-start). The gateway is the long-running daemon that will host every channel, tool, and cron for Nimbus Supplies:
+7. Confirm the gateway is running (and set to auto-start). The gateway is the long-running daemon that will host every channel, tool, and cron for Nimbus Supplies:
 
    ```bash
    openclaw gateway status
@@ -735,26 +723,20 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. See what is available and what is currently selected.
+1. See what is available and what is currently selected.
 
    ```bash
    openclaw models list
    openclaw model current
    ```
 
-3. Option A — OpenAI Codex (OAuth, GPT-5.5). OAuth uses the openai-codex provider so you sign in with your ChatGPT Plus / Pro subscription instead of paying per token. Credentials are stored in ~/.openclaw/auth/ (profile at ~/.openclaw/auth-profiles/openai-codex.json); refresh is automatic.
+2. Option A — OpenAI Codex (OAuth, GPT-5.5). OAuth uses the openai-codex provider so you sign in with your ChatGPT Plus / Pro subscription instead of paying per token. Credentials are stored in ~/.openclaw/auth/ (profile at ~/.openclaw/auth-profiles/openai-codex.json); refresh is automatic.
 
    ```bash
    openclaw models auth login --provider openai-codex
    ```
 
-4. Option B — MiniMax (OAuth, MiniMax-M2.7). Enable the OAuth plugin, restart the gateway, then log in and set it as default:
+3. Option B — MiniMax (OAuth, MiniMax-M2.7). Enable the OAuth plugin, restart the gateway, then log in and set it as default:
 
    ```bash
    openclaw plugins enable minimax-portal-auth
@@ -762,7 +744,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw models auth login --provider minimax-portal --set-default
    ```
 
-5. Option C — Anthropic (API key, Claude Opus 4.7). Get a key from <https://console.anthropic.com/settings/keys>:
+4. Option C — Anthropic (API key, Claude Opus 4.7). Get a key from <https://console.anthropic.com/settings/keys>:
 
    ```bash
    export ANTHROPIC_API_KEY="sk-ant-..."
@@ -771,7 +753,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw model test
    ```
 
-6. Option D — DeepSeek (API key, V4). Get a key from <https://platform.deepseek.com/api_keys>:
+5. Option D — DeepSeek (API key, V4). Get a key from <https://platform.deepseek.com/api_keys>:
 
    ```bash
    export DEEPSEEK_API_KEY="sk-..."
@@ -780,7 +762,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw model test
    ```
 
-7. Option E — OpenRouter (API key, routes to Claude Opus 4.7). Get a key from <https://openrouter.ai/keys>:
+6. Option E — OpenRouter (API key, routes to Claude Opus 4.7). Get a key from <https://openrouter.ai/keys>:
 
    ```bash
    export OPENROUTER_API_KEY="sk-or-..."
@@ -789,14 +771,14 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw model test
    ```
 
-8. Persist API keys so they survive reboots. For the API-key providers, add the export line to your shell profile (~/.zshrc on macOS, ~/.bashrc on Linux). OAuth tokens are persisted automatically in ~/.openclaw/auth/ and do not need this.
+7. Persist API keys so they survive reboots. For the API-key providers, add the export line to your shell profile (~/.zshrc on macOS, ~/.bashrc on Linux). OAuth tokens are persisted automatically in ~/.openclaw/auth/ and do not need this.
 
    ```bash
    echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.zshrc
    source ~/.zshrc
    ```
 
-9. Switch models and confirm the active one. You can hot-swap the global default at any time:
+8. Switch models and confirm the active one. You can hot-swap the global default at any time:
 
    ```bash
    openclaw model use deepseek/deepseek-v4
@@ -804,7 +786,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw model test
    ```
 
-10. Give the agent a Nimbus Supplies smoke test. With any model active, from the CLI chat (openclaw) ask: > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer. A sensible reply confirms the model is wired up.
+9. Give the agent a Nimbus Supplies smoke test. With any model active, from the CLI chat (openclaw) ask: > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer. A sensible reply confirms the model is wired up.
 
 **Test it**
 
@@ -827,37 +809,31 @@ Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Ni
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. Create a Telegram bot with BotFather. 1. Open Telegram and search for @BotFather. 2. Send /newbot. 3. Enter a display name (e.g. Nimbus Supplies Assistant). 4. Enter a username — must be unique and end in _bot (e.g. nimbus_supplies_bot). 5. BotFather replies with an HTTP API token like 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11. Copy it.
-3. Register and start the Telegram channel.
+1. Create a Telegram bot with BotFather. 1. Open Telegram and search for @BotFather. 2. Send /newbot. 3. Enter a display name (e.g. Nimbus Supplies Assistant). 4. Enter a username — must be unique and end in _bot (e.g. nimbus_supplies_bot). 5. BotFather replies with an HTTP API token like 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11. Copy it.
+2. Register and start the Telegram channel.
 
    ```bash
    openclaw channel add telegram --token 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
    openclaw channel start telegram
    ```
 
-4. Test Telegram. In Telegram, search for your bot's username and send: > Hi, do you supply recycled A4 paper for Nimbus Supplies? The agent should reply using the model you connected in Lab 16.
-5. Add and start the WhatsApp channel.
+3. Test Telegram. In Telegram, search for your bot's username and send: > Hi, do you supply recycled A4 paper for Nimbus Supplies? The agent should reply using the model you connected in Lab 16.
+4. Add and start the WhatsApp channel.
 
    ```bash
    openclaw channel add whatsapp
    openclaw channel start whatsapp
    ```
 
-6. Pair WhatsApp by scanning the QR. On your phone: WhatsApp → Settings → Linked Devices → Link a Device, then scan the QR code shown in the terminal. Wait for whatsapp: connected in the OpenClaw log. > WhatsApp keeps a stateful session on disk at ~/.openclaw/whatsapp/. Do not delete that folder unless you intend to re-pair.
-7. Confirm both channels are running at the same time. One gateway hosts many channels — the same Nimbus Supplies agent now answers on both.
+5. Pair WhatsApp by scanning the QR. On your phone: WhatsApp → Settings → Linked Devices → Link a Device, then scan the QR code shown in the terminal. Wait for whatsapp: connected in the OpenClaw log. > WhatsApp keeps a stateful session on disk at ~/.openclaw/whatsapp/. Do not delete that folder unless you intend to re-pair.
+6. Confirm both channels are running at the same time. One gateway hosts many channels — the same Nimbus Supplies agent now answers on both.
 
    ```bash
    openclaw channel list
    openclaw gateway status
    ```
 
-8. Inspect and manage a channel. Useful day-to-day commands:
+7. Inspect and manage a channel. Useful day-to-day commands:
 
    ```bash
    openclaw channel show telegram
@@ -886,50 +862,44 @@ Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inc
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. List the skills currently installed.
+1. List the skills currently installed.
 
    ```bash
    openclaw skills list
    ```
 
-3. Install a few useful skills from the registry. Skills come from <https://skills.sh/>:
+2. Install a few useful skills from the registry. Skills come from <https://skills.sh/>:
 
    ```bash
    openclaw skills add web-research --source skills.sh
    openclaw skills add self-improvement --source skills.sh
    ```
 
-4. Invoke a skill from chat. In your Telegram or WhatsApp channel, send:
+3. Invoke a skill from chat. In your Telegram or WhatsApp channel, send:
 
    ```bash
    /skill web-research "Who are the main office-supplies wholesalers in Singapore?"
    ```
 
-5. Remove a skill you do not need (keeps the agent focused and safe):
+4. Remove a skill you do not need (keeps the agent focused and safe):
 
    ```bash
    openclaw skills remove self-improvement
    ```
 
-6. Refresh the registry index if a skill you expect is missing:
+5. Refresh the registry index if a skill you expect is missing:
 
    ```bash
    openclaw skills update
    ```
 
-7. Build a custom Nimbus Supplies skill. Skills live under ~/.openclaw/skills/. Create a folder and a skill definition. (File layout is shown here as a documented example — confirm the exact schema for your version at <https://docs.openclaw.ai/> before relying on advanced fields.)
+6. Build a custom Nimbus Supplies skill. Skills live under ~/.openclaw/skills/. Create a folder and a skill definition. (File layout is shown here as a documented example — confirm the exact schema for your version at <https://docs.openclaw.ai/> before relying on advanced fields.)
 
    ```bash
    mkdir -p ~/.openclaw/skills/nimbus-quote
    ```
 
-8. Register and test the custom skill.
+7. Register and test the custom skill.
 
    ```bash
    openclaw skills list                 # confirm nimbus-quote appears
@@ -958,19 +928,13 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. Inspect the built-in tools first.
+1. Inspect the built-in tools first.
 
    ```bash
    openclaw tools list
    ```
 
-3. Enable Firecrawl. Sign up at <https://www.firecrawl.dev/>, then Dashboard → API Keys → copy the fc-... key:
+2. Enable Firecrawl. Sign up at <https://www.firecrawl.dev/>, then Dashboard → API Keys → copy the fc-... key:
 
    ```bash
    export FIRECRAWL_API_KEY="fc-..."
@@ -978,8 +942,8 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
    openclaw tools status firecrawl
    ```
 
-4. Smoke-test Firecrawl from chat. In Telegram or WhatsApp: > Use Firecrawl to fetch the products page of a stationery supplier's website and list their A4 paper options with prices in 5 bullets.
-5. Enable AgentMail. Create an inbox at <https://agentmail.to/>, copy the API key and inbox address:
+3. Smoke-test Firecrawl from chat. In Telegram or WhatsApp: > Use Firecrawl to fetch the products page of a stationery supplier's website and list their A4 paper options with prices in 5 bullets.
+4. Enable AgentMail. Create an inbox at <https://agentmail.to/>, copy the API key and inbox address:
 
    ```bash
    export AGENTMAIL_API_KEY="..."
@@ -989,9 +953,9 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
    openclaw tools status agentmail
    ```
 
-6. Smoke-test AgentMail. From chat: > Send an email from my AgentMail inbox to <your-personal-email> with subject "Hello from Nimbus Supplies" and a friendly one-paragraph body. Check your inbox, reply to it, then ask: > Check my AgentMail inbox and summarise the latest reply.
-7. Run the real end-to-end task (research → quote → email). From a channel, send one instruction that chains both tools plus the skill from Lab 18: > A customer, Acme Cafe, wants 10 reams of recycled A4 paper and 5 boxes of black pens. Use Firecrawl to check current prices on our supplier's site, then use the nimbus-quote skill to draft an itemised quote, and email it from my AgentMail inbox to orders@acmecafe.example with subject "Your Nimbus Supplies quote".
-8. Scope tools per channel with profiles and allow/deny lists. Public channels should not run shell exec. Apply the safe messaging preset and lock down a public channel:
+5. Smoke-test AgentMail. From chat: > Send an email from my AgentMail inbox to <your-personal-email> with subject "Hello from Nimbus Supplies" and a friendly one-paragraph body. Check your inbox, reply to it, then ask: > Check my AgentMail inbox and summarise the latest reply.
+6. Run the real end-to-end task (research → quote → email). From a channel, send one instruction that chains both tools plus the skill from Lab 18: > A customer, Acme Cafe, wants 10 reams of recycled A4 paper and 5 boxes of black pens. Use Firecrawl to check current prices on our supplier's site, then use the nimbus-quote skill to draft an itemised quote, and email it from my AgentMail inbox to orders@acmecafe.example with subject "Your Nimbus Supplies quote".
+7. Scope tools per channel with profiles and allow/deny lists. Public channels should not run shell exec. Apply the safe messaging preset and lock down a public channel:
 
    ```bash
    openclaw channel set telegram --profile messaging
@@ -1000,7 +964,7 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
    openclaw channel show telegram
    ```
 
-9. (Optional) Add one more integration of your choice. Pick one from <https://docs.openclaw.ai/tools> and enable it (exact name/flags per the docs), e.g.:
+8. (Optional) Add one more integration of your choice. Pick one from <https://docs.openclaw.ai/tools> and enable it (exact name/flags per the docs), e.g.:
 
    ```bash
    openclaw tools enable <tool-name> --api-key <KEY>
@@ -1028,13 +992,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. openclaw config — read and change settings.
+1. openclaw config — read and change settings.
 
    ```bash
    openclaw config list                        # show all settings
@@ -1043,7 +1001,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
    openclaw config edit                         # open the config file in $EDITOR
    ```
 
-3. openclaw model — manage the brain.
+2. openclaw model — manage the brain.
 
    ```bash
    openclaw model list
@@ -1052,14 +1010,14 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
    openclaw model test
    ```
 
-4. openclaw doctor — health check (with auto-fix).
+3. openclaw doctor — health check (with auto-fix).
 
    ```bash
    openclaw doctor
    openclaw doctor --fix
    ```
 
-5. openclaw gateway — control the daemon that runs everything.
+4. openclaw gateway — control the daemon that runs everything.
 
    ```bash
    openclaw gateway status
@@ -1070,7 +1028,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
    openclaw gateway install     # install daemon (LaunchAgent / systemd / Task Scheduler)
    ```
 
-6. openclaw channel — manage the front doors.
+5. openclaw channel — manage the front doors.
 
    ```bash
    openclaw channel list
@@ -1081,7 +1039,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
    openclaw channel remove telegram
    ```
 
-7. openclaw tools and openclaw skills — capabilities.
+6. openclaw tools and openclaw skills — capabilities.
 
    ```bash
    openclaw tools list
@@ -1093,8 +1051,8 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
    openclaw skills remove web-research
    ```
 
-8. In-chat slash commands. These work inside any channel (Telegram, WhatsApp, CLI chat). Try each from your Nimbus Supplies bot: | Slash Command | Purpose | | --- | --- | | /help | List all available slash commands | | /model <name> | Switch model for this conversation only | | /skill <name> [args] | Run an installed skill (e.g. /skill nimbus-quote "…") | | /tools | List tools the agent may use in this channel | | /clear | Clear the conversation history | | /memory | View / edit the agent's memory for this user | | /whoami | Show your user ID, channel, profile, and current model | | /stop | Cancel the current generation |
-9. Watch it work live. In one terminal, follow the logs; in the channel, send a message and observe the corresponding lines:
+7. In-chat slash commands. These work inside any channel (Telegram, WhatsApp, CLI chat). Try each from your Nimbus Supplies bot:
+8. Watch it work live. In one terminal, follow the logs; in the channel, send a message and observe the corresponding lines:
 
    ```bash
    openclaw gateway logs --follow
@@ -1122,13 +1080,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. Create the nightly sales-report cron. Cron syntax is <min> <hour> <day> <month> <weekday>.
+1. Create the nightly sales-report cron. Cron syntax is <min> <hour> <day> <month> <weekday>.
 
    ```bash
    # Every day at 21:00 — post a Nimbus Supplies end-of-day summary to Telegram
@@ -1139,7 +1091,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
      --name nightly-sales-report
    ```
 
-3. Create a weekly supplier price-check cron (uses Firecrawl from Lab 19):
+2. Create a weekly supplier price-check cron (uses Firecrawl from Lab 19):
 
    ```bash
    # Every Monday at 08:00 — check supplier prices and email me
@@ -1150,7 +1102,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
      --name weekly-price-check
    ```
 
-4. List and inspect your crons.
+3. List and inspect your crons.
 
    ```bash
    openclaw cron list
@@ -1158,13 +1110,13 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw cron logs nightly-sales-report --tail 20
    ```
 
-5. Fire a cron on demand to test it now (ignores the schedule):
+4. Fire a cron on demand to test it now (ignores the schedule):
 
    ```bash
    openclaw cron run nightly-sales-report
    ```
 
-6. Disable / enable / delete crons as your needs change:
+5. Disable / enable / delete crons as your needs change:
 
    ```bash
    openclaw cron disable weekly-price-check
@@ -1172,7 +1124,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw cron delete  weekly-price-check   # only if you no longer need it
    ```
 
-7. Enable the heartbeat. The heartbeat is a periodic self-check that verifies the gateway is alive, the model responds, and channels are connected; on failure the daemon attempts auto-restart and logs the incident.
+6. Enable the heartbeat. The heartbeat is a periodic self-check that verifies the gateway is alive, the model responds, and channels are connected; on failure the daemon attempts auto-restart and logs the incident.
 
    ```bash
    openclaw gateway heartbeat enable --interval 60s
@@ -1180,7 +1132,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw gateway heartbeat logs --tail 20
    ```
 
-8. (Optional) Push a heartbeat ping to an external monitor so you are paged if Nimbus Supplies goes dark (e.g. a free <https://healthchecks.io/> check):
+7. (Optional) Push a heartbeat ping to an external monitor so you are paged if Nimbus Supplies goes dark (e.g. a free <https://healthchecks.io/> check):
 
    ```bash
    openclaw gateway heartbeat webhook \
@@ -1188,7 +1140,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
      --interval 5m
    ```
 
-9. Confirm auto-restart works. Ensure the daemon is installed to auto-start, then simulate a crash:
+8. Confirm auto-restart works. Ensure the daemon is installed to auto-start, then simulate a crash:
 
    ```bash
    openclaw gateway status        # expect "running" + "auto-start: yes"
@@ -1219,44 +1171,38 @@ An agent that persistently remembers a customer's standing preferences and appli
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. See what OpenClaw stores on disk.
+1. See what OpenClaw stores on disk.
 
    ```bash
    ls -la ~/.openclaw/
    ```
 
-3. Inspect your current memory from chat. In your Telegram or WhatsApp bot:
+2. Inspect your current memory from chat. In your Telegram or WhatsApp bot:
 
    ```bash
    /memory
    ```
 
-4. Teach the agent a durable customer preference. Still in chat, send a plain-language instruction: > Remember this for future chats: our customer Acme Cafe always wants recycled A4 paper (never standard), delivery on Tuesdays only, and quotes addressed to Mei from Acme. Then confirm it was captured:
+3. Teach the agent a durable customer preference. Still in chat, send a plain-language instruction: > Remember this for future chats: our customer Acme Cafe always wants recycled A4 paper (never standard), delivery on Tuesdays only, and quotes addressed to Mei from Acme. Then confirm it was captured:
 
    ```bash
    /memory
    ```
 
-5. Clear the conversation to prove it is real memory, not just context.
+4. Clear the conversation to prove it is real memory, not just context.
 
    ```bash
    /clear
    ```
 
-6. Recall in a fresh conversation. In the now-cleared chat, ask something that requires the remembered facts: > Draft a quote for Acme Cafe: 10 reams of A4 paper and 5 boxes of black pens. A correct agent should automatically choose recycled A4, note Tuesday delivery, and address the quote to Mei — without you repeating any of it. (This pairs perfectly with the nimbus-quote skill from Lab 18.)
-7. Edit or correct a memory. If a preference changes, update it in natural language and re-check: > Update your memory: Acme Cafe now accepts delivery on Tuesdays or Thursdays.
+5. Recall in a fresh conversation. In the now-cleared chat, ask something that requires the remembered facts: > Draft a quote for Acme Cafe: 10 reams of A4 paper and 5 boxes of black pens. A correct agent should automatically choose recycled A4, note Tuesday delivery, and address the quote to Mei — without you repeating any of it. (This pairs perfectly with the nimbus-quote skill from Lab 18.)
+6. Edit or correct a memory. If a preference changes, update it in natural language and re-check: > Update your memory: Acme Cafe now accepts delivery on Tuesdays or Thursdays.
 
    ```bash
    /memory
    ```
 
-8. Back up memory before major changes (memory lives under ~/.openclaw/, so the Lab 15 backup habit applies):
+7. Back up memory before major changes (memory lives under ~/.openclaw/, so the Lab 15 backup habit applies):
 
    ```bash
    mkdir -p ~/openclaw-backup-$(date +%F)
@@ -1285,13 +1231,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
 
 **Step-by-step**
 
-1. Watch the OpenClaw reference playlist
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J
-   ```
-
-2. Secure API keys — never hardcode or commit them. Store keys once as environment variables. macOS / Linux — append to ~/.zshrc or ~/.bashrc:
+1. Secure API keys — never hardcode or commit them. Store keys once as environment variables. macOS / Linux — append to ~/.zshrc or ~/.bashrc:
 
    ```bash
    export ANTHROPIC_API_KEY="sk-ant-..."
@@ -1299,7 +1239,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
    export AGENTMAIL_API_KEY="..."
    ```
 
-3. Restrict who can DM the bot (allowlists). By default anyone who finds your Telegram bot can message it. Lock it to known users:
+2. Restrict who can DM the bot (allowlists). By default anyone who finds your Telegram bot can message it. Lock it to known users:
 
    ```bash
    openclaw channel set telegram \
@@ -1307,7 +1247,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
      --pair-mode allowlist
    ```
 
-4. Apply tool deny lists (least privilege per channel). A customer-facing channel has no business running shell commands or deleting files:
+3. Apply tool deny lists (least privilege per channel). A customer-facing channel has no business running shell commands or deleting files:
 
    ```bash
    openclaw channel set telegram --deny exec,fs.write,fs.delete
@@ -1316,7 +1256,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
    openclaw channel show telegram | grep -E "(allow|deny|profile)"
    ```
 
-5. Tighten the code-execution sandbox. The exec / Python tools run sandboxed — cap time, memory, and network:
+4. Tighten the code-execution sandbox. The exec / Python tools run sandboxed — cap time, memory, and network:
 
    ```bash
    openclaw tools config exec \
@@ -1330,7 +1270,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
      --network deny
    ```
 
-6. Review the audit log. Every tool call, model call, and channel event is logged:
+5. Review the audit log. Every tool call, model call, and channel event is logged:
 
    ```bash
    openclaw gateway logs --tail 100
@@ -1339,7 +1279,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
    openclaw gateway logs --export ~/openclaw-audit-$(date +%F).log
    ```
 
-7. Rotate provider keys on a schedule (e.g. every 90 days). 1. Generate a new key in the provider dashboard. 2. Update the environment variable. 3. Restart the gateway: openclaw gateway restart. 4. Confirm openclaw model test still works. 5. Revoke the old key in the provider dashboard.
+6. Rotate provider keys on a schedule (e.g. every 90 days). 1. Generate a new key in the provider dashboard. 2. Update the environment variable. 3. Restart the gateway: openclaw gateway restart. 4. Confirm openclaw model test still works. 5. Revoke the old key in the provider dashboard.
 
 **Test it**
 
@@ -1362,13 +1302,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
 
 **Step-by-step**
 
-1. Watch the OpenClaw multi-agent setup reference video
-
-   ```bash
-   https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J&index=1
-   ```
-
-2. Create three named agents. Attempt the native multi-agent path first (confirm exact syntax in the docs):
+1. Create three named agents. Attempt the native multi-agent path first (confirm exact syntax in the docs):
 
    ```bash
    openclaw agent create sales
@@ -1377,7 +1311,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw agent list
    ```
 
-3. Give each agent least-privilege tools (mirrors Lab 19/23 allow-deny, applied per agent):
+2. Give each agent least-privilege tools (mirrors Lab 19/23 allow-deny, applied per agent):
 
    ```bash
    # Sales — web + quoting only, no shell, no filesystem writes
@@ -1390,7 +1324,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw agent set ops --allow agentmail,group:fs
    ```
 
-4. Attach channels to the right agents.
+3. Attach channels to the right agents.
 
    ```bash
    # Customer traffic goes to Sales
@@ -1402,13 +1336,13 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw channel set <research-bot> --agent research
    ```
 
-5. Give each agent the right skill/memory. Sales uses nimbus-quote and the customer memory from Lab 22; Research uses nimbus-supplier-brief (Lab 18 exercise). Install/enable as needed:
+4. Give each agent the right skill/memory. Sales uses nimbus-quote and the customer memory from Lab 22; Research uses nimbus-supplier-brief (Lab 18 exercise). Install/enable as needed:
 
    ```bash
    openclaw skills list
    ```
 
-6. Wire cooperation between agents. The simplest, robust hand-off uses the tools you already have: - Sales → Ops: when Sales captures an order, it asks Ops (via a shared note file or an AgentMail message) to produce and send the quote. - Ops → Research: when a price is unknown ("TBC"), Ops asks Research to look it up with Firecrawl. - Research → Ops: Research replies with the price; Ops finalises the quote email.
+5. Wire cooperation between agents. The simplest, robust hand-off uses the tools you already have: - Sales → Ops: when Sales captures an order, it asks Ops (via a shared note file or an AgentMail message) to produce and send the quote. - Ops → Research: when a price is unknown ("TBC"), Ops asks Research to look it up with Firecrawl. - Research → Ops: Research replies with the price; Ops finalises the quote email.
 
    ```bash
    # Ops nightly consolidation cron (from Lab 21, now owned by Ops)
@@ -1419,14 +1353,14 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
      --name ops-nightly-report
    ```
 
-7. Fallback (fully verified) — run agents as separate profiles/instances. If native multi-agent commands are not in your build, model each agent as its own OpenClaw configuration using only Lab 15–19 primitives: - Sales = your main instance with Telegram/WhatsApp, --profile messaging, deny exec,fs.write (Lab 23). - Research = a second instance pointed at a separate config dir with only Firecrawl/web tools enabled:
+6. Fallback (fully verified) — run agents as separate profiles/instances. If native multi-agent commands are not in your build, model each agent as its own OpenClaw configuration using only Lab 15–19 primitives: - Sales = your main instance with Telegram/WhatsApp, --profile messaging, deny exec,fs.write (Lab 23). - Research = a second instance pointed at a separate config dir with only Firecrawl/web tools enabled:
 
    ```bash
    OPENCLAW_HOME=~/.openclaw-research openclaw onboard
      OPENCLAW_HOME=~/.openclaw-research openclaw tools enable firecrawl --api-key "$FIRECRAWL_API_KEY"
    ```
 
-8. Run the end-to-end capstone scenario. From a customer's Telegram, trigger the whole workflow: > Hi Nimbus Supplies — I'm Mei from Acme Cafe. I need 10 reams of recycled A4 paper and 5 boxes of black pens. What's your best price and when can you deliver? Expected chain: 1. Sales greets Mei, recalls Acme's preferences from memory (recycled paper, Tuesday delivery — Lab 22), and captures the order. 2. Sales hands the order to Ops, which starts the nimbus-quote. The pen price is unknown → marked TBC. 3. Ops asks Research to fetch the current pen price via Firecrawl. 4. Research replies with the price; Ops finalises the itemised quote (with GST) and emails it to Acme via AgentMail. 5. That night, the ops-nightly-report cron summarises the day, including Mei's order.
+7. Run the end-to-end capstone scenario. From a customer's Telegram, trigger the whole workflow: > Hi Nimbus Supplies — I'm Mei from Acme Cafe. I need 10 reams of recycled A4 paper and 5 boxes of black pens. What's your best price and when can you deliver? Expected chain: 1. Sales greets Mei, recalls Acme's preferences from memory (recycled paper, Tuesday delivery — Lab 22), and captures the order. 2. Sales hands the order to Ops, which starts the nimbus-quote. The pen price is unknown → marked TBC. 3. Ops asks Research to fetch the current pen price via Firecrawl. 4. Research replies with the price; Ops finalises the itemised quote (with GST) and emails it to Acme via AgentMail. 5. That night, the ops-nightly-report cron summarises the day, including Mei's order.
 
 **Test it**
 
@@ -1449,26 +1383,25 @@ An agent that, when idle, 'dreams' — reflecting on memory and proposing follow
 
 **Step-by-step**
 
-1. Watch the OpenClaw functions reference video. Open the playlist and watch the segment on the dreaming / idle-reflection feature. Note how the presenter enables it and where the produced insights appear — the on-screen command names are your ground truth for the steps below. https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J (https://www.youtube.com/watch?v=q5YFlpVlmkI&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J)
-2. Enable the dreaming feature in OpenClaw config. This flips the setting that lets the gateway schedule reflection cycles when the agent is idle:
+1. Enable the dreaming feature in OpenClaw config. This flips the setting that lets the gateway schedule reflection cycles when the agent is idle:
 
    ```bash
    openclaw config set dreaming.enabled true
    ```
 
-3. Let the agent sit idle so a dream cycle runs — or trigger one manually. Rather than wait for a natural idle window, force a cycle now so you can observe it immediately:
+2. Let the agent sit idle so a dream cycle runs — or trigger one manually. Rather than wait for a natural idle window, force a cycle now so you can observe it immediately:
 
    ```bash
    openclaw dream run
    ```
 
-4. Review what the dream produced. List the insights, follow-ups, and skill suggestions the cycle generated:
+3. Review what the dream produced. List the insights, follow-ups, and skill suggestions the cycle generated:
 
    ```bash
    openclaw dream list
    ```
 
-5. Accept a useful follow-up the agent proposed. In the dashboard (or via the CLI shown in the video), open one proposal that genuinely helps Nimbus Supplies and approve it. Accepting promotes the proposal into a real action or a saved skill; declining discards it. This human review step keeps you in control of what the agent's downtime actually changes.
+4. Accept a useful follow-up the agent proposed. In the dashboard (or via the CLI shown in the video), open one proposal that genuinely helps Nimbus Supplies and approve it. Accepting promotes the proposal into a real action or a saved skill; declining discards it. This human review step keeps you in control of what the agent's downtime actually changes.
 
 **Test it**
 
@@ -1491,17 +1424,11 @@ One or more end-to-end OpenClaw automations (Workspace, analytics or social medi
 
 **Step-by-step**
 
-1. Use case A — Google Workspace CLI assistant (reference video)
-
-   ```bash
-   https://www.youtube.com/watch?v=_ssB1YXRRtk&list=PLHutrxqbP1BwAQf6dROCLZqK0PLpGu35J&index=9
-   ```
-
-2. Watch one of the use-case videos above and study how the presenter composes several functions into one automation — which channel triggers the flow, which skills and tools it calls, and how memory and crons fit in. Good starting points: a Google Workspace CLI assistant (Docs/Sheets/Gmail), a Data Analytics agent, or a Social Media Marketing agent.
-3. Pick a back-office use case. Choose one concrete Nimbus Supplies workflow to implement end-to-end. A strong default is "research a supplier, then email a quote": a customer asks for a price, the agent looks up current supplier pricing, applies a margin, and emails a formatted quote. Other options: customer FAQ Q&A on Telegram, or an automated nightly orders-and-quotes report.
-4. Compose the channels, skills and tools needed for it. Wire the pieces together for your chosen use case. For research-to-quote that means: the customer channel (e.g. Telegram) as the trigger, the skill that formats a quote (e.g. nimbus-quote from Lab 18), a research tool (Firecrawl / web_search) for live pricing, and a delivery tool (AgentMail) to send the email. Confirm the agent has permission to call each one.
-5. Run the automation end-to-end and verify the outcome. Send a real trigger — e.g. message the agent "What's your price for 50 kg of arabica beans?" on the customer channel — and watch the full chain fire: the agent recalls context from memory, runs the price lookup tool, builds the quote with the skill, and delivers it via email. Confirm the actual deliverable (the sent quote email) is correct, not just that the logs look busy.
-6. Schedule it or hand it to the multi-agent team from Lab 24. Make the automation ongoing. Either attach it to a cron (e.g. a nightly consolidation report) so it runs unattended, or delegate the use case to the Sales / Research / Ops agents you built in Lab 24 so the right specialist owns each step. This is what turns a one-off demo into part of an always-on Nimbus Supplies back office.
+1. Watch one of the use-case videos above and study how the presenter composes several functions into one automation — which channel triggers the flow, which skills and tools it calls, and how memory and crons fit in. Good starting points: a Google Workspace CLI assistant (Docs/Sheets/Gmail), a Data Analytics agent, or a Social Media Marketing agent.
+2. Pick a back-office use case. Choose one concrete Nimbus Supplies workflow to implement end-to-end. A strong default is "research a supplier, then email a quote": a customer asks for a price, the agent looks up current supplier pricing, applies a margin, and emails a formatted quote. Other options: customer FAQ Q&A on Telegram, or an automated nightly orders-and-quotes report.
+3. Compose the channels, skills and tools needed for it. Wire the pieces together for your chosen use case. For research-to-quote that means: the customer channel (e.g. Telegram) as the trigger, the skill that formats a quote (e.g. nimbus-quote from Lab 18), a research tool (Firecrawl / web_search) for live pricing, and a delivery tool (AgentMail) to send the email. Confirm the agent has permission to call each one.
+4. Run the automation end-to-end and verify the outcome. Send a real trigger — e.g. message the agent "What's your price for 50 kg of arabica beans?" on the customer channel — and watch the full chain fire: the agent recalls context from memory, runs the price lookup tool, builds the quote with the skill, and delivers it via email. Confirm the actual deliverable (the sent quote email) is correct, not just that the logs look busy.
+5. Schedule it or hand it to the multi-agent team from Lab 24. Make the automation ongoing. Either attach it to a cron (e.g. a nightly consolidation report) so it runs unattended, or delegate the use case to the Sales / Research / Ops agents you built in Lab 24 so the right specialist owns each step. This is what turns a one-off demo into part of an always-on Nimbus Supplies back office.
 
 **Test it**
 
@@ -1536,23 +1463,21 @@ A running Paperclip at http://localhost:3100 with a company (goal + budget).   (
 
 **Step-by-step**
 
-1. Watch the Paperclip overview (Explain Paperclip). This introduces the mental model: Paperclip runs an entire company of AI agents (a CEO who hires specialists), and you sit above them as the Board, approving hires and spend. Keep that framing in mind — every later lab maps to a real corporate function. https://www.youtube.com/watch?v=WNYe5mD4fY8&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=31 (https://www.youtube.com/watch?v=WNYe5mD4fY8&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=31)
-2. Watch the setup reference video for this lab. This is the exact self-hosting walkthrough for the steps below — follow along so the on-screen dashboard matches yours. https://www.youtube.com/watch?v=f2eian-bR_U&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=2 (https://www.youtube.com/watch?v=f2eian-bR_U&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=2)
-3. Clone the Paperclip repository. This pulls the source and the Docker Compose files you need to run it locally:
+1. Clone the Paperclip repository. This pulls the source and the Docker Compose files you need to run it locally:
 
    ```bash
    git clone https://github.com/paperclipai/paperclip.git
    cd paperclip
    ```
 
-4. Start Paperclip with the quickstart compose file. This builds the image and brings up the full stack (the app plus its embedded PostgreSQL):
+2. Start Paperclip with the quickstart compose file. This builds the image and brings up the full stack (the app plus its embedded PostgreSQL):
 
    ```bash
    docker compose -f docker-compose.quickstart.yml up --build
    ```
 
-5. Open the dashboard. In your browser, go to:
-6. Create the company with a single goal and a monthly budget. In the dashboard, start a new company. Name it Nimbus Coffee, Inc., give it one clear goal (e.g. "Launch a direct-to-consumer specialty coffee brand and make the first sale"), and set a monthly budget cap (your spend ceiling). Save. This company is the entity the CEO and specialist agents will work inside for every remaining Paperclip lab. > The exact wording of the "Create company" / goal / budget fields is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
+3. Open the dashboard. In your browser, go to:
+4. Create the company with a single goal and a monthly budget. In the dashboard, start a new company. Name it Nimbus Coffee, Inc., give it one clear goal (e.g. "Launch a direct-to-consumer specialty coffee brand and make the first sale"), and set a monthly budget cap (your spend ceiling). Save. This company is the entity the CEO and specialist agents will work inside for every remaining Paperclip lab. > The exact wording of the "Create company" / goal / budget fields is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
 
 **Test it**
 
@@ -1575,11 +1500,10 @@ Paperclip using the OpenAI Codex adapter as the agents' model.   (Tools: Papercl
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It shows exactly where Paperclip looks for the Codex adapter and what "available" looks like in Settings. https://www.youtube.com/watch?v=gU5BrKo_iHk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=3 (https://www.youtube.com/watch?v=gU5BrKo_iHk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=3)
-2. Install / log in to the OpenAI Codex CLI so Paperclip can detect it. Follow the video's instructions to install the Codex CLI and authenticate (log in or supply your API key). Paperclip detects the adapter by finding this working Codex CLI/credentials on the host — so getting the login right here is the whole ballgame. > The exact install/login command is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-3. Open Settings → Agents / Adapters in the dashboard. In Paperclip at http://localhost:3100, go to Settings, then the Agents / Adapters section. This is where Paperclip lists every model engine it can use to power agents.
-4. Confirm the OpenAI Codex adapter shows as "available". Look for the OpenAI Codex entry and check its status reads available (not "not detected" / "unavailable"). Available means Paperclip successfully found and authenticated the Codex CLI and can route agent reasoning through it.
-5. Restart Paperclip if the adapter is not detected. If Codex still shows unavailable after you have logged in, restart the stack so Paperclip re-scans for the adapter:
+1. Install / log in to the OpenAI Codex CLI so Paperclip can detect it. Follow the video's instructions to install the Codex CLI and authenticate (log in or supply your API key). Paperclip detects the adapter by finding this working Codex CLI/credentials on the host — so getting the login right here is the whole ballgame. > The exact install/login command is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
+2. Open Settings → Agents / Adapters in the dashboard. In Paperclip at http://localhost:3100, go to Settings, then the Agents / Adapters section. This is where Paperclip lists every model engine it can use to power agents.
+3. Confirm the OpenAI Codex adapter shows as "available". Look for the OpenAI Codex entry and check its status reads available (not "not detected" / "unavailable"). Available means Paperclip successfully found and authenticated the Codex CLI and can route agent reasoning through it.
+4. Restart Paperclip if the adapter is not detected. If Codex still shows unavailable after you have logged in, restart the stack so Paperclip re-scans for the adapter:
 
    ```bash
    docker compose -f docker-compose.quickstart.yml restart
@@ -1607,16 +1531,15 @@ A configured company with a budget and a connected workspace folder.   (Tools: P
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It walks through the company settings screen — budget cap, workspace connection, and the other company options. https://www.youtube.com/watch?v=WItGcCiQRKw&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=4 (https://www.youtube.com/watch?v=WItGcCiQRKw&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=4)
-2. Open the company's settings in the dashboard. At http://localhost:3100, open Nimbus Coffee, Inc. and go to its Settings. This is the per-company control panel (distinct from the app-wide Settings you used for adapters in Lab 28).
-3. Set or adjust the monthly budget cap. Enter the maximum the company may spend per month. This cap is the governance rail you will exercise in Lab 33 (an 80% warning and a 100% pause). Set a deliberate figure you are comfortable letting agents spend against. > Field name/units are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-4. Connect a workspace folder so agents create real deliverables. First create the folder on your machine:
+1. Open the company's settings in the dashboard. At http://localhost:3100, open Nimbus Coffee, Inc. and go to its Settings. This is the per-company control panel (distinct from the app-wide Settings you used for adapters in Lab 28).
+2. Set or adjust the monthly budget cap. Enter the maximum the company may spend per month. This cap is the governance rail you will exercise in Lab 33 (an 80% warning and a 100% pause). Set a deliberate figure you are comfortable letting agents spend against. > Field name/units are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
+3. Connect a workspace folder so agents create real deliverables. First create the folder on your machine:
 
    ```bash
    mkdir -p ~/paperclip-workspace/nimbus-coffee
    ```
 
-5. Save the configuration and confirm it persists. Save the settings, reload the page, and confirm the budget and the connected workspace path are still shown. Persistence matters — it proves the config was written to the database, not just held in the browser.
+4. Save the configuration and confirm it persists. Save the settings, reload the page, and confirm the budget and the connected workspace path are still shown. Persistence matters — it proves the config was written to the database, not just held in the browser.
 
 **Test it**
 
@@ -1639,11 +1562,10 @@ A task board showing AI tasks moving across the four states.   (Tools: Paperclip
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It shows the task board layout and how tasks flow through the four columns. https://www.youtube.com/watch?v=FrYvRd0KX_I&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=5 (https://www.youtube.com/watch?v=FrYvRd0KX_I&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=5)
-2. Open the task board for the company. In the dashboard, open Nimbus Coffee, Inc. and go to its task board. You'll see four columns — todo, in_progress, in_review, done — the single source of truth for everything the company is working on.
-3. Create or observe a task in the "todo" column. Either create a task yourself (e.g. "Draft the Nimbus Coffee brand tagline") or watch one the CEO/agents have already queued. A task in todo is committed work that has not started yet.
-4. Watch a task move todo → in_progress → in_review. As an agent picks up the task, it moves to in_progress; when the agent finishes and produces a deliverable, it moves to in_review, waiting for your judgement. Observing this flow is how you supervise a company of agents without micromanaging each action.
-5. Open a shell to review the task activity log. For a deeper view than the UI, open a shell inside the running Paperclip container:
+1. Open the task board for the company. In the dashboard, open Nimbus Coffee, Inc. and go to its task board. You'll see four columns — todo, in_progress, in_review, done — the single source of truth for everything the company is working on.
+2. Create or observe a task in the "todo" column. Either create a task yourself (e.g. "Draft the Nimbus Coffee brand tagline") or watch one the CEO/agents have already queued. A task in todo is committed work that has not started yet.
+3. Watch a task move todo → in_progress → in_review. As an agent picks up the task, it moves to in_progress; when the agent finishes and produces a deliverable, it moves to in_review, waiting for your judgement. Observing this flow is how you supervise a company of agents without micromanaging each action.
+4. Open a shell to review the task activity log. For a deeper view than the UI, open a shell inside the running Paperclip container:
 
    ```bash
    docker compose -f docker-compose.quickstart.yml exec paperclip sh
@@ -1671,11 +1593,10 @@ An approved CEO agent and one or more approved specialist agents.   (Tools: Pape
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It shows the hiring flow: hiring the CEO, the CEO proposing specialists, and the approval gate you control. https://www.youtube.com/watch?v=tgqcHHxiwfk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=6 (https://www.youtube.com/watch?v=tgqcHHxiwfk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=6)
-2. Hire the CEO agent from the company page. On the Nimbus Coffee, Inc. page, choose to hire the CEO. The CEO is the top agent that reads the company goal and works out what roles the company needs to achieve it.
-3. Approve the CEO hire (you are the Board). The hire pauses at an approval gate. Review it and approve — as the Board, nothing joins the company without your sign-off. This is the core governance pattern: agents propose, humans approve.
-4. Let the CEO propose specialist hires. Once active, the CEO analyses the goal and proposes specialists it needs (for a coffee brand, perhaps a Marketer, an Engineer for the storefront, and an Operations agent). Each proposal explains the role and why it helps reach the goal.
-5. Review and approve each specialist at the approval gate. For every proposed hire, review the role and approve or reject it at the gate. Approve the ones that genuinely serve the Nimbus Coffee goal; reject any that don't. Each approval is recorded as a human decision — an actor_type=user entry in the audit trail you'll inspect in Lab 33.
+1. Hire the CEO agent from the company page. On the Nimbus Coffee, Inc. page, choose to hire the CEO. The CEO is the top agent that reads the company goal and works out what roles the company needs to achieve it.
+2. Approve the CEO hire (you are the Board). The hire pauses at an approval gate. Review it and approve — as the Board, nothing joins the company without your sign-off. This is the core governance pattern: agents propose, humans approve.
+3. Let the CEO propose specialist hires. Once active, the CEO analyses the goal and proposes specialists it needs (for a coffee brand, perhaps a Marketer, an Engineer for the storefront, and an Operations agent). Each proposal explains the role and why it helps reach the goal.
+4. Review and approve each specialist at the approval gate. For every proposed hire, review the role and approve or reject it at the gate. Approve the ones that genuinely serve the Nimbus Coffee goal; reject any that don't. Each approval is recorded as a human decision — an actor_type=user entry in the audit trail you'll inspect in Lab 33.
 
 **Test it**
 
@@ -1698,11 +1619,10 @@ Configured agents with mandates, tools and per-agent budgets.   (Tools: Papercli
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It shows an agent's configuration screen — mandate, tools, and per-agent budget. https://www.youtube.com/watch?v=JLnGSWK4bJY&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=7 (https://www.youtube.com/watch?v=JLnGSWK4bJY&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=7)
-2. Open an agent's configuration. On the Nimbus Coffee page, pick one specialist (e.g. the Marketer) and open its configuration. This is where you turn a generic hire into a purpose-built role.
-3. Set the agent's mandate and the tools it may use. Write a crisp mandate — one or two sentences on exactly what this agent is responsible for (e.g. "Own Nimbus Coffee's brand voice and launch marketing copy"). Then grant only the tools it needs (e.g. file-write to the workspace, web research) and withhold the rest. Least privilege here prevents an agent from straying outside its lane. > Tool names and the mandate field are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-4. Set a per-agent budget cap. Give this agent its own spend ceiling, carved out of the company budget. Per-agent caps mean one runaway agent can't drain the whole company — a key safety rail you'll exercise in Lab 33.
-5. Save and confirm the agent is ready to receive tasks. Save the configuration, reload, and confirm the mandate, tools, and budget persist and the agent's status shows it is ready for work. Repeat steps 2–5 for each specialist you approved.
+1. Open an agent's configuration. On the Nimbus Coffee page, pick one specialist (e.g. the Marketer) and open its configuration. This is where you turn a generic hire into a purpose-built role.
+2. Set the agent's mandate and the tools it may use. Write a crisp mandate — one or two sentences on exactly what this agent is responsible for (e.g. "Own Nimbus Coffee's brand voice and launch marketing copy"). Then grant only the tools it needs (e.g. file-write to the workspace, web research) and withhold the rest. Least privilege here prevents an agent from straying outside its lane. > Tool names and the mandate field are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
+3. Set a per-agent budget cap. Give this agent its own spend ceiling, carved out of the company budget. Per-agent caps mean one runaway agent can't drain the whole company — a key safety rail you'll exercise in Lab 33.
+4. Save and confirm the agent is ready to receive tasks. Save the configuration, reload, and confirm the mandate, tools, and budget persist and the agent's status shows it is ready for work. Repeat steps 2–5 for each specialist you approved.
 
 **Test it**
 
@@ -1725,16 +1645,15 @@ Budget caps with the 80% warning and 100% pause rails demonstrated, plus an audi
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It demonstrates the budget rails (80% warning, 100% pause), resuming, and the audit trail. https://www.youtube.com/watch?v=77uTzIqw8SQ&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=8 (https://www.youtube.com/watch?v=77uTzIqw8SQ&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=8)
-2. Set a company and/or per-agent budget cap. In the company settings (Lab 29) and/or an agent's config (Lab 32), set a deliberately small cap so ongoing agent work will approach it during this lab. This is what lets you observe the safety rails fire instead of waiting days.
-3. Trigger the 80% warning and 100% pause, then resume. Let the agents keep working (assign a task or two). As spend crosses 80% of the cap, Paperclip raises a warning; at 100% it pauses the company/agent so nothing can overspend. Review the pause, then resume (e.g. by raising the cap or explicitly resuming) and confirm work continues. You have now seen both the soft and hard money rails in action.
-4. Audit actions and spend in the embedded PostgreSQL. Connect to Paperclip's database to inspect the ground-truth record:
+1. Set a company and/or per-agent budget cap. In the company settings (Lab 29) and/or an agent's config (Lab 32), set a deliberately small cap so ongoing agent work will approach it during this lab. This is what lets you observe the safety rails fire instead of waiting days.
+2. Trigger the 80% warning and 100% pause, then resume. Let the agents keep working (assign a task or two). As spend crosses 80% of the cap, Paperclip raises a warning; at 100% it pauses the company/agent so nothing can overspend. Review the pause, then resume (e.g. by raising the cap or explicitly resuming) and confirm work continues. You have now seen both the soft and hard money rails in action.
+3. Audit actions and spend in the embedded PostgreSQL. Connect to Paperclip's database to inspect the ground-truth record:
 
    ```bash
    psql "postgresql://postgres@localhost:5432/paperclip"
    ```
 
-5. Separate human vs agent actions with actor_type. Run the audit query to see how much of the company's activity was human decisions versus agent actions:
+4. Separate human vs agent actions with actor_type. Run the audit query to see how much of the company's activity was human decisions versus agent actions:
 
    ```bash
    SELECT actor_type, COUNT(*) FROM activity_log GROUP BY actor_type;
@@ -1762,16 +1681,15 @@ Assigned tasks executed by agents, producing real deliverables you review and ac
 
 **Step-by-step**
 
-1. Watch the reference video for this lab. It shows assigning a task, the agent executing it, and reviewing the deliverable. https://www.youtube.com/watch?v=kAGzMnQ3_Cs&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=9 (https://www.youtube.com/watch?v=kAGzMnQ3_Cs&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=9)
-2. Assign a task to a specialist agent. On the task board (Lab 30), create a concrete task and assign it to the right specialist — e.g. give the Engineer "Build a one-page Nimbus Coffee landing page in the workspace", or the Marketer "Write the launch tagline and hero copy". Match the task to the mandate you set in Lab 32.
-3. Watch the agent execute and write output to the workspace. The task moves todo → in_progress as the agent works. When it finishes, check that a real file appeared in your workspace:
+1. Assign a task to a specialist agent. On the task board (Lab 30), create a concrete task and assign it to the right specialist — e.g. give the Engineer "Build a one-page Nimbus Coffee landing page in the workspace", or the Marketer "Write the launch tagline and hero copy". Match the task to the mandate you set in Lab 32.
+2. Watch the agent execute and write output to the workspace. The task moves todo → in_progress as the agent works. When it finishes, check that a real file appeared in your workspace:
 
    ```bash
    ls -R ~/paperclip-workspace/nimbus-coffee
    ```
 
-4. Review the deliverable in the in_review state. The task is now in in_review, waiting on you. Open the produced file and judge it against the task and the company goal. As the Board, you are the quality gate.
-5. Approve to move it to done, or send it back for revision. If the deliverable is good, approve it — the task moves to done and that slice of the Nimbus Coffee goal is complete. If it falls short, send it back for revision with feedback, and the agent iterates. Either way, you stayed in control end-to-end.
+3. Review the deliverable in the in_review state. The task is now in in_review, waiting on you. Open the produced file and judge it against the task and the company goal. As the Board, you are the quality gate.
+4. Approve to move it to done, or send it back for revision. If the deliverable is good, approve it — the task moves to done and that slice of the Nimbus Coffee goal is complete. If it falls short, send it back for revision with feedback, and the agent iterates. Either way, you stayed in control end-to-end.
 
 **Test it**
 

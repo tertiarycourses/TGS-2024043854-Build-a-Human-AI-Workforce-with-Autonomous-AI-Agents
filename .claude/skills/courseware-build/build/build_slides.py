@@ -128,7 +128,25 @@ def section(kicker,title,n,sub="",accent=BLUE):
     txt(s,Inches(10.0),Inches(0.7),Inches(2.8),Inches(1.6),[[(n,72,RGBColor(0xE2,0xE8,0xF0),True)]],align=PP_ALIGN.RIGHT)
     footer(s)
 def content(title,items,kicker=None,size=20):
-    s=head(slide(),title,kicker); bullets(s,Inches(0.85),Inches(1.95),Inches(11.6),Inches(4.9),items,size=size); footer(s); return s
+    # HARD RULE: no bullet-wall slides — every content slide renders as numbered
+    # visual cards (LIGHT card, accent bar, number chip), never plain bullets.
+    import math as _m
+    s=head(slide(),title,kicker)
+    xs=[(i[0] if isinstance(i,tuple) else i) for i in items]
+    n=max(1,len(xs)); cols=2 if n>3 else 1; rows=_m.ceil(n/cols)
+    x0,y0=Inches(0.85),Inches(2.0); gw=Inches(11.63); gap=Inches(0.18)
+    cw=int((gw-gap*(cols-1))/cols); ch=int((Inches(4.7)-gap*(rows-1))/rows)
+    fs=(16 if rows<=2 else 14 if rows==3 else 12) if cols==2 else (17 if rows<=3 else 14)
+    for idx,it in enumerate(xs):
+        r,c=divmod(idx,cols)
+        cx=x0+c*(cw+gap); cy=y0+r*(ch+gap)
+        rect(s,cx,cy,cw,ch,LIGHT); rect(s,cx,cy,Inches(0.07),ch,BLUE)
+        oval(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.19)),Inches(0.38),Inches(0.38),BLUE)
+        txt(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.17)),Inches(0.38),Inches(0.34),
+            [[(str(idx+1),13,WHITE,True)]],align=PP_ALIGN.CENTER)
+        txt(s,cx+Inches(0.74),cy+Inches(0.08),cw-Inches(0.98),ch-Inches(0.16),
+            [[(it,fs,INK,False)]],anchor=MSO_ANCHOR.MIDDLE)
+    footer(s); return s
 def two_col(title,left,right,kicker=None,lhead="",rhead=""):
     s=head(slide(),title,kicker)
     rect(s,Inches(0.85),Inches(1.95),Inches(5.7),Inches(4.7),LIGHT); rect(s,Inches(6.95),Inches(1.95),Inches(5.55),Inches(4.7),LIGHT)
@@ -225,9 +243,21 @@ def step_slide(kicker,act_title,n,total,text,cmd=""):
     txt(s,Inches(0.85),Inches(2.74),Inches(1.4),Inches(0.9),[[(str(n),38,WHITE,True)]],align=PP_ALIGN.CENTER)
     txt(s,Inches(0.95),Inches(1.95),Inches(11),Inches(0.4),[[(f"STEP {n} OF {total}",13,GREY,True)]])
     txt(s,Inches(2.55),Inches(2.4),Inches(10.1),Inches(1.3),[[(text,23,INK,False)]],anchor=MSO_ANCHOR.MIDDLE)
-    if cmd:
+    # HARD RULE: never render a comment-only "command" (# …) on a slide — the
+    # code box appears only for a real, runnable command.
+    if cmd and not cmd.lstrip().startswith("#"):
         rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
+    footer(s); return s
+def shot(title,img,kicker=None,caption=""):
+    """Screenshot slide — a framed, real UI capture with a caption (16:10 source)."""
+    s=head(slide(),title,kicker,TEAL)
+    H=Inches(4.5); W=int(H*1440/900)          # native 1440x900 aspect
+    x=int((SW-W)/2); y=Inches(2.02)
+    rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),LINE)
+    s.shapes.add_picture(img,x,y,height=H)
+    if caption:
+        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,12,GREY,False)]],align=PP_ALIGN.CENTER)
     footer(s); return s
 def test_slide(act_title,text,kicker):
     s=head(slide(),act_title,kicker,TEAL)
@@ -270,12 +300,15 @@ tile_grid("Ground Rules",[
  "Mutual respect: agree to disagree.","One conversation at a time.",
  "Be punctual; return from breaks on time.","75% attendance is required."],
  kicker="HOUSEKEEPING",cols=2,size=15)
-flow_h("Download Course Material",[
- "Sign in at lms-tms.tertiaryinfotech.com",
+_dl=flow_h("Download Course Material",[
+ "Sign in at the LMS-TMS portal",
  "Open this course from your dashboard",
  "Go to the Courseware tab",
  "Download the Slides (PPT/PDF), Learner Guide and Lesson Plan",
  "Keep them open for the open-book assessment"],kicker="COURSE PORTAL")
+# Full portal URL as a wide caption (kept out of the narrow chips so it never wraps mid-token)
+txt(_dl,Inches(0.85),Inches(6.5),Inches(11.6),Inches(0.4),
+    [[("Portal:  https://lms-tms.tertiaryinfotech.com",16,BLUE,True)]],align=PP_ALIGN.CENTER)
 # Lesson plan overview — rendered from the day themes so it can never drift
 two_col("Lesson Plan — 2 Days, 8 hours/day",[
  (f"Day 1 — {C.DAY_THEMES[1]}",0),
@@ -337,6 +370,29 @@ content("The Build Arc",[
  "The same arc repeats on Hermes, OpenClaw and Paperclip — so the skillset transfers."],kicker="HOW EVERY LAB PROGRESSES")
 
 # ---------------- TOPICS + ACTIVITIES ----------------
+# Real screenshots captured from a live local Hermes install (dashboard on
+# http://127.0.0.1:9119), plus the live skills-category snapshot — rendered as
+# framed screenshot slides and category tile grids inside the matching labs.
+import json as _json
+_SHOTDIR=os.path.join(REPO,"courseware","assets","screenshots")
+_SHOTS={2:("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127.0.0.1:9119) — your local deployment's sessions view"),
+        4:("hermes-skills.png","Skills","The Skills page of a live Hermes install — 97 skills, filterable by category, plus Learn-a-skill and New-skill"),
+        9:("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")}
+_catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
+_CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
+def _lab_extras(num):
+    if num in _SHOTS:
+        f,label,cap=_SHOTS[num]; p=os.path.join(_SHOTDIR,f)
+        if os.path.exists(p):
+            shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
+    if num==4 and _CATS:
+        tiles=[(c["category"].replace("-"," ").title(),
+                f"{c['count']} skill{'s' if c['count']!=1 else ''} · e.g. {', '.join(c['examples'][:3])}")
+               for c in _CATS]
+        half=(len(tiles)+1)//2
+        tile_grid("Hermes Skill Categories (1 of 2)",tiles[:half],kicker="FROM A LIVE HERMES INSTALL · 97 SKILLS",cols=2,size=11)
+        tile_grid("Hermes Skill Categories (2 of 2)",tiles[half:],kicker="FROM A LIVE HERMES INSTALL · 97 SKILLS",cols=2,size=11)
+
 TOPIC_ACTS = {t["num"]: [a for a in ACTIVITIES if a["topic"]==t["num"]] for t in C.TOPICS}
 CARD_COLORS=[BLUE,TEAL,VIOLET]
 for t in C.TOPICS:
@@ -358,7 +414,10 @@ for t in C.TOPICS:
     # per activity
     for a in acts:
         activity_overview(f"LAB {a['num']}", a["title"], a["desc"], a["build"], a["services"], kicker=f"TOPIC {t['code']} · HANDS-ON")
-        steps=a["steps"]; total=len(steps)
+        _lab_extras(a["num"])
+        # The deck never shows YouTube reference links — videos live in the labs/ READMEs only.
+        steps=[(si,sc) for (si,sc) in a["steps"] if "youtube" not in sc.lower() and "youtube" not in si.lower()]
+        total=len(steps)
         for i,(instr,cmd) in enumerate(steps,1):
             step_slide(f"LAB {a['num']}", a["title"], i, total, instr, cmd)
         test_slide(a["title"], a["test"], kicker=f"LAB {a['num']} · VERIFY")

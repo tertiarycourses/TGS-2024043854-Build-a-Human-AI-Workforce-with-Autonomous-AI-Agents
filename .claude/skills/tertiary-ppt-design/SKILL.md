@@ -38,3 +38,16 @@ Apply these when generating or refining a course/training deck (python-pptx).
 - Reuse helper functions (`content`, `two_col`, `cards3`, `website_slide`, `gallery_slide`, `img_slide`, `big_statement`, `section`, `step_slide`) so spacing/fonts stay uniform.
 
 Implementation lives in the **tertiary-course-slides** skill (`make_slides.py`).
+
+## HARD RULES (mandatory on every deck)
+
+1. **No YouTube / video reference links on slides.** Reference videos live in the labs/
+   README files only — the deck and the Learner Guide never render a YouTube URL.
+   (courseware-build enforces this: build_slides.py and build_learner_guide.py filter
+   any step whose instruction or command contains "youtube".)
+2. **Never render a comment-only "command" on a slide.** The dark code box appears only
+   for a real, runnable command; a `# comment` placeholder is suppressed (the step's
+   instruction text carries the meaning). Enforced in build_slides.py step_slide().
+3. **All content slides are card-format and visual.** content() renders numbered visual
+   cards (LIGHT card + accent bar + number chip) — plain bullet-wall slides are banned
+   everywhere, including admin slides (TRAQOM, Briefing, Assessment, recaps).

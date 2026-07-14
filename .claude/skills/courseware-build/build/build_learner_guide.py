@@ -55,6 +55,8 @@ def _readme_steps(num):
         if cmd and _re.match(r'^\s*#', cmd) and "\n" not in cmd:
             cmd=""
         text=it[:cm.start()] if cm else it
+        # drop markdown table rows (| ... |) — tables don't flatten into prose
+        text="\n".join(l for l in text.splitlines() if not l.strip().startswith("|"))
         text=_re.sub(r'^(?:#{2,4}\s*)?\d+\.\s*','',text)      # drop leading '### N.' / 'N.'
         text=_re.sub(r'\*\*(.*?)\*\*', r'\1', text)           # drop bold markers
         text=_re.sub(r'\*(.*?)\*', r'\1', text)               # drop italics
@@ -130,16 +132,10 @@ for t in C.TOPICS:
         h3("What you'll build")
         p(a["build"]+f"   (Tools: {a['services']}.)")
         h3("Step-by-step")
-        # Prefer the detailed README steps; guarantee the reference video is included.
-        _rs=_readme_steps(a["num"])
-        _vid=[(instr,cmd) for (instr,cmd) in a["steps"] if "youtube" in cmd]
-        if _rs:
-            if _vid and not any("youtube" in (t+c) for (t,c) in _rs):
-                st=[_vid[0]]+_rs
-            else:
-                st=_rs
-        else:
-            st=[(instr,cmd) for (instr,cmd) in a["steps"]]
+        # Prefer the detailed README steps. The LG never shows YouTube reference
+        # links — videos live in the labs/ READMEs only.
+        st=_readme_steps(a["num"]) or [(instr,cmd) for (instr,cmd) in a["steps"]]
+        st=[(si,sc) for (si,sc) in st if "youtube" not in sc.lower() and "youtube" not in si.lower()]
         steps(st)
         h3("Test it")
         p(a["test"])
@@ -248,7 +244,8 @@ prodoc.add_cover_page(doc,"LEARNER GUIDE",C.TITLE,C.VERSION.lstrip("v"),
                       course_logo=None, course_code=C.COURSE_CODE)
 prodoc.add_version_control(doc,[
  ("1.0","12 July 2026","Initial release — Learner Guide covering the autonomous-AI-agent labs (Hermes Agent, OpenClaw, Paperclip).",C.TRAINER),
- ("1.1",C.VERSION_DATE,"Revised for the 2-day structure and 34 labs (Hermes 14, OpenClaw 12, Paperclip 8) with per-lab reference videos; learning outcomes aligned to the Course Proposal / TSC.",C.TRAINER),
+ ("1.1","14 July 2026","Revised for the 2-day structure and 34 labs (Hermes 14, OpenClaw 12, Paperclip 8) with per-lab reference videos; learning outcomes aligned to the Course Proposal / TSC.",C.TRAINER),
+ ("1.2",C.VERSION_DATE,"Per-lab step numbering; YouTube links removed (videos remain in the labs); Hermes install lab expanded with the official install methods.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 
