@@ -79,7 +79,8 @@ prodoc.add_cover_page(doc,"LESSON PLAN",C.TITLE,C.VERSION.lstrip("v"),
 prodoc.add_version_control(doc,[
  ("1.0","12 July 2026","Initial release — 3-day lesson plan for the autonomous-AI-agent labs (Hermes Agent, OpenClaw, Paperclip).",C.TRAINER),
  ("1.1","14 July 2026","Revised to a 2-day plan (Day 1: Topics 1 & 2; Day 2: Topic 3 & final assessment). Hermes expanded to 14 labs, OpenClaw to 12, Paperclip to 8 (34 labs total). Learning outcomes aligned to the Course Proposal / TSC; per-lab reference videos added.",C.TRAINER),
- ("1.2",C.VERSION_DATE,"Visual redesign: all content slides card-format; YouTube links removed from the deck and Learner Guide (videos remain in the labs); live Hermes screenshots and skill-category grids added; Hermes install lab expanded with the official install methods.",C.TRAINER),
+ ("1.2","14 July 2026","Visual redesign: all content slides card-format; YouTube links removed from the deck and Learner Guide (videos remain in the labs); live Hermes screenshots and skill-category grids added; Hermes install lab expanded with the official install methods.",C.TRAINER),
+ ("1.3",C.VERSION_DATE,"Added the masterclass-style Hermes intro slides (What is Hermes; The Bet: Compounding Value) and the live Achievements dashboard screenshot to the deck.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 

@@ -249,6 +249,30 @@ def step_slide(kicker,act_title,n,total,text,cmd=""):
         rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
+def dark_rows(tag,title_lines,sub_lines,rows):
+    """Masterclass-style dark feature slide: terminal tag, amber headline,
+    light subtitle lines, then numbered row-cards (01, 02, …)."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
+    ROWBG=RGBColor(0x15,0x17,0x12); FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=RGBColor(0xE8,0xE6,0xDD)
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    y=0.98
+    for tl in title_lines:
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
+    y+=0.08
+    for sl in sub_lines:
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.38),[[(sl,15,IVORY,False)]]); y+=0.4
+    y+=0.22
+    n=max(1,len(rows)); gap=0.14
+    rh=min(0.78,(6.85-y-gap*(n-1))/n)
+    for i,r in enumerate(rows):
+        ry=Inches(y+i*(rh+gap))
+        rect(s,Inches(0.85),ry,Inches(11.63),Inches(rh),ROWBG)
+        rect(s,Inches(0.85),ry,Inches(0.05),Inches(rh),AMBER)
+        txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
+        txt(s,Inches(1.9),ry,Inches(10.35),Inches(rh),[[(r,16,WHITE,False)]],anchor=MSO_ANCHOR.MIDDLE)
+    footer(s); return s
 def shot(title,img,kicker=None,caption=""):
     """Screenshot slide — a framed, real UI capture with a caption (16:10 source)."""
     s=head(slide(),title,kicker,TEAL)
@@ -375,14 +399,31 @@ content("The Build Arc",[
 # framed screenshot slides and category tile grids inside the matching labs.
 import json as _json
 _SHOTDIR=os.path.join(REPO,"courseware","assets","screenshots")
-_SHOTS={2:("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127.0.0.1:9119) — your local deployment's sessions view"),
-        4:("hermes-skills.png","Skills","The Skills page of a live Hermes install — 97 skills, filterable by category, plus Learn-a-skill and New-skill"),
-        9:("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")}
+_SHOTS={2:[("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127.0.0.1:9119) — your local deployment's sessions view"),
+           ("hermes-achievements.png","Achievements","The Achievements page — Hermes gamifies agent mastery with tiers (Copper → Silver → Gold → Diamond → Olympian) and unlockable badges")],
+        4:[("hermes-skills.png","Skills","The Skills page of a live Hermes install — 97 skills, filterable by category, plus Learn-a-skill and New-skill")],
+        9:[("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")]}
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
 def _lab_extras(num):
-    if num in _SHOTS:
-        f,label,cap=_SHOTS[num]; p=os.path.join(_SHOTDIR,f)
+    if num==1:
+        # Hermes intro — masterclass-style dark slides (What is Hermes + The Bet)
+        dark_rows("part-01/overview",
+            ["An AI Agent","That Learns You."],
+            ["What is Hermes Agent?  Open source. Built by Nous Research. MIT license."],
+            ["Runs in your terminal (CLI) or on your phone (gateway)",
+             "Works with any model — Claude, GPT, Grok, Kimi, local, whatever",
+             "Nous uses this same tool to generate training data for the Hermes model family"])
+        dark_rows("part-01/the-bet",
+            ["The Bet:","Compounding Value."],
+            ["Most agents are stateless — every session starts from zero.",
+             "Hermes is stateful by design. Every session makes the next one better."],
+            ["You give it a task",
+             "It captures a trajectory — tools used, decisions made",
+             "It extracts a reusable skill",
+             "Next time: faster, cleaner, smarter"])
+    for f,label,cap in _SHOTS.get(num,[]):
+        p=os.path.join(_SHOTDIR,f)
         if os.path.exists(p):
             shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
     if num==4 and _CATS:

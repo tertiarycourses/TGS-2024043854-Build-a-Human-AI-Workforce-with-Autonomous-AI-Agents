@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.2 · 14 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.3 · 14 July 2026**
 
 ## Contents
 
