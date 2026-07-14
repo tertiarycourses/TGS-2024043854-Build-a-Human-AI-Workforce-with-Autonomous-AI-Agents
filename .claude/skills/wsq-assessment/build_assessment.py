@@ -41,8 +41,8 @@ for _cand in (os.path.join(REPO, ".claude/skills/tertiary-lesson-plan"),
 import prodoc  # cover page + version control + page numbers (same as LP/LG)
 
 # ─── EDIT PER COURSE ────────────────────────────────────────────────────────
-TITLE       = "Application Integration with Docker and Kubernetes"
-COURSE_CODE = "TGS-2021010366"
+TITLE       = "Build a Human-AI Workforce with Autonomous AI Agents"
+COURSE_CODE = "TGS-2024043854"
 # ────────────────────────────────────────────────────────────────────────────
 # The cover page renders prodoc's module-level TGS constant. Override it so the
 # assessment cover shows THIS course's ref (works with either prodoc version —
@@ -60,9 +60,9 @@ def _logo(name):
             return p
     return None
 ORG_LOGO    = _logo("tertiary-infotech-logo.png")
-COURSE_LOGO = _logo("docker-k8s-course-logo.png")   # None if absent → Tertiary-only cover (as LP/LG)
+COURSE_LOGO = _logo("course-logo.png")   # None if absent → Tertiary-only cover (as LP/LG)
 
-Q_VER, A_VER = "v5", "v5"   # single standardised version across all four files
+Q_VER, A_VER = "v3", "v3"   # single standardised version across all four files
 BRAND = RGBColor(0x1F, 0x6F, 0xEB); DARK = RGBColor(0x11, 0x18, 0x27); GREY = RGBColor(0x55, 0x5B, 0x66)
 # Assessments carry the cover page only — no Document Version Control Record.
 
@@ -70,232 +70,168 @@ BRAND = RGBColor(0x1F, 0x6F, 0xEB); DARK = RGBColor(0x11, 0x18, 0x27); GREY = RG
 # (criterion, context, question, [model-answer points]) — each traces to the course slides.
 WRITTEN = [
  ("K1",
-  "Containers have largely replaced virtual machines as the unit of application packaging. A VM virtualises "
-  "hardware and runs a full guest operating system on a hypervisor, while a container packages just the "
-  "application and its dependencies.",
-  "What are the differences between a Virtual Machine and a container, and why do these differences matter in "
-  "modern application development?",
-  ["A VM virtualises hardware and runs a full guest OS on a hypervisor; a container shares the host OS kernel "
-   "and packages only the application plus its dependencies.",
-   "VMs are heavier: gigabytes in size, boot in seconds–minutes, and carry hypervisor overhead "
-   "(e.g. VMware, VirtualBox, EC2).",
-   "Containers are lighter: megabytes in size, start in milliseconds, with minimal overhead "
-   "(e.g. Docker, containerd).",
-   "Why it matters: containers pack many more workloads per host, give consistent 'build once, run anywhere' "
-   "environments, and start/scale fast — ideal for microservices and CI/CD. "
-   "(Slides: Why Containers — Virtual Machines vs Containers / How It Works — Docker Architecture)"]),
+  "A Singapore logistics company is preparing an AI adoption roadmap and is mapping the landscape of AI "
+  "applications - including autonomous AI agents such as Hermes Agent, OpenClaw and Paperclip - before deciding "
+  "where to deploy them.",
+  "Describe three (3) distinct categories of AI application used across different industries and state one (1) key "
+  "capability associated with each category.",
+  ["Large Language Model (LLM)-based applications, such as AI chatbots and text-generation tools - key capability: "
+   "understand and produce human-like natural language for automated engagement and content generation.",
+   "Computer vision applications, such as defect detection and visual product search - key capability: analyse "
+   "images and video to automate visual inspection and classification.",
+   "Predictive analytics / machine-learning applications, such as demand forecasting and recommendation engines - "
+   "key capability: model historical data to forecast outcomes and support data-driven decisions.",
+   "Autonomous AI agent applications, such as Hermes Agent, OpenClaw and Paperclip - key capability: execute "
+   "multi-step workflows (research, scheduling, orchestration) with memory, skills and tools and minimal human "
+   "intervention. (Slides: Autonomous AI Agents Fundamentals / Three Platforms, One Skillset)"]),
  ("K2",
-  "A Docker image is built automatically from a text recipe. Getting the instructions and their order right "
-  "controls both what the image contains and how fast it rebuilds.",
-  "How do you create a Docker image, and what are the key instructions in a Dockerfile?",
-  ["A Dockerfile is a text recipe of instructions Docker runs to build an image automatically; you build it "
-   "with `docker build -t <name> .`.",
-   "Key instructions: FROM (base image), WORKDIR, COPY, RUN, ENV, EXPOSE, VOLUME, and CMD / ENTRYPOINT.",
-   "Each instruction creates a cached layer; unchanged layers are reused for fast rebuilds. Order matters — put "
-   "rarely-changing steps first (COPY requirements.txt + RUN pip install BEFORE COPY . .) to keep dependencies "
-   "cached, and use a .dockerignore to keep junk out of the build context.",
-   "CMD sets a default, overridable command; ENTRYPOINT sets a fixed executable with args appended. "
-   "(Slides: Building Images — What is a Dockerfile? / Layers & Cache / CMD vs ENTRYPOINT)"]),
+  "A Singapore healthcare provider has deployed a Retrieval Augmented Generation (RAG) agent that also uses "
+  "persistent memory to help its care team query internal clinical guidelines. Clinicians report inconsistent "
+  "answer quality, and the product manager must review performance effectiveness before recommending fixes.",
+  "Explain the concept of 'performance effectiveness' in the context of a Retrieval Augmented Generation (RAG) "
+  "agent and describe two (2) factors - including how the agent's memory or retrieval is configured - that may "
+  "contribute to inconsistent retrieval and generation quality.",
+  ["Performance effectiveness is the degree to which the agent retrieves contextually relevant documents from its "
+   "knowledge base/memory and generates responses that are factually grounded, coherent and aligned with the "
+   "query intent.",
+   "Embedding / retrieval quality: a mismatch between the query and the stored document/memory chunks returns "
+   "irrelevant or incomplete context, degrading answer accuracy.",
+   "Chunk size and overlap, and how much conversation memory is retained: too little context omits critical "
+   "information while too much adds noise, both reducing relevance.",
+   "Source-document / memory quality: outdated or ambiguous content in the knowledge base or agent memory "
+   "increases inaccurate or contradictory responses. (Slides: Memory & Plugins / MCP and Tools - RAG)"]),
  ("K3",
-  "Docker runs containers on a single host. As applications grow you need to run and manage many containers "
-  "reliably across a cluster of machines.",
-  "What are the benefits of using Kubernetes for deploying and managing containerised applications?",
-  ["Docker runs containers on one host; Kubernetes orchestrates them across a cluster of nodes.",
-   "It self-heals (restarts failed Pods), scales workloads up and down, and performs rolling updates with no "
-   "downtime.",
-   "It is declarative: you describe the desired state in YAML and Kubernetes continuously makes it true; "
-   "kubectl is the CLI (get / describe / apply / delete / scale / rollout).",
-   "Architecture: a Control Plane (API Server, etcd, Scheduler, Controller Manager) drives Worker Nodes "
-   "(kubelet, kube-proxy) that run your Pods. "
-   "(Slides: Orchestration — Why Kubernetes? / How It Works — Cluster Architecture)"]),
+  "A Singapore bank has integrated an AI agent into its loan-processing product. The head of product is running a "
+  "post-deployment review to check whether the agent meets its intended performance objectives.",
+  "Describe three (3) methods that an organisation can apply to evaluate the effectiveness of an AI agent "
+  "application following deployment and state the primary metric associated with each method.",
+  ["Accuracy evaluation against a validated test dataset - primary metric: accuracy rate or F1-score.",
+   "User acceptance testing under real workflow conditions - primary metric: user-satisfaction score or "
+   "task-completion rate.",
+   "Latency and throughput testing under load - primary metric: average response time (ms) and sustained "
+   "concurrent requests.",
+   "Business-impact assessment against a pre-deployment baseline - primary metric: percentage change in a target "
+   "outcome such as processing time, error rate or cost per transaction. (Slides: Security / Paperclip audit - "
+   "activity_log and cost_events)"]),
  ("K4",
-  "In Kubernetes a Pod's IP address changes every time it restarts, scales or is updated, so clients cannot "
-  "target Pods directly. Services solve this.",
-  "Why do Pods need Services, and what are the main types of Service in Kubernetes and how does each function?",
-  ["Pod IPs change on every restart, scale or update, so you can't rely on them; a Service gives a stable "
-   "address and load-balances across the Pods it selects (by labels).",
-   "ClusterIP — internal only; reachable from inside the cluster for service-to-service traffic (the default).",
-   "NodePort — opens a fixed port (30000–32767) on every node, giving external access to the Service.",
-   "LoadBalancer — provisions an external (cloud) load balancer with a single external IP, extending NodePort; "
-   "the labs use ClusterIP and NodePort. "
-   "(Slide: Networking — Why Services?)"]),
+  "A Singapore telecommunications company is building an agentic AI support agent using skills, tools, subagents "
+  "and memory. The development team is designing the agent's underlying algorithm and needs guidance on how "
+  "algorithm and agent design affect expected performance.",
+  "Explain how the design of an algorithm (agent design) influences the performance of an agentic AI chatbot and "
+  "describe two (2) design considerations - drawn from prompt design, skills/tools orchestration, subagent "
+  "delegation or memory/context management - that the team should address during implementation.",
+  ["Agent design determines the sequence of operations the agent follows to interpret input, recall memory, "
+   "select skills/tools and construct a response; a well-structured design ensures each step produces "
+   "sufficient-quality output for accurate interactions.",
+   "Prompt engineering: the structure, specificity and scope of the system prompt directly influence response "
+   "quality; poor prompts produce ambiguous or off-topic output.",
+   "Skills and tool/MCP orchestration: which skills and tools the agent may invoke and under what conditions; weak "
+   "orchestration causes wrong-tool selection, redundant actions or loops.",
+   "Subagent delegation and context/memory management: delegating sub-tasks to worker subagents and keeping "
+   "conversation history, retrieved documents and memory within the model's token limit so earlier context is not "
+   "truncated. (Slides: Skills / MCP and Tools / Subagents & Delegation / Memory & Plugins)"]),
  ("K5",
-  "Not every workload runs forever. Alongside long-running Deployments, Kubernetes provides objects for work "
-  "that finishes.",
-  "What is the difference between a Job and a CronJob in Kubernetes, and when should each be used?",
-  ["A Job runs one or more Pods to completion — it runs to success and then stops, and does not restart on "
-   "success; use it for finite batch work (e.g. a one-off TaskBoard report or a database migration).",
-   "A CronJob runs Jobs on a schedule using standard cron syntax; use it for recurring scheduled work "
-   "(e.g. a nightly cleanup or backup).",
-   "Contrast with a Deployment, which keeps long-running Pods alive indefinitely (like a web server) — "
-   "Jobs and CronJobs are for work that is meant to finish. "
-   "(Slides: Persist & Schedule — Storage & Batch Workloads / Lab 19 — Jobs & CronJobs)"]),
+  "A Singapore SaaS company has incorporated AI agents (with crons and automations) into its product-management "
+  "workflow. The product director is running a quarterly review to assess whether the AI integration produced "
+  "measurable improvements.",
+  "Describe two (2) methods that an organisation can apply to evaluate process improvements to product management "
+  "following AI-agent integration and identify one (1) key indicator of improvement for each method.",
+  ["Baseline comparison analysis - measure the process before and after AI-agent integration on consistent "
+   "metrics; key indicator: percentage reduction in cycle time for targeted tasks.",
+   "Controlled pilot deployment - run the AI-assisted workflow against the original process within a defined "
+   "scope; key indicator: difference in output accuracy or error rate versus the control group.",
+   "Stakeholder feedback review - collect structured input on utility and reliability; key indicator: acceptance "
+   "rate of AI-generated recommendations without manual correction.",
+   "Return-on-investment analysis - quantify value against cost; key indicator: cost saving per unit of output or "
+   "revenue uplift. (Slides: Security / Budgets / Cron Jobs & Automation)"]),
+ ("K6",
+  "A newly established Singapore startup is building its product-development framework and is evaluating how AI "
+  "agents and agentic workflows can be applied at different stages of its product lifecycle.",
+  "Identify three (3) stages of the product development track where AI agent applications can be applied and "
+  "explain one (1) specific use case for each stage.",
+  ["Ideation and requirements gathering - an agent analyses customer feedback and market research to surface "
+   "recurring themes and unmet needs.",
+   "Design and prototyping - a multi-agent workflow drafts user stories, specifications and interface concepts, "
+   "reducing time-to-first-deliverable.",
+   "Testing and quality assurance - an agent generates test cases, detects anomalies and predicts high-risk defect "
+   "areas, improving coverage.",
+   "Post-launch monitoring and maintenance - autonomous agents (e.g. a Paperclip company of agents) monitor "
+   "metrics, summarise incidents and recommend corrective actions. (Slides: Multi-Agent Workflow / Track AI Tasks "
+   "/ Assign Task)"]),
 ]
 
-# ---------------------------------------------------------------- PRACTICAL (ACTIVITY-BASED)
 SCENARIO = (
- "You have joined a startup as a DevOps engineer. The team is shipping a small web application and you own the "
- "full path from a single container to a Kubernetes cluster: containerise a Flask app and publish it to Docker "
- "Hub, stand up a multi-service stack with Docker Compose, then migrate the workload to Kubernetes — deploying "
- "and troubleshooting a Pod, exposing it with a Service, and giving it persistent storage. Complete the four "
- "tasks below; each mirrors a hands-on activity you did in class. For each task, paste your Dockerfile / YAML "
- "and a screenshot of your output as evidence.")
+ "You are an automation engineer at a Singapore technology consultancy. Across this course you built and operated "
+ "autonomous AI agents on three platforms - Hermes Agent (Topic 1), OpenClaw (Topic 2) and Paperclip (Topic 3). "
+ "Complete the three tasks below; each maps to one platform and mirrors the hands-on labs you did in class. For "
+ "EACH task, carry out the implementation on the platform and PASTE A SCREENSHOT of your working implementation "
+ "as evidence, then write the required analysis.")
 
 # (label, criterion, task prompt, box caption, model-answer build steps citing the activity)
-BOX_CAP = "Paste your Dockerfile / YAML and a screenshot of your output in the box below"
+BOX_CAP = "Paste a SCREENSHOT of your implementation, plus your written analysis, in the box below"
 PRACTICAL = [
- ("Task 1", "LO1",
-  "Containerise a Flask application (Docker). You are given a simple Flask note-taking app (app.py and "
-  "requirements.txt). "
-  "Part A — Write a Dockerfile that: uses python:3.12-slim; sets WORKDIR to /app; copies requirements.txt and "
-  "installs deps with pip install --no-cache-dir; copies the rest of the code; sets ENV DATA_DIR=/app/data and "
-  "APP_PORT=5000; declares /app/data as a VOLUME; EXPOSEs 5000; and runs the app with python app.py. "
-  "Part B — Build the image as notes-app, run it with the container port mapped to 5001 on the host, add a note "
-  "with curl -X POST -d \"note=Hello Docker\" http://localhost:5001/add and view it with curl "
-  "http://localhost:5001/notes. "
-  "Part C — Tag the image as <your-username>/notes-app:v1, push it to Docker Hub, and state the command someone "
-  "else would run to pull and use it. (Labs 3-4 — Build image · Lab 9 — Docker Hub.)",
+ ("Task 1", "A1, A3",
+  "HERMES AGENT (Topic 1). A logistics client wants an autonomous LLM-based agent for shipment tracking and "
+  "customer enquiries. Using Hermes Agent as you did in the labs (Lab 1 Install, Lab 5 Providers & Model, Lab 3 "
+  "Memory, Lab 4 Skills, Lab 6 MCP & Tools), install and configure an agent connected to an LLM provider, then "
+  "analyse the algorithm underlying the LLM-based application and identify two (2) strengths and two (2) "
+  "limitations of such an application for the logistics client's operations. Paste a screenshot of your running "
+  "Hermes agent (e.g. 'hermes doctor' / the TUI with your model set).",
   BOX_CAP,
-  "Part A — Dockerfile:\n"
-  "FROM python:3.12-slim\n"
-  "WORKDIR /app\n"
-  "COPY requirements.txt .\n"
-  "RUN pip install --no-cache-dir -r requirements.txt\n"
-  "COPY . .\n"
-  "ENV DATA_DIR=/app/data\n"
-  "ENV APP_PORT=5000\n"
-  "VOLUME /app/data\n"
-  "EXPOSE 5000\n"
-  "CMD [\"python\", \"app.py\"]\n\n"
-  "Part B — Build & run:\n"
-  "docker build -t notes-app .\n"
-  "docker run -d -p 5001:5000 notes-app\n"
-  "curl -X POST -d \"note=Hello Docker\" http://localhost:5001/add\n"
-  "curl http://localhost:5001/notes\n\n"
-  "Part C — Push to Docker Hub:\n"
-  "docker tag notes-app <your-username>/notes-app:v1\n"
-  "docker login\n"
-  "docker push <your-username>/notes-app:v1\n"
-  "# Someone else pulls & runs:\n"
-  "docker pull <your-username>/notes-app:v1\n"
-  "docker run -p 5001:5000 <your-username>/notes-app:v1"),
- ("Task 2", "LO2",
-  "Deploy a multi-service site with Docker Compose. Stand up a WordPress site backed by a MySQL database. "
-  "Part A — Write a docker-compose.yml with two services: db using image mysql:8.0 with env "
-  "MYSQL_ROOT_PASSWORD=rootpass, MYSQL_DATABASE=wordpress, MYSQL_USER=wpuser, MYSQL_PASSWORD=wppass and a named "
-  "volume db-data mounted at /var/lib/mysql; and wordpress using image wordpress:latest, mapping host port 8080 "
-  "to container port 80, with env WORDPRESS_DB_HOST=db, WORDPRESS_DB_USER=wpuser, WORDPRESS_DB_PASSWORD=wppass, "
-  "WORDPRESS_DB_NAME=wordpress, and depends_on db. "
-  "Part B — Start the stack with docker compose up -d, confirm both services with docker compose ps, and open "
-  "http://localhost:8080 to reach the WordPress setup page. (Labs 10-12 — Docker Compose.)",
+  "Build steps (Hermes, from the labs): install ('curl -fsSL https://hermes-agent.nousresearch.com/install.sh | "
+  "bash'), setup ('hermes setup --portal'), select a model ('hermes model'), add memory/skills/tools ('hermes "
+  "skills install ...', MCP in ~/.hermes/config.yaml). Screenshot evidence: 'hermes doctor' green or the TUI. "
+  "(Labs 1, 3, 4, 5, 6.)\n"
+  "Analysis of the LLM algorithm: transformer-based network predicting token sequences from patterns learned in "
+  "training, handling diverse open-ended input without task-specific rules.\n"
+  "Strength 1 - interprets unstructured, varied customer enquiries without predefined decision trees.\n"
+  "Strength 2 - cross-task adaptability: one agent handles tracking, escalation and notification drafting.\n"
+  "Limitation 1 - hallucination: plausible but factually wrong output, a risk where responses must reflect live "
+  "shipment data.\n"
+  "Limitation 2 - dependence on training-data currency: without live tools/retrieval, answers may not reflect "
+  "real-time status."),
+ ("Task 2", "A2, A6",
+  "OPENCLAW (Topic 2). An e-commerce client runs an agentic AI chatbot for pre-sales enquiries and wants better "
+  "response efficiency. Using OpenClaw as you did in the labs (Lab 15 Install, Lab 17 Channels, Lab 18 Skills, Lab "
+  "19 Tools, Lab 22 Memory), build an agentic chatbot on a channel with skills/tools, then establish the "
+  "correlation between your agent's design (prompt, skills/tools orchestration, memory) and its operational "
+  "efficiency, and assess two (2) AI-driven improvements to enhance its performance in product management. Paste a "
+  "screenshot of your OpenClaw agent replying on a channel (e.g. Telegram).",
   BOX_CAP,
-  "Part A — docker-compose.yml:\n"
-  "services:\n"
-  "  db:\n"
-  "    image: mysql:8.0\n"
-  "    environment:\n"
-  "      MYSQL_ROOT_PASSWORD: rootpass\n"
-  "      MYSQL_DATABASE: wordpress\n"
-  "      MYSQL_USER: wpuser\n"
-  "      MYSQL_PASSWORD: wppass\n"
-  "    volumes:\n"
-  "      - db-data:/var/lib/mysql\n"
-  "  wordpress:\n"
-  "    image: wordpress:latest\n"
-  "    ports:\n"
-  "      - \"8080:80\"\n"
-  "    environment:\n"
-  "      WORDPRESS_DB_HOST: db\n"
-  "      WORDPRESS_DB_USER: wpuser\n"
-  "      WORDPRESS_DB_PASSWORD: wppass\n"
-  "      WORDPRESS_DB_NAME: wordpress\n"
-  "    depends_on:\n"
-  "      - db\n"
-  "volumes:\n"
-  "  db-data:\n\n"
-  "Part B — Run & verify:\n"
-  "docker compose up -d\n"
-  "docker compose ps        # both services Up\n"
-  "# Browse http://localhost:8080 -> WordPress setup page"),
- ("Task 3", "LO3",
-  "Deploy and troubleshoot a Pod in Kubernetes. "
-  "1) Create the namespace ckad-prep. 2) In it, create a Pod named mypod with image nginx:2.3.5 exposing port "
-  "80. 3) Identify why the container will not start and write the root cause to pod-error.txt. 4) Change the "
-  "Pod's image to nginx:1.15.12. 5) List the Pod and confirm it is Running. 6) Shell into the container, run ls, "
-  "note the output, and exit. 7) Retrieve the Pod's IP address. 8) Run a temporary busybox Pod, shell in and "
-  "wget the nginx Pod on port 80. 9) Show the logs of mypod. 10) Delete the Pod and the namespace. "
-  "(Labs 13-14 — Pods & Namespaces.)",
+  "Build steps (OpenClaw, from the labs): install ('npm install -g openclaw@latest', 'openclaw onboard'), add a "
+  "channel ('openclaw channel add telegram --token <TOKEN>', 'openclaw channel start telegram'), add a skill "
+  "('openclaw skills add <name>'), connect a tool and enable memory. Screenshot evidence: the bot replying in the "
+  "channel. (Labs 15, 17, 18, 19, 22.)\n"
+  "Correlation: prompt architecture, context/memory configuration and skill/tool orchestration drive accuracy, "
+  "relevance and latency; shallow context or weak prompts produce off-topic answers needing human follow-up, "
+  "lowering efficiency; good memory + structured retrieval resolves enquiries in fewer turns.\n"
+  "Improvement 1 - integrate a product knowledge base via a RAG tool so the agent surfaces accurate, current "
+  "specifications instead of static training data.\n"
+  "Improvement 2 - add a feedback loop that flags low-confidence responses for human review and uses validated "
+  "corrections (and memory) to refine behaviour over time."),
+ ("Task 3", "A4, A5",
+  "PAPERCLIP (Topic 3). A financial-services client is choosing between a retrieval augmented generation (RAG) "
+  "approach and a standard LLM assistant to run its client-advisory product as a company of AI agents. Using "
+  "Paperclip as you did in the labs (Lab 27 Setup, Lab 28 Connect OpenAI Codex, Lab 31 Automate Hiring, Lab 32 "
+  "Setup Agents), set up the company of agents, then evaluate the RAG approach versus the standard LLM assistant "
+  "(strengths and limitations) and assess the feasibility of implementing the RAG approach within the client's "
+  "product and its maintenance processes. Paste a screenshot of your Paperclip dashboard (company + agents).",
   BOX_CAP,
-  "1. Create namespace:\n"
-  "kubectl create namespace ckad-prep\n"
-  "2. Create the Pod (bad image):\n"
-  "kubectl run mypod --image=nginx:2.3.5 --port=80 -n ckad-prep\n"
-  "3. Diagnose — image nginx:2.3.5 does not exist -> ImagePullBackOff:\n"
-  "kubectl get pod -n ckad-prep            # STATUS: ImagePullBackOff\n"
-  "kubectl describe pod mypod -n ckad-prep # Events: manifest not found\n"
-  "echo \"Image nginx:2.3.5 does not exist on Docker Hub.\" > pod-error.txt\n"
-  "4. Fix the image:\n"
-  "kubectl set image pod mypod mypod=nginx:1.15.12 -n ckad-prep\n"
-  "5. Verify Running:\n"
-  "kubectl get pod -n ckad-prep            # STATUS: Running\n"
-  "6. Shell in (run ls, then exit):\n"
-  "kubectl exec -it mypod -n ckad-prep -- /bin/sh\n"
-  "7. Pod IP:\n"
-  "kubectl get pods -o wide -n ckad-prep\n"
-  "8. wget from a temporary busybox Pod:\n"
-  "kubectl run busybox --image=busybox --rm -it --restart=Never -n ckad-prep -- wget -O- <pod-ip>:80\n"
-  "9. Render logs:\n"
-  "kubectl logs mypod -n ckad-prep\n"
-  "10. Clean up:\n"
-  "kubectl delete pod mypod -n ckad-prep\n"
-  "kubectl delete namespace ckad-prep"),
- ("Task 4", "LO4",
-  "Kubernetes Services and persistent storage. "
-  "Part A — Create a deployment named myapp with 2 replicas of image nginx exposing container port 80. Expose "
-  "it so it is reachable from inside the cluster, and verify with a temporary busybox Pod running wget against "
-  "the Service. Then change the Service type so the Pods are reachable from outside the cluster and wget it "
-  "from outside. "
-  "Part B — Create a PersistentVolume my-pv of 1Gi using hostPath /tmp/k8s-data, and a PersistentVolumeClaim "
-  "my-pvc requesting 500Mi; verify the PVC is Bound. Create a Pod storage-pod (image busybox) that mounts the "
-  "PVC at /data and writes \"hello from storage\" to /data/message.txt. Delete and recreate the Pod, verify the "
-  "data persists, then clean up all resources. (Labs 15 — Deployments · 17 — Services · 18 — Storage.)",
-  BOX_CAP,
-  "Part A — Routing traffic:\n"
-  "kubectl create deployment myapp --image=nginx --replicas=2 --port=80\n"
-  "kubectl expose deployment myapp --port=80 --target-port=80          # ClusterIP\n"
-  "kubectl run tmp --image=busybox --rm -it --restart=Never -- wget -O- myapp:80\n"
-  "# External access — switch to NodePort:\n"
-  "kubectl delete service myapp\n"
-  "kubectl expose deployment myapp --type=NodePort --port=80 --target-port=80\n"
-  "kubectl get svc myapp                      # note the 3xxxx NodePort\n"
-  "wget -O- localhost:<NodePort>\n\n"
-  "Part B — Persistent storage:\n"
-  "# pv.yaml\n"
-  "apiVersion: v1\n"
-  "kind: PersistentVolume\n"
-  "metadata: { name: my-pv }\n"
-  "spec:\n"
-  "  capacity: { storage: 1Gi }\n"
-  "  accessModes: [ReadWriteOnce]\n"
-  "  hostPath: { path: /tmp/k8s-data }\n"
-  "# pvc.yaml\n"
-  "apiVersion: v1\n"
-  "kind: PersistentVolumeClaim\n"
-  "metadata: { name: my-pvc }\n"
-  "spec:\n"
-  "  accessModes: [ReadWriteOnce]\n"
-  "  resources: { requests: { storage: 500Mi } }\n"
-  "kubectl apply -f pv.yaml && kubectl apply -f pvc.yaml\n"
-  "kubectl get pv,pvc                          # STATUS: Bound\n"
-  "# storage-pod mounts my-pvc at /data and writes message.txt\n"
-  "kubectl apply -f pod.yaml\n"
-  "kubectl exec storage-pod -- cat /data/message.txt   # hello from storage\n"
-  "kubectl delete pod storage-pod && kubectl apply -f pod.yaml\n"
-  "kubectl exec storage-pod -- cat /data/message.txt   # data persists\n"
-  "kubectl delete pod storage-pod; kubectl delete pvc my-pvc; kubectl delete pv my-pv"),
+  "Build steps (Paperclip, from the labs): self-host ('git clone https://github.com/paperclipai/paperclip.git', "
+  "'docker compose -f docker-compose.quickstart.yml up --build', open http://localhost:3100), connect the OpenAI "
+  "Codex adapter, hire/approve agents, set up agents with mandates and budgets. Screenshot evidence: the dashboard "
+  "showing the company and active agents. (Labs 27, 28, 31, 32.)\n"
+  "RAG strengths: retrieves from a curated, firm-maintained corpus before generating, reducing hallucination and "
+  "improving auditable factual accuracy - important in regulated advisory contexts.\n"
+  "RAG limitation: operational overhead of maintaining and indexing the corpus; outdated or poorly indexed "
+  "documents degrade retrieval quality.\n"
+  "Standard LLM assistant strengths: faster to deploy, no document pipeline; limitation: no access to current "
+  "firm data and no auditable response provenance (a regulatory concern).\n"
+  "Feasibility: RAG is more suitable for client advisory given accurate, retrievable, auditable answers; "
+  "implementation must budget for ongoing corpus curation, access-control management and version governance, "
+  "governed by Paperclip's approval gates and budget rails as core maintenance obligations."),
 ]
 
-# ---------------------------------------------------------------- doc helpers
 def base_doc():
     doc = Document()
     n = doc.styles["Normal"]; n.font.name = "Arial"; n.font.size = Pt(11)
@@ -433,11 +369,18 @@ def build_wa(answers):
     para(doc, "Short-Answer Questions (Knowledge)", size=13, bold=True, color=BRAND, after=4)
     para(doc, "Answer all questions in your own words. Each question tests underpinning knowledge covered in the "
               "course slides.", size=10.5, italic=True, color=GREY, after=8)
+    # Pagination is EXPLICIT — two questions to a page on the paper, one model answer to a
+    # page in the key. Do not swap this for Word's keepNext/cantSplit: Word pushes an
+    # oversized box to the next page, but Google Docs draws the border anyway and prints the
+    # question text and the page footer straight THROUGH it. See SKILL.md → Pagination.
+    per_page = 1 if answers else 2
     for i, (crit, ctx, q, pts) in enumerate(WRITTEN, 1):
         para(doc, f"Question {i}:", size=11.5, bold=True, after=2, before=6)
         para(doc, ctx, size=11, after=3)
         para(doc, f"{q}  ({crit})", size=11, bold=True, after=4)
         answer_box(doc, lines=pts if answers else None)
+        if i % per_page == 0 and i < len(WRITTEN):
+            page_break(doc)
     suffix = A_VER if answers else Q_VER
     name = (f"Answer to WA (SAQ) - {TITLE} - {suffix}.docx" if answers
             else f"WA (SAQ) - {TITLE} - {suffix}.docx")
@@ -454,18 +397,22 @@ def build_pp(answers):
     para(doc, f"Course Code: {COURSE_CODE}", size=11, color=GREY, align=WD_ALIGN_PARAGRAPH.CENTER, after=12)
     if not answers:
         # Page 2 — candidate information, instructions and grading; the problem begins on the next page.
-        candidate_block(doc); instructions(doc, "90 minutes")
+        candidate_block(doc); instructions(doc, "1 hour")
         grading(doc, "Candidate has successfully completed all PP tasks and can explain the overall "
                      "functions and features used to achieve them.")
         page_break(doc)
     para(doc, "Practical Problem", size=13, bold=True, color=BRAND, after=4)
     para(doc, "Scenario", size=11.5, bold=True, after=2)
     para(doc, SCENARIO, size=11, after=8)
-    for label, crit, prompt, cap, pts in PRACTICAL:
+    # Practical tasks are long and their boxes are tall, so they get a page each — on the
+    # paper AND in the key. Same rule as the WA: the page break is ours, not the renderer's.
+    for i, (label, crit, prompt, cap, pts) in enumerate(PRACTICAL, 1):
         para(doc, f"{label} ({crit}):", size=11.5, bold=True, after=2, before=6)
         para(doc, prompt, size=11, after=3)
         para(doc, cap, size=10.5, italic=True, color=GREY, after=4)
         answer_box(doc, code=pts if answers else None, height_pt=150)
+        if i < len(PRACTICAL):
+            page_break(doc)
     suffix = A_VER if answers else Q_VER
     name = (f"Answer to PP Assessment - {TITLE} - {suffix}.docx" if answers
             else f"PP Assessment - {TITLE} - {suffix}.docx")

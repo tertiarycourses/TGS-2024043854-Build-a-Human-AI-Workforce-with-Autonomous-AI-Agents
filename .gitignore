@@ -27,3 +27,10 @@ __pycache__/
 # OS / editor
 .DS_Store
 .playwright-mcp/
+
+# Superseded courseware binaries + transient locks (kept locally, not in git)
+courseware/archive/
+.claude/scheduled_tasks.lock
+
+# Assessment reference material (confidential — Drive only)
+/reference/

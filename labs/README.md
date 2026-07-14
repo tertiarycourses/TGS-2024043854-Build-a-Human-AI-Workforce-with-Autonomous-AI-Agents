@@ -1,43 +1,83 @@
-# Paperclip Labs — Build a Human-AI Workforce with Autonomous AI Agents
+# Labs — Build a Human-AI Workforce with Autonomous AI Agents
 
-These five hands-on labs take you from an empty laptop to a running **AI company**
-governed by you. You will self-host **Paperclip** — "an operating system for running a
-company of AI agents" — with **Docker Compose**, then hire a CEO agent, approve its
-strategy, staff a team of specialist agents, and finally govern the whole operation with
-budgets, safety rails and a full audit trail.
+34 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
+video and builds toward one realistic use case. The course runs over **2 days**:
 
-> **What is Paperclip?** You set an objective and a monthly budget, hire AI agents to do
-> the work, and stay in control through **approval gates**. You are *the Board*. A **CEO
-> agent** reports to you and proposes strategy; **specialist agents** report to the CEO and
-> execute tasks. Work flows across a board: `todo → in_progress → in_review → done`.
+- **Day 1** — Topic 1 (Hermes Agent) + Topic 2 (OpenClaw)
+- **Day 2** — Topic 3 (Paperclip) + Final Assessment
 
-Reference crash course: <https://agentfactory.panaversity.org/docs/workforce-with-paperclip-crash-course>
-Official docs: <https://docs.paperclip.ing>
+| Topic | Labs | Platform | Running use case |
+|-------|------|----------|------------------|
+| 1 | 01–14 | **Hermes Agent** (Nous Research) | *Athena* — an always-on personal chief-of-staff |
+| 2 | 15–26 | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
+| 3 | 27–34 | **Paperclip** | *Nimbus Coffee, Inc.* — a zero-human company you govern |
 
----
-
-## The 5 Labs
-
-| # | Lab | You will… | Est. |
-|---|-----|-----------|------|
-| 1 | [Install Paperclip with Docker Compose & Create Your Company](lab1-install-paperclip/README.md) | Self-host Paperclip locally, then set a goal + monthly budget | ~25 min |
-| 2 | [Hire Your CEO Agent](lab2-hire-ceo/README.md) | Connect a local agent adapter and approve your first hire | ~15 min |
-| 3 | [Approve the Company Strategy](lab3-approve-strategy/README.md) | Have the CEO draft a strategy; review and move it to `done` | ~15 min |
-| 4 | [Build the Team & Execute Real Work](lab4-hire-team-execute/README.md) | CEO hires specialists, delegates tasks, agents write real files | ~25 min |
-| 5 | [Govern the Company: Budgets, Safety Rails & Audit](lab5-govern-audit/README.md) | Set caps, trigger the 80%/100% rails, and query the audit trail in Postgres | ~20 min |
+Do each topic's labs **in order** — later labs build on what earlier ones set up.
 
 ---
 
-## Prerequisites (all labs)
+## Topic 1 — Hermes Agent (Labs 01–14)
 
-- **Docker Desktop** running — <https://www.docker.com/products/docker-desktop/>
-- **Git** — to clone the Paperclip repository.
-- At least **one AI coding CLI** installed and logged in for the agent adapter, e.g.
-  **Claude Code**, **OpenCode**, **Codex**, or **Gemini CLI**. (Agents reuse your existing
-  logins — no extra API keys needed to start.)
-- A terminal, and about **90 minutes** total.
+| # | Lab |
+|---|-----|
+| 1 | [Install and Setup Hermes](lab01-hermes-install/README.md) |
+| 2 | [Deployment — Local Install & Hermes Desktop App](lab02-hermes-deployment/README.md) |
+| 3 | [Memory and Plugins](lab03-hermes-memory-plugins/README.md) |
+| 4 | [Skills](lab04-hermes-skills/README.md) |
+| 5 | [Providers & Model](lab05-hermes-providers-models/README.md) |
+| 6 | [MCP and Tools](lab06-hermes-mcp-tools/README.md) |
+| 7 | [Cron Jobs & Automation](lab07-hermes-crons-automation/README.md) |
+| 8 | [Subagents & Delegation](lab08-hermes-subagents-delegation/README.md) |
+| 9 | [Profile and Kanban](lab09-hermes-profile-kanban/README.md) |
+| 10 | [Security](lab10-hermes-security/README.md) |
+| 11 | [Use Case — Make a Video with Hyperframe](lab11-hermes-usecase-video/README.md) |
+| 12 | [Visualization](lab12-hermes-visualization/README.md) |
+| 13 | [Build a Multi-Agent Workflow](lab13-hermes-multi-agent-workflow/README.md) |
+| 14 | [Webhook](lab14-hermes-webhook/README.md) |
 
-Do the labs **in order** — each one builds on the company you created in the previous lab.
+## Topic 2 — OpenClaw (Labs 15–26)
+
+| # | Lab |
+|---|-----|
+| 15 | [Install OpenClaw](lab15-openclaw-install/README.md) |
+| 16 | [Models & Providers](lab16-openclaw-models-providers/README.md) |
+| 17 | [Channels](lab17-openclaw-channels/README.md) |
+| 18 | [Skills](lab18-openclaw-skills/README.md) |
+| 19 | [Tools & Integrations](lab19-openclaw-tools-integrations/README.md) |
+| 20 | [Commands](lab20-openclaw-commands/README.md) |
+| 21 | [Cron Jobs & Heartbeat](lab21-openclaw-crons-heartbeat/README.md) |
+| 22 | [Memory & Context](lab22-openclaw-memory/README.md) |
+| 23 | [Security](lab23-openclaw-security/README.md) |
+| 24 | [Multi-Agent Workforce](lab24-openclaw-multi-agent/README.md) |
+| 25 | [Dreaming — Idle Reflection & Self-Improvement](lab25-openclaw-dreaming/README.md) |
+| 26 | [Use Cases & Key Functions](lab26-openclaw-usecases/README.md) |
+
+## Topic 3 — Paperclip (Labs 27–34)
+
+| # | Lab |
+|---|-----|
+| 27 | [Setup Paperclip](lab27-paperclip-setup/README.md) |
+| 28 | [Connect OpenAI Codex to Paperclip](lab28-paperclip-connect-codex/README.md) |
+| 29 | [Configure Paperclip](lab29-paperclip-configure/README.md) |
+| 30 | [Track AI Tasks](lab30-paperclip-track-tasks/README.md) |
+| 31 | [Automate AI Hiring](lab31-paperclip-automate-hiring/README.md) |
+| 32 | [Setup AI Agents](lab32-paperclip-setup-agents/README.md) |
+| 33 | [Security](lab33-paperclip-security/README.md) |
+| 34 | [Assign Task](lab34-paperclip-assign-task/README.md) |
+
+---
+
+## Lab convention
+
+Every lab follows the same structure: **Objective → Prerequisites → Estimated Time →
+📺 Reference Video → Steps (copy-pasteable) → Verification / Expected Output →
+Troubleshooting → Exercise / Challenge**. Each lab links its reference video.
+
+> **Note on commands:** commands are anchored on each platform's official docs
+> ([Hermes](https://hermes-agent.nousresearch.com/docs/) ·
+> [OpenClaw](https://docs.openclaw.ai/) · [Paperclip](https://docs.paperclip.ing)). These
+> platforms move fast; a few version-specific commands are flagged in-lab with a "verify"
+> note — always trust the reference video and `--help`/`doctor` output on your build.
 
 ---
 

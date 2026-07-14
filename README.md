@@ -2,16 +2,23 @@
 
 **WSQ Course · TGS-2024043854 · Tertiary Infotech Academy Pte Ltd**
 
-Hands-on courseware for running a **company of autonomous AI agents** with
-**[Paperclip](https://docs.paperclip.ing)** — "an operating system for running a company of
-AI agents." Learners self-host Paperclip locally with **Docker Compose**, then act as the
-**Board**: hire a **CEO agent**, approve its **strategy**, staff a **team** of specialists,
-watch them produce real deliverables, and govern the whole operation with **budgets, safety
-rails and a full audit trail**.
+Hands-on courseware for building and governing **autonomous AI agents** across **three
+platforms** — **Hermes Agent** (Nous Research), **OpenClaw**, and **Paperclip**. Learners
+install each platform, connect models, give agents memory, skills, tools, schedules and
+security, and run them in **multi-agent mode** — delivering the WSQ competency *Artificial
+Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 
-> You set the goal and the budget. A CEO agent proposes strategy; specialist agents do the
-> work. Every important decision — hiring, strategy, budget — passes a **human approval
-> gate**. Work flows across a board: `todo → in_progress → in_review → done`.
+> **34 labs, 3 topics, 2 days.** Day 1 covers Topic 1 (Hermes Agent) and Topic 2 (OpenClaw);
+> Day 2 covers Topic 3 (Paperclip) and the final assessment. Each lab follows a reference
+> video.
+
+---
+
+## Learning outcomes
+
+- **LO1** — Analyse AI (LLM-based) applications across a range of industries to identify their capabilities and limitations.
+- **LO2** — Establish the relationship between AI algorithm/agent design and chatbot/agent efficiency.
+- **LO3** — Evaluate and improve the effectiveness of AI (RAG and agent) applications in product development.
 
 ---
 
@@ -19,59 +26,61 @@ rails and a full audit trail**.
 
 | Path | Contents |
 |------|----------|
-| [LEARNER_GUIDE.md](LEARNER_GUIDE.md) | Complete step-by-step guide: machine prep → Docker Compose install → all 5 labs → troubleshooting → command cheat-sheet |
-| [labs/](labs/) | The 5 hands-on labs, one folder each, plus a lab [index](labs/README.md) |
-| [labs/lab1-install-paperclip/](labs/lab1-install-paperclip/) | Install Paperclip via Docker Compose + create a company (ships a documented `docker-compose.yml`) |
-| [.claude/](.claude/) | Imported WSQ courseware toolchain (skills, agents, hooks, commands) for regenerating the slide deck / Lesson Plan / Learner Guide / assessments |
+| [labs/](labs/) | **34 hands-on labs** across three platforms, with reference videos, plus the lab [index](labs/README.md) |
+| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.1**) — `Human-AI Workforce with Autonomous AI Agents-v1.1.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
+| [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide (step-by-step for all 34 labs) |
+| [.claude/](.claude/) | WSQ courseware toolchain (single-source build + assessment generators) |
+
+The confidential `assessment/` folder (question papers + answer keys) is **git-ignored** and
+Drive-only — never pushed to GitHub.
 
 ---
 
-## The 5 Labs
+## The three topics (34 labs)
 
-| # | Lab | You will… | Est. |
-|---|-----|-----------|------|
-| 1 | [Install Paperclip with Docker Compose & Create Your Company](labs/lab1-install-paperclip/README.md) | Self-host Paperclip locally, then set a goal + monthly budget | ~25 min |
-| 2 | [Hire Your CEO Agent](labs/lab2-hire-ceo/README.md) | Connect a local agent adapter and approve your first hire | ~15 min |
-| 3 | [Approve the Company Strategy](labs/lab3-approve-strategy/README.md) | Have the CEO draft a strategy; review and move it to `done` | ~15 min |
-| 4 | [Build the Team & Execute Real Work](labs/lab4-hire-team-execute/README.md) | CEO hires specialists, delegates tasks, agents write real files | ~25 min |
-| 5 | [Govern the Company: Budgets, Safety Rails & Audit](labs/lab5-govern-audit/README.md) | Set caps, trigger the 80%/100% rails, query the audit trail in Postgres | ~20 min |
+| Topic | Labs | Platform | Running use case |
+|-------|------|----------|------------------|
+| 1 | [01–14](labs/README.md#topic-1--hermes-agent-labs-0114) | **Hermes Agent** (Nous Research) | *Athena* — a personal chief-of-staff agent |
+| 2 | [15–26](labs/README.md#topic-2--openclaw-labs-1526) | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
+| 3 | [27–34](labs/README.md#topic-3--paperclip-labs-2734) | **Paperclip** | *Nimbus Coffee, Inc.* — a zero-human company you govern |
 
-Do the labs **in order** — each builds on the company created in the previous one.
+See the [labs index](labs/README.md) for the full per-lab list with video links. Do each
+topic's labs **in order**.
 
 ---
 
-## Quick start
+## Quick start (per platform)
 
 ```bash
-# 1. Install Docker Desktop and an AI coding CLI (Claude Code / OpenCode / Codex / Gemini), then:
-git clone https://github.com/paperclipai/paperclip.git
-cd paperclip
-docker compose -f docker-compose.quickstart.yml up --build
-# 2. Open the dashboard:
-#    http://localhost:3100
-```
+# Hermes Agent (macOS/Linux/WSL2)
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash && hermes setup --portal
 
-Full prerequisites and click-by-click steps are in **[LEARNER_GUIDE.md](LEARNER_GUIDE.md)**.
+# OpenClaw (needs Node.js 24)
+npm install -g openclaw@latest && openclaw onboard
+
+# Paperclip (needs Docker Desktop)
+git clone https://github.com/paperclipai/paperclip.git && cd paperclip \
+  && docker compose -f docker-compose.quickstart.yml up --build   # http://localhost:3100
+```
 
 ---
 
 ## Prerequisites
 
-- **Docker Desktop** (running) — <https://www.docker.com/products/docker-desktop/>
-- **Git**
-- **One AI coding CLI**, installed and logged in — **Claude Code** (recommended), OpenCode,
-  Codex, or Gemini CLI. Agents reuse this login, so **no extra API keys** are needed to start.
-- ~90 minutes for all five labs.
+- A laptop (Windows 10/11, macOS 12+, or Ubuntu 22.04+) with admin/sudo rights.
+- **Node.js 24** (OpenClaw) and **Docker Desktop** (Paperclip); a terminal.
+- At least one LLM provider — Claude Code / OpenAI Codex / OpenRouter / MiniMax / DeepSeek login or API key.
+- A free **Telegram** account for the channel labs.
 
 ---
 
 ## References
 
-- Crash course: <https://agentfactory.panaversity.org/docs/workforce-with-paperclip-crash-course>
-- Paperclip docs: <https://docs.paperclip.ing>
-- Paperclip source: <https://github.com/paperclipai/paperclip>
+- Hermes Agent: <https://hermes-agent.nousresearch.com/docs/>
+- OpenClaw: <https://docs.openclaw.ai/>
+- Paperclip: <https://docs.paperclip.ing>
 - Course page: <https://www.tertiaryinfotech.com>
 
 ---
 
-<sub>© 2026 Tertiary Infotech Academy Pte Ltd (UEN 201526454M) · WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · www.tertiaryinfotech.com</sub>
+<sub>© 2026 Tertiary Infotech Academy Pte Ltd (UEN 201200696W) · WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · www.tertiaryinfotech.com</sub>
