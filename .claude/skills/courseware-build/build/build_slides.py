@@ -599,6 +599,7 @@ _SHOTS={2:[("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127
            ("hermes-channels.png","Channels","The Channels page (127.0.0.1:9119/channels) — 31 channels from one gateway; credentials in ~/.hermes/.env"),
            ("hermes-achievements.png","Achievements","The Achievements page — Hermes gamifies agent mastery with tiers (Copper → Silver → Gold → Diamond → Olympian) and unlockable badges")],
         4:[("hermes-skills.png","Skills","The Skills page of a live Hermes install — 97 skills, filterable by category, plus Learn-a-skill and New-skill")],
+        5:[("hermes-env.png","Providers & API Keys","The Keys page (127.0.0.1:9119/env) — OAuth provider logins (Nous Portal, OpenAI, MiniMax, Anthropic, …) and API keys, stored in ~/.hermes/.env")],
         9:[("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")]}
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
