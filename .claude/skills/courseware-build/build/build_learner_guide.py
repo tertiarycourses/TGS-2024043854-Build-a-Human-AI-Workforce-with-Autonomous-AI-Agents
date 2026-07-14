@@ -267,7 +267,13 @@ for kind,*rest in B:
         for x in rest[0]: doc.add_paragraph(x,style="List Bullet")
     elif kind=="steps":
         for i,(instr,cmd) in enumerate(rest[0],1):
-            para=doc.add_paragraph(style="List Number"); para.add_run(instr)
+            # Literal per-lab step numbers (Word's List Number style numbers
+            # continuously across the whole document — 1..N must restart per lab).
+            para=doc.add_paragraph()
+            para.paragraph_format.left_indent=Pt(18)
+            para.paragraph_format.space_after=Pt(4)
+            r=para.add_run(f"{i}.  "); r.bold=True
+            para.add_run(instr)
             if cmd: code_para(cmd)
     elif kind=="code": code_para(rest[0])
     elif kind=="note":
