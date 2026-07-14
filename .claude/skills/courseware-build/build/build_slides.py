@@ -55,7 +55,7 @@ DK_FAINT= RGBColor(0x2A,0x2C,0x28)   # divider rules
 DK_DIM  = RGBColor(0x8A,0x8D,0x86)   # captions/footers
 DK_GREEN= RGBColor(0x4A,0xDE,0x80)   # success/test-it accents
 
-# Module-level theme switch — flipped on for Topic 1 (Hermes) in the topic loop.
+# Module-level theme switch — dark "masterclass" theme for the ENTIRE deck.
 THEME={"dark":False}
 def _bg():   return DK_BG    if THEME["dark"] else WHITE
 def _panel():return DK_PANEL if THEME["dark"] else LIGHT
@@ -63,6 +63,7 @@ def _ink():  return DK_IVORY if THEME["dark"] else INK
 def _grey(): return DK_DIM   if THEME["dark"] else GREY
 def _line(): return DK_FAINT if THEME["dark"] else LINE
 def _acc(c): return DK_AMBER if THEME["dark"] else c
+THEME["dark"]=True   # whole deck renders in the dark masterclass theme
 
 prs=Presentation(); prs.slide_width=Inches(13.333); prs.slide_height=Inches(7.5)
 SW,SH=prs.slide_width,prs.slide_height
@@ -121,7 +122,7 @@ def _logo(name):
 
 # ---------------- slide templates ----------------
 def cover():
-    s=slide(); rect(s,0,0,SW,SH,WHITE)
+    s=slide(); rect(s,0,0,SW,SH,_bg())
     rect(s,0,0,SW,Inches(0.22),BLUE); rect(s,0,Inches(7.28),SW,Inches(0.22),TEAL)
     org=_logo("tertiary-infotech-logo.png")
     if org: s.shapes.add_picture(org,Inches(0.85),Inches(0.7),height=Inches(1.05))
@@ -129,14 +130,14 @@ def cover():
     badge=_logo("wsq-badge.png") or _logo("course-badge.png")
     if badge:
         s.shapes.add_picture(badge,Inches(10.05),Inches(0.6),width=Inches(2.5))
-    txt(s,Inches(0.9),Inches(2.3),Inches(12),Inches(0.6),[[("COURSE SLIDES  ·  WSQ",16,BLUE,True)]])
-    txt(s,Inches(0.9),Inches(2.85),Inches(12.0),Inches(1.9),[[(C.TITLE,40,INK,True)]])
+    txt(s,Inches(0.9),Inches(2.3),Inches(12),Inches(0.6),[[("COURSE SLIDES  ·  WSQ",16,_acc(BLUE),True)]])
+    txt(s,Inches(0.9),Inches(2.85),Inches(12.0),Inches(1.9),[[(C.TITLE,40,_ink(),True)]])
     rect(s,Inches(0.92),Inches(4.75),Inches(2.4),Inches(0.06),TEAL)
     txt(s,Inches(0.9),Inches(5.05),Inches(12),Inches(1.4),
-        [[(f"WSQ Course Code: {C.COURSE_CODE}",16,GREY,False)],
-         [("Conducted by Tertiary Infotech Academy Pte Ltd  ·  UEN 201200696W",14,GREY,False)]],space=6)
-    txt(s,Inches(0.9),Inches(6.5),Inches(12),Inches(0.4),[[(f"Version {C.VERSION}  ·  {C.VERSION_DATE}",12,GREY,False)]])
-    txt(s,Inches(0.9),Inches(6.85),Inches(12),Inches(0.34),[[("© 2026 Tertiary Infotech Academy Pte Ltd. All rights reserved.  ·  www.tertiarycourses.com.sg",10,GREY,False)]])
+        [[(f"WSQ Course Code: {C.COURSE_CODE}",16,_grey(),False)],
+         [("Conducted by Tertiary Infotech Academy Pte Ltd  ·  UEN 201200696W",14,_grey(),False)]],space=6)
+    txt(s,Inches(0.9),Inches(6.5),Inches(12),Inches(0.4),[[(f"Version {C.VERSION}  ·  {C.VERSION_DATE}",12,_grey(),False)]])
+    txt(s,Inches(0.9),Inches(6.85),Inches(12),Inches(0.34),[[("© 2026 Tertiary Infotech Academy Pte Ltd. All rights reserved.  ·  www.tertiarycourses.com.sg",10,_grey(),False)]])
 
 def section(kicker,title,n,sub="",accent=BLUE):
     s=slide(); rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),SH,accent)
@@ -183,10 +184,10 @@ def cards3(title,cards,kicker):
         bullets(s,x+Inches(0.25),Inches(2.95),Inches(3.2),Inches(3.4),c[2],size=14,color=_ink(),mcolor=col,gap=9)
     footer(s); return s
 def big_statement(line1,line2,kicker,color=BLUE):
-    s=slide(); rect(s,0,0,SW,SH,WHITE); rect(s,0,0,Inches(0.28),SH,color)
+    s=slide(); rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),SH,color)
     txt(s,Inches(1.1),Inches(2.2),Inches(11),Inches(0.5),[[(kicker,16,color,True)]])
-    txt(s,Inches(1.1),Inches(2.8),Inches(11.3),Inches(2.4),[[(line1,38,INK,True)]])
-    if line2: txt(s,Inches(1.12),Inches(4.9),Inches(11),Inches(1.2),[[(line2,20,GREY,False)]])
+    txt(s,Inches(1.1),Inches(2.8),Inches(11.3),Inches(2.4),[[(line1,38,_ink(),True)]])
+    if line2: txt(s,Inches(1.12),Inches(4.9),Inches(11),Inches(1.2),[[(line2,20,_grey(),False)]])
     footer(s); return s
 import math
 PALETTE=[BLUE,TEAL,VIOLET,AMBER]
@@ -220,10 +221,10 @@ def flow_h(title,steps,kicker=None,color=BLUE):
     cw=int((TOTW-gap*(n-1))/n); y=Inches(2.55); ch=Inches(3.15); bd=Inches(0.82)
     for i,st in enumerate(steps):
         x=int(X0+(cw+gap)*i)
-        rect(s,x,y,cw,ch,LIGHT); rect(s,x,y,cw,Inches(0.1),color)
+        rect(s,x,y,cw,ch,_panel()); rect(s,x,y,cw,Inches(0.1),color)
         oval(s,int(x+cw/2-bd/2),int(y+Inches(0.42)),bd,bd,color)
         txt(s,int(x+cw/2-bd/2),int(y+Inches(0.42)),bd,bd,[[(str(i+1),30,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-        txt(s,x+Inches(0.16),int(y+Inches(1.55)),cw-Inches(0.32),int(ch-Inches(1.7)),[[(st,14,INK,False)]],align=PP_ALIGN.CENTER)
+        txt(s,x+Inches(0.16),int(y+Inches(1.55)),cw-Inches(0.32),int(ch-Inches(1.7)),[[(st,14,_ink(),False)]],align=PP_ALIGN.CENTER)
         if i<n-1:
             txt(s,int(x+cw-Inches(0.04)),int(y+ch/2-Inches(0.3)),int(gap+Inches(0.08)),Inches(0.6),
                 [[("▶",15,color,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
@@ -233,18 +234,18 @@ def trainer_slide(kicker,name,role,rows,initials,accent=BLUE):
     info tiles on the right. rows: list of (LABEL, value); blank value → fill-in line."""
     s=head(slide(),"About the Trainer",kicker,kcolor=accent)
     lx=Inches(0.85); lw=Inches(3.65)
-    rect(s,lx,Inches(1.95),lw,Inches(4.7),LIGHT); rect(s,lx,Inches(1.95),lw,Inches(0.12),accent)
+    rect(s,lx,Inches(1.95),lw,Inches(4.7),_panel()); rect(s,lx,Inches(1.95),lw,Inches(0.12),accent)
     bd=Inches(1.7); ax=int(lx+(lw-bd)/2)
     oval(s,ax,Inches(2.5),bd,bd,accent)
     txt(s,ax,Inches(2.5),bd,bd,[[(initials,44,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-    txt(s,lx+Inches(0.15),Inches(4.55),lw-Inches(0.3),Inches(0.6),[[(name,21,INK,True)]],align=PP_ALIGN.CENTER)
-    txt(s,lx+Inches(0.15),Inches(5.2),lw-Inches(0.3),Inches(1.2),[[(role,13,GREY,False)]],align=PP_ALIGN.CENTER)
+    txt(s,lx+Inches(0.15),Inches(4.55),lw-Inches(0.3),Inches(0.6),[[(name,21,_ink(),True)]],align=PP_ALIGN.CENTER)
+    txt(s,lx+Inches(0.15),Inches(5.2),lw-Inches(0.3),Inches(1.2),[[(role,13,_grey(),False)]],align=PP_ALIGN.CENTER)
     rx=Inches(4.9); rw=Inches(7.6); ry=Inches(1.95); rh=Inches(4.7)
     n=len(rows); gy=Inches(0.2); th=int((rh-gy*(n-1))/n)
     for i,(label,val) in enumerate(rows):
         y=int(ry+(th+gy)*i); col=PALETTE[i%len(PALETTE)]
-        rect(s,rx,y,rw,th,LIGHT); rect(s,rx,y,Inches(0.1),th,col)
-        vruns=[(val,14,INK,False)] if val else [("____________________________________________",13,LINE,False)]
+        rect(s,rx,y,rw,th,_panel()); rect(s,rx,y,Inches(0.1),th,col)
+        vruns=[(val,14,_ink(),False)] if val else [("____________________________________________",13,_line(),False)]
         txt(s,rx+Inches(0.32),y,rw-Inches(0.6),th,
             [[(label.upper(),11,col,True)],vruns],anchor=MSO_ANCHOR.MIDDLE,space=3)
     footer(s); return s
@@ -372,10 +373,10 @@ def test_slide(act_title,text,kicker):
     txt(s,Inches(1.2),Inches(2.6),Inches(11),Inches(0.5),[[("✅  Test it",20,DK_GREEN if THEME["dark"] else RGBColor(0x12,0x7A,0x3E),True)]])
     txt(s,Inches(1.2),Inches(3.3),Inches(11),Inches(1.4),[[(text,18,_ink(),False)]]); footer(s); return s
 def brk(kind,dur,color=AMBER):
-    s=slide(); rect(s,0,0,SW,SH,WHITE)
+    s=slide(); rect(s,0,0,SW,SH,_bg())
     rect(s,0,0,SW,Inches(0.22),color); rect(s,0,Inches(7.28),SW,Inches(0.22),color)
     rect(s,Inches(5.4),Inches(2.35),Inches(2.53),Inches(0.1),color)
-    txt(s,0,Inches(2.75),SW,Inches(1.2),[[(kind,48,INK,True)]],align=PP_ALIGN.CENTER)
+    txt(s,0,Inches(2.75),SW,Inches(1.2),[[(kind,48,_ink(),True)]],align=PP_ALIGN.CENTER)
     txt(s,0,Inches(4.05),SW,Inches(0.8),[[(dur,22,color,True)]],align=PP_ALIGN.CENTER); PAGE["n"]+=1
 
 # ============================================================ BUILD
@@ -415,7 +416,7 @@ _dl=flow_h("Download Course Material",[
  "Keep them open for the open-book assessment"],kicker="COURSE PORTAL")
 # Full portal URL as a wide caption (kept out of the narrow chips so it never wraps mid-token)
 txt(_dl,Inches(0.85),Inches(6.5),Inches(11.6),Inches(0.4),
-    [[("Portal:  https://lms-tms.tertiaryinfotech.com",16,BLUE,True)]],align=PP_ALIGN.CENTER)
+    [[("Portal:  https://lms-tms.tertiaryinfotech.com",16,_acc(BLUE),True)]],align=PP_ALIGN.CENTER)
 # Lesson plan overview — rendered from the day themes so it can never drift
 two_col("Lesson Plan — 2 Days, 8 hours/day",[
  (f"Day 1 — {C.DAY_THEMES[1]}",0),
@@ -539,7 +540,6 @@ def _lab_extras(num):
 TOPIC_ACTS = {t["num"]: [a for a in ACTIVITIES if a["topic"]==t["num"]] for t in C.TOPICS}
 CARD_COLORS=[BLUE,TEAL,VIOLET]
 for t in C.TOPICS:
-    THEME["dark"] = (t["num"]==1)   # Topic 1 (Hermes) renders in the dark masterclass theme
     accent=TOPIC_THEME.get(t["num"],BLUE)
     section(f"TOPIC {t['code']}", t["title"], t["code"], t["subtitle"], accent=accent)
     # concept slide(s) — visual tile grid instead of a bullet list (topic-accented)
@@ -571,7 +571,6 @@ for t in C.TOPICS:
             kicker="TOPIC RECAP", size=17)
 
 # ---------------- CLOSE ----------------
-THEME["dark"]=False   # back to the all-white house theme for the wrap-up
 section("WRAP-UP","Course Summary & Next Steps","")
 # "What You Achieved" tiles built straight from the learning outcomes so they can never drift
 _ACH_TITLES=["Analyzed AI Applications","Design & Chatbot Efficiency","Evaluated & Improved RAG"]
