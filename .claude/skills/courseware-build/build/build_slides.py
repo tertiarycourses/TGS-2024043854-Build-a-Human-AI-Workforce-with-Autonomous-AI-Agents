@@ -276,11 +276,14 @@ def step_slide(kicker,act_title,n,total,text,cmd=""):
             rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
-def dark_rows(tag,title_lines,sub_lines,rows):
+def dark_rows(tag,title_lines,sub_lines,rows,warn=None):
     """Masterclass-style dark feature slide: terminal tag, amber headline,
-    light subtitle lines, then numbered row-cards (01, 02, …)."""
+    light subtitle lines, numbered row-cards (01, 02, …). Rows may be plain
+    strings or (amber_part, white_part) tuples. warn=(BADGE, text) renders a
+    red warning chip + line under the rows."""
     DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
     ROWBG=RGBColor(0x15,0x17,0x12); FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=RGBColor(0xE8,0xE6,0xDD)
+    WARNRED=RGBColor(0xE0,0x5A,0x5A)
     s=slide(); rect(s,0,0,SW,SH,DKBG)
     txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
     rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
@@ -292,13 +295,20 @@ def dark_rows(tag,title_lines,sub_lines,rows):
         txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.38),[[(sl,15,IVORY,False)]]); y+=0.4
     y+=0.22
     n=max(1,len(rows)); gap=0.14
-    rh=min(0.78,(6.85-y-gap*(n-1))/n)
+    bottom=6.35 if warn else 6.85
+    rh=min(0.78,(bottom-y-gap*(n-1))/n)
     for i,r in enumerate(rows):
         ry=Inches(y+i*(rh+gap))
         rect(s,Inches(0.85),ry,Inches(11.63),Inches(rh),ROWBG)
         rect(s,Inches(0.85),ry,Inches(0.05),Inches(rh),AMBER)
         txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
-        txt(s,Inches(1.9),ry,Inches(10.35),Inches(rh),[[(r,16,WHITE,False)]],anchor=MSO_ANCHOR.MIDDLE)
+        runs=[[(r[0],16,AMBER,True),(r[1],16,WHITE,False)]] if isinstance(r,tuple) else [[(r,16,WHITE,False)]]
+        txt(s,Inches(1.9),ry,Inches(10.35),Inches(rh),runs,anchor=MSO_ANCHOR.MIDDLE)
+    if warn:
+        wy=y+n*(rh+gap)+0.08
+        rect(s,Inches(0.85),Inches(wy),Inches(1.15),Inches(0.34),WARNRED)
+        txt(s,Inches(0.85),Inches(wy+0.02),Inches(1.15),Inches(0.3),[[(warn[0],12,DKBG,True)]],align=PP_ALIGN.CENTER)
+        txt(s,Inches(2.2),Inches(wy),Inches(10.2),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def dark_cards(tag,title_lines,cards,notes=(),badge=None):
     """Masterclass-style dark slide: amber headline + a row of green-outlined cards
@@ -513,6 +523,14 @@ def _lab_extras(num):
                    "Native Windows is explicitly unsupported. The installer refuses CYGWIN/MINGW/MSYS."],
             badge="AUTO-INSTALLED")
     if num==2:
+        dark_rows("part-04/telegram-setup",["Telegram."],
+            ["Five steps. Phone → bot → VPS."],
+            [("@BotFather → /newbot → ","copy token"),
+             ("@userinfobot → ","copy your Telegram user ID"),
+             ("hermes setup gateway ","on VPS → Telegram → paste token"),
+             ("TELEGRAM_ALLOWED_USERS → ","paste your user ID (allowlist mode)"),
+             ("save + restart ","gateway")],
+            warn=("NEVER","set GATEWAY_ALLOW_ALL_USERS=true. Anyone who guesses your bot's username = full access."))
         dark_pairs("part-03/top-10-slash",["Top 10 Slash."],
             "In-chat commands. Type them during a session.",
             [("/new","start a fresh conversation"),
