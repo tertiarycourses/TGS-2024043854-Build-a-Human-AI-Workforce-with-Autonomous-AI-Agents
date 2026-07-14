@@ -1,7 +1,7 @@
 # Lab 12 — Visualization
 
 ## Objective
-LO5: Visualize agent activity and workflow data. You will use Hermes' visualization capability to see **Athena's** workflow, task flow, and data at a glance, making the agent's behaviour transparent and easier to supervise.
+LO5: Visualize agent activity and workflow data. You will use Hermes' visualization capability to render **Athena's** workflow as a graph — nodes for tool calls, edges for their order — then read it, export it, and use it to explain exactly what the agent did.
 
 ## Prerequisites
 - **Lab 1–11 complete** — Hermes running with real activity (sessions, tasks, automations) to visualize.
@@ -16,34 +16,62 @@ LO5: Visualize agent activity and workflow data. You will use Hermes' visualizat
 ## Steps
 
 ### 1. Watch the reference video
-See how Hermes renders workflows/activity visually and how to read the output:
+Watch how Hermes renders workflows and activity visually, and pay attention to two things: where the visualization view lives in the UI, and how the presenter reads the diagram (which shapes are tool calls, how ordering is shown). You will reproduce both.
 
 [https://www.youtube.com/watch?v=JX2RYeKugrc&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=27](https://www.youtube.com/watch?v=JX2RYeKugrc&list=PLmpUb_PWAkDxewld5ZYyKifuHxgIbiq2d&index=27)
 
-### 2. Open the visualization view for the agent's activity
-Open the visualization panel that shows Athena's activity.
+### 2. Run a real multi-step session so there is something to visualize
+A visualization of an empty agent is empty. Start a fresh session and give Athena a task that forces several tool calls in sequence — for example:
 
-> In the Desktop app, open the **Visualization / Activity** view. It surfaces the agent's task flow, tool calls, and data. Verify the exact location in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+> *"Research the top 3 AI agent platforms, compare their pricing, and summarize in a table."*
 
-### 3. Generate a visualization of a workflow or dataset
-Ask Athena to produce a visualization of a workflow or a dataset:
+Let it run to completion; the web searches, reads, and summarization steps it performs become the nodes of your graph.
 
-> Conversational step. For example: *"Visualize the steps you took to produce this morning's briefing,"* or *"Chart my task completion over the last week."* The agent generates a diagram/chart of the workflow or data.
+### 3. List sessions and note the ID of the one to visualize
+In a terminal, list your recent sessions and copy the ID (or title/timestamp) of the session you just ran. You will visualize this specific session rather than "everything", which keeps the diagram readable.
 
-### 4. Interpret the visualization to understand what the agent did
-Read the visualization: which steps ran, in what order, which tools/subagents were involved, and where time was spent. Use it to confirm the agent did what you expected.
+```bash
+hermes sessions list
+```
+
+### 4. Open the visualization view
+In the Desktop app, open the **Visualization / Activity** view from the sidebar and select the session from step 3. You should see the session's activity surface — task flow, tool calls, and timing.
+
+> The exact menu location and view name are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+
+### 5. Generate a workflow graph of the session
+Ask Athena (or use the view's generate button) to render the session as a workflow diagram:
+
+> *"Visualize the steps you took in this session as a workflow diagram."*
+
+A graph should render in which **each node is a tool call** (web search, file read, summarize…) and **edges show the order** the calls ran in. If nothing renders, confirm you selected a session that actually used tools.
+
+### 6. Read the graph — nodes, sequence, and time
+Walk the diagram from start to finish and name what each node did: which tool, with what input, producing what output. Check the sequence matches what you asked for, and look for where time was spent (long-running nodes) or where the agent looped/retried. This is the supervision skill: confirming from the graph that the agent did what you expected — nothing more, nothing less.
+
+### 7. Export or screenshot the visualization
+Save the diagram for your records — use the view's export button if your build has one, otherwise take a screenshot. Keep it with the lab evidence; you will reuse this technique whenever you need to audit an agent run.
+
+```bash
+# macOS: Cmd+Shift+4  (Windows: Win+Shift+S)
+```
+
+### 8. Use the graph to explain what the agent did
+Turn to a classmate (or write three sentences) and explain the run **using only the graph**: what the goal was, which tools ran in what order, and where the result came from. If you can narrate the run from the diagram alone, the visualization has done its job of making Athena's behaviour transparent.
 
 ## Verification / Expected Output
-- A **visualization of the agent's workflow/data renders** and clearly communicates the agent's activity.
-- You can point to specific steps/tools in the visualization and explain what happened.
+- A **workflow graph of a real session renders**, with identifiable tool-call nodes in the order they ran.
+- You have an **exported image/screenshot** of the visualization.
+- You can **explain the agent's run from the graph alone** — every node named, sequence justified.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| Visualization view is empty | There's no activity yet — run some tasks/automations first, then reopen the view. |
-| Can't find the visualization panel | It's primarily in the Desktop app — install/open it (Lab 2); verify location in the docs. |
-| Diagram renders but is unreadable | Narrow the scope (one workflow / one week) so the visualization isn't overloaded. |
+| Visualization view is empty | There's no activity yet — run a multi-step task (step 2) first, then reopen the view. |
+| Can't find the visualization panel | It's primarily in the Desktop app — install/open it (Lab 2); verify the location in the docs. |
+| Diagram renders but is unreadable | Narrow the scope to a single session (step 3) so the graph isn't overloaded. |
+| Graph has almost no nodes | The task didn't require tools — rerun with a research-style task that forces several tool calls. |
 | Agent won't generate a chart | Phrase the request explicitly ("visualize/chart …") and ensure a capable model is active. |
 | Unsure which visualization types exist | Types are version-specific — verify in the video / docs link above. |
 

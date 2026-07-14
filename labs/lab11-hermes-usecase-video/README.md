@@ -1,7 +1,7 @@
 # Lab 11 — Use Case — Make a Video with Hyperframe
 
 ## Objective
-LO5: Apply the agent to a real creative use case — produce a video with Hyperframe. You will put **Athena** to work on an end-to-end creative task: use the agent to drive the Hyperframe tool and generate a short video from a concept brief, then review and refine the result.
+LO5: Apply the agent to a real creative use case — produce a video with Hyperframe. You will put **Athena** to work on an end-to-end creative task: set up the Hyperframe video tool, write a concrete creative brief, have the agent generate a short video, iterate once on feedback, and export the finished file.
 
 ## Prerequisites
 - **Lab 1–10 complete** — Hermes running with a provider and tools/MCP configured.
@@ -16,40 +16,69 @@ LO5: Apply the agent to a real creative use case — produce a video with Hyperf
 ## Steps
 
 ### 1. Watch the reference video
-See the full workflow of driving Hyperframe through the agent to produce a video:
+Before touching the keyboard, watch the full workflow once so you know what "good" looks like: the presenter connects Hyperframe, writes a brief, generates, reviews, and iterates. Note the exact way the tool is invoked in your Hermes version — that is the part most likely to differ between builds.
 
 [https://www.youtube.com/watch?v=dcXmUUZvDLE&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=3](https://www.youtube.com/watch?v=dcXmUUZvDLE&list=PLmpUb_PWAkDx-VWjh00tVCji794xAa_IX&index=3)
 
-### 2. Connect / set up the Hyperframe video tool for the agent
-Wire the Hyperframe tool into Athena so the agent can invoke it.
+### 2. Install / verify the Hyperframe video skill
+Wire Hyperframe into Athena the same way you added skills in Lab 4. In a terminal, search the skills hub for the Hyperframe (video) skill and install the match; if your build integrates Hyperframe as an MCP server or Tool Gateway tool instead, add it the way you added tools in Lab 6.
 
-> This may be an MCP server, a skill, or a Tool Gateway integration depending on your build. Add Hyperframe the same way you added tools in Lab 6, supplying any required API key via `hermes config set`. Verify the exact integration path in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+```bash
+hermes skills search hyperframe
+hermes skills install <owner/skills/hyperframe>
+```
 
-### 3. Brief the agent with a short video concept
-Give Athena a clear, concise creative brief — topic, style, and length:
+> The exact skill/tool name is version-specific — verify in the video / docs (https://hermes-agent.nousresearch.com/docs/).
 
-> Conversational step. For example: *"Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern style, upbeat tone, with on-screen captions."* A tight brief yields a better first result.
+### 3. Set the Hyperframe credential via config
+If Hyperframe needs an API key or account token, store it through Hermes config so it never sits in plain text. Get the key from your Hyperframe account page, then set it and confirm no error is printed.
 
-### 4. Have the agent generate the video with Hyperframe
-Ask Athena to generate the video. The agent calls Hyperframe with your brief and waits for the render:
+```bash
+hermes config set HYPERFRAME_API_KEY <your-key>
+```
 
-> Confirm the agent invokes Hyperframe and reports back with a link/file to the rendered video. Rendering may take a few minutes.
+### 4. Confirm the tool is loaded, then start a session
+Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena *"What video tools do you have?"* — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up.
 
-### 5. Review the output and refine the brief to regenerate if needed
-Play the video, then refine the brief (pacing, style, wording) and ask Athena to regenerate. Iterate until it meets your bar.
+```bash
+hermes doctor
+hermes --tui
+```
+
+### 5. Brief the agent with a concrete 3-sentence brief
+Type a tight, three-sentence creative brief covering **topic**, **style/tone**, and **length + extras**. A concrete brief is the single biggest lever on output quality — vague briefs produce generic videos. For example:
+
+> *"Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern visual style with an upbeat tone. Keep it to 30 seconds and add on-screen captions."*
+
+### 6. Have the agent generate the video and wait for the render
+Ask Athena to generate the video now. You should see the agent invoke the Hyperframe tool in the session transcript (a tool-call entry), then wait — rendering typically takes a few minutes for a 30-second clip. When it finishes, Athena reports back with a link or file path to the rendered video; if the tool call errors, check the credential from step 3.
+
+### 7. Play the result, give one round of feedback, and regenerate
+Open and play the video end-to-end. Then give Athena one specific round of feedback — change exactly the things that bothered you, e.g. *"Slow the pacing, make the captions larger, and warm up the colour palette"* — and ask it to regenerate. Compare the two versions; you should see your feedback reflected in version 2.
+
+### 8. Export / save the final video and note where the file lands
+Ask Athena to save/export the final cut and tell you the exact file path. Outputs typically land in the session's workspace under your Hermes home directory — open it and confirm the file plays from disk:
+
+```bash
+open ~/.hermes/
+```
+
+> The exact output folder is version-specific — verify in the video / docs (https://hermes-agent.nousresearch.com/docs/). Copy the file somewhere permanent; session workspaces can be cleaned up.
 
 ## Verification / Expected Output
-- The agent **produces a playable video** from your brief using Hyperframe.
-- You can iterate: a refined brief produces an updated video.
+- The agent **produces a playable video** from your 3-sentence brief using Hyperframe.
+- One round of feedback produces a **visibly updated version 2**.
+- You can **locate the exported file on disk** and play it outside Hermes.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| Agent can't find Hyperframe | The tool isn't connected — add it (as MCP/skill/Tool Gateway) and set any required key; see docs. |
-| Generation fails / errors | Check the Hyperframe credential and that your brief isn't violating length/content limits. |
-| Video renders but ignores the brief | Make the brief more specific (style, length, tone); regenerate. |
-| Render takes very long | Large/long videos take time; shorten the length in the brief for faster iteration. |
+| Agent can't find Hyperframe | The tool isn't connected — install the skill (or add it as MCP/Tool Gateway), restart, and re-run `hermes doctor`. |
+| Generation fails / errors | Check `HYPERFRAME_API_KEY` is set and valid, and that the brief isn't violating length/content limits. |
+| Video renders but ignores the brief | Make the brief more specific (style, length, tone) and regenerate — one change per sentence. |
+| Render takes very long | Long/large videos take time; shorten to 15–30 seconds for faster iteration loops. |
+| Can't find the output file | Ask Athena for the exact path; check the session workspace under `~/.hermes/`. |
 | Unsure how Hyperframe integrates | The integration path is build-specific — verify in the video / docs link above. |
 
 ## Exercise / Challenge

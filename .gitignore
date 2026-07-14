@@ -38,3 +38,6 @@ courseware/archive/
 # Office lock files
 ~$*
 **/~$*
+
+# Source reference deck (input material, not a course artifact)
+SG - Dr. Alfred Ang - Mastering OpenClaw*.pptx

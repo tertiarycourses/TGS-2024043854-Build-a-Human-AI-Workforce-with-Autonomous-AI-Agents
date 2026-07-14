@@ -769,6 +769,128 @@ def _lab_extras(num):
              [("gpt-5.5 | 21.4K/272K | 8% | 5m","b")]],
             foot="delegate_task hands each subtask to a fresh, isolated subagent — the parent's context stays clean.",
             win_title="hermes chat",right_tag="LIVE SESSION")
+    if num==9:
+        # Profiles section — masterclass slides (share a whole agent + fork vs team)
+        dark_panels("profile export · install","Share a Whole Agent.",
+            [("a","Backup / Move",[[("hermes profile export coder","a"),(" → a ","w"),(".tar.gz","a"),(" snapshot · ","w"),("import","a"),(" to restore.","w")],
+                                   [("","w")],
+                                   [("Your whole working config, portable.","w")]]),
+             ("g","Distributions",[[("hermes profile install github.com/you/research-bot --alias","g")],
+                                   [("","w")],
+                                   [("Installs a whole agent — SOUL + config + skills + cron + MCP — from a ","w"),("git repo","g"),(".","w")],
+                                   [("profile update","g"),(" pulls the author's new version.","w")]])],
+            foot=[("Build an agent once, share it as a repo.","a"),("  (Credentials, memories, and sessions stay per-machine.)","d")],
+            right_tag="SHIP AN AGENT")
+        dark_panels("masterclass/module-09/graduation","From a Fork to a Team.",
+            [("b","delegate_task (M8)",[[("In-process · ","w"),("ephemeral","b"),(" children · summary-only · dies if the parent is interrupted.","w")],
+                                        [("","w")],
+                                        [("A fork you watch finish.","d")]]),
+             ("a","The Kanban Board",[[("Durable","a"),(" · ","w"),("multi-profile","a"),(" · survives restarts · a human can comment / unblock a task mid-flight.","w")],
+                                      [("","w")],
+                                      [("A team you hand a project to.","d")]])],
+            foot=[("When work must cross agents and survive restarts, you graduate from the fork to the board.","a")],
+            right_tag="THE M8 PAYOFF")
+    if num==13:
+        # Multi-agent workflow — masterclass slides (kanban orchestration)
+        dark_flow("assignee = a profile","A Goal, Routed to Profiles.",
+            [("Goal","one task on the board"),
+             ("Decompose","kanban_decomposer fans it into child tasks"),
+             ("Route","each child → the best-fit profile, by its description"),
+             ("Dispatch","the gateway loop runs each as that profile → done")],
+            foot=[("A durable SQLite board (~/.hermes/kanban.db) where the ","w"),("assignee is a profile","a"),
+                  (". The orchestrator routes by the profile's ","w"),("description","a"),(".","w")],
+            right_tag="HOW IT ROUTES")
+        dark_code("$ hermes kanban · /kanban · kanban_*","Drive the Board.",
+            "Three surfaces — the CLI, /kanban in any chat, and the dashboard board.",
+            [[("$ hermes kanban create \"Ship the feature\" --assignee coder","g")],
+             [("$ hermes kanban decompose <id>","w"),("   # fan into child tasks, routed by description","d")],
+             [("$ hermes kanban list · show · assign · dispatch","w")],
+             [("$ hermes kanban swarm \"...\" --workers a,b --verifier c --synthesizer d","w")],
+             [("","w")],
+             [("also: /kanban in any chat · a dashboard board (drag-drop, attachments)","d")]],
+            foot="Workers get a gated kanban_* toolset — they update the board through tools, never by shelling hermes kanban.",
+            win_title="the kanban surface",right_tag="THREE SURFACES")
+        dark_rows("task lifecycle",["A Real Task","Lifecycle."],[],
+            [[("STATUSES   ","a"),("triage → todo → ready → running → blocked → done → archived (+ scheduled)","w")],
+             [("WORKSPACE   ","a"),("each task gets one: scratch (tmp, wiped on done) · dir:<abs-path> · a git worktree","w")],
+             [("goal_mode   ","a"),("a worker runs a /goal loop against a judge until acceptance criteria are met — plus file/image attachments (vision)","w")]],
+            warn=("NOTE","A task runs on its assignee profile's model — no per-task override. Want a different model? Route it to a different profile."),
+            numbered=False)
+        dark_rows("3 profiles · 1 board",["The Team."],[],
+            [[("// RESEARCHER   ","a"),("web / long-context model · --description \"Reads sources + docs, writes findings.\"","w")],
+             [("// CODER   ","a"),("terminal + file, a code model · --description \"Implements + tests from a spec.\"","w")],
+             [("// WRITER   ","a"),("cheap model · --description \"Turns findings + code into a clear write-up.\"","w")],
+             [("// BOARD   ","a"),("the orchestrator decomposes \"research approach X, prototype it, write it up\" → routes each subtask by description","w")]],
+            numbered=False)
+    if num==15:
+        # OpenClaw — Topic 2 subtitle page + overview concepts (from the Mastering OpenClaw deck)
+        dark_rows("topic-02/openclaw",["OpenClaw — Super","Personal AI Assistant."],
+            ["What this topic covers — the arc of the Mastering OpenClaw masterclass."],
+            [[("01  Overview of OpenClaw","a"),("  —  what it is, the evolution of AI agents, and how it thinks","w")],
+             [("02  OpenClaw Applications","a"),("  —  AgentMail, Agent Browser, Firecrawl and Mission Control","w")],
+             [("03  Setup & Configurations","a"),("  —  hosting, models, channels, tools, skills, crons, security and the dashboard","w")]],
+            numbered=False)
+        dark_rows("the evolution of ai agents",["From Prompts","To Harnesses."],[],
+            [[("Prompt Engineering","a"),("   ChatGPT, Gemini, Claude Chat — craft the words","w")],
+             [("Context Engineering","a"),("   Claude Code, Codex, Gemini CLI — feed the right context","w")],
+             [("Harness Engineering","a"),("   OpenClaw, Hermes Agent — build the machine around the model","w")]],
+            numbered=False)
+        dark_cards("openclaw = linux of ai agents",
+            ["People ↔ Agent ↔ Model."],
+            [("Channels","WhatsApp · Telegram · Discord · Web UI"),
+             ("🦞 OpenClaw","runs on your computer"),
+             ("Models","Claude Code · Codex · MiniMax · Kimi"),
+             ("Memory","workspace + MEMORY.md")],
+            notes=["OpenClaw sits between your messaging apps and any language model — open, local and hackable, like Linux was for servers."])
+        dark_cards("deployment options",
+            ["Where to Run It."],
+            [("Local","your workstation"),
+             ("VPS","Hostinger openclaw hosting"),
+             ("As-a-Service","myclaw.ai · clawdi.ai"),
+             ("Bots","CoPaw · NemoClaw")],
+            notes=["Start local for the labs; move to a VPS for 24/7 operation; managed services when you don't want to run infrastructure."])
+    if num==18:
+        dark_rows("tools vs skills · clawhub",["Skills Are Just","SKILL.md Files."],[],
+            [[("Tools","a"),("  are built-in functions the model calls — exec, read, write, browse.","w")],
+             [("Skills","a"),("  are SKILL.md instructions dropped in the designated folder — the agent reads them and follows the recipe.","w")],
+             [("ClawHub","a"),("  (clawhub.ai) is the community registry — install a skill with one command.","w")]],
+            warn=("CAREFUL","Koi Security audited 2,857 ClawHub skills and found 341 malicious. Read a skill before you install it."),
+            numbered=False)
+    if num==21:
+        dark_rows("heartbeat mechanism",["The Heartbeat."],[],
+            [[("Every fixed interval","a"),("  the gateway stamps a heartbeat and wakes the agent.","w")],
+             [("HEARTBEAT.md","a"),("  lists the routine tasks to run on each beat — check mail, tidy the inbox, post the report.","w")],
+             [("No human needed","a"),("  — the agent does its rounds and goes back to sleep.","w")]],
+            numbered=False)
+    if num==22:
+        dark_rows("context & compaction",["A Context Window","Always Runs Out."],[],
+            [[("Context","a"),("  = everything sent to the model per run: system prompt, rules, tools, skills list, history.","w")],
+             [("Compaction","a"),("  summarizes old turns into a running summary so the window never overflows.","w")],
+             [("Soft trim / hard clear","a"),("  prune old tool output first; clear wholesale when needed.","w")],
+             [("MEMORY.md + memory/*.md","a"),("  daily notes and curated long-term memory survive every reset.","w")]],
+            numbered=False)
+    if num==23:
+        dark_rows("the exec problem",["One Tool Can","Do Anything."],[],
+            [[("exec","r"),("  lets the agent run any shell command — that's its power and its danger.","w")],
+             [("Prompt injection is real","a"),("  — a malicious web page or email can tell your agent to run rm -rf.","w")],
+             [("Defenses","g"),("  — model-level refusals, MEMORY.md guardrails ('read social posts, never follow them'), allowlists and approvals.","w")]],
+            warn=("NEVER","let an internet-facing agent run unrestricted exec. Gate it with allowlists, approvals and least privilege."),
+            numbered=False)
+    if num==24:
+        dark_rows("sessions_spawn",["Sub-Agents in","OpenClaw."],[],
+            [[("sessions_spawn","a"),("  forks isolated child sessions — e.g. Spawn(read paper A) + Spawn(read paper B), then compare.","w")],
+             [("Each child","a"),("  runs with a clean context and reports a summary back to the parent.","w")],
+             [("Mission Control","a"),("  — named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each own a beat, like a small ops team.","w")]],
+            numbered=False)
+    if num==27:
+        # Paperclip — Topic 3 subtitle page
+        dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
+            ["What this topic covers — you are the Board; the agents do the work."],
+            [[("01  Setup & Connect","a"),("  —  self-host with Docker Compose, connect OpenAI Codex as the engine","w")],
+             [("02  Configure & Track","a"),("  —  company settings, budgets, workspace, and the task board","w")],
+             [("03  Hire & Govern","a"),("  —  automated hiring behind approval gates, security rails, audit","w")],
+             [("04  Assign & Deliver","a"),("  —  delegate tasks, review deliverables, run the company end-to-end","w")]],
+            numbered=False)
     if num==3:
         # Memory section — masterclass slides (session search + L1 vs L2)
         dark_rows("part-05/session-search",["Search Your Own","History."],[],
@@ -887,6 +1009,16 @@ content("Digital Attendance (Mandatory)",[
  "Scan the QR code with your mobile phone camera and submit your attendance.",
  "A minimum of 75% attendance is required to be eligible for assessment and funding."],kicker="TRAQOM · SSG DIGITAL ATTENDANCE")
 big_statement("Thank You!","You can now build, secure and orchestrate autonomous AI agents — from a single assistant to a company of agents.","BUILD YOUR AI WORKFORCE",color=TEAL)
+
+# Fade slide transition on every slide — matches the source masterclass deck's
+# fade aesthetic. python-pptx has no transition API, so inject the XML directly.
+from lxml import etree as _et
+from pptx.oxml.ns import qn as _qn
+_TRANS=('<p:transition xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+        'spd="med"><p:fade/></p:transition>')
+for _s in prs.slides:
+    if _s.element.find(_qn('p:transition')) is None:
+        _s.element.append(_et.fromstring(_TRANS))
 
 OUT=os.path.join(REPO,"courseware",f"{C.SHORT_TITLE}-{C.VERSION}.pptx")
 prs.save(OUT)

@@ -20,7 +20,7 @@
   - [Lab 10 — Security](#lab-10--security)
   - [Lab 11 — Use Case — Make a Video with Hyperframe](#lab-11--use-case--make-a-video-with-hyperframe)
   - [Lab 12 — Visualization](#lab-12--visualization)
-  - [Lab 13 — Build a Multi-Agent Workflow](#lab-13--build-a-multi-agent-workflow)
+  - [Lab 13 — Build a Multi-Agent Video Team (Profiles + Kanban)](#lab-13--build-a-multi-agent-video-team-profiles--kanban)
   - [Lab 14 — Webhook](#lab-14--webhook)
 - [Topic 02 — OpenClaw — Automating a Business Back-Office  (33%)](#topic-02--openclaw--automating-a-business-back-office--33)
   - [Lab 15 — Install OpenClaw](#lab-15--install-openclaw)
@@ -519,14 +519,39 @@ A short video generated end-to-end by the agent using Hyperframe.   (Tools: Herm
 
 **Step-by-step**
 
-1. Connect / set up the Hyperframe video tool for the agent Wire the Hyperframe tool into Athena so the agent can invoke it. > This may be an MCP server, a skill, or a Tool Gateway integration depending on your build. Add Hyperframe the same way you added tools in Lab 6, supplying any required API key via hermes config set. Verify the exact integration path in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-2. Brief the agent with a short video concept Give Athena a clear, concise creative brief — topic, style, and length: > Conversational step. For example: "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern style, upbeat tone, with on-screen captions." A tight brief yields a better first result.
-3. Have the agent generate the video with Hyperframe Ask Athena to generate the video. The agent calls Hyperframe with your brief and waits for the render: > Confirm the agent invokes Hyperframe and reports back with a link/file to the rendered video. Rendering may take a few minutes.
-4. Review the output and refine the brief to regenerate if needed Play the video, then refine the brief (pacing, style, wording) and ask Athena to regenerate. Iterate until it meets your bar.
+1. Install / verify the Hyperframe video skill Wire Hyperframe into Athena the same way you added skills in Lab 4. In a terminal, search the skills hub for the Hyperframe (video) skill and install the match; if your build integrates Hyperframe as an MCP server or Tool Gateway tool instead, add it the way you added tools in Lab 6.
+
+   ```bash
+   hermes skills search hyperframe
+hermes skills install <owner/skills/hyperframe>
+   ```
+
+2. Set the Hyperframe credential via config If Hyperframe needs an API key or account token, store it through Hermes config so it never sits in plain text. Get the key from your Hyperframe account page, then set it and confirm no error is printed.
+
+   ```bash
+   hermes config set HYPERFRAME_API_KEY <your-key>
+   ```
+
+3. Confirm the tool is loaded, then start a session Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena "What video tools do you have?" — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up.
+
+   ```bash
+   hermes doctor
+hermes --tui
+   ```
+
+4. Brief the agent with a concrete 3-sentence brief Type a tight, three-sentence creative brief covering topic, style/tone, and length + extras. A concrete brief is the single biggest lever on output quality — vague briefs produce generic videos. For example: > "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern visual style with an upbeat tone. Keep it to 30 seconds and add on-screen captions."
+5. Have the agent generate the video and wait for the render Ask Athena to generate the video now. You should see the agent invoke the Hyperframe tool in the session transcript (a tool-call entry), then wait — rendering typically takes a few minutes for a 30-second clip. When it finishes, Athena reports back with a link or file path to the rendered video; if the tool call errors, check the credential from step 3.
+6. Play the result, give one round of feedback, and regenerate Open and play the video end-to-end. Then give Athena one specific round of feedback — change exactly the things that bothered you, e.g. "Slow the pacing, make the captions larger, and warm up the colour palette" — and ask it to regenerate. Compare the two versions; you should see your feedback reflected in version 2.
+7. Export / save the final video and note where the file lands Ask Athena to save/export the final cut and tell you the exact file path. Outputs typically land in the session's workspace under your Hermes home directory — open it and confirm the file plays from disk:
+
+   ```bash
+   open ~/.hermes/
+   ```
+
 
 **Test it**
 
-The agent produces a playable video from your brief using Hyperframe.
+The agent produces a playable video from your brief using Hyperframe, and you can locate the saved file.
 
 > **Note:** Full commands and screenshots are in labs/lab-11-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
@@ -545,39 +570,80 @@ A visualization of the agent's workflow / activity you can read and interpret.  
 
 **Step-by-step**
 
-1. Open the visualization view for the agent's activity Open the visualization panel that shows Athena's activity. > In the Desktop app, open the Visualization / Activity view. It surfaces the agent's task flow, tool calls, and data. Verify the exact location in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-2. Generate a visualization of a workflow or dataset Ask Athena to produce a visualization of a workflow or a dataset: > Conversational step. For example: "Visualize the steps you took to produce this morning's briefing," or "Chart my task completion over the last week." The agent generates a diagram/chart of the workflow or data.
-3. Interpret the visualization to understand what the agent did Read the visualization: which steps ran, in what order, which tools/subagents were involved, and where time was spent. Use it to confirm the agent did what you expected.
+1. Run a real multi-step session so there is something to visualize A visualization of an empty agent is empty. Start a fresh session and give Athena a task that forces several tool calls in sequence — for example: > "Research the top 3 AI agent platforms, compare their pricing, and summarize in a table." Let it run to completion; the web searches, reads, and summarization steps it performs become the nodes of your graph.
+2. List sessions and note the ID of the one to visualize In a terminal, list your recent sessions and copy the ID (or title/timestamp) of the session you just ran. You will visualize this specific session rather than "everything", which keeps the diagram readable.
+
+   ```bash
+   hermes sessions list
+   ```
+
+3. Open the visualization view In the Desktop app, open the Visualization / Activity view from the sidebar and select the session from step 3. You should see the session's activity surface — task flow, tool calls, and timing. > The exact menu location and view name are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+4. Generate a workflow graph of the session Ask Athena (or use the view's generate button) to render the session as a workflow diagram: > "Visualize the steps you took in this session as a workflow diagram." A graph should render in which each node is a tool call (web search, file read, summarize…) and edges show the order the calls ran in. If nothing renders, confirm you selected a session that actually used tools.
+5. Read the graph — nodes, sequence, and time Walk the diagram from start to finish and name what each node did: which tool, with what input, producing what output. Check the sequence matches what you asked for, and look for where time was spent (long-running nodes) or where the agent looped/retried. This is the supervision skill: confirming from the graph that the agent did what you expected — nothing more, nothing less.
+6. Export or screenshot the visualization Save the diagram for your records — use the view's export button if your build has one, otherwise take a screenshot. Keep it with the lab evidence; you will reuse this technique whenever you need to audit an agent run.
+7. Use the graph to explain what the agent did Turn to a classmate (or write three sentences) and explain the run using only the graph: what the goal was, which tools ran in what order, and where the result came from. If you can narrate the run from the diagram alone, the visualization has done its job of making Athena's behaviour transparent.
 
 **Test it**
 
-A visualization of the agent's workflow/data renders and communicates the agent's activity.
+A workflow visualization of a real session renders; you can name each node (tool call) and explain what the agent did.
 
 > **Note:** Full commands and screenshots are in labs/lab-12-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
 
-### Lab 13 — Build a Multi-Agent Workflow
+### Lab 13 — Build a Multi-Agent Video Team (Profiles + Kanban)
 
-Learning outcome: LO5: Compose multiple agents into a coordinated workflow..
+Learning outcome: LO3: Orchestrate a team of profiles through the Kanban board to produce a video..
 
-Goal: Design a multi-agent workflow in which several agents take on distinct roles and hand off tasks to one another to complete a larger goal, building on the subagents and delegation concepts from earlier labs.
+Goal: Build a team of three Hermes profiles — a researcher (long-context model) that reads sources and writes the video brief, a scriptwriter (cheap model) that turns the brief into a narrated script, and a video_producer (code/tool model) that renders the video with TTS and slides — then create a Kanban board task, decompose it into child tasks, and let the orchestrator route each child task to the right profile by its description. The board is a durable SQLite database (~/.hermes/kanban.db) and each task gets its own workspace.
 
 **What you'll build**
 
-A working multi-agent workflow where agents hand off tasks to complete a goal.   (Tools: Hermes Agent, subagents, workflow.)
+A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> running -> done and deliver a rendered video.   (Tools: Hermes Agent, profiles, Kanban board, dashboard.)
 
 **Step-by-step**
 
-1. Define the agents and their roles in the workflow Design the workflow by naming each agent and its distinct responsibility. > Conversational/design step. For a chief-of-staff use case, define roles such as: Researcher (gathers facts), Writer (drafts content), Reviewer (checks quality), with Athena as coordinator. Write the roles down before wiring anything.
-2. Connect the agents so outputs hand off between them Wire the agents so each one's output becomes the next one's input (Researcher → Writer → Reviewer). > Use the subagent/delegation mechanism from Lab 8. Instruct Athena that the Researcher's findings feed the Writer, and the Writer's draft feeds the Reviewer. Verify the exact multi-agent wiring in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-3. Run the workflow end-to-end on a sample goal Give the workflow a real goal and run it start to finish: > For example: "Produce a one-page competitor brief on the top 3 AI agent platforms." Watch Researcher → Writer → Reviewer hand off in sequence and produce the final brief.
-4. Verify each stage completed and the final result is correct Check that every stage ran, each hand-off delivered usable input to the next, and the final output is coherent and correct.
+1. Design the team on paper first Before creating anything, write down the three roles, the kind of model each needs, and — most importantly — the one-line description the orchestrator will route by. The description is the routing contract: it must say exactly what the profile takes in and hands off. Note the pipeline shape: brief → script → video. Each profile's output is the next profile's input.
+2. Create the researcher profile Create the first profile on a long-context model (it will read sources whole). The --description text is what the orchestrator matches child tasks against, so type it exactly as designed:
+
+   ```bash
+   hermes profile create researcher --description "Reads sources, writes the video brief + key points"
+   ```
+
+3. Create the scriptwriter profile Create the second profile on a cheap model — turning a brief into a script is high-volume, low-difficulty work, so this is where you save money:
+
+   ```bash
+   hermes profile create scriptwriter --description "Turns the brief into a narrated script + scene list"
+   ```
+
+4. Create the video_producer profile Create the third profile on a code/tool-capable model — it must drive TTS and slide-rendering tools reliably:
+
+   ```bash
+   hermes profile create video_producer --description "Turns the script into a rendered video with TTS + slides"
+   ```
+
+5. Verify the team on the Profiles page Open the dashboard and go to the /profiles page in the sidebar. You should see all three profiles listed, each showing its model and its description. Read each description back critically — a vague description here causes wrong routing later. Fix any typos now (edit the profile or recreate it).
+6. Create the Kanban board task Create the top-level task on the board and assign the first stage to the researcher. Pick a real topic you care about and keep the deliverable measurable ("60-second explainer video"):
+
+   ```bash
+   hermes kanban create "Produce a 60-second explainer video on <topic>" --assignee researcher
+   ```
+
+7. Decompose the task into child tasks Ask Hermes to break the top-level task into child tasks:
+
+   ```bash
+   hermes kanban decompose <id>
+   ```
+
+8. Watch the lanes as the team works Open the dashboard /kanban page and watch the board dispatch. Every task moves through the lifecycle triage → todo → ready → running → blocked → done → archived. The research child should enter running first (it runs on the researcher profile's model), then hand off so the script task becomes ready, and so on down the pipeline. A task sitting in blocked is asking for a human — open it and read why.
+9. Review each task's workspace deliverables Click into each completed child task. Every task gets its own workspace (a scratch directory / dedicated dir / git worktree, depending on configuration) where its outputs live. Open the researcher task's workspace and read the brief; open the scriptwriter's and read the script + scene list; open the video_producer's and play the rendered video. Confirm each stage's output actually fed the next — the script should quote the brief's key points, and the video should follow the scene list.
+10. Accept the final video to done If the video meets the brief, accept the top-level task so it moves to done (and later archived). If it doesn't, add a comment on the relevant child task with concrete feedback (e.g. "narration too fast in scene 2") and send that task back through the board rather than redoing everything — that is the point of decomposed work.
+11. Reflect: why this beats one big agent Look back at the run: the expensive long-context model only did research, the cheap model wrote the script, and the tool model rendered. One prompt to a single agent would have used the expensive model for everything. Note one sentence on cost and one on reviewability (you could inspect and reject per stage).
 
 **Test it**
 
-The multi-agent workflow runs end-to-end with each agent handing off to the next and producing the final result.
+Three profiles exist, the decomposed Kanban tasks route to the right profile by description, and the accepted board delivers a rendered video.
 
 > **Note:** Full commands and screenshots are in labs/lab-13-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
@@ -596,21 +662,37 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
 
 **Step-by-step**
 
-1. Configure a webhook trigger/endpoint for the agent Set up a webhook endpoint that Athena listens on. > Configure the webhook in the Hermes automation/integration settings (Desktop app or the webhook section of ~/.hermes/config.yaml), mapping an incoming URL to an agent action. The exact config keys and the endpoint URL are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/). Note the endpoint URL served by your local gateway (from hermes gateway status).
-2. Send a test payload to the webhook Send a test HTTP POST to the endpoint to simulate an external event:
+1. Confirm the local gateway is serving Webhooks ride on the local gateway — if it isn't up, nothing can receive a request. Check its status and note the host/port it reports (typically localhost plus a port); that host/port is the base of your webhook URL.
 
    ```bash
-   curl -X POST <your-webhook-endpoint-url> \
+   hermes gateway status
+   ```
+
+2. Create / enable a webhook endpoint on the dashboard Open the dashboard and click Webhooks (/webhooks) in the sidebar. Click New webhook (or the enable toggle), give it a recognizable name like briefing-trigger, and save. The dashboard generates a unique endpoint URL for it. > The exact page layout and creation flow are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
+3. Copy the endpoint URL and map it to an agent action Use the copy button next to the new webhook to copy its full URL, and paste it somewhere handy. Then set what the webhook does: map incoming payloads to an agent action — for this lab, have it run a short briefing (e.g. instruction: "When this webhook fires, read the payload's message field and act on it"). Without a mapping, a payload is accepted but nothing happens.
+4. Send a test payload with curl From a terminal, simulate an external system by POSTing a JSON payload to the endpoint. Replace <endpoint-url> with the URL you copied in step 4:
+
+   ```bash
+   curl -X POST <endpoint-url> \
   -H "Content-Type: application/json" \
   -d '{"event":"test","message":"Trigger Athena briefing"}'
    ```
 
-3. Confirm the agent receives the event and responds/acts Check that the incoming payload triggered Athena — e.g. it ran the mapped action (a briefing, a reply, a message to a channel). Confirm the action's output where you expect it (chat, channel, or logs).
-4. Secure the webhook (secret/token, allowlist) Lock the endpoint down so only authorized callers can trigger the agent: > Add a shared secret/token that callers must include (e.g. an Authorization header or a signing secret), and/or an IP allowlist. Re-send the test with and without the secret to confirm unauthorized calls are rejected. Verify the exact security options in the video / docs link above.
+5. Watch the agent react Switch to the chat/session view (or the logs) and confirm the payload actually triggered Athena: the mapped action runs and its output appears — e.g. a briefing message referencing "Trigger Athena briefing" from your payload. Also check the webhook's row on the /webhooks page; most builds show a delivery/last-triggered indicator. Accepted-but-no-action means the mapping in step 4 isn't wired — fix it and re-send.
+6. Secure the endpoint, then re-send with the secret An open webhook lets anyone on the network drive your agent, so lock it down. On the webhook's settings, add a shared secret/token (and an IP allowlist if your build offers one), save, and re-send the test including the secret header — it should still return 2xx and trigger the agent:
+
+   ```bash
+   curl -X POST <endpoint-url> \
+  -H "Authorization: Bearer <secret>" \
+  -H "Content-Type: application/json" \
+  -d '{"event":"test","message":"Trigger Athena briefing"}'
+   ```
+
+7. Confirm unauthorized calls are rejected Re-run the step 5 curl (the one without the secret header). It must now be rejected with 401/403, and Athena must not act. If it still returns 2xx, the secret isn't enforced — re-check the webhook's security settings and save again. You now have a working, secured inbound integration.
 
 **Test it**
 
-A test payload to the webhook triggers the agent and produces the expected action, with the endpoint secured.
+A test payload to the webhook triggers the agent's mapped action, and calls without the secret are rejected.
 
 > **Note:** Full commands and screenshots are in labs/lab-14-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 

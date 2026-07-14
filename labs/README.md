@@ -32,7 +32,7 @@ Do each topic's labs **in order** — later labs build on what earlier ones set 
 | 10 | [Security](lab10-hermes-security/README.md) |
 | 11 | [Use Case — Make a Video with Hyperframe](lab11-hermes-usecase-video/README.md) |
 | 12 | [Visualization](lab12-hermes-visualization/README.md) |
-| 13 | [Build a Multi-Agent Workflow](lab13-hermes-multi-agent-workflow/README.md) |
+| 13 | [Build a Multi-Agent Video Team (Profiles + Kanban)](lab13-hermes-multi-agent-workflow/README.md) |
 | 14 | [Webhook](lab14-hermes-webhook/README.md) |
 
 ## Topic 2 — OpenClaw (Labs 15–26)
