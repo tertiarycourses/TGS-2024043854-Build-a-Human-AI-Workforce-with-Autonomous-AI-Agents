@@ -348,6 +348,70 @@ def dark_table(tag,title,col1,col2,rows,foot=None):
     if foot:
         txt(s,Inches(0.85),Inches(y+0.3),Inches(11.63),Inches(0.45),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
     footer(s); return s
+def dark_code(tag,title,sub,code_lines,foot=None,win_title="",right_tag=None):
+    """Masterclass-style dark slide with a terminal/code window: amber headline,
+    window chrome (● ● ● + title), monospace coloured code lines, amber footer."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; IVORY=_DKC["w"]; FAINT=RGBColor(0x2A,0x2C,0x28)
+    CODEBG=RGBColor(0x08,0x0A,0x08); CHROME=RGBColor(0x14,0x16,0x12); DIM=_DKC["d"]
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    if right_tag:
+        txt(s,Inches(8.9),Inches(0.4),Inches(3.6),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    txt(s,Inches(0.85),Inches(0.95),Inches(11.9),Inches(0.75),[[(title.upper(),38,AMBER,True)]])
+    y=1.72
+    if sub:
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.4),[[(sub,15,IVORY,False)]]); y+=0.46
+    # window chrome
+    ch=0.34
+    rect(s,Inches(0.85),Inches(y),Inches(11.63),Inches(ch),CHROME)
+    for k,cc in enumerate((RGBColor(0xE0,0x5A,0x5A),RGBColor(0xF5,0xA6,0x23),RGBColor(0x4A,0xDE,0x80))):
+        oval(s,Inches(1.02+k*0.22),Inches(y+0.11),Inches(0.12),Inches(0.12),cc)
+    if win_title:
+        txt(s,Inches(1.8),Inches(y+0.02),Inches(9.5),Inches(0.3),[[(win_title,11,DIM,False)]])
+    y+=ch
+    n=len(code_lines); lh=min(0.34,(6.35-y)/max(1,n))
+    rect(s,Inches(0.85),Inches(y),Inches(11.63),Inches(lh*n+0.2),CODEBG)
+    for i,ln in enumerate(code_lines):
+        runs=_dkruns(ln,13)
+        # monospace look: Courier New via manual run construction
+        tb=s.shapes.add_textbox(Inches(1.1),Inches(y+0.08+i*lh),Inches(11.1),Inches(lh))
+        tf=tb.text_frame; tf.word_wrap=False
+        p=tf.paragraphs[0]
+        for t_,sz,col,bold in runs:
+            r=p.add_run(); r.text=t_; r.font.size=Pt(12.5); r.font.bold=bold
+            r.font.color.rgb=col; r.font.name="Courier New"
+    if foot:
+        txt(s,Inches(0.85),Inches(6.62),Inches(11.63),Inches(0.4),[[(foot,14,AMBER,True)]],align=PP_ALIGN.CENTER)
+    footer(s); return s
+def dark_catalog(tag,title,cards,scope=None,right_tag=None):
+    """Masterclass-style dark slide: a row of amber-outlined cards, each with a
+    heading + a list of tool names, plus an optional SCOPE note panel below."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; IVORY=_DKC["w"]
+    FAINT=RGBColor(0x2A,0x2C,0x28); CARDBG=RGBColor(0x10,0x12,0x0E); DIM=_DKC["d"]
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    if right_tag:
+        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    txt(s,Inches(0.85),Inches(0.98),Inches(11.9),Inches(0.78),[[(title.upper(),40,AMBER,True)]])
+    y=1.95
+    n=len(cards); gap=Inches(0.18); cw=int((Inches(11.63)-gap*(n-1))/n); chh=Inches(3.0); b=Inches(0.02)
+    for i,(headt,items) in enumerate(cards):
+        x=int(Inches(0.85)+i*(cw+gap)); yv=Inches(y)
+        rect(s,x,yv,cw,chh,CARDBG)
+        rect(s,x,yv,cw,b,AMBER); rect(s,x,int(yv+chh-b),cw,b,AMBER)
+        rect(s,x,yv,b,chh,AMBER); rect(s,int(x+cw-b),yv,b,chh,AMBER)
+        txt(s,x,int(yv+Inches(0.14)),cw,Inches(0.34),[[(headt.upper(),13,AMBER,True)]],align=PP_ALIGN.CENTER)
+        rows=[[(it,12,IVORY if not it.startswith("+") and "·" not in it else DIM,False)] for it in items]
+        txt(s,x+Inches(0.18),int(yv+Inches(0.58)),cw-Inches(0.3),int(chh-Inches(0.7)),rows,space=6)
+    if scope:
+        sy=y+3.0+0.25
+        rect(s,Inches(0.85),Inches(sy),Inches(11.63),Inches(1.15),CARDBG)
+        rect(s,Inches(0.85),Inches(sy),Inches(0.05),Inches(1.15),AMBER)
+        txt(s,Inches(1.1),Inches(sy+0.12),Inches(1.3),Inches(0.35),[[("SCOPE",15,AMBER,True)]])
+        txt(s,Inches(2.5),Inches(sy+0.1),Inches(9.7),Inches(0.98),[[(scope,12.5,IVORY,False)]])
+    footer(s); return s
 def dark_cards(tag,title_lines,cards,notes=(),badge=None):
     """Masterclass-style dark slide: amber headline + a row of green-outlined cards
     (name + subtitle) + optional AUTO-INSTALLED badge line and dim footnotes."""
@@ -561,6 +625,47 @@ def _lab_extras(num):
             notes=["Python 3.11, Node.js 22, uv, ripgrep, ffmpeg, git.",
                    "Native Windows is explicitly unsupported. The installer refuses CYGWIN/MINGW/MSYS."],
             badge="AUTO-INSTALLED")
+    if num==6:
+        # Tools section — masterclass slides (what is a tool, built-in catalog, tools in action)
+        dark_code("masterclass/module-06/what-is-a-tool","What Is a Tool?",
+            "A function the model can ask Hermes to run. That's it.",
+            [[("# 1 — THE FUNCTION · plain Python, does the real work","d")],
+             [("def ","b"),("read_file","a"),("(path):","w")],
+             [("    return ","b"),("open(path).read()","w")],
+             [("","w")],
+             [("# 2 — THE DESCRIPTION · what the model reads to decide","d")],
+             [("SCHEMA = {","w"),("\"name\"","b"),(": ","w"),("\"read_file\"","g"),(",","w")],
+             [("    \"description\"","b"),(": ","w"),("\"Read a text file.\"","g"),(",","w")],
+             [("    \"parameters\"","b"),(": {","w"),("\"path\"","b"),(": ","w"),("\"string\"","g"),("}}","w")],
+             [("","w")],
+             [("# 3 — REGISTER · hand both to Hermes","d")],
+             [("registry","b"),(".register(","w"),("\"read_file\"","g"),(", SCHEMA, read_file)","w")]],
+            foot="The model never runs it. It asks for it by name — Hermes runs the function and hands back whatever it returns.",
+            win_title="a tool = three small pieces",right_tag="THE CORE IDEA")
+        dark_catalog("tools/registry.py","The Built-In Catalog.",
+            [("Files & Term",["read_file","write_file","patch","search_files","terminal","process"]),
+             ("Web & Browser",["web_search","web_extract","browser_navigate","browser_snapshot","browser_click","+ 7 browser tools"]),
+             ("Media",["vision_analyze","image_generate","text_to_speech"]),
+             ("Orchestration",["todo","clarify","execute_code","delegate_task","mixture_of_agents"]),
+             ("Memory & More",["memory","session_search","cronjob","send_message","ha_* · rl_* · mcp_*"])],
+            scope="~70 tools across ~30 toolsets in the full registry — but your profile loads a subset. Plugin/platform toolsets (Spotify, Feishu, Kanban) only appear when active. read_file / search_files / patch exist so the agent never shells out to cat / grep / sed — structured, paginated, safer.",
+            right_tag="~70 TOOLS · ~30 TOOLSETS")
+        dark_code("hermes chat","Tools in Action.",
+            "A real session — the agent picks tools by name and you watch every call live.",
+            [[("30 tools · 41 skills · /help for commands","d")],
+             [("Welcome to Hermes Agent! Type your message or /help for commands.","w")],
+             [("","w")],
+             [("● Review the files in this directory","a")],
+             [("Initializing agent...","d")],
+             [("","w")],
+             [("  skill   software-development-methods        0.1s","g")],
+             [("  find    *                                    1.9s","b")],
+             [("  exec    from hermes_tools import terminal    0.6s","w")],
+             [("  ( •_•)>⌐■-■  ruminating...","a")],
+             [("","w")],
+             [("gpt-5.5 | 21.4K/272K | 8% | 59s","b")]],
+            foot="Every tool call is visible — name, arguments and per-call timing — while the status bar tracks model, context and cost.",
+            win_title="hermes chat",right_tag="LIVE SESSION")
     if num==3:
         # Memory section — masterclass slides (session search + L1 vs L2)
         dark_rows("part-05/session-search",["Search Your Own","History."],[],
