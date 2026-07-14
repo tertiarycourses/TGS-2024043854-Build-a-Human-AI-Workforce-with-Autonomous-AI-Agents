@@ -1,12 +1,11 @@
 [
  {
   "category": "creative",
-  "count": 20,
+  "count": 21,
   "examples": [
    "architecture-diagram",
    "ascii-art",
-   "ascii-video",
-   "baoyu-article-illustrator"
+   "ascii-video"
   ]
  },
  {
@@ -15,8 +14,7 @@
   "examples": [
    "evaluating-llms-harness",
    "weights-and-biases",
-   "huggingface-hub",
-   "llama-cpp"
+   "huggingface-hub"
   ]
  },
  {
@@ -25,8 +23,7 @@
   "examples": [
    "debugging-hermes-tui-commands",
    "hermes-agent-skill-authoring",
-   "hermes-s6-container-supervision",
-   "node-inspect-debugger"
+   "hermes-s6-container-supervision"
   ]
  },
  {
@@ -35,8 +32,7 @@
   "examples": [
    "airtable",
    "google-workspace",
-   "linear",
-   "maps"
+   "linear"
   ]
  },
  {
@@ -45,8 +41,7 @@
   "examples": [
    "codebase-inspection",
    "github-auth",
-   "github-code-review",
-   "github-issues"
+   "github-code-review"
   ]
  },
  {
@@ -55,8 +50,7 @@
   "examples": [
    "gif-search",
    "heartmula",
-   "songsee",
-   "spotify"
+   "songsee"
   ]
  },
  {
@@ -65,8 +59,7 @@
   "examples": [
    "apple-notes",
    "apple-reminders",
-   "findmy",
-   "imessage"
+   "findmy"
   ]
  },
  {
@@ -75,8 +68,7 @@
   "examples": [
    "claude-code",
    "codex",
-   "hermes-agent",
-   "kanban-codex-lane"
+   "hermes-agent"
   ]
  },
  {
@@ -85,12 +77,11 @@
   "examples": [
    "arxiv",
    "blogwatcher",
-   "llm-wiki",
-   "polymarket"
+   "llm-wiki"
   ]
  },
  {
-  "category": "other",
+  "category": "general",
   "count": 3,
   "examples": [
    "computer-use",

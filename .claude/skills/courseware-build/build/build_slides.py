@@ -276,20 +276,21 @@ def step_slide(kicker,act_title,n,total,text,cmd=""):
             rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
-def dark_rows(tag,title_lines,sub_lines,rows,warn=None):
-    """Masterclass-style dark feature slide: terminal tag, amber headline,
-    light subtitle lines, numbered row-cards (01, 02, …). Rows may be plain
-    strings or (amber_part, white_part) tuples. warn=(BADGE, text) renders a
-    red warning chip + line under the rows."""
+def dark_rows(tag,title_lines,sub_lines,rows,warn=None,accent=None,numbered=True):
+    """Masterclass-style dark feature slide: terminal tag, amber (or custom
+    accent) headline, light subtitle lines, numbered/bulleted row-cards. Rows
+    may be strings, (amber,white) tuples, or lists of (text,colorkey) pairs
+    (keys: w/a/b/g/d). warn=(BADGE, text) renders a red warning chip."""
     DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
     ROWBG=RGBColor(0x15,0x17,0x12); FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=RGBColor(0xE8,0xE6,0xDD)
     WARNRED=RGBColor(0xE0,0x5A,0x5A)
+    ACC=accent or AMBER
     s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,ACC,True)]])
     rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
     y=0.98
     for tl in title_lines:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
+        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,ACC,True)]]); y+=0.76
     y+=0.08
     for sl in sub_lines:
         txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.38),[[(sl,15,IVORY,False)]]); y+=0.4
@@ -300,15 +301,52 @@ def dark_rows(tag,title_lines,sub_lines,rows,warn=None):
     for i,r in enumerate(rows):
         ry=Inches(y+i*(rh+gap))
         rect(s,Inches(0.85),ry,Inches(11.63),Inches(rh),ROWBG)
-        rect(s,Inches(0.85),ry,Inches(0.05),Inches(rh),AMBER)
-        txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
-        runs=[[(r[0],16,AMBER,True),(r[1],16,WHITE,False)]] if isinstance(r,tuple) else [[(r,16,WHITE,False)]]
-        txt(s,Inches(1.9),ry,Inches(10.35),Inches(rh),runs,anchor=MSO_ANCHOR.MIDDLE)
+        rect(s,Inches(0.85),ry,Inches(0.05),Inches(rh),ACC)
+        if numbered:
+            txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,ACC,True)]],anchor=MSO_ANCHOR.MIDDLE)
+            tx,tw=Inches(1.9),Inches(10.35)
+        else:
+            txt(s,Inches(1.1),ry,Inches(0.4),Inches(rh),[[("▸",14,ACC,True)]],anchor=MSO_ANCHOR.MIDDLE)
+            tx,tw=Inches(1.55),Inches(10.7)
+        txt(s,tx,ry,tw,Inches(rh),[_dkruns(r,16)],anchor=MSO_ANCHOR.MIDDLE)
     if warn:
         wy=y+n*(rh+gap)+0.08
         rect(s,Inches(0.85),Inches(wy),Inches(1.15),Inches(0.34),WARNRED)
         txt(s,Inches(0.85),Inches(wy+0.02),Inches(1.15),Inches(0.3),[[(warn[0],12,DKBG,True)]],align=PP_ALIGN.CENTER)
         txt(s,Inches(2.2),Inches(wy),Inches(10.2),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
+    footer(s); return s
+_DKC={"w":RGBColor(0xE8,0xE6,0xDD),"a":RGBColor(0xF5,0xA6,0x23),"b":RGBColor(0x6E,0xA8,0xFF),
+      "g":RGBColor(0x4A,0xDE,0x80),"d":RGBColor(0x8A,0x8D,0x86)}
+def _dkruns(spec,size=16):
+    """spec: str | (amber,white) tuple | list of (text,colorkey) pairs -> txt() runs line."""
+    if isinstance(spec,str): return [(spec,size,_DKC["w"],False)]
+    if isinstance(spec,tuple): return [(spec[0],size,_DKC["a"],True),(spec[1],size,_DKC["w"],False)]
+    return [(t,size,_DKC.get(k,_DKC["w"]),k in ("a","b","g")) for t,k in spec]
+def dark_table(tag,title,col1,col2,rows,foot=None):
+    """Masterclass-style dark comparison table: amber vs blue column headers,
+    white row labels, thin divider rules, optional mixed-colour footer line."""
+    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; HBLUE=_DKC["b"]
+    FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=_DKC["w"]; DIM=_DKC["d"]
+    s=slide(); rect(s,0,0,SW,SH,DKBG)
+    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
+    txt(s,Inches(8.9),Inches(0.4),Inches(3.6),Inches(0.35),[[("● WHEN TO USE WHICH",12,DIM,True)]],align=PP_ALIGN.RIGHT)
+    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
+    txt(s,Inches(0.85),Inches(1.0),Inches(11.9),Inches(0.8),[[(title.upper(),40,AMBER,True)]])
+    LX,C1,C2=Inches(0.85),Inches(3.3),Inches(8.1)
+    y=2.05
+    txt(s,C1,Inches(y),Inches(4.6),Inches(0.4),[[(col1.upper(),15,AMBER,True)]])
+    txt(s,C2,Inches(y),Inches(4.3),Inches(0.4),[[(col2.upper(),15,HBLUE,True)]])
+    y+=0.5
+    rh=0.62
+    for label,v1,v2 in rows:
+        rect(s,LX,Inches(y),Inches(11.63),Inches(0.015),FAINT)
+        txt(s,LX,Inches(y+0.08),Inches(2.3),Inches(rh),[[(label,15,IVORY,True)]])
+        txt(s,C1,Inches(y+0.08),Inches(4.6),Inches(rh),[[(v1,15,IVORY,False)]])
+        txt(s,C2,Inches(y+0.08),Inches(4.3),Inches(rh),[[(v2,15,IVORY,False)]])
+        y+=rh
+    rect(s,LX,Inches(y),Inches(11.63),Inches(0.015),FAINT)
+    if foot:
+        txt(s,Inches(0.85),Inches(y+0.3),Inches(11.63),Inches(0.45),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
     footer(s); return s
 def dark_cards(tag,title_lines,cards,notes=(),badge=None):
     """Masterclass-style dark slide: amber headline + a row of green-outlined cards
@@ -522,6 +560,22 @@ def _lab_extras(num):
             notes=["Python 3.11, Node.js 22, uv, ripgrep, ffmpeg, git.",
                    "Native Windows is explicitly unsupported. The installer refuses CYGWIN/MINGW/MSYS."],
             badge="AUTO-INSTALLED")
+    if num==3:
+        # Memory section — masterclass slides (session search + L1 vs L2)
+        dark_rows("part-05/session-search",["Search Your Own","History."],[],
+            [[("Every CLI + gateway session indexed in ","w"),("~/.hermes/state.db","b")],
+             [("Tool: ","w"),("session_search","b"),("  —  full-text + Gemini Flash summarization","w")],
+             [("The agent calls it ","w"),("autonomously","a"),(" when it suspects a prior conversation is relevant","w")],
+             [("v0.11.0","g"),("  State.db now ","w"),("auto-prunes + VACUUMs at startup","a"),(". No more cron-prune needed.","w")]],
+            accent=_DKC["b"],numbered=False)
+        dark_table("memory vs session_search","L1 vs L2.",
+            "Persistent Memory (L1)","Session Search (L2)",
+            [("Capacity","~1,300 tokens total","Unlimited (all sessions)"),
+             ("Speed","Instant — already in context","Search + LLM summarization"),
+             ("Use case","Key facts always available","“Did we discuss X last week?”"),
+             ("Management","Curated by the agent","Automatic — every session stored"),
+             ("Token cost","Fixed (~1,300 / session)","On-demand — only when searched")],
+            foot=[("L1 is ","d"),("what's curated","a"),(".  L2 is ","d"),("what's archived","b"),(".  Use both.","d")])
     if num==2:
         dark_rows("part-04/telegram-setup",["Telegram."],
             ["Five steps. Phone → bot → VPS."],
@@ -548,12 +602,18 @@ def _lab_extras(num):
         if os.path.exists(p):
             shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
     if num==4 and _CATS:
-        tiles=[(c["category"].replace("-"," ").title(),
-                f"{c['count']} skill{'s' if c['count']!=1 else ''} · e.g. {', '.join(c['examples'][:3])}")
+        # All skill categories from the live Hermes dashboard, masterclass-styled.
+        total=sum(c["count"] for c in _CATS)
+        pairs=[(f"{c['category'].replace('-',' ').title()}  ({c['count']})",
+                ", ".join(c["examples"][:2]) + (", …" if c["count"]>2 else ""))
                for c in _CATS]
-        half=(len(tiles)+1)//2
-        tile_grid("Hermes Skill Categories (1 of 2)",tiles[:half],kicker="FROM A LIVE HERMES INSTALL · 97 SKILLS",cols=2,size=11)
-        tile_grid("Hermes Skill Categories (2 of 2)",tiles[half:],kicker="FROM A LIVE HERMES INSTALL · 97 SKILLS",cols=2,size=11)
+        half=(len(pairs)+1)//2
+        dark_pairs("skills/categories 1-2",[ "Skill Categories."],
+            f"All {len(_CATS)} categories · {total} skills — live from the Hermes dashboard (Skills page).",
+            pairs[:half])
+        dark_pairs("skills/categories 2-2",["Skill Categories."],
+            f"All {len(_CATS)} categories · {total} skills — live from the Hermes dashboard (Skills page).",
+            pairs[half:])
 
 TOPIC_ACTS = {t["num"]: [a for a in ACTIVITIES if a["topic"]==t["num"]] for t in C.TOPICS}
 CARD_COLORS=[BLUE,TEAL,VIOLET]

@@ -24,7 +24,7 @@ DOMAIN3 = [
             ("Watch the setup reference video for this lab", _PP.format(v="f2eian-bR_U", i=2)),
             ("Clone the Paperclip repository", "git clone https://github.com/paperclipai/paperclip.git"),
             ("Start Paperclip with the quickstart compose file", "docker compose -f docker-compose.quickstart.yml up --build"),
-            ("Open the dashboard", "# http://localhost:3100"),
+            ("Open the dashboard in your browser at http://localhost:3100", ""),
             ("Create the company with a single goal and a monthly budget", ""),
         ],
         test="The dashboard loads at http://localhost:3100 and a company exists with a goal and budget.",
