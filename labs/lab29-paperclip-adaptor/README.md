@@ -1,7 +1,7 @@
 # Lab 29 — Setup Adaptor
 
 ## Objective
-LO2: Connect a model adaptor as the agents' engine. Give the company's agents a **brain**. Paperclip ships three built-in adaptors — **Claude Code** (`claude_local`), **Codex** (`codex_local`) and **Gemini CLI** (`gemini_local`) — and supports installable **external adaptors (alpha)**. You will confirm your adaptor is detected so every agent **Tertiary AI News Research** hires can reason and act with it.
+LO2: Connect a model adaptor as the agents' engine. Give every **Altera AI Blogs** agent a **brain**. An adaptor is the bridge between Paperclip and the language model that does the reasoning: when any agent (the CEO or a specialist) picks up a task, Paperclip hands the work to the adaptor, which runs it on the underlying model and streams the result back to the task. Paperclip ships three **built-in** adaptors that piggyback on locally installed CLIs — **Claude Code** (`claude_local`, 9 models), **Codex** (`codex_local`, 10 models) and **Gemini CLI** (`gemini_local`, 8 models) — and supports installable **external adaptor packages (alpha)**. You will install/log in to a CLI on the host so Paperclip can detect it, confirm it shows as available under Settings → Instance settings → Adapters, and hide any adaptors you don't want agents to pick. Whatever adaptor you enable here powers every hire in Labs 30–33.
 
 ## Prerequisites
 - **Lab 28 complete** — the company exists with a mission, budget and an approved CEO.

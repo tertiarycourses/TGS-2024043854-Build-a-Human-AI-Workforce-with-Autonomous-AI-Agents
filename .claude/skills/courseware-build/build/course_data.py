@@ -14,7 +14,7 @@ Edit here, then re-run the courseware-build engine.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v1.10"
+VERSION      = "v1.11"
 VERSION_DATE = "16 July 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
@@ -56,13 +56,13 @@ TOPICS = [
          ]),
     dict(num=3, code="03",
          title="Paperclip — Running & Governing a Company of AI Agents",
-         subtitle="Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team",
+         subtitle="Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team · Daily Routine",
          weighting="34%",
          concepts=[
             "Paperclip is an operating system for a company of AI agents, self-hosted with Docker Compose on Windows (WSL2) or macOS; you are the Board, a CEO agent reports to you, and specialists report to the CEO.",
-            "Running use case: 'Tertiary AI News Research' — a zero-human news desk whose mission is a verified, cited daily AI-news briefing; the mission you write steers every agent the company hires.",
+            "Running use case: 'Altera AI Blogs' — a zero-human company whose mission is to research the AI landscape and publish AI-related blogs end to end; the mission you write steers every agent it hires.",
             "Model adaptors (built-in Claude Code, Codex and Gemini CLI) are the agents' engine; the Tavily Search API — stored as a Secret and bound to a runtime env var — gives researchers live web results.",
-            "The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task is hiring; the CEO proposes the team and every hire pauses at a Board approval gate.",
+            "The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task hires the agents to publish the blogs end to end — every hire pauses at a Board approval gate — and a daily 3pm routine generates and runs the publish task automatically.",
          ]),
 ]
 

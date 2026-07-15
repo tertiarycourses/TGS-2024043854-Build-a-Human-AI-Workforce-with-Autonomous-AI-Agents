@@ -8,7 +8,7 @@ install each platform, connect models, give agents memory, skills, tools, schedu
 security, and run them in **multi-agent mode** — delivering the WSQ competency *Artificial
 Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 
-> **32 labs, 3 topics, 2 days.** Day 1 covers Topic 1 (Hermes Agent) and Topic 2 (OpenClaw);
+> **33 labs, 3 topics, 2 days.** Day 1 covers Topic 1 (Hermes Agent) and Topic 2 (OpenClaw);
 > Day 2 covers Topic 3 (Paperclip) and the final assessment. Each lab follows a reference
 > video.
 
@@ -26,9 +26,9 @@ Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 
 | Path | Contents |
 |------|----------|
-| [labs/](labs/) | **32 hands-on labs** across three platforms, with reference videos, plus the lab [index](labs/README.md) |
-| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.10**) — `Human-AI Workforce with Autonomous AI Agents-v1.10.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
-| [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide (step-by-step for all 32 labs) |
+| [labs/](labs/) | **33 hands-on labs** across three platforms, with reference videos, plus the lab [index](labs/README.md) |
+| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.11**) — `Human-AI Workforce with Autonomous AI Agents-v1.11.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
+| [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide (step-by-step for all 33 labs) |
 | [.claude/](.claude/) | WSQ courseware toolchain (single-source build + assessment generators) |
 
 The confidential `assessment/` folder (question papers + answer keys) is **git-ignored** and
@@ -36,13 +36,13 @@ Drive-only — never pushed to GitHub.
 
 ---
 
-## The three topics (32 labs)
+## The three topics (33 labs)
 
 | Topic | Labs | Platform | Running use case |
 |-------|------|----------|------------------|
 | 1 | [01–14](labs/README.md#topic-1--hermes-agent-labs-0114) | **Hermes Agent** (Nous Research) | *Athena* — a personal chief-of-staff agent |
 | 2 | [15–26](labs/README.md#topic-2--openclaw-labs-1526) | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
-| 3 | [27–32](labs/README.md#topic-3--paperclip-labs-2732) | **Paperclip** | *Tertiary AI News Research* — a zero-human AI news desk you govern |
+| 3 | [27–33](labs/README.md#topic-3--paperclip-labs-2733) | **Paperclip** | *Altera AI Blogs* — a zero-human AI blog company you govern |
 
 See the [labs index](labs/README.md) for the full per-lab list with video links. Do each
 topic's labs **in order**.

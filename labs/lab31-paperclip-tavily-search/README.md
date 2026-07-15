@@ -1,7 +1,7 @@
 # Lab 31 — Add the Tavily Search API
 
 ## Objective
-LO2: Wire live web search into the company via the Tavily Search API. A news-research company needs **fresh information**. You will create a Tavily API key, store it as a company **Secret**, and bind it to the **`TAVILY_API_KEY`** runtime environment variable — Paperclip resolves the secret **server-side when a run starts**, so the key never sits in a prompt or a repo.
+LO2: Wire live web search into the company via the Tavily Search API. A blog company needs **fresh information**. You will create a Tavily API key, store it as a company **Secret**, and bind it to the **`TAVILY_API_KEY`** runtime environment variable — Paperclip resolves the secret **server-side when a run starts**, so the key never sits in a prompt or a repo.
 
 ## Prerequisites
 - **Lab 30 complete** — the six-task backlog exists, including 'Wire the research pipeline to live search'.

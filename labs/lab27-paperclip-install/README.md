@@ -1,7 +1,7 @@
 # Lab 27 — Install Paperclip on Windows & Mac
 
 ## Objective
-LO1: Install and self-host Paperclip on Windows and macOS. Watch the Paperclip overview, then self-host **Paperclip** with Docker Compose on your own machine — **Docker Desktop on macOS**, or **Docker Desktop + WSL2 on Windows** — and open the dashboard at `http://localhost:3100`. This is the platform on which you will found **Tertiary AI News Research**, a zero-human AI-news-research company you direct as the Board.
+LO1: Install and self-host Paperclip on Windows and macOS. Watch the Paperclip overview, then self-host **Paperclip** with Docker Compose on your own machine — **Docker Desktop on macOS**, or **Docker Desktop + WSL2 on Windows** — and open the dashboard at `http://localhost:3100`. This is the platform on which you will found **Altera AI Blogs**, a zero-human company you direct as the Board whose mission is to research the AI landscape daily and publish AI-related blogs end to end.
 
 ## Prerequisites
 - A machine running **macOS** or **Windows 10/11** with admin rights (to install Docker Desktop / enable WSL2).

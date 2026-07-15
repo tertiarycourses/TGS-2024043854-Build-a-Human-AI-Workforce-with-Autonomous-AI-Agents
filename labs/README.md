@@ -1,6 +1,6 @@
 # Labs — Build a Human-AI Workforce with Autonomous AI Agents
 
-32 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
+33 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
 video and builds toward one realistic use case. The course runs over **2 days**:
 
 - **Day 1** — Topic 1 (Hermes Agent) + Topic 2 (OpenClaw)
@@ -10,7 +10,7 @@ video and builds toward one realistic use case. The course runs over **2 days**:
 |-------|------|----------|------------------|
 | 1 | 01–14 | **Hermes Agent** (Nous Research) | *Athena* — an always-on personal chief-of-staff |
 | 2 | 15–26 | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
-| 3 | 27–32 | **Paperclip** | *Tertiary AI News Research* — a zero-human AI-news-research company you govern |
+| 3 | 27–33 | **Paperclip** | *Altera AI Blogs* — a zero-human AI blog company you govern |
 
 Do each topic's labs **in order** — later labs build on what earlier ones set up.
 
@@ -52,18 +52,19 @@ Do each topic's labs **in order** — later labs build on what earlier ones set 
 | 25 | [Dreaming — Idle Reflection & Self-Improvement](lab25-openclaw-dreaming/README.md) |
 | 26 | [Use Cases & Key Functions](lab26-openclaw-usecases/README.md) |
 
-## Topic 3 — Paperclip (Labs 27–32)
+## Topic 3 — Paperclip (Labs 27–33)
 
-Running use case: **Tertiary AI News Research** — found and govern a zero-human AI-news-research company as the Board.
+Running use case: **Altera AI Blogs** — found and govern a zero-human company that researches the AI landscape daily and publishes AI-related blogs end to end, as the Board.
 
 | # | Lab |
 |---|-----|
 | 27 | [Install Paperclip on Windows & Mac](lab27-paperclip-install/README.md) — self-host with Docker Compose (Docker Desktop / WSL2) and open the dashboard at localhost:3100 |
-| 28 | [Setup Company, CEO & Mission](lab28-paperclip-company-ceo-mission/README.md) — found 'Tertiary AI News Research': mission, budget and the Board-approved CEO agent |
+| 28 | [Setup Company, CEO & Mission](lab28-paperclip-company-ceo-mission/README.md) — found 'Altera AI Blogs': mission, budget and the Board-approved CEO agent |
 | 29 | [Setup Adaptor](lab29-paperclip-adaptor/README.md) — enable a model adaptor (Claude Code / Codex / Gemini CLI) as the agents' engine |
-| 30 | [Create the Task Backlog](lab30-paperclip-task-backlog/README.md) — six well-briefed tasks, with 'Hire the core team' as the core task assigned to the CEO |
+| 30 | [Create the Task Backlog](lab30-paperclip-task-backlog/README.md) — six well-briefed tasks, with 'Hire the agents to publish the AI-related blogs end to end' as the core task assigned to the CEO |
 | 31 | [Add the Tavily Search API](lab31-paperclip-tavily-search/README.md) — store the key as a company Secret and bind it to TAVILY_API_KEY for live web search |
-| 32 | [Hire the Members Under the Hiring Task](lab32-paperclip-hire-team/README.md) — the CEO proposes the news-desk team; you approve each hire at the gate and assign the backlog |
+| 32 | [Hire the Members Under the Hiring Task](lab32-paperclip-hire-team/README.md) — the CEO proposes the blog team (research analyst, blog writer, editor/publisher, SEO/marketer) under the core task; you approve each hire at the gate |
+| 33 | [Routine & Trigger — Publish Daily at 3pm](lab33-paperclip-daily-routine/README.md) — a Routine with a daily 15:00 trigger generates and runs 'Produce and publish today's AI blog post' automatically |
 
 ---
 

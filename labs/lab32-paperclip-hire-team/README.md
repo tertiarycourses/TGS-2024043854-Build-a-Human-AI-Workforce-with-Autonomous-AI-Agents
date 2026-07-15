@@ -1,10 +1,10 @@
 # Lab 32 — Hire the Members Under the Hiring Task
 
 ## Objective
-LO3: Staff the company through the hiring task, behind approval gates. Let the company staff itself. The **CEO works the core hiring task** — proposing the specialist roles for the news desk (**research analyst, news writer, fact-checker, editor/publisher**) with budgets and reporting lines — and **every hire pauses at an approval gate** for you, the Board, to approve.
+LO3: Staff the company through the hiring task, behind approval gates. Let **Altera AI Blogs** staff itself — all of it happening **UNDER the core task from Lab 30**, *'Hire the agents to publish the AI-related blogs end to end'*. You move that task to **in_progress** and the CEO works it: inside the task it drafts a hiring plan proposing each specialist the blog pipeline needs — a **research analyst** (scans the watchlist and verifies stories), a **blog writer** (drafts cited posts), an **editor/publisher** (reviews, formats and publishes) and an **SEO/marketer** (titles, tags and distribution) — each with a mandate, a budget cap and a reporting line to the CEO. Every proposed hire pauses at an **approval gate** for you, the Board.
 
 ## Prerequisites
-- **Lab 30 complete** — the core task 'Hire the core team and create a hiring plan' is on the board, assigned to the CEO.
+- **Lab 30 complete** — the core task 'Hire the agents to publish the AI-related blogs end to end' is on the board, assigned to the CEO.
 - **Lab 31 complete** — the Tavily secret is bound so the new researchers can search live.
 - An enabled adaptor (Lab 29) and an approved CEO (Lab 28).
 
@@ -19,13 +19,13 @@ LO3: Staff the company through the hiring task, behind approval gates. Let the c
 ### 1. Watch the reference video for this lab
 [https://www.youtube.com/watch?v=tgqcHHxiwfk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=6](https://www.youtube.com/watch?v=tgqcHHxiwfk&list=PLZslvC3k6NibmbMzfuyc3UGXkIC5k6YvC&index=6)
 
-### 2. Open the core hiring task and move it to in_progress — the CEO drafts the hiring plan in the task
-On the Tasks board open **'Hire the core team and create a hiring plan'** and move it to **in_progress**. The CEO starts working the brief and drafts the **hiring plan inside the task** — watch the task's activity log as the plan takes shape.
+### 2. Open the CORE task 'Hire the agents to publish the AI-related blogs end to end' and move it to in_progress
+On the Tasks board open the CORE task **'Hire the agents to publish the AI-related blogs end to end'** and move it to **in_progress**. The CEO starts working the brief and drafts the **hiring plan inside this task** — watch the task's activity log as the plan takes shape.
 
-### 3. Review the proposed roles, budgets and reporting lines in the task's hiring plan
-Read the CEO's plan as a Board member would. It should propose the news-desk specialists — **research analyst, news writer, fact-checker, editor/publisher** — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
+### 3. Review the proposed roles in the task's hiring plan — research analyst, blog writer, editor/publisher, SEO/marketer
+Read the CEO's plan as a Board member would. It should propose the blog-pipeline specialists — **research analyst, blog writer, editor/publisher, SEO/marketer** — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
 
-### 4. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal)
+### 4. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal) — you are the Board
 Each proposed hire pauses at an **approval gate**. For every one, either:
 
 - **Approve** — the agent is hired and comes online, or
@@ -36,13 +36,13 @@ Nothing joins the company without an explicit Board decision — this gate is th
 ### 5. Confirm the new members appear under Agents and on the Org chart beneath the CEO
 Open **Agents** and check every approved specialist is listed, then open the **Org chart** and confirm the structure: Board → CEO → the four specialists beneath the CEO.
 
-### 6. Assign the rest of the backlog to the new team and watch tasks move todo → in_progress → in_review → done
-Assign the remaining Lab 30 tasks to the right specialists — the coverage strategy and watchlist to the **research analyst**, the workspace scaffold and briefing to the **news writer / editor**, verification to the **fact-checker** — and watch the board: tasks flow **todo → in_progress → in_review → done**, with the CEO coordinating and you approving anything that hits a gate.
+### 6. Assign the rest of the backlog to the new team and watch the pipeline run: research → draft → edit → publish
+Assign the remaining Lab 30 tasks to the right specialists — the content strategy and watchlist to the **research analyst**, the workspace scaffold and the first post to the **blog writer**, review and publication to the **editor/publisher**, titles/tags/distribution to the **SEO/marketer** — and watch the board: the pipeline runs **research → draft → edit → publish**, with tasks flowing **todo → in_progress → in_review → done**, the CEO coordinating and you approving anything that hits a gate.
 
 ## Verification / Expected Output
-- The **hiring task reaches in_review/done** with the hiring plan recorded in the task.
-- **Every hire was Board-approved** at its approval gate — none slipped through automatically.
-- The specialists (research analyst, news writer, fact-checker, editor/publisher) appear in **Agents** and on the **org chart** beneath the CEO, taking backlog tasks.
+- The **core hiring task reaches in_review/done** with the hiring plan recorded in the task.
+- **Every hire was Board-approved** under that task at its approval gate — none slipped through automatically.
+- The specialists (research analyst, blog writer, editor/publisher, SEO/marketer) appear in **Agents** and on the **org chart** beneath the CEO, publishing the first posts.
 
 ## Troubleshooting
 
@@ -56,6 +56,6 @@ Assign the remaining Lab 30 tasks to the right specialists — the coverage stra
 | Team spends too fast | Tighten the per-agent budgets from the hiring plan and the company cap (Lab 28) — budgets are hard ceilings. |
 
 ## Exercise / Challenge
-Reject one proposed hire on purpose (e.g. ask for a 50% smaller budget) and watch the CEO resubmit a revised proposal — then approve it. Once the team is working, ask for one extra hire of your own design (e.g. a *social-media summarizer*) via a new task to the CEO, and take it through the full loop: plan → approval gate → org chart → assigned task.
+Reject one proposed hire on purpose (e.g. ask for a 50% smaller budget) and watch the CEO resubmit a revised proposal — then approve it. Once the team is working, ask for one extra hire of your own design (e.g. a *social-media promoter*) via a new task to the CEO, and take it through the full loop: plan → approval gate → org chart → assigned task.
 
 <sub>Part of the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · © 2026 Tertiary Infotech Academy Pte Ltd · www.tertiarycourses.com.sg</sub>

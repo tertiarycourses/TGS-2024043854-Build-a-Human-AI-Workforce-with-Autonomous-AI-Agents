@@ -54,12 +54,12 @@ SCHEDULE = {
  ]),
  2: (C.DAY_THEMES[2], [
     ("9:30","9:45",15,"recap","Day 1 recap and mandatory digital attendance (AM)"),
-    ("9:45","10:30",45,"topic","Topic 3 — "+C.TOPICS[2]["title"]+": Docker-hosted company of agents (Tertiary AI News Research), model adaptors, the mission, a detailed task backlog, Tavily live search, and hiring behind human approval gates (concepts + demo)"),
+    ("9:45","10:30",45,"topic","Topic 3 — "+C.TOPICS[2]["title"]+": Docker-hosted company of agents (Altera AI Blogs), model adaptors, the mission, a detailed task backlog, Tavily live search, hiring behind human approval gates, and a daily publish routine (concepts + demo)"),
     ("10:30","11:00",30,"lab","Hands-on: "+lab_titles([27,28])),
     ("11:00","11:15",15,"break","Tea break"),
-    ("11:15","13:00",105,"lab","Hands-on: "+lab_titles([29,30,31,32])),
+    ("11:15","13:00",105,"lab","Hands-on: "+lab_titles([29,30,31,32,33])),
     ("13:00","14:00",60,"lunch","Lunch break"),
-    ("14:00","15:30",90,"lab","Hands-on: complete and extend Labs 27–32 — run the news desk end-to-end (backlog → Tavily research → briefing review). Course recap and next steps"),
+    ("14:00","15:30",90,"lab","Hands-on: complete and extend Labs 27–33 — run Altera AI Blogs end-to-end (backlog → Tavily research → publish → daily 3pm routine). Course recap and next steps"),
     ("15:30","15:45",15,"break","Tea break"),
     ("15:45","16:15",30,"recap","Consolidation, Q&A and assessment preparation"),
     ("16:15","16:30",15,"assess","Briefing for Assessment"),
@@ -87,7 +87,8 @@ prodoc.add_version_control(doc,[
  ("1.7","15 July 2026","Sixty-eight content slides migrated from the original 'Mastering OpenClaw' masterclass deck into Topic 2 as framed figures in their matching labs — agent evolution and Agent = Model + Harness, the OpenClaw Wikipedia history and OpenAI acquisition, deployment options and services, model stacks and Mission Control, channels, skills and ClawHub risks, tools (AgentMail, Agent Browser, Firecrawl), system prompt / workspace / context and memory, security lockdown, slash commands, crons, and use cases (NFT certificates, dashboard, cost saving, Google integration).",C.TRAINER),
  ("1.8","15 July 2026","Imported masterclass figures re-blended into the dark deck theme: original title and copyright strips cropped, white canvases converted to the deck background with text inverted to ivory (embedded screenshots untouched), frameless rendering, and duplicated titles reworded.",C.TRAINER),
  ("1.9","16 July 2026","Deck curated per trainer review: the bulk masterclass figure imports were removed, keeping nine key figures (Wikipedia history, Agent=Model+Harness, SKILL.md, ClawHub, AgentMail, 10-steps lockdown, HEARTBEAT, autonomic tick, workspace persistence) re-exported at high resolution, with the Topic 2 opening story reordered ahead of Key Concepts. Every CLI step now also shows the natural-language prompt alternative ('Or just ask') across the Hermes and OpenClaw labs, in the deck and Learner Guide.",C.TRAINER),
- ("1.10",C.VERSION_DATE,"PP assessment updated to v4 — evidence screenshots changed to: Task 1 Hermes interacting on Telegram or the multi-agent Kanban board; Task 2 OpenClaw on Telegram or the TUI; Task 3 the Paperclip setup (company, mission, CEO, hired agents) — with Topic 3 lab references refreshed. A 'RAG vs a Standard LLM Assistant' concept slide added to Core Concepts to ground WA Q2. Final PPT/LP/LG/labs/assessment alignment review.",C.TRAINER),
+ ("1.10","16 July 2026","PP assessment updated to v4 — evidence screenshots changed to: Task 1 Hermes interacting on Telegram or the multi-agent Kanban board; Task 2 OpenClaw on Telegram or the TUI; Task 3 the Paperclip setup (company, mission, CEO, hired agents) — with Topic 3 lab references refreshed. A 'RAG vs a Standard LLM Assistant' concept slide added to Core Concepts to ground WA Q2. Final PPT/LP/LG/labs/assessment alignment review.",C.TRAINER),
+ ("1.11",C.VERSION_DATE,"Topic 3 company renamed to 'Altera AI Blogs' with the mission re-pointed at publishing AI-related blogs end to end; the core backlog task is now 'Hire the agents to publish the AI-related blogs end to end' and Lab 32's hiring happens explicitly under it; Lab 29 (Adaptor) and Lab 32 descriptions expanded in full; NEW Lab 33 'Routine & Trigger — Publish Daily at 3pm' (33 labs total), verified with a live 'Run now' pipeline test and two live screenshots.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 

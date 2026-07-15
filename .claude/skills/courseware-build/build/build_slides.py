@@ -254,7 +254,7 @@ def activity_overview(tag,title,desc,build,services,kicker):
     rect(s,Inches(0.85),Inches(1.85),Inches(1.7),Inches(0.5),_acc(TEAL))
     txt(s,Inches(0.85),Inches(1.9),Inches(1.7),Inches(0.4),[[(tag,16,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
     # Auto-fit the description so long lab goals never clip into the panel below.
-    dL=len(str(desc)); dsize = 21 if dL<=200 else (17 if dL<=320 else 15)
+    dL=len(str(desc)); dsize = 21 if dL<=200 else (17 if dL<=320 else (15 if dL<=600 else (12 if dL<=900 else 10.5)))
     txt(s,Inches(0.85),Inches(2.55),Inches(11.7),Inches(1.6),[[(desc,dsize,_ink(),False)]])
     rect(s,Inches(0.85),Inches(4.3),Inches(11.7),Inches(2.0),_panel())
     txt(s,Inches(1.1),Inches(4.5),Inches(11),Inches(0.4),[[("You'll build",14,_acc(BLUE),True)]])
@@ -601,7 +601,7 @@ two_col("Lesson Plan — 2 Days, 8 hours/day",[
  ("Topic 1: Hermes Agent (Labs 1–14)",1),
  ("Topic 2: OpenClaw (Labs 15–26)",1)],
  [(f"Day 2 — {C.DAY_THEMES[2]}",0),
- ("Topic 3: Paperclip (Labs 27–32)",1),
+ ("Topic 3: Paperclip (Labs 27–33)",1),
  ("Final Assessment (WA + PP)",1),
  ("Daily timing",0),
  ("9:30am–6:30pm · 1-hour lunch · tea breaks within",1)],
@@ -698,7 +698,9 @@ _PCSHOTS={27:[("pc-dashboard.png","Dashboard","The company dashboard at http://l
               ("pc-task-hire.png","The Core Hiring Task","The core task — 'Hire the core team and create a hiring plan', assigned to the CEO, In Review for the Board")],
           31:[("pc-secrets.png","Secrets","Settings → Secrets — store an API key once, bind it to a runtime env var such as TAVILY_API_KEY; Paperclip injects it server-side at run start"),
               ("pc-skills.png","Skills Store","The Skills store — reusable skills the agents draw on, filterable by category")],
-          32:[("pc-agents.png","The Hired Team","The Agents page — a CEO and Board-approved specialists, each hired through the approval gate (trainer's demo company; your news desk hires its own roles)")]}
+          32:[("pc-agents.png","The Hired Team","The Agents page — a CEO and Board-approved specialists, each hired through the approval gate (trainer's demo company; your blog company hires its own roles)")],
+          33:[("pc-routine-run.png","Routines — Run Now","The Routines page — a scheduled routine with its trigger; 'Run now' fires it on demand (tested live on the trainer's company)"),
+              ("pc-routine-pipeline.png","The Routine-Driven Pipeline","Minutes after the trigger: the generated task sits In Review while its stage tasks execute live — earlier stages Done, the render In Progress")]}
 def _pcshots(num):
     for f,label,cap in _PCSHOTS.get(num,[]):
         p=os.path.join(_PCDIR,f)
@@ -1060,13 +1062,14 @@ def _lab_extras(num):
     if num==27:
         # Paperclip — Topic 3 subtitle page (AI news research company)
         dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
-            ["What this topic covers — you are the Board; the agents run the AI news desk."],
+            ["What this topic covers — you are the Board; the agents publish the AI blogs."],
             [[("01  Install","a"),("  —  self-host with Docker Compose on Windows (WSL2) and macOS","w")],
-             [("02  Company, CEO & Mission","a"),("  —  found Tertiary AI News Research, write the mission, hire the CEO","w")],
+             [("02  Company, CEO & Mission","a"),("  —  found Altera AI Blogs, write the mission, hire the CEO","w")],
              [("03  Adaptors","a"),("  —  Claude Code / Codex / Gemini CLI as the agents' engine","w")],
-             [("04  Task Backlog","a"),("  —  detailed tasks; the core one hires the team","w")],
+             [("04  Task Backlog","a"),("  —  detailed tasks; the core one hires the blog team","w")],
              [("05  Tavily Search","a"),("  —  live web research via a Secret-bound API key","w")],
-             [("06  Hire the Team","a"),("  —  the CEO proposes, the Board approves at the gate","w")]],
+             [("06  Hire the Team","a"),("  —  hires under the core task; the Board approves at the gate","w")],
+             [("07  Daily Routine","a"),("  —  a 3:00pm trigger generates and runs the publish task","w")]],
             numbered=False)
     if num==3:
         # Memory section — masterclass slides (session search + L1 vs L2)
@@ -1141,7 +1144,7 @@ for t in C.TOPICS:
     while len(groups)<3: groups.append([])
     cards=[]
     for gi,g in enumerate(groups):
-        cards.append((CARD_COLORS[gi], f"Labs {g[0]['num']}–{g[-1]['num']}" if g else "—",
+        cards.append((CARD_COLORS[gi], (f"Lab {g[0]['num']}" if g[0]['num']==g[-1]['num'] else f"Labs {g[0]['num']}–{g[-1]['num']}") if g else "—",
                       [a["title"] for a in g] if g else ["—"]))
     cards3(f"Hands-On Labs — {t['title']}", cards, kicker="WHAT YOU'LL DO")
     # per activity

@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.10 · 16 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.11 · 16 July 2026**
 
 ## Contents
 
@@ -42,6 +42,7 @@
   - [Lab 30 — Create the Task Backlog](#lab-30--create-the-task-backlog)
   - [Lab 31 — Add the Tavily Search API](#lab-31--add-the-tavily-search-api)
   - [Lab 32 — Hire the Members Under the Hiring Task](#lab-32--hire-the-members-under-the-hiring-task)
+  - [Lab 33 — Routine & Trigger — Publish Daily at 3pm](#lab-33--routine--trigger--publish-daily-at-3pm)
 - [Wrap-Up — The Agent Build Arc and Governance](#wrap-up--the-agent-build-arc-and-governance)
 - [Next Steps](#next-steps)
 - [Glossary](#glossary)
@@ -49,7 +50,7 @@
 
 ## Introduction
 
-This Learner Guide accompanies the WSQ course Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 32 hands-on labs across three autonomous-AI-agent platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds on the same skillset: install the runtime, connect models and channels, give the agent memory, extend it with skills and tools, automate it with schedules, secure it with governance, and finally orchestrate multiple agents to deliver a realistic business outcome.
+This Learner Guide accompanies the WSQ course Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 33 hands-on labs across three autonomous-AI-agent platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds on the same skillset: install the runtime, connect models and channels, give the agent memory, extend it with skills and tools, automate it with schedules, secure it with governance, and finally orchestrate multiple agents to deliver a realistic business outcome.
 
 Use this guide alongside the course slides and the lab files in the labs/ folder of the course repository. The labs run on your own laptop and in Docker; where a lab connects to an external service (an LLM provider, a messaging channel, a VPS) use only accounts and credentials you own, and keep API keys and tokens out of prompts and out of version control.
 
@@ -1536,14 +1537,14 @@ A real use case (Google Workspace, data analytics or social media) runs end-to-e
 
 ## Topic 03 — Paperclip — Running & Governing a Company of AI Agents  (34%)
 
-Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team
+Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team · Daily Routine
 
 **Key concepts**
 
 - Paperclip is an operating system for a company of AI agents, self-hosted with Docker Compose on Windows (WSL2) or macOS; you are the Board, a CEO agent reports to you, and specialists report to the CEO.
-- Running use case: 'Tertiary AI News Research' — a zero-human news desk whose mission is a verified, cited daily AI-news briefing; the mission you write steers every agent the company hires.
+- Running use case: 'Altera AI Blogs' — a zero-human company whose mission is to research the AI landscape and publish AI-related blogs end to end; the mission you write steers every agent it hires.
 - Model adaptors (built-in Claude Code, Codex and Gemini CLI) are the agents' engine; the Tavily Search API — stored as a Secret and bound to a runtime env var — gives researchers live web results.
-- The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task is hiring; the CEO proposes the team and every hire pauses at a Board approval gate.
+- The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task hires the agents to publish the blogs end to end — every hire pauses at a Board approval gate — and a daily 3pm routine generates and runs the publish task automatically.
 
 
 ### Lab 27 — Install Paperclip on Windows & Mac
@@ -1591,7 +1592,7 @@ Docker shows the Paperclip containers running and the dashboard loads at http://
 
 Learning outcome: LO2: Found the company — name, mission and the CEO agent..
 
-Goal: Found 'Tertiary AI News Research': create the company, write its mission (research and publish a reliable daily AI-news briefing), set the monthly budget, then hire the CEO agent — the Chief Officer who will run the news desk and report to you, the Board.
+Goal: Found 'Altera AI Blogs': create the company, write its mission (research the AI landscape daily and publish AI-related blogs end to end), set the monthly budget, then hire the CEO agent — the Chief Officer who will run the blog operation and report to you, the Board.
 
 **What you'll build**
 
@@ -1599,11 +1600,11 @@ A company with a mission and budget, plus an approved CEO agent at the top of th
 
 **Step-by-step**
 
-1. Create the company 'Tertiary AI News Research' from the company switcher In the dashboard open the company switcher (top of the sidebar) and choose New company. Name it exactly: > Tertiary AI News Research This is the zero-human company you will govern for the rest of the topic.
-2. Write the mission — it steers every agent the company hires In the company setup (or Company Settings → Mission), write the mission statement: > Research the AI landscape daily and publish a verified, cited AI-news briefing The mission is not decoration: every agent the company hires reads it and aligns its work to it, so a vague mission produces a vague company.
+1. Create the company 'Altera AI Blogs' from the company switcher In the dashboard open the company switcher (top of the sidebar) and choose New company. Name it exactly: > Altera AI Blogs This is the zero-human company you will govern for the rest of the topic.
+2. Write the mission — it steers every agent the company hires In the company setup (or Company Settings → Mission), write the mission statement: > Research the AI landscape daily and publish AI-related blogs end to end The mission is not decoration: every agent the company hires reads it and aligns its work to it, so a vague mission produces a vague company.
 3. Set the monthly budget cap in Company Settings Open Company Settings and set the monthly budget cap (e.g. $50/month to start). The budget is the hard ceiling on what the whole company may spend on model calls — agents cannot exceed it, which makes it your first governance lever as the Board.
 4. Hire the CEO agent (Chief Officer) and approve the hire — you are the Board Hire the company's first agent: the CEO (Chief Officer). The hire pauses at an approval gate — as the Board, review the CEO's mandate and click Approve. The CEO is the only agent that reports directly to you; every later hire will report to the CEO.
-5. Open the Org page and confirm the structure: Board above the CEO Open the Org page and check the org chart: Board (you) at the top, the CEO directly beneath. This two-node chart is the seed of the whole workforce you will grow in Labs 30–32.
+5. Open the Org page and confirm the structure: Board above the CEO Open the Org page and check the org chart: Board (you) at the top, the CEO directly beneath. This two-node chart is the seed of the whole workforce you will grow in Labs 30–33.
 
 **Test it**
 
@@ -1618,11 +1619,11 @@ The company exists with a mission and budget, and an approved CEO agent sits und
 
 Learning outcome: LO2: Connect a model adaptor as the agents' engine..
 
-Goal: Give the company's agents a brain. Paperclip ships three built-in adaptors — Claude Code (claude_local), Codex (codex_local) and Gemini CLI (gemini_local) — and supports installable external adaptors (alpha). Confirm your adaptor is detected so every hired agent can reason and act with it.
+Goal: Give every Altera AI Blogs agent a brain. An adaptor is the bridge between Paperclip and the language model that does the reasoning: when any agent (the CEO or a specialist) picks up a task, Paperclip hands the work to the adaptor, which runs it on the underlying model and streams the result back to the task. Paperclip ships three BUILT-IN adaptors that piggyback on locally installed CLIs — Claude Code (claude_local, 9 models), Codex (codex_local, 10 models) and Gemini CLI (gemini_local, 8 models) — and supports installable EXTERNAL adaptor packages (alpha). You install/log in to the CLI on the host so Paperclip can detect it, confirm it shows as available under Settings → Instance settings → Adapters, use the power icon to hide adaptors you don't want agents to pick, and restart Paperclip if detection fails. Whatever adaptor you enable here powers every hire in Labs 30-33.
 
 **What you'll build**
 
-A detected, enabled model adaptor (Claude Code, Codex or Gemini CLI) powering the agents.   (Tools: Paperclip, model adaptors (Claude Code / Codex / Gemini CLI).)
+A detected, enabled model adaptor (Claude Code, Codex or Gemini CLI) powering every Altera AI Blogs agent.   (Tools: Paperclip, model adaptors (Claude Code / Codex / Gemini CLI).)
 
 **Step-by-step**
 
@@ -1650,24 +1651,24 @@ Settings → Adapters lists the built-in adaptors and your chosen adaptor is det
 
 Learning outcome: LO3: Create a detailed task backlog that drives the company..
 
-Goal: Write the backlog that runs the news desk. Every task gets a precise title AND a detailed description — the description is the agent's brief, so vague tasks produce vague work. The core task is hiring the team; the rest build the news-research pipeline around it.
+Goal: Write the backlog that runs Altera AI Blogs. Every task gets a precise title AND a detailed description — the description is the agent's brief, so vague tasks produce vague work. The CORE task is 'Hire the agents to publish the AI-related blogs end to end'; the rest build the blog pipeline around it.
 
 **What you'll build**
 
-A Tasks board holding six well-specified tasks, with 'Hire the core team' as the core task.   (Tools: Paperclip, Tasks board.)
+A Tasks board holding six well-specified tasks, with the end-to-end blog-publishing hire as the core task.   (Tools: Paperclip, Tasks board.)
 
 **Step-by-step**
 
-1. Create the CORE task — 'Hire the core team and create a hiring plan' — and assign it to the CEO Title: > Hire the core team and create a hiring plan Description: > Based on the coverage strategy, propose which agents to hire (research analyst, news writer, fact-checker, editor/publisher) with roles, budgets and reporting lines. Assign it to the CEO. This is the core task of the whole topic — in Lab 32 the CEO works it to staff the company.
-2. Create 'Define the AI news coverage strategy and editorial plan' Title: > Define the AI news coverage strategy and editorial plan Description: > Pick the beats (models, chips, policy, funding), the daily cadence, the briefing format and the quality bar for every published story.
-3. Create 'Scaffold the news-desk workspace & tooling foundation' Title: > Scaffold the news-desk workspace & tooling foundation Description: > Set up the workspace folder structure, briefing templates, style guide and source register the whole team will use.
+1. Create the CORE task — 'Hire the agents to publish the AI-related blogs end to end' — and assign it to the CEO Title: > Hire the agents to publish the AI-related blogs end to end Description: > Based on the content strategy, propose which agents to hire (research analyst, blog writer, editor/publisher, SEO/marketer) with roles, budgets and reporting lines, so the company can research, write, edit and publish AI blogs without human writers. Assign it to the CEO. This is the core task of the whole topic — in Lab 32 the CEO works it to staff the company.
+2. Create 'Define the AI blog content strategy and editorial plan' Title: > Define the AI blog content strategy and editorial plan Description: > Pick the beats (models, chips, policy, funding), the publishing cadence, the blog format and the quality bar for every published post.
+3. Create 'Scaffold the blog workspace & tooling foundation' Title: > Scaffold the blog workspace & tooling foundation Description: > Set up the workspace folder structure, post templates, style guide and source register the whole team will use.
 4. Create 'Build the AI news sources watchlist' Title: > Build the AI news sources watchlist Description: > Assemble the RSS feeds, publication sites, X accounts, arXiv categories and company blogs to monitor, with priority tiers and de-duplication rules.
-5. Create 'Produce the first daily AI news briefing' Title: > Produce the first daily AI news briefing Description: > Pull the top stories from the watchlist, verify each against two independent sources, and draft a cited briefing for Board review.
+5. Create 'Produce and publish the first AI blog post' Title: > Produce and publish the first AI blog post Description: > Pull the top stories from the watchlist, verify each against two independent sources, draft a cited post and publish it for Board review.
 6. Create 'Wire the research pipeline to live search' Title: > Wire the research pipeline to live search Description: > Integrate the Tavily Search API so researchers query the live web with fresh results (depends on the Tavily key from the next lab).
 
 **Test it**
 
-The Tasks board shows all six tasks, each with a detailed description, and the hiring task is assigned to the CEO.
+The Tasks board shows all six tasks, each with a detailed description, and the core hiring task is assigned to the CEO.
 
 > **Note:** Full commands and screenshots are in labs/lab30-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
@@ -1678,7 +1679,7 @@ The Tasks board shows all six tasks, each with a detailed description, and the h
 
 Learning outcome: LO2: Wire live web search into the company via the Tavily Search API..
 
-Goal: A news-research company needs fresh information. Create a Tavily API key, store it as a company Secret, and bind it to the TAVILY_API_KEY runtime environment variable — Paperclip resolves the secret server-side when a run starts, so the key never sits in a prompt or a repo.
+Goal: A blog company needs fresh information. Create a Tavily API key, store it as a company Secret, and bind it to the TAVILY_API_KEY runtime environment variable — Paperclip resolves the secret server-side when a run starts, so the key never sits in a prompt or a repo.
 
 **What you'll build**
 
@@ -1705,25 +1706,53 @@ The secret exists, TAVILY_API_KEY is bound to the runtime env, and a live-search
 
 Learning outcome: LO3: Staff the company through the hiring task, behind approval gates..
 
-Goal: Let the company staff itself. The CEO works the core hiring task — proposing the specialist roles for the news desk (research analyst, news writer, fact-checker, editor/publisher) with budgets and reporting lines — and every hire pauses at an approval gate for you, the Board, to approve.
+Goal: Let Altera AI Blogs staff itself — all of it happening UNDER the core task from Lab 30, 'Hire the agents to publish the AI-related blogs end to end'. You move that task to in_progress and the CEO works it: inside the task it drafts a hiring plan proposing each specialist the blog pipeline needs — a research analyst (scans the watchlist and verifies stories), a blog writer (drafts cited posts), an editor/publisher (reviews, formats and publishes) and an SEO/marketer (titles, tags and distribution) — each with a mandate, a budget cap and a reporting line to the CEO. Every proposed hire pauses at an approval gate for you, the Board: approve it and the agent is created; reject it and the CEO revises the plan. When the gates clear, the new members appear in the Agents sidebar and on the Org chart beneath the CEO, and you assign them the rest of the backlog so the pipeline runs end to end — research → draft → edit → publish.
 
 **What you'll build**
 
-An approved core team under the CEO, visible in the Agents list and the org chart, ready to take the backlog.   (Tools: Paperclip, hiring task, approval gates, org chart.)
+A Board-approved blog team (research analyst, blog writer, editor/publisher, SEO/marketer) hired under the core task, visible on the org chart and taking the backlog.   (Tools: Paperclip, hiring task, approval gates, org chart.)
 
 **Step-by-step**
 
-1. Open the core hiring task and move it to in_progress — the CEO drafts the hiring plan in the task On the Tasks board open 'Hire the core team and create a hiring plan' and move it to in_progress. The CEO starts working the brief and drafts the hiring plan inside the task — watch the task's activity log as the plan takes shape.
-2. Review the proposed roles, budgets and reporting lines in the task's hiring plan Read the CEO's plan as a Board member would. It should propose the news-desk specialists — research analyst, news writer, fact-checker, editor/publisher — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
-3. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal) Each proposed hire pauses at an approval gate. For every one, either: - Approve — the agent is hired and comes online, or - Reject with a comment — the CEO revises the proposal (e.g. lower budget, sharper mandate) and resubmits. Nothing joins the company without an explicit Board decision — this gate is the human-in-the-loop control at the heart of Paperclip governance.
+1. Open the CORE task 'Hire the agents to publish the AI-related blogs end to end' and move it to in_progress On the Tasks board open the CORE task 'Hire the agents to publish the AI-related blogs end to end' and move it to in_progress. The CEO starts working the brief and drafts the hiring plan inside this task — watch the task's activity log as the plan takes shape.
+2. Review the proposed roles in the task's hiring plan — research analyst, blog writer, editor/publisher, SEO/marketer Read the CEO's plan as a Board member would. It should propose the blog-pipeline specialists — research analyst, blog writer, editor/publisher, SEO/marketer — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
+3. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal) — you are the Board Each proposed hire pauses at an approval gate. For every one, either: - Approve — the agent is hired and comes online, or - Reject with a comment — the CEO revises the proposal (e.g. lower budget, sharper mandate) and resubmits. Nothing joins the company without an explicit Board decision — this gate is the human-in-the-loop control at the heart of Paperclip governance.
 4. Confirm the new members appear under Agents and on the Org chart beneath the CEO Open Agents and check every approved specialist is listed, then open the Org chart and confirm the structure: Board → CEO → the four specialists beneath the CEO.
-5. Assign the rest of the backlog to the new team and watch tasks move todo → in_progress → in_review → done Assign the remaining Lab 30 tasks to the right specialists — the coverage strategy and watchlist to the research analyst, the workspace scaffold and briefing to the news writer / editor, verification to the fact-checker — and watch the board: tasks flow todo → in_progress → in_review → done, with the CEO coordinating and you approving anything that hits a gate.
+5. Assign the rest of the backlog to the new team and watch the pipeline run: research → draft → edit → publish Assign the remaining Lab 30 tasks to the right specialists — the content strategy and watchlist to the research analyst, the workspace scaffold and the first post to the blog writer, review and publication to the editor/publisher, titles/tags/distribution to the SEO/marketer — and watch the board: the pipeline runs research → draft → edit → publish, with tasks flowing todo → in_progress → in_review → done, the CEO coordinating and you approving anything that hits a gate.
 
 **Test it**
 
-The hiring task reaches in_review/done, every hire was Board-approved, and the specialists appear on the org chart taking backlog tasks.
+The core hiring task reaches in_review/done, every hire was Board-approved under that task, and the specialists appear on the org chart publishing the first posts.
 
 > **Note:** Full commands and screenshots are in labs/lab32-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+
+---
+
+
+### Lab 33 — Routine & Trigger — Publish Daily at 3pm
+
+Learning outcome: LO3: Automate the company with a scheduled routine and trigger..
+
+Goal: Put Altera AI Blogs on autopilot. Create a Routine with a daily 3:00pm trigger that generates and runs the blog-publishing task automatically — the routine fires, creates the day's 'Produce and publish today's AI blog post' task, the team executes the pipeline (research → draft → edit → publish), and the finished post lands in in_review for the Board. No human kicks it off.
+
+**What you'll build**
+
+A daily 3:00pm routine that generates and runs the blog-publishing task automatically.   (Tools: Paperclip, Routines, triggers, Tasks board.)
+
+**Step-by-step**
+
+1. Open the Routines page from the sidebar (Work → Routines) In the dashboard sidebar open Work → Routines. This page holds every scheduled automation the company runs — it is the equivalent of a cron board for your agent workforce.
+2. Create a new routine: 'Daily AI blog publish' Click New routine and name it: > Daily AI blog publish
+3. Set the trigger: schedule, daily at 3:00pm (15:00) In the routine's trigger section choose schedule and set it to daily at 3:00pm (15:00). The trigger is what fires the routine — from now on the clock, not a human, starts the day's publishing run.
+4. Define what the routine generates: the task 'Produce and publish today's AI blog post' Configure the routine to generate the task: > Produce and publish today's AI blog post Description: > Pull the top stories from the watchlist, verify against two sources, draft a cited post, publish for Board review — assigned to the team. Every time the trigger fires, a fresh copy of this task lands on the board and the team executes it end to end.
+5. Save and enable the routine, then trigger it once manually to confirm it creates and runs the task Save the routine and switch it to enabled, then use the manual run/trigger now control to fire it once. Confirm on the Tasks board that the task was created and the team started the pipeline: research → draft → edit → publish.
+6. At the next 3:00pm, confirm the task was generated and executed automatically Wait for the next 3:00pm tick and check: the task 'Produce and publish today's AI blog post' was generated and executed with no human action, and the finished post is sitting in in_review for you, the Board.
+
+**Test it**
+
+The routine is enabled with a daily 15:00 trigger, a manual run creates and executes the publish task, and the next 3pm run happens without human action.
+
+> **Note:** Full commands and screenshots are in labs/lab33-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
