@@ -520,8 +520,10 @@ def dark_pairs(tag,title_lines,sub,pairs):
         txt(s,x+Inches(0.22),yv,Inches(2.35),Inches(rh),[[(cmd,14,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
         txt(s,x+Inches(2.6),yv,cw-Inches(2.8),Inches(rh),[[(desc,12.5,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
-def shot(title,img,kicker=None,caption=""):
-    """Screenshot slide — a framed, real UI capture with a caption (any aspect)."""
+def shot(title,img,kicker=None,caption="",frame=True):
+    """Screenshot slide — a real UI capture with a caption (any aspect).
+    frame=False renders the image bare so dark, pre-blended figures merge
+    with the deck background instead of looking pasted."""
     s=head(slide(),title,kicker,TEAL)
     try:
         from PIL import Image as _PILImage
@@ -532,7 +534,8 @@ def shot(title,img,kicker=None,caption=""):
     maxW=Inches(11.6)
     if W>maxW: W=int(maxW); H=int(maxW*_ih/_iw)
     x=int((SW-W)/2); y=int(Inches(2.02)+(Inches(4.5)-H)/2)
-    rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),_line())
+    if frame:
+        rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),_line())
     s.shapes.add_picture(img,x,y,width=W,height=H)
     if caption:
         _csz=12 if len(caption)<=130 else 10.5   # shrink long captions so they never wrap onto the footer
@@ -693,21 +696,21 @@ def _ocshot(num,title,name,caption):
 # each entry renders the original slide as a framed figure inside the matching lab.
 _OCIMPORT={
  15:[(7,"AI Agents — Never a New Concept","Auto-GPT (2023) → Manus (2024) → Claude Code / Codex / Gemini CLI (2025) → OpenClaw & Hermes Agent (2026)"),
-     (8,"The Evolution of AI Agents","2023–24 prompt engineering → 2025 context engineering → 2026 harness engineering"),
+     (8,"2023 → 2026 — Three Engineering Eras","2023–24 prompt engineering → 2025 context engineering → 2026 harness engineering"),
      (9,"Prompt → Context → Harness Engineering",""),
-     (10,"Agent = Model + Harness","Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system. The model reasons; the harness does everything else."),
-     (11,"Anatomy of a Mature Harness",""),
+     (10,"The Model Reasons. The Harness Does the Rest.","Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system"),
+     (11,"The Duties of a Mature Harness",""),
      (12,"CLI is the Mother Tongue of AI Agents",""),
-     (13,"MCP Is Dead — Long Live the CLI",""),
-     (14,"OpenClaw — The AI That Actually Does Things",""),
-     (17,"OpenClaw — The Wikipedia History","Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 and the project moves to an open-source foundation"),
+     (13,"The Backlash — February 2026","'MCP is dead. Long live the CLI.' — MCP servers are flaky; ship a good CLI and the agents will figure it out"),
+     (14,"openclaw.ai — The Official Site",""),
+     (17,"OpenClaw — The Wikipedia History","Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 — source: en.wikipedia.org/wiki/OpenClaw"),
      (18,"OpenClaw Bought Over by OpenAI",""),
-     (19,"'I Created OpenClaw — and It Runs My Life'",""),
-     (21,"OpenClaw in Action",""),
+     (19,"Peter Steinberger — The Creator","'I created OpenClaw and it runs my life' — the solo developer who shook up the AI world"),
+     (21,"Real Sessions, Real Work",""),
      (24,"OpenClaw = The Linux of AI Agents","Communication software ↔ OpenClaw on your computer ↔ any language model — the non-AI part (OS) of an AI agent"),
-     (26,"From Stateless Chatbots to Persistent Daemons",""),
+     (26,"AI as Infrastructure, Not a Chat Tab",""),
      (34,"What Is an OpenClaw AI Agent?",""),
-     (36,"Who Are You? Who Is the Owner?","Identity comes from the system prompt — each agent introduces itself to the language model on every call"),
+     (36,"Identity Lives in the System Prompt","Identity comes from the system prompt — each agent introduces itself to the language model on every call"),
      (73,"Get Started on OpenClaw",""),
      (75,"Run It on a Local Workstation",""),
      (77,"Run It on a VPS — Hostinger OpenClaw Hosting",""),
@@ -715,9 +718,9 @@ _OCIMPORT={
      (79,"OpenClaw as a Service — Clawdi.ai",""),
      (80,"CoPaw — Co-Personal Agent Workstation",""),
      (81,"NemoClaw — Deploy on NVIDIA",""),
-     (28,"Moltbook — A Social Network for AI Agents",""),
-     (30,"Rent a Human Body","rentahuman.ai — when the agent needs hands in the physical world"),
-     (31,"OpenClaw + Robotics",""),
+     (28,"Moltbook — Where the Agents Post",""),
+     (30,"When Agents Need Hands","rentahuman.ai — when the agent needs hands in the physical world"),
+     (31,"From Tokens to Torque",""),
      (32,"All-Claw Chaos — The Fork Storm","nanobot, PicoClaw, ZeroClaw, NoClaw — the ecosystem forks within weeks")],
  16:[(27,"Model Choice — Cost vs Reliability","Claude Opus 4.5 (flawless, high cost) vs GPT-5.4 (moderate) vs Kimi 2.5 (ultra-low cost) — optimize per session"),
      (87,"Mission Control — Agents & Model Stacks","Named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each with a role, channel and model stack"),
@@ -756,16 +759,19 @@ _OCIMPORT={
  23:[(59,"Third-Party Code Risks — Silent Exfiltration","Cisco AI Security warning: unvetted skills can perform silent data exfiltration"),
      (134,"10 Steps to Lock Down Your AI Agent","")],
  26:[(108,"Use Case — Mint Your Certificate as an NFT",""),
-     (135,"The OpenClaw Dashboard","ssh -L 18789:localhost:18789 root@<IP>, then open http://localhost:18789"),
-     (139,"Cost Saving — Why Context Optimization Matters",""),
-     (140,"Cost Saving — Key Strategies","Use a Claude subscription instead of API; choose the right model; cap context"),
-     (141,"Google Integration — Gmail, Calendar, Chat","")],
+     (135,"Your Command Center at :18789","ssh -L 18789:localhost:18789 root@<IP>, then open http://localhost:18789"),
+     (139,"Why Context Optimization Matters",""),
+     (140,"Key Cost-Saving Strategies","Use a Claude subscription instead of API; choose the right model; cap context"),
+     (141,"Connect the Google Workspace APIs","")],
 }
 def _ocimport(num):
     for pg,title,cap in _OCIMPORT.get(num,[]):
-        p=os.path.join(_OCDIR,f"oc-slide-{pg:03d}.png")
+        # prefer the blended (dark-merged, title/footer-stripped) render when present
+        pb=os.path.join(_OCDIR,f"oc-blend-{pg:03d}.png")
+        p =pb if os.path.exists(pb) else os.path.join(_OCDIR,f"oc-slide-{pg:03d}.png")
         if os.path.exists(p):
-            shot(title,p,kicker=f"LAB {num} · MASTERCLASS",caption=cap)
+            # full-bleed white screenshots (17/58/86) keep the framed look; blends go bare
+            shot(title,p,kicker=f"LAB {num} · MASTERCLASS",caption=cap,frame=(p!=pb or pg in (17,49,58,86)))
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
 def _lab_extras(num):

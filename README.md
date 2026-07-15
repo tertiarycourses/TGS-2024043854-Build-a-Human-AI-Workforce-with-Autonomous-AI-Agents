@@ -27,7 +27,7 @@ Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 | Path | Contents |
 |------|----------|
 | [labs/](labs/) | **32 hands-on labs** across three platforms, with reference videos, plus the lab [index](labs/README.md) |
-| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.7**) — `Human-AI Workforce with Autonomous AI Agents-v1.7.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
+| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.8**) — `Human-AI Workforce with Autonomous AI Agents-v1.8.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
 | [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide (step-by-step for all 32 labs) |
 | [.claude/](.claude/) | WSQ courseware toolchain (single-source build + assessment generators) |
 
