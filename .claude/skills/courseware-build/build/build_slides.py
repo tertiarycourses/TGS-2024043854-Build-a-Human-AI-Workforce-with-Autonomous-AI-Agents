@@ -590,7 +590,7 @@ two_col("Lesson Plan — 2 Days, 8 hours/day",[
  ("Topic 1: Hermes Agent (Labs 1–14)",1),
  ("Topic 2: OpenClaw (Labs 15–26)",1)],
  [(f"Day 2 — {C.DAY_THEMES[2]}",0),
- ("Topic 3: Paperclip (Labs 27–34)",1),
+ ("Topic 3: Paperclip (Labs 27–32)",1),
  ("Final Assessment (WA + PP)",1),
  ("Daily timing",0),
  ("9:30am–6:30pm · 1-hour lunch · tea breaks within",1)],
@@ -633,10 +633,20 @@ tile_grid("The Agent Stack",[
  ("Scheduler & Security","Crons and a heartbeat automate work; sandboxes, budgets and approvals contain it.")],
  kicker="THE BUILDING BLOCKS",cols=2,size=14)
 big_statement("Powerful, but always under human oversight.","Approvals gate risky actions, budgets cap spend (warn at 80%, pause at 100%), and sandboxes isolate execution — so an agent stays safe as it scales.","HUMAN-IN-THE-LOOP GOVERNANCE",color=BLUE)
-cards3("Three Platforms, One Skillset",[
+_pf=cards3("Three Platforms, One Skillset",[
  (BLUE,"Hermes Agent",["Your personal chief-of-staff","Lives across your messaging apps","Cross-channel, memory, crons"]),
  (TEAL,"OpenClaw",["Automates a business back-office","Node.js gateway daemon","Skills, tools, nightly reports"]),
  (VIOLET,"Paperclip",["A company of AI agents you govern","Self-hosted with Docker","Hiring, budgets, audit trail"])],kicker="WHAT YOU'LL BUILD")
+# The three platform logos, one on each card — on a white plate so every mark stays legible
+_LOGODIR=os.path.join(REPO,"courseware","assets","logos")
+for _i,_f in enumerate(["hermes-agent.png","openclaw.png","paperclip.png"]):
+    _p=os.path.join(_LOGODIR,_f)
+    if os.path.exists(_p):
+        _cx=[Inches(0.85),Inches(5.0),Inches(9.15)][_i]
+        _plate=Inches(1.7); _px=int(_cx+(Inches(3.65)-_plate)/2); _py=int(Inches(4.75))
+        rect(_pf,_px,_py,int(_plate),int(_plate),WHITE,line=_line())
+        _lg=Inches(1.4)
+        _pf.shapes.add_picture(_p,int(_px+(_plate-_lg)/2),int(_py+(_plate-_lg)/2),width=int(_lg),height=int(_lg))
 content("The Build Arc",[
  "Install the runtime → connect a model → add channels → give it memory.",
  "Extend it with skills → wire in tools and integrations → schedule work with crons.",
@@ -657,6 +667,22 @@ _SHOTS={2:[("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127
         5:[("hermes-env.png","Providers & API Keys","The Keys page (127.0.0.1:9119/env) — OAuth provider logins (Nous Portal, OpenAI, MiniMax, Anthropic, …) and API keys, stored in ~/.hermes/.env")],
         9:[("hermes-profiles.png","Profiles","The Profiles page (127.0.0.1:9119/profiles) — per-profile toolsets and defaults that shape what the agent may use"),
            ("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")]}
+# Live screenshots from the running Paperclip company (http://127.0.0.1:3100/TER)
+_PCDIR=os.path.join(REPO,"courseware","assets","paperclip")
+_PCSHOTS={27:[("pc-dashboard.png","Dashboard","The company dashboard at http://localhost:3100 — inbox, tasks and agents at a glance (the trainer's live demo company; you build yours the same way)")],
+          28:[("pc-settings.png","Company Settings","Company Settings — where the company name, mission and budget live (trainer's demo company shown)"),
+              ("pc-org.png","Org Chart","The Org page — the Board at the top, the CEO below, specialists under the CEO")],
+          29:[("pc-adapters.png","Adapters","Settings → Instance → Adapters — built-in Claude Code (9 models), Codex (10) and Gemini CLI (8); external adaptors install as packages (alpha)")],
+          30:[("pc-tasks.png","Tasks Board","A live Tasks board — a well-specified backlog moving through Todo / In Progress / In Review / Done / Blocked (trainer's demo company)"),
+              ("pc-task-hire.png","The Core Hiring Task","The core task — 'Hire the core team and create a hiring plan', assigned to the CEO, In Review for the Board")],
+          31:[("pc-secrets.png","Secrets","Settings → Secrets — store an API key once, bind it to a runtime env var such as TAVILY_API_KEY; Paperclip injects it server-side at run start"),
+              ("pc-skills.png","Skills Store","The Skills store — reusable skills the agents draw on, filterable by category")],
+          32:[("pc-agents.png","The Hired Team","The Agents page — a CEO and Board-approved specialists, each hired through the approval gate (trainer's demo company; your news desk hires its own roles)")]}
+def _pcshots(num):
+    for f,label,cap in _PCSHOTS.get(num,[]):
+        p=os.path.join(_PCDIR,f)
+        if os.path.exists(p):
+            shot(f"Paperclip Live — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
 _OCDIR=os.path.join(REPO,"courseware","assets","openclaw")
 def _oc(name): return os.path.join(_OCDIR,f"oc-{name}.png")
 def _ocshot(num,title,name,caption):
@@ -1017,13 +1043,15 @@ def _lab_extras(num):
         _ocshot(24,"Routing Isolates Personas, Workspaces, Permissions","subagent-routing",
             "The gateway routes a public inquiry to a restricted support bot while parallel sub-agents work in the main workspace — isolation by routing.")
     if num==27:
-        # Paperclip — Topic 3 subtitle page
+        # Paperclip — Topic 3 subtitle page (AI news research company)
         dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
-            ["What this topic covers — you are the Board; the agents do the work."],
-            [[("01  Setup & Connect","a"),("  —  self-host with Docker Compose, connect OpenAI Codex as the engine","w")],
-             [("02  Configure & Track","a"),("  —  company settings, budgets, workspace, and the task board","w")],
-             [("03  Hire & Govern","a"),("  —  automated hiring behind approval gates, security rails, audit","w")],
-             [("04  Assign & Deliver","a"),("  —  delegate tasks, review deliverables, run the company end-to-end","w")]],
+            ["What this topic covers — you are the Board; the agents run the AI news desk."],
+            [[("01  Install","a"),("  —  self-host with Docker Compose on Windows (WSL2) and macOS","w")],
+             [("02  Company, CEO & Mission","a"),("  —  found Tertiary AI News Research, write the mission, hire the CEO","w")],
+             [("03  Adaptors","a"),("  —  Claude Code / Codex / Gemini CLI as the agents' engine","w")],
+             [("04  Task Backlog","a"),("  —  detailed tasks; the core one hires the team","w")],
+             [("05  Tavily Search","a"),("  —  live web research via a Secret-bound API key","w")],
+             [("06  Hire the Team","a"),("  —  the CEO proposes, the Board approves at the gate","w")]],
             numbered=False)
     if num==3:
         # Memory section — masterclass slides (session search + L1 vs L2)
@@ -1066,6 +1094,7 @@ def _lab_extras(num):
         p=os.path.join(_SHOTDIR,f)
         if os.path.exists(p):
             shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
+    _pcshots(num)
     if num==4 and _CATS:
         # All skill categories from the live Hermes dashboard, masterclass-styled.
         total=sum(c["count"] for c in _CATS)

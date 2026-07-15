@@ -52,6 +52,9 @@ Open the TUI and ask Athena to perform a task that the new skill enables. Watch 
 
 > This step is conversational — no fixed command. Phrase a request that maps to the skill (e.g. for a summarize skill: *"Summarize this article for me: <paste text>"*). As the agent uses the skill repeatedly, it refines how it invokes it — that's the self-improvement aspect.
 
+### 6. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Learn the slide-deck skill from agentskills.io and confirm it is installed"*.
+
 ## Verification / Expected Output
 - The installed skill appears in the agent's toolset (visible in the skills list / when the agent picks it).
 - When you make a request that matches the skill, the agent **invokes it and returns the expected result**.

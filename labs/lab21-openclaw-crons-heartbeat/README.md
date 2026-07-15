@@ -88,6 +88,9 @@ Make Nimbus Supplies run without you watching it. You will schedule recurring ag
    openclaw gateway status        # expect "running" again
    ```
 
+### 9. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Add a heartbeat task: every 30 minutes, check my inbox and flag anything urgent"*.
+
 ## Verification / Expected Output
 - `openclaw cron list` shows **nightly-sales-report** and **weekly-price-check**.
 - `openclaw cron run nightly-sales-report` delivers a summary to Telegram immediately.

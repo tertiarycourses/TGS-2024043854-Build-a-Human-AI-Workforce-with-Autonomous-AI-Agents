@@ -78,6 +78,9 @@ Extend the Nimbus Supplies agent with two real-world integrations — **Firecraw
    openclaw tools enable <tool-name> --api-key <KEY>
    ```
 
+### 9. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Use the browser to pull today's top three AI headlines and save them to headlines.md"*.
+
 ## Verification / Expected Output
 - `openclaw tools list --enabled` shows **firecrawl** and **agentmail**.
 - The agent scrapes a supplier URL on demand and returns structured prices.

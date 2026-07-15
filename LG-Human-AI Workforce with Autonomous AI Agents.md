@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.5 · 15 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.6 · 15 July 2026**
 
 ## Contents
 
@@ -36,14 +36,12 @@
   - [Lab 25 — Dreaming — Idle Reflection & Self-Improvement](#lab-25--dreaming--idle-reflection--self-improvement)
   - [Lab 26 — Use Cases & Key Functions](#lab-26--use-cases--key-functions)
 - [Topic 03 — Paperclip — Running & Governing a Company of AI Agents  (34%)](#topic-03--paperclip--running--governing-a-company-of-ai-agents--34)
-  - [Lab 27 — Setup Paperclip](#lab-27--setup-paperclip)
-  - [Lab 28 — Connect OpenAI Codex to Paperclip](#lab-28--connect-openai-codex-to-paperclip)
-  - [Lab 29 — Configure Paperclip](#lab-29--configure-paperclip)
-  - [Lab 30 — Track AI Tasks](#lab-30--track-ai-tasks)
-  - [Lab 31 — Automate AI Hiring](#lab-31--automate-ai-hiring)
-  - [Lab 32 — Setup AI Agents](#lab-32--setup-ai-agents)
-  - [Lab 33 — Security](#lab-33--security)
-  - [Lab 34 — Assign Task](#lab-34--assign-task)
+  - [Lab 27 — Install Paperclip on Windows & Mac](#lab-27--install-paperclip-on-windows--mac)
+  - [Lab 28 — Setup Company, CEO & Mission](#lab-28--setup-company-ceo--mission)
+  - [Lab 29 — Setup Adaptor](#lab-29--setup-adaptor)
+  - [Lab 30 — Create the Task Backlog](#lab-30--create-the-task-backlog)
+  - [Lab 31 — Add the Tavily Search API](#lab-31--add-the-tavily-search-api)
+  - [Lab 32 — Hire the Members Under the Hiring Task](#lab-32--hire-the-members-under-the-hiring-task)
 - [Wrap-Up — The Agent Build Arc and Governance](#wrap-up--the-agent-build-arc-and-governance)
 - [Next Steps](#next-steps)
 - [Glossary](#glossary)
@@ -286,6 +284,7 @@ Athena equipped with at least one installed skill that it can invoke on request.
    ```
 
 4. Ask the agent to use the new skill and observe self-improvement Open the TUI and ask Athena to perform a task that the new skill enables. Watch it select and run the skill: > This step is conversational — no fixed command. Phrase a request that maps to the skill (e.g. for a summarize skill: "Summarize this article for me: <paste text>"). As the agent uses the skill repeatedly, it refines how it invokes it — that's the self-improvement aspect.
+5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Learn the slide-deck skill from agentskills.io and confirm it is installed".
 
 **Test it**
 
@@ -373,6 +372,7 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
    ```
 
 4. Use a Tool Gateway tool from a chat Open the TUI and ask Athena to use a bundled Tool Gateway capability — web search, image generation, or text-to-speech: > This step is conversational. For example: "Search the web for today's top AI agent news and list 3 headlines," or "Generate an image of a friendly robot assistant." Confirm the agent invokes the tool and returns the result.
+5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Add the GitHub MCP server to your tools and list what it can do".
 
 **Test it**
 
@@ -404,6 +404,7 @@ A scheduled job (e.g. a daily briefing) that runs automatically and delivers a r
 
 3. Trigger the job once to confirm it produces output Manually run the job once (rather than waiting for 8am) to confirm it produces the expected briefing. > This is typically a "run now" action in the automations UI, or a trigger command shown in the docs. Confirm the briefing is generated and delivered to your chosen destination.
 4. Confirm the next scheduled run is queued Check that after the manual run, the next run is still scheduled for its normal time (08:00 tomorrow), so the automation keeps recurring.
+5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Every weekday at 8am, summarize the top AI news and send it to me on Telegram" — the agent schedules itself with its cronjob tool.
 
 **Test it**
 
@@ -435,6 +436,7 @@ A coordinator agent that delegates a task to one or more worker subagents and co
 2. Ask the coordinator to delegate a multi-part task Open the TUI and give Athena (the coordinator) a task with clearly separable parts so it delegates each to a worker subagent: > Conversational step. For example: "Delegate this: subagent A researches competitor pricing, subagent B drafts a comparison table, subagent C writes a one-paragraph recommendation. Then combine their work." Watch the coordinator spin up workers.
 3. Observe each subagent run in isolation and report back Watch each worker subagent execute on the isolated backend and return its portion of the result. Confirm they run separately (each in its own container/environment when using docker) rather than in the coordinator's session.
 4. Review the coordinator's aggregated result Confirm the coordinator combines the workers' outputs into one coherent deliverable — the research, the table, and the recommendation merged into a single response.
+5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Delegate three subagents to research MiniMax, Kimi and DeepSeek in parallel, then merge the findings".
 
 **Test it**
 
@@ -646,6 +648,7 @@ A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> ru
 9. Review each task's workspace deliverables Click into each completed child task. Every task gets its own workspace (a scratch directory / dedicated dir / git worktree, depending on configuration) where its outputs live. Open the researcher task's workspace and read the brief; open the scriptwriter's and read the script + scene list; open the video_producer's and play the rendered video. Confirm each stage's output actually fed the next — the script should quote the brief's key points, and the video should follow the scene list.
 10. Accept the final video to done If the video meets the brief, accept the top-level task so it moves to done (and later archived). If it doesn't, add a comment on the relevant child task with concrete feedback (e.g. "narration too fast in scene 2") and send that task back through the board rather than redoing everything — that is the point of decomposed work.
 11. Reflect: why this beats one big agent Look back at the run: the expensive long-context model only did research, the cheap model wrote the script, and the tool model rendered. One prompt to a single agent would have used the expensive model for everything. Note one sentence on cost and one on reviewability (you could inspect and reject per stage).
+12. The natural-language way You can skip the CLI entirely and simply ask the agent: "Create a crew of profiles — researcher, scriptwriter, video producer — then decompose this board task and route each piece to the right profile".
 
 **Test it**
 
@@ -994,6 +997,7 @@ Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inc
    openclaw gateway restart             # reload skills if it is not picked up
    ```
 
+8. The natural-language way You can skip the CLI entirely and simply ask the agent: "Install the github skill from ClawHub and show me what it can do".
 
 **Test it**
 
@@ -1058,6 +1062,7 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
    openclaw tools enable <tool-name> --api-key <KEY>
    ```
 
+9. The natural-language way You can skip the CLI entirely and simply ask the agent: "Use the browser to pull today's top three AI headlines and save them to headlines.md".
 
 **Test it**
 
@@ -1237,6 +1242,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw gateway status        # expect "running" again
    ```
 
+9. The natural-language way You can skip the CLI entirely and simply ask the agent: "Add a heartbeat task: every 30 minutes, check my inbox and flag anything urgent".
 
 **Test it**
 
@@ -1449,6 +1455,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    ```
 
 7. Run the end-to-end capstone scenario. From a customer's Telegram, trigger the whole workflow: > Hi Nimbus Supplies — I'm Mei from Acme Cafe. I need 10 reams of recycled A4 paper and 5 boxes of black pens. What's your best price and when can you deliver? Expected chain: 1. Sales greets Mei, recalls Acme's preferences from memory (recycled paper, Tuesday delivery — Lab 22), and captures the order. 2. Sales hands the order to Ops, which starts the nimbus-quote. The pen price is unknown → marked TBC. 3. Ops asks Research to fetch the current pen price via Firecrawl. 4. Research replies with the price; Ops finalises the itemised quote (with GST) and emails it to Acme via AgentMail. 5. That night, the ops-nightly-report cron summarises the day, including Mei's order.
+8. The natural-language way You can skip the CLI entirely and simply ask the agent: "Spawn two sub-agents to research our top two competitors in parallel, then compare their pricing".
 
 **Test it**
 
@@ -1529,69 +1536,101 @@ A real use case (Google Workspace, data analytics or social media) runs end-to-e
 
 ## Topic 03 — Paperclip — Running & Governing a Company of AI Agents  (34%)
 
-Setup · Connect OpenAI Codex · Configure · Track Tasks · Automate Hiring · Setup Agents · Security · Assign Tasks
+Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team
 
 **Key concepts**
 
-- Paperclip is an operating system for a company of AI agents, self-hosted with Docker Compose; you are the Board, a CEO agent reports to you, and specialists report to the CEO.
-- You connect a coding model such as OpenAI Codex as the agents' engine, configure the company, and track AI tasks on a board: todo -> in_progress -> in_review -> done.
-- Hiring is automated behind human approval gates; all durable state lives in an embedded PostgreSQL database whose activity_log (tagged by actor_type) and cost_events tables give a CFO-style audit trail.
-- Security is enforced with budget caps (an 80% warning and a 100% pause rail) and approvals; you set up agents and assign tasks to deliver the company goal.
+- Paperclip is an operating system for a company of AI agents, self-hosted with Docker Compose on Windows (WSL2) or macOS; you are the Board, a CEO agent reports to you, and specialists report to the CEO.
+- Running use case: 'Tertiary AI News Research' — a zero-human news desk whose mission is a verified, cited daily AI-news briefing; the mission you write steers every agent the company hires.
+- Model adaptors (built-in Claude Code, Codex and Gemini CLI) are the agents' engine; the Tavily Search API — stored as a Secret and bound to a runtime env var — gives researchers live web results.
+- The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task is hiring; the CEO proposes the team and every hire pauses at a Board approval gate.
 
 
-### Lab 27 — Setup Paperclip
+### Lab 27 — Install Paperclip on Windows & Mac
 
-Learning outcome: LO1: Install and self-host Paperclip, then found your company..
+Learning outcome: LO1: Install and self-host Paperclip on Windows and macOS..
 
-Goal: Watch the Paperclip overview, then self-host Paperclip with Docker Compose and create the Nimbus Coffee company with a single goal and a monthly budget.
+Goal: Watch the Paperclip overview, then self-host Paperclip with Docker Compose on your own machine — Docker Desktop on macOS, or Docker Desktop + WSL2 on Windows — and open the dashboard at http://localhost:3100.
 
 **What you'll build**
 
-A running Paperclip at http://localhost:3100 with a company (goal + budget).   (Tools: Paperclip, Docker Compose.)
+A running Paperclip instance at http://localhost:3100 on Windows or Mac.   (Tools: Paperclip, Docker Desktop, Docker Compose.)
 
 **Step-by-step**
 
-1. Clone the Paperclip repository. This pulls the source and the Docker Compose files you need to run it locally:
+1. Install Docker Desktop — macOS: download from docker.com; Windows: enable WSL2 first, then install Docker Desktop with the WSL2 backend - macOS — download Docker Desktop from docker.com (https://www.docker.com/products/docker-desktop/), drag it into Applications, launch it and wait for the whale icon to settle. - Windows — enable WSL2 first (open PowerShell as Administrator), then install Docker Desktop and select the WSL2 backend during setup:
+
+   ```bash
+   wsl --install
+   ```
+
+2. Clone the Paperclip repository
 
    ```bash
    git clone https://github.com/paperclipai/paperclip.git
-   cd paperclip
    ```
 
-2. Start Paperclip with the quickstart compose file. This builds the image and brings up the full stack (the app plus its embedded PostgreSQL):
+3. Start Paperclip with the quickstart compose file (same command in the macOS Terminal or the Windows WSL2/PowerShell shell)
 
    ```bash
    docker compose -f docker-compose.quickstart.yml up --build
    ```
 
-3. Open the dashboard. In your browser, go to:
-4. Create the company with a single goal and a monthly budget. In the dashboard, start a new company. Name it Nimbus Coffee, Inc., give it one clear goal (e.g. "Launch a direct-to-consumer specialty coffee brand and make the first sale"), and set a monthly budget cap (your spend ceiling). Save. This company is the entity the CEO and specialist agents will work inside for every remaining Paperclip lab. > The exact wording of the "Create company" / goal / budget fields is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
+4. Open the dashboard in your browser at http://localhost:3100 and create your Board account Browse to http://localhost:3100 (http://localhost:3100). The first-run screen asks you to create your Board account — this identity is the human owner every agent ultimately answers to. Sign in and land on the empty dashboard.
 
 **Test it**
 
-The dashboard loads at http://localhost:3100 and a company exists with a goal and budget.
+Docker shows the Paperclip containers running and the dashboard loads at http://localhost:3100 on your platform.
 
 > **Note:** Full commands and screenshots are in labs/lab-27-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
 
-### Lab 28 — Connect OpenAI Codex to Paperclip
+### Lab 28 — Setup Company, CEO & Mission
 
-Learning outcome: LO2: Connect a coding model (OpenAI Codex) as the agents' engine..
+Learning outcome: LO2: Found the company — name, mission and the CEO agent..
 
-Goal: Give Paperclip's agents a brain by connecting the OpenAI Codex adapter, so the agents can reason and act. Confirm the adapter is detected and available.
+Goal: Found 'Tertiary AI News Research': create the company, write its mission (research and publish a reliable daily AI-news briefing), set the monthly budget, then hire the CEO agent — the Chief Officer who will run the news desk and report to you, the Board.
 
 **What you'll build**
 
-Paperclip using the OpenAI Codex adapter as the agents' model.   (Tools: Paperclip, OpenAI Codex.)
+A company with a mission and budget, plus an approved CEO agent at the top of the org chart.   (Tools: Paperclip, company settings, org chart.)
 
 **Step-by-step**
 
-1. Install / log in to the OpenAI Codex CLI so Paperclip can detect it. Follow the video's instructions to install the Codex CLI and authenticate (log in or supply your API key). Paperclip detects the adapter by finding this working Codex CLI/credentials on the host — so getting the login right here is the whole ballgame. > The exact install/login command is version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-2. Open Settings → Agents / Adapters in the dashboard. In Paperclip at http://localhost:3100, go to Settings, then the Agents / Adapters section. This is where Paperclip lists every model engine it can use to power agents.
-3. Confirm the OpenAI Codex adapter shows as "available". Look for the OpenAI Codex entry and check its status reads available (not "not detected" / "unavailable"). Available means Paperclip successfully found and authenticated the Codex CLI and can route agent reasoning through it.
-4. Restart Paperclip if the adapter is not detected. If Codex still shows unavailable after you have logged in, restart the stack so Paperclip re-scans for the adapter:
+1. Create the company 'Tertiary AI News Research' from the company switcher In the dashboard open the company switcher (top of the sidebar) and choose New company. Name it exactly: > Tertiary AI News Research This is the zero-human company you will govern for the rest of the topic.
+2. Write the mission — it steers every agent the company hires In the company setup (or Company Settings → Mission), write the mission statement: > Research the AI landscape daily and publish a verified, cited AI-news briefing The mission is not decoration: every agent the company hires reads it and aligns its work to it, so a vague mission produces a vague company.
+3. Set the monthly budget cap in Company Settings Open Company Settings and set the monthly budget cap (e.g. $50/month to start). The budget is the hard ceiling on what the whole company may spend on model calls — agents cannot exceed it, which makes it your first governance lever as the Board.
+4. Hire the CEO agent (Chief Officer) and approve the hire — you are the Board Hire the company's first agent: the CEO (Chief Officer). The hire pauses at an approval gate — as the Board, review the CEO's mandate and click Approve. The CEO is the only agent that reports directly to you; every later hire will report to the CEO.
+5. Open the Org page and confirm the structure: Board above the CEO Open the Org page and check the org chart: Board (you) at the top, the CEO directly beneath. This two-node chart is the seed of the whole workforce you will grow in Labs 30–32.
+
+**Test it**
+
+The company exists with a mission and budget, and an approved CEO agent sits under the Board on the org chart.
+
+> **Note:** Full commands and screenshots are in labs/lab-28-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+
+---
+
+
+### Lab 29 — Setup Adaptor
+
+Learning outcome: LO2: Connect a model adaptor as the agents' engine..
+
+Goal: Give the company's agents a brain. Paperclip ships three built-in adaptors — Claude Code (claude_local), Codex (codex_local) and Gemini CLI (gemini_local) — and supports installable external adaptors (alpha). Confirm your adaptor is detected so every hired agent can reason and act with it.
+
+**What you'll build**
+
+A detected, enabled model adaptor (Claude Code, Codex or Gemini CLI) powering the agents.   (Tools: Paperclip, model adaptors (Claude Code / Codex / Gemini CLI).)
+
+**Step-by-step**
+
+1. Install / log in to the adaptor CLI on the host so Paperclip can detect it Paperclip detects adaptor CLIs installed on the host machine. Install and authenticate at least one — e.g. Claude Code (claude and log in) or the OpenAI Codex CLI (codex and log in) — on the same machine that runs the Paperclip containers.
+2. Open Settings → Instance settings → Adapters in the dashboard In the dashboard go to Settings → Instance settings → Adapters. This page is the registry of every engine the instance can run agents on.
+3. Confirm the built-in adaptors are listed and yours shows as available You should see the three built-ins with their model counts: - Claude Code (claude_local) — 9 models - Codex (codex_local) — 10 models - Gemini CLI (gemini_local) — 8 models The adaptor whose CLI you installed in step 2 should show as available/detected.
+4. Use the power icon to hide adaptors; 'Install Adapter' adds external adaptor packages (alpha) Two controls on this page matter for governance: - The power icon on each adaptor toggles it — hide adaptors you don't want agents to pick, so hires can only run on engines you have vetted. - Install Adapter adds external adaptor packages beyond the three built-ins. This feature is alpha — expect rough edges.
+5. Restart Paperclip if your adaptor is not detected Detection happens at startup, so a CLI installed after Paperclip came up may not show until a restart:
 
    ```bash
    docker compose -f docker-compose.quickstart.yml restart
@@ -1600,190 +1639,91 @@ Paperclip using the OpenAI Codex adapter as the agents' model.   (Tools: Papercl
 
 **Test it**
 
-The OpenAI Codex adapter is detected and shows as available in Settings.
-
-> **Note:** Full commands and screenshots are in labs/lab-28-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 29 — Configure Paperclip
-
-Learning outcome: LO2: Configure the company — settings, budget and workspace..
-
-Goal: Configure Nimbus Coffee: set the monthly budget, connect a workspace folder so agents write real files, and adjust company settings.
-
-**What you'll build**
-
-A configured company with a budget and a connected workspace folder.   (Tools: Paperclip, workspace.)
-
-**Step-by-step**
-
-1. Open the company's settings in the dashboard. At http://localhost:3100, open Nimbus Coffee, Inc. and go to its Settings. This is the per-company control panel (distinct from the app-wide Settings you used for adapters in Lab 28).
-2. Set or adjust the monthly budget cap. Enter the maximum the company may spend per month. This cap is the governance rail you will exercise in Lab 33 (an 80% warning and a 100% pause). Set a deliberate figure you are comfortable letting agents spend against. > Field name/units are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-3. Connect a workspace folder so agents create real deliverables. First create the folder on your machine:
-
-   ```bash
-   mkdir -p ~/paperclip-workspace/nimbus-coffee
-   ```
-
-4. Save the configuration and confirm it persists. Save the settings, reload the page, and confirm the budget and the connected workspace path are still shown. Persistence matters — it proves the config was written to the database, not just held in the browser.
-
-**Test it**
-
-The company shows the configured budget and a connected workspace folder.
+Settings → Adapters lists the built-in adaptors and your chosen adaptor is detected and enabled for agents.
 
 > **Note:** Full commands and screenshots are in labs/lab-29-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
 
-### Lab 30 — Track AI Tasks
+### Lab 30 — Create the Task Backlog
 
-Learning outcome: LO3: Track AI work on the task board..
+Learning outcome: LO3: Create a detailed task backlog that drives the company..
 
-Goal: Use Paperclip's task board to track work through its four states — todo, in_progress, in_review, done — giving you visibility and control over what the agents are doing.
+Goal: Write the backlog that runs the news desk. Every task gets a precise title AND a detailed description — the description is the agent's brief, so vague tasks produce vague work. The core task is hiring the team; the rest build the news-research pipeline around it.
 
 **What you'll build**
 
-A task board showing AI tasks moving across the four states.   (Tools: Paperclip, task board.)
+A Tasks board holding six well-specified tasks, with 'Hire the core team' as the core task.   (Tools: Paperclip, Tasks board.)
 
 **Step-by-step**
 
-1. Open the task board for the company. In the dashboard, open Nimbus Coffee, Inc. and go to its task board. You'll see four columns — todo, in_progress, in_review, done — the single source of truth for everything the company is working on.
-2. Create or observe a task in the "todo" column. Either create a task yourself (e.g. "Draft the Nimbus Coffee brand tagline") or watch one the CEO/agents have already queued. A task in todo is committed work that has not started yet.
-3. Watch a task move todo → in_progress → in_review. As an agent picks up the task, it moves to in_progress; when the agent finishes and produces a deliverable, it moves to in_review, waiting for your judgement. Observing this flow is how you supervise a company of agents without micromanaging each action.
-4. Open a shell to review the task activity log. For a deeper view than the UI, open a shell inside the running Paperclip container:
-
-   ```bash
-   docker compose -f docker-compose.quickstart.yml exec paperclip sh
-   ```
-
+1. Create the CORE task — 'Hire the core team and create a hiring plan' — and assign it to the CEO Title: > Hire the core team and create a hiring plan Description: > Based on the coverage strategy, propose which agents to hire (research analyst, news writer, fact-checker, editor/publisher) with roles, budgets and reporting lines. Assign it to the CEO. This is the core task of the whole topic — in Lab 32 the CEO works it to staff the company.
+2. Create 'Define the AI news coverage strategy and editorial plan' Title: > Define the AI news coverage strategy and editorial plan Description: > Pick the beats (models, chips, policy, funding), the daily cadence, the briefing format and the quality bar for every published story.
+3. Create 'Scaffold the news-desk workspace & tooling foundation' Title: > Scaffold the news-desk workspace & tooling foundation Description: > Set up the workspace folder structure, briefing templates, style guide and source register the whole team will use.
+4. Create 'Build the AI news sources watchlist' Title: > Build the AI news sources watchlist Description: > Assemble the RSS feeds, publication sites, X accounts, arXiv categories and company blogs to monitor, with priority tiers and de-duplication rules.
+5. Create 'Produce the first daily AI news briefing' Title: > Produce the first daily AI news briefing Description: > Pull the top stories from the watchlist, verify each against two independent sources, and draft a cited briefing for Board review.
+6. Create 'Wire the research pipeline to live search' Title: > Wire the research pipeline to live search Description: > Integrate the Tavily Search API so researchers query the live web with fresh results (depends on the Tavily key from the next lab).
 
 **Test it**
 
-Tasks are visible on the board and move through todo -> in_progress -> in_review -> done.
+The Tasks board shows all six tasks, each with a detailed description, and the hiring task is assigned to the CEO.
 
 > **Note:** Full commands and screenshots are in labs/lab-30-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
 
-### Lab 31 — Automate AI Hiring
+### Lab 31 — Add the Tavily Search API
 
-Learning outcome: LO3: Automate hiring of the CEO and specialist agents behind approval gates..
+Learning outcome: LO2: Wire live web search into the company via the Tavily Search API..
 
-Goal: Hire your CEO agent and let it propose specialist hires, each passing a human approval gate. This is how the company staffs itself automatically while you stay in control.
+Goal: A news-research company needs fresh information. Create a Tavily API key, store it as a company Secret, and bind it to the TAVILY_API_KEY runtime environment variable — Paperclip resolves the secret server-side when a run starts, so the key never sits in a prompt or a repo.
 
 **What you'll build**
 
-An approved CEO agent and one or more approved specialist agents.   (Tools: Paperclip, approval gates.)
+A TAVILY_API_KEY secret bound to the agents' runtime environment, verified with a live search task.   (Tools: Paperclip, Secrets, Tavily Search API.)
 
 **Step-by-step**
 
-1. Hire the CEO agent from the company page. On the Nimbus Coffee, Inc. page, choose to hire the CEO. The CEO is the top agent that reads the company goal and works out what roles the company needs to achieve it.
-2. Approve the CEO hire (you are the Board). The hire pauses at an approval gate. Review it and approve — as the Board, nothing joins the company without your sign-off. This is the core governance pattern: agents propose, humans approve.
-3. Let the CEO propose specialist hires. Once active, the CEO analyses the goal and proposes specialists it needs (for a coffee brand, perhaps a Marketer, an Engineer for the storefront, and an Operations agent). Each proposal explains the role and why it helps reach the goal.
-4. Review and approve each specialist at the approval gate. For every proposed hire, review the role and approve or reject it at the gate. Approve the ones that genuinely serve the Nimbus Coffee goal; reject any that don't. Each approval is recorded as a human decision — an actor_type=user entry in the audit trail you'll inspect in Lab 33.
+1. Create a Tavily account and copy an API key from app.tavily.com Sign up at app.tavily.com (https://app.tavily.com), open the dashboard and copy an API key (it starts with tvly-). Keep it in your clipboard — you will paste it once, into a secret, and nowhere else.
+2. Open Settings → Company settings → Secrets and click 'New secret' In the Paperclip dashboard go to Settings → Company settings → Secrets and click New secret. Secrets are company-scoped: every agent the company hires can be granted them, but no agent ever reads them in plain text.
+3. Store the key as a secret (e.g. name it tavily) Name the secret (e.g. tavily), paste the API key as its value, and save. Secrets are injected at run start, never shown to agents in plain text — the value will not appear in prompts, task logs or the repo.
+4. Bind it to TAVILY_API_KEY via an agent's Environment variables (or a project's Env field) Now map the secret to the environment variable the Tavily SDK/CLI expects: - Open an agent's Environment variables (or a project's Env field), - add the key TAVILY_API_KEY, - choose Secret as the value type, and - select the stored tavily secret. At run start Paperclip resolves the binding server-side and the agent's runtime sees TAVILY_API_KEY set — without the key ever passing through a prompt.
+5. Verify with a live search task Create a task for an agent with the binding: > Use Tavily to find today's three biggest AI announcements and list your sources The agent should return fresh, cited results — stories from today with source links, not stale training-data knowledge.
 
 **Test it**
 
-The CEO and approved specialists are active; each hire is logged as an actor_type=user decision.
+The secret exists, TAVILY_API_KEY is bound to the runtime env, and a live-search task returns fresh cited results.
 
 > **Note:** Full commands and screenshots are in labs/lab-31-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
 
-### Lab 32 — Setup AI Agents
+### Lab 32 — Hire the Members Under the Hiring Task
 
-Learning outcome: LO2: Set up and configure the AI agents and their capabilities..
+Learning outcome: LO3: Staff the company through the hiring task, behind approval gates..
 
-Goal: Configure the hired agents — their mandate, tools and per-agent budget caps — so each specialist can carry out the delegated work for Nimbus Coffee.
+Goal: Let the company staff itself. The CEO works the core hiring task — proposing the specialist roles for the news desk (research analyst, news writer, fact-checker, editor/publisher) with budgets and reporting lines — and every hire pauses at an approval gate for you, the Board, to approve.
 
 **What you'll build**
 
-Configured agents with mandates, tools and per-agent budgets.   (Tools: Paperclip, agents.)
+An approved core team under the CEO, visible in the Agents list and the org chart, ready to take the backlog.   (Tools: Paperclip, hiring task, approval gates, org chart.)
 
 **Step-by-step**
 
-1. Open an agent's configuration. On the Nimbus Coffee page, pick one specialist (e.g. the Marketer) and open its configuration. This is where you turn a generic hire into a purpose-built role.
-2. Set the agent's mandate and the tools it may use. Write a crisp mandate — one or two sentences on exactly what this agent is responsible for (e.g. "Own Nimbus Coffee's brand voice and launch marketing copy"). Then grant only the tools it needs (e.g. file-write to the workspace, web research) and withhold the rest. Least privilege here prevents an agent from straying outside its lane. > Tool names and the mandate field are version-specific — verify in the video / docs (<https://docs.paperclip.ing>).
-3. Set a per-agent budget cap. Give this agent its own spend ceiling, carved out of the company budget. Per-agent caps mean one runaway agent can't drain the whole company — a key safety rail you'll exercise in Lab 33.
-4. Save and confirm the agent is ready to receive tasks. Save the configuration, reload, and confirm the mandate, tools, and budget persist and the agent's status shows it is ready for work. Repeat steps 2–5 for each specialist you approved.
+1. Open the core hiring task and move it to in_progress — the CEO drafts the hiring plan in the task On the Tasks board open 'Hire the core team and create a hiring plan' and move it to in_progress. The CEO starts working the brief and drafts the hiring plan inside the task — watch the task's activity log as the plan takes shape.
+2. Review the proposed roles, budgets and reporting lines in the task's hiring plan Read the CEO's plan as a Board member would. It should propose the news-desk specialists — research analyst, news writer, fact-checker, editor/publisher — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
+3. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal) Each proposed hire pauses at an approval gate. For every one, either: - Approve — the agent is hired and comes online, or - Reject with a comment — the CEO revises the proposal (e.g. lower budget, sharper mandate) and resubmits. Nothing joins the company without an explicit Board decision — this gate is the human-in-the-loop control at the heart of Paperclip governance.
+4. Confirm the new members appear under Agents and on the Org chart beneath the CEO Open Agents and check every approved specialist is listed, then open the Org chart and confirm the structure: Board → CEO → the four specialists beneath the CEO.
+5. Assign the rest of the backlog to the new team and watch tasks move todo → in_progress → in_review → done Assign the remaining Lab 30 tasks to the right specialists — the coverage strategy and watchlist to the research analyst, the workspace scaffold and briefing to the news writer / editor, verification to the fact-checker — and watch the board: tasks flow todo → in_progress → in_review → done, with the CEO coordinating and you approving anything that hits a gate.
 
 **Test it**
 
-Each agent has a mandate, allowed tools and a budget cap, and is ready for tasks.
+The hiring task reaches in_review/done, every hire was Board-approved, and the specialists appear on the org chart taking backlog tasks.
 
 > **Note:** Full commands and screenshots are in labs/lab-32-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 33 — Security
-
-Learning outcome: LO3: Secure the company with budgets, safety rails and approvals..
-
-Goal: Apply Paperclip's governance: company-wide and per-agent budget caps trigger an 80% warning and a 100% pause; approvals gate risky decisions; the audit trail records everything.
-
-**What you'll build**
-
-Budget caps with the 80% warning and 100% pause rails demonstrated, plus an audit review.   (Tools: Paperclip, budgets, PostgreSQL audit.)
-
-**Step-by-step**
-
-1. Set a company and/or per-agent budget cap. In the company settings (Lab 29) and/or an agent's config (Lab 32), set a deliberately small cap so ongoing agent work will approach it during this lab. This is what lets you observe the safety rails fire instead of waiting days.
-2. Trigger the 80% warning and 100% pause, then resume. Let the agents keep working (assign a task or two). As spend crosses 80% of the cap, Paperclip raises a warning; at 100% it pauses the company/agent so nothing can overspend. Review the pause, then resume (e.g. by raising the cap or explicitly resuming) and confirm work continues. You have now seen both the soft and hard money rails in action.
-3. Audit actions and spend in the embedded PostgreSQL. Connect to Paperclip's database to inspect the ground-truth record:
-
-   ```bash
-   psql "postgresql://postgres@localhost:5432/paperclip"
-   ```
-
-4. Separate human vs agent actions with actor_type. Run the audit query to see how much of the company's activity was human decisions versus agent actions:
-
-   ```bash
-   SELECT actor_type, COUNT(*) FROM activity_log GROUP BY actor_type;
-   ```
-
-
-**Test it**
-
-The 80% warning and 100% pause fire, resume works, and the audit shows actions by actor_type and total spend.
-
-> **Note:** Full commands and screenshots are in labs/lab-33-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 34 — Assign Task
-
-Learning outcome: LO3: Assign and delegate tasks to run the company end-to-end..
-
-Goal: Delegate real work: assign tasks to specialists, watch them execute and produce deliverables in the workspace, and review and accept the results to complete the Nimbus Coffee goal.
-
-**What you'll build**
-
-Assigned tasks executed by agents, producing real deliverables you review and accept.   (Tools: Paperclip, task board, workspace.)
-
-**Step-by-step**
-
-1. Assign a task to a specialist agent. On the task board (Lab 30), create a concrete task and assign it to the right specialist — e.g. give the Engineer "Build a one-page Nimbus Coffee landing page in the workspace", or the Marketer "Write the launch tagline and hero copy". Match the task to the mandate you set in Lab 32.
-2. Watch the agent execute and write output to the workspace. The task moves todo → in_progress as the agent works. When it finishes, check that a real file appeared in your workspace:
-
-   ```bash
-   ls -R ~/paperclip-workspace/nimbus-coffee
-   ```
-
-3. Review the deliverable in the in_review state. The task is now in in_review, waiting on you. Open the produced file and judge it against the task and the company goal. As the Board, you are the quality gate.
-4. Approve to move it to done, or send it back for revision. If the deliverable is good, approve it — the task moves to done and that slice of the Nimbus Coffee goal is complete. If it falls short, send it back for revision with feedback, and the agent iterates. Either way, you stayed in control end-to-end.
-
-**Test it**
-
-An assigned task is executed by an agent, produces a real file, and is reviewed and accepted to done.
-
-> **Note:** Full commands and screenshots are in labs/lab-34-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 

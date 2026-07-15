@@ -88,6 +88,9 @@ If the video meets the brief, accept the top-level task so it moves to **done** 
 ### 12. Reflect: why this beats one big agent
 Look back at the run: the expensive long-context model only did research, the cheap model wrote the script, and the tool model rendered. One prompt to a single agent would have used the expensive model for everything. Note one sentence on cost and one on reviewability (you could inspect and reject *per stage*).
 
+### 13. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Create a crew of profiles — researcher, scriptwriter, video producer — then decompose this board task and route each piece to the right profile"*.
+
 ## Verification / Expected Output
 - Three profiles (**researcher**, **scriptwriter**, **video_producer**) visible on the dashboard **/profiles** page with correct descriptions.
 - The decomposed Kanban tasks are **routed to the right profile by description**, and the **/kanban** lanes show tasks flowing triage → todo → ready → running → done.

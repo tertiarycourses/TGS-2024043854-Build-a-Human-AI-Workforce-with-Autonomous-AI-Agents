@@ -1,6 +1,6 @@
 # Labs — Build a Human-AI Workforce with Autonomous AI Agents
 
-34 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
+32 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
 video and builds toward one realistic use case. The course runs over **2 days**:
 
 - **Day 1** — Topic 1 (Hermes Agent) + Topic 2 (OpenClaw)
@@ -10,7 +10,7 @@ video and builds toward one realistic use case. The course runs over **2 days**:
 |-------|------|----------|------------------|
 | 1 | 01–14 | **Hermes Agent** (Nous Research) | *Athena* — an always-on personal chief-of-staff |
 | 2 | 15–26 | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
-| 3 | 27–34 | **Paperclip** | *Nimbus Coffee, Inc.* — a zero-human company you govern |
+| 3 | 27–32 | **Paperclip** | *Tertiary AI News Research* — a zero-human AI-news-research company you govern |
 
 Do each topic's labs **in order** — later labs build on what earlier ones set up.
 
@@ -52,18 +52,18 @@ Do each topic's labs **in order** — later labs build on what earlier ones set 
 | 25 | [Dreaming — Idle Reflection & Self-Improvement](lab25-openclaw-dreaming/README.md) |
 | 26 | [Use Cases & Key Functions](lab26-openclaw-usecases/README.md) |
 
-## Topic 3 — Paperclip (Labs 27–34)
+## Topic 3 — Paperclip (Labs 27–32)
+
+Running use case: **Tertiary AI News Research** — found and govern a zero-human AI-news-research company as the Board.
 
 | # | Lab |
 |---|-----|
-| 27 | [Setup Paperclip](lab27-paperclip-setup/README.md) |
-| 28 | [Connect OpenAI Codex to Paperclip](lab28-paperclip-connect-codex/README.md) |
-| 29 | [Configure Paperclip](lab29-paperclip-configure/README.md) |
-| 30 | [Track AI Tasks](lab30-paperclip-track-tasks/README.md) |
-| 31 | [Automate AI Hiring](lab31-paperclip-automate-hiring/README.md) |
-| 32 | [Setup AI Agents](lab32-paperclip-setup-agents/README.md) |
-| 33 | [Security](lab33-paperclip-security/README.md) |
-| 34 | [Assign Task](lab34-paperclip-assign-task/README.md) |
+| 27 | [Install Paperclip on Windows & Mac](lab27-paperclip-install/README.md) — self-host with Docker Compose (Docker Desktop / WSL2) and open the dashboard at localhost:3100 |
+| 28 | [Setup Company, CEO & Mission](lab28-paperclip-company-ceo-mission/README.md) — found 'Tertiary AI News Research': mission, budget and the Board-approved CEO agent |
+| 29 | [Setup Adaptor](lab29-paperclip-adaptor/README.md) — enable a model adaptor (Claude Code / Codex / Gemini CLI) as the agents' engine |
+| 30 | [Create the Task Backlog](lab30-paperclip-task-backlog/README.md) — six well-briefed tasks, with 'Hire the core team' as the core task assigned to the CEO |
+| 31 | [Add the Tavily Search API](lab31-paperclip-tavily-search/README.md) — store the key as a company Secret and bind it to TAVILY_API_KEY for live web search |
+| 32 | [Hire the Members Under the Hiring Task](lab32-paperclip-hire-team/README.md) — the CEO proposes the news-desk team; you approve each hire at the gate and assign the backlog |
 
 ---
 

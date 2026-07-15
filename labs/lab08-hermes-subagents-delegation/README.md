@@ -42,6 +42,9 @@ Watch each worker subagent execute on the isolated backend and return its portio
 ### 5. Review the coordinator's aggregated result
 Confirm the coordinator **combines** the workers' outputs into one coherent deliverable — the research, the table, and the recommendation merged into a single response.
 
+### 6. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Delegate three subagents to research MiniMax, Kimi and DeepSeek in parallel, then merge the findings"*.
+
 ## Verification / Expected Output
 - The coordinator **delegates to worker subagents on an isolated backend** and returns a **combined result**.
 - With docker, each worker runs in its own container (isolation is visible/logged).

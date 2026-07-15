@@ -96,6 +96,9 @@ A **skill** is a reusable, named capability: a prompt plus optional tools and ex
    /skill nimbus-quote "Customer: Acme Cafe. 10 reams recycled A4 paper, 5 boxes black pens."
    ```
 
+### 8. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Install the github skill from ClawHub and show me what it can do"*.
+
 ## Verification / Expected Output
 - `openclaw skills list` shows the registry skills you added plus your custom **nimbus-quote**.
 - `/skill web-research "…"` runs end-to-end and returns an answer in chat.

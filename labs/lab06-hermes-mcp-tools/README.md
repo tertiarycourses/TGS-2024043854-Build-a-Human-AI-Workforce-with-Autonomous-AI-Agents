@@ -66,6 +66,9 @@ Open the TUI and ask Athena to use a bundled Tool Gateway capability — web sea
 
 > This step is conversational. For example: *"Search the web for today's top AI agent news and list 3 headlines,"* or *"Generate an image of a friendly robot assistant."* Confirm the agent invokes the tool and returns the result.
 
+### 6. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Add the GitHub MCP server to your tools and list what it can do"*.
+
 ## Verification / Expected Output
 - The agent **lists the new MCP server's tools** (e.g. GitHub repo/issue tools).
 - The agent **completes a task using a Tool Gateway tool** (web search / image / TTS) — you get real output back.

@@ -107,6 +107,9 @@ Bring everything together. Split the single Nimbus Supplies agent into **three c
 
    
 
+### 8. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Spawn two sub-agents to research our top two competitors in parallel, then compare their pricing"*.
+
 ## Verification / Expected Output
 - Three agents (or three isolated instances) exist and each has a **distinct, least-privilege** tool set — Sales cannot run `exec`, Research cannot write files, Ops is not exposed on a public channel.
 - The customer message on Telegram produces a **real quote email** that combines: memory (recycled paper), a skill (`nimbus-quote`), a Research price lookup (Firecrawl), and AgentMail delivery.

@@ -54,12 +54,12 @@ SCHEDULE = {
  ]),
  2: (C.DAY_THEMES[2], [
     ("9:30","9:45",15,"recap","Day 1 recap and mandatory digital attendance (AM)"),
-    ("9:45","10:30",45,"topic","Topic 3 — "+C.TOPICS[2]["title"]+": Docker-hosted company of agents, connecting OpenAI Codex, human approval gates, task tracking, budgets and audit (concepts + demo)"),
+    ("9:45","10:30",45,"topic","Topic 3 — "+C.TOPICS[2]["title"]+": Docker-hosted company of agents (Tertiary AI News Research), model adaptors, the mission, a detailed task backlog, Tavily live search, and hiring behind human approval gates (concepts + demo)"),
     ("10:30","11:00",30,"lab","Hands-on: "+lab_titles([27,28])),
     ("11:00","11:15",15,"break","Tea break"),
     ("11:15","13:00",105,"lab","Hands-on: "+lab_titles([29,30,31,32])),
     ("13:00","14:00",60,"lunch","Lunch break"),
-    ("14:00","15:30",90,"lab","Hands-on: "+lab_titles([33,34])+". Course recap and next steps"),
+    ("14:00","15:30",90,"lab","Hands-on: complete and extend Labs 27–32 — run the news desk end-to-end (backlog → Tavily research → briefing review). Course recap and next steps"),
     ("15:30","15:45",15,"break","Tea break"),
     ("15:45","16:15",30,"recap","Consolidation, Q&A and assessment preparation"),
     ("16:15","16:30",15,"assess","Briefing for Assessment"),
@@ -82,7 +82,8 @@ prodoc.add_version_control(doc,[
  ("1.2","14 July 2026","Visual redesign: all content slides card-format; YouTube links removed from the deck and Learner Guide (videos remain in the labs); live Hermes screenshots and skill-category grids added; Hermes install lab expanded with the official install methods.",C.TRAINER),
  ("1.3","14 July 2026","Deck restyled in the dark masterclass theme end-to-end; added the Hermes masterclass slides (What is Hermes; The Bet: Compounding Value; platform matrix; Top-10 slash commands; Telegram setup; memory L1-vs-L2 and session-search; what-is-a-tool, built-in tool catalog, tools-in-action, cron scheduling, delegation, kanban orchestration and OpenClaw topic slides); Lab 13 rebuilt as the multi-agent video team (profiles + kanban) with detailed Labs 11-14 guides; fade slide transitions and the live Achievements dashboard screenshot.",C.TRAINER),
  ("1.4","15 July 2026","Security masterclass slides added to the Hermes Security lab (defense-in-depth layers; the gateway's six-check default-deny trust chain; channel lockdown dials; the three approval modes + the Tirith scanner; a live Dangerous-Command approval; YOLO mode; the unrecoverable-command blocklist floor; prompt-injection scanning of context files). Security lab steps expanded with the channel allowlist and approvals.mode.",C.TRAINER),
- ("1.5",C.VERSION_DATE,"Sixteen concept diagrams imported from the original Mastering OpenClaw masterclass deck into Topic 2 (OpenClaw OS control plane; deployment; hub-and-spoke gateway; tools vs skills; SKILL-on-demand; 6-phase execution loop; exec; HEARTBEAT + autonomic tick; workspace file persistence; context assembly; compaction; defense methods; poisoned-skill anatomy; sessions_spawn; sub-agent routing).",C.TRAINER),
+ ("1.5","15 July 2026","Sixteen concept diagrams imported from the original Mastering OpenClaw masterclass deck into Topic 2 (OpenClaw OS control plane; deployment; hub-and-spoke gateway; tools vs skills; SKILL-on-demand; 6-phase execution loop; exec; HEARTBEAT + autonomic tick; workspace file persistence; context assembly; compaction; defense methods; poisoned-skill anatomy; sessions_spawn; sub-agent routing).",C.TRAINER),
+ ("1.6",C.VERSION_DATE,"Topic 3 (Paperclip) rebuilt as the 'Tertiary AI News Research' company across 6 labs (27-32): install on Windows & Mac; company, CEO & mission; model adaptors; a detailed task backlog whose core task hires the team; the Tavily Search API via Secrets; and hiring the members under the hiring task — with live dashboard screenshots. Natural-language prompt steps added to the Hermes and OpenClaw labs alongside the CLI. Platform logos added to the Three Platforms page. 32 labs total.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 

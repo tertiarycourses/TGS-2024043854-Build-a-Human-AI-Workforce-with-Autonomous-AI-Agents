@@ -51,6 +51,9 @@ Manually run the job once (rather than waiting for 8am) to confirm it produces t
 ### 5. Confirm the next scheduled run is queued
 Check that after the manual run, the **next** run is still scheduled for its normal time (08:00 tomorrow), so the automation keeps recurring.
 
+### 6. The natural-language way
+You can skip the CLI entirely and simply ask the agent: *"Every weekday at 8am, summarize the top AI news and send it to me on Telegram"* — the agent schedules itself with its cronjob tool.
+
 ## Verification / Expected Output
 - The scheduled job **runs at its time (or on manual trigger)** and delivers the expected briefing.
 - `hermes doctor` shows the scheduler/automation healthy and the job registered.
