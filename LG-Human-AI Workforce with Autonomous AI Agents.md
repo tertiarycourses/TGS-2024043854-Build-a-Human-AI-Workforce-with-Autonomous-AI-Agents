@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.3 · 14 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.4 · 15 July 2026**
 
 ## Contents
 
@@ -475,32 +475,38 @@ The profile is set and the Kanban board shows tasks progressing across its colum
 
 Learning outcome: LO4: Secure the agent with isolation, secrets and approvals..
 
-Goal: Harden Athena: run risky work in an isolated terminal backend, manage secrets safely, and require approval before sensitive actions — applying least privilege throughout.
+Goal: Harden Athena with defense in depth: restrict who can message the agent (default deny), run risky work in an isolated terminal backend, manage secrets safely, and require approval before sensitive actions — applying least privilege throughout.
 
 **What you'll build**
 
-A hardened agent that sandboxes execution, protects secrets and prompts for approval on risky actions.   (Tools: Hermes Agent, terminal backends, secrets management.)
+A hardened agent that allowlists its users, sandboxes execution, protects secrets and prompts for approval on risky actions.   (Tools: Hermes Agent, gateway allowlists, terminal backends, secrets management.)
 
 **Step-by-step**
 
-1. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host:
+1. Restrict who can message the agent — set the channel allowlist (default deny) Decide who is allowed to talk to Athena. The gateway authorizes every inbound message with a six-check chain — per-platform allow-all, DM pairing, the platform allowlist, the global allowlist, global allow-all, then default deny. Nothing configured means everyone is denied (fails closed), with a startup warning telling you exactly that. In the dashboard open Channels → Configure for your channel (e.g. Telegram) and set the allowlist to your own user ID: - Allowed user IDs (TELEGRAM_ALLOWED_USERS) — comma-separated IDs that may use the bot (get yours from @userinfobot). - Allow all users (TELEGRAM_ALLOW_ALL_USERS) — leave off; it opens the bot to anyone (dev only). - Unknown DMs can also be admitted one-by-one via pairing codes you approve.
+2. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host:
 
    ```bash
    hermes config set terminal.backend docker
    ```
 
-2. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts:
+3. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts:
 
    ```bash
    hermes config set <PROVIDER>_API_KEY <value>
    ```
 
-3. Require approval before the agent runs risky actions Enable approval prompts so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts):
-4. Apply least privilege — grant only the tools/skills the task needs Review the tools, skills, and MCP servers Athena has access to and disable anything not needed for the current work. > Conversational/config step: trim the enabled skills (Lab 4) and MCP servers (Lab 6) to the minimum. Least privilege means the agent can only do what the task actually requires.
+4. Require approval before the agent runs risky actions — set the approval mode Set the approval mode so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts):
+
+   ```bash
+   hermes config set approvals.mode manual
+   ```
+
+5. Apply least privilege — grant only the tools/skills the task needs Review the tools, skills, and MCP servers Athena has access to and disable anything not needed for the current work. > Conversational/config step: trim the enabled skills (Lab 4) and MCP servers (Lab 6) to the minimum. Least privilege means the agent can only do what the task actually requires.
 
 **Test it**
 
-Risky actions run only in the sandbox and only after approval; secrets are not stored in plain text.
+Only allowlisted users reach the agent; risky actions run in the sandbox and only after approval; secrets are not stored in plain text.
 
 > **Note:** Full commands and screenshots are in labs/lab-10-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 

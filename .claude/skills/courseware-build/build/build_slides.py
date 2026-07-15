@@ -311,9 +311,10 @@ def dark_rows(tag,title_lines,sub_lines,rows,warn=None,accent=None,numbered=True
         txt(s,tx,ry,tw,Inches(rh),[_dkruns(r,16)],anchor=MSO_ANCHOR.MIDDLE)
     if warn:
         wy=y+n*(rh+gap)+0.08
-        rect(s,Inches(0.85),Inches(wy),Inches(1.15),Inches(0.34),WARNRED)
-        txt(s,Inches(0.85),Inches(wy+0.02),Inches(1.15),Inches(0.3),[[(warn[0],12,DKBG,True)]],align=PP_ALIGN.CENTER)
-        txt(s,Inches(2.2),Inches(wy),Inches(10.2),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
+        chipw=max(1.15,0.11*len(warn[0])+0.3)   # chip grows with the badge text so it never wraps
+        rect(s,Inches(0.85),Inches(wy),Inches(chipw),Inches(0.34),WARNRED)
+        txt(s,Inches(0.85),Inches(wy+0.02),Inches(chipw),Inches(0.3),[[(warn[0],12,DKBG,True)]],align=PP_ALIGN.CENTER)
+        txt(s,Inches(1.05+chipw),Inches(wy),Inches(11.28-chipw),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 _DKC={"w":RGBColor(0xE8,0xE6,0xDD),"a":RGBColor(0xF5,0xA6,0x23),"b":RGBColor(0x6E,0xA8,0xFF),
       "g":RGBColor(0x4A,0xDE,0x80),"d":RGBColor(0x8A,0x8D,0x86),"r":RGBColor(0xE8,0x6A,0x8A)}
@@ -570,15 +571,11 @@ tile_grid("Ground Rules",[
  "Mutual respect: agree to disagree.","One conversation at a time.",
  "Be punctual; return from breaks on time.","75% attendance is required."],
  kicker="HOUSEKEEPING",cols=2,size=15)
-_dl=flow_h("Download Course Material",[
- "Sign in at the LMS-TMS portal",
- "Open this course from your dashboard",
- "Go to the Courseware tab",
- "Download the Slides (PPT/PDF), Learner Guide and Lesson Plan",
- "Keep them open for the open-book assessment"],kicker="COURSE PORTAL")
-# Full portal URL as a wide caption (kept out of the narrow chips so it never wraps mid-token)
-txt(_dl,Inches(0.85),Inches(6.5),Inches(11.6),Inches(0.4),
-    [[("Portal:  https://lms-tms.tertiaryinfotech.com",16,_acc(BLUE),True)]],align=PP_ALIGN.CENTER)
+# Live screenshot of the LMS-TMS portal (house standard: a visual, not a text link)
+shot("Download Course Material",
+     os.path.join(REPO,"courseware","assets","screenshots","lms-portal.png"),
+     kicker="COURSE PORTAL",
+     caption="Sign in at https://lms-tms.tertiaryinfotech.com → open this course → Courseware tab → download the Slides, Learner Guide and Lesson Plan.")
 # Lesson plan overview — rendered from the day themes so it can never drift
 two_col("Lesson Plan — 2 Days, 8 hours/day",[
  (f"Day 1 — {C.DAY_THEMES[1]}",0),
@@ -790,6 +787,95 @@ def _lab_extras(num):
                                       [("A team you hand a project to.","d")]])],
             foot=[("When work must cross agents and survive restarts, you graduate from the fork to the board.","a")],
             right_tag="THE M8 PAYOFF")
+    if num==10:
+        # Security section — masterclass slides (defense in depth, gateway trust
+        # chain, channel lockdown, approval modes, live approval, YOLO, the
+        # unrecoverable blocklist, prompt-injection scanning)
+        dark_rows("why layers, not one wall",
+            ["No Single Layer Is Perfect."],
+            ["Defense in depth: overlapping, independent layers — each catching what the others miss.",
+             "And every default is fail-closed: deny, not allow, when something's uncertain."],
+            [("Trust","  —  who's allowed in the door"),
+             ("Approve","  —  what commands get a human check"),
+             ("Contain","  —  where the blast radius stops"),
+             ("Filter","  —  what secrets can leave"),
+             ("Harden","  —  what's checked before it starts")],
+            warn=("SCALE IT","Solo laptop → light touch. Shared gateway → allowlists + sandboxing. Public-facing → every dial up."))
+        dark_rows("gateway/_is_user_authorized()",
+            ["Six Checks, Then Deny."],
+            ["Who may talk to your agent — every inbound message walks this chain; the first match wins."],
+            [[("Per-platform allow-all   ","a"),("DISCORD_ALLOW_ALL_USERS — that one platform is fully open","w")],
+             [("DM pairing   ","a"),("approved list — pairing codes the owner approved","w")],
+             [("Platform allowlist   ","a"),("TELEGRAM_ALLOWED_USERS — comma-separated user IDs","w")],
+             [("Global allowlist   ","a"),("GATEWAY_ALLOWED_USERS — one list across every channel","w")],
+             [("Global allow-all   ","a"),("GATEWAY_ALLOW_ALL_USERS — everything open (dev only)","w")],
+             [("Default   ","r"),("DENY — no rule matched, the message is dropped","w")]],
+            warn=("FAILS CLOSED","Nothing configured = everyone denied, with a startup warning saying exactly that. You must opt into openness."))
+        dark_pairs("channels/configure-telegram",
+            ["Lock Down the Channel."],
+            "The same dials exist on every channel — shown here for Telegram (Channels → Configure).",
+            [("BOT TOKEN","from @BotFather — the bot's identity"),
+             ("ALLOWED_USERS","comma-separated user IDs (from @userinfobot)"),
+             ("ALLOW_ALL_USERS","any user may trigger the bot — dev only"),
+             ("HOME CHANNEL","default chat for cron + notification delivery"),
+             ("PROXY URL","route via http / https / socks5 (optional)"),
+             ("PAIRING","unknown DMs get a code; the owner approves")])
+        dark_rows("approvals.mode",
+            ["Three Modes. Not Four."],
+            [],
+            [[("manual (default)   ","a"),("CLI: [o]nce / [s]ession / [a]lways / [d]eny, 60s timeout, fails closed. Gateway: buttons or yes / approve / go.","w")],
+             [("smart   ","b"),("an auxiliary LLM assesses risk — safe commands auto-approve, dangerous ones auto-deny, uncertain cases escalate to manual.","w")],
+             [("off   ","r"),("disables all approval checks — equivalent to running with --yolo permanently. Trusted environments only.","w")]],
+            warn=("TIRITH","Not a 4th mode — a parallel content scanner (security.tirith_*); runs in every mode, can add an approval prompt."),
+            numbered=False)
+        dark_code("smart mode, live","Approval, In Action.",
+            "A real gateway session — the agent proposes a risky command; the human decides.",
+            [[("Hermes  Stopping the gateway with the official command.","w")],
+             [("","w")],
+             [("⚠ Dangerous Command","r")],
+             [("hermes gateway stop 2>&1; sleep 1; hermes gateway status 2>&1;","a")],
+             [("pgrep -af 'hermes gateway' || echo 'no hermes gateway process'","a")],
+             [("","w")],
+             [("❯ 1. Allow once","g")],
+             [("  2. Allow for this session","w")],
+             [("  3. Add to permanent allowlist","w")],
+             [("  4. Deny","w")],
+             [("  5. Show full command","w")],
+             [("","w")],
+             [("stop/restart hermes gateway (kills running agents)","d")],
+             [("grok-4.5 | 35.1K/500K | 7% | 4m","b")]],
+            foot="The classifier names the risk in plain words — you decide: once, this session, or forever.",
+            win_title="hermes chat — restarting the gateway",right_tag="LIVE SESSION")
+        dark_panels("--yolo · /yolo","YOLO Mode.",
+            [("a","CLI flag",[[("$ hermes chat --yolo","a")],
+                              [("","w")],
+                              [("Process-scoped — this run only.","w")]]),
+             ("b","In-chat toggle",[[("> /yolo","b")],
+                                    [("","w")],
+                                    [("Session-scoped on the gateway — toggle it back off when done.","w")]]),
+             ("r","Env var",[[("$ HERMES_YOLO_MODE=1","r")],
+                             [("","w")],
+                             [("Environment-scoped — everything it launches.","w")]])],
+            foot=[("All approval prompts bypassed. Two persistent reminders: a red banner at session start and a live ","w"),("⚠ YOLO","r"),(" status-bar fragment.","w")],
+            right_tag="ALL SAFETY OFF")
+        dark_rows("tools/approval.py :: UNRECOVERABLE_BLOCKLIST",
+            ["The Floor Below --yolo."],
+            ["Refused regardless of YOLO, approvals.mode: off, cron auto-approve, or a permanent allowlist entry."],
+            [[("rm -rf /   ","r"),("and obvious variants — wipes the filesystem root","w")],
+             [("fork bomb   ","r"),(":(){ :|:& };:  — pegs the host until reboot","w")],
+             [("mkfs on mounted root   ","r"),("formats the live system","w")],
+             [("dd if=/dev/zero of=/dev/sd*   ","r"),("zeroes a physical disk","w")],
+             [("curl | sh at rootfs top   ","r"),("an RCE vector too broad to ever approve","w")]],
+            warn=("NO OVERRIDE","Trips before the approval layer even sees the command — need one legitimately? Run it outside the agent."),
+            numbered=False)
+        dark_rows("AGENTS.md · SOUL.md · .cursorrules",
+            ["Your Files Can Attack You Too."],
+            ["Context files are scanned before entering the system prompt — a poisoned file is an attack surface."],
+            ['"Ignore prior instructions" text and hidden HTML comments with suspicious keywords',
+             "Secret-read attempts (.env, credentials, .netrc) and curl exfiltration patterns",
+             "Invisible Unicode — zero-width spaces, bidirectional overrides"],
+            warn=("BLOCKED","'AGENTS.md contained potential prompt injection. Content not loaded.' — visible, not silent."),
+            numbered=False)
     if num==13:
         # Multi-agent workflow — masterclass slides (kanban orchestration)
         dark_flow("assignee = a profile","A Goal, Routed to Profiles.",
@@ -992,6 +1078,11 @@ content("Continuing Your AI-Agent Journey",[
  "Extend the labs with your own skills, tools and integrations for a workflow you care about.",
  "Apply governance in production — budgets, approvals and an audit trail.",
  "Explore multi-agent orchestration to deliver real end-to-end business workflows."],kicker="NEXT STEPS")
+content("Practice Exam",[
+ "Sharpen your readiness with the Tertiary Infotech practice exams before the final assessment.",
+ "Practice exam portal: https://exams.tertiaryinfotech.com",
+ "Attempt it under timed conditions and review every explanation.",
+ "Revisit any lab whose topic you miss, then re-take the practice exam."],kicker="TEST YOURSELF")
 content("Assessment",[
  "Written Assessment (SAQ) — 1 hour.  Practical Performance (PP) — 1 hour.",
  "Open book: slides, Learner Guide and approved materials only.",
