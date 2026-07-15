@@ -14,7 +14,7 @@ Edit here, then re-run the courseware-build engine.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v1.4"
+VERSION      = "v1.5"
 VERSION_DATE = "15 July 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"

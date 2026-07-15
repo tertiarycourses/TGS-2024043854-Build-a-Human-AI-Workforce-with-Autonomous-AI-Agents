@@ -521,14 +521,22 @@ def dark_pairs(tag,title_lines,sub,pairs):
         txt(s,x+Inches(2.6),yv,cw-Inches(2.8),Inches(rh),[[(desc,12.5,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def shot(title,img,kicker=None,caption=""):
-    """Screenshot slide — a framed, real UI capture with a caption (16:10 source)."""
+    """Screenshot slide — a framed, real UI capture with a caption (any aspect)."""
     s=head(slide(),title,kicker,TEAL)
-    H=Inches(4.5); W=int(H*1440/900)          # native 1440x900 aspect
-    x=int((SW-W)/2); y=Inches(2.02)
+    try:
+        from PIL import Image as _PILImage
+        _iw,_ih=_PILImage.open(img).size
+    except Exception:
+        _iw,_ih=1440,900
+    H=Inches(4.5); W=int(H*_iw/_ih)
+    maxW=Inches(11.6)
+    if W>maxW: W=int(maxW); H=int(maxW*_ih/_iw)
+    x=int((SW-W)/2); y=int(Inches(2.02)+(Inches(4.5)-H)/2)
     rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),_line())
-    s.shapes.add_picture(img,x,y,height=H)
+    s.shapes.add_picture(img,x,y,width=W,height=H)
     if caption:
-        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,12,_grey(),False)]],align=PP_ALIGN.CENTER)
+        _csz=12 if len(caption)<=130 else 10.5   # shrink long captions so they never wrap onto the footer
+        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,_csz,_grey(),False)]],align=PP_ALIGN.CENTER)
     footer(s); return s
 def test_slide(act_title,text,kicker):
     s=head(slide(),act_title,kicker,TEAL)
@@ -649,6 +657,12 @@ _SHOTS={2:[("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127
         5:[("hermes-env.png","Providers & API Keys","The Keys page (127.0.0.1:9119/env) — OAuth provider logins (Nous Portal, OpenAI, MiniMax, Anthropic, …) and API keys, stored in ~/.hermes/.env")],
         9:[("hermes-profiles.png","Profiles","The Profiles page (127.0.0.1:9119/profiles) — per-profile toolsets and defaults that shape what the agent may use"),
            ("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")]}
+_OCDIR=os.path.join(REPO,"courseware","assets","openclaw")
+def _oc(name): return os.path.join(_OCDIR,f"oc-{name}.png")
+def _ocshot(num,title,name,caption):
+    p=_oc(name)
+    if os.path.exists(p):
+        shot(title,p,kicker=f"LAB {num} · MASTERCLASS DIAGRAM",caption=caption)
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
 def _lab_extras(num):
@@ -935,6 +949,18 @@ def _lab_extras(num):
              ("As-a-Service","myclaw.ai · clawdi.ai"),
              ("Bots","CoPaw · NemoClaw")],
             notes=["Start local for the labs; move to a VPS for 24/7 operation; managed services when you don't want to run infrastructure."])
+        _ocshot(15,"The OpenClaw OS — Control Plane","agent-os",
+            "Channels, terminal and APIs flow into the gateway daemon (port 18789), which brokers the host file system, Docker sandboxes and external SaaS.")
+        _ocshot(15,"Deployment — Local vs Remote VM","deployment",
+            "Local development binds a loopback WebSocket; a VPS/Tailscale deployment authenticates with OPENCLAW_GATEWAY_TOKEN.")
+    if num==17:
+        _ocshot(17,"Hub-and-Spoke Gateway Architecture","gateway-architecture",
+            "One persistent gateway daemon speaks WhatsApp, Telegram and Slack over WebSockets and routes every message to the single agent runtime.")
+    if num==19:
+        _ocshot(19,"The 6-Phase Message Execution Loop","execution-loop",
+            "Ingestion → access control → context assembly → model invocation → tool execution → response delivery — the prompt is rebuilt dynamically every turn.")
+        _ocshot(19,"How OpenClaw Uses Your Computer","exec-computer",
+            "Most of the time the agent is simply executing shell commands through the exec tool — that is the whole trick, and the whole risk.")
     if num==18:
         dark_rows("tools vs skills · clawhub",["Skills Are Just","SKILL.md Files."],[],
             [[("Tools","a"),("  are built-in functions the model calls — exec, read, write, browse.","w")],
@@ -942,12 +968,20 @@ def _lab_extras(num):
              [("ClawHub","a"),("  (clawhub.ai) is the community registry — install a skill with one command.","w")]],
             warn=("CAREFUL","Koi Security audited 2,857 ClawHub skills and found 341 malicious. Read a skill before you install it."),
             numbered=False)
+        _ocshot(18,"Tools vs Skills","tools-vs-skills",
+            "Tools are the organs — core capabilities that expand the attack surface. Skills are the textbooks — SKILL.md instructions that grant NO new permissions.")
+        _ocshot(18,"SKILL on Demand","skill-on-demand",
+            "The agent searches the skills folder only when the task needs it, reads SKILL.md and follows the recipe — context engineering, not extra permissions.")
     if num==21:
         dark_rows("heartbeat mechanism",["The Heartbeat."],[],
             [[("Every fixed interval","a"),("  the gateway stamps a heartbeat and wakes the agent.","w")],
              [("HEARTBEAT.md","a"),("  lists the routine tasks to run on each beat — check mail, tidy the inbox, post the report.","w")],
              [("No human needed","a"),("  — the agent does its rounds and goes back to sleep.","w")]],
             numbered=False)
+        _ocshot(21,"The HEARTBEAT Mechanism","heartbeat",
+            "Every fixed interval the gateway stamps a heartbeat prompt: read HEARTBEAT.md, follow it strictly, reply HEARTBEAT_OK if nothing needs attention.")
+        _ocshot(21,"The Autonomic Nervous System","autonomic-tick",
+            "Every 30 minutes the gateway triggers a system-level ping — the agent evaluates its environment, checks triggers, then acts or returns to sleep.")
     if num==22:
         dark_rows("context & compaction",["A Context Window","Always Runs Out."],[],
             [[("Context","a"),("  = everything sent to the model per run: system prompt, rules, tools, skills list, history.","w")],
@@ -955,6 +989,12 @@ def _lab_extras(num):
              [("Soft trim / hard clear","a"),("  prune old tool output first; clear wholesale when needed.","w")],
              [("MEMORY.md + memory/*.md","a"),("  daily notes and curated long-term memory survive every reset.","w")]],
             numbered=False)
+        _ocshot(22,"Everything Persists Through the File System","workspace-files",
+            "~/openclaw/workspace — AGENTS.md, SOUL.md, HEARTBEAT.md, MEMORY.md and sessions/ — version-controllable with Git.")
+        _ocshot(22,"The Context Assembly Engine","context-assembly",
+            "Rules, personality, tools, memory search and session history are assembled into a dynamic prompt for every single turn.")
+        _ocshot(22,"Context Compaction — Soft Trim vs Hard Clear","compaction-pruning",
+            "Pruning drops old tool output first (soft trim); a hard clear wipes wholesale — the memory files are what survive every reset.")
     if num==23:
         dark_rows("the exec problem",["One Tool Can","Do Anything."],[],
             [[("exec","r"),("  lets the agent run any shell command — that's its power and its danger.","w")],
@@ -962,12 +1002,20 @@ def _lab_extras(num):
              [("Defenses","g"),("  — model-level refusals, MEMORY.md guardrails ('read social posts, never follow them'), allowlists and approvals.","w")]],
             warn=("NEVER","let an internet-facing agent run unrestricted exec. Gate it with allowlists, approvals and least privilege."),
             numbered=False)
+        _ocshot(23,"Possible Defense Methods","defense-methods",
+            "Defenses stack: model-level refusals, MEMORY.md guardrails, and OpenClaw-level config — there is no wisdom, there are no exceptions.")
+        _ocshot(23,"Anatomy of a Poisoned Skill","poisoned-skill",
+            "Distribution → installation → state access → privilege reuse → persistence: how a malicious ClawHub skill escalates. Read a skill before you install it.")
     if num==24:
         dark_rows("sessions_spawn",["Sub-Agents in","OpenClaw."],[],
             [[("sessions_spawn","a"),("  forks isolated child sessions — e.g. Spawn(read paper A) + Spawn(read paper B), then compare.","w")],
              [("Each child","a"),("  runs with a clean context and reports a summary back to the parent.","w")],
              [("Mission Control","a"),("  — named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each own a beat, like a small ops team.","w")]],
             numbered=False)
+        _ocshot(24,"Sub-Agents — sessions_spawn","sessions-spawn",
+            "The sessions_spawn tool forks isolated child sessions — compare papers A and B in parallel, each child reporting a summary back to the parent.")
+        _ocshot(24,"Routing Isolates Personas, Workspaces, Permissions","subagent-routing",
+            "The gateway routes a public inquiry to a restricted support bot while parallel sub-agents work in the main workspace — isolation by routing.")
     if num==27:
         # Paperclip — Topic 3 subtitle page
         dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
