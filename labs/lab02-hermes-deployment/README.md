@@ -52,6 +52,8 @@ The gateway is the local service that both the CLI and Desktop app connect to. C
 ```bash
 hermes gateway status
 ```
+Or just ask the agent: "Check that your local gateway is up and serving"
+
 
 You should see a status of **running / healthy** along with the address/port it is serving on. If it reports stopped, start it as directed by the command's hint (and re-check).
 

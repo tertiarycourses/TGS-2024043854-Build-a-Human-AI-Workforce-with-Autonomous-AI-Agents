@@ -35,6 +35,8 @@ Resume the conversation in a fresh session. The `--continue` flag brings back pr
 ```bash
 hermes --continue
 ```
+Or just ask the agent: "What summary style did I ask you to remember?"
+
 
 Ask something like *"How do you format summaries for me?"* — Athena should recall the bulleted-summary preference **without you repeating it**. This proves the FTS5 cross-session recall / curated-notes memory is working.
 
@@ -44,6 +46,8 @@ List the stored sessions so you can see the memory Hermes is persisting behind t
 ```bash
 hermes sessions list
 ```
+Or just ask the agent: "List my recent sessions and what each was about"
+
 
 You should see your earlier session(s) listed with identifiers/timestamps. This is where cross-session recall draws context from.
 

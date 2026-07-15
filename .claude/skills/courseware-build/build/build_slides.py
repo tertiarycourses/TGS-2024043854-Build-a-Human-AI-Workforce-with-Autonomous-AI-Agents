@@ -260,7 +260,7 @@ def activity_overview(tag,title,desc,build,services,kicker):
     txt(s,Inches(1.1),Inches(4.5),Inches(11),Inches(0.4),[[("You'll build",14,_acc(BLUE),True)]])
     txt(s,Inches(1.1),Inches(4.9),Inches(11),Inches(0.6),[[(build,18,_ink(),True)]])
     txt(s,Inches(1.1),Inches(5.6),Inches(11.2),Inches(0.6),[[("Tools:  ",13,_grey(),True),(services,13,_grey(),False)]]); footer(s); return s
-def step_slide(kicker,act_title,n,total,text,cmd=""):
+def step_slide(kicker,act_title,n,total,text,cmd="",prompt=""):
     s=head(slide(),act_title,kicker,TEAL)
     oval(s,Inches(0.85),Inches(2.5),Inches(1.4),Inches(1.4),_acc(TEAL))
     txt(s,Inches(0.85),Inches(2.74),Inches(1.4),Inches(0.9),[[(str(n),38,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
@@ -275,6 +275,14 @@ def step_slide(kicker,act_title,n,total,text,cmd=""):
         else:
             rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
         txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
+    if prompt:
+        # the natural-language alternative — most users prompt the agent instead
+        # of typing the CLI command, so every command step shows both
+        py=Inches(5.32) if (cmd and not cmd.lstrip().startswith("#")) else Inches(4.15)
+        rect(s,Inches(2.55),py,Inches(10.1),Inches(0.95),_panel())
+        rect(s,Inches(2.55),py,Inches(0.05),Inches(0.95),_acc(TEAL))
+        txt(s,Inches(2.8),py,Inches(9.75),Inches(0.95),
+            [[("💬 Or just ask:  ",13.5,_acc(TEAL),True),("\u201c"+prompt+"\u201d",13.5,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
     footer(s); return s
 def dark_rows(tag,title_lines,sub_lines,rows,warn=None,accent=None,numbered=True):
     """Masterclass-style dark feature slide: terminal tag, amber (or custom
@@ -695,74 +703,10 @@ def _ocshot(num,title,name,caption):
 # Full-content import from the original "Mastering OpenClaw" masterclass deck —
 # each entry renders the original slide as a framed figure inside the matching lab.
 _OCIMPORT={
- 15:[(7,"AI Agents — Never a New Concept","Auto-GPT (2023) → Manus (2024) → Claude Code / Codex / Gemini CLI (2025) → OpenClaw & Hermes Agent (2026)"),
-     (8,"2023 → 2026 — Three Engineering Eras","2023–24 prompt engineering → 2025 context engineering → 2026 harness engineering"),
-     (9,"Prompt → Context → Harness Engineering",""),
-     (10,"The Model Reasons. The Harness Does the Rest.","Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system"),
-     (11,"The Duties of a Mature Harness",""),
-     (12,"CLI is the Mother Tongue of AI Agents",""),
-     (13,"The Backlash — February 2026","'MCP is dead. Long live the CLI.' — MCP servers are flaky; ship a good CLI and the agents will figure it out"),
-     (14,"openclaw.ai — The Official Site",""),
-     (17,"OpenClaw — The Wikipedia History","Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 — source: en.wikipedia.org/wiki/OpenClaw"),
-     (18,"OpenClaw Bought Over by OpenAI",""),
-     (19,"Peter Steinberger — The Creator","'I created OpenClaw and it runs my life' — the solo developer who shook up the AI world"),
-     (21,"Real Sessions, Real Work",""),
-     (24,"OpenClaw = The Linux of AI Agents","Communication software ↔ OpenClaw on your computer ↔ any language model — the non-AI part (OS) of an AI agent"),
-     (26,"AI as Infrastructure, Not a Chat Tab",""),
-     (34,"What Is an OpenClaw AI Agent?",""),
-     (36,"Identity Lives in the System Prompt","Identity comes from the system prompt — each agent introduces itself to the language model on every call"),
-     (73,"Get Started on OpenClaw",""),
-     (75,"Run It on a Local Workstation",""),
-     (77,"Run It on a VPS — Hostinger OpenClaw Hosting",""),
-     (78,"OpenClaw as a Service — MyClaw.ai",""),
-     (79,"OpenClaw as a Service — Clawdi.ai",""),
-     (80,"CoPaw — Co-Personal Agent Workstation",""),
-     (81,"NemoClaw — Deploy on NVIDIA",""),
-     (28,"Moltbook — Where the Agents Post",""),
-     (30,"When Agents Need Hands","rentahuman.ai — when the agent needs hands in the physical world"),
-     (31,"From Tokens to Torque",""),
-     (32,"All-Claw Chaos — The Fork Storm","nanobot, PicoClaw, ZeroClaw, NoClaw — the ecosystem forks within weeks")],
- 16:[(27,"Model Choice — Cost vs Reliability","Claude Opus 4.5 (flawless, high cost) vs GPT-5.4 (moderate) vs Kimi 2.5 (ultra-low cost) — optimize per session"),
-     (87,"Mission Control — Agents & Model Stacks","Named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each with a role, channel and model stack"),
-     (88,"A Model Stack — Primary + Fallbacks","Primary anthropic/claude-opus-4-6 · fallback minimax/MiniMax-M2.7 · fallback openai-codex/gpt-5.4"),
-     (94,"Swapping the Model Stack Live",""),
-     (120,"Model — MiniMax M2.7",""),
-     (121,"Model — OpenAI (OAuth)","Choose OpenAI OAuth, copy the URL, authorize, paste the redirect URL back into OpenClaw"),
-     (122,"Model — Ollama (Local)",""),
-     (123,"The Default Model Config","~/.openclaw/openclaw.json — agents.defaults.model.primary")],
- 17:[(124,"Channel — Telegram",""),
-     (126,"Channel — WhatsApp","")],
- 18:[(53,"Agent Skills — The Docs",""),
-     (57,"Get a New Skill — Just Add SKILL.md","Drop SKILL.md in the designated folder and the agent can do something new"),
-     (58,"ClawHub — The Skill Dock for Sharp Agents",""),
-     (60,"Malicious Skills in the Wild","Koi Security: 2,857 skills audited → 341 malicious — read a skill before you install it")],
- 19:[(83,"Free Tools That Make OpenClaw Useful",""),
-     (84,"AgentMail — Email Inboxes for AI Agents",""),
-     (85,"Agent Browser",""),
-     (86,"Firecrawl — Clean Web Data for Agents",""),
-     (47,"Tool Use — 'Find the File That Contains…'","The model asks; OpenClaw runs the tool and hands the result back"),
-     (49,"When the Agent Makes Trouble","A real deleted-email incident — why tool access needs guardrails"),
-     (51,"An Agent Creates Its Own Tools",""),
-     (52,"Tool Chain — Explain AI to Kids, as a Video","The agent writes TTS_check.js, loops until the audio passes, then assembles the video")],
- 20:[(138,"OpenClaw Slash Commands","")],
- 21:[(132,"Cron Jobs vs Heartbeat — Quick Decision Guide","")],
- 22:[(37,"The System Prompt","OpenClaw builds a custom system prompt for every agent run and injects it each time"),
-     (38,"System Prompt — What's Inside","SOUL.md · IDENTITY.md · USER.md · MEMORY.md · tools · behavior · skills — 4,000+ tokens before you say a word"),
-     (40,"The Agent Workspace","The workspace is the agent's home — separate from ~/.openclaw (config, credentials, sessions)"),
-     (42,"Repeat Everything, Every Time","Every turn resends the whole conversation to the model"),
-     (43,"50 First Dates — Stateless by Default","Every conversation starts over; memory files are how it remembers"),
-     (44,"Context ≠ Memory","Context is what's inside the model's current window; memory is stored on disk and reloaded"),
-     (62,"Context Windows Will Never Be Enough",""),
-     (63,"Context Compaction","Old turns are summarized so the window never overflows"),
-     (66,"Writing Memory","The agent writes down what just happened — memory/2026-03-06.md"),
-     (67,"Searching Memory","Literal and semantic search over memory/*.md — 'Of course I remember…'")],
- 23:[(59,"Third-Party Code Risks — Silent Exfiltration","Cisco AI Security warning: unvetted skills can perform silent data exfiltration"),
-     (134,"10 Steps to Lock Down Your AI Agent","")],
- 26:[(108,"Use Case — Mint Your Certificate as an NFT",""),
-     (135,"Your Command Center at :18789","ssh -L 18789:localhost:18789 root@<IP>, then open http://localhost:18789"),
-     (139,"Why Context Optimization Matters",""),
-     (140,"Key Cost-Saving Strategies","Use a Claude subscription instead of API; choose the right model; cap context"),
-     (141,"Connect the Google Workspace APIs","")],
+ 18:[(57,"Get a New Skill — Just Add SKILL.md","Drop SKILL.md in the designated folder and the agent can do something new"),
+     (58,"ClawHub — The Skill Dock for Sharp Agents","")],
+ 19:[(84,"AgentMail — Email Inboxes for AI Agents","")],
+ 23:[(134,"10 Steps to Lock Down Your AI Agent","")],
 }
 def _ocimport(num):
     for pg,title,cap in _OCIMPORT.get(num,[]):
@@ -774,6 +718,29 @@ def _ocimport(num):
             shot(title,p,kicker=f"LAB {num} · MASTERCLASS",caption=cap,frame=(p!=pb or pg in (17,49,58,86)))
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
+def _topic2_opening():
+    """Topic 2 opening story (trainer's curated order, v1.8 hand-edit):
+    Wikipedia history -> evolution rows -> Agent=Model+Harness -> Linux-of-agents."""
+    p17=os.path.join(_OCDIR,"oc-blend-017.png")
+    if os.path.exists(p17):
+        shot("OpenClaw — The Wikipedia History",p17,kicker="TOPIC 02 · MASTERCLASS",
+             caption="Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 — source: en.wikipedia.org/wiki/OpenClaw")
+    dark_rows("the evolution of ai agents",["From Prompts","To Harnesses."],[],
+        [[("Prompt Engineering","a"),("   ChatGPT, Gemini, Claude Chat — craft the words","w")],
+         [("Context Engineering","a"),("   Claude Code, Codex, Gemini CLI — feed the right context","w")],
+         [("Harness Engineering","a"),("   OpenClaw, Hermes Agent — build the machine around the model","w")]],
+        numbered=False)
+    p10=os.path.join(_OCDIR,"oc-blend-010.png")
+    if os.path.exists(p10):
+        shot("The Model Reasons. The Harness Does the Rest.",p10,kicker="TOPIC 02 · MASTERCLASS",
+             caption="Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system",frame=False)
+    dark_cards("openclaw = linux of ai agents",
+        ["People ↔ Agent ↔ Model."],
+        [("Channels","WhatsApp · Telegram · Discord · Web UI"),
+         ("🦞 OpenClaw","runs on your computer"),
+         ("Models","Claude Code · Codex · MiniMax · Kimi"),
+         ("Memory","workspace + MEMORY.md")],
+        notes=["OpenClaw sits between your messaging apps and any language model — open, local and hackable, like Linux was for servers."])
 def _lab_extras(num):
     if num==1:
         # Hermes intro — masterclass-style dark slides (What is Hermes + The Bet)
@@ -1032,25 +999,8 @@ def _lab_extras(num):
              [("// BOARD   ","a"),("the orchestrator decomposes \"research approach X, prototype it, write it up\" → routes each subtask by description","w")]],
             numbered=False)
     if num==15:
-        # OpenClaw — Topic 2 subtitle page + overview concepts (from the Mastering OpenClaw deck)
-        dark_rows("topic-02/openclaw",["OpenClaw — Super","Personal AI Assistant."],
-            ["What this topic covers — the arc of the Mastering OpenClaw masterclass."],
-            [[("01  Overview of OpenClaw","a"),("  —  what it is, the evolution of AI agents, and how it thinks","w")],
-             [("02  OpenClaw Applications","a"),("  —  AgentMail, Agent Browser, Firecrawl and Mission Control","w")],
-             [("03  Setup & Configurations","a"),("  —  hosting, models, channels, tools, skills, crons, security and the dashboard","w")]],
-            numbered=False)
-        dark_rows("the evolution of ai agents",["From Prompts","To Harnesses."],[],
-            [[("Prompt Engineering","a"),("   ChatGPT, Gemini, Claude Chat — craft the words","w")],
-             [("Context Engineering","a"),("   Claude Code, Codex, Gemini CLI — feed the right context","w")],
-             [("Harness Engineering","a"),("   OpenClaw, Hermes Agent — build the machine around the model","w")]],
-            numbered=False)
-        dark_cards("openclaw = linux of ai agents",
-            ["People ↔ Agent ↔ Model."],
-            [("Channels","WhatsApp · Telegram · Discord · Web UI"),
-             ("🦞 OpenClaw","runs on your computer"),
-             ("Models","Claude Code · Codex · MiniMax · Kimi"),
-             ("Memory","workspace + MEMORY.md")],
-            notes=["OpenClaw sits between your messaging apps and any language model — open, local and hackable, like Linux was for servers."])
+        # Lab 15 keeps only the deployment options card (trainer's curated edit,
+        # v1.8 hand-prune) — the topic story slides moved to _topic2_opening().
         dark_cards("deployment options",
             ["Where to Run It."],
             [("Local","your workstation"),
@@ -1058,18 +1008,6 @@ def _lab_extras(num):
              ("As-a-Service","myclaw.ai · clawdi.ai"),
              ("Bots","CoPaw · NemoClaw")],
             notes=["Start local for the labs; move to a VPS for 24/7 operation; managed services when you don't want to run infrastructure."])
-        _ocshot(15,"The OpenClaw OS — Control Plane","agent-os",
-            "Channels, terminal and APIs flow into the gateway daemon (port 18789), which brokers the host file system, Docker sandboxes and external SaaS.")
-        _ocshot(15,"Deployment — Local vs Remote VM","deployment",
-            "Local development binds a loopback WebSocket; a VPS/Tailscale deployment authenticates with OPENCLAW_GATEWAY_TOKEN.")
-    if num==17:
-        _ocshot(17,"Hub-and-Spoke Gateway Architecture","gateway-architecture",
-            "One persistent gateway daemon speaks WhatsApp, Telegram and Slack over WebSockets and routes every message to the single agent runtime.")
-    if num==19:
-        _ocshot(19,"The 6-Phase Message Execution Loop","execution-loop",
-            "Ingestion → access control → context assembly → model invocation → tool execution → response delivery — the prompt is rebuilt dynamically every turn.")
-        _ocshot(19,"How OpenClaw Uses Your Computer","exec-computer",
-            "Most of the time the agent is simply executing shell commands through the exec tool — that is the whole trick, and the whole risk.")
     if num==18:
         dark_rows("tools vs skills · clawhub",["Skills Are Just","SKILL.md Files."],[],
             [[("Tools","a"),("  are built-in functions the model calls — exec, read, write, browse.","w")],
@@ -1077,10 +1015,6 @@ def _lab_extras(num):
              [("ClawHub","a"),("  (clawhub.ai) is the community registry — install a skill with one command.","w")]],
             warn=("CAREFUL","Koi Security audited 2,857 ClawHub skills and found 341 malicious. Read a skill before you install it."),
             numbered=False)
-        _ocshot(18,"Tools vs Skills","tools-vs-skills",
-            "Tools are the organs — core capabilities that expand the attack surface. Skills are the textbooks — SKILL.md instructions that grant NO new permissions.")
-        _ocshot(18,"SKILL on Demand","skill-on-demand",
-            "The agent searches the skills folder only when the task needs it, reads SKILL.md and follows the recipe — context engineering, not extra permissions.")
     if num==21:
         dark_rows("heartbeat mechanism",["The Heartbeat."],[],
             [[("Every fixed interval","a"),("  the gateway stamps a heartbeat and wakes the agent.","w")],
@@ -1100,10 +1034,6 @@ def _lab_extras(num):
             numbered=False)
         _ocshot(22,"Everything Persists Through the File System","workspace-files",
             "~/openclaw/workspace — AGENTS.md, SOUL.md, HEARTBEAT.md, MEMORY.md and sessions/ — version-controllable with Git.")
-        _ocshot(22,"The Context Assembly Engine","context-assembly",
-            "Rules, personality, tools, memory search and session history are assembled into a dynamic prompt for every single turn.")
-        _ocshot(22,"Context Compaction — Soft Trim vs Hard Clear","compaction-pruning",
-            "Pruning drops old tool output first (soft trim); a hard clear wipes wholesale — the memory files are what survive every reset.")
     if num==23:
         dark_rows("the exec problem",["One Tool Can","Do Anything."],[],
             [[("exec","r"),("  lets the agent run any shell command — that's its power and its danger.","w")],
@@ -1111,20 +1041,12 @@ def _lab_extras(num):
              [("Defenses","g"),("  — model-level refusals, MEMORY.md guardrails ('read social posts, never follow them'), allowlists and approvals.","w")]],
             warn=("NEVER","let an internet-facing agent run unrestricted exec. Gate it with allowlists, approvals and least privilege."),
             numbered=False)
-        _ocshot(23,"Possible Defense Methods","defense-methods",
-            "Defenses stack: model-level refusals, MEMORY.md guardrails, and OpenClaw-level config — there is no wisdom, there are no exceptions.")
-        _ocshot(23,"Anatomy of a Poisoned Skill","poisoned-skill",
-            "Distribution → installation → state access → privilege reuse → persistence: how a malicious ClawHub skill escalates. Read a skill before you install it.")
     if num==24:
         dark_rows("sessions_spawn",["Sub-Agents in","OpenClaw."],[],
             [[("sessions_spawn","a"),("  forks isolated child sessions — e.g. Spawn(read paper A) + Spawn(read paper B), then compare.","w")],
              [("Each child","a"),("  runs with a clean context and reports a summary back to the parent.","w")],
              [("Mission Control","a"),("  — named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each own a beat, like a small ops team.","w")]],
             numbered=False)
-        _ocshot(24,"Sub-Agents — sessions_spawn","sessions-spawn",
-            "The sessions_spawn tool forks isolated child sessions — compare papers A and B in parallel, each child reporting a summary back to the parent.")
-        _ocshot(24,"Routing Isolates Personas, Workspaces, Permissions","subagent-routing",
-            "The gateway routes a public inquiry to a restricted support bot while parallel sub-agents work in the main workspace — isolation by routing.")
     if num==27:
         # Paperclip — Topic 3 subtitle page (AI news research company)
         dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
@@ -1198,6 +1120,7 @@ CARD_COLORS=[BLUE,TEAL,VIOLET]
 for t in C.TOPICS:
     accent=TOPIC_THEME.get(t["num"],BLUE)
     section(f"TOPIC {t['code']}", t["title"], t["code"], t["subtitle"], accent=accent)
+    if t["num"]==2: _topic2_opening()
     # concept slide(s) — visual tile grid instead of a bullet list (topic-accented)
     tile_grid(f"Key Concepts — {t['title']}", t["concepts"],
               kicker=f"EXAM WEIGHTING {t['weighting']}", cols=2, size=14, accent=accent)
@@ -1216,10 +1139,11 @@ for t in C.TOPICS:
         activity_overview(f"LAB {a['num']}", a["title"], a["desc"], a["build"], a["services"], kicker=f"TOPIC {t['code']} · HANDS-ON")
         _lab_extras(a["num"])
         # The deck never shows YouTube reference links — videos live in the labs/ READMEs only.
-        steps=[(si,sc) for (si,sc) in a["steps"] if "youtube" not in sc.lower() and "youtube" not in si.lower()]
+        steps=[(st+("",))[:3] for st in a["steps"]]
+        steps=[(si,sc,sp) for (si,sc,sp) in steps if "youtube" not in sc.lower() and "youtube" not in si.lower()]
         total=len(steps)
-        for i,(instr,cmd) in enumerate(steps,1):
-            step_slide(f"LAB {a['num']}", a["title"], i, total, instr, cmd)
+        for i,(instr,cmd,prm) in enumerate(steps,1):
+            step_slide(f"LAB {a['num']}", a["title"], i, total, instr, cmd, prm)
         test_slide(a["title"], a["test"], kicker=f"LAB {a['num']} · VERIFY")
     # topic recap
     content(f"Recap — {t['title']}",

@@ -55,6 +55,10 @@ def _readme_steps(num):
         if cmd and _re.match(r'^\s*#', cmd) and "\n" not in cmd:
             cmd=""
         text=it[:cm.start()] if cm else it
+        if cm:
+            # keep the natural-language alternative that follows the command fence
+            pms=_re.findall(r'Or just ask the agent: "[^"]+"', it[cm.end():])
+            if pms: text=text.rstrip()+" "+" ".join(pms)
         # drop markdown table rows (| ... |) — tables don't flatten into prose
         text="\n".join(l for l in text.splitlines() if not l.strip().startswith("|"))
         text=_re.sub(r'^(?:#{2,4}\s*)?\d+\.\s*','',text)      # drop leading '### N.' / 'N.'
@@ -134,7 +138,7 @@ for t in C.TOPICS:
         h3("Step-by-step")
         # Prefer the detailed README steps. The LG never shows YouTube reference
         # links — videos live in the labs/ READMEs only.
-        st=_readme_steps(a["num"]) or [(instr,cmd) for (instr,cmd) in a["steps"]]
+        st=_readme_steps(a["num"]) or [(t[0]+(('  Or just ask the agent: "'+t[2]+'"') if len(t)>2 and t[2] else ""), t[1]) for t in a["steps"]]
         st=[(si,sc) for (si,sc) in st if "youtube" not in sc.lower() and "youtube" not in si.lower()]
         steps(st)
         h3("Test it")
@@ -251,7 +255,8 @@ prodoc.add_version_control(doc,[
  ("1.5","15 July 2026","Sixteen concept diagrams imported from the original Mastering OpenClaw masterclass deck into Topic 2 (OpenClaw OS control plane; deployment; hub-and-spoke gateway; tools vs skills; SKILL-on-demand; 6-phase execution loop; exec; HEARTBEAT + autonomic tick; workspace file persistence; context assembly; compaction; defense methods; poisoned-skill anatomy; sessions_spawn; sub-agent routing).",C.TRAINER),
  ("1.6","15 July 2026","Topic 3 (Paperclip) rebuilt as the 'Tertiary AI News Research' company across 6 labs (27-32): install on Windows & Mac; company, CEO & mission; model adaptors; a detailed task backlog whose core task hires the team; the Tavily Search API via Secrets; and hiring the members under the hiring task — with live dashboard screenshots. Natural-language prompt steps added to the Hermes and OpenClaw labs alongside the CLI. Platform logos added to the Three Platforms page. 32 labs total.",C.TRAINER),
  ("1.7","15 July 2026","Sixty-eight content slides migrated from the original 'Mastering OpenClaw' masterclass deck into Topic 2 as framed figures in their matching labs — agent evolution and Agent = Model + Harness, the OpenClaw Wikipedia history and OpenAI acquisition, deployment options and services, model stacks and Mission Control, channels, skills and ClawHub risks, tools (AgentMail, Agent Browser, Firecrawl), system prompt / workspace / context and memory, security lockdown, slash commands, crons, and use cases (NFT certificates, dashboard, cost saving, Google integration).",C.TRAINER),
- ("1.8",C.VERSION_DATE,"Imported masterclass figures re-blended into the dark deck theme: original title and copyright strips cropped, white canvases converted to the deck background with text inverted to ivory (embedded screenshots untouched), frameless rendering, and duplicated titles reworded.",C.TRAINER),
+ ("1.8","15 July 2026","Imported masterclass figures re-blended into the dark deck theme: original title and copyright strips cropped, white canvases converted to the deck background with text inverted to ivory (embedded screenshots untouched), frameless rendering, and duplicated titles reworded.",C.TRAINER),
+ ("1.9",C.VERSION_DATE,"Deck curated per trainer review: the bulk masterclass figure imports were removed, keeping nine key figures (Wikipedia history, Agent=Model+Harness, SKILL.md, ClawHub, AgentMail, 10-steps lockdown, HEARTBEAT, autonomic tick, workspace persistence) re-exported at high resolution, with the Topic 2 opening story reordered ahead of Key Concepts. Every CLI step now also shows the natural-language prompt alternative ('Or just ask') across the Hermes and OpenClaw labs, in the deck and Learner Guide.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 

@@ -35,6 +35,8 @@ Set the terminal backend to a sandboxed container so risky commands never run di
 ```bash
 hermes config set terminal.backend docker
 ```
+Or just ask the agent: "Run your risky work in the docker sandbox from now on"
+
 
 With docker, the agent's shell/tool execution happens inside a disposable container, limiting the blast radius of any dangerous action.
 
@@ -44,6 +46,8 @@ Store API keys through the Hermes config mechanism instead of pasting them into 
 ```bash
 hermes config set <PROVIDER>_API_KEY <value>
 ```
+Or just ask the agent: "Store this <PROVIDER> API key securely in your config"
+
 
 Replace `<PROVIDER>` and `<value>` with your real provider and key (e.g. `hermes config set OPENROUTER_API_KEY sk-or-...`). Config-managed secrets are kept out of your chat history and plain-text files.
 
@@ -53,6 +57,8 @@ Set the approval mode so the agent pauses and asks you before executing sensitiv
 ```bash
 hermes config set approvals.mode manual
 ```
+Or just ask the agent: "Ask me for approval before running any risky action"
+
 
 There are **three modes** (not four):
 

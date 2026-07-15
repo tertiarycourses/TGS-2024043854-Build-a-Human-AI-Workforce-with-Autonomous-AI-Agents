@@ -27,6 +27,8 @@ OpenClaw keeps two kinds of state you care about here:
    ls -la ~/.openclaw/
    ```
 
+   Or just ask the agent: "Show me what you store in your ~/.openclaw state folder"
+
    You will see directories such as `auth/` (Lab 16 credentials), `whatsapp/` (Lab 17 session), `skills/` (Lab 18), and memory/state directories. Explore, but do not edit yet:
 
    ```bash
@@ -83,6 +85,8 @@ OpenClaw keeps two kinds of state you care about here:
    mkdir -p ~/openclaw-backup-$(date +%F)
    cp -R ~/.openclaw/ ~/openclaw-backup-$(date +%F)/openclaw-state 2>/dev/null || true
    ```
+
+   Or just ask the agent: "Back up all your memory and state to a dated folder in my home directory"
 
 ## Verification / Expected Output
 - `/memory` shows the customer preferences you taught after Step 3.

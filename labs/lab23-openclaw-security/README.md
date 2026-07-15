@@ -46,6 +46,8 @@ Harden the Nimbus Supplies deployment before it faces real customers: protect AP
      --pair-mode allowlist
    ```
 
+   Or just ask the agent: "Only allow Telegram users 12345678 and 87654321 to message you; block everyone else"
+
    For WhatsApp, allow specific numbers:
 
    ```bash
@@ -68,6 +70,8 @@ Harden the Nimbus Supplies deployment before it faces real customers: protect AP
    openclaw channel show telegram | grep -E "(allow|deny|profile)"
    ```
 
+   Or just ask the agent: "On Telegram, deny shell exec and any file writes or deletes"
+
 4. **Tighten the code-execution sandbox.** The `exec` / Python tools run sandboxed — cap time, memory, and network:
 
    ```bash
@@ -81,6 +85,8 @@ Harden the Nimbus Supplies deployment before it faces real customers: protect AP
      --memory 512mb \
      --network deny
    ```
+
+   Or just ask the agent: "Cap your exec sandbox at 10 seconds, 256MB memory and no network access"
 
    
 

@@ -26,6 +26,8 @@ Webhooks ride on the local gateway — if it isn't up, nothing can receive a req
 ```bash
 hermes gateway status
 ```
+Or just ask the agent: "Check the gateway is up so webhooks can reach you"
+
 
 If it isn't healthy, restart Hermes/the gateway before continuing.
 
@@ -45,6 +47,8 @@ curl -X POST <endpoint-url> \
   -H "Content-Type: application/json" \
   -d '{"event":"test","message":"Trigger Athena briefing"}'
 ```
+Or just ask the agent: "POST a test payload to the webhook endpoint and confirm a 2xx response"
+
 
 You should get a **2xx** response back, which means the gateway accepted the payload. A connection error means the gateway isn't serving (step 2); a 404 means the URL is wrong — re-copy it.
 
@@ -60,6 +64,8 @@ curl -X POST <endpoint-url> \
   -H "Content-Type: application/json" \
   -d '{"event":"test","message":"Trigger Athena briefing"}'
 ```
+Or just ask the agent: "Re-send the test payload with the Bearer secret header and confirm it's accepted"
+
 
 > Whether the secret goes in an `Authorization` header, a custom header, or a signature is version-specific — verify in the video / docs link above.
 

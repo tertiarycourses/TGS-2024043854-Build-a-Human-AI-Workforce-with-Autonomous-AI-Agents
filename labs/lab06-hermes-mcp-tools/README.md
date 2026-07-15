@@ -47,6 +47,7 @@ The core command Hermes will run is:
 ```bash
 npx -y @modelcontextprotocol/server-github
 ```
+Or just ask the agent: "Add the GitHub MCP server to your tool config"
 
 Save the file. Supply a GitHub personal access token in `env` if the server needs authenticated access.
 
@@ -58,6 +59,8 @@ Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads th
 ```bash
 hermes doctor
 ```
+Or just ask the agent: "Run a health check and confirm the GitHub MCP tools are loaded"
+
 
 `hermes doctor` should now show the GitHub MCP server connected and its tools available. Confirm there are no red lines for the new server.
 

@@ -23,6 +23,8 @@ Become fluent in the two ways you drive OpenClaw every day: the **CLI commands**
    openclaw config edit                         # open the config file in $EDITOR
    ```
 
+   Or just ask the agent: "Show me your current configuration settings"
+
 2. **`openclaw model` — manage the brain.**
 
    ```bash

@@ -32,6 +32,10 @@ Give customers a way to reach the Nimbus Supplies agent. You will create a **Tel
    openclaw channel start telegram
    ```
 
+   Or just ask the agent: "Connect Telegram using the bot token I got from BotFather"
+
+   Or just ask the agent: "Start the Telegram channel and confirm it is live"
+
 3. **Test Telegram.** In Telegram, search for your bot's username and send:
 
    > Hi, do you supply recycled A4 paper for Nimbus Supplies?
@@ -44,6 +48,10 @@ Give customers a way to reach the Nimbus Supplies agent. You will create a **Tel
    openclaw channel add whatsapp
    openclaw channel start whatsapp
    ```
+
+   Or just ask the agent: "Add WhatsApp as a channel and show me the pairing QR code"
+
+   Or just ask the agent: "Start the WhatsApp channel so I can scan the QR code"
 
    A QR code prints in your terminal.
 
@@ -59,6 +67,8 @@ Give customers a way to reach the Nimbus Supplies agent. You will create a **Tel
    openclaw channel list
    openclaw gateway status
    ```
+
+   Or just ask the agent: "Which channels are you listening on right now?"
 
 7. **Inspect and manage a channel.** Useful day-to-day commands:
 

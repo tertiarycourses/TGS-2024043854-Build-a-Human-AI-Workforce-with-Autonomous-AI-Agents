@@ -33,6 +33,8 @@ Bring everything together. Split the single Nimbus Supplies agent into **three c
    openclaw agent list
    ```
 
+   Or just ask the agent: "Create a new agent named Sales to handle customer-facing chats"
+
    If `openclaw agent` is not available in your build, skip to Step 6 for the verified fallback and treat "agent" as "profile/instance" throughout.
 
 2. **Give each agent least-privilege tools** (mirrors Lab 19/23 allow-deny, applied per agent):
@@ -48,6 +50,10 @@ Bring everything together. Split the single Nimbus Supplies agent into **three c
    openclaw agent set ops --allow agentmail,group:fs
    ```
 
+   Or just ask the agent: "Give the Sales agent web and quoting tools only, with no shell or file writes"
+
+   Or just ask the agent: "Restrict the Research agent to Firecrawl, web search and browser only"
+
 3. **Attach channels to the right agents.**
 
    ```bash
@@ -59,6 +65,8 @@ Bring everything together. Split the single Nimbus Supplies agent into **three c
    openclaw channel add telegram --token <RESEARCH_BOT_TOKEN>
    openclaw channel set <research-bot> --agent research
    ```
+
+   Or just ask the agent: "Route the Telegram channel to the Sales agent"
 
 4. **Give each agent the right skill/memory.** Sales uses `nimbus-quote` and the customer memory from Lab 22; Research uses `nimbus-supplier-brief` (Lab 18 exercise). Install/enable as needed:
 
@@ -79,6 +87,8 @@ Bring everything together. Split the single Nimbus Supplies agent into **three c
      --channel telegram \
      --name ops-nightly-report
    ```
+
+   Or just ask the agent: "Every night at 9pm, compile today's orders and quotes and post them to Telegram"
 
 6. **Fallback (fully verified) — run agents as separate profiles/instances.** If native multi-agent commands are not in your build, model each agent as its own OpenClaw configuration using only Lab 15–19 primitives:
    - **Sales** = your main instance with Telegram/WhatsApp, `--profile messaging`, deny `exec,fs.write` (Lab 23).

@@ -23,6 +23,8 @@ A **skill** is a reusable, named capability: a prompt plus optional tools and ex
    openclaw skills list
    ```
 
+   Or just ask the agent: "What skills do you have installed?"
+
    
 
 2. **Install a few useful skills from the registry.** Skills come from <https://skills.sh/>:
@@ -31,6 +33,8 @@ A **skill** is a reusable, named capability: a prompt plus optional tools and ex
    openclaw skills add web-research --source skills.sh
    openclaw skills add self-improvement --source skills.sh
    ```
+
+   Or just ask the agent: "Install the web-research skill from the skills.sh registry"
 
    Confirm one installed correctly:
 
@@ -64,6 +68,8 @@ A **skill** is a reusable, named capability: a prompt plus optional tools and ex
    mkdir -p ~/.openclaw/skills/nimbus-quote
    ```
 
+   Or just ask the agent: "Create a new custom skill called nimbus-quote for drafting itemised customer quotes"
+
    Create `~/.openclaw/skills/nimbus-quote/skill.md` with your editor:
 
    ```markdown
@@ -89,6 +95,8 @@ A **skill** is a reusable, named capability: a prompt plus optional tools and ex
    openclaw skills list                 # confirm nimbus-quote appears
    openclaw gateway restart             # reload skills if it is not picked up
    ```
+
+   Or just ask the agent: "Reload your skills so the new nimbus-quote skill is picked up"
 
    Then from a channel:
 

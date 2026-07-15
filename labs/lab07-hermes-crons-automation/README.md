@@ -40,6 +40,8 @@ Run the diagnostic to confirm Hermes has picked up the new scheduled job:
 ```bash
 hermes doctor
 ```
+Or just ask the agent: "Check that my daily 8am briefing automation is registered"
+
 
 Look for the automation/scheduler being healthy and the job listed. If your build has a dedicated crons list command, use it too (check `hermes --help`).
 

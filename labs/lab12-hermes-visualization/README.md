@@ -33,6 +33,8 @@ In a terminal, list your recent sessions and copy the ID (or title/timestamp) of
 ```bash
 hermes sessions list
 ```
+Or just ask the agent: "List my recent sessions so I can pick one to visualize"
+
 
 ### 4. Open the visualization view
 In the Desktop app, open the **Visualization / Activity** view from the sidebar and select the session from step 3. You should see the session's activity surface — task flow, tool calls, and timing.

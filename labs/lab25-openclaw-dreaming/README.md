@@ -29,6 +29,8 @@ Enable OpenClaw's **dreaming** feature so your **Nimbus Supplies** back-office a
    openclaw config set dreaming.enabled true
    ```
 
+   Or just ask the agent: "Turn on dreaming so you reflect and consolidate memory when idle"
+
    This writes the flag into your OpenClaw config (under `~/.openclaw/`). After it returns, the gateway will begin scheduling dream cycles during idle windows.
 
    > Verify syntax in the video/docs (<https://docs.openclaw.ai/>) — the exact config key may differ by version.
@@ -39,6 +41,8 @@ Enable OpenClaw's **dreaming** feature so your **Nimbus Supplies** back-office a
    openclaw dream run
    ```
 
+   Or just ask the agent: "Run a dream cycle now instead of waiting for idle time"
+
    This kicks off one reflection pass: the agent reads its recent memory, consolidates recurring themes (e.g. repeated Nimbus Supplies supplier questions), and drafts follow-ups and skill tweaks. You will see log lines as the cycle progresses.
 
    > Verify syntax in the video/docs (<https://docs.openclaw.ai/>).
@@ -48,6 +52,8 @@ Enable OpenClaw's **dreaming** feature so your **Nimbus Supplies** back-office a
    ```bash
    openclaw dream list
    ```
+
+   Or just ask the agent: "Show me the insights and follow-ups from your last dream"
 
    You should see one or more entries — for example, a proposal to create a reusable "supplier price check" skill, or a follow-up to email a customer who was waiting on a quote. Each entry is a *proposal*, not an action already taken.
 

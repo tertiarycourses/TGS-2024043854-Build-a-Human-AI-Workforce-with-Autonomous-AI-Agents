@@ -26,6 +26,8 @@ Make Nimbus Supplies run without you watching it. You will schedule recurring ag
      --name nightly-sales-report
    ```
 
+   Or just ask the agent: "Every night at 9pm, summarise today's customer chats and quotes and post it to Telegram"
+
 2. **Create a weekly supplier price-check cron** (uses Firecrawl from Lab 19):
 
    ```bash
@@ -47,11 +49,15 @@ Make Nimbus Supplies run without you watching it. You will schedule recurring ag
    openclaw cron logs nightly-sales-report --tail 20
    ```
 
+   Or just ask the agent: "What cron jobs do you have scheduled?"
+
 4. **Fire a cron on demand to test it now** (ignores the schedule):
 
    ```bash
    openclaw cron run nightly-sales-report
    ```
+
+   Or just ask the agent: "Run the nightly sales report right now so I can check it works"
 
    Check the target channel — you should receive the summary within a few seconds.
 
@@ -71,6 +77,10 @@ Make Nimbus Supplies run without you watching it. You will schedule recurring ag
    openclaw gateway heartbeat logs --tail 20
    ```
 
+   Or just ask the agent: "Turn on your heartbeat self-check every 60 seconds"
+
+   Or just ask the agent: "Is your heartbeat healthy? Give me the status"
+
 7. **(Optional) Push a heartbeat ping to an external monitor** so you are paged if Nimbus Supplies goes dark (e.g. a free <https://healthchecks.io/> check):
 
    ```bash
@@ -87,6 +97,8 @@ Make Nimbus Supplies run without you watching it. You will schedule recurring ag
    # wait ~60s for the service manager to restart it
    openclaw gateway status        # expect "running" again
    ```
+
+   Or just ask the agent: "Shut down your gateway - I want to check the heartbeat restarts you"
 
 ### 9. The natural-language way
 You can skip the CLI entirely and simply ask the agent: *"Add a heartbeat task: every 30 minutes, check my inbox and flag anything urgent"*.

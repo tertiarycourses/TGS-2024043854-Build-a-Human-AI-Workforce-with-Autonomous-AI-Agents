@@ -26,6 +26,8 @@ Open the skills catalogue to see what's available to install:
 ```bash
 hermes skills browse
 ```
+Or just ask the agent: "Show me what skills are available on the skills hub"
+
 
 This opens the Skills Hub (backed by agentskills.io). Scroll through the categories to get a feel for the open-standard skills on offer.
 
@@ -35,6 +37,8 @@ Narrow the catalogue to something useful for a chief-of-staff agent — for exam
 ```bash
 hermes skills search <keyword>
 ```
+Or just ask the agent: "Search the skills hub for <keyword> skills"
+
 
 Replace `<keyword>` with your term. The results list each skill's `owner/skills/name` identifier — you'll need that exact identifier to install.
 
@@ -44,6 +48,8 @@ Install a skill by its full identifier (copy it from the search results). The pa
 ```bash
 hermes skills install <owner/skills/name>
 ```
+Or just ask the agent: "Install the <name> skill from the skills hub and confirm it loaded"
+
 
 For example, if the search returned a skill identified as `acme/skills/summarize`, you would run `hermes skills install acme/skills/summarize`. Confirm the install reports success.
 

@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.8 · 15 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.9 · 16 July 2026**
 
 ## Contents
 
@@ -190,7 +190,7 @@ A local Hermes deployment plus the Desktop app, both talking to the same agent. 
 
 3. Download and install the Hermes Desktop app Download the Desktop app for your OS from the official site and install it like any normal application:
 4. Open the Desktop app and sign in Launch the Hermes Desktop app and sign in with the same Nous Portal account you used for the CLI in Lab 1. Signing in with the same account is what makes the Desktop app and the CLI drive the same agent. > This step is UI-only — there is no terminal command. In the app, choose Sign in with Nous Portal and complete the browser/authentication prompt.
-5. Verify the local gateway is serving The gateway is the local service that both the CLI and Desktop app connect to. Confirm it is up and healthy:
+5. Verify the local gateway is serving The gateway is the local service that both the CLI and Desktop app connect to. Confirm it is up and healthy: Or just ask the agent: "Check that your local gateway is up and serving"
 
    ```bash
    hermes gateway status
@@ -230,13 +230,13 @@ Athena remembers a stated preference across sessions and runs an enabled plugin.
    Remember I prefer concise, bulleted summaries.
    ```
 
-2. Start a new session and confirm the preference is recalled Resume the conversation in a fresh session. The --continue flag brings back prior context so you can test cross-session recall:
+2. Start a new session and confirm the preference is recalled Resume the conversation in a fresh session. The --continue flag brings back prior context so you can test cross-session recall: Or just ask the agent: "What summary style did I ask you to remember?"
 
    ```bash
    hermes --continue
    ```
 
-3. Inspect stored memory / sessions List the stored sessions so you can see the memory Hermes is persisting behind the scenes:
+3. Inspect stored memory / sessions List the stored sessions so you can see the memory Hermes is persisting behind the scenes: Or just ask the agent: "List my recent sessions and what each was about"
 
    ```bash
    hermes sessions list
@@ -265,19 +265,19 @@ Athena equipped with at least one installed skill that it can invoke on request.
 
 **Step-by-step**
 
-1. Browse the skills hub Open the skills catalogue to see what's available to install:
+1. Browse the skills hub Open the skills catalogue to see what's available to install: Or just ask the agent: "Show me what skills are available on the skills hub"
 
    ```bash
    hermes skills browse
    ```
 
-2. Search for a skill by keyword Narrow the catalogue to something useful for a chief-of-staff agent — for example calendar, email, research, or pdf:
+2. Search for a skill by keyword Narrow the catalogue to something useful for a chief-of-staff agent — for example calendar, email, research, or pdf: Or just ask the agent: "Search the skills hub for <keyword> skills"
 
    ```bash
    hermes skills search <keyword>
    ```
 
-3. Install a skill Install a skill by its full identifier (copy it from the search results). The pattern is owner/skills/name:
+3. Install a skill Install a skill by its full identifier (copy it from the search results). The pattern is owner/skills/name: Or just ask the agent: "Install the <name> skill from the skills hub and confirm it loaded"
 
    ```bash
    hermes skills install <owner/skills/name>
@@ -307,25 +307,25 @@ Athena running on a chosen provider/model, with the ability to switch on demand.
 
 **Step-by-step**
 
-1. Open the interactive provider/model picker Launch the interactive picker to see available providers and models and select one:
+1. Open the interactive provider/model picker Launch the interactive picker to see available providers and models and select one: Or just ask the agent: "Show me the available providers and models, and which one you're on"
 
    ```bash
    hermes model
    ```
 
-2. Set a model explicitly Instead of (or in addition to) the picker, set the active model directly in config:
+2. Set a model explicitly Instead of (or in addition to) the picker, set the active model directly in config: Or just ask the agent: "Switch yourself to Claude Opus 4.6"
 
    ```bash
    hermes config set model anthropic/claude-opus-4.6
    ```
 
-3. Add a provider key if using a cloud endpoint If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API key in config so Hermes can authenticate:
+3. Add a provider key if using a cloud endpoint If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API key in config so Hermes can authenticate: Or just ask the agent: "Add my OpenRouter API key to your provider config"
 
    ```bash
    hermes config set OPENROUTER_API_KEY sk-or-...
    ```
 
-4. Confirm the active model meets the ≥64k context rule Reopen the picker to confirm the active model and its context window:
+4. Confirm the active model meets the ≥64k context rule Reopen the picker to confirm the active model and its context window: Or just ask the agent: "Confirm your active model has at least a 64k context window"
 
    ```bash
    hermes model
@@ -354,7 +354,7 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
 **Step-by-step**
 
 1. Open the Hermes config to add an MCP server Edit your Hermes config file and locate (or create) the mcp_servers: section:
-2. Add a GitHub MCP server entry Add an entry that launches the official GitHub MCP server via npx. A typical block looks like this:
+2. Add a GitHub MCP server entry Add an entry that launches the official GitHub MCP server via npx. A typical block looks like this: Or just ask the agent: "Add the GitHub MCP server to your tool config"
 
    ```bash
    mcp_servers:
@@ -365,7 +365,7 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
       GITHUB_PERSONAL_ACCESS_TOKEN: "ghp_your_token_here"
    ```
 
-3. Restart so the MCP server is picked up, then verify Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads the new config, then run the diagnostic:
+3. Restart so the MCP server is picked up, then verify Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads the new config, then run the diagnostic: Or just ask the agent: "Run a health check and confirm the GitHub MCP tools are loaded"
 
    ```bash
    hermes doctor
@@ -396,7 +396,7 @@ A scheduled job (e.g. a daily briefing) that runs automatically and delivers a r
 **Step-by-step**
 
 1. Define a recurring job (daily 8am briefing) Create a recurring automation in the Hermes automations/crons section — for example a daily 8am briefing:
-2. Confirm the automation is registered Run the diagnostic to confirm Hermes has picked up the new scheduled job:
+2. Confirm the automation is registered Run the diagnostic to confirm Hermes has picked up the new scheduled job: Or just ask the agent: "Check that my daily 8am briefing automation is registered"
 
    ```bash
    hermes doctor
@@ -427,7 +427,7 @@ A coordinator agent that delegates a task to one or more worker subagents and co
 
 **Step-by-step**
 
-1. Choose an isolated backend for worker agents Set the terminal backend that worker subagents will run on. docker gives each worker an isolated container:
+1. Choose an isolated backend for worker agents Set the terminal backend that worker subagents will run on. docker gives each worker an isolated container: Or just ask the agent: "Run your worker subagents in the docker sandbox from now on"
 
    ```bash
    hermes config set terminal.backend docker
@@ -486,19 +486,19 @@ A hardened agent that allowlists its users, sandboxes execution, protects secret
 **Step-by-step**
 
 1. Restrict who can message the agent — set the channel allowlist (default deny) Decide who is allowed to talk to Athena. The gateway authorizes every inbound message with a six-check chain — per-platform allow-all, DM pairing, the platform allowlist, the global allowlist, global allow-all, then default deny. Nothing configured means everyone is denied (fails closed), with a startup warning telling you exactly that. In the dashboard open Channels → Configure for your channel (e.g. Telegram) and set the allowlist to your own user ID: - Allowed user IDs (TELEGRAM_ALLOWED_USERS) — comma-separated IDs that may use the bot (get yours from @userinfobot). - Allow all users (TELEGRAM_ALLOW_ALL_USERS) — leave off; it opens the bot to anyone (dev only). - Unknown DMs can also be admitted one-by-one via pairing codes you approve.
-2. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host:
+2. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host: Or just ask the agent: "Run your risky work in the docker sandbox from now on"
 
    ```bash
    hermes config set terminal.backend docker
    ```
 
-3. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts:
+3. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts: Or just ask the agent: "Store this <PROVIDER> API key securely in your config"
 
    ```bash
    hermes config set <PROVIDER>_API_KEY <value>
    ```
 
-4. Require approval before the agent runs risky actions — set the approval mode Set the approval mode so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts):
+4. Require approval before the agent runs risky actions — set the approval mode Set the approval mode so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts): Or just ask the agent: "Ask me for approval before running any risky action"
 
    ```bash
    hermes config set approvals.mode manual
@@ -527,20 +527,20 @@ A short video generated end-to-end by the agent using Hyperframe.   (Tools: Herm
 
 **Step-by-step**
 
-1. Install / verify the Hyperframe video skill Wire Hyperframe into Athena the same way you added skills in Lab 4. In a terminal, search the skills hub for the Hyperframe (video) skill and install the match; if your build integrates Hyperframe as an MCP server or Tool Gateway tool instead, add it the way you added tools in Lab 6.
+1. Install / verify the Hyperframe video skill Wire Hyperframe into Athena the same way you added skills in Lab 4. In a terminal, search the skills hub for the Hyperframe (video) skill and install the match; if your build integrates Hyperframe as an MCP server or Tool Gateway tool instead, add it the way you added tools in Lab 6. Or just ask the agent: "Find the Hyperframe video skill on the skills hub and install it"
 
    ```bash
    hermes skills search hyperframe
 hermes skills install <owner/skills/hyperframe>
    ```
 
-2. Set the Hyperframe credential via config If Hyperframe needs an API key or account token, store it through Hermes config so it never sits in plain text. Get the key from your Hyperframe account page, then set it and confirm no error is printed.
+2. Set the Hyperframe credential via config If Hyperframe needs an API key or account token, store it through Hermes config so it never sits in plain text. Get the key from your Hyperframe account page, then set it and confirm no error is printed. Or just ask the agent: "Save my Hyperframe API key securely in your config"
 
    ```bash
    hermes config set HYPERFRAME_API_KEY <your-key>
    ```
 
-3. Confirm the tool is loaded, then start a session Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena "What video tools do you have?" — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up.
+3. Confirm the tool is loaded, then start a session Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena "What video tools do you have?" — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up. Or just ask the agent: "Run a health check and confirm the Hyperframe skill is loaded"
 
    ```bash
    hermes doctor
@@ -550,7 +550,7 @@ hermes --tui
 4. Brief the agent with a concrete 3-sentence brief Type a tight, three-sentence creative brief covering topic, style/tone, and length + extras. A concrete brief is the single biggest lever on output quality — vague briefs produce generic videos. For example: > "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern visual style with an upbeat tone. Keep it to 30 seconds and add on-screen captions."
 5. Have the agent generate the video and wait for the render Ask Athena to generate the video now. You should see the agent invoke the Hyperframe tool in the session transcript (a tool-call entry), then wait — rendering typically takes a few minutes for a 30-second clip. When it finishes, Athena reports back with a link or file path to the rendered video; if the tool call errors, check the credential from step 3.
 6. Play the result, give one round of feedback, and regenerate Open and play the video end-to-end. Then give Athena one specific round of feedback — change exactly the things that bothered you, e.g. "Slow the pacing, make the captions larger, and warm up the colour palette" — and ask it to regenerate. Compare the two versions; you should see your feedback reflected in version 2.
-7. Export / save the final video and note where the file lands Ask Athena to save/export the final cut and tell you the exact file path. Outputs typically land in the session's workspace under your Hermes home directory — open it and confirm the file plays from disk:
+7. Export / save the final video and note where the file lands Ask Athena to save/export the final cut and tell you the exact file path. Outputs typically land in the session's workspace under your Hermes home directory — open it and confirm the file plays from disk: Or just ask the agent: "Where did you save the final video? Give me the file path"
 
    ```bash
    open ~/.hermes/
@@ -579,7 +579,7 @@ A visualization of the agent's workflow / activity you can read and interpret.  
 **Step-by-step**
 
 1. Run a real multi-step session so there is something to visualize A visualization of an empty agent is empty. Start a fresh session and give Athena a task that forces several tool calls in sequence — for example: > "Research the top 3 AI agent platforms, compare their pricing, and summarize in a table." Let it run to completion; the web searches, reads, and summarization steps it performs become the nodes of your graph.
-2. List sessions and note the ID of the one to visualize In a terminal, list your recent sessions and copy the ID (or title/timestamp) of the session you just ran. You will visualize this specific session rather than "everything", which keeps the diagram readable.
+2. List sessions and note the ID of the one to visualize In a terminal, list your recent sessions and copy the ID (or title/timestamp) of the session you just ran. You will visualize this specific session rather than "everything", which keeps the diagram readable. Or just ask the agent: "List my recent sessions so I can pick one to visualize"
 
    ```bash
    hermes sessions list
@@ -613,13 +613,13 @@ A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> ru
 **Step-by-step**
 
 1. Design the team on paper first Before creating anything, write down the three roles, the kind of model each needs, and — most importantly — the one-line description the orchestrator will route by. The description is the routing contract: it must say exactly what the profile takes in and hands off. Note the pipeline shape: brief → script → video. Each profile's output is the next profile's input.
-2. Create the researcher profile Create the first profile on a long-context model (it will read sources whole). The --description text is what the orchestrator matches child tasks against, so type it exactly as designed:
+2. Create the researcher profile Create the first profile on a long-context model (it will read sources whole). The --description text is what the orchestrator matches child tasks against, so type it exactly as designed: Or just ask the agent: "Create a researcher profile on a long-context model that writes video briefs"
 
    ```bash
    hermes profile create researcher --description "Reads sources, writes the video brief + key points"
    ```
 
-3. Create the scriptwriter profile Create the second profile on a cheap model — turning a brief into a script is high-volume, low-difficulty work, so this is where you save money:
+3. Create the scriptwriter profile Create the second profile on a cheap model — turning a brief into a script is high-volume, low-difficulty work, so this is where you save money: Or just ask the agent: "Create scriptwriter and video_producer profiles for the script and the render"
 
    ```bash
    hermes profile create scriptwriter --description "Turns the brief into a narrated script + scene list"
@@ -632,13 +632,13 @@ A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> ru
    ```
 
 5. Verify the team on the Profiles page Open the dashboard and go to the /profiles page in the sidebar. You should see all three profiles listed, each showing its model and its description. Read each description back critically — a vague description here causes wrong routing later. Fix any typos now (edit the profile or recreate it).
-6. Create the Kanban board task Create the top-level task on the board and assign the first stage to the researcher. Pick a real topic you care about and keep the deliverable measurable ("60-second explainer video"):
+6. Create the Kanban board task Create the top-level task on the board and assign the first stage to the researcher. Pick a real topic you care about and keep the deliverable measurable ("60-second explainer video"): Or just ask the agent: "Add a Kanban task: produce a 60-second explainer on <topic>, assign it to the researcher"
 
    ```bash
    hermes kanban create "Produce a 60-second explainer video on <topic>" --assignee researcher
    ```
 
-7. Decompose the task into child tasks Ask Hermes to break the top-level task into child tasks:
+7. Decompose the task into child tasks Ask Hermes to break the top-level task into child tasks: Or just ask the agent: "Decompose that board task into child tasks and route each to the right profile"
 
    ```bash
    hermes kanban decompose <id>
@@ -671,7 +671,7 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
 
 **Step-by-step**
 
-1. Confirm the local gateway is serving Webhooks ride on the local gateway — if it isn't up, nothing can receive a request. Check its status and note the host/port it reports (typically localhost plus a port); that host/port is the base of your webhook URL.
+1. Confirm the local gateway is serving Webhooks ride on the local gateway — if it isn't up, nothing can receive a request. Check its status and note the host/port it reports (typically localhost plus a port); that host/port is the base of your webhook URL. Or just ask the agent: "Check the gateway is up so webhooks can reach you"
 
    ```bash
    hermes gateway status
@@ -679,7 +679,7 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
 
 2. Create / enable a webhook endpoint on the dashboard Open the dashboard and click Webhooks (/webhooks) in the sidebar. Click New webhook (or the enable toggle), give it a recognizable name like briefing-trigger, and save. The dashboard generates a unique endpoint URL for it. > The exact page layout and creation flow are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
 3. Copy the endpoint URL and map it to an agent action Use the copy button next to the new webhook to copy its full URL, and paste it somewhere handy. Then set what the webhook does: map incoming payloads to an agent action — for this lab, have it run a short briefing (e.g. instruction: "When this webhook fires, read the payload's message field and act on it"). Without a mapping, a payload is accepted but nothing happens.
-4. Send a test payload with curl From a terminal, simulate an external system by POSTing a JSON payload to the endpoint. Replace <endpoint-url> with the URL you copied in step 4:
+4. Send a test payload with curl From a terminal, simulate an external system by POSTing a JSON payload to the endpoint. Replace <endpoint-url> with the URL you copied in step 4: Or just ask the agent: "POST a test payload to the webhook endpoint and confirm a 2xx response"
 
    ```bash
    curl -X POST <endpoint-url> \
@@ -688,7 +688,7 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
    ```
 
 5. Watch the agent react Switch to the chat/session view (or the logs) and confirm the payload actually triggered Athena: the mapped action runs and its output appears — e.g. a briefing message referencing "Trigger Athena briefing" from your payload. Also check the webhook's row on the /webhooks page; most builds show a delivery/last-triggered indicator. Accepted-but-no-action means the mapping in step 4 isn't wired — fix it and re-send.
-6. Secure the endpoint, then re-send with the secret An open webhook lets anyone on the network drive your agent, so lock it down. On the webhook's settings, add a shared secret/token (and an IP allowlist if your build offers one), save, and re-send the test including the secret header — it should still return 2xx and trigger the agent:
+6. Secure the endpoint, then re-send with the secret An open webhook lets anyone on the network drive your agent, so lock it down. On the webhook's settings, add a shared secret/token (and an IP allowlist if your build offers one), save, and re-send the test including the secret header — it should still return 2xx and trigger the agent: Or just ask the agent: "Re-send the test payload with the Bearer secret header and confirm it's accepted"
 
    ```bash
    curl -X POST <endpoint-url> \
@@ -814,7 +814,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
 
 **Step-by-step**
 
-1. See what is available and what is currently selected.
+1. See what is available and what is currently selected. Or just ask the agent: "Which models can you use, and which one is active right now?"
 
    ```bash
    openclaw models list
@@ -835,7 +835,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw models auth login --provider minimax-portal --set-default
    ```
 
-4. Option C — Anthropic (API key, Claude Opus 4.7). Get a key from <https://console.anthropic.com/settings/keys>:
+4. Option C — Anthropic (API key, Claude Opus 4.7). Get a key from <https://console.anthropic.com/settings/keys>: Or just ask the agent: "Switch your model to Anthropic's Claude Opus 4.7" Or just ask the agent: "Say hello so I can confirm your model connection works"
 
    ```bash
    export ANTHROPIC_API_KEY="sk-ant-..."
@@ -869,7 +869,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    source ~/.zshrc
    ```
 
-8. Switch models and confirm the active one. You can hot-swap the global default at any time:
+8. Switch models and confirm the active one. You can hot-swap the global default at any time: Or just ask the agent: "Make DeepSeek v4 your default model from now on"
 
    ```bash
    openclaw model use deepseek/deepseek-v4
@@ -877,7 +877,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
    openclaw model test
    ```
 
-9. Give the agent a Nimbus Supplies smoke test. With any model active, from the CLI chat (openclaw) ask: > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer. A sensible reply confirms the model is wired up.
+9. Give the agent a Nimbus Supplies smoke test. With any model active, from the CLI chat (openclaw) ask: > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer. A sensible reply confirms the model is wired up. Or just ask the agent: "Introduce yourself in two sentences as the Nimbus Supplies back-office assistant"
 
 **Test it**
 
@@ -901,7 +901,7 @@ Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Ni
 **Step-by-step**
 
 1. Create a Telegram bot with BotFather. 1. Open Telegram and search for @BotFather. 2. Send /newbot. 3. Enter a display name (e.g. Nimbus Supplies Assistant). 4. Enter a username — must be unique and end in _bot (e.g. nimbus_supplies_bot). 5. BotFather replies with an HTTP API token like 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11. Copy it.
-2. Register and start the Telegram channel.
+2. Register and start the Telegram channel. Or just ask the agent: "Connect Telegram using the bot token I got from BotFather" Or just ask the agent: "Start the Telegram channel and confirm it is live"
 
    ```bash
    openclaw channel add telegram --token 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
@@ -909,7 +909,7 @@ Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Ni
    ```
 
 3. Test Telegram. In Telegram, search for your bot's username and send: > Hi, do you supply recycled A4 paper for Nimbus Supplies? The agent should reply using the model you connected in Lab 16.
-4. Add and start the WhatsApp channel.
+4. Add and start the WhatsApp channel. Or just ask the agent: "Add WhatsApp as a channel and show me the pairing QR code" Or just ask the agent: "Start the WhatsApp channel so I can scan the QR code"
 
    ```bash
    openclaw channel add whatsapp
@@ -917,7 +917,7 @@ Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Ni
    ```
 
 5. Pair WhatsApp by scanning the QR. On your phone: WhatsApp → Settings → Linked Devices → Link a Device, then scan the QR code shown in the terminal. Wait for whatsapp: connected in the OpenClaw log. > WhatsApp keeps a stateful session on disk at ~/.openclaw/whatsapp/. Do not delete that folder unless you intend to re-pair.
-6. Confirm both channels are running at the same time. One gateway hosts many channels — the same Nimbus Supplies agent now answers on both.
+6. Confirm both channels are running at the same time. One gateway hosts many channels — the same Nimbus Supplies agent now answers on both. Or just ask the agent: "Which channels are you listening on right now?"
 
    ```bash
    openclaw channel list
@@ -953,13 +953,13 @@ Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inc
 
 **Step-by-step**
 
-1. List the skills currently installed.
+1. List the skills currently installed. Or just ask the agent: "What skills do you have installed?"
 
    ```bash
    openclaw skills list
    ```
 
-2. Install a few useful skills from the registry. Skills come from <https://skills.sh/>:
+2. Install a few useful skills from the registry. Skills come from <https://skills.sh/>: Or just ask the agent: "Install the web-research skill from the skills.sh registry"
 
    ```bash
    openclaw skills add web-research --source skills.sh
@@ -984,13 +984,13 @@ Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inc
    openclaw skills update
    ```
 
-6. Build a custom Nimbus Supplies skill. Skills live under ~/.openclaw/skills/. Create a folder and a skill definition. (File layout is shown here as a documented example — confirm the exact schema for your version at <https://docs.openclaw.ai/> before relying on advanced fields.)
+6. Build a custom Nimbus Supplies skill. Skills live under ~/.openclaw/skills/. Create a folder and a skill definition. (File layout is shown here as a documented example — confirm the exact schema for your version at <https://docs.openclaw.ai/> before relying on advanced fields.) Or just ask the agent: "Create a new custom skill called nimbus-quote for drafting itemised customer quotes"
 
    ```bash
    mkdir -p ~/.openclaw/skills/nimbus-quote
    ```
 
-7. Register and test the custom skill.
+7. Register and test the custom skill. Or just ask the agent: "Reload your skills so the new nimbus-quote skill is picked up"
 
    ```bash
    openclaw skills list                 # confirm nimbus-quote appears
@@ -1020,13 +1020,13 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
 
 **Step-by-step**
 
-1. Inspect the built-in tools first.
+1. Inspect the built-in tools first. Or just ask the agent: "What tools do you have, grouped by category?"
 
    ```bash
    openclaw tools list
    ```
 
-2. Enable Firecrawl. Sign up at <https://www.firecrawl.dev/>, then Dashboard → API Keys → copy the fc-... key:
+2. Enable Firecrawl. Sign up at <https://www.firecrawl.dev/>, then Dashboard → API Keys → copy the fc-... key: Or just ask the agent: "Enable the Firecrawl scraping tool with my API key"
 
    ```bash
    export FIRECRAWL_API_KEY="fc-..."
@@ -1035,7 +1035,7 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
    ```
 
 3. Smoke-test Firecrawl from chat. In Telegram or WhatsApp: > Use Firecrawl to fetch the products page of a stationery supplier's website and list their A4 paper options with prices in 5 bullets.
-4. Enable AgentMail. Create an inbox at <https://agentmail.to/>, copy the API key and inbox address:
+4. Enable AgentMail. Create an inbox at <https://agentmail.to/>, copy the API key and inbox address: Or just ask the agent: "Set up AgentMail with my API key so you have your own inbox"
 
    ```bash
    export AGENTMAIL_API_KEY="..."
@@ -1047,7 +1047,7 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
 
 5. Smoke-test AgentMail. From chat: > Send an email from my AgentMail inbox to <your-personal-email> with subject "Hello from Nimbus Supplies" and a friendly one-paragraph body. Check your inbox, reply to it, then ask: > Check my AgentMail inbox and summarise the latest reply.
 6. Run the real end-to-end task (research → quote → email). From a channel, send one instruction that chains both tools plus the skill from Lab 18: > A customer, Acme Cafe, wants 10 reams of recycled A4 paper and 5 boxes of black pens. Use Firecrawl to check current prices on our supplier's site, then use the nimbus-quote skill to draft an itemised quote, and email it from my AgentMail inbox to orders@acmecafe.example with subject "Your Nimbus Supplies quote".
-7. Scope tools per channel with profiles and allow/deny lists. Public channels should not run shell exec. Apply the safe messaging preset and lock down a public channel:
+7. Scope tools per channel with profiles and allow/deny lists. Public channels should not run shell exec. Apply the safe messaging preset and lock down a public channel: Or just ask the agent: "On the Telegram channel, block shell command execution" Or just ask the agent: "On Telegram, allow only the web tool group"
 
    ```bash
    openclaw channel set telegram --profile messaging
@@ -1085,7 +1085,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
 
 **Step-by-step**
 
-1. openclaw config — read and change settings.
+1. openclaw config — read and change settings. Or just ask the agent: "Show me your current configuration settings"
 
    ```bash
    openclaw config list                        # show all settings
@@ -1173,7 +1173,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
 
 **Step-by-step**
 
-1. Create the nightly sales-report cron. Cron syntax is <min> <hour> <day> <month> <weekday>.
+1. Create the nightly sales-report cron. Cron syntax is <min> <hour> <day> <month> <weekday>. Or just ask the agent: "Every night at 9pm, summarise today's customer chats and quotes and post it to Telegram"
 
    ```bash
    # Every day at 21:00 — post a Nimbus Supplies end-of-day summary to Telegram
@@ -1195,7 +1195,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
      --name weekly-price-check
    ```
 
-3. List and inspect your crons.
+3. List and inspect your crons. Or just ask the agent: "What cron jobs do you have scheduled?"
 
    ```bash
    openclaw cron list
@@ -1203,7 +1203,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw cron logs nightly-sales-report --tail 20
    ```
 
-4. Fire a cron on demand to test it now (ignores the schedule):
+4. Fire a cron on demand to test it now (ignores the schedule): Or just ask the agent: "Run the nightly sales report right now so I can check it works"
 
    ```bash
    openclaw cron run nightly-sales-report
@@ -1217,7 +1217,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
    openclaw cron delete  weekly-price-check   # only if you no longer need it
    ```
 
-6. Enable the heartbeat. The heartbeat is a periodic self-check that verifies the gateway is alive, the model responds, and channels are connected; on failure the daemon attempts auto-restart and logs the incident.
+6. Enable the heartbeat. The heartbeat is a periodic self-check that verifies the gateway is alive, the model responds, and channels are connected; on failure the daemon attempts auto-restart and logs the incident. Or just ask the agent: "Turn on your heartbeat self-check every 60 seconds" Or just ask the agent: "Is your heartbeat healthy? Give me the status"
 
    ```bash
    openclaw gateway heartbeat enable --interval 60s
@@ -1233,7 +1233,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
      --interval 5m
    ```
 
-8. Confirm auto-restart works. Ensure the daemon is installed to auto-start, then simulate a crash:
+8. Confirm auto-restart works. Ensure the daemon is installed to auto-start, then simulate a crash: Or just ask the agent: "Shut down your gateway - I want to check the heartbeat restarts you"
 
    ```bash
    openclaw gateway status        # expect "running" + "auto-start: yes"
@@ -1265,7 +1265,7 @@ An agent that persistently remembers a customer's standing preferences and appli
 
 **Step-by-step**
 
-1. See what OpenClaw stores on disk.
+1. See what OpenClaw stores on disk. Or just ask the agent: "Show me what you store in your ~/.openclaw state folder"
 
    ```bash
    ls -la ~/.openclaw/
@@ -1296,7 +1296,7 @@ An agent that persistently remembers a customer's standing preferences and appli
    /memory
    ```
 
-7. Back up memory before major changes (memory lives under ~/.openclaw/, so the Lab 15 backup habit applies):
+7. Back up memory before major changes (memory lives under ~/.openclaw/, so the Lab 15 backup habit applies): Or just ask the agent: "Back up all your memory and state to a dated folder in my home directory"
 
    ```bash
    mkdir -p ~/openclaw-backup-$(date +%F)
@@ -1333,7 +1333,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
    export AGENTMAIL_API_KEY="..."
    ```
 
-2. Restrict who can DM the bot (allowlists). By default anyone who finds your Telegram bot can message it. Lock it to known users:
+2. Restrict who can DM the bot (allowlists). By default anyone who finds your Telegram bot can message it. Lock it to known users: Or just ask the agent: "Only allow Telegram users 12345678 and 87654321 to message you; block everyone else"
 
    ```bash
    openclaw channel set telegram \
@@ -1341,7 +1341,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
      --pair-mode allowlist
    ```
 
-3. Apply tool deny lists (least privilege per channel). A customer-facing channel has no business running shell commands or deleting files:
+3. Apply tool deny lists (least privilege per channel). A customer-facing channel has no business running shell commands or deleting files: Or just ask the agent: "On Telegram, deny shell exec and any file writes or deletes"
 
    ```bash
    openclaw channel set telegram --deny exec,fs.write,fs.delete
@@ -1350,7 +1350,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
    openclaw channel show telegram | grep -E "(allow|deny|profile)"
    ```
 
-4. Tighten the code-execution sandbox. The exec / Python tools run sandboxed — cap time, memory, and network:
+4. Tighten the code-execution sandbox. The exec / Python tools run sandboxed — cap time, memory, and network: Or just ask the agent: "Cap your exec sandbox at 10 seconds, 256MB memory and no network access"
 
    ```bash
    openclaw tools config exec \
@@ -1396,7 +1396,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
 
 **Step-by-step**
 
-1. Create three named agents. Attempt the native multi-agent path first (confirm exact syntax in the docs):
+1. Create three named agents. Attempt the native multi-agent path first (confirm exact syntax in the docs): Or just ask the agent: "Create a new agent named Sales to handle customer-facing chats"
 
    ```bash
    openclaw agent create sales
@@ -1405,7 +1405,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw agent list
    ```
 
-2. Give each agent least-privilege tools (mirrors Lab 19/23 allow-deny, applied per agent):
+2. Give each agent least-privilege tools (mirrors Lab 19/23 allow-deny, applied per agent): Or just ask the agent: "Give the Sales agent web and quoting tools only, with no shell or file writes" Or just ask the agent: "Restrict the Research agent to Firecrawl, web search and browser only"
 
    ```bash
    # Sales — web + quoting only, no shell, no filesystem writes
@@ -1418,7 +1418,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw agent set ops --allow agentmail,group:fs
    ```
 
-3. Attach channels to the right agents.
+3. Attach channels to the right agents. Or just ask the agent: "Route the Telegram channel to the Sales agent"
 
    ```bash
    # Customer traffic goes to Sales
@@ -1436,7 +1436,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
    openclaw skills list
    ```
 
-5. Wire cooperation between agents. The simplest, robust hand-off uses the tools you already have: - Sales → Ops: when Sales captures an order, it asks Ops (via a shared note file or an AgentMail message) to produce and send the quote. - Ops → Research: when a price is unknown ("TBC"), Ops asks Research to look it up with Firecrawl. - Research → Ops: Research replies with the price; Ops finalises the quote email.
+5. Wire cooperation between agents. The simplest, robust hand-off uses the tools you already have: - Sales → Ops: when Sales captures an order, it asks Ops (via a shared note file or an AgentMail message) to produce and send the quote. - Ops → Research: when a price is unknown ("TBC"), Ops asks Research to look it up with Firecrawl. - Research → Ops: Research replies with the price; Ops finalises the quote email. Or just ask the agent: "Every night at 9pm, compile today's orders and quotes and post them to Telegram"
 
    ```bash
    # Ops nightly consolidation cron (from Lab 21, now owned by Ops)
@@ -1478,19 +1478,19 @@ An agent that, when idle, 'dreams' — reflecting on memory and proposing follow
 
 **Step-by-step**
 
-1. Enable the dreaming feature in OpenClaw config. This flips the setting that lets the gateway schedule reflection cycles when the agent is idle:
+1. Enable the dreaming feature in OpenClaw config. This flips the setting that lets the gateway schedule reflection cycles when the agent is idle: Or just ask the agent: "Turn on dreaming so you reflect and consolidate memory when idle"
 
    ```bash
    openclaw config set dreaming.enabled true
    ```
 
-2. Let the agent sit idle so a dream cycle runs — or trigger one manually. Rather than wait for a natural idle window, force a cycle now so you can observe it immediately:
+2. Let the agent sit idle so a dream cycle runs — or trigger one manually. Rather than wait for a natural idle window, force a cycle now so you can observe it immediately: Or just ask the agent: "Run a dream cycle now instead of waiting for idle time"
 
    ```bash
    openclaw dream run
    ```
 
-3. Review what the dream produced. List the insights, follow-ups, and skill suggestions the cycle generated:
+3. Review what the dream produced. List the insights, follow-ups, and skill suggestions the cycle generated: Or just ask the agent: "Show me the insights and follow-ups from your last dream"
 
    ```bash
    openclaw dream list

@@ -22,6 +22,8 @@ Connect a language model to OpenClaw so your Nimbus Supplies agent can actually 
    openclaw model current
    ```
 
+   Or just ask the agent: "Which models can you use, and which one is active right now?"
+
 2. **Option A — OpenAI Codex (OAuth, GPT-5.5).** OAuth uses the `openai-codex` provider so you sign in with your **ChatGPT Plus / Pro** subscription instead of paying per token. Credentials are stored in `~/.openclaw/auth/` (profile at `~/.openclaw/auth-profiles/openai-codex.json`); refresh is automatic.
 
    ```bash
@@ -58,6 +60,10 @@ Connect a language model to OpenClaw so your Nimbus Supplies agent can actually 
    openclaw config set model anthropic/claude-opus-4-7
    openclaw model test
    ```
+
+   Or just ask the agent: "Switch your model to Anthropic's Claude Opus 4.7"
+
+   Or just ask the agent: "Say hello so I can confirm your model connection works"
 
 5. **Option D — DeepSeek (API key, V4).** Get a key from <https://platform.deepseek.com/api_keys>:
 
@@ -98,11 +104,15 @@ Connect a language model to OpenClaw so your Nimbus Supplies agent can actually 
    openclaw model test
    ```
 
+   Or just ask the agent: "Make DeepSeek v4 your default model from now on"
+
 9. **Give the agent a Nimbus Supplies smoke test.** With any model active, from the CLI chat (`openclaw`) ask:
 
    > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer.
 
    A sensible reply confirms the model is wired up.
+
+   Or just ask the agent: "Introduce yourself in two sentences as the Nimbus Supplies back-office assistant"
 
 ## Verification / Expected Output
 - `openclaw models list` shows the models you connected; `openclaw model current` prints the active one.

@@ -38,6 +38,8 @@ Create the first profile on a long-context model (it will read sources whole). T
 ```bash
 hermes profile create researcher --description "Reads sources, writes the video brief + key points"
 ```
+Or just ask the agent: "Create a researcher profile on a long-context model that writes video briefs"
+
 
 > Profile-creation syntax (and how the model is attached — a `--model` flag or a follow-up config step) is version-specific — verify in the video / docs (https://hermes-agent.nousresearch.com/docs/).
 
@@ -47,6 +49,8 @@ Create the second profile on a **cheap** model — turning a brief into a script
 ```bash
 hermes profile create scriptwriter --description "Turns the brief into a narrated script + scene list"
 ```
+Or just ask the agent: "Create scriptwriter and video_producer profiles for the script and the render"
+
 
 ### 5. Create the video_producer profile
 Create the third profile on a **code/tool-capable** model — it must drive TTS and slide-rendering tools reliably:
@@ -64,6 +68,8 @@ Create the top-level task on the board and assign the first stage to the researc
 ```bash
 hermes kanban create "Produce a 60-second explainer video on <topic>" --assignee researcher
 ```
+Or just ask the agent: "Add a Kanban task: produce a 60-second explainer on <topic>, assign it to the researcher"
+
 
 Note the task ID printed on creation — you need it for the next step. The board is durable: it is a SQLite database at `~/.hermes/kanban.db`, so tasks survive restarts.
 
@@ -73,6 +79,8 @@ Ask Hermes to break the top-level task into child tasks:
 ```bash
 hermes kanban decompose <id>
 ```
+Or just ask the agent: "Decompose that board task into child tasks and route each to the right profile"
+
 
 You should see child tasks appear — roughly "research + brief", "script + scene list", "render video with TTS + slides". Inspect each child's assignee: the orchestrator routes each child to the profile whose **description** best matches the work. This is why step 2's wording mattered.
 

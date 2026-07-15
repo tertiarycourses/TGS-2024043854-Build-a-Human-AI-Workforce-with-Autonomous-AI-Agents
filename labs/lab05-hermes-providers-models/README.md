@@ -26,6 +26,8 @@ Launch the interactive picker to see available providers and models and select o
 ```bash
 hermes model
 ```
+Or just ask the agent: "Show me the available providers and models, and which one you're on"
+
 
 Use the arrow keys to browse providers and their models. Pay attention to each model's context window — you need one that supports at least 64,000 tokens.
 
@@ -35,6 +37,8 @@ Instead of (or in addition to) the picker, set the active model directly in conf
 ```bash
 hermes config set model anthropic/claude-opus-4.6
 ```
+Or just ask the agent: "Switch yourself to Claude Opus 4.6"
+
 
 This writes the model choice to your Hermes config so every new session uses it. Substitute another `provider/model` string if you prefer a different model — the format stays `provider/model`.
 
@@ -44,6 +48,8 @@ If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API k
 ```bash
 hermes config set OPENROUTER_API_KEY sk-or-...
 ```
+Or just ask the agent: "Add my OpenRouter API key to your provider config"
+
 
 Replace `sk-or-...` with your real OpenRouter key. For other providers, set the matching `<PROVIDER>_API_KEY` variable.
 
@@ -53,6 +59,8 @@ Reopen the picker to confirm the active model and its context window:
 ```bash
 hermes model
 ```
+Or just ask the agent: "Confirm your active model has at least a 64k context window"
+
 
 Verify the selected model reports a context window of **≥64,000 tokens**. This is a hard requirement for the Athena workflows later in the track (long briefings, multi-document context).
 

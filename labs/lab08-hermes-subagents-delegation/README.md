@@ -26,6 +26,8 @@ Set the terminal backend that worker subagents will run on. `docker` gives each 
 ```bash
 hermes config set terminal.backend docker
 ```
+Or just ask the agent: "Run your worker subagents in the docker sandbox from now on"
+
 
 Other supported backends include `local`, `ssh`, and `modal`. Docker is recommended so worker agents can't touch your host directly.
 

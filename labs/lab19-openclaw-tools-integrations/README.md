@@ -23,6 +23,8 @@ Extend the Nimbus Supplies agent with two real-world integrations — **Firecraw
    openclaw tools list
    ```
 
+   Or just ask the agent: "What tools do you have, grouped by category?"
+
    You should see categories such as `group:fs` (file read/write), `group:web` (`web_search`, `web_fetch`, `browser`), `group:runtime` (`exec`, sandboxed Python), and `group:media`.
 
    
@@ -34,6 +36,8 @@ Extend the Nimbus Supplies agent with two real-world integrations — **Firecraw
    openclaw tools enable firecrawl --api-key "$FIRECRAWL_API_KEY"
    openclaw tools status firecrawl
    ```
+
+   Or just ask the agent: "Enable the Firecrawl scraping tool with my API key"
 
 3. **Smoke-test Firecrawl from chat.** In Telegram or WhatsApp:
 
@@ -48,6 +52,8 @@ Extend the Nimbus Supplies agent with two real-world integrations — **Firecraw
      --inbox bot@yourname.agentmail.to
    openclaw tools status agentmail
    ```
+
+   Or just ask the agent: "Set up AgentMail with my API key so you have your own inbox"
 
 5. **Smoke-test AgentMail.** From chat:
 
@@ -71,6 +77,10 @@ Extend the Nimbus Supplies agent with two real-world integrations — **Firecraw
    openclaw channel set telegram --allow group:web
    openclaw channel show telegram
    ```
+
+   Or just ask the agent: "On the Telegram channel, block shell command execution"
+
+   Or just ask the agent: "On Telegram, allow only the web tool group"
 
 8. **(Optional) Add one more integration of your choice.** Pick one from <https://docs.openclaw.ai/tools> and enable it (exact name/flags per the docs), e.g.:
 

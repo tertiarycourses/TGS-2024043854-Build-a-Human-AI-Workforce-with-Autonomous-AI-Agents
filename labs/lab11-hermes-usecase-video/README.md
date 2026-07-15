@@ -27,6 +27,8 @@ Wire Hyperframe into Athena the same way you added skills in Lab 4. In a termina
 hermes skills search hyperframe
 hermes skills install <owner/skills/hyperframe>
 ```
+Or just ask the agent: "Find the Hyperframe video skill on the skills hub and install it"
+
 
 > The exact skill/tool name is version-specific — verify in the video / docs (https://hermes-agent.nousresearch.com/docs/).
 
@@ -36,6 +38,8 @@ If Hyperframe needs an API key or account token, store it through Hermes config 
 ```bash
 hermes config set HYPERFRAME_API_KEY <your-key>
 ```
+Or just ask the agent: "Save my Hyperframe API key securely in your config"
+
 
 ### 4. Confirm the tool is loaded, then start a session
 Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena *"What video tools do you have?"* — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up.
@@ -44,6 +48,8 @@ Run the health check and confirm it reports green with the new skill/tool listed
 hermes doctor
 hermes --tui
 ```
+Or just ask the agent: "Run a health check and confirm the Hyperframe skill is loaded"
+
 
 ### 5. Brief the agent with a concrete 3-sentence brief
 Type a tight, three-sentence creative brief covering **topic**, **style/tone**, and **length + extras**. A concrete brief is the single biggest lever on output quality — vague briefs produce generic videos. For example:
@@ -62,6 +68,8 @@ Ask Athena to save/export the final cut and tell you the exact file path. Output
 ```bash
 open ~/.hermes/
 ```
+Or just ask the agent: "Where did you save the final video? Give me the file path"
+
 
 > The exact output folder is version-specific — verify in the video / docs (https://hermes-agent.nousresearch.com/docs/). Copy the file somewhere permanent; session workspaces can be cleaned up.
 
