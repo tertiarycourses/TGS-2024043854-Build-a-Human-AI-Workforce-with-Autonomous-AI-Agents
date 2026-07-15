@@ -1,6 +1,6 @@
 # Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.9 · 16 July 2026**
+**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.10 · 16 July 2026**
 
 ## Contents
 
@@ -49,7 +49,7 @@
 
 ## Introduction
 
-This Learner Guide accompanies the WSQ course Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 34 hands-on labs across three autonomous-AI-agent platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds on the same skillset: install the runtime, connect models and channels, give the agent memory, extend it with skills and tools, automate it with schedules, secure it with governance, and finally orchestrate multiple agents to deliver a realistic business outcome.
+This Learner Guide accompanies the WSQ course Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 32 hands-on labs across three autonomous-AI-agent platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds on the same skillset: install the runtime, connect models and channels, give the agent memory, extend it with skills and tools, automate it with schedules, secure it with governance, and finally orchestrate multiple agents to deliver a realistic business outcome.
 
 Use this guide alongside the course slides and the lab files in the labs/ folder of the course repository. The labs run on your own laptop and in Docker; where a lab connects to an external service (an LLM provider, a messaging channel, a VPS) use only accounts and credentials you own, and keep API keys and tokens out of prompts and out of version control.
 
@@ -164,7 +164,7 @@ A working Hermes Agent install that passes 'hermes doctor' and opens the TUI.   
 
 'hermes doctor' reports all green and the TUI opens and replies to a message.
 
-> **Note:** Full commands and screenshots are in labs/lab-01-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab01-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -207,7 +207,7 @@ A local Hermes deployment plus the Desktop app, both talking to the same agent. 
 
 Both the local CLI and the Desktop app drive the same agent; 'hermes gateway status' is healthy.
 
-> **Note:** Full commands and screenshots are in labs/lab-02-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab02-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -248,7 +248,7 @@ Athena remembers a stated preference across sessions and runs an enabled plugin.
 
 A preference taught in one session is recalled in a new session, and the enabled plugin is active.
 
-> **Note:** Full commands and screenshots are in labs/lab-03-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab03-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -290,7 +290,7 @@ Athena equipped with at least one installed skill that it can invoke on request.
 
 The installed skill appears in the agent's toolset and runs when invoked.
 
-> **Note:** Full commands and screenshots are in labs/lab-04-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab04-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -336,7 +336,7 @@ Athena running on a chosen provider/model, with the ability to switch on demand.
 
 The agent starts on the selected model and can be switched to another provider without reinstalling.
 
-> **Note:** Full commands and screenshots are in labs/lab-05-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab05-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -378,7 +378,7 @@ Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.
 
 The agent lists the new MCP server's tools and completes a task using a Tool Gateway tool.
 
-> **Note:** Full commands and screenshots are in labs/lab-06-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab06-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -410,7 +410,7 @@ A scheduled job (e.g. a daily briefing) that runs automatically and delivers a r
 
 The scheduled job runs at its time (or on manual trigger) and delivers the expected briefing.
 
-> **Note:** Full commands and screenshots are in labs/lab-07-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab07-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -442,7 +442,7 @@ A coordinator agent that delegates a task to one or more worker subagents and co
 
 The coordinator delegates to worker subagents on an isolated backend and returns a combined result.
 
-> **Note:** Full commands and screenshots are in labs/lab-08-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab08-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -468,7 +468,7 @@ A configured agent profile and a Kanban board tracking the agent's live tasks.  
 
 The profile is set and the Kanban board shows tasks progressing across its columns.
 
-> **Note:** Full commands and screenshots are in labs/lab-09-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab09-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -510,7 +510,7 @@ A hardened agent that allowlists its users, sandboxes execution, protects secret
 
 Only allowlisted users reach the agent; risky actions run in the sandbox and only after approval; secrets are not stored in plain text.
 
-> **Note:** Full commands and screenshots are in labs/lab-10-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab10-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -561,7 +561,7 @@ hermes --tui
 
 The agent produces a playable video from your brief using Hyperframe, and you can locate the saved file.
 
-> **Note:** Full commands and screenshots are in labs/lab-11-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab11-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -595,7 +595,7 @@ A visualization of the agent's workflow / activity you can read and interpret.  
 
 A workflow visualization of a real session renders; you can name each node (tool call) and explain what the agent did.
 
-> **Note:** Full commands and screenshots are in labs/lab-12-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab12-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -654,7 +654,7 @@ A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> ru
 
 Three profiles exist, the decomposed Kanban tasks route to the right profile by description, and the accepted board delivers a rendered video.
 
-> **Note:** Full commands and screenshots are in labs/lab-13-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab13-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -703,7 +703,7 @@ A webhook that triggers the agent (or that the agent calls), verified end-to-end
 
 A test payload to the webhook triggers the agent's mapped action, and calls without the secret are rejected.
 
-> **Note:** Full commands and screenshots are in labs/lab-14-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab14-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -797,7 +797,7 @@ A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor  
 
 openclaw --version prints a version, openclaw doctor shows green checks for Node 24 and the gateway daemon (provider/channel checks pending until Labs 16-17), and openclaw gateway status reports running.
 
-> **Note:** Full commands and screenshots are in labs/lab-15-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab15-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -883,7 +883,7 @@ A Nimbus Supplies agent wired to a working model provider that passes openclaw m
 
 openclaw models list shows the connected models, openclaw model current prints the active one, openclaw model test returns a short successful completion with no auth error, and OAuth credentials appear under ~/.openclaw/auth/.
 
-> **Note:** Full commands and screenshots are in labs/lab-16-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab16-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -936,7 +936,7 @@ Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Ni
 
 openclaw channel list shows telegram and whatsapp both running, a message to the Telegram bot gets an agent reply, a message to the linked WhatsApp account gets an agent reply, and openclaw gateway status shows both connected.
 
-> **Note:** Full commands and screenshots are in labs/lab-17-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab17-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1003,7 +1003,7 @@ Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inc
 
 openclaw skills list shows the registry skills plus the custom nimbus-quote, /skill web-research runs end-to-end, and /skill nimbus-quote produces an itemised quote with a 9% GST line and standard terms, marking any unknown price as TBC instead of guessing.
 
-> **Note:** Full commands and screenshots are in labs/lab-18-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab18-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1068,7 +1068,7 @@ A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails
 
 openclaw tools list --enabled shows firecrawl and agentmail, the agent scrapes a supplier URL and returns structured prices, an AgentMail send arrives in a real inbox, the end-to-end task produces an itemised quote email, and a channel set to --deny exec refuses shell-exec requests.
 
-> **Note:** Full commands and screenshots are in labs/lab-19-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab19-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1156,7 +1156,7 @@ A personal quick-reference of the CLI and slash commands used to run Nimbus Supp
 
 You can switch the model both from chat (/model, per-conversation) and globally from the CLI (openclaw model use), /whoami returns your platform user ID, openclaw gateway logs --follow streams live activity, and /help lists the available slash commands.
 
-> **Note:** Full commands and screenshots are in labs/lab-20-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab20-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1248,7 +1248,7 @@ A nightly sales-report cron, a weekly price-check cron, and an enabled self-heal
 
 openclaw cron list shows nightly-sales-report and weekly-price-check, openclaw cron run delivers a summary to Telegram immediately, openclaw gateway heartbeat status reports healthy, and after openclaw gateway stop the service manager restarts the gateway within about a minute.
 
-> **Note:** Full commands and screenshots are in labs/lab-21-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab21-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1308,7 +1308,7 @@ An agent that persistently remembers a customer's standing preferences and appli
 
 /memory shows the customer preferences after you teach them, after /clear the /memory list still shows them (short-term context cleared, long-term memory retained), and a fresh quote request for the customer automatically applies recycled paper, Tuesday delivery and the correct recipient name without repetition.
 
-> **Note:** Full commands and screenshots are in labs/lab-22-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab22-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1379,7 +1379,7 @@ A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capp
 
 cat ~/.openclaw/config.toml does not contain raw API keys, a user not on the Telegram allowlist gets a not-authorized response, openclaw channel show telegram lists the deny list and messaging profile, and the audit log shows blocked exec attempts on a locked channel.
 
-> **Note:** Full commands and screenshots are in labs/lab-23-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab23-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1461,7 +1461,7 @@ A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end
 
 Three agents (or isolated instances) each have a distinct least-privilege tool set (Sales cannot exec, Research cannot write files, Ops is not on a public channel), a customer Telegram message produces a real quote email combining memory, the nimbus-quote skill, a Firecrawl price lookup and AgentMail delivery, and the nightly cron posts a summary referencing the same order.
 
-> **Note:** Full commands and screenshots are in labs/lab-24-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab24-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1502,7 +1502,7 @@ An agent that, when idle, 'dreams' — reflecting on memory and proposing follow
 
 A dream cycle runs during idle time and produces reviewable insights/follow-ups from the agent's memory.
 
-> **Note:** Full commands and screenshots are in labs/lab-25-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab25-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1529,7 +1529,7 @@ One or more end-to-end OpenClaw automations (Workspace, analytics or social medi
 
 A real use case (Google Workspace, data analytics or social media) runs end-to-end using OpenClaw's channels, skills, tools and crons.
 
-> **Note:** Full commands and screenshots are in labs/lab-26-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab26-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1582,7 +1582,7 @@ A running Paperclip instance at http://localhost:3100 on Windows or Mac.   (Tool
 
 Docker shows the Paperclip containers running and the dashboard loads at http://localhost:3100 on your platform.
 
-> **Note:** Full commands and screenshots are in labs/lab-27-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab27-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1609,7 +1609,7 @@ A company with a mission and budget, plus an approved CEO agent at the top of th
 
 The company exists with a mission and budget, and an approved CEO agent sits under the Board on the org chart.
 
-> **Note:** Full commands and screenshots are in labs/lab-28-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab28-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1641,7 +1641,7 @@ A detected, enabled model adaptor (Claude Code, Codex or Gemini CLI) powering th
 
 Settings → Adapters lists the built-in adaptors and your chosen adaptor is detected and enabled for agents.
 
-> **Note:** Full commands and screenshots are in labs/lab-29-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab29-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1669,7 +1669,7 @@ A Tasks board holding six well-specified tasks, with 'Hire the core team' as the
 
 The Tasks board shows all six tasks, each with a detailed description, and the hiring task is assigned to the CEO.
 
-> **Note:** Full commands and screenshots are in labs/lab-30-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab30-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1696,7 +1696,7 @@ A TAVILY_API_KEY secret bound to the agents' runtime environment, verified with 
 
 The secret exists, TAVILY_API_KEY is bound to the runtime env, and a live-search task returns fresh cited results.
 
-> **Note:** Full commands and screenshots are in labs/lab-31-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab31-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 
@@ -1723,7 +1723,7 @@ An approved core team under the CEO, visible in the Agents list and the org char
 
 The hiring task reaches in_review/done, every hire was Board-approved, and the specialists appear on the org chart taking backlog tasks.
 
-> **Note:** Full commands and screenshots are in labs/lab-32-*.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **Note:** Full commands and screenshots are in labs/lab32-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
 
 ---
 

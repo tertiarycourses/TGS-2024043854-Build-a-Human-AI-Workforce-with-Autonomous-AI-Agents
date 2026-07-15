@@ -86,7 +86,7 @@ def rule(): B.append(("rule",))
 # ---------------- content ----------------
 h1("Introduction")
 p(f"This Learner Guide accompanies the WSQ course {C.TITLE} ({C.COURSE_CODE}), conducted by {C.ORG}. "
-  "It provides step-by-step instructions for all 34 hands-on labs across three autonomous-AI-agent "
+  "It provides step-by-step instructions for all 32 hands-on labs across three autonomous-AI-agent "
   "platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds "
   "on the same skillset: install the runtime, connect models and channels, give the agent memory, extend "
   "it with skills and tools, automate it with schedules, secure it with governance, and finally "
@@ -143,7 +143,7 @@ for t in C.TOPICS:
         steps(st)
         h3("Test it")
         p(a["test"])
-        note(f"Full commands and screenshots are in labs/lab-{a['num']:02d}-*.md. "
+        note(f"Full commands and screenshots are in labs/lab{a['num']:02d}-*/README.md. "
              f"Use only accounts, keys and hosts you own, and keep agents under human oversight.")
         rule()
 
@@ -256,7 +256,8 @@ prodoc.add_version_control(doc,[
  ("1.6","15 July 2026","Topic 3 (Paperclip) rebuilt as the 'Tertiary AI News Research' company across 6 labs (27-32): install on Windows & Mac; company, CEO & mission; model adaptors; a detailed task backlog whose core task hires the team; the Tavily Search API via Secrets; and hiring the members under the hiring task — with live dashboard screenshots. Natural-language prompt steps added to the Hermes and OpenClaw labs alongside the CLI. Platform logos added to the Three Platforms page. 32 labs total.",C.TRAINER),
  ("1.7","15 July 2026","Sixty-eight content slides migrated from the original 'Mastering OpenClaw' masterclass deck into Topic 2 as framed figures in their matching labs — agent evolution and Agent = Model + Harness, the OpenClaw Wikipedia history and OpenAI acquisition, deployment options and services, model stacks and Mission Control, channels, skills and ClawHub risks, tools (AgentMail, Agent Browser, Firecrawl), system prompt / workspace / context and memory, security lockdown, slash commands, crons, and use cases (NFT certificates, dashboard, cost saving, Google integration).",C.TRAINER),
  ("1.8","15 July 2026","Imported masterclass figures re-blended into the dark deck theme: original title and copyright strips cropped, white canvases converted to the deck background with text inverted to ivory (embedded screenshots untouched), frameless rendering, and duplicated titles reworded.",C.TRAINER),
- ("1.9",C.VERSION_DATE,"Deck curated per trainer review: the bulk masterclass figure imports were removed, keeping nine key figures (Wikipedia history, Agent=Model+Harness, SKILL.md, ClawHub, AgentMail, 10-steps lockdown, HEARTBEAT, autonomic tick, workspace persistence) re-exported at high resolution, with the Topic 2 opening story reordered ahead of Key Concepts. Every CLI step now also shows the natural-language prompt alternative ('Or just ask') across the Hermes and OpenClaw labs, in the deck and Learner Guide.",C.TRAINER),
+ ("1.9","16 July 2026","Deck curated per trainer review: the bulk masterclass figure imports were removed, keeping nine key figures (Wikipedia history, Agent=Model+Harness, SKILL.md, ClawHub, AgentMail, 10-steps lockdown, HEARTBEAT, autonomic tick, workspace persistence) re-exported at high resolution, with the Topic 2 opening story reordered ahead of Key Concepts. Every CLI step now also shows the natural-language prompt alternative ('Or just ask') across the Hermes and OpenClaw labs, in the deck and Learner Guide.",C.TRAINER),
+ ("1.10",C.VERSION_DATE,"PP assessment updated to v4 — evidence screenshots changed to: Task 1 Hermes interacting on Telegram or the multi-agent Kanban board; Task 2 OpenClaw on Telegram or the TUI; Task 3 the Paperclip setup (company, mission, CEO, hired agents) — with Topic 3 lab references refreshed. A 'RAG vs a Standard LLM Assistant' concept slide added to Core Concepts to ground WA Q2. Final PPT/LP/LG/labs/assessment alignment review.",C.TRAINER),
 ])
 prodoc.add_toc(doc)
 

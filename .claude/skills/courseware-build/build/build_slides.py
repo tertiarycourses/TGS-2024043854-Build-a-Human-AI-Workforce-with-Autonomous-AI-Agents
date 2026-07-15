@@ -643,6 +643,16 @@ tile_grid("The Agent Stack",[
  ("Channels","Where the agent meets people: Telegram, WhatsApp, Discord, Slack."),
  ("Scheduler & Security","Crons and a heartbeat automate work; sandboxes, budgets and approvals contain it.")],
  kicker="THE BUILDING BLOCKS",cols=2,size=14)
+two_col("RAG vs a Standard LLM Assistant",
+ [("Retrieval Augmented Generation (RAG)",0),
+  ("Retrieves from a curated, current corpus before generating",1),
+  ("Grounded, auditable answers — less hallucination",1),
+  ("Effectiveness hinges on corpus freshness, indexing and how retrieval/memory is configured",1)],
+ [("Standard LLM assistant",0),
+  ("Answers from training data alone — fastest to deploy",1),
+  ("No live company data, no auditable response provenance",1),
+  ("Evaluate both on accuracy, relevance, latency and maintenance cost",1)],
+ kicker="PERFORMANCE EFFECTIVENESS",lhead="RAG agent",rhead="LLM-only assistant")
 big_statement("Powerful, but always under human oversight.","Approvals gate risky actions, budgets cap spend (warn at 80%, pause at 100%), and sandboxes isolate execution — so an agent stays safe as it scales.","HUMAN-IN-THE-LOOP GOVERNANCE",color=BLUE)
 _pf=cards3("Three Platforms, One Skillset",[
  (BLUE,"Hermes Agent",["Your personal chief-of-staff","Lives across your messaging apps","Cross-channel, memory, crons"]),
