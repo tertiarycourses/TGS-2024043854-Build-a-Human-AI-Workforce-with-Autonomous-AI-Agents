@@ -689,6 +689,83 @@ def _ocshot(num,title,name,caption):
     p=_oc(name)
     if os.path.exists(p):
         shot(title,p,kicker=f"LAB {num} · MASTERCLASS DIAGRAM",caption=caption)
+# Full-content import from the original "Mastering OpenClaw" masterclass deck —
+# each entry renders the original slide as a framed figure inside the matching lab.
+_OCIMPORT={
+ 15:[(7,"AI Agents — Never a New Concept","Auto-GPT (2023) → Manus (2024) → Claude Code / Codex / Gemini CLI (2025) → OpenClaw & Hermes Agent (2026)"),
+     (8,"The Evolution of AI Agents","2023–24 prompt engineering → 2025 context engineering → 2026 harness engineering"),
+     (9,"Prompt → Context → Harness Engineering",""),
+     (10,"Agent = Model + Harness","Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system. The model reasons; the harness does everything else."),
+     (11,"Anatomy of a Mature Harness",""),
+     (12,"CLI is the Mother Tongue of AI Agents",""),
+     (13,"MCP Is Dead — Long Live the CLI",""),
+     (14,"OpenClaw — The AI That Actually Does Things",""),
+     (17,"OpenClaw — The Wikipedia History","Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 and the project moves to an open-source foundation"),
+     (18,"OpenClaw Bought Over by OpenAI",""),
+     (19,"'I Created OpenClaw — and It Runs My Life'",""),
+     (21,"OpenClaw in Action",""),
+     (24,"OpenClaw = The Linux of AI Agents","Communication software ↔ OpenClaw on your computer ↔ any language model — the non-AI part (OS) of an AI agent"),
+     (26,"From Stateless Chatbots to Persistent Daemons",""),
+     (34,"What Is an OpenClaw AI Agent?",""),
+     (36,"Who Are You? Who Is the Owner?","Identity comes from the system prompt — each agent introduces itself to the language model on every call"),
+     (73,"Get Started on OpenClaw",""),
+     (75,"Run It on a Local Workstation",""),
+     (77,"Run It on a VPS — Hostinger OpenClaw Hosting",""),
+     (78,"OpenClaw as a Service — MyClaw.ai",""),
+     (79,"OpenClaw as a Service — Clawdi.ai",""),
+     (80,"CoPaw — Co-Personal Agent Workstation",""),
+     (81,"NemoClaw — Deploy on NVIDIA",""),
+     (28,"Moltbook — A Social Network for AI Agents",""),
+     (30,"Rent a Human Body","rentahuman.ai — when the agent needs hands in the physical world"),
+     (31,"OpenClaw + Robotics",""),
+     (32,"All-Claw Chaos — The Fork Storm","nanobot, PicoClaw, ZeroClaw, NoClaw — the ecosystem forks within weeks")],
+ 16:[(27,"Model Choice — Cost vs Reliability","Claude Opus 4.5 (flawless, high cost) vs GPT-5.4 (moderate) vs Kimi 2.5 (ultra-low cost) — optimize per session"),
+     (87,"Mission Control — Agents & Model Stacks","Named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each with a role, channel and model stack"),
+     (88,"A Model Stack — Primary + Fallbacks","Primary anthropic/claude-opus-4-6 · fallback minimax/MiniMax-M2.7 · fallback openai-codex/gpt-5.4"),
+     (94,"Swapping the Model Stack Live",""),
+     (120,"Model — MiniMax M2.7",""),
+     (121,"Model — OpenAI (OAuth)","Choose OpenAI OAuth, copy the URL, authorize, paste the redirect URL back into OpenClaw"),
+     (122,"Model — Ollama (Local)",""),
+     (123,"The Default Model Config","~/.openclaw/openclaw.json — agents.defaults.model.primary")],
+ 17:[(124,"Channel — Telegram",""),
+     (126,"Channel — WhatsApp","")],
+ 18:[(53,"Agent Skills — The Docs",""),
+     (57,"Get a New Skill — Just Add SKILL.md","Drop SKILL.md in the designated folder and the agent can do something new"),
+     (58,"ClawHub — The Skill Dock for Sharp Agents",""),
+     (60,"Malicious Skills in the Wild","Koi Security: 2,857 skills audited → 341 malicious — read a skill before you install it")],
+ 19:[(83,"Free Tools That Make OpenClaw Useful",""),
+     (84,"AgentMail — Email Inboxes for AI Agents",""),
+     (85,"Agent Browser",""),
+     (86,"Firecrawl — Clean Web Data for Agents",""),
+     (47,"Tool Use — 'Find the File That Contains…'","The model asks; OpenClaw runs the tool and hands the result back"),
+     (49,"When the Agent Makes Trouble","A real deleted-email incident — why tool access needs guardrails"),
+     (51,"An Agent Creates Its Own Tools",""),
+     (52,"Tool Chain — Explain AI to Kids, as a Video","The agent writes TTS_check.js, loops until the audio passes, then assembles the video")],
+ 20:[(138,"OpenClaw Slash Commands","")],
+ 21:[(132,"Cron Jobs vs Heartbeat — Quick Decision Guide","")],
+ 22:[(37,"The System Prompt","OpenClaw builds a custom system prompt for every agent run and injects it each time"),
+     (38,"System Prompt — What's Inside","SOUL.md · IDENTITY.md · USER.md · MEMORY.md · tools · behavior · skills — 4,000+ tokens before you say a word"),
+     (40,"The Agent Workspace","The workspace is the agent's home — separate from ~/.openclaw (config, credentials, sessions)"),
+     (42,"Repeat Everything, Every Time","Every turn resends the whole conversation to the model"),
+     (43,"50 First Dates — Stateless by Default","Every conversation starts over; memory files are how it remembers"),
+     (44,"Context ≠ Memory","Context is what's inside the model's current window; memory is stored on disk and reloaded"),
+     (62,"Context Windows Will Never Be Enough",""),
+     (63,"Context Compaction","Old turns are summarized so the window never overflows"),
+     (66,"Writing Memory","The agent writes down what just happened — memory/2026-03-06.md"),
+     (67,"Searching Memory","Literal and semantic search over memory/*.md — 'Of course I remember…'")],
+ 23:[(59,"Third-Party Code Risks — Silent Exfiltration","Cisco AI Security warning: unvetted skills can perform silent data exfiltration"),
+     (134,"10 Steps to Lock Down Your AI Agent","")],
+ 26:[(108,"Use Case — Mint Your Certificate as an NFT",""),
+     (135,"The OpenClaw Dashboard","ssh -L 18789:localhost:18789 root@<IP>, then open http://localhost:18789"),
+     (139,"Cost Saving — Why Context Optimization Matters",""),
+     (140,"Cost Saving — Key Strategies","Use a Claude subscription instead of API; choose the right model; cap context"),
+     (141,"Google Integration — Gmail, Calendar, Chat","")],
+}
+def _ocimport(num):
+    for pg,title,cap in _OCIMPORT.get(num,[]):
+        p=os.path.join(_OCDIR,f"oc-slide-{pg:03d}.png")
+        if os.path.exists(p):
+            shot(title,p,kicker=f"LAB {num} · MASTERCLASS",caption=cap)
 _catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
 _CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
 def _lab_extras(num):
@@ -1095,6 +1172,7 @@ def _lab_extras(num):
         if os.path.exists(p):
             shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
     _pcshots(num)
+    _ocimport(num)
     if num==4 and _CATS:
         # All skill categories from the live Hermes dashboard, masterclass-styled.
         total=sum(c["count"] for c in _CATS)
