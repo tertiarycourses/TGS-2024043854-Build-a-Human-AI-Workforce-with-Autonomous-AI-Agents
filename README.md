@@ -2,6 +2,13 @@
 
 **WSQ Course · TGS-2024043854 · Tertiary Infotech Academy Pte Ltd**
 
+| Course detail | Information |
+|---|---|
+| Course code | `TGS-2024043854` |
+| Programme | WSQ |
+| Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) |
+| Funding | Up to 70% WSQ course-fee funding for eligible learners (up to 50% baseline). Eligibility and terms apply — see the course page. |
+
 Hands-on courseware for building and governing **autonomous AI agents** across **three
 platforms** — **Hermes Agent** (Nous Research), **OpenClaw**, and **Paperclip**. Learners
 install each platform, connect models, give agents memory, skills, tools, schedules and
