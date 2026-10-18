@@ -50,3 +50,7 @@ SG - Dr. Alfred Ang - Mastering OpenClaw*.pptx
 .claude/skills/courseware-build/fgap/
 .claude/skills/wsq-assessment/build_assessment.py
 .claude/skills/courseware-build/build/archive-v1.11/
+
+# FG / AP copies kept beside the courseware (trainer-only, embed answer keys) — never pushed
+courseware/FG_*
+courseware/Assessment_Plan_*
