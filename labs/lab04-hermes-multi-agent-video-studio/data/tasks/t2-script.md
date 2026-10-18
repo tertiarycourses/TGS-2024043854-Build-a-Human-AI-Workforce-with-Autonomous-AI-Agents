@@ -1,0 +1,1 @@
+Read research.md. Write script.md for a 25-second 9:16 video: hook in the first 2 seconds, 6 scenes, voice-over with timings, on-screen text <= 7 words per card, end card with SGD 6.80 and 'SHIOK20 - 20% off first app order, 1-14 Dec, one per customer'. Load kopi-brand-voice and include its self-check.

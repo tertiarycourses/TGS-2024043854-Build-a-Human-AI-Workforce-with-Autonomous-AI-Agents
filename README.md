@@ -9,15 +9,16 @@
 | Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) |
 | Funding | Up to 70% WSQ course-fee funding for eligible learners (up to 50% baseline). Eligibility and terms apply — see the course page. |
 
-Hands-on courseware for building and governing **autonomous AI agents** across **three
-platforms** — **Hermes Agent** (Nous Research), **OpenClaw**, and **Paperclip**. Learners
-install each platform, connect models, give agents memory, skills, tools, schedules and
-security, and run them in **multi-agent mode** — delivering the WSQ competency *Artificial
+Hands-on courseware for building a **human–AI workforce**: from a single autonomous AI agent to a
+multi-agent team and a governed company of agents — with a human approving everything that matters.
+Learners work for one fictional company, **Kopi Kaki Co.** (a Singapore kopi chain launching the
+*Gula Melaka Cold Brew* with the **#ShiokColdBrew** campaign), across **ten connected use-case labs**
+on **Hermes Agent** (Nous Research) and **Paperclip** — delivering the WSQ competency *Artificial
 Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 
-> **33 labs, 3 topics, 2 days.** Day 1 covers Topic 1 (Hermes Agent) and Topic 2 (OpenClaw);
-> Day 2 covers Topic 3 (Paperclip) and the final assessment. Each lab follows a reference
-> video.
+> **v2.0 · 3 topics · 10 labs · 2 days.** Day 1: Topic 1 (Foundations) + Topic 2 (Hermes Agent, Labs 1–5).
+> Day 2: Topic 3 (Paperclip, Labs 6–10) and the final assessment. **Copy-ready prompts:** open
+> [`prompts/index.html`](prompts/index.html) in your browser (works offline).
 
 ---
 
@@ -33,41 +34,37 @@ Intelligence Application in Product Development* (TSC ICT-TEM-4034-1.1).
 
 | Path | Contents |
 |------|----------|
-| [labs/](labs/) | **33 hands-on labs** across three platforms, with reference videos, plus the lab [index](labs/README.md) |
-| [courseware/](courseware/) | Generated deck, Lesson Plan, Learner Guide (**v1.11**) — `Human-AI Workforce with Autonomous AI Agents-v1.11.pptx`, `LP-*.docx/pdf`, `LG-*.docx/pdf` |
-| [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide (step-by-step for all 33 labs) |
-| [.claude/](.claude/) | WSQ courseware toolchain (single-source build + assessment generators) |
+| [prompts/index.html](prompts/index.html) | **Lab Prompts page** — pick a lab, click **Copy**, paste. Works offline from the downloaded folder |
+| [labs/](labs/) | **10 use-case labs** — each with `README.md`, `LAB-NN-Instructions.pdf`, `COPY-PROMPTS.txt` and `data/` (mock company data, skills, agent roles, brand assets) |
+| [courseware/](courseware/) | Slide deck **v2.0** (`.pptx` + `.pdf`), Lesson Plan and Learner Guide (`.docx` + `.pdf`) |
+| [LG-Human-AI Workforce with Autonomous AI Agents.md](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) | Markdown mirror of the Learner Guide |
+| [.claude/](.claude/) | Single-source build pipeline (`courseware-build/build/`) — deck, LP, LG, labs, PDFs and prompts page from one data set |
 
-The confidential `assessment/` folder (question papers + answer keys) is **git-ignored** and
-Drive-only — never pushed to GitHub.
-
----
-
-## The three topics (33 labs)
-
-| Topic | Labs | Platform | Running use case |
-|-------|------|----------|------------------|
-| 1 | [01–14](labs/README.md#topic-1--hermes-agent-labs-0114) | **Hermes Agent** (Nous Research) | *Athena* — a personal chief-of-staff agent |
-| 2 | [15–26](labs/README.md#topic-2--openclaw-labs-1526) | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
-| 3 | [27–33](labs/README.md#topic-3--paperclip-labs-2733) | **Paperclip** | *Altera AI Blogs* — a zero-human AI blog company you govern |
-
-See the [labs index](labs/README.md) for the full per-lab list with video links. Do each
-topic's labs **in order**.
+Confidential material — `assessment/` (papers, answer keys, and in `assessment/fg-ap/` the Facilitator Guide
+and Assessment Plan, which embed the answer keys and rubric) — is **git-ignored** and Drive-only.
 
 ---
 
-## Quick start (per platform)
+## Topics and labs
+
+| Topic | Content | Labs |
+|-------|---------|------|
+| 1 · Foundations | History of AI · AI agents vs agentic AI · the agentic loop · harness engineering · perception–brain–action · short/long-term memory · world models · single → multi-agent → human–agent collaboration · the 2026 agent market (OpenClaw, Hermes, Paperclip, OpenAI Dots, Meta Muse, Block Buzz, Manus Cue …) · Singapore's AgentSea · human–AI use cases (science, maths, drug discovery, business) · governance | Activity: Human–AI Workforce Canvas |
+| 2 · Hermes Agent | One AI employee → a supervised multi-agent team | 1 First AI employee (research brief) · 2 End-to-end social media campaign · 3 Human-in-the-loop publishing (Telegram + cron) · 4 Multi-agent video studio (research → script → production → audit → publish) · 5 Campaign command centre (swarm + dashboard) |
+| 3 · Paperclip | The same work as a governed company of agents | 6 Found the AI company · 7 Hire the team (approval gate) · 8 Launch campaign project · 9 Weekly video routine · 10 Govern, measure & improve |
+
+See the [labs index](labs/README.md) for durations and instruction PDFs.
+
+---
+
+## Quick start
 
 ```bash
 # Hermes Agent (macOS/Linux/WSL2)
-curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash && hermes setup --portal
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash && hermes setup && hermes doctor
 
-# OpenClaw (needs Node.js 24)
-npm install -g openclaw@latest && openclaw onboard
-
-# Paperclip (needs Docker Desktop)
-git clone https://github.com/paperclipai/paperclip.git && cd paperclip \
-  && docker compose -f docker-compose.quickstart.yml up --build   # http://localhost:3100
+# Paperclip (Node.js 24.11+)
+npx paperclipai onboard --yes        # → http://localhost:3100
 ```
 
 ---
@@ -75,16 +72,15 @@ git clone https://github.com/paperclipai/paperclip.git && cd paperclip \
 ## Prerequisites
 
 - A laptop (Windows 10/11, macOS 12+, or Ubuntu 22.04+) with admin/sudo rights.
-- **Node.js 24** (OpenClaw) and **Docker Desktop** (Paperclip); a terminal.
+- **Node.js 24.11+** (Paperclip; or Docker Desktop) and a terminal; Windows learners use WSL2.
 - At least one LLM provider — Claude Code / OpenAI Codex / OpenRouter / MiniMax / DeepSeek login or API key.
-- A free **Telegram** account for the channel labs.
+- A free **Telegram** account (Labs 3–5) and a free **Tavily** API key (Labs 1 and 7).
 
 ---
 
 ## References
 
 - Hermes Agent: <https://hermes-agent.nousresearch.com/docs/>
-- OpenClaw: <https://docs.openclaw.ai/>
 - Paperclip: <https://docs.paperclip.ing>
 - Course page: <https://www.tertiaryinfotech.com>
 

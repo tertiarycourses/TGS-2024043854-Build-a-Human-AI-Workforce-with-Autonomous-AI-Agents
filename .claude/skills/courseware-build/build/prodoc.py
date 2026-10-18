@@ -97,7 +97,21 @@ def add_version_control(doc, rows):
         cells = t.add_row().cells
         for i, val in enumerate(row):
             cells[i].text = ""; rr = cells[i].paragraphs[0].add_run(str(val)); rr.font.size = Pt(9.5)
+    set_widths(t, [0.8, 1.15, 3.85, 1.0])
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+
+def set_widths(t, inches):
+    """Fixed table layout + tblGrid + per-cell widths (LibreOffice ignores cell widths alone)."""
+    from docx.shared import Inches
+    tbl = t._tbl; tblPr = tbl.tblPr
+    lay = OxmlElement("w:tblLayout"); lay.set(qn("w:type"), "fixed"); tblPr.append(lay)
+    grid = tbl.find(qn("w:tblGrid"))
+    if grid is not None:
+        for gc, w in zip(grid.findall(qn("w:gridCol")), inches):
+            gc.set(qn("w:w"), str(int(w * 1440)))
+    for row in t.rows:
+        for c, w in zip(row.cells, inches):
+            c.width = Inches(w)
 
 def add_toc(doc, levels="1-3"):
     h = doc.add_paragraph(); r = h.add_run("TABLE OF CONTENTS")

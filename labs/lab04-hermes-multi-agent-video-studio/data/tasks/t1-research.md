@@ -1,0 +1,1 @@
+Read campaign-brief.md and brand-guide.md in this folder. Research 3 hook options for a 25-second TikTok/Reels launch video for the Gula Melaka Cold Brew aimed at office kaki and student kaki. Cite sources. Write research.md. Recommend one hook.

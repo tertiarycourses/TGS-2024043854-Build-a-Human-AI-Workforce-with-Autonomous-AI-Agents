@@ -1,0 +1,69 @@
+LAB 1 — Hire Your First AI Employee — Customer & Market Research Brief
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Install Hermes Agent (skip if your trainer pre-installed it)
+------------------------------------------------------------------------
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+# Windows PowerShell:  iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+source ~/.zshrc    # or ~/.bashrc — puts 'hermes' on your PATH
+
+[2] TERMINAL — Connect a model and check health
+------------------------------------------------------------------------
+hermes setup
+hermes doctor
+
+[3] TERMINAL — Create the Kopi Kaki workspace and add the lab data
+------------------------------------------------------------------------
+mkdir -p ~/kopi-kaki/outputs/lab01
+cp -R data/* ~/kopi-kaki/
+cd ~/kopi-kaki
+hermes
+
+[4] PROMPT — Onboard Mia — persona and long-term memory  (paste into: Hermes chat (started inside ~/kopi-kaki))
+------------------------------------------------------------------------
+You are Mia, Kopi Kaki Co.'s AI marketing analyst. Read AGENTS.md, brand-guide.md and campaign-brief.md in this folder.
+
+Save these facts to your long-term memory:
+- Kopi Kaki Co.: Singapore kopi chain, 12 outlets, positioning "Heritage kopi, modern craft".
+- Launch: Gula Melaka Cold Brew, SGD 6.80, launches 1 Dec 2026, campaign #ShiokColdBrew 17 Nov - 14 Dec.
+- Promo SHIOK20: 20% off the first Gula Melaka Cold Brew ordered in the app, valid 1-14 Dec 2026, one per customer.
+- Never publish anything without my APPROVE. Never make health or halal claims.
+
+Then summarise the company in 5 bullets and ask me the 3 questions a new analyst should ask on day one.
+
+[5] PROMPT — Perceive the data — analyse 60 customer reviews  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Analyse customer-reviews.csv.
+1. Rating distribution (count and % for 1-5 stars) and average rating per outlet.
+2. The top 5 praise themes and top 5 complaint themes, each with a count and 2 example review_ids.
+3. Anything relevant to a cold-brew launch (mentions of cold brew, sweetness, oat milk, app).
+Show your calculation method. Save the result as outputs/lab01/review-insights.md.
+
+[6] PROMPT — Perceive the world — live web research  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Use web search to research specialty coffee and cold-brew trends in Singapore in 2026 (consumer preferences, price points, social media formats that work). Combine this with competitors.csv (the competitors are fictional - treat them as our internal notes).
+Rules: cite every web fact with its URL; mark anything you could not verify as UNVERIFIED; do not invent statistics.
+
+[7] PROMPT — Act — write the research brief  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Write outputs/lab01/research-brief.md for the Marketing Lead with:
+1. Executive summary (5 lines).
+2. What our customers say (from review-insights.md).
+3. Market & competitor snapshot (cited).
+4. Three campaign angles for #ShiokColdBrew. For each: the big idea, target audience, supporting evidence (review IDs or URLs), the KPI it drives, and one risk.
+5. A final section "Decision needed" asking me to choose one angle.
+Follow the brand guide and compliance rules.
+
+[8] PROMPT — Human checkpoint — challenge, then decide  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Which review_ids support angle 2? Quote them. Then: I choose angle <1|2|3> because <your reason>. Save my decision and reason to long-term memory, and add a "Decision log" section to research-brief.md.
+
+[9] TERMINAL — Test long-term memory in a brand-new session
+------------------------------------------------------------------------
+cat ~/.hermes/memories/MEMORY.md
+hermes
+
+[10] PROMPT — Test long-term memory in a brand-new session  (paste into: New Hermes chat)
+------------------------------------------------------------------------
+Which campaign angle did I choose, and why? What is the promo code and its terms? Tell me whether you got this from your memory file or by searching past sessions.

@@ -1,0 +1,41 @@
+LAB 2 — End-to-End Social Media Campaign with One Agent
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Install the two company skills
+------------------------------------------------------------------------
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/lab02/images ~/.hermes/skills/marketing
+cp -R ~/kopi-kaki/skills/* ~/.hermes/skills/marketing/
+hermes skills list | grep -E "kopi-brand-voice|social-campaign-planner"
+# optional: hermes skills install official/creative/social-media-content-calendar
+
+[2] TERMINAL — Read a skill before you trust it
+------------------------------------------------------------------------
+cat ~/.hermes/skills/marketing/kopi-brand-voice/SKILL.md
+
+[3] PROMPT — Build the campaign plan and calendar  (paste into: Hermes chat in ~/kopi-kaki)
+------------------------------------------------------------------------
+Use the social-campaign-planner skill to build the #ShiokColdBrew campaign from campaign-brief.md, using the angle I chose in Lab 1 (check your memory).
+Scope: teaser (17-23 Nov) and pre-order push (24-30 Nov) phases, Instagram, TikTok, Facebook and LinkedIn.
+Deliver:
+- outputs/lab02/campaign-plan.md
+- outputs/lab02/content-calendar.csv with at least 16 posts (use the columns in the skill)
+- outputs/lab02/captions.md with every caption checked by the kopi-brand-voice skill
+End with a 5-line summary of decisions you need from me.
+
+[4] PROMPT — Create the hero visuals  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Create 3 hero visuals for the teaser posts using your image generation tool: square 1:1, brand colours (kopi brown #5B3A29, pandan green #4E8A3E, cream #F6EBD9, gula melaka amber #C7782A), natural light, a glass of iced cold brew with a gula melaka drizzle, kopitiam tiles, no people's faces, no text in the image. Save them to outputs/lab02/images/ and add the file names to content-calendar.csv. If you have no image tool, write the 3 prompts to outputs/lab02/images/prompts.md instead.
+
+[5] PROMPT — Human review — give concrete, testable feedback  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Review feedback for v2:
+1. TikTok hooks are weak - rewrite every TikTok caption to open with a question in under 8 words.
+2. LinkedIn must not mention SHIOK20 - make the LinkedIn posts about our roasting team and heritage.
+3. Add one post per phase aimed at students (18-24).
+Apply the changes, re-run the kopi-brand-voice self-check on every changed caption, save as content-calendar-v2.csv and captions-v2.md, and list exactly what changed.
+
+[6] PROMPT — Measure efficiency — what did the skills save?  (paste into: Hermes chat)
+------------------------------------------------------------------------
+Report: how many posts, captions and images you produced; how many self-check FAILs you found and fixed before showing me; and which parts of the work the two skills standardised. Then estimate how long the same work would take one human marketer.

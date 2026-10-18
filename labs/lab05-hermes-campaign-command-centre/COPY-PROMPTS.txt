@@ -1,0 +1,34 @@
+LAB 5 — Multi-Agent Campaign Command Centre — Measure, Optimise & Report
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Add the analyst and strategist profiles
+------------------------------------------------------------------------
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/lab05
+hermes profile create analyst --clone --description "Computes marketing KPIs from CSV data with exact formulas and shows its working"
+hermes profile create strategist --clone --description "Synthesises analyses into an HTML dashboard and an evidence-based optimisation plan"
+hermes profile create listener --clone --description "Analyses customer comments for sentiment, themes and risks; masks personal data"
+
+[2] TERMINAL — Launch the swarm
+------------------------------------------------------------------------
+hermes kanban swarm "Week-1 #ShiokColdBrew review and optimisation plan. FIRST read ~/kopi-kaki/tasks/swarm-definition-of-done.md; data in ~/kopi-kaki; write outputs to ~/kopi-kaki/outputs/lab05/" \
+  --worker "analyst:KPIs vs targets from ~/kopi-kaki/campaign-week1-metrics.csv and sales-by-outlet.csv per the definition of done" \
+  --worker "listener:Sentiment and risk review of ~/kopi-kaki/social-comments.csv per the definition of done" \
+  --worker "researcher:Competitor and cold-brew trend watch from the most recent real sources, dated and cited, per the definition of done" \
+  --verifier auditor --synthesizer strategist
+hermes kanban list            # copy the swarm root id
+
+[3] TERMINAL — Open the dashboard and plan
+------------------------------------------------------------------------
+open ~/kopi-kaki/outputs/lab05/dashboard.html
+
+[4] PROMPT — Decide and record  (paste into: Hermes chat in ~/kopi-kaki)
+------------------------------------------------------------------------
+I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab02/content-calendar-v2.csv for 24-30 Nov to apply the approved changes (status stays "draft" so each post still goes through my Telegram approval).
+
+[5] TERMINAL — Make it weekly
+------------------------------------------------------------------------
+hermes cron create "0 9 * * 1" "Weekly #ShiokColdBrew report: recompute KPIs vs targets from the latest CSVs in ~/kopi-kaki, list the top and bottom 3 posts, summarise sentiment and escalations, and recommend max 3 changes. Do not change any plan without my approval." --name weekly-campaign-report --deliver telegram
+hermes cron list              # copy the job id
+hermes cron run <job_id>

@@ -41,3 +41,12 @@ courseware/archive/
 
 # Source reference deck (input material, not a course artifact)
 SG - Dr. Alfred Ang - Mastering OpenClaw*.pptx
+
+# Trainer-only FG / AP (embed answer keys and rubric — Drive/LMS trainer view only, never GitHub)
+/trainer-only/
+
+# Builders that embed assessment questions, model answers or the marking rubric (private)
+.claude/skills/courseware-build/build/build_assessment_v5.py
+.claude/skills/courseware-build/fgap/
+.claude/skills/wsq-assessment/build_assessment.py
+.claude/skills/courseware-build/build/archive-v1.11/

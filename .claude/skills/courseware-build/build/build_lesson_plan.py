@@ -1,168 +1,161 @@
 #!/usr/bin/env python3
-"""Generate the "Build a Human-AI Workforce with Autonomous AI Agents" Lesson Plan (LP) DOCX in the Tertiary house format.
+"""Generate the Lesson Plan (LP) DOCX from course_data.SCHEDULE + data_labs + the deck's slide_map.json.
 
-Cover page + Document Version Control Record + auto TOC + Arial 11pt body +
-colour-coded 3-day schedule tables (9:30am-6:30pm, 8 training hours/day, 1h
-lunch, tea within, final assessment Day 3). Day themes, topics and labs come
-from course_data + the domain data files so the LP stays aligned with the deck,
-guide and labs.
+House format: WSQ cover page, Document Version Control Record, TOC field, Arial 11pt,
+colour-coded day tables (9:30am–6:30pm, 8 training hours/day, 1h lunch) with the slide
+numbers of the CURRENT deck on every row (read from slide_map.json written by build_slides.py).
 """
-import os, sys
+import json, os, sys
 from docx import Document
 from docx.shared import Pt, RGBColor, Inches
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 
-HERE=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,HERE)
+HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
-from data_domain1 import DOMAIN1; from data_domain2 import DOMAIN2
-from data_domain3 import DOMAIN3; from data_domain4 import DOMAIN4
-from data_domain5 import DOMAIN5
-ACT=DOMAIN1+DOMAIN2+DOMAIN3+DOMAIN4+DOMAIN5
+from data_labs import LABS
 import prodoc
+from version_history import PRIOR, V20
+
 def _find_repo(start):
-    env=os.environ.get("COURSE_REPO")
+    env = os.environ.get("COURSE_REPO")
     if env and os.path.isdir(env): return env
-    d=start
+    d = start
     for _ in range(8):
-        d=os.path.dirname(d)
-        if os.path.isdir(os.path.join(d,"courseware")) and os.path.isdir(os.path.join(d,"labs")): return d
+        d = os.path.dirname(d)
+        if os.path.isdir(os.path.join(d, "courseware")) and os.path.isdir(os.path.join(d, "labs")): return d
     return os.path.dirname(os.path.dirname(HERE))
-REPO=_find_repo(HERE); ASSETS=os.path.join(os.path.dirname(HERE),"assets")
+REPO = _find_repo(HERE); ASSETS = os.path.join(os.path.dirname(HERE), "assets")
+MAP = json.load(open(os.path.join(HERE, "slide_map.json")))
 
-BRAND=RGBColor(0x1F,0x6F,0xEB); DARK=RGBColor(0x11,0x18,0x27); GREY=RGBColor(0x55,0x5B,0x66)
-HEADER_FILL="1F6FEB"; TOPIC_FILL="E8F0FE"; BREAK_FILL="FFF4E5"; LUNCH_FILL="FDE9D9"; ASSESS_FILL="E8F7EE"
+BRAND = RGBColor(0x1F, 0x6F, 0xEB); GREY = RGBColor(0x55, 0x5B, 0x66)
+HEADER_FILL = "1F6FEB"; TOPIC_FILL = "E8F0FE"; BREAK_FILL = "FFF4E5"; LUNCH_FILL = "FDE9D9"; ASSESS_FILL = "E8F7EE"
+KIND_FILL = {"topic": TOPIC_FILL, "activity": TOPIC_FILL, "break": BREAK_FILL, "lunch": LUNCH_FILL, "assess": ASSESS_FILL,
+             "admin": "F3F5F8", "recap": "F3F5F8", "lab": None}
 
-def lab_titles(nums):
-    return "; ".join(f"Lab {a['num']}: {a['title']}" for a in ACT if a['num'] in nums)
+def rng(a, b): return f"{MAP[a]}–{MAP[b] - 1}"
+def slides_for(day, text):
+    t = text
+    if t.startswith("Welcome"): return rng("admin", "t1a")
+    if t.startswith("Topic 1 (Part A)"): return rng("t1a", "t1b")
+    if t.startswith("Topic 1 (Part B)"): return rng("t1b", "activity")
+    if t.startswith("Activity"): return rng("activity", "t2")
+    if t.startswith("Topic 2 — Lab 1"): return f"{MAP['t2']}–{MAP['lab2'] - 1}"
+    if t.startswith("Topic 3"): return rng("t3", "lab6")
+    for L in LABS:
+        if t.startswith(f"Lab {L['num']}:"):
+            nxt = {5: "t2sum", 10: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+            return rng(f"lab{L['num']}", nxt)
+    if t.startswith("Day 1 recap, Q&A"): return str(MAP["t2sum"])
+    if t.startswith("Day 1 recap and AM"): return str(MAP["t2sum"])
+    if t.startswith("Course recap"): return rng("wrap", "assess")
+    if t.startswith("Briefing"): return str(MAP["briefing"])
+    if t.startswith("Written") or t.startswith("Practical"): return rng("assess", "end")
+    return "—"
 
-# ------------------------------------------------ schedule (single source of truth for timing)
-# (start, end, minutes, kind, activity_text)  kind: admin/topic/lab/break/lunch/assess/recap
-SCHEDULE = {
- 1: (C.DAY_THEMES[1], [
-    ("9:30","9:50",20,"admin","Welcome, course introduction, ground rules and mandatory digital attendance (AM)"),
-    ("9:50","10:30",40,"topic","Topic 1 — "+C.TOPICS[0]["title"]+": what an autonomous AI agent is, the agent stack (model, memory, skills, tools) and human-in-the-loop governance (concepts + demo)"),
-    ("10:30","11:00",30,"lab","Hands-on: "+lab_titles([1,2,3])),
-    ("11:00","11:15",15,"break","Tea break"),
-    ("11:15","13:00",105,"lab","Hands-on: "+lab_titles([4,5,6,7,8,9])),
-    ("13:00","14:00",60,"lunch","Lunch break"),
-    ("14:00","14:40",40,"lab","Hands-on: "+lab_titles([10,11,12,13,14])),
-    ("14:40","15:20",40,"topic","Topic 2 — "+C.TOPICS[1]["title"]+": the OpenClaw gateway daemon, providers, channels, skills, tools, dreaming and crons for a business back-office (concepts + demo)"),
-    ("15:20","15:35",15,"break","Tea break"),
-    ("15:35","18:15",160,"lab","Hands-on: "+lab_titles([15,16,17,18,19,20,21,22,23,24,25,26])),
-    ("18:15","18:30",15,"recap","Day 1 recap, Q&A and PM digital attendance"),
- ]),
- 2: (C.DAY_THEMES[2], [
-    ("9:30","9:45",15,"recap","Day 1 recap and mandatory digital attendance (AM)"),
-    ("9:45","10:30",45,"topic","Topic 3 — "+C.TOPICS[2]["title"]+": Docker-hosted company of agents (Altera AI Blogs), model adaptors, the mission, a detailed task backlog, Tavily live search, hiring behind human approval gates, and a daily publish routine (concepts + demo)"),
-    ("10:30","11:00",30,"lab","Hands-on: "+lab_titles([27,28])),
-    ("11:00","11:15",15,"break","Tea break"),
-    ("11:15","13:00",105,"lab","Hands-on: "+lab_titles([29,30,31,32,33])),
-    ("13:00","14:00",60,"lunch","Lunch break"),
-    ("14:00","15:30",90,"lab","Hands-on: complete and extend Labs 27–33 — run Altera AI Blogs end-to-end (backlog → Tavily research → publish → daily 3pm routine). Course recap and next steps"),
-    ("15:30","15:45",15,"break","Tea break"),
-    ("15:45","16:15",30,"recap","Consolidation, Q&A and assessment preparation"),
-    ("16:15","16:30",15,"assess","Briefing for Assessment"),
-    ("16:30","17:30",60,"assess","Written Assessment (WA) — Short-Answer Questions (SAQ), 1 hour, open book"),
-    ("17:30","18:30",60,"assess","Practical Performance (PP) — hands-on agent-building tasks that follow the course labs, 1 hour, open book. PM digital attendance"),
- ]),
-}
-
-# ------------------------------------------------ build document
-doc=Document()
-normal=doc.styles["Normal"]; normal.font.name="Arial"; normal.font.size=Pt(11)
+doc = Document()
+normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt(11)
 prodoc.style_headings(doc)
-
-prodoc.add_cover_page(doc,"LESSON PLAN",C.TITLE,C.VERSION.lstrip("v"),
-                      org_logo=os.path.join(ASSETS,"tertiary-infotech-logo.png"),
-                      course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc,[
- ("1.0","12 July 2026","Initial release — 3-day lesson plan for the autonomous-AI-agent labs (Hermes Agent, OpenClaw, Paperclip).",C.TRAINER),
- ("1.1","14 July 2026","Revised to a 2-day plan (Day 1: Topics 1 & 2; Day 2: Topic 3 & final assessment). Hermes expanded to 14 labs, OpenClaw to 12, Paperclip to 8 (34 labs total). Learning outcomes aligned to the Course Proposal / TSC; per-lab reference videos added.",C.TRAINER),
- ("1.2","14 July 2026","Visual redesign: all content slides card-format; YouTube links removed from the deck and Learner Guide (videos remain in the labs); live Hermes screenshots and skill-category grids added; Hermes install lab expanded with the official install methods.",C.TRAINER),
- ("1.3","14 July 2026","Deck restyled in the dark masterclass theme end-to-end; added the Hermes masterclass slides (What is Hermes; The Bet: Compounding Value; platform matrix; Top-10 slash commands; Telegram setup; memory L1-vs-L2 and session-search; what-is-a-tool, built-in tool catalog, tools-in-action, cron scheduling, delegation, kanban orchestration and OpenClaw topic slides); Lab 13 rebuilt as the multi-agent video team (profiles + kanban) with detailed Labs 11-14 guides; fade slide transitions and the live Achievements dashboard screenshot.",C.TRAINER),
- ("1.4","15 July 2026","Security masterclass slides added to the Hermes Security lab (defense-in-depth layers; the gateway's six-check default-deny trust chain; channel lockdown dials; the three approval modes + the Tirith scanner; a live Dangerous-Command approval; YOLO mode; the unrecoverable-command blocklist floor; prompt-injection scanning of context files). Security lab steps expanded with the channel allowlist and approvals.mode.",C.TRAINER),
- ("1.5","15 July 2026","Sixteen concept diagrams imported from the original Mastering OpenClaw masterclass deck into Topic 2 (OpenClaw OS control plane; deployment; hub-and-spoke gateway; tools vs skills; SKILL-on-demand; 6-phase execution loop; exec; HEARTBEAT + autonomic tick; workspace file persistence; context assembly; compaction; defense methods; poisoned-skill anatomy; sessions_spawn; sub-agent routing).",C.TRAINER),
- ("1.6","15 July 2026","Topic 3 (Paperclip) rebuilt as the 'Tertiary AI News Research' company across 6 labs (27-32): install on Windows & Mac; company, CEO & mission; model adaptors; a detailed task backlog whose core task hires the team; the Tavily Search API via Secrets; and hiring the members under the hiring task — with live dashboard screenshots. Natural-language prompt steps added to the Hermes and OpenClaw labs alongside the CLI. Platform logos added to the Three Platforms page. 32 labs total.",C.TRAINER),
- ("1.7","15 July 2026","Sixty-eight content slides migrated from the original 'Mastering OpenClaw' masterclass deck into Topic 2 as framed figures in their matching labs — agent evolution and Agent = Model + Harness, the OpenClaw Wikipedia history and OpenAI acquisition, deployment options and services, model stacks and Mission Control, channels, skills and ClawHub risks, tools (AgentMail, Agent Browser, Firecrawl), system prompt / workspace / context and memory, security lockdown, slash commands, crons, and use cases (NFT certificates, dashboard, cost saving, Google integration).",C.TRAINER),
- ("1.8","15 July 2026","Imported masterclass figures re-blended into the dark deck theme: original title and copyright strips cropped, white canvases converted to the deck background with text inverted to ivory (embedded screenshots untouched), frameless rendering, and duplicated titles reworded.",C.TRAINER),
- ("1.9","16 July 2026","Deck curated per trainer review: the bulk masterclass figure imports were removed, keeping nine key figures (Wikipedia history, Agent=Model+Harness, SKILL.md, ClawHub, AgentMail, 10-steps lockdown, HEARTBEAT, autonomic tick, workspace persistence) re-exported at high resolution, with the Topic 2 opening story reordered ahead of Key Concepts. Every CLI step now also shows the natural-language prompt alternative ('Or just ask') across the Hermes and OpenClaw labs, in the deck and Learner Guide.",C.TRAINER),
- ("1.10","16 July 2026","PP assessment updated to v4 — evidence screenshots changed to: Task 1 Hermes interacting on Telegram or the multi-agent Kanban board; Task 2 OpenClaw on Telegram or the TUI; Task 3 the Paperclip setup (company, mission, CEO, hired agents) — with Topic 3 lab references refreshed. A 'RAG vs a Standard LLM Assistant' concept slide added to Core Concepts to ground WA Q2. Final PPT/LP/LG/labs/assessment alignment review.",C.TRAINER),
- ("1.11",C.VERSION_DATE,"Topic 3 company renamed to 'Altera AI Blogs' with the mission re-pointed at publishing AI-related blogs end to end; the core backlog task is now 'Hire the agents to publish the AI-related blogs end to end' and Lab 32's hiring happens explicitly under it; Lab 29 (Adaptor) and Lab 32 descriptions expanded in full; NEW Lab 33 'Routine & Trigger — Publish Daily at 3pm' (33 labs total), verified with a live 'Run now' pipeline test and two live screenshots.",C.TRAINER),
-])
+prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
+                      org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
+prodoc.add_version_control(doc, PRIOR + [V20])
 prodoc.add_toc(doc)
+H = lambda t, l=1: doc.add_heading(t, level=l)
 
-def H(text,level=1):
-    h=doc.add_heading(text,level=level); return h
+def set_cell(cell, text, bold=False, size=9.5, color=None, fill=None):
+    cell.text = ""; p = cell.paragraphs[0]
+    r = p.add_run(text); r.bold = bold; r.font.size = Pt(size); r.font.name = "Arial"
+    if color: r.font.color.rgb = color
+    if fill: prodoc._shade_cell(cell, fill)
 
-H("Course Information",1)
-info=[("Course Title",C.TITLE),("WSQ Course Reference",C.COURSE_CODE),
-      ("Training Provider",C.ORG+"  ("+C.UEN.replace('UEN: ','UEN ')+")"),
-      ("Duration","2 days · 8 training hours per day (16 hours)"),
-      ("Daily Timing","9:30 am – 6:30 pm (1-hour lunch; tea breaks within training time)"),
-      ("Mode","Instructor-led, hands-on autonomous-AI-agent labs (local machine + Docker)"),
-      ("Trainer",C.TRAINER)]
-t=doc.add_table(rows=0,cols=2); t.style="Table Grid"
-for k,v in info:
-    c=t.add_row().cells; c[0].text=""; r=c[0].paragraphs[0].add_run(k); r.bold=True; r.font.size=Pt(10)
-    prodoc._shade_cell(c[0],TOPIC_FILL)
-    c[1].text=""; c[1].paragraphs[0].add_run(v).font.size=Pt(10)
+H("Course Information")
+info = [("Course Title", C.TITLE), ("WSQ Course Reference", C.COURSE_CODE),
+        ("Training Provider", f"{C.ORG}  ({C.UEN.replace('UEN: ', 'UEN ')})"),
+        ("Duration", "2 days · 8 training hours per day (16 hours), including 2 hours of assessment"),
+        ("Daily Timing", "9:30 am – 6:30 pm (1-hour lunch; tea breaks within training time)"),
+        ("Mode", "Instructor-led; hands-on use-case labs on Hermes Agent and Paperclip (learner laptop)"),
+        ("Course scenario", C.SCENARIO + " — all company data is fictional"),
+        ("Slide deck", f"{C.SHORT_TITLE}-{C.VERSION}.pptx ({MAP['end'] - 1} slides)"),
+        ("Trainer", C.TRAINER)]
+t = doc.add_table(rows=0, cols=2); t.style = "Table Grid"
+for k, v in info:
+    c = t.add_row().cells; set_cell(c[0], k, bold=True, size=10, fill=TOPIC_FILL); set_cell(c[1], v, size=10)
+prodoc.set_widths(t, [1.8, 5.0])
 
-H("Learning Outcomes",1)
+H("Learning Outcomes")
 doc.add_paragraph("On completion of this course, learners will be able to:")
 for lo in C.LEARNING_OUTCOMES:
-    p=doc.add_paragraph(style="List Bullet"); p.add_run(lo).font.size=Pt(10.5)
+    doc.add_paragraph(style="List Bullet").add_run(lo).font.size = Pt(11)
 
-H("Assessment",1)
-for a in [C.ASSESSMENT["written"],C.ASSESSMENT["practical"],
-          "Format: Open Book — course slides, Learner Guide and approved materials only.",
-          "Final assessment is conducted on Day 2 from 4:30 pm.",C.ASSESSMENT["note"]]:
-    p=doc.add_paragraph(style="List Bullet"); p.add_run(a).font.size=Pt(10.5)
-
-def set_cell(cell,text,bold=False,size=9.5,color=None,fill=None,align=None):
-    cell.text=""; p=cell.paragraphs[0]
-    if align: p.alignment=align
-    r=p.add_run(text); r.bold=bold; r.font.size=Pt(size); r.font.name="Arial"
-    if color: r.font.color.rgb=color
-    if fill: prodoc._shade_cell(cell,fill)
-
-KIND_FILL={"topic":TOPIC_FILL,"break":BREAK_FILL,"lunch":LUNCH_FILL,"assess":ASSESS_FILL,
-           "admin":"F3F5F8","recap":"F3F5F8","lab":None}
-
-H("Course Schedule",1)
-for day,(theme,rows) in SCHEDULE.items():
-    H(f"Day {day} — {theme}",2)
-    tbl=doc.add_table(rows=0,cols=3); tbl.style="Table Grid"; tbl.alignment=WD_TABLE_ALIGNMENT.CENTER
-    hdr=tbl.add_row().cells
-    for i,htext in enumerate(["Time","Duration","Topic / Activity"]):
-        set_cell(hdr[i],htext,bold=True,size=10,color=RGBColor(0xFF,0xFF,0xFF),fill=HEADER_FILL)
-    training=0
-    for start,end,mins,kind,text in rows:
-        cells=tbl.add_row().cells; fill=KIND_FILL.get(kind)
-        set_cell(cells[0],f"{start}–{end}",bold=(kind in ("topic","assess")),size=9.5,fill=fill)
-        set_cell(cells[1],f"{mins} min",size=9.5,fill=fill)
-        set_cell(cells[2],text,bold=(kind in ("topic","assess")),size=9.5,fill=fill)
-        if kind!="lunch": training+=mins
-    # widths
-    for row in tbl.rows:
-        row.cells[0].width=Inches(1.15); row.cells[1].width=Inches(0.9); row.cells[2].width=Inches(4.75)
-    p=doc.add_paragraph(); r=p.add_run(f"Total training time: {training} minutes ({training//60} hours)."); r.italic=True; r.font.size=Pt(9.5); r.font.color.rgb=GREY
-    assert training==480, f"Day {day} training minutes = {training}, expected 480"
-
-H("Lab Reference (aligned to course topics)",1)
-tt=doc.add_table(rows=0,cols=3); tt.style="Table Grid"
-hdr=tt.add_row().cells
-for i,htext in enumerate(["Topic / Platform","Weighting","Labs"]):
-    set_cell(hdr[i],htext,bold=True,size=10,color=RGBColor(0xFF,0xFF,0xFF),fill=HEADER_FILL)
+H("Topics and Labs")
+tt = doc.add_table(rows=0, cols=3); tt.style = "Table Grid"
+hdr = tt.add_row().cells
+for i, h in enumerate(["Topic", "Content / labs", "Slides"]):
+    set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
+topic_slides = {1: rng("t1a", "t2"), 2: rng("t2", "t3"), 3: rng("t3", "wrap")}
 for tp in C.TOPICS:
-    acts=[a for a in ACT if a["topic"]==tp["num"]]
-    cells=tt.add_row().cells
-    set_cell(cells[0],f"Topic {tp['code']}: {tp['title']}",bold=True,size=9.5,fill=TOPIC_FILL)
-    set_cell(cells[1],tp["weighting"],size=9.5,fill=TOPIC_FILL)
-    set_cell(cells[2],", ".join(f"Lab {a['num']}" for a in acts),size=9.5)
+    c = tt.add_row().cells
+    set_cell(c[0], f"Topic {tp['num']}: {tp['title']}", bold=True, fill=TOPIC_FILL)
+    set_cell(c[1], "; ".join(tp["items"]) + (".  Activity: Human–AI Workforce Canvas." if tp["num"] == 1 else "."))
+    set_cell(c[2], topic_slides[tp["num"]])
+prodoc.set_widths(tt, [2.3, 3.6, 0.9])
 
-prodoc.add_page_numbers(doc)
-prodoc.enable_update_fields(doc)
-OUT=os.path.join(REPO,"courseware",f"LP-{C.SHORT_TITLE}.docx")
-doc.save(OUT)
-print("Saved",OUT)
+H("Learning Units (approved Course Proposal TPG-2024060313)")
+lut = doc.add_table(rows=0, cols=5); lut.style = "Table Grid"
+hdr = lut.add_row().cells
+for i, h in enumerate(["LU", "Learning unit", "Delivered through", "K & A", "Duration"]):
+    set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
+for u in C.LUS:
+    mins = sum(r[2] for d in C.SCHEDULE for r in C.SCHEDULE[d] if r[5] == u["lu"] and r[3] != "lunch")
+    assert mins == u["hours"] * 60, (u["lu"], mins)
+    c = lut.add_row().cells
+    set_cell(c[0], u["lu"], bold=True, fill=TOPIC_FILL); set_cell(c[1], u["title"]); set_cell(c[2], u["covers"])
+    set_cell(c[3], ", ".join(u["codes"])); set_cell(c[4], f"{u['hours']} h")
+c = lut.add_row().cells
+set_cell(c[0], "Assessment", bold=True, fill=ASSESS_FILL); set_cell(c[1], "WA-SAQ (1 h) + PP (1 h)"); set_cell(c[2], "Day 2, 4:30–6:30 pm")
+set_cell(c[3], "K1–K6, A1–A6"); set_cell(c[4], "2 h")
+prodoc.set_widths(lut, [0.75, 1.9, 2.4, 1.05, 0.7])
+p = doc.add_paragraph(); r = p.add_run("Total: 16 hours = LU1 5 h + LU2 5 h + LU3 4 h + assessment 2 h, matching the approved Course Proposal."); r.italic = True; r.font.size = Pt(9.5)
+
+H("Assessment")
+for a in [C.ASSESSMENT["written"], C.ASSESSMENT["practical"],
+          "Format: Open Book — course slides, Learner Guide and approved materials only.",
+          "Final assessment is conducted on Day 2 from 4:30 pm.", C.ASSESSMENT["note"]]:
+    doc.add_paragraph(style="List Bullet").add_run(a).font.size = Pt(11)
+
+H("Course Schedule")
+for day in (1, 2):
+    H(f"Day {day} — {C.DAY_THEMES[day]}", 2)
+    tbl = doc.add_table(rows=0, cols=5); tbl.style = "Table Grid"; tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    hdr = tbl.add_row().cells
+    for i, h in enumerate(["Time", "Duration", "Topic / Activity", "LU", "Slides"]):
+        set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
+    training = 0
+    for start, end, mins, kind, text, lu in C.SCHEDULE[day]:
+        cells = tbl.add_row().cells; fill = KIND_FILL.get(kind); bold = kind in ("topic", "assess", "activity")
+        set_cell(cells[0], f"{start}–{end}", bold=bold, fill=fill); set_cell(cells[1], f"{mins} min", fill=fill)
+        set_cell(cells[2], text, bold=bold, fill=fill)
+        set_cell(cells[3], "Assessment" if lu == "ASSESS" else (lu or "—"), fill=fill)
+        set_cell(cells[4], "—" if kind in ("break", "lunch") else slides_for(day, text), fill=fill)
+        if kind != "lunch": training += mins
+    prodoc.set_widths(tbl, [1.05, 0.75, 3.75, 0.6, 0.7])
+    p = doc.add_paragraph(); r = p.add_run(f"Total training time: {training} minutes ({training // 60} hours)."); r.italic = True
+    r.font.size = Pt(9.5); r.font.color.rgb = GREY
+    assert training == 480, f"Day {day} training minutes = {training}, expected 480"
+
+H("Lab Reference")
+lt = doc.add_table(rows=0, cols=5); lt.style = "Table Grid"
+hdr = lt.add_row().cells
+for i, h in enumerate(["Lab", "Title", "Paradigm", "LO", "Slides"]):
+    set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
+for L in LABS:
+    c = lt.add_row().cells
+    nxt = {5: "t2sum", 10: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+    set_cell(c[0], f"Lab {L['num']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
+    set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}", nxt))
+prodoc.set_widths(lt, [0.9, 3.4, 1.5, 0.5, 0.7])
+doc.add_paragraph("Lab materials: labs/labNN-*/ (README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt, data/) and the "
+                  "Lab Prompts page prompts/index.html in the course repository.").runs[0].font.size = Pt(10)
+
+prodoc.add_page_numbers(doc); prodoc.enable_update_fields(doc)
+OUT = os.path.join(REPO, "courseware", f"LP-{C.SHORT_TITLE}.docx")
+doc.save(OUT); print("Saved", OUT)

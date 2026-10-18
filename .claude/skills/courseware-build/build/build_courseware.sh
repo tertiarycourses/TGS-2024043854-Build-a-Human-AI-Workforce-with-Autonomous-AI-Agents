@@ -36,6 +36,7 @@ echo "==> Generate PPT / LP / LG from the single source"
 python3 "$HERE/build_slides.py"
 python3 "$HERE/build_lesson_plan.py"
 python3 "$HERE/build_learner_guide.py"
+python3 "$HERE/build_labs.py"
 
 PPT="$(ls -t "$CW"/*.pptx | head -1)"
 LP="$CW/LP-$SHORT.docx"

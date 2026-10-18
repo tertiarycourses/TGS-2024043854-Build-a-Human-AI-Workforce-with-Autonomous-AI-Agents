@@ -1,1214 +1,835 @@
 #!/usr/bin/env python3
-"""Generate the "Build a Human-AI Workforce with Autonomous AI Agents" course slide deck (all-white Tertiary house style).
+"""Generate the v2 slide deck for "Build a Human-AI Workforce with Autonomous AI Agents"
+in the house design of "Agentic AI Applications with Claude Code" (TGS-2025052468):
+ivory/charcoal canvases, terracotta accent, Cambria headings, icon cards.
 
-Design helpers are the same set used by the tertiary-course-slides skill that
-produced the n8n reference deck (cover, section, content, two_col, cards3,
-big_statement, step_slide, test_slide, brk). Content is driven entirely by
-course_data.py + data_domainN.py so the deck stays 100% aligned with the LP,
-LG and labs.
+Content: course_data.py (admin, topics, schedule) + data_labs.py (ten labs) + the
+Topic 1 concept slides below (sources cited on the slides / in the LG).
 """
 import os, sys
-from pptx import Presentation
-from pptx.util import Inches, Pt
-from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
-
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
+HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
-from data_domain1 import DOMAIN1
-from data_domain2 import DOMAIN2
-from data_domain3 import DOMAIN3
-from data_domain4 import DOMAIN4
-from data_domain5 import DOMAIN5
-ACTIVITIES = DOMAIN1 + DOMAIN2 + DOMAIN3 + DOMAIN4 + DOMAIN5
+from data_labs import LABS
+import ccdeck as K
+from ccdeck import (cover, section, cards, rows, timeline, loop, compare, table, image, statement,
+                    prompt, lab_intro, lab_flow, hub, trainer, flow, tip, header, card, text, rich, icon,
+                    line, circle, box, picture, ACC, ACC_D, TEAL, PLUM, CHAR, PANEL, WHITE, INK, MUTED,
+                    SOFT, LIGHT, IVORY, SERIF)
 
 def _find_repo(start):
-    """Locate the course repo (a dir containing both courseware/ and labs/).
-    Env COURSE_REPO overrides. Keeps the build working wherever the skill lives."""
     env = os.environ.get("COURSE_REPO")
-    if env and os.path.isdir(env):
-        return env
+    if env and os.path.isdir(env): return env
     d = start
     for _ in range(8):
         d = os.path.dirname(d)
-        if os.path.isdir(os.path.join(d, "courseware")) and os.path.isdir(os.path.join(d, "labs")):
-            return d
+        if os.path.isdir(os.path.join(d, "courseware")) and os.path.isdir(os.path.join(d, "labs")): return d
     return os.path.dirname(os.path.dirname(HERE))
 REPO = _find_repo(HERE)
-ASSETS = os.path.join(os.path.dirname(HERE), "assets")   # co-located with the skill
+A = os.path.join(REPO, "courseware", "assets")
+def asset(*p): return os.path.join(A, *p)
 
-# ---------------- palette (matches reference) ----------------
-BLUE=RGBColor(0x1F,0x6F,0xEB); TEAL=RGBColor(0x10,0xB9,0x81); AMBER=RGBColor(0xF5,0x9E,0x0B)
-INK=RGBColor(0x16,0x1B,0x26); GREY=RGBColor(0x5B,0x63,0x72); LIGHT=RGBColor(0xF5,0xF8,0xFC)
-WHITE=RGBColor(0xFF,0xFF,0xFF); LINE=RGBColor(0xE2,0xE8,0xF0); VIOLET=RGBColor(0x7C,0x3A,0xED)
-ORANGE=RGBColor(0xEA,0x58,0x0C); RED=RGBColor(0xDC,0x26,0x26)
-# Per-topic accent themes for the section covers: Hermes=orange, OpenClaw=red, Paperclip=blue.
-TOPIC_THEME={1:ORANGE, 2:RED, 3:BLUE}
+D = K.Deck(C.TITLE, C.COURSE_CODE, C.SHORT_TITLE)
+VER = C.VERSION.lstrip("v")
+MARK = {}
+def mark(k): MARK[k] = D.n + 1
 
-# ---------------- dark "masterclass" palette (Topic 1 / Hermes only) ----------------
-DK_BG   = RGBColor(0x0D,0x0E,0x0B)   # slide background
-DK_PANEL= RGBColor(0x15,0x17,0x12)   # cards/rows/panels
-DK_AMBER= RGBColor(0xF5,0xA6,0x23)   # headlines, kickers, accents, number chips
-DK_IVORY= RGBColor(0xE8,0xE6,0xDD)   # body text
-DK_FAINT= RGBColor(0x2A,0x2C,0x28)   # divider rules
-DK_DIM  = RGBColor(0x8A,0x8D,0x86)   # captions/footers
-DK_GREEN= RGBColor(0x4A,0xDE,0x80)   # success/test-it accents
+# ====================================================================== ADMIN
+mark("admin")
+cover(D, f"WSQ Course Code: {C.COURSE_CODE}", "Build a Human–AI Workforce\nwith Autonomous AI Agents",
+      f"Version {VER}  ·  {C.VERSION_DATE}",
+      f"{C.ORG}\n{C.UEN}",
+      "www.tertiarycourses.com.sg   |   enquiry@tertiaryinfotech.com   |   +65 6100 0613",
+      logo=os.path.join(os.path.dirname(HERE), "assets", "tertiary-infotech-logo.png"))
 
-# Module-level theme switch — dark "masterclass" theme for the ENTIRE deck.
-THEME={"dark":False}
-def _bg():   return DK_BG    if THEME["dark"] else WHITE
-def _panel():return DK_PANEL if THEME["dark"] else LIGHT
-def _ink():  return DK_IVORY if THEME["dark"] else INK
-def _grey(): return DK_DIM   if THEME["dark"] else GREY
-def _line(): return DK_FAINT if THEME["dark"] else LINE
-def _acc(c): return DK_AMBER if THEME["dark"] else c
-THEME["dark"]=True   # whole deck renders in the dark masterclass theme
+s = D.new(); header(D, s, "Housekeeping", "Digital Attendance")
+card(s, 0.6, 1.95, 7.6, 3.6); icon(s, "phone", 0.95, 2.25, 0.62)
+text(s, 1.8, 2.3, 6.2, 0.5, "Attendance is mandatory for SSG funding.", 17, INK, bold=True, font=SERIF)
+text(s, 0.95, 3.1, 7.0, 2.3, "Take AM, PM and Assessment digital attendance for every session.\nScan the SSG digital attendance QR code shown by your trainer with your phone camera.\nThe TRAQOM survey and Assessment attendance are taken on assessment day.", 15, MUTED, lh=1.3)
+card(s, 8.6, 1.95, 4.1, 3.6, fill=CHAR)
+text(s, 8.6, 2.35, 4.1, 0.5, "Minimum", 20, SOFT, font=SERIF, align="c", autofit=False)
+text(s, 8.6, 2.85, 4.1, 1.2, "75%", 60, ACC, bold=True, font=SERIF, align="c", autofit=False)
+text(s, 8.6, 4.2, 4.1, 0.6, "attendance required", 18, SOFT, font=SERIF, align="c", autofit=False)
 
-prs=Presentation(); prs.slide_width=Inches(13.333); prs.slide_height=Inches(7.5)
-SW,SH=prs.slide_width,prs.slide_height
-BLANK=prs.slide_layouts[6]
+trainer(D, "Introduction", "[ Trainer Name ]", "[ Title / Role ]",
+        [("grad", "Qualifications", ""), ("star", "Expertise", ""), ("briefcase", "Experience", ""), ("mail", "Contact / Profile", "")], template=True)
+trainer(D, "Introduction", "Dr. Alfred Ang", "AI Trainer & Engineer\nTertiary Infotech Academy",
+        [("grad", "Qualifications", "PhD-qualified trainer specialising in AI, automation and software engineering."),
+         ("robot", "Expertise", "Builds autonomous AI agents and multi-agent workflows with Hermes Agent, Paperclip and Claude Code."),
+         ("users", "Experience", "Trains professionals across Singapore on practical, project-based AI skills."),
+         ("medal", "Certifications", "PMP, AWS, Microsoft, CompTIA, CKA, CKAD."),
+         ("linkedin", "Profile", "linkedin.com/in/angchewhoe   ·   github.com/alfredang")])
 
-def slide(): return prs.slides.add_slide(BLANK)
-def rect(s,x,y,w,h,color,line=None):
-    sp=s.shapes.add_shape(1,x,y,w,h); sp.fill.solid(); sp.fill.fore_color.rgb=color
-    if line is None: sp.line.fill.background()
-    else: sp.line.color.rgb=line; sp.line.width=Pt(1)
-    sp.shadow.inherit=False; return sp
-def oval(s,x,y,w,h,color):
-    sp=s.shapes.add_shape(9,x,y,w,h); sp.fill.solid(); sp.fill.fore_color.rgb=color
-    sp.line.fill.background(); sp.shadow.inherit=False; return sp
-def txt(s,x,y,w,h,runs,align=PP_ALIGN.LEFT,anchor=MSO_ANCHOR.TOP,space=4):
-    tb=s.shapes.add_textbox(x,y,w,h); tf=tb.text_frame; tf.word_wrap=True; tf.vertical_anchor=anchor
-    for i,line in enumerate(runs):
-        p=tf.paragraphs[0] if i==0 else tf.add_paragraph()
-        p.alignment=align; p.space_after=Pt(space)
-        for t,sz,col,bold in line:
-            r=p.add_run(); r.text=t; r.font.size=Pt(sz); r.font.bold=bold
-            r.font.color.rgb=col; r.font.name="Arial"
-    return tb
-def bullets(s,x,y,w,h,items,size=18,color=None,gap=10,mcolor=BLUE):
-    tb=s.shapes.add_textbox(x,y,w,h); tf=tb.text_frame; tf.word_wrap=True
-    body=color if color is not None else _ink()
-    for i,it in enumerate(items):
-        p=tf.paragraphs[0] if i==0 else tf.add_paragraph(); p.space_after=Pt(gap)
-        lvl=it[1] if isinstance(it,tuple) else 0
-        text=it[0] if isinstance(it,tuple) else it
-        r=p.add_run(); r.text=("•  " if lvl==0 else "–  ")+text
-        r.font.size=Pt(size if lvl==0 else size-2); r.font.color.rgb=body if lvl==0 else _grey()
-        r.font.name="Arial"; r.font.bold=(lvl==0 and isinstance(it,tuple) and len(it)>2 and it[2])
-    return tb
+s = D.new(dark=True); header(D, s, "Introduction", "Let's Know Each Other", "Take a minute to introduce yourself to the class:")
+for i, (ic, t) in enumerate([("user", "Your name & role"), ("briefcase", "What you do day to day"),
+                             ("robot", "Your experience with AI or agents"), ("target", "One task you want an AI agent to take off your plate")]):
+    x = 0.6 + i * 3.08; card(s, x, 2.7, 2.9, 2.6, fill=K.PANEL, shadow=False)
+    icon(s, ic, x + 1.12, 3.0, 0.66); text(s, x + 0.2, 3.9, 2.5, 1.2, t, 15, WHITE, bold=True, font=SERIF, align="c")
 
-PAGE={"n":0}
-def footer(s):
-    PAGE["n"]+=1
-    txt(s,Inches(0.4),Inches(7.05),Inches(7.5),Inches(0.35),
-        [[(f"{C.SHORT_TITLE}  ·  {C.COURSE_CODE}",9,_grey(),False)]])
-    txt(s,Inches(5.0),Inches(7.05),Inches(3.3),Inches(0.35),
-        [[("© 2026 Tertiary Infotech Academy Pte Ltd",9,_grey(),False)]],align=PP_ALIGN.CENTER)
-    txt(s,Inches(12.4),Inches(7.05),Inches(0.6),Inches(0.35),
-        [[(str(PAGE["n"]),9,_grey(),False)]],align=PP_ALIGN.RIGHT)
-def head(s,title,kicker=None,kcolor=BLUE):
-    rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),Inches(1.55),_acc(kcolor))
-    if kicker: txt(s,Inches(0.85),Inches(0.48),Inches(11.9),Inches(0.4),[[(kicker,14,_acc(kcolor),True)]])
-    # Auto-fit the title so long lab titles never wrap into the divider rule below.
-    L=len(str(title)); tsize = 29 if L<=42 else (25 if L<=56 else 21)
-    txt(s,Inches(0.85),Inches(0.9),Inches(11.95),Inches(0.82),[[(title,tsize,_ink(),True)]],anchor=MSO_ANCHOR.MIDDLE)
-    rect(s,Inches(0.85),Inches(1.8),Inches(11.63),Inches(0.02),_line())
-    return s
-def _logo(name):
-    p=os.path.join(ASSETS,name)
-    return p if os.path.exists(p) else None
+cards(D, "Housekeeping", "Ground Rules", [
+    ("Phones on silent", "Step out quietly for calls or breaks.", "phone"),
+    ("Participate actively", "No question is too small — ask freely.", "chat"),
+    ("Mutual respect", "Agree to disagree; one conversation at a time.", "handshake"),
+    ("Be punctual", "Return from breaks on time.", "clock"),
+    ("75% attendance", "Required for funding eligibility.", "check"),
+    ("Stay hands-on", "Follow along with every lab.", "tool")], cols=3, bottom=5.9)
 
-# ---------------- slide templates ----------------
-def cover():
-    s=slide(); rect(s,0,0,SW,SH,_bg())
-    rect(s,0,0,SW,Inches(0.22),BLUE); rect(s,0,Inches(7.28),SW,Inches(0.22),TEAL)
-    org=_logo("tertiary-infotech-logo.png")
-    if org: s.shapes.add_picture(org,Inches(0.85),Inches(0.7),height=Inches(1.05))
-    # course badge (top-right) — use a neutral WSQ/course badge asset if one exists; otherwise no badge
-    badge=_logo("wsq-badge.png") or _logo("course-badge.png")
-    if badge:
-        s.shapes.add_picture(badge,Inches(10.05),Inches(0.6),width=Inches(2.5))
-    txt(s,Inches(0.9),Inches(2.3),Inches(12),Inches(0.6),[[("COURSE SLIDES  ·  WSQ",16,_acc(BLUE),True)]])
-    txt(s,Inches(0.9),Inches(2.85),Inches(12.0),Inches(1.9),[[(C.TITLE,40,_ink(),True)]])
-    rect(s,Inches(0.92),Inches(4.75),Inches(2.4),Inches(0.06),TEAL)
-    txt(s,Inches(0.9),Inches(5.05),Inches(12),Inches(1.4),
-        [[(f"WSQ Course Code: {C.COURSE_CODE}",16,_grey(),False)],
-         [("Conducted by Tertiary Infotech Academy Pte Ltd  ·  UEN 201200696W",14,_grey(),False)]],space=6)
-    txt(s,Inches(0.9),Inches(6.5),Inches(12),Inches(0.4),[[(f"Version {C.VERSION}  ·  {C.VERSION_DATE}",12,_grey(),False)]])
-    txt(s,Inches(0.9),Inches(6.85),Inches(12),Inches(0.34),[[("© 2026 Tertiary Infotech Academy Pte Ltd. All rights reserved.  ·  www.tertiarycourses.com.sg",10,_grey(),False)]])
+s = D.new(); header(D, s, "Roadmap", "Course Outline", "Three topics, ten connected use-case labs, one company: " + C.SCENARIO.split(" — ")[0] + ".")
+for i, tp in enumerate(C.TOPICS):
+    x = 0.6 + i * 4.1; card(s, x, 2.45, 3.9, 4.35)
+    circle(s, x + 0.3, 2.7, 0.62, ACC); text(s, x + 0.3, 2.7, 0.62, 0.62, str(tp["num"]), 20, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
+    text(s, x + 0.3, 3.45, 3.35, 0.95, tp["title"], 16, INK, bold=True, font=SERIF)
+    text(s, x + 0.3, 4.45, 3.35, 2.25, "\n".join("•  " + it for it in tp["items"]), 12, MUTED, lh=1.25)
 
-def section(kicker,title,n,sub="",accent=BLUE):
-    s=slide(); rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),SH,accent)
-    rect(s,Inches(0.85),Inches(2.5),Inches(0.14),Inches(2.0),accent)
-    txt(s,Inches(1.25),Inches(2.55),Inches(11),Inches(0.6),[[(kicker,18,accent,True)]])
-    txt(s,Inches(1.25),Inches(3.0),Inches(11.4),Inches(1.6),[[(title,40,_ink(),True)]])
-    if sub: txt(s,Inches(1.27),Inches(4.55),Inches(11),Inches(0.8),[[(sub,16,_grey(),False)]])
-    ghost=DK_FAINT if THEME["dark"] else RGBColor(0xE2,0xE8,0xF0)
-    txt(s,Inches(10.0),Inches(0.7),Inches(2.8),Inches(1.6),[[(n,72,ghost,True)]],align=PP_ALIGN.RIGHT)
-    footer(s)
-def content(title,items,kicker=None,size=20):
-    # HARD RULE: no bullet-wall slides — every content slide renders as numbered
-    # visual cards (LIGHT card, accent bar, number chip), never plain bullets.
-    import math as _m
-    s=head(slide(),title,kicker)
-    xs=[(i[0] if isinstance(i,tuple) else i) for i in items]
-    n=max(1,len(xs)); cols=2 if n>3 else 1; rows=_m.ceil(n/cols)
-    x0,y0=Inches(0.85),Inches(2.0); gw=Inches(11.63); gap=Inches(0.18)
-    cw=int((gw-gap*(cols-1))/cols); ch=int((Inches(4.7)-gap*(rows-1))/rows)
-    fs=(16 if rows<=2 else 14 if rows==3 else 12) if cols==2 else (17 if rows<=3 else 14)
-    for idx,it in enumerate(xs):
-        r,c=divmod(idx,cols)
-        cx=x0+c*(cw+gap); cy=y0+r*(ch+gap)
-        rect(s,cx,cy,cw,ch,_panel()); rect(s,cx,cy,Inches(0.07),ch,_acc(BLUE))
-        oval(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.19)),Inches(0.38),Inches(0.38),_acc(BLUE))
-        txt(s,cx+Inches(0.2),int(cy+ch/2-Inches(0.17)),Inches(0.38),Inches(0.34),
-            [[(str(idx+1),13,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
-        txt(s,cx+Inches(0.74),cy+Inches(0.08),cw-Inches(0.98),ch-Inches(0.16),
-            [[(it,fs,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-def two_col(title,left,right,kicker=None,lhead="",rhead=""):
-    s=head(slide(),title,kicker)
-    rect(s,Inches(0.85),Inches(1.95),Inches(5.7),Inches(4.7),_panel()); rect(s,Inches(6.95),Inches(1.95),Inches(5.55),Inches(4.7),_panel())
-    if lhead: txt(s,Inches(1.1),Inches(2.15),Inches(5.2),Inches(0.4),[[(lhead,16,_acc(BLUE),True)]])
-    if rhead: txt(s,Inches(7.2),Inches(2.15),Inches(5.0),Inches(0.4),[[(rhead,16,_acc(TEAL),True)]])
-    bullets(s,Inches(1.1),Inches(2.7),Inches(5.2),Inches(3.8),left,size=16,color=_ink())
-    bullets(s,Inches(7.2),Inches(2.7),Inches(5.05),Inches(3.8),right,size=16,color=_ink(),mcolor=TEAL); footer(s); return s
-def cards3(title,cards,kicker):
-    s=head(slide(),title,kicker); xs=[Inches(0.85),Inches(5.0),Inches(9.15)]
-    for i,c in enumerate(cards[:3]):
-        x=xs[i]; col=c[0]
-        rect(s,x,Inches(1.95),Inches(3.65),Inches(4.7),_panel()); rect(s,x,Inches(1.95),Inches(3.65),Inches(0.12),col)
-        txt(s,x+Inches(0.25),Inches(2.2),Inches(3.2),Inches(0.6),[[(c[1],19,col,True)]])
-        bullets(s,x+Inches(0.25),Inches(2.95),Inches(3.2),Inches(3.4),c[2],size=14,color=_ink(),mcolor=col,gap=9)
-    footer(s); return s
-def big_statement(line1,line2,kicker,color=BLUE):
-    s=slide(); rect(s,0,0,SW,SH,_bg()); rect(s,0,0,Inches(0.28),SH,color)
-    txt(s,Inches(1.1),Inches(2.2),Inches(11),Inches(0.5),[[(kicker,16,color,True)]])
-    txt(s,Inches(1.1),Inches(2.8),Inches(11.3),Inches(2.4),[[(line1,38,_ink(),True)]])
-    if line2: txt(s,Inches(1.12),Inches(4.9),Inches(11),Inches(1.2),[[(line2,20,_grey(),False)]])
-    footer(s); return s
-import math
-PALETTE=[BLUE,TEAL,VIOLET,AMBER]
-def tile_grid(title,items,kicker=None,cols=2,size=15,icons=None,accent=BLUE):
-    """Grid of light panels, each with a coloured icon/number badge + text.
-    items: list of strings (or (title,caption) tuples). Much richer than a bullet list."""
-    s=head(slide(),title,kicker,kcolor=accent)
-    n=len(items); rows=math.ceil(n/cols)
-    X0=Inches(0.85); Y0=Inches(1.95); TOTW=Inches(11.63); AREAH=Inches(4.78)
-    gx=Inches(0.3); gy=Inches(0.26)
-    cw=int((TOTW-gx*(cols-1))/cols); ch=int((AREAH-gy*(rows-1))/rows)
-    bd=Inches(0.6)
-    for i,it in enumerate(items):
-        r=i//cols; c=i%cols
-        x=int(X0+(cw+gx)*c); y=int(Y0+(ch+gy)*r); col=PALETTE[i%len(PALETTE)]
-        rect(s,x,y,cw,ch,_panel()); rect(s,x,y,Inches(0.1),ch,col)
-        oval(s,x+Inches(0.28),int(y+ch/2-bd/2),bd,bd,col)
-        ic=icons[i] if icons else str(i+1)
-        txt(s,x+Inches(0.28),int(y+ch/2-bd/2),bd,bd,[[(ic,19,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-        tx=x+Inches(1.08); tw=cw-Inches(1.32)
-        if isinstance(it,tuple):
-            txt(s,tx,int(y+Inches(0.14)),tw,int(ch-Inches(0.2)),
-                [[(it[0],size+2,_ink(),True)],[(it[1],size-2,_grey(),False)]],anchor=MSO_ANCHOR.MIDDLE,space=3)
-        else:
-            txt(s,tx,int(y+Inches(0.1)),tw,int(ch-Inches(0.16)),[[(it,size,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-def flow_h(title,steps,kicker=None,color=BLUE):
-    """Horizontal numbered flow: coloured chips connected by chevrons."""
-    s=head(slide(),title,kicker,kcolor=color)
-    n=len(steps); X0=Inches(0.85); TOTW=Inches(11.63); gap=Inches(0.34)
-    cw=int((TOTW-gap*(n-1))/n); y=Inches(2.55); ch=Inches(3.15); bd=Inches(0.82)
-    for i,st in enumerate(steps):
-        x=int(X0+(cw+gap)*i)
-        rect(s,x,y,cw,ch,_panel()); rect(s,x,y,cw,Inches(0.1),color)
-        oval(s,int(x+cw/2-bd/2),int(y+Inches(0.42)),bd,bd,color)
-        txt(s,int(x+cw/2-bd/2),int(y+Inches(0.42)),bd,bd,[[(str(i+1),30,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-        txt(s,x+Inches(0.16),int(y+Inches(1.55)),cw-Inches(0.32),int(ch-Inches(1.7)),[[(st,14,_ink(),False)]],align=PP_ALIGN.CENTER)
-        if i<n-1:
-            txt(s,int(x+cw-Inches(0.04)),int(y+ch/2-Inches(0.3)),int(gap+Inches(0.08)),Inches(0.6),
-                [[("▶",15,color,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-def trainer_slide(kicker,name,role,rows,initials,accent=BLUE):
-    """Profile-card layout: avatar badge + name/role panel on the left, labelled
-    info tiles on the right. rows: list of (LABEL, value); blank value → fill-in line."""
-    s=head(slide(),"About the Trainer",kicker,kcolor=accent)
-    lx=Inches(0.85); lw=Inches(3.65)
-    rect(s,lx,Inches(1.95),lw,Inches(4.7),_panel()); rect(s,lx,Inches(1.95),lw,Inches(0.12),accent)
-    bd=Inches(1.7); ax=int(lx+(lw-bd)/2)
-    oval(s,ax,Inches(2.5),bd,bd,accent)
-    txt(s,ax,Inches(2.5),bd,bd,[[(initials,44,WHITE,True)]],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-    txt(s,lx+Inches(0.15),Inches(4.55),lw-Inches(0.3),Inches(0.6),[[(name,21,_ink(),True)]],align=PP_ALIGN.CENTER)
-    txt(s,lx+Inches(0.15),Inches(5.2),lw-Inches(0.3),Inches(1.2),[[(role,13,_grey(),False)]],align=PP_ALIGN.CENTER)
-    rx=Inches(4.9); rw=Inches(7.6); ry=Inches(1.95); rh=Inches(4.7)
-    n=len(rows); gy=Inches(0.2); th=int((rh-gy*(n-1))/n)
-    for i,(label,val) in enumerate(rows):
-        y=int(ry+(th+gy)*i); col=PALETTE[i%len(PALETTE)]
-        rect(s,rx,y,rw,th,_panel()); rect(s,rx,y,Inches(0.1),th,col)
-        vruns=[(val,14,_ink(),False)] if val else [("____________________________________________",13,_line(),False)]
-        txt(s,rx+Inches(0.32),y,rw-Inches(0.6),th,
-            [[(label.upper(),11,col,True)],vruns],anchor=MSO_ANCHOR.MIDDLE,space=3)
-    footer(s); return s
-def activity_overview(tag,title,desc,build,services,kicker):
-    s=head(slide(),title,kicker,kcolor=TEAL)
-    rect(s,Inches(0.85),Inches(1.85),Inches(1.7),Inches(0.5),_acc(TEAL))
-    txt(s,Inches(0.85),Inches(1.9),Inches(1.7),Inches(0.4),[[(tag,16,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
-    # Auto-fit the description so long lab goals never clip into the panel below.
-    dL=len(str(desc)); dsize = 21 if dL<=200 else (17 if dL<=320 else (15 if dL<=600 else (12 if dL<=900 else 10.5)))
-    txt(s,Inches(0.85),Inches(2.55),Inches(11.7),Inches(1.6),[[(desc,dsize,_ink(),False)]])
-    rect(s,Inches(0.85),Inches(4.3),Inches(11.7),Inches(2.0),_panel())
-    txt(s,Inches(1.1),Inches(4.5),Inches(11),Inches(0.4),[[("You'll build",14,_acc(BLUE),True)]])
-    txt(s,Inches(1.1),Inches(4.9),Inches(11),Inches(0.6),[[(build,18,_ink(),True)]])
-    txt(s,Inches(1.1),Inches(5.6),Inches(11.2),Inches(0.6),[[("Tools:  ",13,_grey(),True),(services,13,_grey(),False)]]); footer(s); return s
-def step_slide(kicker,act_title,n,total,text,cmd="",prompt=""):
-    s=head(slide(),act_title,kicker,TEAL)
-    oval(s,Inches(0.85),Inches(2.5),Inches(1.4),Inches(1.4),_acc(TEAL))
-    txt(s,Inches(0.85),Inches(2.74),Inches(1.4),Inches(0.9),[[(str(n),38,DK_BG if THEME["dark"] else WHITE,True)]],align=PP_ALIGN.CENTER)
-    txt(s,Inches(0.95),Inches(1.95),Inches(11),Inches(0.4),[[(f"STEP {n} OF {total}",13,_grey(),True)]])
-    txt(s,Inches(2.55),Inches(2.4),Inches(10.1),Inches(1.3),[[(text,23,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
-    # HARD RULE: never render a comment-only "command" (# …) on a slide — the
-    # code box appears only for a real, runnable command.
-    if cmd and not cmd.lstrip().startswith("#"):
-        if THEME["dark"]:
-            # slightly lighter fill + faint border so the box reads against the dark bg
-            rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x10,0x14,0x1E),line=DK_FAINT)
-        else:
-            rect(s,Inches(2.55),Inches(4.15),Inches(10.1),Inches(0.95),RGBColor(0x0B,0x12,0x20))
-        txt(s,Inches(2.8),Inches(4.28),Inches(9.7),Inches(0.7),[[("$ "+cmd,13,RGBColor(0x9C,0xDC,0xFE),False)]],anchor=MSO_ANCHOR.MIDDLE)
-    if prompt:
-        # the natural-language alternative — most users prompt the agent instead
-        # of typing the CLI command, so every command step shows both
-        py=Inches(5.32) if (cmd and not cmd.lstrip().startswith("#")) else Inches(4.15)
-        rect(s,Inches(2.55),py,Inches(10.1),Inches(0.95),_panel())
-        rect(s,Inches(2.55),py,Inches(0.05),Inches(0.95),_acc(TEAL))
-        txt(s,Inches(2.8),py,Inches(9.75),Inches(0.95),
-            [[("💬 Or just ask:  ",13.5,_acc(TEAL),True),("\u201c"+prompt+"\u201d",13.5,_ink(),False)]],anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-def dark_rows(tag,title_lines,sub_lines,rows,warn=None,accent=None,numbered=True):
-    """Masterclass-style dark feature slide: terminal tag, amber (or custom
-    accent) headline, light subtitle lines, numbered/bulleted row-cards. Rows
-    may be strings, (amber,white) tuples, or lists of (text,colorkey) pairs
-    (keys: w/a/b/g/d). warn=(BADGE, text) renders a red warning chip."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
-    ROWBG=RGBColor(0x15,0x17,0x12); FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=RGBColor(0xE8,0xE6,0xDD)
-    WARNRED=RGBColor(0xE0,0x5A,0x5A)
-    ACC=accent or AMBER
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,ACC,True)]])
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    y=0.98
-    for tl in title_lines:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,ACC,True)]]); y+=0.76
-    y+=0.08
-    for sl in sub_lines:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.38),[[(sl,15,IVORY,False)]]); y+=0.4
-    y+=0.22
-    n=max(1,len(rows)); gap=0.14
-    bottom=6.35 if warn else 6.85
-    rh=min(0.78,(bottom-y-gap*(n-1))/n)
-    for i,r in enumerate(rows):
-        ry=Inches(y+i*(rh+gap))
-        rect(s,Inches(0.85),ry,Inches(11.63),Inches(rh),ROWBG)
-        rect(s,Inches(0.85),ry,Inches(0.05),Inches(rh),ACC)
-        if numbered:
-            txt(s,Inches(1.1),ry,Inches(0.75),Inches(rh),[[(f"{i+1:02d}",16,ACC,True)]],anchor=MSO_ANCHOR.MIDDLE)
-            tx,tw=Inches(1.9),Inches(10.35)
-        else:
-            txt(s,Inches(1.1),ry,Inches(0.4),Inches(rh),[[("▸",14,ACC,True)]],anchor=MSO_ANCHOR.MIDDLE)
-            tx,tw=Inches(1.55),Inches(10.7)
-        txt(s,tx,ry,tw,Inches(rh),[_dkruns(r,16)],anchor=MSO_ANCHOR.MIDDLE)
-    if warn:
-        wy=y+n*(rh+gap)+0.08
-        chipw=max(1.15,0.11*len(warn[0])+0.3)   # chip grows with the badge text so it never wraps
-        rect(s,Inches(0.85),Inches(wy),Inches(chipw),Inches(0.34),WARNRED)
-        txt(s,Inches(0.85),Inches(wy+0.02),Inches(chipw),Inches(0.3),[[(warn[0],12,DKBG,True)]],align=PP_ALIGN.CENTER)
-        txt(s,Inches(1.05+chipw),Inches(wy),Inches(11.28-chipw),Inches(0.34),[[(warn[1],13,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-_DKC={"w":RGBColor(0xE8,0xE6,0xDD),"a":RGBColor(0xF5,0xA6,0x23),"b":RGBColor(0x6E,0xA8,0xFF),
-      "g":RGBColor(0x4A,0xDE,0x80),"d":RGBColor(0x8A,0x8D,0x86),"r":RGBColor(0xE8,0x6A,0x8A)}
-def _dkruns(spec,size=16):
-    """spec: str | (amber,white) tuple | list of (text,colorkey) pairs -> txt() runs line."""
-    if isinstance(spec,str): return [(spec,size,_DKC["w"],False)]
-    if isinstance(spec,tuple): return [(spec[0],size,_DKC["a"],True),(spec[1],size,_DKC["w"],False)]
-    return [(t,size,_DKC.get(k,_DKC["w"]),k in ("a","b","g","r")) for t,k in spec]
-def dark_table(tag,title,col1,col2,rows,foot=None):
-    """Masterclass-style dark comparison table: amber vs blue column headers,
-    white row labels, thin divider rules, optional mixed-colour footer line."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; HBLUE=_DKC["b"]
-    FAINT=RGBColor(0x2A,0x2C,0x28); IVORY=_DKC["w"]; DIM=_DKC["d"]
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    txt(s,Inches(8.9),Inches(0.4),Inches(3.6),Inches(0.35),[[("● WHEN TO USE WHICH",12,DIM,True)]],align=PP_ALIGN.RIGHT)
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    txt(s,Inches(0.85),Inches(1.0),Inches(11.9),Inches(0.8),[[(title.upper(),40,AMBER,True)]])
-    LX,C1,C2=Inches(0.85),Inches(3.3),Inches(8.1)
-    y=2.05
-    txt(s,C1,Inches(y),Inches(4.6),Inches(0.4),[[(col1.upper(),15,AMBER,True)]])
-    txt(s,C2,Inches(y),Inches(4.3),Inches(0.4),[[(col2.upper(),15,HBLUE,True)]])
-    y+=0.5
-    rh=0.62
-    for label,v1,v2 in rows:
-        rect(s,LX,Inches(y),Inches(11.63),Inches(0.015),FAINT)
-        txt(s,LX,Inches(y+0.08),Inches(2.3),Inches(rh),[[(label,15,IVORY,True)]])
-        txt(s,C1,Inches(y+0.08),Inches(4.6),Inches(rh),[[(v1,15,IVORY,False)]])
-        txt(s,C2,Inches(y+0.08),Inches(4.3),Inches(rh),[[(v2,15,IVORY,False)]])
-        y+=rh
-    rect(s,LX,Inches(y),Inches(11.63),Inches(0.015),FAINT)
-    if foot:
-        txt(s,Inches(0.85),Inches(y+0.3),Inches(11.63),Inches(0.45),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
-    footer(s); return s
-def dark_code(tag,title,sub,code_lines,foot=None,win_title="",right_tag=None):
-    """Masterclass-style dark slide with a terminal/code window: amber headline,
-    window chrome (● ● ● + title), monospace coloured code lines, amber footer."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; IVORY=_DKC["w"]; FAINT=RGBColor(0x2A,0x2C,0x28)
-    CODEBG=RGBColor(0x08,0x0A,0x08); CHROME=RGBColor(0x14,0x16,0x12); DIM=_DKC["d"]
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    if right_tag:
-        txt(s,Inches(8.9),Inches(0.4),Inches(3.6),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    txt(s,Inches(0.85),Inches(0.95),Inches(11.9),Inches(0.75),[[(title.upper(),38,AMBER,True)]])
-    y=1.72
-    if sub:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.4),[[(sub,15,IVORY,False)]]); y+=0.46
-    # window chrome
-    ch=0.34
-    rect(s,Inches(0.85),Inches(y),Inches(11.63),Inches(ch),CHROME)
-    for k,cc in enumerate((RGBColor(0xE0,0x5A,0x5A),RGBColor(0xF5,0xA6,0x23),RGBColor(0x4A,0xDE,0x80))):
-        oval(s,Inches(1.02+k*0.22),Inches(y+0.11),Inches(0.12),Inches(0.12),cc)
-    if win_title:
-        txt(s,Inches(1.8),Inches(y+0.02),Inches(9.5),Inches(0.3),[[(win_title,11,DIM,False)]])
-    y+=ch
-    n=len(code_lines); lh=min(0.34,(6.35-y)/max(1,n))
-    rect(s,Inches(0.85),Inches(y),Inches(11.63),Inches(lh*n+0.2),CODEBG)
-    for i,ln in enumerate(code_lines):
-        runs=_dkruns(ln,13)
-        # monospace look: Courier New via manual run construction
-        tb=s.shapes.add_textbox(Inches(1.1),Inches(y+0.08+i*lh),Inches(11.1),Inches(lh))
-        tf=tb.text_frame; tf.word_wrap=False
-        p=tf.paragraphs[0]
-        for t_,sz,col,bold in runs:
-            r=p.add_run(); r.text=t_; r.font.size=Pt(12.5); r.font.bold=bold
-            r.font.color.rgb=col; r.font.name="Courier New"
-    if foot:
-        txt(s,Inches(0.85),Inches(6.62),Inches(11.63),Inches(0.4),[[(foot,14,AMBER,True)]],align=PP_ALIGN.CENTER)
-    footer(s); return s
-def dark_catalog(tag,title,cards,scope=None,right_tag=None):
-    """Masterclass-style dark slide: a row of amber-outlined cards, each with a
-    heading + a list of tool names, plus an optional SCOPE note panel below."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=_DKC["a"]; IVORY=_DKC["w"]
-    FAINT=RGBColor(0x2A,0x2C,0x28); CARDBG=RGBColor(0x10,0x12,0x0E); DIM=_DKC["d"]
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    if right_tag:
-        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    txt(s,Inches(0.85),Inches(0.98),Inches(11.9),Inches(0.78),[[(title.upper(),40,AMBER,True)]])
-    y=1.95
-    n=len(cards); gap=Inches(0.18); cw=int((Inches(11.63)-gap*(n-1))/n); chh=Inches(3.0); b=Inches(0.02)
-    for i,(headt,items) in enumerate(cards):
-        x=int(Inches(0.85)+i*(cw+gap)); yv=Inches(y)
-        rect(s,x,yv,cw,chh,CARDBG)
-        rect(s,x,yv,cw,b,AMBER); rect(s,x,int(yv+chh-b),cw,b,AMBER)
-        rect(s,x,yv,b,chh,AMBER); rect(s,int(x+cw-b),yv,b,chh,AMBER)
-        txt(s,x,int(yv+Inches(0.14)),cw,Inches(0.34),[[(headt.upper(),13,AMBER,True)]],align=PP_ALIGN.CENTER)
-        rows=[[(it,12,IVORY if not it.startswith("+") and "·" not in it else DIM,False)] for it in items]
-        txt(s,x+Inches(0.18),int(yv+Inches(0.58)),cw-Inches(0.3),int(chh-Inches(0.7)),rows,space=6)
-    if scope:
-        sy=y+3.0+0.25
-        rect(s,Inches(0.85),Inches(sy),Inches(11.63),Inches(1.15),CARDBG)
-        rect(s,Inches(0.85),Inches(sy),Inches(0.05),Inches(1.15),AMBER)
-        txt(s,Inches(1.1),Inches(sy+0.12),Inches(1.3),Inches(0.35),[[("SCOPE",15,AMBER,True)]])
-        txt(s,Inches(2.5),Inches(sy+0.1),Inches(9.7),Inches(0.98),[[(scope,12.5,IVORY,False)]])
-    footer(s); return s
-def dark_panels(tag,title,panels,foot=None,right_tag=None):
-    """Masterclass-style dark slide: coloured outlined panels ('// HEAD' + body
-    run-lines) and a mixed-colour footer. panels: (colorkey, head, [runlines])."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); FAINT=RGBColor(0x2A,0x2C,0x28); PBG=RGBColor(0x10,0x12,0x0E)
-    AMBER=_DKC["a"]; DIM=_DKC["d"]
-    PCOL={"a":_DKC["a"],"b":_DKC["b"],"g":_DKC["g"],"r":RGBColor(0xE8,0x6A,0x8A)}
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    if right_tag:
-        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    txt(s,Inches(0.85),Inches(0.98),Inches(11.9),Inches(0.78),[[(title.upper(),40,AMBER,True)]])
-    y=2.0; n=len(panels); gap=Inches(0.25)
-    pw=int((Inches(11.63)-gap*(n-1))/n); ph=Inches(3.3); b=Inches(0.02)
-    for i,(ck,head,body) in enumerate(panels):
-        col=PCOL.get(ck,AMBER); x=int(Inches(0.85)+i*(pw+gap)); yv=Inches(y)
-        rect(s,x,yv,pw,ph,PBG)
-        rect(s,x,yv,pw,b,col); rect(s,x,int(yv+ph-b),pw,b,col)
-        rect(s,x,yv,b,ph,col); rect(s,int(x+pw-b),yv,b,ph,col)
-        txt(s,x+Inches(0.28),int(yv+Inches(0.2)),pw-Inches(0.5),Inches(0.4),[[("// "+head.upper(),15,col,True)]])
-        txt(s,x+Inches(0.28),int(yv+Inches(0.72)),pw-Inches(0.52),int(ph-Inches(0.9)),
-            [_dkruns(ln,13) for ln in body],space=6)
-    if foot:
-        txt(s,Inches(0.85),Inches(y+3.3+0.28),Inches(11.63),Inches(0.45),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
-    footer(s); return s
-def dark_flow(tag,title,steps,foot=None,right_tag=None):
-    """Masterclass-style dark slide: amber-outlined step boxes joined by arrows,
-    plus a mixed-colour footer. steps: (head, body)."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); FAINT=RGBColor(0x2A,0x2C,0x28); PBG=RGBColor(0x10,0x12,0x0E)
-    AMBER=_DKC["a"]; IVORY=_DKC["w"]; DIM=_DKC["d"]
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(8.0),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    if right_tag:
-        txt(s,Inches(8.4),Inches(0.4),Inches(4.1),Inches(0.35),[[("● "+right_tag,12,DIM,True)]],align=PP_ALIGN.RIGHT)
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    txt(s,Inches(0.85),Inches(1.05),Inches(11.9),Inches(0.85),[[(title.upper(),44,AMBER,True)]])
-    y=2.55; n=len(steps); ag=Inches(0.38); b=Inches(0.02)
-    bw=int((Inches(11.63)-ag*(n-1))/n); bh=Inches(1.55)
-    for i,(head,body) in enumerate(steps):
-        x=int(Inches(0.85)+i*(bw+ag)); yv=Inches(y)
-        rect(s,x,yv,bw,bh,PBG)
-        rect(s,x,yv,bw,b,AMBER); rect(s,x,int(yv+bh-b),bw,b,AMBER)
-        rect(s,x,yv,b,bh,AMBER); rect(s,int(x+bw-b),yv,b,bh,AMBER)
-        txt(s,x,int(yv+Inches(0.16)),bw,Inches(0.36),[[(head.upper(),14,AMBER,True)]],align=PP_ALIGN.CENTER)
-        txt(s,x+Inches(0.12),int(yv+Inches(0.6)),bw-Inches(0.24),Inches(0.85),[[(body,11.5,IVORY,False)]],align=PP_ALIGN.CENTER)
-        if i<n-1:
-            txt(s,int(x+bw),int(yv+bh/2-Inches(0.2)),ag,Inches(0.4),[[("→",18,AMBER,True)]],align=PP_ALIGN.CENTER)
-    if foot:
-        txt(s,Inches(0.85),Inches(y+1.55+0.45),Inches(11.63),Inches(0.8),[_dkruns(foot,15)],align=PP_ALIGN.CENTER)
-    footer(s); return s
-def dark_cards(tag,title_lines,cards,notes=(),badge=None):
-    """Masterclass-style dark slide: amber headline + a row of green-outlined cards
-    (name + subtitle) + optional AUTO-INSTALLED badge line and dim footnotes."""
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23); GREEN=RGBColor(0x4A,0xDE,0x80)
-    IVORY=RGBColor(0xE8,0xE6,0xDD); FAINT=RGBColor(0x2A,0x2C,0x28); CARDBG=RGBColor(0x10,0x12,0x0E)
-    DIM=RGBColor(0x8A,0x8D,0x86)
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    y=0.98
-    for tl in title_lines:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
-    y+=0.35
-    n=len(cards); gap=Inches(0.25); cw=int((Inches(11.63)-gap*(n-1))/n); ch=Inches(1.55); b=Inches(0.025)
-    for i,(name,sub) in enumerate(cards):
-        x=int(Inches(0.85)+i*(cw+gap)); yv=Inches(y)
-        rect(s,x,yv,cw,ch,CARDBG)
-        rect(s,x,yv,cw,b,GREEN); rect(s,x,int(yv+ch-b),cw,b,GREEN)
-        rect(s,x,yv,b,ch,GREEN); rect(s,int(x+cw-b),yv,b,ch,GREEN)
-        txt(s,x,int(yv+Inches(0.2)),cw,Inches(0.62),[[(name,26,GREEN,True)]],align=PP_ALIGN.CENTER)
-        txt(s,x,int(yv+Inches(0.92)),cw,Inches(0.42),[[(sub,15,IVORY,False)]],align=PP_ALIGN.CENTER)
-    y+=1.55+0.4
-    rest=list(notes)
-    if badge and rest:
-        rect(s,Inches(0.85),Inches(y),Inches(2.0),Inches(0.36),AMBER)
-        txt(s,Inches(0.85),Inches(y+0.02),Inches(2.0),Inches(0.32),[[(badge,12,DKBG,True)]],align=PP_ALIGN.CENTER)
-        txt(s,Inches(3.0),Inches(y),Inches(9.4),Inches(0.36),[[(rest.pop(0),14,IVORY,True)]],anchor=MSO_ANCHOR.MIDDLE)
-        y+=0.5
-    for nt in rest:
-        txt(s,Inches(0.85),Inches(y),Inches(11.6),Inches(0.34),[[(nt,12,DIM,False)]]); y+=0.36
-    footer(s); return s
-def dark_pairs(tag,title_lines,sub,pairs):
-    """Masterclass-style dark slide: amber headline + a 2-column grid of
-    command/description cells (amber command, light description)."""
-    import math as _m
-    DKBG=RGBColor(0x0D,0x0E,0x0B); AMBER=RGBColor(0xF5,0xA6,0x23)
-    IVORY=RGBColor(0xE8,0xE6,0xDD); FAINT=RGBColor(0x2A,0x2C,0x28); ROWBG=RGBColor(0x15,0x17,0x12)
-    DIM=RGBColor(0x8A,0x8D,0x86)
-    s=slide(); rect(s,0,0,SW,SH,DKBG)
-    txt(s,Inches(0.85),Inches(0.4),Inches(11.6),Inches(0.35),[[("> "+tag,13,AMBER,True)]])
-    rect(s,Inches(0.85),Inches(0.82),Inches(11.63),Inches(0.02),FAINT)
-    y=0.98
-    for tl in title_lines:
-        txt(s,Inches(0.85),Inches(y),Inches(11.9),Inches(0.78),[[(tl.upper(),40,AMBER,True)]]); y+=0.76
-    if sub:
-        txt(s,Inches(0.85),Inches(y+0.02),Inches(11.9),Inches(0.36),[[(sub,14,DIM,False)]]); y+=0.44
-    y+=0.18
-    cols=2; rows=_m.ceil(len(pairs)/cols); gx=Inches(0.3); gy=0.13
-    cw=int((Inches(11.63)-gx)/cols); rh=min(0.8,(6.8-y-gy*(rows-1))/rows)
-    for i,(cmd,desc) in enumerate(pairs):
-        r,c=i%rows,i//rows   # fill column-first like the reference
-        x=int(Inches(0.85)+c*(cw+gx)); yv=Inches(y+r*(rh+gy))
-        rect(s,x,yv,cw,Inches(rh),ROWBG)
-        rect(s,x,yv,Inches(0.045),Inches(rh),AMBER)
-        txt(s,x+Inches(0.22),yv,Inches(2.35),Inches(rh),[[(cmd,14,AMBER,True)]],anchor=MSO_ANCHOR.MIDDLE)
-        txt(s,x+Inches(2.6),yv,cw-Inches(2.8),Inches(rh),[[(desc,12.5,IVORY,False)]],anchor=MSO_ANCHOR.MIDDLE)
-    footer(s); return s
-def shot(title,img,kicker=None,caption="",frame=True):
-    """Screenshot slide — a real UI capture with a caption (any aspect).
-    frame=False renders the image bare so dark, pre-blended figures merge
-    with the deck background instead of looking pasted."""
-    s=head(slide(),title,kicker,TEAL)
-    try:
-        from PIL import Image as _PILImage
-        _iw,_ih=_PILImage.open(img).size
-    except Exception:
-        _iw,_ih=1440,900
-    H=Inches(4.5); W=int(H*_iw/_ih)
-    maxW=Inches(11.6)
-    if W>maxW: W=int(maxW); H=int(maxW*_ih/_iw)
-    x=int((SW-W)/2); y=int(Inches(2.02)+(Inches(4.5)-H)/2)
-    if frame:
-        rect(s,x-Inches(0.06),y-Inches(0.06),W+Inches(0.12),H+Inches(0.12),_line())
-    s.shapes.add_picture(img,x,y,width=W,height=H)
-    if caption:
-        _csz=12 if len(caption)<=130 else 10.5   # shrink long captions so they never wrap onto the footer
-        txt(s,Inches(0.85),Inches(6.68),Inches(11.6),Inches(0.35),[[(caption,_csz,_grey(),False)]],align=PP_ALIGN.CENTER)
-    footer(s); return s
-def test_slide(act_title,text,kicker):
-    s=head(slide(),act_title,kicker,TEAL)
-    rect(s,Inches(0.85),Inches(2.3),Inches(11.7),Inches(2.6),DK_PANEL if THEME["dark"] else RGBColor(0xE8,0xF7,0xEE))
-    txt(s,Inches(1.2),Inches(2.6),Inches(11),Inches(0.5),[[("✅  Test it",20,DK_GREEN if THEME["dark"] else RGBColor(0x12,0x7A,0x3E),True)]])
-    txt(s,Inches(1.2),Inches(3.3),Inches(11),Inches(1.4),[[(text,18,_ink(),False)]]); footer(s); return s
-def brk(kind,dur,color=AMBER):
-    s=slide(); rect(s,0,0,SW,SH,_bg())
-    rect(s,0,0,SW,Inches(0.22),color); rect(s,0,Inches(7.28),SW,Inches(0.22),color)
-    rect(s,Inches(5.4),Inches(2.35),Inches(2.53),Inches(0.1),color)
-    txt(s,0,Inches(2.75),SW,Inches(1.2),[[(kind,48,_ink(),True)]],align=PP_ALIGN.CENTER)
-    txt(s,0,Inches(4.05),SW,Inches(0.8),[[(dur,22,color,True)]],align=PP_ALIGN.CENTER); PAGE["n"]+=1
+cards(D, "What you'll achieve", "Learning Outcomes", [
+    ("LO1 · Analyse AI applications", C.LEARNING_OUTCOMES[0].split(": ", 1)[1], "search"),
+    ("LO2 · Agent design and efficiency", C.LEARNING_OUTCOMES[1].split(": ", 1)[1], "gear"),
+    ("LO3 · Evaluate & improve", C.LEARNING_OUTCOMES[2].split(": ", 1)[1], "trend")],
+    cols=3, sub="Mapped to the TSC Artificial Intelligence Application in Product Development (ICT-TEM-4034-1.1).", desc_pt=14)
 
-# ============================================================ BUILD
-cover()
+table(D, "What you'll achieve", "Learning Units, Topics and Labs", ["LU", "Learning unit", "Delivered through", "K & A", "Hours"],
+      [(u["lu"], u["title"], u["covers"], ", ".join(u["codes"]), f"{u['hours']} h") for u in C.LUS] +
+      [("Assess", "WA-SAQ (1 h) + Practical Performance (1 h)", "Day 2, 4:30–6:30 PM", "K1–K6 · A1–A6", "2 h")],
+      colw=[0.9, 3.6, 4.6, 1.8, 0.9], size=12, sub="Approved Course Proposal: TSC ICT-TEM-4034-1.1 Artificial Intelligence Application in Product Development — 16 hours.")
+for day in (1, 2):
+    rows_ = [(f"{a}–{b}", t, "Assess" if lu == "ASSESS" else (lu or "—")) for a, b, m, k, t, lu in C.SCHEDULE[day]]
+    table(D, "Roadmap", f"Lesson Plan — Day {day} (9:30 AM – 6:30 PM)", ["Time", "Session", "LU"], rows_,
+          colw=[1.5, 9.7, 0.9], size=10.5 if day == 1 else 11)
 
-# ---------------- ADMIN ----------------
-section("COURSE ADMINISTRATION","Welcome & Housekeeping","")
-content("Digital Attendance (Mandatory)",[
- "It is mandatory to take the AM, PM and Assessment digital attendance for WSQ-funded courses.",
- "The trainer/administrator displays the digital attendance QR code from the SSG portal.",
- "Scan the QR code with your mobile phone camera and submit your attendance.",
- "A minimum of 75% attendance is required to be eligible for assessment and funding."],kicker="TRAQOM · SSG DIGITAL ATTENDANCE")
-trainer_slide("YOUR TRAINER · GENERAL","Your Trainer","General Trainer template —\nto be completed by the trainer",
- [("Name",""),("Title / Designation",""),("Qualifications",""),
-  ("Areas of expertise",""),("Training & industry experience",""),("Contact","")],
- initials="?",accent=GREY)
-trainer_slide("YOUR TRAINER",C.TRAINER,"Principal Trainer\nTertiary Infotech Academy Pte. Ltd.",
- [("Role","Principal Trainer, Tertiary Infotech Academy Pte. Ltd."),
-  ("Certification","AI, automation and cloud certified — building autonomous AI agents and agentic workflows."),
-  ("Delivers","WSQ courses on AI agents, automation, data engineering and cloud."),
-  ("Founder","Founder and lead instructor at Tertiary Infotech / Tertiary Courses.")],
- initials="AA",accent=BLUE)
-content("Let's Know Each Other",[
- "Your name and organisation / role.",
- "Your experience with AI, automation or coding (if any).",
- "What you want to be able to automate with AI agents after this course."],kicker="ICE-BREAKER")
-tile_grid("Ground Rules",[
- "Set your mobile phone to silent mode.","Participate actively — no question is too small.",
- "Mutual respect: agree to disagree.","One conversation at a time.",
- "Be punctual; return from breaks on time.","75% attendance is required."],
- kicker="HOUSEKEEPING",cols=2,size=15)
-# Live screenshot of the LMS-TMS portal (house standard: a visual, not a text link)
-shot("Download Course Material",
-     os.path.join(REPO,"courseware","assets","screenshots","lms-portal.png"),
-     kicker="COURSE PORTAL",
-     caption="Sign in at https://lms-tms.tertiaryinfotech.com → open this course → Courseware tab → download the Slides, Learner Guide and Lesson Plan.")
-# Lesson plan overview — rendered from the day themes so it can never drift
-two_col("Lesson Plan — 2 Days, 8 hours/day",[
- (f"Day 1 — {C.DAY_THEMES[1]}",0),
- ("Topic 1: Hermes Agent (Labs 1–14)",1),
- ("Topic 2: OpenClaw (Labs 15–26)",1)],
- [(f"Day 2 — {C.DAY_THEMES[2]}",0),
- ("Topic 3: Paperclip (Labs 27–33)",1),
- ("Final Assessment (WA + PP)",1),
- ("Daily timing",0),
- ("9:30am–6:30pm · 1-hour lunch · tea breaks within",1)],
- kicker="SCHEDULE",lhead="Day 1",rhead="Day 2")
-# Learning-outcome tiles built straight from course_data (strip the "LOn: " prefix)
-_LO_TITLES=["Analyze AI Applications","Design & Chatbot Efficiency","Evaluate & Improve RAG"]
-_lo_tiles=[(_LO_TITLES[i] if i<len(_LO_TITLES) else f"LO{i+1}",
-            lo.split(": ",1)[1] if ": " in lo else lo)
-           for i,lo in enumerate(C.LEARNING_OUTCOMES)]
-tile_grid("Learning Outcomes",_lo_tiles,kicker="WHAT YOU'LL ACHIEVE",cols=2,size=15)
-content("Briefing for Assessment",[
- "Place phones and other materials under the table or on the floor.",
- "No photos or recording of assessment scripts.","No discussion during the assessment.",
- "Use a black/blue pen for hard-copy assessments.","No liquid paper / correction tape.",
- "Scripts are collected when time is up."])
-content("Assessment",[
- C.ASSESSMENT["written"], C.ASSESSMENT["practical"],
- "Format: Open Book — slides, Learner Guide and approved materials only.",
- C.ASSESSMENT["note"],"An appeal process is available if required."],kicker="FINAL ASSESSMENT")
-flow_h("Assessment Flow",[
- "TRAQOM survey — scan the QR code on the LMS",
- "Assessment digital attendance — scan the SSG QR",
- "Sit WA (SAQ) then PP — open book",
- "Submit your answers on the LMS",
- "Sign the Assessment Summary Record"],kicker="ON ASSESSMENT DAY")
+s = D.new(); header(D, s, "Roadmap · Hands-on", "Ten Labs, One Company",
+                    "Every lab builds on the last — the same Kopi Kaki campaign grows from one agent to a governed AI company.")
+for i, L in enumerate(LABS):
+    r, c = divmod(i, 5); x = 0.6 + c * 2.46; y = 2.4 + r * 2.02
+    dark = L["day"] == 2
+    card(s, x, y, 2.3, 1.88, fill=CHAR if dark else WHITE)
+    text(s, x + 0.18, y + 0.14, 2.0, 0.3, f"LAB {L['num']}  ·  DAY {L['day']}", 10, ACC, bold=True, autofit=False)
+    icon(s, L["icon"], x + 0.18, y + 0.5, 0.48, fill=ACC if dark else TEAL)
+    text(s, x + 0.18, y + 1.05, 1.98, 0.6, L["short"], 13.5, WHITE if dark else INK, bold=True, font=SERIF, minpt=10)
+    text(s, x + 0.18, y + 1.6, 1.98, 0.35, L["paradigm"], 9.5, SOFT if dark else MUTED, minpt=8)
+tip(D, s, "Day 1 = Hermes Agent (single → multi-agent).  Day 2 = Paperclip (a governed company of agents).", y=6.5)
 
-# ---------------- CORE AI-AGENT CONCEPTS ----------------
-section("CORE CONCEPTS","Autonomous AI Agents Fundamentals","")
-tile_grid("What is an Autonomous AI Agent?",[
- ("Perceive → reason → act → remember","An LLM-driven loop: it takes in a request, decides what to do, acts, then remembers the outcome."),
- ("Uses tools & skills","It calls web search, images, email, code and integrations — not just chat — to get real work done."),
- ("Runs across channels","The same agent is reachable on Telegram, WhatsApp, Discord, Slack and the terminal."),
- ("Autonomy under oversight","It works on its own, but important actions pause for human approval.")],
- kicker="OVERVIEW",cols=2,size=15)
-tile_grid("The Agent Stack",[
- ("Model / LLM","The reasoning engine — Claude, OpenAI, OpenRouter, MiniMax or DeepSeek."),
- ("Memory","Durable, user- or company-scoped recall across sessions and surfaces."),
- ("Skills & Tools","Reusable capabilities plus tool and third-party integration calls."),
- ("Channels","Where the agent meets people: Telegram, WhatsApp, Discord, Slack."),
- ("Scheduler & Security","Crons and a heartbeat automate work; sandboxes, budgets and approvals contain it.")],
- kicker="THE BUILDING BLOCKS",cols=2,size=14)
-two_col("RAG vs a Standard LLM Assistant",
- [("Retrieval Augmented Generation (RAG)",0),
-  ("Retrieves from a curated, current corpus before generating",1),
-  ("Grounded, auditable answers — less hallucination",1),
-  ("Effectiveness hinges on corpus freshness, indexing and how retrieval/memory is configured",1)],
- [("Standard LLM assistant",0),
-  ("Answers from training data alone — fastest to deploy",1),
-  ("No live company data, no auditable response provenance",1),
-  ("Evaluate both on accuracy, relevance, latency and maintenance cost",1)],
- kicker="PERFORMANCE EFFECTIVENESS",lhead="RAG agent",rhead="LLM-only assistant")
-big_statement("Powerful, but always under human oversight.","Approvals gate risky actions, budgets cap spend (warn at 80%, pause at 100%), and sandboxes isolate execution — so an agent stays safe as it scales.","HUMAN-IN-THE-LOOP GOVERNANCE",color=BLUE)
-_pf=cards3("Three Platforms, One Skillset",[
- (BLUE,"Hermes Agent",["Your personal chief-of-staff","Lives across your messaging apps","Cross-channel, memory, crons"]),
- (TEAL,"OpenClaw",["Automates a business back-office","Node.js gateway daemon","Skills, tools, nightly reports"]),
- (VIOLET,"Paperclip",["A company of AI agents you govern","Self-hosted with Docker","Hiring, budgets, audit trail"])],kicker="WHAT YOU'LL BUILD")
-# The three platform logos, one on each card — on a white plate so every mark stays legible
-_LOGODIR=os.path.join(REPO,"courseware","assets","logos")
-for _i,_f in enumerate(["hermes-agent.png","openclaw.png","paperclip.png"]):
-    _p=os.path.join(_LOGODIR,_f)
-    if os.path.exists(_p):
-        _cx=[Inches(0.85),Inches(5.0),Inches(9.15)][_i]
-        _plate=Inches(1.7); _px=int(_cx+(Inches(3.65)-_plate)/2); _py=int(Inches(4.75))
-        rect(_pf,_px,_py,int(_plate),int(_plate),WHITE,line=_line())
-        _lg=Inches(1.4)
-        _pf.shapes.add_picture(_p,int(_px+(_plate-_lg)/2),int(_py+(_plate-_lg)/2),width=int(_lg),height=int(_lg))
-content("The Build Arc",[
- "Install the runtime → connect a model → add channels → give it memory.",
- "Extend it with skills → wire in tools and integrations → schedule work with crons.",
- "Secure it with sandboxing, secrets and approvals → drive it through commands.",
- "Finish each platform by orchestrating a multi-agent team for an end-to-end outcome.",
- "The same arc repeats on Hermes, OpenClaw and Paperclip — so the skillset transfers."],kicker="HOW EVERY LAB PROGRESSES")
+s = D.new(); header(D, s, "Roadmap · Hands-on", "Lab Materials & the Lab Prompts Page",
+                    "Everything you need is in the course repo: instructions PDF, mock data, skills and copy-ready prompts for every lab.")
+shot = asset("screenshots", "prompts-page.png")
+if os.path.exists(shot):
+    picture(s, shot, 0.7, 2.5, maxw=6.6, maxh=4.25)
+for i, (ic, t, d) in enumerate([
+        ("download", "Get the labs", "github.com/tertiarycourses/TGS-2024043854-… → Code → Download ZIP. Unzip anywhere."),
+        ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into Hermes, Telegram or Paperclip."),
+        ("folder", "Use the lab folder", "labs/labNN-…/ holds README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt and data/."),
+        ("check", "Verify every result", "Each lab ends with a checkpoint — evidence, not vibes.")]):
+    y = 2.5 + i * 1.08; icon(s, ic, 7.7, y, 0.52)
+    text(s, 8.38, y - 0.04, 4.4, 0.38, t, 15, INK, bold=True, font=SERIF)
+    text(s, 8.38, y + 0.34, 4.4, 0.7, d, 11.5, MUTED, minpt=9)
 
-# ---------------- TOPICS + ACTIVITIES ----------------
-# Real screenshots captured from a live local Hermes install (dashboard on
-# http://127.0.0.1:9119), plus the live skills-category snapshot — rendered as
-# framed screenshot slides and category tile grids inside the matching labs.
-import json as _json
-_SHOTDIR=os.path.join(REPO,"courseware","assets","screenshots")
-_SHOTS={2:[("hermes-dashboard.png","Dashboard","The Hermes Dashboard (http://127.0.0.1:9119) — your local deployment's sessions view"),
-           ("hermes-channels.png","Channels","The Channels page (127.0.0.1:9119/channels) — 31 channels from one gateway; credentials in ~/.hermes/.env"),
-           ("hermes-achievements.png","Achievements","The Achievements page — Hermes gamifies agent mastery with tiers (Copper → Silver → Gold → Diamond → Olympian) and unlockable badges")],
-        4:[("hermes-skills.png","Skills","The Skills page of a live Hermes install — 97 skills, filterable by category, plus Learn-a-skill and New-skill")],
-        5:[("hermes-env.png","Providers & API Keys","The Keys page (127.0.0.1:9119/env) — OAuth provider logins (Nous Portal, OpenAI, MiniMax, Anthropic, …) and API keys, stored in ~/.hermes/.env")],
-        9:[("hermes-profiles.png","Profiles","The Profiles page (127.0.0.1:9119/profiles) — per-profile toolsets and defaults that shape what the agent may use"),
-           ("hermes-kanban.png","Kanban","The Kanban board — supervise the agent's tasks as they move across the columns")]}
-# Live screenshots from the running Paperclip company (http://127.0.0.1:3100/TER)
-_PCDIR=os.path.join(REPO,"courseware","assets","paperclip")
-_PCSHOTS={27:[("pc-dashboard.png","Dashboard","The company dashboard at http://localhost:3100 — inbox, tasks and agents at a glance (the trainer's live demo company; you build yours the same way)")],
-          28:[("pc-settings.png","Company Settings","Company Settings — where the company name, mission and budget live (trainer's demo company shown)"),
-              ("pc-org.png","Org Chart","The Org page — the Board at the top, the CEO below, specialists under the CEO")],
-          29:[("pc-adapters.png","Adapters","Settings → Instance → Adapters — built-in Claude Code (9 models), Codex (10) and Gemini CLI (8); external adaptors install as packages (alpha)")],
-          30:[("pc-tasks.png","Tasks Board","A live Tasks board — a well-specified backlog moving through Todo / In Progress / In Review / Done / Blocked (trainer's demo company)"),
-              ("pc-task-hire.png","The Core Hiring Task","The core task — 'Hire the core team and create a hiring plan', assigned to the CEO, In Review for the Board")],
-          31:[("pc-secrets.png","Secrets","Settings → Secrets — store an API key once, bind it to a runtime env var such as TAVILY_API_KEY; Paperclip injects it server-side at run start"),
-              ("pc-skills.png","Skills Store","The Skills store — reusable skills the agents draw on, filterable by category")],
-          32:[("pc-agents.png","The Hired Team","The Agents page — a CEO and Board-approved specialists, each hired through the approval gate (trainer's demo company; your blog company hires its own roles)")],
-          33:[("pc-routine-run.png","Routines — Run Now","The Routines page — a scheduled routine with its trigger; 'Run now' fires it on demand (tested live on the trainer's company)"),
-              ("pc-routine-pipeline.png","The Routine-Driven Pipeline","Minutes after the trigger: the generated task sits In Review while its stage tasks execute live — earlier stages Done, the render In Progress")]}
-def _pcshots(num):
-    for f,label,cap in _PCSHOTS.get(num,[]):
-        p=os.path.join(_PCDIR,f)
-        if os.path.exists(p):
-            shot(f"Paperclip Live — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
-_OCDIR=os.path.join(REPO,"courseware","assets","openclaw")
-def _oc(name): return os.path.join(_OCDIR,f"oc-{name}.png")
-def _ocshot(num,title,name,caption):
-    p=_oc(name)
-    if os.path.exists(p):
-        shot(title,p,kicker=f"LAB {num} · MASTERCLASS DIAGRAM",caption=caption)
-# Full-content import from the original "Mastering OpenClaw" masterclass deck —
-# each entry renders the original slide as a framed figure inside the matching lab.
-_OCIMPORT={
- 18:[(57,"Get a New Skill — Just Add SKILL.md","Drop SKILL.md in the designated folder and the agent can do something new"),
-     (58,"ClawHub — The Skill Dock for Sharp Agents","")],
- 19:[(84,"AgentMail — Email Inboxes for AI Agents","")],
- 23:[(134,"10 Steps to Lock Down Your AI Agent","")],
-}
-def _ocimport(num):
-    for pg,title,cap in _OCIMPORT.get(num,[]):
-        # prefer the blended (dark-merged, title/footer-stripped) render when present
-        pb=os.path.join(_OCDIR,f"oc-blend-{pg:03d}.png")
-        p =pb if os.path.exists(pb) else os.path.join(_OCDIR,f"oc-slide-{pg:03d}.png")
-        if os.path.exists(p):
-            # full-bleed white screenshots (17/58/86) keep the framed look; blends go bare
-            shot(title,p,kicker=f"LAB {num} · MASTERCLASS",caption=cap,frame=(p!=pb or pg in (17,49,58,86)))
-_catf=os.path.join(REPO,"courseware","assets","hermes-skills-categories.json")
-_CATS=_json.load(open(_catf)) if os.path.exists(_catf) else None
-def _topic2_opening():
-    """Topic 2 opening story (trainer's curated order, v1.8 hand-edit):
-    Wikipedia history -> evolution rows -> Agent=Model+Harness -> Linux-of-agents."""
-    p17=os.path.join(_OCDIR,"oc-blend-017.png")
-    if os.path.exists(p17):
-        shot("OpenClaw — The Wikipedia History",p17,kicker="TOPIC 02 · MASTERCLASS",
-             caption="Clawdbot (Nov 2025) → Moltbot → OpenClaw (Jan 2026); Steinberger joins OpenAI Feb 14, 2026 — source: en.wikipedia.org/wiki/OpenClaw")
-    dark_rows("the evolution of ai agents",["From Prompts","To Harnesses."],[],
-        [[("Prompt Engineering","a"),("   ChatGPT, Gemini, Claude Chat — craft the words","w")],
-         [("Context Engineering","a"),("   Claude Code, Codex, Gemini CLI — feed the right context","w")],
-         [("Harness Engineering","a"),("   OpenClaw, Hermes Agent — build the machine around the model","w")]],
-        numbered=False)
-    p10=os.path.join(_OCDIR,"oc-blend-010.png")
-    if os.path.exists(p10):
-        shot("The Model Reasons. The Harness Does the Rest.",p10,kicker="TOPIC 02 · MASTERCLASS",
-             caption="Model = CPU / reasoning engine · Context = RAM / working memory · Harness = operating system",frame=False)
-    dark_cards("openclaw = linux of ai agents",
-        ["People ↔ Agent ↔ Model."],
-        [("Channels","WhatsApp · Telegram · Discord · Web UI"),
-         ("🦞 OpenClaw","runs on your computer"),
-         ("Models","Claude Code · Codex · MiniMax · Kimi"),
-         ("Memory","workspace + MEMORY.md")],
-        notes=["OpenClaw sits between your messaging apps and any language model — open, local and hackable, like Linux was for servers."])
-def _lab_extras(num):
-    if num==1:
-        # Hermes intro — masterclass-style dark slides (What is Hermes + The Bet)
-        dark_rows("part-01/overview",
-            ["An AI Agent","That Learns You."],
-            ["What is Hermes Agent?  Open source. Built by Nous Research. MIT license."],
-            ["Runs in your terminal (CLI) or on your phone (gateway)",
-             "Works with any model — Claude, GPT, Grok, Kimi, local, whatever",
-             "Nous uses this same tool to generate training data for the Hermes model family"])
-        dark_rows("part-01/the-bet",
-            ["The Bet:","Compounding Value."],
-            ["Most agents are stateless — every session starts from zero.",
-             "Hermes is stateful by design. Every session makes the next one better."],
-            ["You give it a task",
-             "It captures a trajectory — tools used, decisions made",
-             "It extracts a reusable skill",
-             "Next time: faster, cleaner, smarter"])
-        dark_cards("part-02/platform-matrix",
-            ["Will It Run","On My Machine?"],
-            [("macOS","Native ✓"),("Linux","Native ✓"),("Windows","WSL2 only"),("Android","Termux (v0.9.0)")],
-            notes=["Python 3.11, Node.js 22, uv, ripgrep, ffmpeg, git.",
-                   "Native Windows is explicitly unsupported. The installer refuses CYGWIN/MINGW/MSYS."],
-            badge="AUTO-INSTALLED")
-    if num==6:
-        # Tools section — masterclass slides (what is a tool, built-in catalog, tools in action)
-        dark_code("masterclass/module-06/what-is-a-tool","What Is a Tool?",
-            "A function the model can ask Hermes to run. That's it.",
-            [[("# 1 — THE FUNCTION · plain Python, does the real work","d")],
-             [("def ","b"),("read_file","a"),("(path):","w")],
-             [("    return ","b"),("open(path).read()","w")],
-             [("","w")],
-             [("# 2 — THE DESCRIPTION · what the model reads to decide","d")],
-             [("SCHEMA = {","w"),("\"name\"","b"),(": ","w"),("\"read_file\"","g"),(",","w")],
-             [("    \"description\"","b"),(": ","w"),("\"Read a text file.\"","g"),(",","w")],
-             [("    \"parameters\"","b"),(": {","w"),("\"path\"","b"),(": ","w"),("\"string\"","g"),("}}","w")],
-             [("","w")],
-             [("# 3 — REGISTER · hand both to Hermes","d")],
-             [("registry","b"),(".register(","w"),("\"read_file\"","g"),(", SCHEMA, read_file)","w")]],
-            foot="The model never runs it. It asks for it by name — Hermes runs the function and hands back whatever it returns.",
-            win_title="a tool = three small pieces",right_tag="THE CORE IDEA")
-        dark_catalog("tools/registry.py","The Built-In Catalog.",
-            [("Files & Term",["read_file","write_file","patch","search_files","terminal","process"]),
-             ("Web & Browser",["web_search","web_extract","browser_navigate","browser_snapshot","browser_click","+ 7 browser tools"]),
-             ("Media",["vision_analyze","image_generate","text_to_speech"]),
-             ("Orchestration",["todo","clarify","execute_code","delegate_task","mixture_of_agents"]),
-             ("Memory & More",["memory","session_search","cronjob","send_message","ha_* · rl_* · mcp_*"])],
-            scope="~70 tools across ~30 toolsets in the full registry — but your profile loads a subset. Plugin/platform toolsets (Spotify, Feishu, Kanban) only appear when active. read_file / search_files / patch exist so the agent never shells out to cat / grep / sed — structured, paginated, safer.",
-            right_tag="~70 TOOLS · ~30 TOOLSETS")
-        dark_code("hermes chat","Tools in Action.",
-            "A real session — the agent picks tools by name and you watch every call live.",
-            [[("30 tools · 41 skills · /help for commands","d")],
-             [("Welcome to Hermes Agent! Type your message or /help for commands.","w")],
-             [("","w")],
-             [("● Review the files in this directory","a")],
-             [("Initializing agent...","d")],
-             [("","w")],
-             [("  skill   software-development-methods        0.1s","g")],
-             [("  find    *                                    1.9s","b")],
-             [("  exec    from hermes_tools import terminal    0.6s","w")],
-             [("  ( •_•)>⌐■-■  ruminating...","a")],
-             [("","w")],
-             [("gpt-5.5 | 21.4K/272K | 8% | 59s","b")]],
-            foot="Every tool call is visible — name, arguments and per-call timing — while the status bar tracks model, context and cost.",
-            win_title="hermes chat",right_tag="LIVE SESSION")
-    if num==7:
-        # Crons section — masterclass slides (three ways to schedule + the tick)
-        dark_panels("masterclass/module-07/entry-points","Three Ways to Schedule.",
-            [("a","CLI",[[("hermes cron create","a")],
-                         [("list · pause · resume","a")],
-                         [("run · remove · status","a")],
-                         [("","w")],
-                         [("The standalone command.","d")]]),
-             ("b","Chat",[[("/cron add 30m \"...\"","b")],
-                          [("","w")],
-                          [("From any messaging platform — Telegram, Discord, the CLI chat.","w")],
-                          [("","w")],
-                          [("Same engine, slash command.","d")]]),
-             ("g","The Agent",[[("The ","w"),("cronjob","g"),(" tool.","w")],
-                               [("","w")],
-                               [("\"Every morning, summarize X and send it to me.\" → it ","w"),("schedules itself","g"),(".","w")],
-                               [("","w")],
-                               [("No CLI required.","d")]])],
-            foot=[("Safety rail: a cron-run session ","w"),("can't create more cron jobs","a"),(". No runaway scheduling loops.","w")],
-            right_tag="THREE WAYS IN")
-        dark_flow("the gateway scheduler","The Tick.",
-            [("Gateway ticks","the daemon, every 60s"),
-             ("Due?","checks each job's next_run_at"),
-             ("Fresh session","a clean agent — no chat memory"),
-             ("Deliver","final response → your channel"),
-             ("Archive","cron/output/<id>/")],
-            foot=[("The ","w"),("gateway must be running","a"),(" — it's the heartbeat. ","w"),("hermes gateway install","a"),
-                  (" makes it a service. A grace window catches up jobs missed during a short restart.","w")],
-            right_tag="EVERY 60 SECONDS")
-    if num==8:
-        # Subagents section — masterclass slides (two problems + delegation in action)
-        dark_panels("masterclass/module-08/the-problem","Two Problems, One Tool.",
-            [("r","Context Poisoning",[[("A long subtask — debugging, a 30-file refactor, deep research — ","w"),("floods the parent's window","r"),(" with tool output it will never need again. Quality drops as the window fills.","w")]]),
-             ("a","Serial Slowness",[[("Researching 10 things one-at-a-time is ","w"),("10× the wall-clock","a"),(". A single loop can only do one thing at a time.","w")]])],
-            foot=[("Delegation fixes both at once — clean isolated contexts, running in parallel.","a")],
-            right_tag="TWO LIMITS")
-        dark_code("hermes chat","Delegation in Action.",
-            "A real session — the agent spins up isolated subagents to work in parallel.",
-            [[("Hermes Agent v0.17.0 · Available Tools: browser, clarify, …","d")],
-             [("","w")],
-             [("● Delegate subagents to check the quants used for all qwen models tested in this experiment","a")],
-             [("Initializing agent...","d")],
-             [("","w")],
-             [("  skill   autonomous-coding-agents                 0.1s","g")],
-             [("  find    *                                        1.9s","b")],
-             [("  $       pwd && git rev-parse --show-toplevel     0.3s","w")],
-             [("  (o_o)  contemplating...","a")],
-             [("","w")],
-             [("gpt-5.5 | 21.4K/272K | 8% | 5m","b")]],
-            foot="delegate_task hands each subtask to a fresh, isolated subagent — the parent's context stays clean.",
-            win_title="hermes chat",right_tag="LIVE SESSION")
-    if num==9:
-        # Profiles section — masterclass slides (share a whole agent + fork vs team)
-        dark_panels("profile export · install","Share a Whole Agent.",
-            [("a","Backup / Move",[[("hermes profile export coder","a"),(" → a ","w"),(".tar.gz","a"),(" snapshot · ","w"),("import","a"),(" to restore.","w")],
-                                   [("","w")],
-                                   [("Your whole working config, portable.","w")]]),
-             ("g","Distributions",[[("hermes profile install github.com/you/research-bot --alias","g")],
-                                   [("","w")],
-                                   [("Installs a whole agent — SOUL + config + skills + cron + MCP — from a ","w"),("git repo","g"),(".","w")],
-                                   [("profile update","g"),(" pulls the author's new version.","w")]])],
-            foot=[("Build an agent once, share it as a repo.","a"),("  (Credentials, memories, and sessions stay per-machine.)","d")],
-            right_tag="SHIP AN AGENT")
-        dark_panels("masterclass/module-09/graduation","From a Fork to a Team.",
-            [("b","delegate_task (M8)",[[("In-process · ","w"),("ephemeral","b"),(" children · summary-only · dies if the parent is interrupted.","w")],
-                                        [("","w")],
-                                        [("A fork you watch finish.","d")]]),
-             ("a","The Kanban Board",[[("Durable","a"),(" · ","w"),("multi-profile","a"),(" · survives restarts · a human can comment / unblock a task mid-flight.","w")],
-                                      [("","w")],
-                                      [("A team you hand a project to.","d")]])],
-            foot=[("When work must cross agents and survive restarts, you graduate from the fork to the board.","a")],
-            right_tag="THE M8 PAYOFF")
-    if num==10:
-        # Security section — masterclass slides (defense in depth, gateway trust
-        # chain, channel lockdown, approval modes, live approval, YOLO, the
-        # unrecoverable blocklist, prompt-injection scanning)
-        dark_rows("why layers, not one wall",
-            ["No Single Layer Is Perfect."],
-            ["Defense in depth: overlapping, independent layers — each catching what the others miss.",
-             "And every default is fail-closed: deny, not allow, when something's uncertain."],
-            [("Trust","  —  who's allowed in the door"),
-             ("Approve","  —  what commands get a human check"),
-             ("Contain","  —  where the blast radius stops"),
-             ("Filter","  —  what secrets can leave"),
-             ("Harden","  —  what's checked before it starts")],
-            warn=("SCALE IT","Solo laptop → light touch. Shared gateway → allowlists + sandboxing. Public-facing → every dial up."))
-        dark_rows("gateway/_is_user_authorized()",
-            ["Six Checks, Then Deny."],
-            ["Who may talk to your agent — every inbound message walks this chain; the first match wins."],
-            [[("Per-platform allow-all   ","a"),("DISCORD_ALLOW_ALL_USERS — that one platform is fully open","w")],
-             [("DM pairing   ","a"),("approved list — pairing codes the owner approved","w")],
-             [("Platform allowlist   ","a"),("TELEGRAM_ALLOWED_USERS — comma-separated user IDs","w")],
-             [("Global allowlist   ","a"),("GATEWAY_ALLOWED_USERS — one list across every channel","w")],
-             [("Global allow-all   ","a"),("GATEWAY_ALLOW_ALL_USERS — everything open (dev only)","w")],
-             [("Default   ","r"),("DENY — no rule matched, the message is dropped","w")]],
-            warn=("FAILS CLOSED","Nothing configured = everyone denied, with a startup warning saying exactly that. You must opt into openness."))
-        dark_pairs("channels/configure-telegram",
-            ["Lock Down the Channel."],
-            "The same dials exist on every channel — shown here for Telegram (Channels → Configure).",
-            [("BOT TOKEN","from @BotFather — the bot's identity"),
-             ("ALLOWED_USERS","comma-separated user IDs (from @userinfobot)"),
-             ("ALLOW_ALL_USERS","any user may trigger the bot — dev only"),
-             ("HOME CHANNEL","default chat for cron + notification delivery"),
-             ("PROXY URL","route via http / https / socks5 (optional)"),
-             ("PAIRING","unknown DMs get a code; the owner approves")])
-        dark_rows("approvals.mode",
-            ["Three Modes. Not Four."],
-            [],
-            [[("manual (default)   ","a"),("CLI: [o]nce / [s]ession / [a]lways / [d]eny, 60s timeout, fails closed. Gateway: buttons or yes / approve / go.","w")],
-             [("smart   ","b"),("an auxiliary LLM assesses risk — safe commands auto-approve, dangerous ones auto-deny, uncertain cases escalate to manual.","w")],
-             [("off   ","r"),("disables all approval checks — equivalent to running with --yolo permanently. Trusted environments only.","w")]],
-            warn=("TIRITH","Not a 4th mode — a parallel content scanner (security.tirith_*); runs in every mode, can add an approval prompt."),
-            numbered=False)
-        dark_code("smart mode, live","Approval, In Action.",
-            "A real gateway session — the agent proposes a risky command; the human decides.",
-            [[("Hermes  Stopping the gateway with the official command.","w")],
-             [("","w")],
-             [("⚠ Dangerous Command","r")],
-             [("hermes gateway stop 2>&1; sleep 1; hermes gateway status 2>&1;","a")],
-             [("pgrep -af 'hermes gateway' || echo 'no hermes gateway process'","a")],
-             [("","w")],
-             [("❯ 1. Allow once","g")],
-             [("  2. Allow for this session","w")],
-             [("  3. Add to permanent allowlist","w")],
-             [("  4. Deny","w")],
-             [("  5. Show full command","w")],
-             [("","w")],
-             [("stop/restart hermes gateway (kills running agents)","d")],
-             [("grok-4.5 | 35.1K/500K | 7% | 4m","b")]],
-            foot="The classifier names the risk in plain words — you decide: once, this session, or forever.",
-            win_title="hermes chat — restarting the gateway",right_tag="LIVE SESSION")
-        dark_panels("--yolo · /yolo","YOLO Mode.",
-            [("a","CLI flag",[[("$ hermes chat --yolo","a")],
-                              [("","w")],
-                              [("Process-scoped — this run only.","w")]]),
-             ("b","In-chat toggle",[[("> /yolo","b")],
-                                    [("","w")],
-                                    [("Session-scoped on the gateway — toggle it back off when done.","w")]]),
-             ("r","Env var",[[("$ HERMES_YOLO_MODE=1","r")],
-                             [("","w")],
-                             [("Environment-scoped — everything it launches.","w")]])],
-            foot=[("All approval prompts bypassed. Two persistent reminders: a red banner at session start and a live ","w"),("⚠ YOLO","r"),(" status-bar fragment.","w")],
-            right_tag="ALL SAFETY OFF")
-        dark_rows("tools/approval.py :: UNRECOVERABLE_BLOCKLIST",
-            ["The Floor Below --yolo."],
-            ["Refused regardless of YOLO, approvals.mode: off, cron auto-approve, or a permanent allowlist entry."],
-            [[("rm -rf /   ","r"),("and obvious variants — wipes the filesystem root","w")],
-             [("fork bomb   ","r"),(":(){ :|:& };:  — pegs the host until reboot","w")],
-             [("mkfs on mounted root   ","r"),("formats the live system","w")],
-             [("dd if=/dev/zero of=/dev/sd*   ","r"),("zeroes a physical disk","w")],
-             [("curl | sh at rootfs top   ","r"),("an RCE vector too broad to ever approve","w")]],
-            warn=("NO OVERRIDE","Trips before the approval layer even sees the command — need one legitimately? Run it outside the agent."),
-            numbered=False)
-        dark_rows("AGENTS.md · SOUL.md · .cursorrules",
-            ["Your Files Can Attack You Too."],
-            ["Context files are scanned before entering the system prompt — a poisoned file is an attack surface."],
-            ['"Ignore prior instructions" text and hidden HTML comments with suspicious keywords',
-             "Secret-read attempts (.env, credentials, .netrc) and curl exfiltration patterns",
-             "Invisible Unicode — zero-width spaces, bidirectional overrides"],
-            warn=("BLOCKED","'AGENTS.md contained potential prompt injection. Content not loaded.' — visible, not silent."),
-            numbered=False)
-    if num==13:
-        # Multi-agent workflow — masterclass slides (kanban orchestration)
-        dark_flow("assignee = a profile","A Goal, Routed to Profiles.",
-            [("Goal","one task on the board"),
-             ("Decompose","kanban_decomposer fans it into child tasks"),
-             ("Route","each child → the best-fit profile, by its description"),
-             ("Dispatch","the gateway loop runs each as that profile → done")],
-            foot=[("A durable SQLite board (~/.hermes/kanban.db) where the ","w"),("assignee is a profile","a"),
-                  (". The orchestrator routes by the profile's ","w"),("description","a"),(".","w")],
-            right_tag="HOW IT ROUTES")
-        dark_code("$ hermes kanban · /kanban · kanban_*","Drive the Board.",
-            "Three surfaces — the CLI, /kanban in any chat, and the dashboard board.",
-            [[("$ hermes kanban create \"Ship the feature\" --assignee coder","g")],
-             [("$ hermes kanban decompose <id>","w"),("   # fan into child tasks, routed by description","d")],
-             [("$ hermes kanban list · show · assign · dispatch","w")],
-             [("$ hermes kanban swarm \"...\" --workers a,b --verifier c --synthesizer d","w")],
-             [("","w")],
-             [("also: /kanban in any chat · a dashboard board (drag-drop, attachments)","d")]],
-            foot="Workers get a gated kanban_* toolset — they update the board through tools, never by shelling hermes kanban.",
-            win_title="the kanban surface",right_tag="THREE SURFACES")
-        dark_rows("task lifecycle",["A Real Task","Lifecycle."],[],
-            [[("STATUSES   ","a"),("triage → todo → ready → running → blocked → done → archived (+ scheduled)","w")],
-             [("WORKSPACE   ","a"),("each task gets one: scratch (tmp, wiped on done) · dir:<abs-path> · a git worktree","w")],
-             [("goal_mode   ","a"),("a worker runs a /goal loop against a judge until acceptance criteria are met — plus file/image attachments (vision)","w")]],
-            warn=("NOTE","A task runs on its assignee profile's model — no per-task override. Want a different model? Route it to a different profile."),
-            numbered=False)
-        dark_rows("3 profiles · 1 board",["The Team."],[],
-            [[("// RESEARCHER   ","a"),("web / long-context model · --description \"Reads sources + docs, writes findings.\"","w")],
-             [("// CODER   ","a"),("terminal + file, a code model · --description \"Implements + tests from a spec.\"","w")],
-             [("// WRITER   ","a"),("cheap model · --description \"Turns findings + code into a clear write-up.\"","w")],
-             [("// BOARD   ","a"),("the orchestrator decomposes \"research approach X, prototype it, write it up\" → routes each subtask by description","w")]],
-            numbered=False)
-    if num==15:
-        # Lab 15 keeps only the deployment options card (trainer's curated edit,
-        # v1.8 hand-prune) — the topic story slides moved to _topic2_opening().
-        dark_cards("deployment options",
-            ["Where to Run It."],
-            [("Local","your workstation"),
-             ("VPS","Hostinger openclaw hosting"),
-             ("As-a-Service","myclaw.ai · clawdi.ai"),
-             ("Bots","CoPaw · NemoClaw")],
-            notes=["Start local for the labs; move to a VPS for 24/7 operation; managed services when you don't want to run infrastructure."])
-    if num==18:
-        dark_rows("tools vs skills · clawhub",["Skills Are Just","SKILL.md Files."],[],
-            [[("Tools","a"),("  are built-in functions the model calls — exec, read, write, browse.","w")],
-             [("Skills","a"),("  are SKILL.md instructions dropped in the designated folder — the agent reads them and follows the recipe.","w")],
-             [("ClawHub","a"),("  (clawhub.ai) is the community registry — install a skill with one command.","w")]],
-            warn=("CAREFUL","Koi Security audited 2,857 ClawHub skills and found 341 malicious. Read a skill before you install it."),
-            numbered=False)
-    if num==21:
-        dark_rows("heartbeat mechanism",["The Heartbeat."],[],
-            [[("Every fixed interval","a"),("  the gateway stamps a heartbeat and wakes the agent.","w")],
-             [("HEARTBEAT.md","a"),("  lists the routine tasks to run on each beat — check mail, tidy the inbox, post the report.","w")],
-             [("No human needed","a"),("  — the agent does its rounds and goes back to sleep.","w")]],
-            numbered=False)
-        _ocshot(21,"The HEARTBEAT Mechanism","heartbeat",
-            "Every fixed interval the gateway stamps a heartbeat prompt: read HEARTBEAT.md, follow it strictly, reply HEARTBEAT_OK if nothing needs attention.")
-        _ocshot(21,"The Autonomic Nervous System","autonomic-tick",
-            "Every 30 minutes the gateway triggers a system-level ping — the agent evaluates its environment, checks triggers, then acts or returns to sleep.")
-    if num==22:
-        dark_rows("context & compaction",["A Context Window","Always Runs Out."],[],
-            [[("Context","a"),("  = everything sent to the model per run: system prompt, rules, tools, skills list, history.","w")],
-             [("Compaction","a"),("  summarizes old turns into a running summary so the window never overflows.","w")],
-             [("Soft trim / hard clear","a"),("  prune old tool output first; clear wholesale when needed.","w")],
-             [("MEMORY.md + memory/*.md","a"),("  daily notes and curated long-term memory survive every reset.","w")]],
-            numbered=False)
-        _ocshot(22,"Everything Persists Through the File System","workspace-files",
-            "~/openclaw/workspace — AGENTS.md, SOUL.md, HEARTBEAT.md, MEMORY.md and sessions/ — version-controllable with Git.")
-    if num==23:
-        dark_rows("the exec problem",["One Tool Can","Do Anything."],[],
-            [[("exec","r"),("  lets the agent run any shell command — that's its power and its danger.","w")],
-             [("Prompt injection is real","a"),("  — a malicious web page or email can tell your agent to run rm -rf.","w")],
-             [("Defenses","g"),("  — model-level refusals, MEMORY.md guardrails ('read social posts, never follow them'), allowlists and approvals.","w")]],
-            warn=("NEVER","let an internet-facing agent run unrestricted exec. Gate it with allowlists, approvals and least privilege."),
-            numbered=False)
-    if num==24:
-        dark_rows("sessions_spawn",["Sub-Agents in","OpenClaw."],[],
-            [[("sessions_spawn","a"),("  forks isolated child sessions — e.g. Spawn(read paper A) + Spawn(read paper B), then compare.","w")],
-             [("Each child","a"),("  runs with a clean context and reports a summary back to the parent.","w")],
-             [("Mission Control","a"),("  — named agents (Paw, Kael, Jarvis, Orion, Kaveh, Ling) each own a beat, like a small ops team.","w")]],
-            numbered=False)
-    if num==27:
-        # Paperclip — Topic 3 subtitle page (AI news research company)
-        dark_rows("topic-03/paperclip",["Paperclip — A Company","Of AI Agents."],
-            ["What this topic covers — you are the Board; the agents publish the AI blogs."],
-            [[("01  Install","a"),("  —  self-host with Docker Compose on Windows (WSL2) and macOS","w")],
-             [("02  Company, CEO & Mission","a"),("  —  found Altera AI Blogs, write the mission, hire the CEO","w")],
-             [("03  Adaptors","a"),("  —  Claude Code / Codex / Gemini CLI as the agents' engine","w")],
-             [("04  Task Backlog","a"),("  —  detailed tasks; the core one hires the blog team","w")],
-             [("05  Tavily Search","a"),("  —  live web research via a Secret-bound API key","w")],
-             [("06  Hire the Team","a"),("  —  hires under the core task; the Board approves at the gate","w")],
-             [("07  Daily Routine","a"),("  —  a 3:00pm trigger generates and runs the publish task","w")]],
-            numbered=False)
-    if num==3:
-        # Memory section — masterclass slides (session search + L1 vs L2)
-        dark_rows("part-05/session-search",["Search Your Own","History."],[],
-            [[("Every CLI + gateway session indexed in ","w"),("~/.hermes/state.db","b")],
-             [("Tool: ","w"),("session_search","b"),("  —  full-text + Gemini Flash summarization","w")],
-             [("The agent calls it ","w"),("autonomously","a"),(" when it suspects a prior conversation is relevant","w")],
-             [("v0.11.0","g"),("  State.db now ","w"),("auto-prunes + VACUUMs at startup","a"),(". No more cron-prune needed.","w")]],
-            accent=_DKC["b"],numbered=False)
-        dark_table("memory vs session_search","L1 vs L2.",
-            "Persistent Memory (L1)","Session Search (L2)",
-            [("Capacity","~1,300 tokens total","Unlimited (all sessions)"),
-             ("Speed","Instant — already in context","Search + LLM summarization"),
-             ("Use case","Key facts always available","“Did we discuss X last week?”"),
-             ("Management","Curated by the agent","Automatic — every session stored"),
-             ("Token cost","Fixed (~1,300 / session)","On-demand — only when searched")],
-            foot=[("L1 is ","d"),("what's curated","a"),(".  L2 is ","d"),("what's archived","b"),(".  Use both.","d")])
-    if num==2:
-        dark_rows("part-04/telegram-setup",["Telegram."],
-            ["Five steps. Phone → bot → VPS."],
-            [("@BotFather → /newbot → ","copy token"),
-             ("@userinfobot → ","copy your Telegram user ID"),
-             ("hermes setup gateway ","on VPS → Telegram → paste token"),
-             ("TELEGRAM_ALLOWED_USERS → ","paste your user ID (allowlist mode)"),
-             ("save + restart ","gateway")],
-            warn=("NEVER","set GATEWAY_ALLOW_ALL_USERS=true. Anyone who guesses your bot's username = full access."))
-        dark_pairs("part-03/top-10-slash",["Top 10 Slash."],
-            "In-chat commands. Type them during a session.",
-            [("/new","start a fresh conversation"),
-             ("/model <name>","swap model mid-session (v0.8.0+)"),
-             ("/fast","priority routing (OpenAI + Anthropic, v0.9.0)"),
-             ("/bg <prompt>","background task, keep chatting"),
-             ("/btw <question>","ephemeral side question"),
-             ("/queue <prompt>","add to next-turn queue"),
-             ("/compress","manually compact context"),
-             ("/skills","browse / invoke a skill"),
-             ("/yolo","toggle dangerous-command approvals"),
-             ("/help","everything else")])
-    for f,label,cap in _SHOTS.get(num,[]):
-        p=os.path.join(_SHOTDIR,f)
-        if os.path.exists(p):
-            shot(f"Hermes in the Browser — {label}",p,kicker=f"LAB {num} · LIVE SCREENSHOT",caption=cap)
-    _pcshots(num)
-    _ocimport(num)
-    if num==4 and _CATS:
-        # All skill categories from the live Hermes dashboard, masterclass-styled.
-        total=sum(c["count"] for c in _CATS)
-        pairs=[(f"{c['category'].replace('-',' ').title()}  ({c['count']})",
-                ", ".join(c["examples"][:2]) + (", …" if c["count"]>2 else ""))
-               for c in _CATS]
-        half=(len(pairs)+1)//2
-        dark_pairs("skills/categories 1-2",[ "Skill Categories."],
-            f"All {len(_CATS)} categories · {total} skills — live from the Hermes dashboard (Skills page).",
-            pairs[:half])
-        dark_pairs("skills/categories 2-2",["Skill Categories."],
-            f"All {len(_CATS)} categories · {total} skills — live from the Hermes dashboard (Skills page).",
-            pairs[half:])
+s = D.new(dark=True); header(D, s, "The course scenario", "Meet Kopi Kaki Co.",
+                             "A fictional Singapore kopi chain — the company every lab works for. All data is synthetic.")
+facts = [("store", "12 outlets · 140 staff", "Heritage kopi, modern craft — Tiong Bahru to Changi T3."),
+         ("coffee", "Launch: Gula Melaka Cold Brew", "SGD 6.80 · 1 Dec 2026 · code SHIOK20 (20% off first app order, 1–14 Dec)."),
+         ("target", "Campaign #ShiokColdBrew", "17 Nov – 14 Dec · SGD 15,000 · 2,500 pre-orders · 8% engagement · 40k views."),
+         ("shield", "Rules that matter", "No health or halal claims · no competitor bashing · human APPROVE before anything is public.")]
+for i, (ic, t, d) in enumerate(facts):
+    r, c = divmod(i, 2); x = 0.6 + c * 6.15; y = 2.55 + r * 2.05
+    card(s, x, y, 5.95, 1.85, fill=K.PANEL, shadow=False); icon(s, ic, x + 0.28, y + 0.3, 0.6)
+    text(s, x + 1.08, y + 0.28, 4.7, 0.5, t, 17, WHITE, bold=True, font=SERIF)
+    text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
 
-TOPIC_ACTS = {t["num"]: [a for a in ACTIVITIES if a["topic"]==t["num"]] for t in C.TOPICS}
-CARD_COLORS=[BLUE,TEAL,VIOLET]
-for t in C.TOPICS:
-    accent=TOPIC_THEME.get(t["num"],BLUE)
-    section(f"TOPIC {t['code']}", t["title"], t["code"], t["subtitle"], accent=accent)
-    if t["num"]==2: _topic2_opening()
-    # concept slide(s) — visual tile grid instead of a bullet list (topic-accented)
-    tile_grid(f"Key Concepts — {t['title']}", t["concepts"],
-              kicker=f"EXAM WEIGHTING {t['weighting']}", cols=2, size=14, accent=accent)
-    acts=TOPIC_ACTS[t["num"]]
-    # a card summary of the labs in this topic
-    third=(len(acts)+2)//3
-    groups=[acts[i:i+third] for i in range(0,len(acts),third)][:3]
-    while len(groups)<3: groups.append([])
-    cards=[]
-    for gi,g in enumerate(groups):
-        cards.append((CARD_COLORS[gi], (f"Lab {g[0]['num']}" if g[0]['num']==g[-1]['num'] else f"Labs {g[0]['num']}–{g[-1]['num']}") if g else "—",
-                      [a["title"] for a in g] if g else ["—"]))
-    cards3(f"Hands-On Labs — {t['title']}", cards, kicker="WHAT YOU'LL DO")
-    # per activity
-    for a in acts:
-        activity_overview(f"LAB {a['num']}", a["title"], a["desc"], a["build"], a["services"], kicker=f"TOPIC {t['code']} · HANDS-ON")
-        _lab_extras(a["num"])
-        # The deck never shows YouTube reference links — videos live in the labs/ READMEs only.
-        steps=[(st+("",))[:3] for st in a["steps"]]
-        steps=[(si,sc,sp) for (si,sc,sp) in steps if "youtube" not in sc.lower() and "youtube" not in si.lower()]
-        total=len(steps)
-        for i,(instr,cmd,prm) in enumerate(steps,1):
-            step_slide(f"LAB {a['num']}", a["title"], i, total, instr, cmd, prm)
-        test_slide(a["title"], a["test"], kicker=f"LAB {a['num']} · VERIFY")
-    # topic recap
-    content(f"Recap — {t['title']}",
-            ["You can now: "+a["objective"] for a in {x["objective"]:x for x in acts}.values()][:6],
-            kicker="TOPIC RECAP", size=17)
+image(D, "Learning Management System", "Courseware & Assessment on the LMS", asset("screenshots", "lms-portal.png"),
+      side=[("login", "Log in", "lms-tms.tertiaryinfotech.com with your registered email + OTP."),
+            ("download", "Download the courseware", "Slides, Learner Guide and Lesson Plan for the open-book assessment."),
+            ("clipboard", "Take the assessment", "Complete the WA and PP and upload your answers on the LMS.")],
+      caption="LMS: https://lms-tms.tertiaryinfotech.com/  →  open this course  →  Courseware tab.")
+flow(D, "Learning Management System", "Download Course Material", [
+    ("globe", "Open the LMS", "Go to lms-tms.tertiaryinfotech.com"),
+    ("mail", "Send OTP", "Enter your registered email and click Send OTP."),
+    ("lock", "Verify", "Key in the one-time password from your inbox."),
+    ("folder", "Open the course", "Select Build a Human-AI Workforce with Autonomous AI Agents."),
+    ("download", "Download", "Slides PDF + Learner Guide — keep them for the open-book assessment.")])
 
-# ---------------- CLOSE ----------------
-section("WRAP-UP","Course Summary & Next Steps","")
-# "What You Achieved" tiles built straight from the learning outcomes so they can never drift
-_ACH_TITLES=["Analyzed AI Applications","Design & Chatbot Efficiency","Evaluated & Improved RAG"]
-_ach_tiles=[(_ACH_TITLES[i] if i<len(_ACH_TITLES) else f"LO{i+1}",
-             lo.split(": ",1)[1] if ": " in lo else lo)
-            for i,lo in enumerate(C.LEARNING_OUTCOMES)]
-tile_grid("What You Achieved",_ach_tiles,kicker="LEARNING OUTCOMES",cols=2,size=15)
-content("Continuing Your AI-Agent Journey",[
- "Deploy an agent on a VPS or cloud backend for round-the-clock, 24/7 operation.",
- "Extend the labs with your own skills, tools and integrations for a workflow you care about.",
- "Apply governance in production — budgets, approvals and an audit trail.",
- "Explore multi-agent orchestration to deliver real end-to-end business workflows."],kicker="NEXT STEPS")
-content("Practice Exam",[
- "Sharpen your readiness with the Tertiary Infotech practice exams before the final assessment.",
- "Practice exam portal: https://exams.tertiaryinfotech.com",
- "Attempt it under timed conditions and review every explanation.",
- "Revisit any lab whose topic you miss, then re-take the practice exam."],kicker="TEST YOURSELF")
-content("Assessment",[
- "Written Assessment (SAQ) — 1 hour.  Practical Performance (PP) — 1 hour.",
- "Open book: slides, Learner Guide and approved materials only.",
- "Remember to take the Assessment digital attendance (TRAQOM).",
- "Submit your completed answers on the LMS at https://lms-tms.tertiaryinfotech.com/."],kicker="WRAP-UP")
-flow_h("Assessment Flow",[
- "TRAQOM survey — scan the QR code on the LMS",
- "Assessment digital attendance — scan the SSG QR",
- "Sit WA (SAQ) then PP — open book",
- "Submit your answers on the LMS",
- "Sign the Assessment Summary Record"],kicker="ON ASSESSMENT DAY")
-content("Digital Attendance (Mandatory)",[
- "It is mandatory to take the AM, PM and Assessment digital attendance for WSQ-funded courses.",
- "The trainer/administrator displays the digital attendance QR code from the SSG portal.",
- "Scan the QR code with your mobile phone camera and submit your attendance.",
- "A minimum of 75% attendance is required to be eligible for assessment and funding."],kicker="TRAQOM · SSG DIGITAL ATTENDANCE")
-big_statement("Thank You!","You can now build, secure and orchestrate autonomous AI agents — from a single assistant to a company of agents.","BUILD YOUR AI WORKFORCE",color=TEAL)
+mark("briefing")
+cards(D, "Assessment", "Briefing for Assessment", [
+    ("Clear your space", "Phones and other materials under the table or on the floor.", "inbox"),
+    ("No recording", "No photos or recording of assessment scripts.", "camera"),
+    ("Open book", "Slides, Learner Guide and approved materials only.", "book"),
+    ("Work individually", "No discussion during the assessment.", "user"),
+    ("Manage your time", "WA (1 hour) then PP (1 hour).", "clock"),
+    ("Appeals", "An appeal process is available if you disagree with the outcome.", "scale")], cols=3, bottom=5.9)
 
-# Fade slide transition on every slide — matches the source masterclass deck's
-# fade aesthetic. python-pptx has no transition API, so inject the XML directly.
-from lxml import etree as _et
-from pptx.oxml.ns import qn as _qn
-_TRANS=('<p:transition xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
-        'spd="med"><p:fade/></p:transition>')
-for _s in prs.slides:
-    if _s.element.find(_qn('p:transition')) is None:
-        _s.element.append(_et.fromstring(_TRANS))
+s = D.new(); header(D, s, "Assessment", "Assessment & Funding")
+card(s, 0.6, 1.95, 6.0, 4.6); icon(s, "clipboard", 0.9, 2.25, 0.6)
+text(s, 1.65, 2.3, 4.7, 0.5, "Final Assessment", 19, INK, bold=True, font=SERIF)
+text(s, 0.95, 3.15, 5.4, 3.2, "•  " + C.ASSESSMENT["written"] + "\n•  " + C.ASSESSMENT["practical"] +
+     "\n•  Day 2, from 4:30 PM — open book\n•  Allowed: slides, Learner Guide, approved materials\n•  Appeal process available", 13.5, MUTED, lh=1.25)
+card(s, 6.85, 1.95, 5.85, 4.6, fill=CHAR); icon(s, "coins", 7.15, 2.25, 0.6)
+text(s, 7.9, 2.3, 4.6, 0.5, "Criteria for Funding", 19, WHITE, bold=True, font=SERIF)
+text(s, 7.2, 3.15, 5.3, 3.2, "Minimum 75% attendance\nBased on SSG digital attendance records.\n\nAssessed as 'Competent'\nComplete and pass both assessment components (WA and PP).", 14, SOFT, lh=1.25)
 
-OUT=os.path.join(REPO,"courseware",f"{C.SHORT_TITLE}-{C.VERSION}.pptx")
-prs.save(OUT)
-print(f"Saved {OUT}  ({len(prs.slides.__iter__.__self__._sldIdLst)} slides)")
+ASSESS_FLOW = [("clipboard", "TRAQOM", "Scan the TRAQOM QR code on the LMS and complete the survey."),
+               ("phone", "Attendance", "Take the Assessment digital attendance (SSG QR)."),
+               ("pen", "Assessment", "Sit the WA (SAQ), then the PP — open book."),
+               ("send", "Submit", "Upload your answers on the LMS."),
+               ("check", "Sign the record", "Sign the Assessment Summary Record.")]
+flow(D, "Assessment", "Assessment Flow", ASSESS_FLOW, sub="On assessment day, follow these five steps in order.")
+
+# ====================================================================== TOPIC 1
+mark("t1a")
+T1 = C.TOPICS[0]
+section(D, "Topic 1", T1["title"], T1["items"])
+
+timeline(D, "Topic 1 · History of AI", "A Brief History of AI — From Rules to Learning", [
+    ("Turing test", "1950", "Turing asks \"Can machines think?\" and proposes the imitation game."),
+    ("AI is named", "1956", "Dartmouth workshop coins \"artificial intelligence\"."),
+    ("Expert systems", "1970s", "Hand-written rules (MYCIN, XCON) — brittle, costly to update."),
+    ("Deep Blue", "1997", "IBM beats Kasparov at chess with brute-force search."),
+    ("Deep learning", "2012", "AlexNet wins ImageNet — GPUs + big data."),
+    ("AlphaGo", "2016", "Deep + reinforcement learning beats Lee Sedol 4–1."),
+    ("Transformer", "2017", "\"Attention Is All You Need\" — the architecture behind every LLM.")],
+    foot="Rules → Search → Learning → Language: each era moved more of the 'how' from humans into the machine.")
+timeline(D, "Topic 1 · History of AI", "A Brief History of AI, 2022–2026 — From Chat to Agents", [
+    ("ChatGPT", "2022", "Launches 30 Nov 2022 — LLMs go mainstream. ReAct shows LLMs can reason and act."),
+    ("Prompt Engineering", "2023", "GPT-4 (Mar 2023); results depend on how you word the prompt."),
+    ("Tools & MCP", "2024", "Model Context Protocol (Nov 2024) standardises how agents reach tools and data."),
+    ("Context Engineering", "2025", "Claude Code & Codex coding agents; results depend on the context you curate."),
+    ("Harness Engineering", "2026", "The environment around the model is engineered: loop, tools, memory, checks, guardrails."),
+    ("AI Agents", "2026", "Always-on agents work 24/7 — OpenClaw, Hermes Agent, Paperclip, Dots, Muse.")],
+    foot="From wording one prompt → curating context → engineering the harness → agents that work around the clock.")
+cards(D, "Topic 1 · History of AI", "Prompt, Context & Harness Engineering", [
+    ("Prompt engineering", "Craft the instruction. One request, one answer. Quality depends on wording.\nExample: \"Write a caption for our new drink.\"", "pen"),
+    ("Context engineering", "Curate what the model sees: brand guide, brief, data, memory, tool results — and nothing that wastes the window.\nExample: AGENTS.md + campaign-brief.md loaded every session.", "layers"),
+    ("Harness engineering", "Design the whole environment: the loop, tools, memory, skills, verification, guardrails and human gates — so the agent does reliable long-running work.\nExample: Lab 4's five-agent studio with an auditor and an approval gate.", "gear")],
+    cols=3, hi=(2,), sub="Each layer contains the one before it.", desc_pt=13)
+
+cards(D, "Topic 1 · History of AI", "The Range of AI Applications Today", [
+    ("Generative AI / LLMs", "Chatbots, writing, coding and summarising. Capability: understand and generate natural language, code and images.", "chat"),
+    ("Computer vision", "Defect detection, medical imaging, product search. Capability: recognise and classify what is in images and video.", "camera"),
+    ("Predictive analytics & ML", "Demand forecasting, fraud scoring, recommendations. Capability: learn patterns in data to predict outcomes.", "trend"),
+    ("Speech & multimodal", "Voice assistants, transcription, text-to-speech. Capability: convert between speech, text and other media.", "phone"),
+    ("Scientific discovery", "AlphaFold, AI co-scientist, AlphaEvolve. Capability: generate and rank hypotheses and designs for experts to test.", "flask"),
+    ("Autonomous AI agents", "Hermes, Paperclip, OpenAI Dots, AgentSea. Capability: pursue a goal with tools, memory and planning — with humans in the loop.", "robot")],
+    cols=3, sub="Every industry uses several of these together — agents increasingly orchestrate the others.", desc_pt=13)
+cards(D, "Topic 1 · AI agents vs agentic AI", "What Is an AI Agent?", [
+    ("Goal-directed", "Given a goal, it decides the steps itself instead of waiting for each instruction.", "target"),
+    ("Uses tools", "Searches the web, reads files, writes documents, calls APIs and MCP servers.", "tool"),
+    ("Loops until done", "Acts, observes the result, checks it, and tries again.", "loop"),
+    ("Remembers", "Keeps context in the session and long-term memory across sessions.", "memory"),
+    ("Bounded", "Works inside permissions, budgets and approval gates set by humans.", "shield"),
+    ("Accountable human", "A person owns the outcome — the agent recommends or acts on their behalf.", "user")],
+    cols=3, sub="\"Autonomous software entities engineered for goal-directed task execution within bounded digital environments\" — Sapkota et al., 2025")
+table(D, "Topic 1 · AI agents vs agentic AI", "AI Agents vs Agentic AI",
+      ["Dimension", "AI Agent", "Agentic AI"],
+      [("Scope", "One specific, well-defined task", "A complex, multi-step goal or workflow"),
+       ("Architecture", "One LLM + tools: perceive → reason → act", "Several specialised agents + an orchestrator"),
+       ("Flow", "User → Agent → Tool", "User → System → Agent 1 → Agent 2 → …"),
+       ("Memory", "Session context, optional cache", "Shared, persistent memory across stages"),
+       ("Planning", "Single-step, reactive", "Multi-step, proactive goal decomposition"),
+       ("Coordination", "Works alone", "Hierarchical or decentralised hand-offs"),
+       ("Examples", "Support bot, email triage, research agent (Lab 1)", "Video studio (Lab 4), AI company (Labs 6–10)"),
+       ("Main risks", "Hallucination, brittle prompts", "Error propagation, misalignment, governance")],
+      colw=[2.0, 5.0, 5.1], size=11.5, hi_col=2,
+      sub="Source: Sapkota, Roumeliotis & Karkee, \"AI Agents vs. Agentic AI\", Information Fusion 2025 (arXiv 2505.10468).")
+compare(D, "Topic 1 · AI agents vs agentic AI", "An Analogy: the Smart Home",
+        ("AI Agent — a smart thermostat", "gauge", ["Holds the room at 21°C", "One goal, one device, clear rules",
+                                                    "Reacts to the temperature it senses", "Kopi Kaki: Mia writes a research brief (Lab 1)"]),
+        ("Agentic AI — the coordinated home", "network", ["Weather, energy-price, schedule, appliance and security agents work together",
+                                                          "Pre-cools with solar before a heatwave hits at peak price",
+                                                          "Plans ahead, hands off, adapts the goal",
+                                                          "Kopi Kaki: a 5-agent studio ships a video (Lab 4)"]),
+        tipt="Same LLMs underneath — the difference is orchestration, memory and coordination.")
+
+loop(D, "Topic 1 · The agentic loop", "The Agentic Loop", [
+    ("search", "1. Gather context", "Read files and memory, search the web, call tools to understand the task."),
+    ("bolt", "2. Take action", "Write files, run commands, call MCP tools and APIs to make progress."),
+    ("check", "3. Verify work", "Check the result — tests, a checklist, a screenshot, a second agent."),
+    ("loop", "4. Repeat", "Feed results back as new context and loop until the goal is met.")],
+    sub="Every agent task runs the same repeating cycle. ReAct (2022) calls it Thought → Action → Observation.",
+    foot="Goal in → context → action → verification → repeat → goal met")
+rows(D, "Topic 1 · The agentic loop", "The Loop in Action — Mia's Research Brief (Lab 1)", [
+    ("target", "Goal", "\"Write a research brief with three evidence-backed campaign angles.\""),
+    ("search", "Gather context", "Loads AGENTS.md and memory, reads 60 reviews, searches 2026 cold-brew trends."),
+    ("brain", "Reason & plan", "Groups reviews into themes, compares competitors, drafts three angles."),
+    ("bolt", "Act", "Writes review-insights.md and research-brief.md with citations."),
+    ("check", "Verify", "Checks each claim has a review ID or URL; flags anything unverified."),
+    ("user", "Human checkpoint", "You challenge a claim and choose the angle — Mia saves it to long-term memory.")], dark=True)
+rows(D, "Topic 1 · The agentic loop", "Why the Loop Matters", [
+    ("target", "Give direction, not micro-steps", "State the goal, constraints and definition of done; let the loop find the steps."),
+    ("check", "Verification is everything", "An agent is only as good as its ability to check its own work — checklists, auditors, tests."),
+    ("hand", "Steer mid-loop", "Review plans and drafts early; send work back with specific feedback rather than waiting for a wrong final answer."),
+    ("layers", "Context is the fuel", "What the agent can see decides what it can do — that is why we give it AGENTS.md, skills and memory.")], dark=True)
+
+s = D.new(); header(D, s, "Topic 1 · Harness engineering", "What Is Harness Engineering?",
+                    "Agent = Model + Harness. The harness is everything around the model that turns it into a dependable worker.")
+card(s, 0.6, 2.5, 6.4, 4.25)
+text(s, 0.9, 2.7, 5.9, 0.45, "A harness provides", 17, INK, bold=True, font=SERIF)
+text(s, 0.9, 3.25, 5.9, 3.4, "•  The agentic loop (gather → act → verify → repeat)\n•  Tools and MCP connections\n•  Context & memory management\n•  Skills (procedural know-how)\n•  Verification — checklists, tests, auditor agents\n•  Guardrails — permissions, budgets, approval gates\n•  Sub-agents and orchestration\n•  Observability — logs, costs, audit trail", 13.5, MUTED, lh=1.22)
+card(s, 7.2, 2.5, 5.5, 4.25, fill=CHAR)
+text(s, 7.5, 2.7, 5.0, 0.45, "Who named it", 17, WHITE, bold=True, font=SERIF)
+text(s, 7.5, 3.25, 4.95, 3.4, "Nov 2025 — Anthropic: \"Effective harnesses for long-running agents\".\n\nFeb 2026 — Mitchell Hashimoto: \"Engineer the harness\" — every time an agent makes a mistake, fix the environment so it never happens again.\n\nFeb 2026 — OpenAI Codex team: ~1M lines of code, ~1,500 PRs, no hand-written code. \"Humans steer. Agents execute.\"", 12.5, SOFT, lh=1.2)
+cards(D, "Topic 1 · Harness engineering", "The Harness in This Course", [
+    ("Context: AGENTS.md", "Company facts and rules loaded every session (Lab 1).", "file"),
+    ("Memory", "MEMORY.md / USER.md recall decisions across sessions (Lab 1).", "memory"),
+    ("Skills", "kopi-brand-voice, campaign planner, compliance audit (Labs 2, 4).", "puzzle"),
+    ("Verification", "Self-check tables, auditor agent, verifier in the swarm (Labs 2, 4, 5).", "eyecheck"),
+    ("Guardrails", "APPROVE on Telegram, blocked publish task, Board gates (Labs 3, 4, 7–9).", "shield"),
+    ("Orchestration", "Profiles + Kanban, swarms, Paperclip org chart (Labs 4–10).", "org"),
+    ("Scheduling", "Cron jobs and Paperclip routines (Labs 3, 5, 9).", "clock"),
+    ("Observability", "Kanban history, costs and the audit log (Labs 5, 10).", "history")],
+    cols=4, tipt="When an agent gets it wrong, improve the harness (instructions, skills, gates) — don't just re-prompt.")
+
+# ---- brain / perception / action
+s = D.new(); header(D, s, "Topic 1 · How an agent works", "The Agent Framework: Perception · Brain · Action",
+                    "From the survey \"The Rise and Potential of LLM-Based Agents\" (Xi et al., Fudan University, arXiv 2309.07864).")
+cols = [(0.6, "Perception", "eye", "Sense the world", TEAL,
+         ["Multimodal input — text, image, audio, video", "Environment interaction — tools, web, files", "Information retrieval — search, RAG, memory"],
+         "From data to information"),
+        (4.75, "Brain", "brain", "Core cognition & decisions", PLUM,
+         ["Knowledge — pre-trained, domain, common sense", "Memory — short-term & long-term", "Reasoning — logic, reflection, self-correction", "Planning — decompose, set goals, adapt"],
+         "From understanding to decisions"),
+        (8.9, "Action", "hand", "Change the world", ACC_D,
+         ["Task execution — code, tools, operations", "Environment feedback — results, rewards", "Behaviour optimisation — learn and evolve"],
+         "From decisions to action")]
+for x, t, ic, sub, col, items, foot in cols:
+    card(s, x, 2.45, 3.85, 4.35)
+    icon(s, ic, x + 0.25, 2.65, 0.66, fill=col)
+    text(s, x + 1.05, 2.62, 2.7, 0.45, t, 20, INK, bold=True, font=SERIF)
+    text(s, x + 1.05, 3.05, 2.7, 0.35, sub, 11.5, MUTED)
+    text(s, x + 0.3, 3.6, 3.3, 2.5, "\n".join("•  " + it for it in items), 12.5, MUTED, lh=1.25)
+    box(s, x + 0.25, 6.2, 3.35, 0.42, fill=col, shape=K.MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.2)
+    text(s, x + 0.25, 6.2, 3.35, 0.42, foot, 12, WHITE, bold=True, align="c", anchor="m", autofit=False)
+for x in (4.47, 8.62):
+    line(s, x, 4.6, x + 0.25, 4.6, ACC, 2.5, arrow=True)
+cards(D, "Topic 1 · How an agent works", "Inside the Brain", [
+    ("Knowledge", "Pre-trained and domain knowledge, common sense and self-knowledge. Can be stale → ground it with RAG.", "book"),
+    ("Memory", "Short-term (the context window) and long-term (notes, history, skills). Retrieved when relevant.", "memory"),
+    ("Reasoning", "Logical and step-by-step reasoning, reflection and self-correction on complex problems.", "brain"),
+    ("Planning", "Break tasks into sub-goals, set targets, revise the plan after feedback, improve over time.", "list")],
+    cols=4, sub="The LLM is the control centre: it turns what the agent perceives into decisions.",
+    tipt="Hermes adds natural-language interaction and transfer: one agent, every channel, new skills learned on the job.")
+s = D.new(dark=True); header(D, s, "Topic 1 · How an agent works", "Perception → Decision → Action: a Closed Loop")
+left = [("eye", "Multimodal perception"), ("globe", "Environment interaction"), ("memory", "Information retrieval"), ("map", "World modelling")]
+right = [("tool", "Task execution"), ("loop", "Environment feedback"), ("trend", "Behaviour optimisation"), ("sparkles", "Autonomous evolution")]
+card(s, 0.6, 1.95, 4.9, 4.4, fill=K.PANEL, shadow=False); card(s, 7.8, 1.95, 4.9, 4.4, fill=K.PANEL, shadow=False)
+text(s, 0.9, 2.1, 4.3, 0.45, "Perception", 18, ACC, bold=True, font=SERIF)
+text(s, 8.1, 2.1, 4.3, 0.45, "Action", 18, ACC, bold=True, font=SERIF)
+for i, ((ic1, t1), (ic2, t2)) in enumerate(zip(left, right)):
+    y = 2.75 + i * 0.86
+    icon(s, ic1, 0.95, y, 0.5, fill=TEAL); text(s, 1.6, y + 0.05, 3.7, 0.42, t1, 15, WHITE, font=SERIF, bold=True)
+    icon(s, ic2, 8.15, y, 0.5); text(s, 8.8, y + 0.05, 3.7, 0.42, t2, 15, WHITE, font=SERIF, bold=True)
+    line(s, 5.6, y + 0.25, 7.7, y + 0.25, ACC, 1.75, arrow=True)
+circle(s, 5.85, 3.25, 1.6, PLUM); text(s, 5.85, 3.25, 1.6, 1.6, "Brain\ndecides", 15, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
+text(s, 0.6, 6.5, 12.1, 0.42, "Perception → decision → action → feedback → new perception. In Lab 3 the feedback is your Telegram reply.", 13, SOFT, align="c")
+
+table(D, "Topic 1 · Memory", "Memory: Short-Term and Long-Term",
+      ["Memory type", "Human analogy", "What the agent keeps", "Where you will see it"],
+      [("Short-term / working", "What you're thinking about now", "The context window: instructions, chat, tool results, current plan", "Every Hermes session; compaction when it fills"),
+       ("Episodic (long-term)", "\"What happened\"", "Past sessions, actions and outcomes", "Hermes session search; Kanban & Paperclip history"),
+       ("Semantic (long-term)", "\"Facts I know\"", "Facts about the company and user; knowledge bases (RAG)", "MEMORY.md / USER.md; brand guide in company knowledge"),
+       ("Procedural (long-term)", "\"How to do things\"", "Skills, rules, workflows", "SKILL.md skills; AGENTS.md; agent instructions")],
+      colw=[2.3, 2.4, 4.0, 3.4], size=11.5,
+      sub="Framework: CoALA (Sumers et al., 2023). Short-term memory is limited and resets; long-term memory persists and is retrieved when relevant.",
+      tipt="Hermes loads memory at session start — after it saves something, start a new session (/new) to see it recalled.")
+cards(D, "Topic 1 · Memory", "How Agents Remember — Retrieval & Reflection", [
+    ("Retrieve by relevance", "Pull the memories that score highest for recency, importance and relevance (Generative Agents, 2023).", "search"),
+    ("RAG", "Retrieve from a curated, current knowledge base before answering — grounded, auditable answers.", "book"),
+    ("Just-in-time context", "Keep pointers (file paths, links) and load the data only when needed — saves the window.", "file"),
+    ("Reflection", "After a failure, write a lesson to memory and do better next time (Reflexion, 2023).", "lightbulb")],
+    cols=2, tipt="Lab 2 challenge: turn your review feedback into a permanent skill update — reflection by design.")
+compare(D, "Topic 1 · Memory", "RAG Agent vs a Standard LLM Assistant",
+        ("RAG agent", "book", ["Retrieves from a curated, current corpus before generating", "Grounded answers with citations — less hallucination",
+                                "Quality depends on corpus freshness, chunking and retrieval/memory configuration", "Needs a maintenance process: re-index, review sources"]),
+        ("Standard LLM assistant", "chat", ["Answers from training data alone — fastest to deploy", "No live company data; knowledge can be stale",
+                                             "Harder to audit where an answer came from", "Lower maintenance, higher risk on facts"]),
+        tipt="Evaluate both on accuracy, relevance, latency, cost and maintenance effort.")
+
+s = D.new(); header(D, s, "Topic 1 · World models", "World Models — Predicting the Next State of the World",
+                    "LLMs predict the next word; world models predict how the world changes after an action — so an agent can plan before it acts.")
+card(s, 0.6, 2.5, 4.6, 4.25, fill=CHAR)
+text(s, 0.9, 2.7, 4.0, 0.45, "Why they matter", 17, WHITE, bold=True, font=SERIF)
+text(s, 0.9, 3.25, 4.05, 3.4, "•  Plan and simulate \"what if I do X?\" before costly or irreversible actions\n•  Physical AI — robots and vehicles need intuitive physics\n•  Train agents safely in generated worlds\n•  Ground the agent in how the world really behaves", 13, SOFT, lh=1.25)
+wm = [("NVIDIA Cosmos", "Jan 2025", "World foundation models for robots and autonomous vehicles."),
+      ("Meta V-JEPA 2", "Jun 2025", "Video world model; zero-shot robot pick-and-place."),
+      ("DeepMind Genie 3", "Aug 2025", "Interactive worlds from text at 24 fps, 720p."),
+      ("World Labs Marble", "Nov 2025", "Persistent, editable 3D worlds from text or images."),
+      ("AMI Labs (LeCun)", "Mar 2026", "US$1.03B raised to build JEPA-based world models.")]
+for i, (t, d, desc) in enumerate(wm):
+    y = 2.5 + i * 0.86; card(s, 5.45, y, 7.25, 0.76)
+    text(s, 5.65, y + 0.08, 2.45, 0.6, t, 13.5, INK, bold=True, font=SERIF, anchor="m")
+    text(s, 8.1, y + 0.08, 1.15, 0.6, d, 11.5, ACC, bold=True, anchor="m")
+    text(s, 9.25, y + 0.08, 3.3, 0.62, desc, 11, MUTED, anchor="m", minpt=8.5)
+
+# ---- paradigms
+mark("t1b")
+cards(D, "Topic 1 · Paradigms", "Three Paradigms: Single Agent → Multi-Agent → Human–Agent Collaboration", [
+    ("Single agent", "One agent completes a task end to end.\n•  Task-oriented — follows instructions\n•  Innovation-oriented — research & discovery\n•  Lifecycle-oriented — learns skills over time\nLabs 1–2: Mia researches and runs a campaign.", "robot"),
+    ("Multi-agent", "Several agents collaborate or compete.\n•  Cooperative — ordered (SOP pipeline) or disordered (discussion, voting)\n•  Adversarial — debate to improve answers\nLabs 4–5: video studio pipeline and analysis swarm.", "users"),
+    ("Human–agent collaboration", "People and agents share the work.\n•  Instructor–executor — humans instruct and give feedback\n•  Equal partnership — agents as peers\nLab 3 and Day 2: APPROVE, review and Board gates.", "handshake")],
+    cols=3, hi=(2,), sub="Xi et al. (2023): from individual agents to collaboration and agent society.", desc_pt=12.5)
+hub(D, "Topic 1 · Paradigms", "Multi-Agent Patterns You Will Build", "Orchestrator\n(Kanban / CEO)", [
+    ("search", "Researcher", "Finds facts and hooks, cites sources"),
+    ("pen", "Scriptwriter", "Turns research into a script"),
+    ("film", "Producer", "Renders the video"),
+    ("eyecheck", "Auditor", "Checks rules; can send work back"),
+    ("send", "Publisher", "Acts only after human approval"),
+    ("user", "Human", "Sets goals, approves, owns the outcome")],
+    sub="Ordered pipeline (Lab 4), parallel swarm with a verifier (Lab 5), and an org chart with a Board (Labs 6–10).",
+    foot="Without rules, multi-agent chatter can amplify small hallucinations — add verifiers and human checkpoints.")
+compare(D, "Topic 1 · Human–agent collaboration", "Two Ways Humans and Agents Work Together",
+        ("Instructor–executor", "user", ["The human sets goals, gives instructions and feedback", "Feedback can be quantitative (scores) or qualitative (critique)",
+                                          "Agent executes and improves from feedback", "Labs: APPROVE / EDIT on Telegram; Board revision requests"]),
+        ("Equal partnership", "handshake", ["Agent participates as a peer — proposes, negotiates, challenges", "Empathetic communicator or human-level participant",
+                                             "Human remains accountable for decisions", "Labs: the CEO agent proposes the team; you approve or push back"]),
+        tipt="Why keep humans in? They fill gaps in privacy, ethics, judgement and data — and agents learn through interaction.")
+table(D, "Topic 1 · Human–agent collaboration", "Levels of Autonomy — Pick Per Task, Not Per Agent",
+      ["Level", "Your role", "What the agent does", "Example in this course"],
+      [("L1", "Operator", "Acts only when you invoke it for a subtask", "Asking Mia a one-off question"),
+       ("L2", "Collaborator", "Plans and works with you; you can take over anytime", "Lab 2 campaign drafting with your feedback"),
+       ("L3", "Consultant", "Does most of the work; asks for your expertise", "Lab 1 research brief, Lab 7 hiring plan"),
+       ("L4", "Approver", "Asks only at high-risk steps or required approvals", "Lab 3 APPROVE gate, Lab 9 weekly routine"),
+       ("L5", "Observer", "Works on its own; you monitor with an off-switch", "Weekly report cron (Lab 5)")],
+      colw=[0.9, 1.8, 4.6, 4.8], size=12,
+      sub="Feng, McDonald & Zhang (2025): autonomy is a design decision, separate from capability.")
+table(D, "Topic 1 · Human–agent collaboration", "Human-in-the-Loop vs Human-on-the-Loop",
+      ["Pattern", "Definition", "Use it for", "Course example"],
+      [("Human-in-the-loop", "A person approves BEFORE the action happens", "Irreversible, public, regulated actions — publishing, payments, refunds", "Telegram APPROVE (Lab 3), blocked publish task (Lab 4), Board gates"),
+       ("Human-on-the-loop", "The agent acts; a person monitors and can intervene", "High-volume, reversible work — triage, drafts, analysis", "Weekly report cron (Lab 5), Paperclip costs & activity (Lab 10)"),
+       ("Human-out-of-the-loop", "Fully autonomous, no real-time oversight", "Only low-risk, bounded, reversible tasks", "Scheduled data refresh")],
+      colw=[2.2, 3.3, 3.4, 3.2], size=12,
+      tipt="Keep humans IN the loop for irreversible actions and ON the loop for reversible volume. The human is always accountable.")
+rows(D, "Topic 1 · Agent society", "From Individuals to an Agent Society", [
+    ("user", "Individual behaviour", "Each agent learns and adapts — Hermes writes new skills after hard tasks."),
+    ("users", "Group interaction", "Agents communicate and coordinate — Kanban hand-offs, swarms, CEO delegation."),
+    ("star", "Personality", "Roles and values in SOUL.md and instructions shape how each agent behaves."),
+    ("network", "Social emergence", "Collective intelligence and new behaviours appear at scale — plus new risks (groupthink, bias)."),
+    ("building", "Agent-as-a-Service", "Agents offered as a workforce you hire and govern — the idea behind Paperclip.")], dark=True)
+
+# ---- market
+table(D, "Topic 1 · The 2026 agent market", "Autonomous Agents in the Market (Oct 2026) — 1/2",
+      ["Product", "Vendor · launch", "Type", "Runs where", "Human-in-the-loop"],
+      [("OpenClaw", "OpenClaw Foundation · Nov 2025 (renamed Jan 2026)", "Open source personal agent", "Your machine; chat apps", "DM pairing; optional sandbox"),
+       ("Hermes Agent", "Nous Research · ~Feb 2026", "Open source, self-improving agent", "Local, VPS, desktop; 15+ channels", "Approval modes; allow-lists"),
+       ("Paperclip", "Paperclip Labs · Mar 2026", "Open source company of agents", "Self-hosted (Node / Docker)", "Board approvals; budgets auto-pause"),
+       ("OpenAI Dots", "OpenAI · 29 Sep 2026", "Always-on agent with its own cloud computer", "ChatGPT, Slack, Teams", "Custom rules: allow / approve / block"),
+       ("Meta Muse", "Meta · 8 Sep 2026 (US)", "Personal agent for life admin", "App, web, WhatsApp", "Confirms sensitive actions; Sentinel guard"),
+       ("Block Buzz", "Block · 21 Jul 2026", "Open workspace for humans + agents", "Self-host or buzz.xyz", "Agent identities & permissions"),
+       ("Manus Cue", "Manus · 28 Sep 2026", "Agents with email, phone, wallet", "Web, desktop, mobile", "Budgets; you make the final call")],
+      colw=[1.6, 3.0, 2.8, 2.4, 2.6], size=10.5, hi_col=0)
+table(D, "Topic 1 · The 2026 agent market", "Autonomous Agents in the Market (Oct 2026) — 2/2",
+      ["Product", "Vendor · launch", "Type", "Runs where", "Human-in-the-loop"],
+      [("Claude Cowork / Claude Code", "Anthropic · 2025–2026", "Desktop & coding agents with sub-agents", "Desktop, terminal, cloud", "Manual / Auto / Skip permission modes"),
+       ("OpenAI Codex", "OpenAI · May 2025; Cloud Sep 2026", "Parallel coding agents", "CLI, IDE, cloud", "Review before merge; sandboxes"),
+       ("Gemini Enterprise agents", "Google · 8 Oct 2026", "Sub-agents + persistent 'coworker' agents", "Workspace, M365, Slack", "Agent identity, gateway, spend caps"),
+       ("Microsoft Agent 365", "Microsoft · May 2026", "Governance control plane for many agents", "M365 admin, Entra, Purview", "Registry, access control, DLP"),
+       ("Perplexity Computer", "Perplexity · Feb 2026", "Multi-model orchestrator", "Cloud", "Not confirmed")],
+      colw=[2.3, 2.9, 2.9, 2.2, 2.1], size=11, hi_col=0,
+      tipt="Sources: vendor announcements and repos (verified Oct 2026). Products move fast — check before you buy.")
+cards(D, "Topic 1 · The 2026 agent market", "How to Read the Market", [
+    ("Personal agents", "One agent working for one person — OpenClaw, Hermes Agent, Meta Muse, OpenAI Dots, Manus Cue.", "user"),
+    ("Workspaces & companies", "Many agents and humans with roles — Paperclip, Block Buzz, Gemini coworker agents.", "building"),
+    ("Governance layers", "Registries, identities, budgets and policy across agents — Microsoft Agent 365, Paperclip Board.", "shield"),
+    ("Open vs closed", "Open source = self-host, inspect, own your data. Closed = convenience, managed security, vendor lock-in.", "scale")],
+    cols=2, tipt="This course: Hermes Agent (an employee that learns) + Paperclip (the company you govern) — both open source.")
+image(D, "Topic 1 · Singapore in focus", "Singapore: 12,000+ AI Agents in Public Healthcare", asset("screenshots", "st-agentsea.png"),
+      side=[("hospital", "AgentSea", "Synapxe + AWS agentic AI platform for 80,000+ public healthcare professionals — launched end-May 2026."),
+            ("users", "12,000+ agents", "Created by staff in natural language, little or no coding; 300+ shared for reuse."),
+            ("heart", "Real impact", "NHCS cardiologist halved pre-consultation prep; KKH agent generates daily rosters."),
+            ("shield", "Guardrails", "Patient-data protections built in — \"not replaced the need for verification or my own clinical assessment\".")],
+      caption="\"We are moving from AI as assistant to AI as actor.\" — SMS Tan Kiat How, HIMSS26 APAC, 24 Aug 2026",
+      src="Source: The Straits Times, \"New platform to create AI agents available to all public healthcare professionals\", Zhaki Abdullah, 24 Aug 2026.")
+cards(D, "Topic 1 · Singapore in focus", "Singapore's Agentic AI Playbook", [
+    ("IMDA framework", "Model AI Governance Framework for Agentic AI — launched 22 Jan 2026 (Davos); updated v1.5 May 2026.", "gavel"),
+    ("Four dimensions", "Bound risks upfront · meaningful human accountability · technical controls · end-user responsibility.", "list"),
+    ("Public service", "GovTech AI Assistant Desk with an agent registry (owner and purpose of each agent) for ~150,000 officers.", "building"),
+    ("Healthcare", "AgentSea plus MOH's AI in Healthcare Guidelines (AIHGle 2.0) — healthcare is a national AI mission.", "hospital")],
+    cols=2, tipt="Course link: approval gates, budgets and audit logs (Labs 3, 7–10) are the 'human accountability' dimension in practice.")
+
+# ---- use cases
+table(D, "Topic 1 · Human–AI collaboration in action", "AI for Science — Agents Propose, Humans Decide",
+      ["Use case", "What the agent does", "What the human does", "Result"],
+      [("Google AI co-scientist (2025)", "Multi-agent system generates, debates and ranks hypotheses", "Sets the goal, picks hypotheses, runs wet-lab tests", "3 of 5 lab-tested leukaemia drug ideas worked"),
+       ("Edison Kosmos (2025)", "Reads ~1,500 papers, writes ~42,000 lines of analysis code per run", "Sets objective, judges which findings matter", "79% of statements judged accurate"),
+       ("Sakana AI Scientist (2025–26)", "Idea → code → experiments → paper → review", "Chooses the field, checks work, runs ethics review", "1 of 3 papers passed a workshop review")],
+      colw=[2.5, 3.6, 3.2, 2.8], size=11.5)
+table(D, "Topic 1 · Human–AI collaboration in action", "AI for Mathematics",
+      ["Use case", "What the agent does", "What the human does", "Result"],
+      [("AlphaProof + AlphaGeometry (2024)", "Searches formal proofs in Lean", "Formalises problems; graders score", "IMO silver standard, 28/42"),
+       ("Gemini Deep Think (2025)", "Writes natural-language proofs in 4.5 h", "IMO coordinators grade and certify", "IMO gold, 35/42 (certified)"),
+       ("AlphaEvolve (2025)", "Evolves programs scored by an evaluator", "Defines the problem and WRITES the evaluator", "Improved best-known results in ~20% of 50+ problems"),
+       ("Terence Tao + AI (2025–26)", "Searches constructions; proposes proofs (Erdős problems)", "Chooses problems, checks and generalises", "Real wins — mostly 'cheap wins', says Tao")],
+      colw=[2.7, 3.3, 3.3, 2.8], size=11.5)
+table(D, "Topic 1 · Human–AI collaboration in action", "Drug Discovery & Biology",
+      ["Use case", "What the AI does", "What the human does", "Status"],
+      [("AlphaFold 3 (2024)", "Predicts structures of proteins, DNA, RNA and ligands", "Forms hypotheses, chooses targets, validates in the lab", "2024 Nobel Prize in Chemistry (AlphaFold)"),
+       ("Insilico rentosertib (2025)", "Found the TNIK target and designed the molecule", "Clinicians ran the Phase 2a trial; regulators approved", "Nature Medicine, Jun 2025 — safety met"),
+       ("Isomorphic Labs (2026)", "In-house AI drug-design engine", "Chemists, pharma partners, clinical teams", "US$2.1B raised; first trials targeted end-2026")],
+      colw=[2.5, 3.5, 3.4, 2.7], size=11.5,
+      tipt="Agents shorten discovery; humans still design the experiment, validate, and carry the clinical and ethical responsibility.")
+table(D, "Topic 1 · Human–AI collaboration in action", "Business Functions",
+      ["Function", "Agent does", "Human does", "Evidence"],
+      [("Healthcare", "MAI-DxO: virtual panel orders tests step by step", "Clinician owns diagnosis and treatment", "85.5% on 304 NEJM cases (benchmark only)"),
+       ("Finance", "Claude agents for trade accounting and client onboarding", "Staff review exceptions and approve", "Goldman Sachs + Anthropic, Feb 2026"),
+       ("Software", "Codex writes code, tests, CI and docs", "Engineers steer, review and build feedback loops", "~1M lines, no hand-written code (OpenAI)"),
+       ("Customer service", "Handles routine chats in 35+ languages", "Takes complex and sensitive cases", "Klarna re-prioritised human access in 2025"),
+       ("Marketing", "Drafts, designs, schedules and reports campaigns", "Sets strategy, approves everything public", "Labs 2–5 and 8–9 in this course")],
+      colw=[1.8, 3.8, 3.3, 3.2], size=11.5)
+compare(D, "Topic 1 · Human–AI collaboration in action", "The Pattern Behind Every Success",
+        ("The agent", "robot", ["Searches, generates, runs and checks — at scale", "Works 24/7 and in parallel", "Follows the rules it is given — exactly",
+                                "Never owns the consequence"]),
+        ("The human", "user", ["Sets the goal and defines 'good' (rubric, evaluator, tests)", "Approves consequential actions",
+                               "Interprets meaning and context", "Owns accountability — always"]),
+        tipt="Counter-evidence matters: a 2025 METR trial found experienced developers 19% SLOWER with early AI tools. The harness and the human make the difference.")
+cards(D, "Topic 1 · Risks & governance", "Five Challenges for Trustworthy Agents", [
+    ("Hallucination", "Confident but false facts → require citations and verifiers.", "alert"),
+    ("Security risks", "Prompt injection, poisoned skills, leaked keys → least privilege, secrets, sandboxes.", "lock"),
+    ("Explainability", "Why did it do that? → logs, Kanban history, audit trail.", "eye"),
+    ("Data & bias", "Fairness, diversity, privacy (PDPA) → mask personal data, review outputs.", "scale"),
+    ("Efficiency & cost", "Tokens and runs add up → budgets, cheap models for simple roles.", "coins")],
+    cols=5, sub="Toward agents that are trustworthy, controllable and sustainable.", desc_pt=14)
+cards(D, "Topic 1 · Risks & governance", "Five Principles of AI Agent Security", [
+    ("Data control", "WHAT AI CAN SEE — classify data; give the agent only what it needs.", "eye"),
+    ("Permission control", "WHAT AI CAN DO — least privilege; read before write; approve before delete.", "lock"),
+    ("Human approval", "WHEN AI MUST ASK — gates for public, financial or irreversible actions.", "hand"),
+    ("Monitoring & audit", "WHAT AI DID — logs, costs, activity trail; review regularly.", "history"),
+    ("Kill switch", "HOW TO STOP IT — pause agents, revoke keys, `hermes pause`, Paperclip pause.", "stop")],
+    cols=5, desc_pt=14, tipt="Every lab applies at least one of these — look for them.")
+
+s = D.new(); header(D, s, "Topic 1 · The platforms", "The Two Platforms You Will Use",
+                    "\"If OpenClaw is an employee, Paperclip is the company.\" Hermes is the employee that learns.")
+for i, (logo, t, sub, items, dark) in enumerate([
+        ("hermes-agent.png", "Hermes Agent", "Day 1 · Labs 1–5", ["Open source (MIT), Nous Research", "Self-improving: memory + skills it writes itself",
+                                                             "Telegram & 15+ channels, cron scheduler", "Profiles + Kanban for multi-agent teams"], False),
+        ("paperclip.png", "Paperclip", "Day 2 · Labs 6–10", ["Open source (MIT), self-hosted", "Company: Board → CEO → specialists (org chart)",
+                                                         "Issues, routines, heartbeats", "Budgets, approval gates, immutable audit log"], True)]):
+    x = 0.6 + i * 6.15; card(s, x, 2.45, 5.95, 4.35, fill=CHAR if dark else WHITE)
+    lp = asset("logos", logo)
+    if os.path.exists(lp):
+        box(s, x + 0.3, 2.7, 1.3, 1.3, fill=WHITE, line=K.RULE, shape=K.MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.1)
+        s.shapes.add_picture(lp, K.Inches(x + 0.4), K.Inches(2.8), K.Inches(1.1), K.Inches(1.1))
+    text(s, x + 1.85, 2.75, 3.9, 0.55, t, 22, WHITE if dark else INK, bold=True, font=SERIF)
+    text(s, x + 1.85, 3.32, 3.9, 0.4, sub, 13, ACC, bold=True)
+    text(s, x + 0.35, 4.25, 5.3, 2.4, "\n".join("•  " + it for it in items), 14, SOFT if dark else MUTED, lh=1.3)
+
+mark("activity")
+s = D.new(dark=True); header(D, s, "Topic 1 · Activity", "Activity — Human–AI Workforce Canvas",
+                             "In pairs, 15 minutes. Then start the Hermes Agent install so it is ready for Lab 1.")
+steps_ = [("list", "List the work", "Write 8–10 tasks in Kopi Kaki's #ShiokColdBrew campaign (research, posts, video, replies, reporting …)."),
+          ("robot", "Single agent?", "Mark tasks one Hermes agent can do end to end."),
+          ("users", "Agent team?", "Mark tasks that need several specialised agents (pipeline or swarm)."),
+          ("user", "Human?", "Mark decisions that must stay human — and why (risk, accountability, judgement)."),
+          ("hand", "Checkpoints", "Draw where the human approves: before public posts, refunds, spend."),
+          ("terminal", "Start Hermes", "Run the installer now (Lab 1 step 1) — it downloads while we debrief.")]
+for i, (ic, t, d) in enumerate(steps_):
+    r, c = divmod(i, 3); x = 0.6 + c * 4.1; y = 2.5 + r * 2.1
+    card(s, x, y, 3.9, 1.92, fill=K.PANEL, shadow=False); icon(s, ic, x + 0.25, y + 0.25, 0.52)
+    text(s, x + 0.9, y + 0.27, 2.85, 0.48, f"{i+1}. {t}", 15, WHITE, bold=True, font=SERIF, anchor="m")
+    text(s, x + 0.25, y + 0.88, 3.45, 0.98, d, 12, SOFT, minpt=9)
+prompt(D, "Topic 1 · Activity", "Optional — Ask Hermes to Critique Your Canvas",
+       "Here is our Human-AI Workforce Canvas for Kopi Kaki Co.'s #ShiokColdBrew campaign:\n<paste your task list with SINGLE / TEAM / HUMAN labels and approval checkpoints>\n\nAct as an operations consultant. For each task:\n1. Agree or disagree with our label and say why (risk, reversibility, volume, judgement).\n2. Suggest the autonomy level (L1 Operator ... L5 Observer).\n3. Name one control (approval gate, budget, audit, verifier) we must add.\nEnd with the 3 biggest risks in our design.",
+       side=[("robot", "Uses Hermes", "Once installed, paste this into the Hermes chat — your first agent conversation."),
+             ("scale", "Compare", "Where does the agent disagree with you? Who is right?"),
+             ("flag", "Keep it", "You will build this exact workforce in Labs 1–10.")])
+
+# ====================================================================== TOPIC 2 · HERMES
+mark("t2")
+T2 = C.TOPICS[1]
+section(D, "Topic 2", T2["title"], T2["items"], sub="Day 1 — from one AI employee to a supervised multi-agent team.")
+cards(D, "Topic 2 · Hermes Agent", "What Is Hermes Agent?", [
+    ("Open source, self-hosted", "MIT licence by Nous Research. Runs on your laptop, a VPS, Docker or the desktop app.", "server"),
+    ("Grows with you", "Persistent memory and session search; writes and improves its own skills after hard tasks.", "sparkles"),
+    ("Every channel", "One gateway: CLI, Telegram, WhatsApp, Slack, Discord, Signal, email …", "chat"),
+    ("Tools & MCP", "Web search, files, terminal, browser, image generation, TTS and any MCP server.", "tool"),
+    ("Proactive", "Built-in cron scheduler runs jobs and delivers results to your chat.", "clock"),
+    ("Multi-agent", "Profiles (isolated agents) + a Kanban board with dependencies, reviews and swarms.", "kanban")],
+    cols=3, sub="\"The agent that grows with you.\" — 255k+ GitHub stars, v0.22 (Oct 2026).")
+hub(D, "Topic 2 · Hermes Agent", "Hermes Architecture — the Harness Around the Model", "Hermes agent loop\n+ your LLM", [
+    ("file", "Context", "AGENTS.md, SOUL.md, USER.md"),
+    ("memory", "Memory", "MEMORY.md + session search"),
+    ("puzzle", "Skills", "SKILL.md, hub + self-written"),
+    ("tool", "Tools & MCP", "web, files, terminal, images"),
+    ("chat", "Gateway", "Telegram, Slack, WhatsApp …"),
+    ("kanban", "Cron · Profiles · Kanban", "schedule & orchestrate")])
+image(D, "Topic 2 · Hermes Agent", "The Hermes Dashboard", asset("screenshots", "hermes-dashboard.png"),
+      caption="`hermes dashboard` opens http://127.0.0.1:9119 — sessions, skills, profiles, Kanban, cron, channels and keys in one place.")
+flow(D, "Topic 2 · Day 1 journey", "Day 1: Single Agent → Multi-Agent → Human Gates", [
+    ("user", "Lab 1", "First AI employee — research brief, memory."),
+    ("megaphone", "Lab 2", "Social media campaign — skills + tools."),
+    ("handshake", "Lab 3", "Human-in-the-loop on Telegram + cron."),
+    ("video", "Lab 4", "5-agent video studio with a human gate."),
+    ("chart", "Lab 5", "Swarm analysis, dashboard, decisions.")],
+    tipt="Each lab saves to ~/kopi-kaki/outputs/labNN — the next lab builds on it.")
+table(D, "Topic 2 · Day 1 journey", "The Kopi Kaki Company Pack (data/ in every lab)",
+      ["File", "What it is", "Used in"],
+      [("AGENTS.md", "Company context Hermes loads automatically from the folder", "All labs"),
+       ("brand-guide.md · campaign-brief.md", "Voice, colours, formats · product, offer, KPIs, timeline", "All labs"),
+       ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Labs 2–5, 8–9"),
+       ("customer-reviews.csv · competitors.csv", "60 synthetic reviews · 6 fictional competitors", "Labs 1, 5"),
+       ("social-comments.csv", "20 comments incl. complaints, legal, PII, spam", "Labs 3, 5"),
+       ("campaign-week1-metrics.csv · sales-by-outlet.csv", "Post metrics and outlet sales for week 1", "Lab 5"),
+       ("skills/ · souls/ · tasks/ · DESIGN.md", "Ready-made skills, agent roles, task briefs, visual identity", "Labs 2, 4, 5")],
+      colw=[4.0, 5.6, 2.5], size=11.5)
+
+LAB_EXTRAS = {}
+def lab_block(L):
+    kick = f"Topic {L['topic']} · Lab {L['num']}"
+    mark(f"lab{L['num']}")
+    lab_intro(D, L, kick)
+    lab_flow(D, L, kick)
+    for fn in LAB_EXTRAS.get(L["num"], []): fn(L, kick)
+    pr = [st for st in L["steps"] if st.get("prompt")]
+    key = pr[:2] if L["num"] not in (6, 9) else pr[:1]
+    for st in key:
+        prompt(D, kick, st["title"], st["prompt"],
+               side=[("chat", "Paste into", st.get("where", "Hermes chat")),
+                     ("check", "Expect", st.get("expect", "A saved output in your workspace.")),
+                     ("hand", "You decide", L["human"])])
+    rows(D, kick, f"Lab {L['num']} — Checkpoint & Reflection",
+         [("check", "Verify", v) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", "  ·  ".join(L["concepts"][:2])),
+                                                              ("rocket", "Stretch challenge", L["challenge"])], dark=True)
+
+def _cmd(L, kick, title, idx, side):
+    st = L["steps"][idx]
+    prompt(D, kick, title, st["cmd"], side=side, label="TERMINAL  ·  copy from the Lab Prompts page")
+
+# --- Lab-specific concept / screenshot slides
+LAB_EXTRAS[1] = [
+    lambda L, k: _cmd(L, k, "Install, Connect a Model, Start in the Workspace", 0,
+                      [("download", "Install", "macOS / Linux / WSL2 one-liner; Windows PowerShell installer."),
+                       ("gear", "hermes setup", "Pick a provider and a model with ≥ 64k context; `hermes doctor` to check."),
+                       ("folder", "Start in ~/kopi-kaki", "AGENTS.md there is loaded automatically.")]),
+    lambda L, k: table(D, k, "Context & Memory Files in Hermes", ["File", "Scope", "What goes in it", "Loaded"],
+        [("AGENTS.md (project)", "This folder", "Company facts, rules, current priority", "Every session started in the folder"),
+         ("SOUL.md", "~/.hermes/ (per profile)", "The agent's role, personality and standing rules", "Every session"),
+         ("MEMORY.md", "~/.hermes/memories/", "Facts the agent decides to remember (~2,200 chars)", "Session start"),
+         ("USER.md", "~/.hermes/memories/", "What it knows about you and your preferences", "Session start"),
+         ("Session history", "state database", "Every past conversation — searchable", "On demand (session search)")],
+        colw=[2.3, 2.4, 4.6, 2.8], size=12, tipt="Short-term = this session's context window. Long-term = the files and history above."),
+]
+LAB_EXTRAS[2] = [
+    lambda L, k: image(D, k, "Skills on the Hermes Dashboard", asset("screenshots", "hermes-skills.png"),
+                       caption="Skills are folders with a SKILL.md — bundled, from the hub (`hermes skills install`), your own, or written by the agent itself."),
+    lambda L, k: prompt(D, k, "Anatomy of a Skill — kopi-brand-voice/SKILL.md",
+                        "---\nname: kopi-brand-voice\ndescription: Write or rewrite public-facing copy in the\n  Kopi Kaki voice and check it against the compliance rules.\n---\n# Kopi Kaki brand voice\n## Steps\n1. Read brand-guide, campaign-brief, compliance-rules.\n2. Warm and sensory; max 1 Singlish word, max 2 emojis.\n3. Only facts and prices from the brief or catalogue.\n4. Promo code shown? Add its terms.\n5. Run the self-check; fix every FAIL.\n## Self-check: C1 health · C3 promo · C4 halal · C9 AI",
+                        side=[("eye", "description", "Tells the agent WHEN to load the skill — costs no context until used."),
+                              ("list", "steps", "An SOP the agent follows the same way every time."),
+                              ("check", "self-check", "Verification built into the skill — the loop checks itself.")],
+                        label="SKILL.md  ·  in labs/lab02-…/data/skills/"),
+]
+LAB_EXTRAS[3] = [
+    lambda L, k: flow(D, k, "Connect Telegram in Five Steps", [
+        ("chat", "@BotFather", "/newbot → name → copy the token (keep it secret)."),
+        ("user", "@userinfobot", "Copy your numeric Telegram user ID."),
+        ("gear", "hermes gateway setup", "Choose Telegram, paste token + your ID as the only allowed user."),
+        ("server", "hermes gateway run", "Leave it running — it hosts chat, cron and Kanban dispatch."),
+        ("megaphone", "Brand channel", "Create 'Kopi Kaki Feed (Training)'; add the bot as admin.")],
+        tipt="Shortcut: Dashboard → Messaging → Telegram → 'Create with QR'. NEVER share the bot token."),
+    lambda L, k: table(D, k, "Escalation Rules — Policy Becomes Agent Behaviour", ["Comment type", "Agent action", "Why"],
+        [("FAQ (availability, oat milk, outlets)", "REPLY — draft in brand voice", "Low risk, high volume"),
+         ("Spam", "IGNORE", "No value; don't engage"),
+         ("Food safety / allergy (C06, C16)", "ESCALATE — no public reply", "Health and legal risk"),
+         ("Legal threat / media (C18, C11)", "ESCALATE", "Needs a human spokesperson"),
+         ("Billing / refund (C09)", "ESCALATE", "Money and policy decisions"),
+         ("Halal / health questions (C03, C15)", "ESCALATE", "Claims we must not make (C1, C4)")],
+        colw=[4.2, 4.1, 3.8], size=12.5, tipt="Personal data (names, phone numbers) is masked before anything reaches you or a public reply."),
+    lambda L, k: _cmd(L, k, "Make It Proactive — the 09:00 Approval Cron", 5,
+                      [("clock", "Schedule", "Cron syntax '0 9 * * *' = every day at 09:00."),
+                       ("send", "--deliver telegram", "Results arrive in your Telegram chat."),
+                       ("hand", "Still gated", "The job proposes; only your APPROVE publishes.")]),
+]
+LAB_EXTRAS[4] = [
+    lambda L, k: hub(D, k, "Your Video Studio Team", "Kanban board\n(orchestrator)", [
+        ("search", "researcher", "hooks + proof points → research.md"),
+        ("pen", "scriptwriter", "25-s script + 6 scenes → script.md"),
+        ("film", "producer", "HyperFrames → output/final.mp4"),
+        ("eyecheck", "auditor", "V1–V9, C1–C10 → audit-report.md"),
+        ("send", "publisher", "runs only after you unblock"),
+        ("user", "You", "watch the cut · unblock or comment")],
+        foot="The profile --description is the routing contract; SOUL.md holds each role's rules."),
+    lambda L, k: image(D, k, "Profiles — Isolated Agents with Their Own Memory", asset("screenshots", "hermes-profiles.png"),
+                       caption="`hermes profile create <name> --clone --description \"…\"` — each profile has its own SOUL.md, memory, skills and sessions."),
+    lambda L, k: _cmd(L, k, "Build the Task Graph with a Human Gate", 3,
+                      [("route", "--parent", "Each task waits for the one before — an ordered SOP."),
+                       ("folder", "dir: workspace", "All stages share ~/kopi-kaki/video-studio."),
+                       ("stop", "--initial-status blocked", "Publishing waits for your `hermes kanban unblock`.")]),
+    lambda L, k: image(D, k, "Watch the Board", asset("screenshots", "hermes-kanban.png"),
+                       caption="Lanes: triage → todo → ready → running → review → done. A FAIL goes back with `hermes kanban request-changes`."),
+]
+LAB_EXTRAS[5] = [
+    lambda L, k: hub(D, k, "Parallel Swarm with a Verifier", "Swarm root:\nweek-1 review", [
+        ("chart", "analyst", "KPIs vs targets (CSV)"),
+        ("chat", "listener", "sentiment & risks"),
+        ("search", "researcher", "competitor & trend watch"),
+        ("check", "auditor = verifier", "re-computes the numbers"),
+        ("layers", "strategist = synthesiser", "dashboard + plan"),
+        ("user", "You", "spot-check, approve 1–2 changes")]),
+    lambda L, k: table(D, k, "The KPIs You Will Check", ["KPI", "Formula", "Target"],
+        [("App pre-orders", "Σ app_preorders", "2,500 by 30 Nov"),
+         ("Engagement rate", "(likes + comments + shares) ÷ reach", "≥ 8% (IG + TikTok)"),
+         ("Click-through rate", "link_clicks ÷ reach", "Trend up week on week"),
+         ("Cost per pre-order", "paid_spend_sgd ÷ app_preorders", "Lower is better"),
+         ("Video views", "Σ video_views (TikTok + Reels)", "40,000")],
+        colw=[3.0, 5.6, 3.5], size=13, tipt="Never forward a number you have not checked: verify at least one by hand."),
+    lambda L, k: _cmd(L, k, "Launch the Swarm", 1,
+                      [("users", "--worker", "Parallel cards: profile:title."),
+                       ("check", "--verifier", "Waits for all workers, re-checks."),
+                       ("layers", "--synthesizer", "Builds the dashboard and plan.")]),
+]
+
+for L in LABS[:5]:
+    lab_block(L)
+mark("t2sum")
+cards(D, "Topic 2 · Summary", "What You Built on Day 1", [
+    ("Single agent", "Mia researched, remembered and ran a whole campaign with skills and tools.", "robot"),
+    ("Human-in-the-loop", "Nothing went public without your APPROVE; risky comments came to you.", "handshake"),
+    ("Multi-agent", "A five-role studio and a verified analysis swarm.", "users"),
+    ("Harness", "Context, memory, skills, verification, gates, cron — the environment did the heavy lifting.", "gear")],
+    cols=4, dark=True)
+
+# ====================================================================== TOPIC 3 · PAPERCLIP
+mark("t3")
+T3 = C.TOPICS[2]
+section(D, "Topic 3", T3["title"], T3["items"], sub="Day 2 — the same marketing work, run as a governed company.")
+cards(D, "Topic 3 · Paperclip", "What Is Paperclip?", [
+    ("The company as the harness", "Open-source orchestration for a company of agents — org chart, goals, budgets, governance.", "building"),
+    ("You are the Board", "Approve hires and strategy; pause, override, reassign or terminate any agent.", "gavel"),
+    ("Bring your own agent", "Adapters for Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Cursor …", "plug"),
+    ("Issues & goals", "Mission → goals → projects → issues: every task traces to a goal.", "target"),
+    ("Heartbeats & routines", "Agents wake on a schedule or when work is assigned; routines create recurring work.", "clock"),
+    ("Budgets & audit", "Per-agent budgets warn at 80% and auto-pause at 100%; append-only activity log.", "coins")],
+    cols=3, sub="\"If OpenClaw is an employee, Paperclip is the company.\" — 100k+ GitHub stars, self-hosted at http://localhost:3100.")
+image(D, "Topic 3 · Paperclip", "The Paperclip Dashboard", asset("paperclip", "pc-dashboard.png"),
+      caption="Agents, issues, costs and approvals for the whole company — the Board's control room.")
+table(D, "Topic 3 · Paperclip", "Hermes Agent vs Paperclip", ["", "Hermes Agent (Day 1)", "Paperclip (Day 2)"],
+      [("Unit", "An agent (employee) — or a team of profiles", "A company of agents"),
+       ("Orchestration", "Kanban board, dependencies, swarms", "Org chart, CEO delegation, projects & issues"),
+       ("Human control", "APPROVE prompts, approval modes, blocked tasks", "Board approvals for hires & strategy; in_review gates"),
+       ("Scheduling", "Cron jobs", "Routines + heartbeats"),
+       ("Cost control", "Model choice per profile", "Budgets per agent / project / company, auto-pause"),
+       ("Audit", "Sessions, Kanban history", "Immutable activity log, tool-call tracing"),
+       ("Best for", "A personal or team agent that learns", "Running recurring business functions with governance")],
+      colw=[2.0, 5.0, 5.1], size=12, hi_col=2)
+flow(D, "Topic 3 · Day 2 journey", "Day 2: Found → Hire → Deliver → Automate → Govern", [
+    ("building", "Lab 6", "Company, mission, budget, CEO."),
+    ("users", "Lab 7", "Hire the team at the approval gate."),
+    ("rocket", "Lab 8", "Launch project: review, revise, release."),
+    ("clock", "Lab 9", "Weekly video routine with a Board gate."),
+    ("gauge", "Lab 10", "Costs, audit, scorecard, improve.")],
+    tipt="Same Kopi Kaki campaign as Day 1 — compare what changes when the work is run as a company.")
+
+LAB_EXTRAS[6] = [
+    lambda L, k: _cmd(L, k, "Install and Start Paperclip", 1,
+                      [("terminal", "Option A", "npx paperclipai onboard --yes — Node.js 24.11+, local, no login."),
+                       ("box", "Option B", "Docker: set BETTER_AUTH_SECRET + signing secret, then compose up."),
+                       ("globe", "Open", "http://localhost:3100 → name the organization, create Ava.")]),
+    lambda L, k: _cmd(L, k, "Guard Rails: CEO Role and Hard Budgets", 7,
+                      [("briefcase", "Ava = CEO", "`agent update … role ceo` — the UI has no Role field."),
+                       ("gavel", "Hiring gate", "Settings → General → Hiring → require Board approval (default OFF)."),
+                       ("coins", "Budgets", "80% warning, 100% auto-pause — see Audit → Budgets.")]),
+    lambda L, k: image(D, k, "Adapters — the Agents' Engine", asset("paperclip", "pc-adapters.png"),
+                       caption="Enable the runtime you already have — Claude Code, Codex, Gemini CLI or Hermes — and test the connection."),
+]
+LAB_EXTRAS[7] = [
+    lambda L, k: table(D, k, "A Good Hiring Plan (reference)", ["Role", "Reports to", "Mandate", "Budget / mo"],
+        [("Market Researcher", "CEO", "Live trend, competitor and audience research with Tavily; cites sources", "USD 8"),
+         ("Content Strategist", "CEO", "Campaign plan, calendar and briefs", "USD 8"),
+         ("Copywriter", "Content Strategist", "Captions, scripts, replies in brand voice", "USD 8"),
+         ("Video Producer", "Content Strategist", "Storyboards, renders, publish package", "USD 10"),
+         ("Compliance Auditor", "CEO", "Audits every public item (C1–C10, V1–V9); can block release", "USD 5")],
+        colw=[2.6, 2.4, 5.4, 1.7], size=12, tipt="Separation of duties: the auditor must not report to the people whose work it audits."),
+    lambda L, k: image(D, k, "The Org Chart", asset("paperclip", "pc-org.png"),
+                       caption="Board → CEO → specialists. Every hire passed an explicit Board decision."),
+    lambda L, k: image(D, k, "Secrets — Tools Without Exposing Keys", asset("paperclip", "pc-secrets.png"),
+                       caption="Store TAVILY_API_KEY as a company Secret and bind it to the researcher's runtime — it never appears in prompts or issues."),
+]
+LAB_EXTRAS[8] = [
+    lambda L, k: table(D, k, "The Launch Backlog (paperclip-backlog.csv)", ["#", "Issue", "Owner", "Blocked by"],
+        [("1", "Research SG cold-brew trends & competitor moves", "Market Researcher", "—"),
+         ("2", "Campaign plan + 4-week content calendar", "Content Strategist", "1"),
+         ("3", "Teaser-week captions (7 posts)", "Copywriter", "2"),
+         ("4", "Script & storyboard the 25-s launch video", "Video Producer", "2"),
+         ("5", "Render video + publish package", "Video Producer", "4"),
+         ("6", "Compliance audit of captions and video", "Compliance Auditor", "3, 5"),
+         ("7", "Board review & release pack", "CEO", "6")],
+        colw=[0.6, 6.4, 3.2, 1.9], size=12),
+    lambda L, k: image(D, k, "Issues Flow to the Board", asset("paperclip", "pc-tasks.png"),
+                       caption="todo → in_progress → in_review → done. in_review is your quality gate: approve, or request changes with specific comments."),
+]
+LAB_EXTRAS[9] = [
+    lambda L, k: image(D, k, "A Routine Fires the Pipeline", asset("paperclip", "pc-routine-pipeline.png"),
+                       caption="Work → Routines: a schedule trigger (Monday 10:00, Asia/Singapore) generates the issue; the CEO delegates each stage."),
+    lambda L, k: image(D, k, "Run Now — Test Before You Trust", asset("paperclip", "pc-routine-run.png"),
+                       caption="Trigger the routine manually once and follow every stage before relying on the schedule."),
+]
+LAB_EXTRAS[10] = [
+    lambda L, k: table(D, k, "Month-1 Agent Scorecard (agent-scorecard.csv)",
+        ["Agent", "Issues done", "Audit FAILs", "Revisions", "Spend / budget (USD)", "Status"],
+        [("Ava (CEO)", "13 / 14", "0", "1", "11.20 / 15", "Green"),
+         ("Market Researcher", "9 / 9", "0", "0", "6.10 / 8", "Green"),
+         ("Content Strategist", "6 / 7", "1", "1", "7.90 / 8", "Amber — 99% of budget"),
+         ("Copywriter", "18 / 22", "4", "3", "5.30 / 8", "Amber — quality"),
+         ("Video Producer", "3 / 5", "2", "2", "10.40 / 10", "Red — over budget"),
+         ("Compliance Auditor", "27 / 27", "0", "0", "2.20 / 5", "Green")],
+        colw=[2.6, 1.6, 1.6, 1.5, 2.4, 2.4], size=12, hi_col=5),
+    lambda L, k: image(D, k, "Agents, Budgets and Status", asset("paperclip", "pc-agents.png"),
+                       caption="Pause is reversible; terminate is not. Fix the instructions that caused rework — improve the harness."),
+]
+for L in LABS[5:]:
+    lab_block(L)
+mark("t3sum")
+cards(D, "Topic 3 · Summary", "What You Governed on Day 2", [
+    ("A company", "Mission, goals, budget and a CEO you approved.", "building"),
+    ("A team", "Specialists with mandates, budgets, secrets and an independent auditor.", "users"),
+    ("Delivery", "A launch project and a weekly routine — all through Board review.", "rocket"),
+    ("Governance", "Costs, audit trail, scorecard, interventions and a Board report.", "gavel")],
+    cols=4, dark=True)
+
+# ====================================================================== CLOSE
+mark("wrap")
+section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Practice exam", "Assessment", "Digital attendance"])
+cards(D, "Wrap-up", "Summary & Q&A", [
+    ("Topic 1", "Agents loop through perception, reasoning and action; the harness and the human make them reliable.", "brain"),
+    ("Topic 2", "Hermes took one AI employee to a supervised multi-agent team with skills, memory, cron and gates.", "robot"),
+    ("Topic 3", "Paperclip ran the same work as a governed company — Board, budgets, routines, audit.", "building"),
+    ("Your workforce", "Decide per task: agent, agent team or human — and where the human approves.", "handshake")],
+    cols=4)
+rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
+    ("server", "Run 24/7", "Move Hermes to a small VPS or Docker host so cron and Telegram keep running."),
+    ("puzzle", "Codify your SOPs", "Turn your team's checklists into SKILL.md skills and agent instructions."),
+    ("shield", "Govern from day one", "Budgets, approval gates, audit trail — follow IMDA's agentic AI framework."),
+    ("chart", "Measure", "Track cycle time, revisions, cost per deliverable and quality before you scale.")], dark=True)
+s = D.new(); header(D, s, "Test yourself", "Practice Exam", "Sharpen your readiness before the final assessment.")
+pe = asset("screenshots", "practice-exam.png")
+if os.path.exists(pe):
+    picture(s, pe, 0.7, 2.45, maxw=7.2, maxh=4.3)
+for i, (ic, t, d) in enumerate([("globe", "Open the portal", "https://exams.tertiaryinfotech.com"),
+                                ("clock", "Time yourself", "Attempt it under exam conditions."),
+                                ("book", "Review", "Read every explanation; revisit the matching lab.")]):
+    y = 2.6 + i * 1.35; icon(s, ic, 8.3, y, 0.55)
+    text(s, 9.0, y - 0.02, 3.7, 0.42, t, 16, INK, bold=True, font=SERIF)
+    text(s, 9.0, y + 0.42, 3.7, 0.8, d, 13, MUTED)
+mark("assess")
+s = D.new(); header(D, s, "Assessment", "Final Assessment")
+for i, (ic, t, d, dark) in enumerate([
+        ("pen", "Written Assessment (WA)", "Short-Answer Questions — 1 hour, open book. Six questions on the knowledge from Topics 1–3.", False),
+        ("tool", "Practical Performance (PP)", "Three tasks — ONE screenshot each from Lab 1 (Hermes agent), Lab 4 (multi-agent studio with its human gate) and Lab 7 (Paperclip org chart), plus written analysis. 1 hour, open book.", True)]):
+    x = 0.6 + i * 6.15; card(s, x, 1.95, 5.95, 3.4, fill=CHAR if dark else WHITE)
+    icon(s, ic, x + 0.3, 2.25, 0.6)
+    text(s, x + 1.05, 2.3, 4.7, 0.5, t, 19, WHITE if dark else INK, bold=True, font=SERIF)
+    text(s, x + 0.35, 3.1, 5.3, 2.1, d, 14.5, SOFT if dark else MUTED, lh=1.25)
+tip(D, s, "Take the Assessment digital attendance and submit your answers on the LMS at https://lms-tms.tertiaryinfotech.com/.", y=5.7)
+flow(D, "Assessment", "Assessment Flow", ASSESS_FLOW, sub="On assessment day, follow these five steps in order.")
+s = D.new(dark=True); header(D, s, "Before you go", "Certification, TRAQOM Survey & Digital Attendance")
+card(s, 0.6, 1.95, 6.0, 4.3, fill=K.PANEL, shadow=False); icon(s, "clipboard", 0.9, 2.25, 0.6)
+text(s, 1.65, 2.3, 4.7, 0.5, "TRAQOM Survey (mandatory)", 18, WHITE, bold=True, font=SERIF)
+text(s, 0.95, 3.15, 5.4, 2.9, "Complete the certification & TRAQOM survey to receive your certificate.\n\nScan the TRAQOM QR code on the LMS.", 15, SOFT, lh=1.25)
+card(s, 6.85, 1.95, 5.85, 4.3, fill=K.PANEL, shadow=False); icon(s, "phone", 7.15, 2.25, 0.6)
+text(s, 7.9, 2.3, 4.6, 0.5, "Digital Attendance", 18, WHITE, bold=True, font=SERIF)
+text(s, 7.2, 3.15, 5.3, 2.9, "Take the AM, PM and Assessment digital attendance — scan the SSG QR code.\n\nMinimum 75% attendance is required for funding.", 15, SOFT, lh=1.25)
+s = D.new(dark=True)
+circle(s, 10.4, -1.6, 4.6, ACC); circle(s, 11.2, 5.2, 3.2, TEAL)
+text(s, 0.9, 2.4, 10, 1.2, "Thank You!", 54, WHITE, bold=True, font=SERIF, autofit=False)
+text(s, 0.9, 3.75, 10, 0.6, "Questions? We're here to help — during and after class.", 18, SOFT, autofit=False)
+text(s, 0.9, 6.6, 11, 0.4, "enquiry@tertiaryinfotech.com   |   +65 6100 0613   |   www.tertiarycourses.com.sg", 13, K.DIM, autofit=False)
+
+OUT = os.path.join(REPO, "courseware", f"{C.SHORT_TITLE}-{C.VERSION}.pptx")
+D.save(OUT)
+mark("end")
+import json
+json.dump(MARK, open(os.path.join(HERE, "slide_map.json"), "w"), indent=1)
+print(f"Saved {OUT}  ({D.n} slides)")

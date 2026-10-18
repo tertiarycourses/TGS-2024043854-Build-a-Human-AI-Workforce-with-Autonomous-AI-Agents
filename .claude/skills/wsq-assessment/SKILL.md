@@ -66,3 +66,17 @@ Every content update to a courseware artifact MUST, in the same change:
 3. **Regenerate the outputs**, remove (`git rm`) the superseded versioned files, and update any references to the versioned filename (README, slides that cite the document, etc.).
 
 Never regenerate an artifact with content changes while keeping the old version number.
+
+## PP evidence and private overrides (learned on TGS-2024043854 v5, Oct 2026)
+
+- **PP evidence = ONE screenshot from ONE named lab per task** (user rule). Word each task as
+  "Paste ONE screenshot from Lab N showing …", then ask for the analysis applied to a new client
+  scenario. Do not ask candidates to rebuild a platform inside the 1-hour PP. Each lab whose
+  screenshot is assessed tells learners in its checkpoint to "take the PP screenshot now".
+- **Keep the ask shape of the original paper** (`reference/ORIGINAL-assessment-structure.md`) and
+  the CP K statement for each question; refresh only the context and model answers. Every model
+  answer must cite a slide that actually teaches it (no untaught examples).
+- **Course content lives in a private override module**, not in this generic builder: a course
+  script imports `build_assessment.py`, overrides `WRITTEN`, `SCENARIO`, `PRACTICAL`, `Q_VER/A_VER`,
+  and calls `build_wa()` / `build_pp()`. That script contains model answers, so it is git-ignored
+  (as is this builder once it holds course answers). Archive superseded papers to `assessment/archive/`.

@@ -1,85 +1,38 @@
 # Labs — Build a Human-AI Workforce with Autonomous AI Agents
 
-33 hands-on labs across **three** autonomous-agent platforms. Each lab follows a reference
-video and builds toward one realistic use case. The course runs over **2 days**:
+Ten connected, use-case labs for **Kopi Kaki Co. — a fictional Singapore kopi chain launching the Gula Melaka Cold Brew (#ShiokColdBrew)**. Every lab builds on the previous one and saves its work to `~/kopi-kaki/outputs/labNN/`.
 
-- **Day 1** — Topic 1 (Hermes Agent) + Topic 2 (OpenClaw)
-- **Day 2** — Topic 3 (Paperclip) + Final Assessment
+**Copy-ready prompts:** open [`../prompts/index.html`](../prompts/index.html) in your browser (works offline) — pick a lab, click **Copy**.
 
-| Topic | Labs | Platform | Running use case |
-|-------|------|----------|------------------|
-| 1 | 01–14 | **Hermes Agent** (Nous Research) | *Athena* — an always-on personal chief-of-staff |
-| 2 | 15–26 | **OpenClaw** | *Nimbus Supplies* — automating a business back-office |
-| 3 | 27–33 | **Paperclip** | *Altera AI Blogs* — a zero-human AI blog company you govern |
+Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).
 
-Do each topic's labs **in order** — later labs build on what earlier ones set up.
+## Day 1 — Topic 2: Hermes Agent (single agent → multi-agent → human gates)
 
----
+| # | Lab | Paradigm | Time | Instructions |
+|---|---|---|---|---|
+| 1 | [Hire Your First AI Employee — Customer & Market Research Brief](lab01-hermes-first-ai-employee/README.md) | Single agent | 55 min | [PDF](lab01-hermes-first-ai-employee/LAB-01-Instructions.pdf) |
+| 2 | [End-to-End Social Media Campaign with One Agent](lab02-hermes-social-media-campaign/README.md) | Single agent + skills | 60 min | [PDF](lab02-hermes-social-media-campaign/LAB-02-Instructions.pdf) |
+| 3 | [Human-in-the-Loop Publishing & Community Care (Telegram + Cron)](lab03-hermes-human-in-the-loop/README.md) | Human–agent collaboration | 45 min | [PDF](lab03-hermes-human-in-the-loop/LAB-03-Instructions.pdf) |
+| 4 | [Multi-Agent Video Studio — Research → Script → Production → Audit → Publish](lab04-hermes-multi-agent-video-studio/README.md) | Multi-agent (ordered pipeline) | 60 min | [PDF](lab04-hermes-multi-agent-video-studio/LAB-04-Instructions.pdf) |
+| 5 | [Multi-Agent Campaign Command Centre — Measure, Optimise & Report](lab05-hermes-campaign-command-centre/README.md) | Multi-agent (parallel swarm) | 45 min | [PDF](lab05-hermes-campaign-command-centre/LAB-05-Instructions.pdf) |
 
-## Topic 1 — Hermes Agent (Labs 01–14)
+## Day 2 — Topic 3: Paperclip (a governed company of agents)
 
-| # | Lab |
-|---|-----|
-| 1 | [Install and Setup Hermes](lab01-hermes-install/README.md) |
-| 2 | [Deployment — Local Install & Hermes Desktop App](lab02-hermes-deployment/README.md) |
-| 3 | [Memory and Plugins](lab03-hermes-memory-plugins/README.md) |
-| 4 | [Skills](lab04-hermes-skills/README.md) |
-| 5 | [Providers & Model](lab05-hermes-providers-models/README.md) |
-| 6 | [MCP and Tools](lab06-hermes-mcp-tools/README.md) |
-| 7 | [Cron Jobs & Automation](lab07-hermes-crons-automation/README.md) |
-| 8 | [Subagents & Delegation](lab08-hermes-subagents-delegation/README.md) |
-| 9 | [Profile and Kanban](lab09-hermes-profile-kanban/README.md) |
-| 10 | [Security](lab10-hermes-security/README.md) |
-| 11 | [Use Case — Make a Video with Hyperframe](lab11-hermes-usecase-video/README.md) |
-| 12 | [Visualization](lab12-hermes-visualization/README.md) |
-| 13 | [Build a Multi-Agent Video Team (Profiles + Kanban)](lab13-hermes-multi-agent-workflow/README.md) |
-| 14 | [Webhook](lab14-hermes-webhook/README.md) |
+| # | Lab | Paradigm | Time | Instructions |
+|---|---|---|---|---|
+| 6 | [Found Kopi Kaki Growth Studio — an AI Company You Govern](lab06-paperclip-found-ai-company/README.md) | Human-governed company of agents | 60 min | [PDF](lab06-paperclip-found-ai-company/LAB-06-Instructions.pdf) |
+| 7 | [Hire the Marketing Team Through the Board Approval Gate](lab07-paperclip-hire-marketing-team/README.md) | Multi-agent organisation | 45 min | [PDF](lab07-paperclip-hire-marketing-team/LAB-07-Instructions.pdf) |
+| 8 | [Run the #ShiokColdBrew Launch as a Project — Review, Revise, Release](lab08-paperclip-launch-campaign-project/README.md) | Multi-agent project with Board review | 55 min | [PDF](lab08-paperclip-launch-campaign-project/LAB-08-Instructions.pdf) |
+| 9 | [Automate the Weekly Video Pipeline with a Routine and a Board Gate](lab09-paperclip-weekly-video-routine/README.md) | Scheduled multi-agent workflow | 45 min | [PDF](lab09-paperclip-weekly-video-routine/LAB-09-Instructions.pdf) |
+| 10 | [Govern, Measure & Improve Your Human–AI Workforce](lab10-paperclip-govern-measure-improve/README.md) | Workforce governance | 45 min | [PDF](lab10-paperclip-govern-measure-improve/LAB-10-Instructions.pdf) |
 
-## Topic 2 — OpenClaw (Labs 15–26)
+## Topic 1 activity
+Human–AI Workforce Canvas (in class, 15 min) — see the slide deck and Learner Guide; then start the Hermes install from Lab 1 step 1.
 
-| # | Lab |
-|---|-----|
-| 15 | [Install OpenClaw](lab15-openclaw-install/README.md) |
-| 16 | [Models & Providers](lab16-openclaw-models-providers/README.md) |
-| 17 | [Channels](lab17-openclaw-channels/README.md) |
-| 18 | [Skills](lab18-openclaw-skills/README.md) |
-| 19 | [Tools & Integrations](lab19-openclaw-tools-integrations/README.md) |
-| 20 | [Commands](lab20-openclaw-commands/README.md) |
-| 21 | [Cron Jobs & Heartbeat](lab21-openclaw-crons-heartbeat/README.md) |
-| 22 | [Memory & Context](lab22-openclaw-memory/README.md) |
-| 23 | [Security](lab23-openclaw-security/README.md) |
-| 24 | [Multi-Agent Workforce](lab24-openclaw-multi-agent/README.md) |
-| 25 | [Dreaming — Idle Reflection & Self-Improvement](lab25-openclaw-dreaming/README.md) |
-| 26 | [Use Cases & Key Functions](lab26-openclaw-usecases/README.md) |
-
-## Topic 3 — Paperclip (Labs 27–33)
-
-Running use case: **Altera AI Blogs** — found and govern a zero-human company that researches the AI landscape daily and publishes AI-related blogs end to end, as the Board.
-
-| # | Lab |
-|---|-----|
-| 27 | [Install Paperclip on Windows & Mac](lab27-paperclip-install/README.md) — self-host with Docker Compose (Docker Desktop / WSL2) and open the dashboard at localhost:3100 |
-| 28 | [Setup Company, CEO & Mission](lab28-paperclip-company-ceo-mission/README.md) — found 'Altera AI Blogs': mission, budget and the Board-approved CEO agent |
-| 29 | [Setup Adaptor](lab29-paperclip-adaptor/README.md) — enable a model adaptor (Claude Code / Codex / Gemini CLI) as the agents' engine |
-| 30 | [Create the Task Backlog](lab30-paperclip-task-backlog/README.md) — six well-briefed tasks, with 'Hire the agents to publish the AI-related blogs end to end' as the core task assigned to the CEO |
-| 31 | [Add the Tavily Search API](lab31-paperclip-tavily-search/README.md) — store the key as a company Secret and bind it to TAVILY_API_KEY for live web search |
-| 32 | [Hire the Members Under the Hiring Task](lab32-paperclip-hire-team/README.md) — the CEO proposes the blog team (research analyst, blog writer, editor/publisher, SEO/marketer) under the core task; you approve each hire at the gate |
-| 33 | [Routine & Trigger — Publish Daily at 3pm](lab33-paperclip-daily-routine/README.md) — a Routine with a daily 15:00 trigger generates and runs 'Produce and publish today's AI blog post' automatically |
-
----
-
-## Lab convention
-
-Every lab follows the same structure: **Objective → Prerequisites → Estimated Time →
-📺 Reference Video → Steps (copy-pasteable) → Verification / Expected Output →
-Troubleshooting → Exercise / Challenge**. Each lab links its reference video.
-
-> **Note on commands:** commands are anchored on each platform's official docs
-> ([Hermes](https://hermes-agent.nousresearch.com/docs/) ·
-> [OpenClaw](https://docs.openclaw.ai/) · [Paperclip](https://docs.paperclip.ing)). These
-> platforms move fast; a few version-specific commands are flagged in-lab with a "verify"
-> note — always trust the reference video and `--help`/`doctor` output on your build.
-
----
+## Conventions
+- Prompts are plain English; terminal commands are marked `bash`.
+- Hermes: start `hermes` inside `~/kopi-kaki` so `AGENTS.md` is loaded. Paperclip: http://localhost:3100.
+- Nothing public is ever published without a human APPROVE / Board approval.
+- Platforms move fast — if a command differs on your version, check `--help` and the official docs ([Hermes](https://hermes-agent.nousresearch.com/docs/) · [Paperclip](https://docs.paperclip.ing)).
 
 <sub>Part of the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · © 2026 Tertiary Infotech Academy Pte Ltd · www.tertiarycourses.com.sg</sub>

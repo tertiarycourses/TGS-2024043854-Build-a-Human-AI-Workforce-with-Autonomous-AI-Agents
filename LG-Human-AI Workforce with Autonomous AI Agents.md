@@ -1,1812 +1,1816 @@
-# Build a Human-AI Workforce with Autonomous AI Agents — Learner Guide
+# Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**WSQ Course Code:** TGS-2024043854  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.11 · 16 July 2026**
+**TGS-2024043854 · Version 2.0 · 18 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+
+> Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
 ## Contents
 
-- [Introduction](#introduction)
-- [Course Learning Outcomes](#course-learning-outcomes)
-- [Before You Start — Environment Setup](#before-you-start--environment-setup)
-- [Topic 01 — Hermes Agent — Your Autonomous Personal Chief-of-Staff  (33%)](#topic-01--hermes-agent--your-autonomous-personal-chief-of-staff--33)
-  - [Lab 1 — Install and Setup Hermes](#lab-1--install-and-setup-hermes)
-  - [Lab 2 — Deployment — Local Install & Hermes Desktop App](#lab-2--deployment--local-install--hermes-desktop-app)
-  - [Lab 3 — Memory and Plugins](#lab-3--memory-and-plugins)
-  - [Lab 4 — Skills](#lab-4--skills)
-  - [Lab 5 — Providers & Model](#lab-5--providers--model)
-  - [Lab 6 — MCP and Tools](#lab-6--mcp-and-tools)
-  - [Lab 7 — Cron Jobs & Automation](#lab-7--cron-jobs--automation)
-  - [Lab 8 — Subagents & Delegation](#lab-8--subagents--delegation)
-  - [Lab 9 — Profile and Kanban](#lab-9--profile-and-kanban)
-  - [Lab 10 — Security](#lab-10--security)
-  - [Lab 11 — Use Case — Make a Video with Hyperframe](#lab-11--use-case--make-a-video-with-hyperframe)
-  - [Lab 12 — Visualization](#lab-12--visualization)
-  - [Lab 13 — Build a Multi-Agent Video Team (Profiles + Kanban)](#lab-13--build-a-multi-agent-video-team-profiles--kanban)
-  - [Lab 14 — Webhook](#lab-14--webhook)
-- [Topic 02 — OpenClaw — Automating a Business Back-Office  (33%)](#topic-02--openclaw--automating-a-business-back-office--33)
-  - [Lab 15 — Install OpenClaw](#lab-15--install-openclaw)
-  - [Lab 16 — Models & Providers](#lab-16--models--providers)
-  - [Lab 17 — Channels](#lab-17--channels)
-  - [Lab 18 — Skills](#lab-18--skills)
-  - [Lab 19 — Tools & Integrations](#lab-19--tools--integrations)
-  - [Lab 20 — Commands](#lab-20--commands)
-  - [Lab 21 — Cron Jobs & Heartbeat](#lab-21--cron-jobs--heartbeat)
-  - [Lab 22 — Memory & Context](#lab-22--memory--context)
-  - [Lab 23 — Security](#lab-23--security)
-  - [Lab 24 — Multi-Agent Workforce](#lab-24--multi-agent-workforce)
-  - [Lab 25 — Dreaming — Idle Reflection & Self-Improvement](#lab-25--dreaming--idle-reflection--self-improvement)
-  - [Lab 26 — Use Cases & Key Functions](#lab-26--use-cases--key-functions)
-- [Topic 03 — Paperclip — Running & Governing a Company of AI Agents  (34%)](#topic-03--paperclip--running--governing-a-company-of-ai-agents--34)
-  - [Lab 27 — Install Paperclip on Windows & Mac](#lab-27--install-paperclip-on-windows--mac)
-  - [Lab 28 — Setup Company, CEO & Mission](#lab-28--setup-company-ceo--mission)
-  - [Lab 29 — Setup Adaptor](#lab-29--setup-adaptor)
-  - [Lab 30 — Create the Task Backlog](#lab-30--create-the-task-backlog)
-  - [Lab 31 — Add the Tavily Search API](#lab-31--add-the-tavily-search-api)
-  - [Lab 32 — Hire the Members Under the Hiring Task](#lab-32--hire-the-members-under-the-hiring-task)
-  - [Lab 33 — Routine & Trigger — Publish Daily at 3pm](#lab-33--routine--trigger--publish-daily-at-3pm)
-- [Wrap-Up — The Agent Build Arc and Governance](#wrap-up--the-agent-build-arc-and-governance)
-- [Next Steps](#next-steps)
+- [About This Learner Guide](#about-this-learner-guide)
+- [Topic 1 — Foundations of Autonomous AI Agents & the Human–AI Workforce](#topic-1--foundations-of-autonomous-ai-agents--the-humanai-workforce)
+- [Topic 2 — Hermes Agent — From a Single AI Employee to a Multi-Agent Team](#topic-2--hermes-agent--from-a-single-ai-employee-to-a-multi-agent-team)
+- [Topic 3 — Paperclip — Running & Governing a Company of AI Agents](#topic-3--paperclip--running--governing-a-company-of-ai-agents)
+- [Assessment Preparation](#assessment-preparation)
 - [Glossary](#glossary)
 
+## About This Learner Guide
 
-## Introduction
+This Learner Guide accompanies the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854). It explains the concepts of Topic 1 in depth and gives you detailed, step-by-step instructions for the ten hands-on labs. Use it during class and as an open-book reference in the assessment.
 
-This Learner Guide accompanies the WSQ course Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 33 hands-on labs across three autonomous-AI-agent platforms — Hermes Agent, OpenClaw and Paperclip — organised into three topics. Each platform builds on the same skillset: install the runtime, connect models and channels, give the agent memory, extend it with skills and tools, automate it with schedules, secure it with governance, and finally orchestrate multiple agents to deliver a realistic business outcome.
+| Item | Details |
+|---|---|
+| Course | Build a Human-AI Workforce with Autonomous AI Agents |
+| Course code | TGS-2024043854 |
+| Duration | 2 days (16 hours incl. assessment) |
+| Provider | Tertiary Infotech Academy Pte Ltd (UEN: 201200696W) |
+| Course scenario | Kopi Kaki Co. — a fictional Singapore kopi chain launching the Gula Melaka Cold Brew (#ShiokColdBrew) — all company data is fictional |
+| Course repository | https://github.com/tertiarycourses/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents |
 
-Use this guide alongside the course slides and the lab files in the labs/ folder of the course repository. The labs run on your own laptop and in Docker; where a lab connects to an external service (an LLM provider, a messaging channel, a VPS) use only accounts and credentials you own, and keep API keys and tokens out of prompts and out of version control.
-
-
-## Course Learning Outcomes
+### Learning Outcomes
 
 - LO1: Analyse AI (LLM-based) applications across a range of industries to identify their capabilities and limitations.
 - LO2: Establish the relationship between AI algorithm/agent design and chatbot/agent efficiency.
 - LO3: Evaluate and improve the effectiveness of AI (RAG and agent) applications in product development.
 
+### Course Structure
 
-## Before You Start — Environment Setup
+| Topic | Day | What you do |
+|---|---|---|
+| 1 · Foundations of Autonomous AI Agents & the Human–AI Workforce | Day 1 AM | A brief history of AI; AI agents vs agentic AI; The agentic loop & harness engineering; Brain · perception · action, memory & world models; From single agent to human–AI collaboration; The 2026 agent market, use cases & governance; Activity: Human–AI Workforce Canvas |
+| 2 · Hermes Agent — From a Single AI Employee to a Multi-Agent Team | Day 1 PM | Labs 1–5 on Hermes Agent |
+| 3 · Paperclip — Running & Governing a Company of AI Agents | Day 2 | Labs 6–10 on Paperclip, then the assessment |
 
-**What you need**
+### How to Use the Lab Materials
 
-- A laptop you have administrator rights on — Windows 10/11, macOS 12+ or Ubuntu 22.04+ — with a terminal.
-- Node.js 24 LTS (required to run the OpenClaw gateway daemon).
-- Docker Desktop (required to self-host Paperclip with Docker Compose, and used for isolated agent sandboxes).
-- At least one LLM provider login or API key — Claude (Anthropic), OpenAI, OpenRouter, MiniMax or DeepSeek.
-- A free Telegram account for the messaging-channel labs (you will create a bot via BotFather).
-- Optional: a VPS (e.g. Hostinger or exe.dev) if you want to run an agent 24/7 beyond the classroom.
+1. Download the course repository (Code → Download ZIP) and unzip it.
+2. Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.
+3. Each lab folder labs/labNN-…/ contains README.md, LAB-NN-Instructions.pdf (printable), COPY-PROMPTS.txt and data/ (mock company files, skills and brand assets).
+4. Create one workspace folder ~/kopi-kaki and copy each lab's data/ into it as you go. Outputs are saved to ~/kopi-kaki/outputs/labNN/.
+5. Finish each lab with its checkpoint: evidence, not vibes.
 
-**Verify your toolchain**
+![The Lab Prompts page (prompts/index.html)](courseware/assets/screenshots/prompts-page.png)
+*The Lab Prompts page (prompts/index.html)*
 
-Open a terminal and confirm the core prerequisites are present before you begin. Each platform's installer (Hermes, OpenClaw, Paperclip) is run in its own lab; here you only confirm the building blocks.
+> **Note:** Platforms change quickly. If a command differs on your version, run it with --help and check the official docs: https://hermes-agent.nousresearch.com/docs/ and https://docs.paperclip.ing.
 
-```bash
-$ node --version     # Node.js 24.x for OpenClaw
-$ docker --version   # Docker Desktop for Paperclip and sandboxes
-$ docker compose version
-$ git --version      # to clone the course labs repository
+## Topic 1 — Foundations of Autonomous AI Agents & the Human–AI Workforce
+
+### 1.1 A Brief History of AI
+
+Artificial intelligence moved from hand-written rules to learning from data, then to language, and now to agents that act. Each era moved more of the 'how' from people into the machine.
+
+| Year | Milestone | Why it matters |
+|---|---|---|
+| 1950 | Alan Turing proposes the imitation game (Turing test) | Turns 'Can machines think?' into a behavioural test |
+| 1956 | Dartmouth workshop coins 'artificial intelligence' | AI becomes a field of study |
+| 1970s–80s | Expert systems (MYCIN, XCON) | Rules + inference engine; brittle and costly to update |
+| 1997 | IBM Deep Blue beats Garry Kasparov | Brute-force search wins a narrow task |
+| 2012 | AlexNet wins ImageNet | Deep learning era: GPUs + big data |
+| 2016 | AlphaGo beats Lee Sedol 4–1 | Deep + reinforcement learning |
+| 2017 | 'Attention Is All You Need' — the Transformer | The architecture behind every LLM |
+| 2022 | ChatGPT launches (30 Nov); ReAct paper | LLMs go mainstream; LLMs can reason and act |
+| 2023 | GPT-4; the prompt-engineering era | Results depend on how the prompt is worded |
+| 2024 | Model Context Protocol (25 Nov 2024) | A standard way for agents to reach tools and data |
+| 2025 | Coding agents (Claude Code, Codex); context engineering | Results depend on the context you curate |
+| 2026 | Harness engineering named; always-on agents (OpenClaw, Hermes Agent, Paperclip, OpenAI Dots, Meta Muse) | Agents work 24/7 inside human-governed systems |
+
+**Prompt → context → harness engineering.** Prompt engineering crafts one instruction. Context engineering curates everything the model sees — brand guide, brief, data, memory, tool results. Harness engineering designs the whole environment around the model: the loop, tools, memory, skills, verification, guardrails and human gates. Each layer contains the one before it.
+
+#### The range of AI applications today
+
+| Category | Examples | Key capability |
+|---|---|---|
+| Generative AI / LLMs | Chatbots, writing, coding, summarising | Understand and generate natural language, code and images |
+| Computer vision | Defect detection, medical imaging, visual product search | Recognise and classify what is in images and video |
+| Predictive analytics & machine learning | Demand forecasting, fraud scoring, recommendations | Learn patterns in historical data to predict outcomes |
+| Speech & multimodal | Voice assistants, transcription, text-to-speech | Convert between speech, text and other media |
+| Scientific discovery | AlphaFold, AI co-scientist, AlphaEvolve | Generate and rank hypotheses or designs for experts to test |
+| Autonomous AI agents | Hermes Agent, Paperclip, OpenAI Dots, Synapxe AgentSea | Pursue a goal with tools, memory and planning, with humans in the loop |
+
+<sub>Sources: Turing (1950); Vaswani et al. (2017); Anthropic, Model Context Protocol (Nov 2024); Anthropic, Effective context engineering for AI agents (Sep 2025).</sub>
+
+### 1.2 AI Agents vs Agentic AI
+
+An **AI agent** is an autonomous software entity that executes a goal-directed task in a bounded digital environment: one LLM plus tools, cycling through perceive → reason → act. **Agentic AI** is a system of several specialised agents coordinated by an orchestrator, with dynamic task decomposition, persistent shared memory and coordinated autonomy.
+
+| Dimension | AI Agent | Agentic AI |
+|---|---|---|
+| Scope | One specific, well-defined task | A complex, multi-step goal or workflow |
+| Architecture | One LLM + tools | Several specialised agents + an orchestrator |
+| Flow | User → Agent → Tool | User → System → Agent 1 → Agent 2 → … |
+| Memory | Session context, optional cache | Shared, persistent memory across stages |
+| Planning | Single-step, reactive | Multi-step, proactive goal decomposition |
+| Coordination | Works alone | Hierarchical or decentralised hand-offs |
+| In this course | Lab 1 research agent, Lab 2 campaign agent | Lab 4 video studio, Lab 5 swarm, Labs 6–10 AI company |
+| Main risks | Hallucination, brittle prompts | Error propagation, misalignment, governance |
+
+Analogy: a smart thermostat that holds 21°C is an AI agent. A smart home whose weather, energy-price, schedule, appliance and security agents pre-cool the house with solar power before a heatwave hits at peak price is agentic AI.
+
+<sub>Source: Sapkota, Roumeliotis & Karkee, 'AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and Challenges', Information Fusion (2025), arXiv 2505.10468.</sub>
+
+### 1.3 The Agentic Loop
+
+Every agent task runs the same repeating cycle: **gather context → take action → verify work → repeat** until the goal is met. ReAct (2022) describes the same idea as Thought → Action → Observation.
+
+| Step | What the agent does | Lab 1 example |
+|---|---|---|
+| Gather context | Reads files and memory, searches, calls tools | Loads AGENTS.md, reads 60 reviews, searches cold-brew trends |
+| Take action | Writes files, runs commands, calls APIs/MCP tools | Writes review-insights.md and research-brief.md |
+| Verify | Checks results — checklist, test, screenshot, second agent | Every claim needs a review ID or URL |
+| Repeat | Feeds results back as new context | Revises the brief after your challenge |
+
+- Give direction, not micro-steps — state the goal, constraints and definition of done.
+- Verification is everything — an agent is only as good as its ability to check its work.
+- Steer mid-loop — review plans and drafts early, send work back with specific feedback.
+- Context is the fuel — what the agent can see decides what it can do.
+
+<sub>Sources: Anthropic, Building agents with the Claude Agent SDK (Sep 2025); Yao et al., ReAct (arXiv 2210.03629).</sub>
+
+### 1.4 Harness Engineering
+
+**Agent = Model + Harness.** The harness is everything around the model that turns it into a dependable worker. Harness engineering is designing that environment — and treating every agent mistake as something to fix permanently in the environment rather than re-explaining it in chat. Anthropic described long-running agent harnesses in Nov 2025; Mitchell Hashimoto named 'engineer the harness' and OpenAI's Codex team popularised 'harness engineering' in Feb 2026 ('Humans steer. Agents execute.' — ~1M lines of code with no hand-written code).
+
+| Harness component | What it does | Where you use it |
+|---|---|---|
+| Agent loop | Runs gather → act → verify → repeat | Every Hermes and Paperclip run |
+| Tools & MCP | Lets the model act | Web search, files, terminal, image generation |
+| Context management | Keeps the right tokens in the window | AGENTS.md, company instructions |
+| Memory | Persists across sessions | MEMORY.md / USER.md; Paperclip history |
+| Skills | Procedural know-how on demand | kopi-brand-voice, campaign planner, compliance audit |
+| Verification | Checklists, auditors, verifiers | Self-check tables, auditor profile, swarm verifier |
+| Guardrails | Permissions, budgets, approval gates | Telegram APPROVE, blocked tasks, Board approvals, budgets |
+| Sub-agents & orchestration | Focused agents, coordinated | Profiles + Kanban, swarms, Paperclip org chart |
+| Observability | Logs, costs, audit trail | Kanban history, Audit → Activity/Costs |
+
+<sub>Sources: Anthropic, Effective harnesses for long-running agents (Nov 2025); M. Hashimoto, My AI Adoption Journey (Feb 2026); OpenAI, Harness engineering (Feb 2026).</sub>
+
+### 1.5 How an Agent Works: Perception · Brain · Action
+
+The survey 'The Rise and Potential of Large Language Model Based Agents' (Xi et al., Fudan University, arXiv 2309.07864) frames an LLM agent as three parts working in a closed loop with its environment.
+
+| Part | Role | Includes |
+|---|---|---|
+| Perception | Sense the world — from data to information | Multimodal input (text, image, audio, video); environment interaction (tools, web, files); information retrieval (search, RAG, memory); world modelling |
+| Brain | Core cognition and decisions — from understanding to decisions | Knowledge (pre-trained, domain, common sense); memory (short- and long-term); reasoning (logic, reflection, self-correction); planning (decompose, set goals, adapt) |
+| Action | Change the world — from decisions to action | Task execution (code, tools, operations); environment feedback (results, rewards); behaviour optimisation and autonomous evolution |
+
+Perception → decision → action → feedback → new perception. In Lab 3 the feedback is literally your APPROVE / EDIT / REJECT reply on Telegram.
+
+### 1.6 Memory: Short-Term and Long-Term
+
+| Memory type | Human analogy | What the agent keeps | Where you see it |
+|---|---|---|---|
+| Short-term / working | What you are thinking about now | The context window: instructions, chat, tool results, current plan | Every session; compaction when it fills |
+| Episodic (long-term) | 'What happened' | Past sessions, actions and outcomes | Hermes session search; Kanban and Paperclip history |
+| Semantic (long-term) | 'Facts I know' | Facts about the company and user; knowledge bases (RAG) | MEMORY.md / USER.md; company knowledge |
+| Procedural (long-term) | 'How to do things' | Skills, rules, workflows | SKILL.md skills; AGENTS.md; agent instructions |
+
+Agents bring long-term memory back into context by **retrieval** (by recency, importance and relevance; RAG and vector search; just-in-time loading of files), and improve through **reflection** — writing lessons to memory after a failure. In Hermes, memory files load at session start, so after the agent saves something, start a new session to see it recalled.
+
+#### RAG agent vs a standard LLM assistant
+
+|  | RAG agent | Standard LLM assistant |
+|---|---|---|
+| How it answers | Retrieves from a curated, current corpus, then generates | From training data alone |
+| Strengths | Grounded, cited, auditable; uses live company data | Fast to deploy; low maintenance |
+| Limitations | Quality depends on corpus freshness, chunking and retrieval settings | Stale knowledge; hallucination; no provenance |
+| Maintenance | Re-index and review sources regularly | Minimal |
+| Evaluate on | Accuracy, relevance, latency, cost, maintenance effort | Same metrics |
+
+<sub>Sources: Sumers et al., CoALA (arXiv 2309.02427); Park et al., Generative Agents (2023); Shinn et al., Reflexion (2023).</sub>
+
+### 1.7 World Models
+
+LLMs predict the next word; **world models** predict how the state of the world changes after an action, so an agent can simulate 'what if I do X?' before acting. They matter for planning, physical AI (robots, vehicles), safe training in generated worlds, and grounding.
+
+| Date | System | What it is |
+|---|---|---|
+| Jan 2025 | NVIDIA Cosmos | World foundation models for robots and autonomous vehicles |
+| Jun 2025 | Meta V-JEPA 2 | Video world model; zero-shot robot pick-and-place |
+| Aug 2025 | Google DeepMind Genie 3 | Interactive worlds from text at 24 fps, 720p |
+| Nov 2025 | World Labs Marble | Persistent, editable 3D worlds from text or images |
+| Mar 2026 | AMI Labs (Yann LeCun) | US$1.03B raised to build JEPA-based world models |
+
+### 1.8 From Single Agent to Human–Agent Collaboration
+
+| Paradigm | Forms | In this course |
+|---|---|---|
+| Single agent | Task-oriented, innovation-oriented, lifecycle-oriented | Labs 1–2: one agent researches and runs a campaign |
+| Multi-agent | Cooperative — ordered (SOP pipeline) or disordered (discussion, voting); adversarial (debate) | Lab 4 ordered pipeline; Lab 5 parallel swarm with a verifier |
+| Human–agent collaboration | Instructor–executor (humans instruct and give feedback); equal partnership (agents as peers) | Lab 3 APPROVE gate; Day 2 Board approvals; CEO proposes, you decide |
+
+Without rules, multi-agent conversation can amplify small hallucinations — add verifiers, cross-checks and human checkpoints. At scale, agents form an **agent society**: individual behaviour, group interaction, personality (SOUL.md, instructions) and social emergence — and 'Agent-as-a-Service', the idea behind Paperclip.
+
+#### Levels of autonomy — pick per task, not per agent
+
+| Level | Your role | What the agent does | Course example |
+|---|---|---|---|
+| L1 | Operator | Acts only when invoked for a subtask | A one-off question to Mia |
+| L2 | Collaborator | Plans and works with you | Lab 2 drafting with feedback |
+| L3 | Consultant | Does most of the work; asks for expertise | Lab 1 brief; Lab 7 hiring plan |
+| L4 | Approver | Asks only at high-risk steps or approvals | Lab 3 APPROVE; Lab 9 weekly routine |
+| L5 | Observer | Works alone; you monitor with an off-switch | Lab 5 weekly report cron |
+
+| Pattern | Definition | Use for |
+|---|---|---|
+| Human-in-the-loop | A person approves BEFORE the action | Irreversible, public, regulated actions |
+| Human-on-the-loop | Agent acts; a person monitors and can intervene | High-volume, reversible work |
+| Human-out-of-the-loop | Fully autonomous | Only low-risk, bounded, reversible tasks |
+
+<sub>Sources: Xi et al. (arXiv 2309.07864); Feng, McDonald & Zhang, Levels of Autonomy for AI Agents (arXiv 2506.12469).</sub>
+
+### 1.9 The 2026 Agent Market
+
+| Product | Vendor · launch | Type | Human-in-the-loop |
+|---|---|---|---|
+| OpenClaw | OpenClaw Foundation · Nov 2025 (renamed Jan 2026) | Open-source personal agent on your machine, via chat apps | DM pairing; optional sandbox |
+| Hermes Agent | Nous Research · ~Feb 2026 | Open-source, self-improving agent; memory, skills, cron, profiles, Kanban | Approval modes; allow-lists |
+| Paperclip | Paperclip Labs · Mar 2026 | Open-source company of agents (org chart, budgets) | Board approvals; budgets auto-pause; audit log |
+| OpenAI Dots | OpenAI · 29 Sep 2026 | Always-on agents with their own cloud computer (ChatGPT, Slack, Teams) | Custom rules: allow / approve / block |
+| Meta Muse | Meta · 8 Sep 2026 (US) | Personal agent for life admin (app, web, WhatsApp) | Confirms sensitive actions; Sentinel guard agent |
+| Block Buzz | Block · 21 Jul 2026 | Open-source workspace for humans and agents (Nostr) | Agent identities and permissions |
+| Manus Cue | Manus · 28 Sep 2026 | Agents with their own email, phone, wallet and computer | Budgets; you make the final call |
+| Claude Cowork / Claude Code | Anthropic · 2025–2026 | Desktop and coding agents with sub-agents | Manual / Auto / Skip permission modes |
+| OpenAI Codex | OpenAI · 2025–2026 | Parallel coding agents | Review before merge; sandboxes |
+| Gemini Enterprise agents | Google · 8 Oct 2026 | Sub-agents and persistent 'coworker' agents | Agent identity, gateway, spend caps |
+| Microsoft Agent 365 | Microsoft · May 2026 | Governance control plane for many agents | Registry, access control, DLP |
+
+Read the market in four groups: **personal agents** (one agent for one person), **workspaces and companies** (many agents and humans with roles), **governance layers** (registries, identities, budgets) and **open vs closed** (self-host and own your data, or convenience and managed security). This course uses two open-source platforms: Hermes Agent — an employee that learns — and Paperclip — the company you govern.
+
+<sub>Sources: vendor announcements and repositories, verified Oct 2026. Products change quickly — check before you buy.</sub>
+
+### 1.10 Singapore in Focus
+
+![The Straits Times, 24 Aug 2026 — 'New platform to create AI agents available to all public healthcare professionals'](courseware/assets/screenshots/st-agentsea.png)
+*The Straits Times, 24 Aug 2026 — 'New platform to create AI agents available to all public healthcare professionals'*
+
+**AgentSea**, an agentic AI platform by national healthtech agency Synapxe and AWS, lets Singapore's 80,000+ public healthcare professionals create their own AI agents in natural language. Since its launch at the end of May 2026, more than **12,000 agents** have been created and 300+ shared for reuse. A National Heart Centre Singapore cardiologist halved his pre-consultation preparation, and KK Women's and Children's Hospital built an agent that generates daily rosters. Guardrails protect patient data, and clinicians still verify: the tool 'has not replaced the need for verification or my own clinical assessment'. Announcing it at HIMSS26 APAC, Senior Minister of State Tan Kiat How said: 'We are moving from AI as assistant to AI as actor.'
+
+Singapore's governance anchor is IMDA's **Model AI Governance Framework for Agentic AI** (launched 22 Jan 2026; updated May 2026), with four dimensions: assess and bound risks upfront, meaningful human accountability (including approval checkpoints), technical controls, and end-user responsibility. GovTech's AI Assistant Desk keeps a registry of each agent's owner and purpose.
+
+<sub>Sources: The Straits Times (Zhaki Abdullah, 24 Aug 2026); Synapxe and MOH releases (24 Aug 2026); IMDA (Jan/May 2026).</sub>
+
+### 1.11 Human–AI Collaboration in Action
+
+| Domain | Example | What the agent does | What the human does |
+|---|---|---|---|
+| Science | Google AI co-scientist (2025) | Generates, debates and ranks hypotheses | Sets the goal, picks hypotheses, runs wet-lab tests (3 of 5 leukaemia ideas worked) |
+| Science | Edison Kosmos (2025) | Reads ~1,500 papers, writes ~42,000 lines of analysis per run | Sets the objective, judges which findings matter |
+| Mathematics | Gemini Deep Think (2025) | Writes natural-language proofs | IMO coordinators certify — gold, 35/42 |
+| Mathematics | AlphaEvolve + Terence Tao (2025–26) | Evolves programs and constructions | Defines the problem, WRITES the evaluator, proves and generalises |
+| Drug discovery | AlphaFold 3 (2024) | Predicts biomolecular structures | Chooses targets, validates in the lab (2024 Nobel Prize) |
+| Drug discovery | Insilico rentosertib (2025) | Found the TNIK target and designed the molecule | Clinicians ran the Phase 2a trial; regulators approved |
+| Healthcare | Microsoft MAI-DxO (2025) | Virtual panel orders tests step by step | Clinician owns diagnosis (benchmark only) |
+| Finance | Goldman Sachs + Anthropic (2026) | Trade accounting, client onboarding | Staff review exceptions and approve |
+| Software | OpenAI Codex harness (2026) | Writes code, tests, CI, docs | Engineers steer, review, build feedback loops |
+| Customer service | Klarna (2024–25) | Handles routine chats | Takes complex cases — human access re-prioritised in 2025 |
+| Marketing | This course | Drafts, designs, schedules, reports | Sets strategy, approves everything public |
+
+**The pattern:** the agent searches, generates, runs and checks at scale; the human sets the goal, defines 'good' (rubric, evaluator, tests), approves consequential actions, interprets meaning and owns accountability. Counter-evidence matters too: a 2025 METR trial found experienced developers 19% slower with early AI tools — the harness and the human make the difference.
+
+### 1.12 Risks, Governance and Security
+
+| Challenge | Mitigation |
+|---|---|
+| Hallucination | Require citations; verifier agents; human spot-checks |
+| Security risks (prompt injection, poisoned skills, leaked keys) | Least privilege, secrets, sandboxes, review skills before installing |
+| Explainability | Logs, Kanban history, Paperclip audit trail |
+| Data and bias (PDPA) | Mask personal data; review outputs |
+| Efficiency and cost | Budgets; cheaper models for simple roles |
+
+| Security principle | Question it answers | Control in the labs |
+|---|---|---|
+| Data control | What can the AI see? | Only the workspace files it needs |
+| Permission control | What can the AI do? | Approval modes; allow-listed Telegram user |
+| Human approval | When must it ask? | APPROVE on Telegram; blocked publish task; Board approvals |
+| Monitoring & audit | What did it do? | Kanban history; Audit → Activity/Costs |
+| Kill switch | How do I stop it? | hermes pause; Paperclip Pause; disable routines |
+
+### 1.13 Activity — Human–AI Workforce Canvas
+
+1. In pairs, list 8–10 tasks in Kopi Kaki's #ShiokColdBrew campaign (research, posts, video, replies, reporting …).
+2. Mark the tasks one agent can do end to end (SINGLE).
+3. Mark the tasks that need several specialised agents — pipeline or swarm (TEAM).
+4. Mark the decisions that must stay human, and why — risk, accountability, judgement (HUMAN).
+5. Draw where the human approves: before public posts, refunds, spend.
+6. Start the Hermes Agent install now (Lab 1, step 1). Once installed, ask Hermes to critique your canvas:
+
+```text
+Here is our Human-AI Workforce Canvas for Kopi Kaki Co.'s #ShiokColdBrew campaign:
+<paste your task list with SINGLE / TEAM / HUMAN labels and approval checkpoints>
+
+Act as an operations consultant. For each task:
+1. Agree or disagree with our label and say why (risk, reversibility, volume, judgement).
+2. Suggest the autonomy level (L1 Operator ... L5 Observer).
+3. Name one control (approval gate, budget, audit, verifier) we must add.
+End with the 3 biggest risks in our design.
 ```
 
-**Conventions used in every lab**
+## Topic 2 — Hermes Agent — From a Single AI Employee to a Multi-Agent Team
 
-- Commands are run from your terminal; a leading sudo is used only where elevated rights are required.
-- Placeholders such as <API_KEY>, <BOT_TOKEN> and <HOST> are replaced with your own values.
-- Store provider keys and channel tokens in each platform's config (never in prompts or in git).
-- Keep approval prompts, budgets and sandboxing on so agents act under human oversight.
-- Each capstone orchestrates multiple agents — start the single-agent labs first so the pieces are familiar.
+Hermes Agent (Nous Research, MIT licence) is a self-hosted, self-improving agent with persistent memory, skills, tools and MCP, a messaging gateway (Telegram and 15+ channels), a cron scheduler, and profiles + a Kanban board for multi-agent teams. On Day 1 you take it from one AI employee to a supervised five-agent studio.
 
+![The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)](courseware/assets/screenshots/hermes-dashboard.png)
+*The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)*
 
-## Topic 01 — Hermes Agent — Your Autonomous Personal Chief-of-Staff  (33%)
+| File / place | What it holds | Loaded |
+|---|---|---|
+| AGENTS.md (in the folder you start Hermes in) | Company context and rules | Every session in that folder |
+| ~/.hermes/SOUL.md (per profile) | The agent's role, personality, standing rules | Every session |
+| ~/.hermes/memories/MEMORY.md and USER.md | What the agent chose to remember; what it knows about you | Session start |
+| ~/.hermes/skills/ | Skills (SKILL.md folders) | On demand, by description |
+| Kanban board | Tasks, dependencies, comments, history | Dispatched by the running gateway |
 
-Install & Setup · Deployment · Memory & Plugins · Skills · Providers & Model · MCP & Tools · Crons · Subagents · Profile & Kanban · Security
+### Lab 1 — Hire Your First AI Employee — Customer & Market Research Brief
 
-**Key concepts**
+**Day 1 · 55 min · Single agent · LO1** — Install Hermes, give it company context and long-term memory, and let one agent turn raw reviews and live web research into a brief you can act on.
 
-- Hermes Agent (Nous Research) installs on your own machine — via the install script or the Hermes Desktop app — and requires a model with a >=64,000-token context window.
-- Memory and plugins make the agent stateful and extensible: a three-layer memory (agent-curated notes, FTS5 cross-session recall, Honcho user modelling) plus installable skills and MCP tools.
-- Providers & models are swappable with no lock-in (Nous Portal, OpenRouter, OpenAI, any endpoint); MCP servers and the Tool Gateway (web search, image, TTS) give the agent real-world reach.
-- Cron jobs automate recurring work; subagents & delegation split work across isolated backends; the profile and Kanban board let you supervise the agent's tasks — all under security controls.
+#### Business scenario
 
+You are Kopi Kaki Co.'s Marketing Lead. The Gula Melaka Cold Brew launches on 1 Dec and you have 60 unread customer reviews, a competitor list and no analyst. You 'hire' Mia — a Hermes Agent marketing analyst — onboard her with the company context, and ask for a research brief that tells you which campaign angle to run.
 
-### Lab 1 — Install and Setup Hermes
+#### Goal
 
-Learning outcome: LO1: Install and configure Hermes Agent on a local machine..
+Install and configure an autonomous LLM agent, give it context and long-term memory, and analyse its perception → reasoning → action loop on a real research task (LO1).
 
-Goal: Install Hermes Agent on your laptop using any of the official install methods (Desktop installer, install script, PowerShell, from source, or Nix), run the first-time setup wizard, and confirm a healthy install. This is the foundation for the Athena chief-of-staff agent you build across the track. Prerequisite: Git; the installer auto-handles Python 3.11, Node.js v22, ripgrep and ffmpeg.
+#### Before you start
 
-**What you'll build**
+- A laptop (macOS, Linux or Windows with WSL2) with admin rights and internet access
+- An LLM provider sign-in or API key (Nous Portal, OpenRouter, OpenAI/Codex, Anthropic)
+- This lab folder downloaded (course repo → Code → Download ZIP)
 
-A working Hermes Agent install that passes 'hermes doctor' and opens the TUI.   (Tools: Hermes Agent, Nous Portal, terminal.)
+![Lab 1 — the Hermes dashboard: sessions of your onboarded agent (hermes dashboard)](courseware/assets/screenshots/hermes-dashboard.png)
+*Lab 1 — the Hermes dashboard: sessions of your onboarded agent (hermes dashboard)*
 
-**Step-by-step**
+#### You will deliver
 
-1. Choose your installation method Hermes offers several official install paths — pick the ONE that matches your machine: > If you install via the Desktop app (Option A), you can skip Steps 2–3. If you install via the CLI first, you can add the desktop app later with hermes desktop.
-2. Option B — install script (Linux / macOS / WSL2 / Termux) Run the official one-line installer. It downloads the Hermes runtime, places it under your user directory, and wires up the hermes command:
+- outputs/lab01/review-insights.md — ratings, themes and evidence (review IDs)
+- outputs/lab01/research-brief.md — trends, competitors, 3 campaign angles with evidence
+- Mia's long-term memory holds the brand facts and YOUR chosen angle (recalled in a new session)
 
-   ```bash
-   curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-   ```
+| Who | Role |
+|---|---|
+| Agents | 1 Hermes agent — 'Mia', AI marketing analyst |
+| You (human) | Set the goal, challenge the evidence, choose the campaign angle |
 
-3. Option C — Windows PowerShell (native Windows) On native Windows (no WSL2), run the PowerShell installer instead:
+#### Concepts in action
 
-   ```bash
-   iex (irm https://hermes-agent.nousresearch.com/install.ps1)
-   ```
+- Perception (files + web) → Brain (LLM reasoning, memory) → Action (write files)
+- AGENTS.md = context the agent loads automatically (context engineering)
+- Short-term memory (this session) vs long-term memory (MEMORY.md, recalled next session)
+- Human-in-the-loop: the agent recommends, the human decides
 
-4. Install Hermes Desktop (macOS / Windows) Hermes Desktop gives you a GUI over the same agent. Either download the installer from <https://hermes-agent.nousresearch.com/> and run it, or — if you already installed the CLI in Step 2/3 — launch it directly:
+#### Lab files
 
-   ```bash
-   hermes desktop
-   ```
+labs/lab01-hermes-first-ai-employee/ — README.md, LAB-01-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-5. Reload your shell so the hermes command is on PATH The installer adds Hermes to your PATH via your shell profile, but your current terminal session hasn't re-read that file yet. Reload it:
+#### Step-by-step
 
-   ```bash
-   source ~/.zshrc
-   ```
+**Step 1 — Install Hermes Agent (skip if your trainer pre-installed it)**
 
-6. Run the first-time setup wizard Launch the interactive setup wizard and connect Hermes to your Nous Portal account. This is where you sign in, pick defaults, and let Hermes provision a model provider:
+macOS / Linux / WSL2 — run the one-line installer in Terminal. Windows — use the PowerShell installer (or install inside WSL2). The installer sets up Python, Node.js, ripgrep and ffmpeg for you.
 
-   ```bash
-   hermes setup --portal
-   ```
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+# Windows PowerShell:  iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+source ~/.zshrc    # or ~/.bashrc — puts 'hermes' on your PATH
+```
 
-7. Check the install is healthy Run the built-in diagnostic. It checks the binary, config, PATH, provider connectivity, and the local runtime:
+✓ Expected: `hermes --version` prints a version number.
 
-   ```bash
-   hermes doctor
-   ```
+**Step 2 — Connect a model and check health**
 
-8. Launch the agent and say hello Open the terminal UI (TUI) and start your first conversation with the agent — this is Athena's very first session:
+Run the setup wizard and choose a provider (Nous Portal, OpenRouter, OpenAI/Codex, Anthropic …). Pick a model with a context window of at least 64,000 tokens. Then run the doctor.
 
-   ```bash
-   hermes --tui
-   ```
+```bash
+hermes setup
+hermes doctor
+```
 
+✓ Expected: `hermes doctor` shows green checks for the model and tools.
 
-**Test it**
+**Step 3 — Create the Kopi Kaki workspace and add the lab data**
 
-'hermes doctor' reports all green and the TUI opens and replies to a message.
+Download this lab's folder (or the whole course repo) and copy everything in `data/` into a new folder `~/kopi-kaki`. Hermes automatically loads `AGENTS.md` from the folder you start it in — that is how Mia learns who the company is.
 
-> **Note:** Full commands and screenshots are in labs/lab01-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+```bash
+mkdir -p ~/kopi-kaki/outputs/lab01
+cp -R data/* ~/kopi-kaki/
+cd ~/kopi-kaki
+hermes
+```
 
----
+✓ Expected: The Hermes chat opens. Type `/help` to see slash commands.
 
+**Step 4 — Onboard Mia — persona and long-term memory**
 
-### Lab 2 — Deployment — Local Install & Hermes Desktop App
+Prompt — paste into *Hermes chat (started inside ~/kopi-kaki)*:
 
-Learning outcome: LO1: Deploy Hermes locally and run it through the Hermes Desktop app..
+```text
+You are Mia, Kopi Kaki Co.'s AI marketing analyst. Read AGENTS.md, brand-guide.md and campaign-brief.md in this folder.
 
-Goal: Run Hermes as a persistent local deployment (preferred) and also install the Hermes Desktop app for a GUI experience. Confirm the local gateway is serving and keep the runtime up to date.
+Save these facts to your long-term memory:
+- Kopi Kaki Co.: Singapore kopi chain, 12 outlets, positioning "Heritage kopi, modern craft".
+- Launch: Gula Melaka Cold Brew, SGD 6.80, launches 1 Dec 2026, campaign #ShiokColdBrew 17 Nov - 14 Dec.
+- Promo SHIOK20: 20% off the first Gula Melaka Cold Brew ordered in the app, valid 1-14 Dec 2026, one per customer.
+- Never publish anything without my APPROVE. Never make health or halal claims.
 
-**What you'll build**
+Then summarise the company in 5 bullets and ask me the 3 questions a new analyst should ask on day one.
+```
 
-A local Hermes deployment plus the Desktop app, both talking to the same agent.   (Tools: Hermes Agent, Hermes Desktop, terminal.)
+✓ Expected: Mia confirms the memory was saved and returns 5 bullets + 3 questions. Check the file itself: `cat ~/.hermes/memories/MEMORY.md` shows the facts.
 
-**Step-by-step**
+**Step 5 — Perceive the data — analyse 60 customer reviews**
 
-1. Watch the reference videos Watch both videos above. The primary shows the local deployment; the additional walkthrough covers the Desktop app in more depth. Note any UI screens that differ from the steps below.
-2. Confirm the local install runs (preferred deployment) Verify the CLI runtime you installed in Lab 1 is present and check its version. The local install is the preferred deployment — it keeps the agent runtime on your machine:
+Prompt — paste into *Hermes chat*:
 
-   ```bash
-   hermes --version
-   ```
+```text
+Analyse customer-reviews.csv.
+1. Rating distribution (count and % for 1-5 stars) and average rating per outlet.
+2. The top 5 praise themes and top 5 complaint themes, each with a count and 2 example review_ids.
+3. Anything relevant to a cold-brew launch (mentions of cold brew, sweetness, oat milk, app).
+Show your calculation method. Save the result as outputs/lab01/review-insights.md.
+```
 
-3. Download and install the Hermes Desktop app Download the Desktop app for your OS from the official site and install it like any normal application:
-4. Open the Desktop app and sign in Launch the Hermes Desktop app and sign in with the same Nous Portal account you used for the CLI in Lab 1. Signing in with the same account is what makes the Desktop app and the CLI drive the same agent. > This step is UI-only — there is no terminal command. In the app, choose Sign in with Nous Portal and complete the browser/authentication prompt.
-5. Verify the local gateway is serving The gateway is the local service that both the CLI and Desktop app connect to. Confirm it is up and healthy: Or just ask the agent: "Check that your local gateway is up and serving"
+✓ Expected: A Markdown report with a ratings table and themes that cite review IDs (e.g. R1012).
 
-   ```bash
-   hermes gateway status
-   ```
+**Step 6 — Perceive the world — live web research**
 
-6. Keep the runtime up to date Update Hermes to the latest release so the CLI and Desktop app stay compatible:
+Prompt — paste into *Hermes chat*:
 
-   ```bash
-   hermes update
-   ```
+```text
+Use web search to research specialty coffee and cold-brew trends in Singapore in 2026 (consumer preferences, price points, social media formats that work). Combine this with competitors.csv (the competitors are fictional - treat them as our internal notes).
+Rules: cite every web fact with its URL; mark anything you could not verify as UNVERIFIED; do not invent statistics.
+```
 
+✓ Expected: 5+ cited findings with URLs and a competitor comparison table.
 
-**Test it**
+**Step 7 — Act — write the research brief**
 
-Both the local CLI and the Desktop app drive the same agent; 'hermes gateway status' is healthy.
+Prompt — paste into *Hermes chat*:
 
-> **Note:** Full commands and screenshots are in labs/lab02-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+```text
+Write outputs/lab01/research-brief.md for the Marketing Lead with:
+1. Executive summary (5 lines).
+2. What our customers say (from review-insights.md).
+3. Market & competitor snapshot (cited).
+4. Three campaign angles for #ShiokColdBrew. For each: the big idea, target audience, supporting evidence (review IDs or URLs), the KPI it drives, and one risk.
+5. A final section "Decision needed" asking me to choose one angle.
+Follow the brand guide and compliance rules.
+```
 
----
+✓ Expected: research-brief.md with three evidence-backed angles and a 'Decision needed' section.
 
+**Step 8 — Human checkpoint — challenge, then decide**
 
-### Lab 3 — Memory and Plugins
+Read the brief like a manager. Challenge at least one claim, then make the decision and tell Mia to remember it.
 
-Learning outcome: LO2: Give the agent persistent memory and extend it with plugins..
+Prompt — paste into *Hermes chat*:
 
-Goal: Explore Hermes' three-layer memory (agent-curated notes, FTS5 cross-session recall, Honcho user modelling). Teach Athena a preference, recall it in a fresh session, and enable a plugin to extend behaviour.
+```text
+Which review_ids support angle 2? Quote them. Then: I choose angle <1|2|3> because <your reason>. Save my decision and reason to long-term memory, and add a "Decision log" section to research-brief.md.
+```
 
-**What you'll build**
+✓ Expected: Mia quotes the supporting reviews, updates the brief and confirms the memory write.
 
-Athena remembers a stated preference across sessions and runs an enabled plugin.   (Tools: Hermes Agent, memory, plugins.)
+**Step 9 — Test long-term memory in a brand-new session**
 
-**Step-by-step**
+First confirm the decision is in the memory file. Then exit with `/exit`, start a fresh session and ask Mia what she remembers. A new session has an empty short-term memory; memory files load at session start, so the answer should come from MEMORY.md (ask her where it came from — 'I'll remember' in a chat is not proof).
 
-1. Teach Athena a durable preference Start a session (hermes --tui) and give Athena a clear, memorable instruction that should persist. Explicitly asking it to remember nudges the agent to write the fact into its curated-notes memory layer:
+```bash
+cat ~/.hermes/memories/MEMORY.md
+hermes
+```
 
-   ```bash
-   Remember I prefer concise, bulleted summaries.
-   ```
+Prompt — paste into *New Hermes chat*:
 
-2. Start a new session and confirm the preference is recalled Resume the conversation in a fresh session. The --continue flag brings back prior context so you can test cross-session recall: Or just ask the agent: "What summary style did I ask you to remember?"
+```text
+Which campaign angle did I choose, and why? What is the promo code and its terms? Tell me whether you got this from your memory file or by searching past sessions.
+```
 
-   ```bash
-   hermes --continue
-   ```
+✓ Expected: Mia answers correctly without re-reading the files.
 
-3. Inspect stored memory / sessions List the stored sessions so you can see the memory Hermes is persisting behind the scenes: Or just ask the agent: "List my recent sessions and what each was about"
+#### Test it
 
-   ```bash
-   hermes sessions list
-   ```
+> **✅ Test it:** Every insight cites review IDs or a URL; the angle you chose is recalled in a brand-new session.
+>
+> - [ ] outputs/lab01/review-insights.md and research-brief.md exist and cite review IDs / URLs
+> - [ ] The brief ends with a decision log naming the angle you chose
+> - [ ] MEMORY.md contains the brand facts and your decision
+> - [ ] A new session recalls the chosen angle and the SHIOK20 terms
+> - [ ] PP evidence: take ONE screenshot now of the research brief or the memory recall — Task 1 of the Practical Performance uses it
 
-4. Enable a plugin to extend the agent Enable a plugin to add capability beyond the base agent. Plugins are toggled from the Hermes plugins UI or config:
+#### Troubleshooting
 
-**Test it**
+| Symptom | Fix |
+|---|---|
+| `hermes: command not found` | Open a new terminal or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux/WSL2). |
+| Model errors / context too small | Re-run `hermes setup` (or `hermes model`) and choose a model with ≥ 64k context. |
+| Web search not available | Run `hermes tools` and enable the web toolset. Keyless search works for light use; for reliability add a free key, e.g. `hermes config set TAVILY_API_KEY tvly-...` (you reuse it on Day 2). |
+| Windows paths | On native Windows Hermes keeps its data in %LOCALAPPDATA%\hermes instead of ~/.hermes — or run the labs inside WSL2. |
+| Mia ignores the brand rules | Make sure you started `hermes` inside ~/kopi-kaki so AGENTS.md is loaded. |
 
-A preference taught in one session is recalled in a new session, and the enabled plugin is active.
+#### Stretch challenge
 
-> **Note:** Full commands and screenshots are in labs/lab03-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+Ask Mia: "Save the review-analysis procedure you just used as a reusable skill called review-insights." Then run `hermes skills list` — a self-improving agent turns experience into procedural memory.
 
----
+### Lab 2 — End-to-End Social Media Campaign with One Agent
 
+**Day 1 · 60 min · Single agent + skills · LO1** — Give the agent two company skills and one tool chain, and turn the brief into a complete, dated, on-brand multi-platform campaign — then improve it with your feedback.
 
-### Lab 4 — Skills
+#### Business scenario
 
-Learning outcome: LO3: Extend the agent with installable, self-improving skills..
+With the angle chosen, you need a campaign: strategy, a 14-day content calendar across Instagram, TikTok, Facebook and LinkedIn, captions in the Kopi Kaki voice, visuals and tracking links. Instead of a long prompt you give Mia two skills — the company's brand-voice skill and a campaign-planner skill — so the work is repeatable and self-checked.
 
-Goal: Browse and install open-standard skills (agentskills.io / Skills Hub) so Athena can perform new tasks. Skills are portable and can self-improve as the agent uses them.
+#### Goal
 
-**What you'll build**
+Analyse the capabilities and limitations of an LLM agent on an end-to-end marketing workflow, and how skills, tools and instructions shape its output (LO1).
 
-Athena equipped with at least one installed skill that it can invoke on request.   (Tools: Hermes Agent, agentskills.io, Skills Hub.)
+#### Before you start
 
-**Step-by-step**
+- Lab 1 complete: Hermes installed, ~/kopi-kaki workspace, the angle you chose saved in memory
+- Optional: an image-generation backend (paid Nous Portal plan or a FAL_KEY)
 
-1. Browse the skills hub Open the skills catalogue to see what's available to install: Or just ask the agent: "Show me what skills are available on the skills hub"
+![Lab 2 — the Skills page: your kopi-brand-voice and social-campaign-planner skills appear here](courseware/assets/screenshots/hermes-skills.png)
+*Lab 2 — the Skills page: your kopi-brand-voice and social-campaign-planner skills appear here*
 
-   ```bash
-   hermes skills browse
-   ```
+#### You will deliver
 
-2. Search for a skill by keyword Narrow the catalogue to something useful for a chief-of-staff agent — for example calendar, email, research, or pdf: Or just ask the agent: "Search the skills hub for <keyword> skills"
+- outputs/lab02/campaign-plan.md — strategy, pillars, phases, KPIs, budget split
+- outputs/lab02/content-calendar.csv — ≥ 16 dated posts with UTM links
+- outputs/lab02/captions.md — captions with a compliance self-check per post
+- outputs/lab02/images/ — 3 hero visuals (or image prompts if no image tool)
+- A revised v2 after your feedback
 
-   ```bash
-   hermes skills search <keyword>
-   ```
+| Who | Role |
+|---|---|
+| Agents | 1 Hermes agent (Mia) + 2 custom skills + image tool |
+| You (human) | Review the draft, give concrete feedback, accept v2 |
 
-3. Install a skill Install a skill by its full identifier (copy it from the search results). The pattern is owner/skills/name: Or just ask the agent: "Install the <name> skill from the skills hub and confirm it loaded"
+#### Concepts in action
 
-   ```bash
-   hermes skills install <owner/skills/name>
-   ```
+- Skills = procedural memory: a SKILL.md the agent loads on demand
+- Tools = actions: file write, web search, image generation
+- Self-check inside the skill = built-in verification step of the agentic loop
+- Human feedback → revision = instructor–executor collaboration
 
-4. Ask the agent to use the new skill and observe self-improvement Open the TUI and ask Athena to perform a task that the new skill enables. Watch it select and run the skill: > This step is conversational — no fixed command. Phrase a request that maps to the skill (e.g. for a summarize skill: "Summarize this article for me: <paste text>"). As the agent uses the skill repeatedly, it refines how it invokes it — that's the self-improvement aspect.
-5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Learn the slide-deck skill from agentskills.io and confirm it is installed".
+#### Lab files
 
-**Test it**
+labs/lab02-hermes-social-media-campaign/ — README.md, LAB-02-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-The installed skill appears in the agent's toolset and runs when invoked.
+#### Step-by-step
 
-> **Note:** Full commands and screenshots are in labs/lab04-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+**Step 1 — Install the two company skills**
 
----
+Skills live in `~/.hermes/skills/`. Copy the two skill folders from this lab's data into a `marketing` category, then confirm Hermes can see them. (Optional: also install the official social-media-content-calendar skill.)
 
+```bash
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/lab02/images ~/.hermes/skills/marketing
+cp -R ~/kopi-kaki/skills/* ~/.hermes/skills/marketing/
+hermes skills list | grep -E "kopi-brand-voice|social-campaign-planner"
+# optional: hermes skills install official/creative/social-media-content-calendar
+```
 
-### Lab 5 — Providers & Model
+✓ Expected: Both skills appear in the list.
 
-Learning outcome: LO2: Connect an LLM provider and switch models with no lock-in..
+**Step 2 — Read a skill before you trust it**
 
-Goal: Connect a model provider (Nous Portal, OpenRouter, OpenAI or any endpoint) and select a model that meets the >=64,000-token context requirement. Switch providers to compare speed and quality.
+Open `~/.hermes/skills/marketing/kopi-brand-voice/SKILL.md`. Notice the frontmatter `description` (when the agent should load it), the steps, and the self-check table. A skill is a contract you can review — like an SOP for a new hire.
 
-**What you'll build**
+```bash
+cat ~/.hermes/skills/marketing/kopi-brand-voice/SKILL.md
+```
 
-Athena running on a chosen provider/model, with the ability to switch on demand.   (Tools: Hermes Agent, Nous Portal, OpenRouter.)
+**Step 3 — Build the campaign plan and calendar**
 
-**Step-by-step**
+Prompt — paste into *Hermes chat in ~/kopi-kaki*:
 
-1. Open the interactive provider/model picker Launch the interactive picker to see available providers and models and select one: Or just ask the agent: "Show me the available providers and models, and which one you're on"
+```text
+Use the social-campaign-planner skill to build the #ShiokColdBrew campaign from campaign-brief.md, using the angle I chose in Lab 1 (check your memory).
+Scope: teaser (17-23 Nov) and pre-order push (24-30 Nov) phases, Instagram, TikTok, Facebook and LinkedIn.
+Deliver:
+- outputs/lab02/campaign-plan.md
+- outputs/lab02/content-calendar.csv with at least 16 posts (use the columns in the skill)
+- outputs/lab02/captions.md with every caption checked by the kopi-brand-voice skill
+End with a 5-line summary of decisions you need from me.
+```
 
-   ```bash
-   hermes model
-   ```
+✓ Expected: Three files in outputs/lab02 and a decisions summary.
 
-2. Set a model explicitly Instead of (or in addition to) the picker, set the active model directly in config: Or just ask the agent: "Switch yourself to Claude Opus 4.6"
+**Step 4 — Create the hero visuals**
 
-   ```bash
-   hermes config set model anthropic/claude-opus-4.6
-   ```
+Prompt — paste into *Hermes chat*:
 
-3. Add a provider key if using a cloud endpoint If your chosen model runs on a cloud endpoint (e.g. OpenRouter), store the API key in config so Hermes can authenticate: Or just ask the agent: "Add my OpenRouter API key to your provider config"
+```text
+Create 3 hero visuals for the teaser posts using your image generation tool: square 1:1, brand colours (kopi brown #5B3A29, pandan green #4E8A3E, cream #F6EBD9, gula melaka amber #C7782A), natural light, a glass of iced cold brew with a gula melaka drizzle, kopitiam tiles, no people's faces, no text in the image. Save them to outputs/lab02/images/ and add the file names to content-calendar.csv. If you have no image tool, write the 3 prompts to outputs/lab02/images/prompts.md instead.
+```
 
-   ```bash
-   hermes config set OPENROUTER_API_KEY sk-or-...
-   ```
+✓ Expected: 3 PNGs (or a prompts file) linked from the calendar.
 
-4. Confirm the active model meets the ≥64k context rule Reopen the picker to confirm the active model and its context window: Or just ask the agent: "Confirm your active model has at least a 64k context window"
+**Step 5 — Human review — give concrete, testable feedback**
 
-   ```bash
-   hermes model
-   ```
+Open the calendar in a spreadsheet and the captions in a viewer. Vague feedback ('make it better') produces vague revisions. Give specific, checkable changes — for example:
 
+Prompt — paste into *Hermes chat*:
 
-**Test it**
+```text
+Review feedback for v2:
+1. TikTok hooks are weak - rewrite every TikTok caption to open with a question in under 8 words.
+2. LinkedIn must not mention SHIOK20 - make the LinkedIn posts about our roasting team and heritage.
+3. Add one post per phase aimed at students (18-24).
+Apply the changes, re-run the kopi-brand-voice self-check on every changed caption, save as content-calendar-v2.csv and captions-v2.md, and list exactly what changed.
+```
 
-The agent starts on the selected model and can be switched to another provider without reinstalling.
+✓ Expected: v2 files plus a change log; changed captions all PASS.
 
-> **Note:** Full commands and screenshots are in labs/lab05-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+**Step 6 — Measure efficiency — what did the skills save?**
 
----
+Ask the agent to report its own work so you can relate design to efficiency (this is the LO2 analysis you will use in the assessment).
 
+Prompt — paste into *Hermes chat*:
 
-### Lab 6 — MCP and Tools
+```text
+Report: how many posts, captions and images you produced; how many self-check FAILs you found and fixed before showing me; and which parts of the work the two skills standardised. Then estimate how long the same work would take one human marketer.
+```
 
-Learning outcome: LO3: Give the agent real-world reach with MCP servers and the Tool Gateway..
+✓ Expected: A short efficiency report you can quote.
 
-Goal: Add Model Context Protocol (MCP) servers in the Hermes config and use the bundled Tool Gateway (web search, image generation, TTS) so Athena can act on the outside world.
+#### Test it
 
-**What you'll build**
+> **✅ Test it:** Every caption carries a PASS self-check; no health/halal claims; SHIOK20 always shows its terms.
+>
+> - [ ] campaign-plan.md, content-calendar(-v2).csv and captions(-v2).md exist in outputs/lab02
+> - [ ] ≥ 16 posts across 4 platforms with UTM links; LinkedIn has no promo code
+> - [ ] Each caption has a PASS self-check table
 
-Athena wired to an MCP server (e.g. GitHub) and able to use a Tool Gateway tool.   (Tools: Hermes Agent, MCP, Tool Gateway.)
+#### Troubleshooting
 
-**Step-by-step**
+| Symptom | Fix |
+|---|---|
+| Skill not listed | Check the path is ~/.hermes/skills/marketing/<skill>/SKILL.md and start a new session (`/new`) — skills and memory load at session start. |
+| No images generated | Image generation runs through FAL.ai: either a paid Nous Portal plan (Tool Gateway) or your own FAL_KEY (`hermes config set FAL_KEY ...`), selected in `hermes tools`. The prompts.md fallback is acceptable. |
+| CSV columns shift | Ask the agent to quote every caption field and re-save with UTF-8 encoding. |
 
-1. Open the Hermes config to add an MCP server Edit your Hermes config file and locate (or create) the mcp_servers: section:
-2. Add a GitHub MCP server entry Add an entry that launches the official GitHub MCP server via npx. A typical block looks like this: Or just ask the agent: "Add the GitHub MCP server to your tool config"
+#### Stretch challenge
 
-   ```bash
-   mcp_servers:
-  github:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-github"]
-    env:
-      GITHUB_PERSONAL_ACCESS_TOKEN: "ghp_your_token_here"
-   ```
+Ask Mia to turn your three review comments into permanent rules by patching the kopi-brand-voice skill ("update the skill so this mistake never happens again") — that is harness engineering in one sentence.
 
-3. Restart so the MCP server is picked up, then verify Restart Hermes (close and reopen the TUI, or restart the gateway) so it reads the new config, then run the diagnostic: Or just ask the agent: "Run a health check and confirm the GitHub MCP tools are loaded"
+### Lab 3 — Human-in-the-Loop Publishing & Community Care (Telegram + Cron)
 
-   ```bash
-   hermes doctor
-   ```
+**Day 1 · 45 min · Human–agent collaboration · LO2** — Put the agent on Telegram, make it ask for your APPROVE before anything goes public, schedule it every morning, and let it triage comments while escalating the risky ones to you.
 
-4. Use a Tool Gateway tool from a chat Open the TUI and ask Athena to use a bundled Tool Gateway capability — web search, image generation, or text-to-speech: > This step is conversational. For example: "Search the web for today's top AI agent news and list 3 headlines," or "Generate an image of a friendly robot assistant." Confirm the agent invokes the tool and returns the result.
-5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Add the GitHub MCP server to your tools and list what it can do".
+#### Business scenario
 
-**Test it**
+The campaign is planned; now it must run every day without you babysitting it. Each morning Mia sends you the day's post and image on Telegram. Only when you reply APPROVE does she publish it to the brand's Telegram channel and log it. She also works through the comment inbox — answering simple questions, but escalating food-safety, allergy, legal, billing, media and halal questions to you with personal data masked.
 
-The agent lists the new MCP server's tools and completes a task using a Tool Gateway tool.
+#### Goal
 
-> **Note:** Full commands and screenshots are in labs/lab06-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+Design a human-in-the-loop workflow — approval gates, escalation rules and scheduled automation — and relate the design to operational efficiency and risk (LO2).
 
----
+#### Before you start
 
+- Labs 1–2 complete: outputs/lab02/content-calendar-v2.csv exists
+- A Telegram account on your phone or desktop
 
-### Lab 7 — Cron Jobs & Automation
+![Lab 3 — the Channels page: Telegram connected to the gateway](courseware/assets/screenshots/hermes-channels.png)
+*Lab 3 — the Channels page: Telegram connected to the gateway*
 
-Learning outcome: LO4: Automate recurring agent work on a schedule..
+#### You will deliver
 
-Goal: Schedule Athena to run recurring jobs — for example an 8am daily briefing sent to your messaging app — and verify the scheduled run fires and produces output.
+- A Telegram bot connected to Hermes (your private chat with Mia)
+- A 'Kopi Kaki Feed (Training)' Telegram channel where approved posts are published
+- outputs/lab03/approval-log.csv — every APPROVE / EDIT / REJECT decision
+- A daily 09:00 cron job that sends the day's post for approval
+- outputs/lab03/moderation-queue.csv + an escalation summary on Telegram
 
-**What you'll build**
+| Who | Role |
+|---|---|
+| Agents | 1 Hermes agent (Mia) on the messaging gateway + cron scheduler |
+| You (human) | Approve, edit or reject every post; decide every escalation |
 
-A scheduled job (e.g. a daily briefing) that runs automatically and delivers a result.   (Tools: Hermes Agent, scheduler/crons.)
+#### Concepts in action
 
-**Step-by-step**
+- Human-in-the-loop (approve before acting) vs human-on-the-loop (monitor and intervene)
+- Escalation rules turn policy into agent behaviour
+- Cron = proactive agent (it starts work without being asked)
+- Approval modes (smart / manual / off) for risky terminal commands
 
-1. Define a recurring job (daily 8am briefing) Create a recurring automation in the Hermes automations/crons section — for example a daily 8am briefing:
-2. Confirm the automation is registered Run the diagnostic to confirm Hermes has picked up the new scheduled job: Or just ask the agent: "Check that my daily 8am briefing automation is registered"
+#### Lab files
 
-   ```bash
-   hermes doctor
-   ```
+labs/lab03-hermes-human-in-the-loop/ — README.md, LAB-03-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-3. Trigger the job once to confirm it produces output Manually run the job once (rather than waiting for 8am) to confirm it produces the expected briefing. > This is typically a "run now" action in the automations UI, or a trigger command shown in the docs. Confirm the briefing is generated and delivered to your chosen destination.
-4. Confirm the next scheduled run is queued Check that after the manual run, the next run is still scheduled for its normal time (08:00 tomorrow), so the automation keeps recurring.
-5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Every weekday at 8am, summarize the top AI news and send it to me on Telegram" — the agent schedules itself with its cronjob tool.
+#### Step-by-step
 
-**Test it**
+**Step 1 — Create your Telegram bot and find your user ID**
 
-The scheduled job runs at its time (or on manual trigger) and delivers the expected briefing.
+In Telegram: open @BotFather → /newbot → choose a name (e.g. 'Mia Kopi Kaki') → copy the token. Open @userinfobot to get your numeric user ID. Keep the token secret. (Shortcut: the dashboard's Messaging → Telegram page has a 'Create with QR' button.)
 
-> **Note:** Full commands and screenshots are in labs/lab07-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+**Step 2 — Connect Telegram to Hermes and start the gateway**
 
----
+Run the messaging setup, choose Telegram, paste the token and your user ID as the only allowed user. Then run the gateway (leave this terminal open).
 
+```bash
+hermes gateway setup
+hermes gateway run      # or: hermes gateway install && hermes gateway start
+```
 
-### Lab 8 — Subagents & Delegation
+✓ Expected: Send 'hi' to your bot in Telegram — Mia replies.
 
-Learning outcome: LO5: Delegate work to isolated subagents across backends..
+**Step 3 — Create the brand channel (the 'publish' destination)**
 
-Goal: Turn Athena into a coordinator that delegates tasks to worker subagents running on isolated terminal backends (local, docker, ssh, modal), then aggregates their results.
+In Telegram create a new channel 'Kopi Kaki Feed (Training)', add your bot as an administrator with permission to post. Then list targets to find its ID.
 
-**What you'll build**
+```bash
+hermes send --list telegram
+```
 
-A coordinator agent that delegates a task to one or more worker subagents and combines the output.   (Tools: Hermes Agent, terminal backends (docker/ssh/modal).)
+✓ Expected: Your channel appears as telegram:<channel_id>. Copy it.
 
-**Step-by-step**
+**Step 4 — Make risky commands ask first**
 
-1. Choose an isolated backend for worker agents Set the terminal backend that worker subagents will run on. docker gives each worker an isolated container: Or just ask the agent: "Run your worker subagents in the docker sandbox from now on"
+Create this lab's output folder and approval log, and switch approvals to manual so every dangerous terminal command pauses for you. Be clear about what this does and does not cover: approval modes gate risky TERMINAL commands; the publishing gate in this lab is a rule the agent follows (prompt-enforced, written into AGENTS.md). Lab 4 shows a runtime-enforced gate (a blocked task only you can release).
 
-   ```bash
-   hermes config set terminal.backend docker
-   ```
+```bash
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/lab03
+cp ~/kopi-kaki/templates/approval-log.csv ~/kopi-kaki/outputs/lab03/approval-log.csv
+hermes config set approvals.mode manual
+```
 
-2. Ask the coordinator to delegate a multi-part task Open the TUI and give Athena (the coordinator) a task with clearly separable parts so it delegates each to a worker subagent: > Conversational step. For example: "Delegate this: subagent A researches competitor pricing, subagent B drafts a comparison table, subagent C writes a one-paragraph recommendation. Then combine their work." Watch the coordinator spin up workers.
-3. Observe each subagent run in isolation and report back Watch each worker subagent execute on the isolated backend and return its portion of the result. Confirm they run separately (each in its own container/environment when using docker) rather than in the coordinator's session.
-4. Review the coordinator's aggregated result Confirm the coordinator combines the workers' outputs into one coherent deliverable — the research, the table, and the recommendation merged into a single response.
-5. The natural-language way You can skip the CLI entirely and simply ask the agent: "Delegate three subagents to research MiniMax, Kimi and DeepSeek in parallel, then merge the findings".
+**Step 5 — Run one approval cycle by hand**
 
-**Test it**
+Prompt — paste into *Telegram → your bot*:
 
-The coordinator delegates to worker subagents on an isolated backend and returns a combined result.
+```text
+Approval workflow for #ShiokColdBrew (standing rule - add it to ~/kopi-kaki/AGENTS.md too):
+1. Take the next post with status "draft" from ~/kopi-kaki/outputs/lab02/content-calendar-v2.csv, set its status to "pending-approval" and send it to me here with its post id, image, platform and date. End with: Reply APPROVE <post_id>, EDIT <post_id>: <changes> or REJECT <post_id>.
+2. Whenever I reply APPROVE <post_id>, read that row from the CSV - it must say "pending-approval" - then post the caption and image to telegram:<channel_id>, set the status to "published" and append a row to ~/kopi-kaki/outputs/lab03/approval-log.csv.
+3. EDIT: apply my changes, re-check with kopi-brand-voice, keep "pending-approval" and send it again. REJECT: set "rejected" and log it.
+4. Never publish a row that is not "pending-approval" and never without my APPROVE.
+```
 
-> **Note:** Full commands and screenshots are in labs/lab08-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+✓ Expected: You receive the draft with its post id; after APPROVE <post_id> it appears in the channel, the CSV says published and approval-log.csv has a row.
 
----
+**Step 6 — Schedule it every morning at 09:00**
 
+Turn step 1 of the workflow into a proactive agent. A cron job runs in its own fresh session, so it must NOT try to publish: it only marks the next post 'pending-approval' and sends it to you. Your reply goes to your normal chat with Mia, which reads the CSV state (step 2 of the rule) and publishes. The state in the CSV is what connects the two sessions. Copy the job id from `hermes cron list`.
 
-### Lab 9 — Profile and Kanban
+```bash
+hermes cron create "0 9 * * *" "Proposal only - never publish. Take the next post with status draft from ~/kopi-kaki/outputs/lab02/content-calendar-v2.csv, set it to pending-approval and send me its post id, image, platform, date and caption, ending with: Reply APPROVE <post_id>, EDIT <post_id>: <changes> or REJECT <post_id>." --name daily-post-approval --deliver telegram
+hermes cron list
+hermes cron run <job_id>
+```
 
-Learning outcome: LO5: Supervise the agent through its profile and Kanban board..
+✓ Expected: The job is listed; the test run sends you a draft; replying APPROVE <post_id> in your chat with Mia publishes it.
 
-Goal: Configure the agent's profile and use the Hermes Kanban board to watch tasks move through todo -> in progress -> done, giving you human oversight of what Athena is working on.
+**Step 7 — Triage the comment inbox with escalation rules**
 
-**What you'll build**
+Prompt — paste into *Telegram → your bot (or Hermes chat in ~/kopi-kaki)*:
 
-A configured agent profile and a Kanban board tracking the agent's live tasks.   (Tools: Hermes Agent, profile, Kanban board.)
+```text
+Triage ~/kopi-kaki/social-comments.csv using compliance-rules.md.
+For each comment decide: REPLY (safe FAQ), IGNORE (spam) or ESCALATE (food safety, allergy, legal threat, billing/refund, media enquiry, halal question, health claim question, anything uncertain).
+- For REPLY: draft a reply in the kopi-brand-voice skill.
+- For ESCALATE: do NOT draft a public reply. Mask all personal data (names, phone numbers) and recommend the next step.
+Save outputs/lab03/moderation-queue.csv (comment_id, decision, reason, draft_reply) and send me an escalation summary here.
+```
 
-**Step-by-step**
+✓ Expected: 7 escalations summarised on Telegram with phone numbers masked; safe replies drafted.
 
-1. Set up the agent profile (identity, defaults, preferences) Configure Athena's profile — its identity, default model/backend, and behavioural preferences. > Open the profile settings in the Desktop app (or the profile section of ~/.hermes/config.yaml). Set the name to Athena, role to personal chief of staff, and default preferences (concise bulleted output, timezone, working hours). The exact profile fields are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-2. Open the Kanban board view Open the Kanban board that visualizes the agent's tasks. > In the Desktop app, open the Kanban / Tasks view. You should see columns such as Todo, In Progress, and Done.
-3. Assign a task and watch it move todo → in progress → done Give Athena a task and watch the corresponding card move across the board: > Assign a task (e.g. "Draft my weekly team update"). A card appears in Todo, moves to In Progress as the agent works, and lands in Done when finished. This is your live oversight of what the agent is doing.
-4. Use the board to review and accept completed work When a card reaches Done, open it, review the agent's output, and accept (or send it back with feedback). This human-in-the-loop review is the point of the board.
+**Step 8 — Decide like a manager**
 
-**Test it**
+Reply on Telegram with your decision for each escalation (e.g. 'C06: call the customer today, ops to inspect Bishan'). Approve the batch of FAQ replies. Discuss: which decisions must always stay human, and which could move to human-on-the-loop later?
 
-The profile is set and the Kanban board shows tasks progressing across its columns.
+#### Test it
 
-> **Note:** Full commands and screenshots are in labs/lab09-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **✅ Test it:** Nothing reaches the channel without an APPROVE in approval-log.csv; all 7 risky comments are escalated, none answered.
+>
+> - [ ] Bot replies only to your allow-listed user ID
+> - [ ] Every published post has an APPROVE row in approval-log.csv and its CSV status went pending-approval → published
+> - [ ] `hermes cron list` shows daily-post-approval
+> - [ ] C03, C06, C09, C11, C15, C16, C18 are ESCALATE with personal data masked
 
----
+#### Troubleshooting
 
+| Symptom | Fix |
+|---|---|
+| Bot silent | Is `hermes gateway run` still running? Check `hermes gateway status` and that your user ID is allowed. |
+| Cannot post to channel | Make the bot an admin of the channel with 'Post messages' permission. |
+| Cron never fires | The gateway (or `hermes gateway install`) must be running for the scheduler; check `hermes cron status`. |
+| Agent published without asking | Tighten the prompt: 'Never publish without the literal reply APPROVE' and keep approvals.mode manual. |
 
-### Lab 10 — Security
+#### Stretch challenge
 
-Learning outcome: LO4: Secure the agent with isolation, secrets and approvals..
+Add a second gate: a post that mentions a price or promo must be approved twice (you and a colleague's Telegram ID). How would you express that rule, and what does it cost in speed?
 
-Goal: Harden Athena with defense in depth: restrict who can message the agent (default deny), run risky work in an isolated terminal backend, manage secrets safely, and require approval before sensitive actions — applying least privilege throughout.
+### Lab 4 — Multi-Agent Video Studio — Research → Script → Production → Audit → Publish
 
-**What you'll build**
+**Day 1 · 60 min · Multi-agent (ordered pipeline) · LO2** — Build a five-agent production team on the Kanban board, render a real 25-second vertical video with HyperFrames, let an auditor agent check it, and approve it yourself before it publishes.
 
-A hardened agent that allowlists its users, sandboxes execution, protects secrets and prompts for approval on risky actions.   (Tools: Hermes Agent, gateway allowlists, terminal backends, secrets management.)
+#### Business scenario
 
-**Step-by-step**
+The campaign needs a 25-second TikTok/Reels launch video. One agent doing everything is slow, expensive and hard to review, so you staff a studio: a researcher finds the hook, a scriptwriter writes it, a producer renders it, an auditor checks it against the brand and compliance rules, and a publisher prepares and posts it — but only after you approve the cut.
 
-1. Restrict who can message the agent — set the channel allowlist (default deny) Decide who is allowed to talk to Athena. The gateway authorizes every inbound message with a six-check chain — per-platform allow-all, DM pairing, the platform allowlist, the global allowlist, global allow-all, then default deny. Nothing configured means everyone is denied (fails closed), with a startup warning telling you exactly that. In the dashboard open Channels → Configure for your channel (e.g. Telegram) and set the allowlist to your own user ID: - Allowed user IDs (TELEGRAM_ALLOWED_USERS) — comma-separated IDs that may use the bot (get yours from @userinfobot). - Allow all users (TELEGRAM_ALLOW_ALL_USERS) — leave off; it opens the bot to anyone (dev only). - Unknown DMs can also be admitted one-by-one via pairing codes you approve.
-2. Isolate execution in a sandboxed backend Set the terminal backend to a sandboxed container so risky commands never run directly on your host: Or just ask the agent: "Run your risky work in the docker sandbox from now on"
+#### Goal
 
-   ```bash
-   hermes config set terminal.backend docker
-   ```
+Orchestrate a multi-agent team with role specialisation, dependencies and a human approval gate, and correlate the team design with quality, cost and speed (LO2).
 
-3. Store provider/tool secrets via config rather than plain text Store API keys through the Hermes config mechanism instead of pasting them into prompts or scripts: Or just ask the agent: "Store this <PROVIDER> API key securely in your config"
+#### Before you start
 
-   ```bash
-   hermes config set <PROVIDER>_API_KEY <value>
-   ```
+- Lab 3 complete: Telegram bot connected, the gateway running (it dispatches Kanban tasks) and your channel ID from `hermes send --list telegram`
+- Node.js 22+ and FFmpeg (installed with Hermes) for video rendering
 
-4. Require approval before the agent runs risky actions — set the approval mode Set the approval mode so the agent pauses and asks you before executing sensitive actions (shell commands, file deletions, external posts): Or just ask the agent: "Ask me for approval before running any risky action"
+![Lab 4 — the Kanban board: the video studio's tasks, dependencies and the blocked posting gate](courseware/assets/screenshots/hermes-kanban.png)
+*Lab 4 — the Kanban board: the video studio's tasks, dependencies and the blocked posting gate*
 
-   ```bash
-   hermes config set approvals.mode manual
-   ```
+#### You will deliver
 
-5. Apply least privilege — grant only the tools/skills the task needs Review the tools, skills, and MCP servers Athena has access to and disable anything not needed for the current work. > Conversational/config step: trim the enabled skills (Lab 4) and MCP servers (Lab 6) to the minimum. Least privilege means the agent can only do what the task actually requires.
+- 5 Hermes profiles with routing descriptions (researcher, scriptwriter, producer, auditor, publisher)
+- A Kanban task graph with dependencies and a human gate before publishing
+- video-studio/research.md, script.md (scene list), output/final.mp4 (9:16)
+- video-studio/audit-report.md — PASS/FAIL on V1–V9 and C1–C10
+- video-studio/publish-package.md, reviewed by you, then the video posted once to your Telegram channel
 
-**Test it**
+| Who | Role |
+|---|---|
+| Agents | 5 Hermes profiles coordinated by the Kanban board |
+| You (human) | Review the cut and the publish package, then release the posting task (or send it back with comments) |
 
-Only allowlisted users reach the agent; risky actions run in the sandbox and only after approval; secrets are not stored in plain text.
+#### Concepts in action
 
-> **Note:** Full commands and screenshots are in labs/lab10-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+- Agentic AI = several specialised agents + orchestration (vs one AI agent)
+- Profile description = routing contract; SOUL.md = role + rules
+- Dependencies (--parent) make an ordered SOP pipeline
+- Auditor agent = verification; blocked task = human gate
 
----
+#### Lab files
 
+labs/lab04-hermes-multi-agent-video-studio/ — README.md, LAB-04-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-### Lab 11 — Use Case — Make a Video with Hyperframe
+#### Step-by-step
 
-Learning outcome: LO5: Apply the agent to a real creative use case — produce a video with Hyperframe..
+**Step 1 — Install the HyperFrames video skill**
 
-Goal: Put Athena to work on an end-to-end creative task: use the agent to drive the Hyperframe tool and generate a short video from a concept brief, then review and refine the result.
+HyperFrames (open source, no API key) renders MP4 videos from HTML + animation using headless Chrome and FFmpeg. Install the official optional skill and run its setup script once.
 
-**What you'll build**
+```bash
+hermes skills install official/creative/hyperframes --yes
+bash "$(dirname "$(find ~/.hermes/skills -path '*/hyperframes/SKILL.md' | head -1)")/scripts/setup.sh"
+npx hyperframes doctor
+```
 
-A short video generated end-to-end by the agent using Hyperframe.   (Tools: Hermes Agent, Hyperframe.)
+✓ Expected: `npx hyperframes doctor` reports Node ≥ 22, FFmpeg and Chrome OK.
 
-**Step-by-step**
+**Step 2 — Create the shared studio workspace**
 
-1. Install / verify the Hyperframe video skill Wire Hyperframe into Athena the same way you added skills in Lab 4. In a terminal, search the skills hub for the Hyperframe (video) skill and install the match; if your build integrates Hyperframe as an MCP server or Tool Gateway tool instead, add it the way you added tools in Lab 6. Or just ask the agent: "Find the Hyperframe video skill on the skills hub and install it"
+All five agents share one folder so each stage can read the previous stage's output. Copy this lab's data — it includes DESIGN.md (the visual identity HyperFrames asks for), a SOUL.md per role and the auditor's skill. Install the skill BEFORE creating the profiles, because `--clone` copies your skills into each new profile.
 
-   ```bash
-   hermes skills search hyperframe
-hermes skills install <owner/skills/hyperframe>
-   ```
+```bash
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/.hermes/skills/marketing && cp -R ~/kopi-kaki/skills/brand-compliance-audit ~/.hermes/skills/marketing/
+mkdir -p ~/kopi-kaki/video-studio/output
+# put YOUR channel id (from Lab 3: hermes send --list telegram) into the posting brief
+CH="telegram:-100XXXXXXXXXX"
+perl -pi -e "s/telegram:<channel_id>/$CH/" ~/kopi-kaki/tasks/t6-post.md
+cp ~/kopi-kaki/DESIGN.md ~/kopi-kaki/brand-guide.md ~/kopi-kaki/campaign-brief.md ~/kopi-kaki/compliance-rules.md ~/kopi-kaki/video-qa-checklist.md ~/kopi-kaki/video-studio/
+```
 
-2. Set the Hyperframe credential via config If Hyperframe needs an API key or account token, store it through Hermes config so it never sits in plain text. Get the key from your Hyperframe account page, then set it and confirm no error is printed. Or just ask the agent: "Save my Hyperframe API key securely in your config"
+**Step 3 — Staff the studio — five profiles with routing descriptions**
 
-   ```bash
-   hermes config set HYPERFRAME_API_KEY <your-key>
-   ```
+Each profile is an isolated agent with its own memory and SOUL.md. The `--description` is the routing contract the Kanban orchestrator reads, so say exactly what the role takes in and hands off. `--clone` copies your model and keys.
 
-3. Confirm the tool is loaded, then start a session Run the health check and confirm it reports green with the new skill/tool listed. Then open a chat session (TUI or Desktop app) and ask Athena "What video tools do you have?" — it should name Hyperframe in its reply. If it doesn't, restart Hermes so the new tool is picked up. Or just ask the agent: "Run a health check and confirm the Hyperframe skill is loaded"
+```bash
+hermes profile create researcher --clone --description "Finds hooks, trends and proof points for a short video; writes research.md with cited sources"
+hermes profile create scriptwriter --clone --description "Turns research.md into a 25-second script and 6-scene list in script.md"
+hermes profile create producer --clone --description "Renders script.md into a 9:16 MP4 with HyperFrames; writes output/final.mp4"
+hermes profile create auditor --clone --description "Audits a video and its copy against video-qa-checklist.md and compliance-rules.md; PASS or FAIL with fixes"
+hermes profile create publisher --clone --description "Builds the publish package and posts an approved video to the Telegram channel"
+for p in researcher scriptwriter producer auditor publisher; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
+hermes profile list
+```
 
-   ```bash
-   hermes doctor
-hermes --tui
-   ```
+✓ Expected: Five profiles listed (also visible on the dashboard's Profiles page).
 
-4. Brief the agent with a concrete 3-sentence brief Type a tight, three-sentence creative brief covering topic, style/tone, and length + extras. A concrete brief is the single biggest lever on output quality — vague briefs produce generic videos. For example: > "Make a 30-second explainer video introducing 'Athena, my AI chief of staff'. Clean, modern visual style with an upbeat tone. Keep it to 30 seconds and add on-screen captions."
-5. Have the agent generate the video and wait for the render Ask Athena to generate the video now. You should see the agent invoke the Hyperframe tool in the session transcript (a tool-call entry), then wait — rendering typically takes a few minutes for a 30-second clip. When it finishes, Athena reports back with a link or file path to the rendered video; if the tool call errors, check the credential from step 3.
-6. Play the result, give one round of feedback, and regenerate Open and play the video end-to-end. Then give Athena one specific round of feedback — change exactly the things that bothered you, e.g. "Slow the pacing, make the captions larger, and warm up the colour palette" — and ask it to regenerate. Compare the two versions; you should see your feedback reflected in version 2.
-7. Export / save the final video and note where the file lands Ask Athena to save/export the final cut and tell you the exact file path. Outputs typically land in the session's workspace under your Hermes home directory — open it and confirm the file plays from disk: Or just ask the agent: "Where did you save the final video? Give me the file path"
+**Step 4 — Build the task graph with a human gate**
 
-   ```bash
-   open ~/.hermes/
-   ```
+Create the six tasks in order. Each `--parent` makes a task wait for the previous one. The publisher first only BUILDS the publish package (T5); the task that actually POSTS (T6) starts BLOCKED — only you can release it, after you have reviewed both the cut and the package. Copy each printed task ID into the next command (shown as <T1>, <T2> …).
 
+```bash
+S=dir:$HOME/kopi-kaki/video-studio
+hermes kanban create "Research hooks for the Gula Melaka Cold Brew launch short" --assignee researcher --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t1-research.md
+hermes kanban create "Write the 25-second script and scene list" --assignee scriptwriter --parent <T1> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t2-script.md
+hermes kanban create "Render the 9:16 launch video with HyperFrames" --assignee producer --parent <T2> --workspace $S --tenant kopi-video --skill hyperframes --max-runtime 45m --body-file ~/kopi-kaki/tasks/t3-produce.md
+hermes kanban create "Audit the video and copy (V1-V9, C1-C10)" --assignee auditor --parent <T3> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
+hermes kanban create "Build the publish package (do not post)" --assignee publisher --parent <T4> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t5-package.md
+hermes kanban create "Post the approved video to the channel" --assignee publisher --parent <T5> --workspace $S --tenant kopi-video --initial-status blocked --body-file ~/kopi-kaki/tasks/t6-post.md
+```
 
-**Test it**
+✓ Expected: `hermes kanban list --tenant kopi-video` shows 6 tasks; T6 is blocked.
 
-The agent produces a playable video from your brief using Hyperframe, and you can locate the saved file.
+**Step 5 — Watch the studio work**
 
-> **Note:** Full commands and screenshots are in labs/lab11-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+The gateway from Lab 3 dispatches ready tasks to the right profile. Watch the lanes move (todo → ready → running → done) in the terminal or on the dashboard Kanban page. Open each task to read its comments and outputs.
 
----
+```bash
+hermes kanban watch --tenant kopi-video
+# or open the web dashboard:
+hermes dashboard
+```
 
+✓ Expected: research.md → script.md → output/final.mp4 → audit-report.md → publish-package.md appear in ~/kopi-kaki/video-studio.
 
-### Lab 12 — Visualization
+**Step 6 — If the auditor says FAIL — rework, don't restart**
 
-Learning outcome: LO5: Visualize agent activity and workflow data..
+A FAIL is the system working. The auditor's brief tells it to create a rework card for the producer and a re-audit card for itself. If it did not, add them yourself — the fix list comes from audit-report.md. The package and posting tasks wait until a PASS.
 
-Goal: Use Hermes' visualization capability to see the agent's workflow, task flow and data at a glance, making the agent's behaviour transparent and easier to supervise.
+```bash
+hermes kanban create "Rework the video: apply the audit-report.md fixes" --assignee producer --parent <T4> --workspace $S --tenant kopi-video --skill hyperframes --body "Fix V5: show SHIOK20 terms on the end card. Fix C9: AI voice-over disclosure. Re-render output/final.mp4."
+hermes kanban create "Re-audit the reworked video" --assignee auditor --parent <rework_id> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
+```
 
-**What you'll build**
+**Step 7 — Human gate — review the cut AND the package, then release**
 
-A visualization of the agent's workflow / activity you can read and interpret.   (Tools: Hermes Agent, visualization.)
+Open output/final.mp4 and publish-package.md. Check them against the brief yourself: does the hook land in 2 seconds, are the price and SHIOK20 terms right, is the AI disclosure in the description, are the hashtags on-brand? If yes, unblock T6. If not, comment on T5 (or create a rework card) and keep T6 blocked.
 
-**Step-by-step**
+```bash
+open ~/kopi-kaki/video-studio/output/final.mp4     # Windows/WSL: explorer.exe, Linux: xdg-open
+cat ~/kopi-kaki/video-studio/publish-package.md
+hermes kanban unblock <T6>
+```
 
-1. Run a real multi-step session so there is something to visualize A visualization of an empty agent is empty. Start a fresh session and give Athena a task that forces several tool calls in sequence — for example: > "Research the top 3 AI agent platforms, compare their pricing, and summarize in a table." Let it run to completion; the web searches, reads, and summarization steps it performs become the nodes of your graph.
-2. List sessions and note the ID of the one to visualize In a terminal, list your recent sessions and copy the ID (or title/timestamp) of the session you just ran. You will visualize this specific session rather than "everything", which keeps the diagram readable. Or just ask the agent: "List my recent sessions so I can pick one to visualize"
+✓ Expected: T6 moves to ready and the publisher posts once.
 
-   ```bash
-   hermes sessions list
-   ```
+**Step 8 — Confirm the post and close the loop**
 
-3. Open the visualization view In the Desktop app, open the Visualization / Activity view from the sidebar and select the session from step 3. You should see the session's activity surface — task flow, tool calls, and timing. > The exact menu location and view name are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-4. Generate a workflow graph of the session Ask Athena (or use the view's generate button) to render the session as a workflow diagram: > "Visualize the steps you took in this session as a workflow diagram." A graph should render in which each node is a tool call (web search, file read, summarize…) and edges show the order the calls ran in. If nothing renders, confirm you selected a session that actually used tools.
-5. Read the graph — nodes, sequence, and time Walk the diagram from start to finish and name what each node did: which tool, with what input, producing what output. Check the sequence matches what you asked for, and look for where time was spent (long-running nodes) or where the agent looped/retried. This is the supervision skill: confirming from the graph that the agent did what you expected — nothing more, nothing less.
-6. Export or screenshot the visualization Save the diagram for your records — use the view's export button if your build has one, otherwise take a screenshot. Keep it with the lab evidence; you will reuse this technique whenever you need to audit an agent run.
-7. Use the graph to explain what the agent did Turn to a classmate (or write three sentences) and explain the run using only the graph: what the goal was, which tools ran in what order, and where the result came from. If you can narrate the run from the diagram alone, the visualization has done its job of making Athena's behaviour transparent.
+The publisher posts the video with its caption to your channel exactly once and records the result in publish-package.md. Do not post it again yourself — check the channel and the board instead.
 
-**Test it**
+```bash
+hermes kanban list --tenant kopi-video
+hermes kanban show <T6>
+```
 
-A workflow visualization of a real session renders; you can name each node (tool call) and explain what the agent did.
+✓ Expected: The video is in your Telegram channel; all tasks are done.
 
-> **Note:** Full commands and screenshots are in labs/lab12-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+**Step 9 — Reflect — why a team beats one big agent**
 
----
+Prompt — paste into *Hermes chat*:
 
+```text
+Read the Kanban history for tenant kopi-video (hermes kanban show for each task). Report per stage: which profile ran it, how long it took, how many retries or change requests it needed, and what was handed to the next stage. Then compare this five-agent design with a single agent doing everything: quality, cost, speed, reviewability.
+```
 
-### Lab 13 — Build a Multi-Agent Video Team (Profiles + Kanban)
+✓ Expected: A stage-by-stage table you can use in the assessment.
 
-Learning outcome: LO3: Orchestrate a team of profiles through the Kanban board to produce a video..
+#### Test it
 
-Goal: Build a team of three Hermes profiles — a researcher (long-context model) that reads sources and writes the video brief, a scriptwriter (cheap model) that turns the brief into a narrated script, and a video_producer (code/tool model) that renders the video with TTS and slides — then create a Kanban board task, decompose it into child tasks, and let the orchestrator route each child task to the right profile by its description. The board is a durable SQLite database (~/.hermes/kanban.db) and each task gets its own workspace.
+> **✅ Test it:** final.mp4 is 9:16 and 20–30 s, the audit is PASS, and the posting task only ran after you reviewed the package and unblocked it.
+>
+> - [ ] `hermes profile list` shows the five roles
+> - [ ] final.mp4 is 1080×1920, 20–30 s (`ffprobe` or the auditor's report)
+> - [ ] audit-report.md is PASS (or shows a FAIL that was fixed via request-changes)
+> - [ ] The posting task (T6) completed only after your `unblock`, and the video was posted once
+> - [ ] PP evidence: take ONE screenshot now of the Kanban board showing the tasks, dependencies and the posting gate — Task 2 of the Practical Performance uses it
 
-**What you'll build**
+#### Troubleshooting
 
-A three-profile video team whose Kanban tasks flow triage -> todo -> ready -> running -> done and deliver a rendered video.   (Tools: Hermes Agent, profiles, Kanban board, dashboard.)
+| Symptom | Fix |
+|---|---|
+| Tasks never start | The dispatcher runs inside the gateway — `hermes gateway status`; restart with `hermes gateway restart`. |
+| Render fails | Run `npx hyperframes doctor`; the producer needs Node ≥ 22 and FFmpeg. Allow `--max-runtime 45m`. |
+| Stages can't see each other's files | Every task must use the same `--workspace dir:` path (not scratch/worktree). |
+| Publisher doesn't know where to post | Check t6-post.md contains your real channel id (step 2), not <channel_id>. |
+| Wrong profile picked a task | Sharpen the profile description: `hermes profile describe <name> "…"`. |
+| Rendering too slow on your laptop | Ask the producer for `--quality draft`, or accept a 6-frame storyboard (PNG) for the audit. |
 
-**Step-by-step**
+#### Stretch challenge
 
-1. Design the team on paper first Before creating anything, write down the three roles, the kind of model each needs, and — most importantly — the one-line description the orchestrator will route by. The description is the routing contract: it must say exactly what the profile takes in and hands off. Note the pipeline shape: brief → script → video. Each profile's output is the next profile's input.
-2. Create the researcher profile Create the first profile on a long-context model (it will read sources whole). The --description text is what the orchestrator matches child tasks against, so type it exactly as designed: Or just ask the agent: "Create a researcher profile on a long-context model that writes video briefs"
+Shortcut: install `official/creative/kanban-video-orchestrator`, give it the brief, and compare the team it designs with yours. Which roles did it add or merge?
 
-   ```bash
-   hermes profile create researcher --description "Reads sources, writes the video brief + key points"
-   ```
+### Lab 5 — Multi-Agent Campaign Command Centre — Measure, Optimise & Report
 
-3. Create the scriptwriter profile Create the second profile on a cheap model — turning a brief into a script is high-volume, low-difficulty work, so this is where you save money: Or just ask the agent: "Create scriptwriter and video_producer profiles for the script and the render"
+**Day 1 · 45 min · Multi-agent (parallel swarm) · LO2** — Run three analysts in parallel, have a verifier check their numbers, and get a dashboard plus an optimisation plan you approve — then schedule it every Monday.
 
-   ```bash
-   hermes profile create scriptwriter --description "Turns the brief into a narrated script + scene list"
-   ```
+#### Business scenario
 
-4. Create the video_producer profile Create the third profile on a code/tool-capable model — it must drive TTS and slide-rendering tools reliably:
+Week 1 of #ShiokColdBrew is over. Leadership wants to know: are we on track for 2,500 pre-orders, which posts work, what customers are saying and what competitors are doing? You launch a Kanban swarm — three parallel workers, a verifier that re-checks their numbers, and a synthesiser that builds the dashboard and recommendations. You decide which optimisations to apply.
 
-   ```bash
-   hermes profile create video_producer --description "Turns the script into a rendered video with TTS + slides"
-   ```
+#### Goal
 
-5. Verify the team on the Profiles page Open the dashboard and go to the /profiles page in the sidebar. You should see all three profiles listed, each showing its model and its description. Read each description back critically — a vague description here causes wrong routing later. Fix any typos now (edit the profile or recreate it).
-6. Create the Kanban board task Create the top-level task on the board and assign the first stage to the researcher. Pick a real topic you care about and keep the deliverable measurable ("60-second explainer video"): Or just ask the agent: "Add a Kanban task: produce a 60-second explainer on <topic>, assign it to the researcher"
+Relate a parallel multi-agent design (workers + verifier + synthesiser) to speed, accuracy and cost, using metrics to verify the output and decide improvements (LO2).
 
-   ```bash
-   hermes kanban create "Produce a 60-second explainer video on <topic>" --assignee researcher
-   ```
+#### Before you start
 
-7. Decompose the task into child tasks Ask Hermes to break the top-level task into child tasks: Or just ask the agent: "Decompose that board task into child tasks and route each to the right profile"
+- Labs 3–4 complete: gateway running; researcher and auditor profiles exist
+- A spreadsheet app to spot-check numbers
 
-   ```bash
-   hermes kanban decompose <id>
-   ```
+![Lab 5 — Profiles: analyst, listener, strategist, researcher and auditor run the swarm](courseware/assets/screenshots/hermes-profiles.png)
+*Lab 5 — Profiles: analyst, listener, strategist, researcher and auditor run the swarm*
 
-8. Watch the lanes as the team works Open the dashboard /kanban page and watch the board dispatch. Every task moves through the lifecycle triage → todo → ready → running → blocked → done → archived. The research child should enter running first (it runs on the researcher profile's model), then hand off so the script task becomes ready, and so on down the pipeline. A task sitting in blocked is asking for a human — open it and read why.
-9. Review each task's workspace deliverables Click into each completed child task. Every task gets its own workspace (a scratch directory / dedicated dir / git worktree, depending on configuration) where its outputs live. Open the researcher task's workspace and read the brief; open the scriptwriter's and read the script + scene list; open the video_producer's and play the rendered video. Confirm each stage's output actually fed the next — the script should quote the brief's key points, and the video should follow the scene list.
-10. Accept the final video to done If the video meets the brief, accept the top-level task so it moves to done (and later archived). If it doesn't, add a comment on the relevant child task with concrete feedback (e.g. "narration too fast in scene 2") and send that task back through the board rather than redoing everything — that is the point of decomposed work.
-11. Reflect: why this beats one big agent Look back at the run: the expensive long-context model only did research, the cheap model wrote the script, and the tool model rendered. One prompt to a single agent would have used the expensive model for everything. Note one sentence on cost and one on reviewability (you could inspect and reject per stage).
-12. The natural-language way You can skip the CLI entirely and simply ask the agent: "Create a crew of profiles — researcher, scriptwriter, video producer — then decompose this board task and route each piece to the right profile".
+#### You will deliver
 
-**Test it**
+- outputs/lab05/dashboard.html — KPI cards + charts (opens in a browser)
+- outputs/lab05/optimisation-plan.md — 3 proposals with evidence, impact, risk
+- outputs/lab05/verification.md — the verifier's re-calculation of the key numbers
+- Your decision recorded on the swarm task
+- A Monday 09:00 cron that delivers the weekly report to Telegram
 
-Three profiles exist, the decomposed Kanban tasks route to the right profile by description, and the accepted board delivers a rendered video.
+| Who | Role |
+|---|---|
+| Agents | 3 parallel workers + verifier + synthesiser (Kanban swarm) |
+| You (human) | Spot-check one number yourself; approve which optimisations to run |
 
-> **Note:** Full commands and screenshots are in labs/lab13-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+#### Concepts in action
 
----
+- Parallel (swarm) vs ordered (pipeline) multi-agent patterns
+- Verifier agent + human spot-check = two layers of verification
+- KPIs: engagement rate, CTR, cost per pre-order, sentiment
+- Human-on-the-loop reporting with a weekly cron
 
+#### Lab files
 
-### Lab 14 — Webhook
+labs/lab05-hermes-campaign-command-centre/ — README.md, LAB-05-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-Learning outcome: LO3: Integrate the agent with external systems via webhooks..
+#### Step-by-step
 
-Goal: Wire the agent to the outside world with webhooks: trigger the agent from an incoming webhook payload and/or have it call an outgoing webhook, then secure the endpoint.
+**Step 1 — Add the analyst and strategist profiles**
 
-**What you'll build**
+Reuse the researcher (competitor watch) and auditor (verifier) from Lab 4, and add two roles.
 
-A webhook that triggers the agent (or that the agent calls), verified end-to-end.   (Tools: Hermes Agent, webhooks.)
+```bash
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/lab05
+hermes profile create analyst --clone --description "Computes marketing KPIs from CSV data with exact formulas and shows its working"
+hermes profile create strategist --clone --description "Synthesises analyses into an HTML dashboard and an evidence-based optimisation plan"
+hermes profile create listener --clone --description "Analyses customer comments for sentiment, themes and risks; masks personal data"
+```
 
-**Step-by-step**
+**Step 2 — Launch the swarm**
 
-1. Confirm the local gateway is serving Webhooks ride on the local gateway — if it isn't up, nothing can receive a request. Check its status and note the host/port it reports (typically localhost plus a port); that host/port is the base of your webhook URL. Or just ask the agent: "Check the gateway is up so webhooks can reach you"
+A swarm creates parallel worker cards, then a verifier card, then a synthesiser card — all on the board, and workers start at once. So the definition of done goes INTO the goal and worker titles: every card points to ~/kopi-kaki/tasks/swarm-definition-of-done.md (formulas, output paths, charting rule). Note: the campaign data covers its first six days (17–22 Nov); the scenario is set in late Nov 2026, so web research must use the most recent real sources and label their dates.
 
-   ```bash
-   hermes gateway status
-   ```
+```bash
+hermes kanban swarm "Week-1 #ShiokColdBrew review and optimisation plan. FIRST read ~/kopi-kaki/tasks/swarm-definition-of-done.md; data in ~/kopi-kaki; write outputs to ~/kopi-kaki/outputs/lab05/" \
+  --worker "analyst:KPIs vs targets from ~/kopi-kaki/campaign-week1-metrics.csv and sales-by-outlet.csv per the definition of done" \
+  --worker "listener:Sentiment and risk review of ~/kopi-kaki/social-comments.csv per the definition of done" \
+  --worker "researcher:Competitor and cold-brew trend watch from the most recent real sources, dated and cited, per the definition of done" \
+  --verifier auditor --synthesizer strategist
+hermes kanban list            # copy the swarm root id
+```
 
-2. Create / enable a webhook endpoint on the dashboard Open the dashboard and click Webhooks (/webhooks) in the sidebar. Click New webhook (or the enable toggle), give it a recognizable name like briefing-trigger, and save. The dashboard generates a unique endpoint URL for it. > The exact page layout and creation flow are version-specific — verify in the video / Hermes docs (https://hermes-agent.nousresearch.com/docs/).
-3. Copy the endpoint URL and map it to an agent action Use the copy button next to the new webhook to copy its full URL, and paste it somewhere handy. Then set what the webhook does: map incoming payloads to an agent action — for this lab, have it run a short briefing (e.g. instruction: "When this webhook fires, read the payload's message field and act on it"). Without a mapping, a payload is accepted but nothing happens.
-4. Send a test payload with curl From a terminal, simulate an external system by POSTing a JSON payload to the endpoint. Replace <endpoint-url> with the URL you copied in step 4: Or just ask the agent: "POST a test payload to the webhook endpoint and confirm a 2xx response"
+✓ Expected: 3 worker cards running in parallel, then verifier, then synthesiser.
 
-   ```bash
-   curl -X POST <endpoint-url> \
-  -H "Content-Type: application/json" \
-  -d '{"event":"test","message":"Trigger Athena briefing"}'
-   ```
+**Step 3 — Open the dashboard and plan**
 
-5. Watch the agent react Switch to the chat/session view (or the logs) and confirm the payload actually triggered Athena: the mapped action runs and its output appears — e.g. a briefing message referencing "Trigger Athena briefing" from your payload. Also check the webhook's row on the /webhooks page; most builds show a delivery/last-triggered indicator. Accepted-but-no-action means the mapping in step 4 isn't wired — fix it and re-send.
-6. Secure the endpoint, then re-send with the secret An open webhook lets anyone on the network drive your agent, so lock it down. On the webhook's settings, add a shared secret/token (and an IP allowlist if your build offers one), save, and re-send the test including the secret header — it should still return 2xx and trigger the agent: Or just ask the agent: "Re-send the test payload with the Bearer secret header and confirm it's accepted"
+Read the KPI cards (pre-orders vs 2,500, engagement vs 8%, video views vs 40,000, cost per pre-order), the top and bottom posts and the three proposals.
 
-   ```bash
-   curl -X POST <endpoint-url> \
-  -H "Authorization: Bearer <secret>" \
-  -H "Content-Type: application/json" \
-  -d '{"event":"test","message":"Trigger Athena briefing"}'
-   ```
+```bash
+open ~/kopi-kaki/outputs/lab05/dashboard.html
+```
 
-7. Confirm unauthorized calls are rejected Re-run the step 5 curl (the one without the secret header). It must now be rejected with 401/403, and Athena must not act. If it still returns 2xx, the secret isn't enforced — re-check the webhook's security settings and save again. You now have a working, secured inbound integration.
+✓ Expected: A self-contained HTML dashboard with charts and an optimisation plan.
 
-**Test it**
+**Step 4 — Human verification — check one number yourself**
 
-A test payload to the webhook triggers the agent's mapped action, and calls without the secret are rejected.
+Open campaign-week1-metrics.csv in a spreadsheet. Sum app_preorders and paid_spend_sgd, and compute cost per pre-order = spend ÷ pre-orders. Compare with the dashboard and with verification.md. If they differ, comment on the analyst task and ask for a correction — never forward a number you have not checked.
 
-> **Note:** Full commands and screenshots are in labs/lab14-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+✓ Expected: Your figure matches (or you have sent a correction back).
 
----
+**Step 5 — Decide and record**
 
+Prompt — paste into *Hermes chat in ~/kopi-kaki*:
 
-## Topic 02 — OpenClaw — Automating a Business Back-Office  (33%)
+```text
+I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab02/content-calendar-v2.csv for 24-30 Nov to apply the approved changes (status stays "draft" so each post still goes through my Telegram approval).
+```
 
-Install · Providers · Channels · Skills · Tools · Commands · Crons · Memory · Dreaming · Security · Multi-Agent · Use Cases
+✓ Expected: Decision comment on the board and an updated calendar.
 
-**Key concepts**
+**Step 6 — Make it weekly**
 
-- OpenClaw runs on Node.js 24 LTS as a long-running gateway daemon that hosts every channel, tool, cron and skill for the Nimbus Supplies back office.
-- Providers are connected by OAuth sign-in (OpenAI Codex, MiniMax) or API key (Anthropic, DeepSeek, OpenRouter); skills from skills.sh and integrations such as Firecrawl and AgentMail extend the agent.
-- 'Dreaming' lets the agent reflect during idle time — reviewing memory and generating follow-ups — while profiles and allow/deny lists keep every channel least-privileged and audited.
-- Crons schedule recurring work, a heartbeat auto-restarts the gateway, and a multi-agent capstone splits work across cooperating Sales, Research and Ops agents for real back-office use cases.
+```bash
+hermes cron create "0 9 * * 1" "Weekly #ShiokColdBrew report: recompute KPIs vs targets from the latest CSVs in ~/kopi-kaki, list the top and bottom 3 posts, summarise sentiment and escalations, and recommend max 3 changes. Do not change any plan without my approval." --name weekly-campaign-report --deliver telegram
+hermes cron list              # copy the job id
+hermes cron run <job_id>
+```
 
+✓ Expected: A weekly report arrives on Telegram.
 
-### Lab 15 — Install OpenClaw
+#### Test it
 
-Learning outcome: LO1: Install and configure an autonomous AI agent platform locally and on a container/VPS..
+> **✅ Test it:** Your own calculation of pre-orders and cost per pre-order matches the dashboard; the plan you approved is recorded on the task.
+>
+> - [ ] dashboard.html opens and shows the four KPIs vs target
+> - [ ] verification.md re-computes at least pre-orders, spend, engagement rate and cost per pre-order
+> - [ ] Your manual check matches (data covers 17–22 Nov)
+> - [ ] weekly-campaign-report is listed in `hermes cron list`
 
-Goal: The learner installs the OpenClaw platform on their own machine (or a cloud VPS) by first installing Node.js 24 LTS, then installing OpenClaw via npm and running the onboarding wizard, and verifies the install with doctor and gateway status. This gateway becomes the back-office brain of the Nimbus Supplies running example.
+#### Troubleshooting
 
-**What you'll build**
+| Symptom | Fix |
+|---|---|
+| Swarm workers can't find the CSVs | Say the absolute path (~/kopi-kaki/...) in the worker titles, or comment it on the root card. |
+| Dashboard is blank | Ask the strategist for a single self-contained HTML file with inline SVG charts (no external scripts or data files). |
+| Numbers disagree | That's why the verifier and you exist — request changes on the analyst card with the correct figure. |
 
-A running OpenClaw gateway daemon (local or VPS) verified with openclaw doctor   (Tools: OpenClaw, Node.js 24 LTS, npm, openclaw gateway.)
+#### Stretch challenge
 
-**Step-by-step**
+Feed the result back into Lab 3: ask Mia to add the approved changes to tomorrow's approval message, so the loop runs plan → publish → measure → improve without leaving Telegram.
 
-1. Install Node.js 24 LTS (24 recommended; 22.16+ minimum). OpenClaw runs on Node. Windows — download the Node 24 LTS installer from <https://nodejs.org/> and run the .msi (WSL2 is recommended for stability), then check:
+## Topic 3 — Paperclip — Running & Governing a Company of AI Agents
 
-   ```bash
-   node -v
-   npm -v
-   ```
+Paperclip (MIT licence) is open-source orchestration for a company of agents. You are the **Board**; a CEO agent reports to you and specialists report to the CEO. Agents run on adapters you already have (Claude Code, Codex, Gemini CLI, Hermes …). Goals, projects and tasks give every run a purpose; routines and heartbeats make work recurring; budgets (80% warning, 100% auto-pause), approval gates and an append-only activity log keep it governed.
 
-2. Install OpenClaw — Option A (npm, recommended, cross-platform). After Node is installed:
+![The Paperclip dashboard (http://localhost:3100)](courseware/assets/paperclip/pc-dashboard.png)
+*The Paperclip dashboard (http://localhost:3100)*
 
-   ```bash
-   npm install -g openclaw@latest
-   openclaw onboard
-   ```
+|  | Hermes Agent (Day 1) | Paperclip (Day 2) |
+|---|---|---|
+| Unit | An agent — or a team of profiles | A company of agents |
+| Orchestration | Kanban, dependencies, swarms | Org chart, CEO delegation, projects and tasks |
+| Human control | APPROVE prompts, approval modes, blocked tasks | Hiring gate, Approvers on tasks, Board approvals |
+| Scheduling | Cron jobs | Routines + heartbeats |
+| Cost control | Model choice per profile | Budgets per agent / project / company |
+| Audit | Sessions, Kanban history | Audit → Activity, Runs, Costs, Budgets |
 
-3. Install OpenClaw — Option B (installer script, fallback if npm fails). macOS / Linux / WSL2:
+### Lab 6 — Found Kopi Kaki Growth Studio — an AI Company You Govern
 
-   ```bash
-   curl -fsSL https://openclaw.ai/install.sh | bash
-   ```
+**Day 2 · 60 min · Human-governed company of agents · LO2** — Self-host Paperclip, become the Board, set the goals and hard budgets, switch on the hiring gate and make your first agent the CEO.
 
-4. Install OpenClaw — Option C (from source, advanced). Requires git and pnpm:
+#### Business scenario
 
-   ```bash
-   git clone https://github.com/openclaw/openclaw.git
-   cd openclaw
-   pnpm install && pnpm build && pnpm ui:build
-   pnpm link --global
-   openclaw onboard --install-daemon
-   ```
+Day 1 proved agents can do the marketing work. Kopi Kaki's owners now want it to run every week as a small 'AI growth studio' — with an org chart, budgets and an audit trail they can trust. You set up Paperclip, where you are the Board and every agent reports, ultimately, to you.
 
-5. (Optional) Install on a VPS so Nimbus Supplies runs 24/7. The same three-step flow works on any Ubuntu host — a Hostinger KVM VPS or an exe.dev sandbox. SSH in first (ssh root@<your-vps-ip>), then run:
+#### Goal
 
-   ```bash
-   # Step 1 — Node.js 24
-   curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
-   sudo apt-get install -y nodejs
-   node -v && npm -v
+Design a governed multi-agent platform — adapters, goals, budgets and approval gates — and explain how these design choices drive efficiency and control (LO2).
 
-   # Step 2 — OpenClaw (note: sudo for a global install on a fresh VPS)
-   sudo npm install -g openclaw@latest
+#### Before you start
 
-   # Step 3 — onboarding wizard
-   openclaw onboard
-   ```
+- Node.js 24.11+ (or Docker Desktop)
+- One agent CLI signed in on this laptop: Claude Code, Codex, Gemini CLI, or Hermes Agent from Day 1
+- This lab's data/ copied into ~/kopi-kaki
 
-6. Verify the installation.
+![Lab 6 — Settings → Adapters: the runtime your CEO agent runs on](courseware/assets/paperclip/pc-adapters.png)
+*Lab 6 — Settings → Adapters: the runtime your CEO agent runs on*
 
-   ```bash
-   openclaw --version
-   openclaw doctor
-   openclaw gateway status
-   ```
+#### You will deliver
 
-7. Confirm the gateway is running (and set to auto-start). The gateway is the long-running daemon that will host every channel, tool, and cron for Nimbus Supplies:
+- Paperclip running at http://localhost:3100
+- Organization 'Kopi Kaki Growth Studio' with 3 company-level goals
+- Ava — your first agent — set as CEO on an adapter you have (Claude Code, Codex, Gemini CLI or Hermes) and passing 'Run test'
+- 'Require board approval for new hires' switched ON
+- Company budget USD 60/month and CEO budget USD 15/month, visible under Audit → Budgets
 
-   ```bash
-   openclaw gateway status
-   openclaw gateway start   # if it is not already running
-   ```
+| Who | Role |
+|---|---|
+| Agents | 1 CEO agent (Ava) |
+| You (human) | You are the Board: goals, budgets, the hiring gate |
 
+#### Concepts in action
 
-**Test it**
+- Paperclip = the company; agents = employees; you = the Board
+- Goal → project → task: every task traces to a company goal
+- Adapters: bring your own agent runtime (Claude Code, Codex, Gemini, Hermes …)
+- Budgets warn at 80% and auto-pause at 100%
 
-openclaw --version prints a version, openclaw doctor shows green checks for Node 24 and the gateway daemon (provider/channel checks pending until Labs 16-17), and openclaw gateway status reports running.
+#### Lab files
 
-> **Note:** Full commands and screenshots are in labs/lab15-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+labs/lab06-paperclip-found-ai-company/ — README.md, LAB-06-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
----
+#### Step-by-step
 
+**Step 1 — Check the prerequisites**
 
-### Lab 16 — Models & Providers
+Paperclip needs Node.js 24.11 or newer, run as your normal user (never sudo). Its agents run on an agent CLI that is already signed in on this machine — Claude Code, Codex, Gemini CLI, or the Hermes Agent you installed on Day 1. Copy this lab's data into your workspace.
 
-Learning outcome: LO2: Connect an LLM model/provider to an agent via OAuth or API key..
+```bash
+node --version          # v24.11.0 or higher
+claude --version        # or: codex --version / gemini --version / hermes --version
+cp -Rn data/* ~/kopi-kaki/
+```
 
-Goal: The learner connects a language model to OpenClaw, trying the supported provider options — OAuth sign-ins (OpenAI Codex, MiniMax) and API-key providers (Anthropic, DeepSeek, OpenRouter) — learns where credentials are stored under ~/.openclaw/auth/, hot-swaps between models, and runs a Nimbus Supplies smoke test.
+✓ Expected: Node ≥ 24.11 and at least one agent CLI.
 
-**What you'll build**
+**Step 2 — Install and start Paperclip**
 
-A Nimbus Supplies agent wired to a working model provider that passes openclaw model test   (Tools: OpenClaw, OpenAI Codex / MiniMax (OAuth), Anthropic / DeepSeek / OpenRouter (API key).)
+Option A (recommended): the one-line onboarder — local, trusted, no login. Option B: Docker Desktop (Windows: enable WSL2 first with `wsl --install`); the compose file needs two secrets, and you will create an account and 'Claim this instance' on first visit. Leave the terminal running. Later restarts: `npx paperclipai run`.
 
-**Step-by-step**
+```bash
+# Option A
+npx paperclipai onboard --yes
 
-1. See what is available and what is currently selected. Or just ask the agent: "Which models can you use, and which one is active right now?"
+# Option B (Docker)
+git clone https://github.com/paperclipai/paperclip.git && cd paperclip
+export BETTER_AUTH_SECRET="$(openssl rand -hex 32)"
+export PAPERCLIP_TOOL_ACTION_SIGNING_SECRET="$(openssl rand -hex 32)"
+export ANTHROPIC_API_KEY="sk-ant-..."     # and/or OPENAI_API_KEY
+docker compose -f docker/docker-compose.quickstart.yml up --build
+```
 
-   ```bash
-   openclaw models list
-   openclaw model current
-   ```
+✓ Expected: 'Server running at http://localhost:3100' — open it in your browser.
 
-2. Option A — OpenAI Codex (OAuth, GPT-5.5). OAuth uses the openai-codex provider so you sign in with your ChatGPT Plus / Pro subscription instead of paying per token. Credentials are stored in ~/.openclaw/auth/ (profile at ~/.openclaw/auth-profiles/openai-codex.json); refresh is automatic.
+**Step 3 — Create the organization and your first agent**
 
-   ```bash
-   openclaw models auth login --provider openai-codex
-   ```
+The onboarding wizard asks 'What is the name of your organization?' → Kopi Kaki Growth Studio → Continue. 'Create your first agent' → name it Ava. 'Connect a model' → sign in or paste a key (a typed key is stored as a secret) → finish. On the first task's card 'What would you like to do?' (a question card in the 'Paperclip onboarding' task) choose 'I have a task in mind' but DO NOT confirm any team yet — the hiring gate comes first. It is fine to leave that onboarding task waiting.
 
-3. Option B — MiniMax (OAuth, MiniMax-M2.7). Enable the OAuth plugin, restart the gateway, then log in and set it as default:
+**Step 4 — Make Ava the CEO and test her adapter**
 
-   ```bash
-   openclaw plugins enable minimax-portal-auth
-   openclaw gateway restart
-   openclaw models auth login --provider minimax-portal --set-default
-   ```
+The wizard files the first agent with a general role, and the UI has no Role field — so set it with the CLI. Then open Agents → Ava → Harness / Runtime: check the adapter (claude_local, codex_local, gemini_local or hermes_local) and model, click 'Test your agent' → Run test.
 
-4. Option C — Anthropic (API key, Claude Opus 4.7). Get a key from <https://console.anthropic.com/settings/keys>: Or just ask the agent: "Switch your model to Anthropic's Claude Opus 4.7" Or just ask the agent: "Say hello so I can confirm your model connection works"
+```bash
+npx paperclipai company list                 # copy the company id
+npx paperclipai agent list -C <company-id>    # copy Ava's agent id
+npx paperclipai agent update <ava-id> --payload-json '{"role":"ceo","title":"CEO"}'
+```
 
-   ```bash
-   export ANTHROPIC_API_KEY="sk-ant-..."
-   openclaw config set provider anthropic
-   openclaw config set model anthropic/claude-opus-4-7
-   openclaw model test
-   ```
+✓ Expected: `agent list` shows Ava with role ceo, and Run test says 'Connection successful'.
 
-5. Option D — DeepSeek (API key, V4). Get a key from <https://platform.deepseek.com/api_keys>:
+**Step 5 — Give Ava her mandate**
 
-   ```bash
-   export DEEPSEEK_API_KEY="sk-..."
-   openclaw config set provider deepseek
-   openclaw config set model deepseek/deepseek-v4
-   openclaw model test
-   ```
+Open Agents → Ava → Instructions → AGENTS.md. The wizard seeded a 'chief of staff' persona there — REPLACE it with this CEO mandate (changes apply on her next run). Also upload brand-guide.md, campaign-brief.md and compliance-rules.md from ~/kopi-kaki with the + (Add agent file) button.
 
-6. Option E — OpenRouter (API key, routes to Claude Opus 4.7). Get a key from <https://openrouter.ai/keys>:
+Prompt — paste into *Paperclip → Agents → Ava → Instructions → AGENTS.md*:
 
-   ```bash
-   export OPENROUTER_API_KEY="sk-or-..."
-   openclaw config set provider openrouter
-   openclaw config set model openrouter/anthropic/claude-opus-4.7
-   openclaw model test
-   ```
+```text
+You are Ava, CEO of Kopi Kaki Growth Studio, a small AI marketing studio serving Kopi Kaki Co. (a Singapore kopi chain).
+Goals: (1) 2,500 app pre-orders for the Gula Melaka Cold Brew by 30 Nov 2026, (2) one approved short video every week, (3) monthly AI spend under USD 60 with zero compliance breaches.
+How you work:
+- Break goals into projects and tasks; propose hires with a mandate, adapter, reporting line and monthly budget; never hire without Board approval.
+- Every public-facing item must pass the Compliance Auditor and then wait for the Board. Never publish anything yourself.
+- Before anything is published or any spend outside budget, file a Board approval request.
+- Use brand-guide.md, campaign-brief.md and compliance-rules.md as the source of truth.
+- Report weekly: goal status, spend vs budget, risks, decisions needed.
+```
 
-7. Persist API keys so they survive reboots. For the API-key providers, add the export line to your shell profile (~/.zshrc on macOS, ~/.bashrc on Linux). OAuth tokens are persisted automatically in ~/.openclaw/auth/ and do not need this.
+✓ Expected: Ava's Instructions show the mandate and the three files.
 
-   ```bash
-   echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.zshrc
-   source ~/.zshrc
-   ```
+**Step 6 — Switch on the hiring gate**
 
-8. Switch models and confirm the active one. You can hot-swap the global default at any time: Or just ask the agent: "Make DeepSeek v4 your default model from now on"
+Avatar menu (bottom-left) → Settings → General → Hiring → turn ON 'Require board approval for new hires'. It is OFF by default — without it, the CEO's hires would join immediately.
 
-   ```bash
-   openclaw model use deepseek/deepseek-v4
-   openclaw model current
-   openclaw model test
-   ```
+**Step 7 — Set the goals**
 
-9. Give the agent a Nimbus Supplies smoke test. With any model active, from the CLI chat (openclaw) ask: > You are the back-office assistant for Nimbus Supplies, a small office-supplies reseller. In two sentences, introduce yourself to a customer. A sensible reply confirms the model is wired up. Or just ask the agent: "Introduce yourself in two sentences as the Nimbus Supplies back-office assistant"
+Goals are hidden from the sidebar by default: open http://localhost:3100/<PREFIX>/goals (PREFIX is the short code in your URL) → Add Goal, level 'company', one per goal in paperclip-company-setup.md.
 
-**Test it**
+**Step 8 — Set hard budgets (CLI — the UI cannot create the first cap)**
 
-openclaw models list shows the connected models, openclaw model current prints the active one, openclaw model test returns a short successful completion with no auth error, and OAuth credentials appear under ~/.openclaw/auth/.
+Budgets are in cents per month. Then check Audit → Budgets: 80% sends a warning; 100% pauses the agent automatically.
 
-> **Note:** Full commands and screenshots are in labs/lab16-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+```bash
+npx paperclipai budget company:update -C <company-id> --payload-json '{"budgetMonthlyCents":6000}'
+npx paperclipai budget agent:update <ava-id> --payload-json '{"budgetMonthlyCents":1500}'
+npx paperclipai budget overview -C <company-id>
+```
 
----
+✓ Expected: Organization USD 60 and Ava USD 15 under Audit → Budgets.
 
+**Step 9 — Confirm the structure**
 
-### Lab 17 — Channels
+Agents → Org chart view (icon next to New Agent): Board (you) → Ava (CEO). Write down which decisions the system has now reserved for you.
 
-Learning outcome: LO2: Connect multiple messaging channels to one agent gateway..
+#### Test it
 
-Goal: The learner gives customers a way to reach the Nimbus Supplies agent by creating a Telegram bot end-to-end via BotFather, registering it with a token, pairing a WhatsApp number by scanning a QR code, and running both channels at once through a single OpenClaw gateway so the same agent answers on either platform.
+> **✅ Test it:** Agents → Org chart view shows Ava (CEO) under the Board; Audit → Budgets shows both caps; the hiring gate is ON.
+>
+> - [ ] http://localhost:3100 loads Kopi Kaki Growth Studio
+> - [ ] Ava's role is CEO and her Run test passes
+> - [ ] 'Require board approval for new hires' is ON
+> - [ ] 3 company goals; budgets visible under Audit → Budgets
 
-**What you'll build**
+#### Troubleshooting
 
-Telegram and WhatsApp both live on one OpenClaw gateway, answered by the same Nimbus Supplies agent   (Tools: OpenClaw, Telegram (BotFather), WhatsApp, openclaw channel.)
+| Symptom | Fix |
+|---|---|
+| `node` too old | Install Node.js 24.11+ (e.g. from nodejs.org or `nvm install 24`). |
+| Docker: 'BETTER_AUTH_SECRET must be set' | Export both secrets (or put them in docker/.env) before `docker compose up`. |
+| Port 3100 busy | Paperclip falls back to another port — read the URL it prints. |
+| Run test fails | Sign in to the CLI first (e.g. `claude`, `codex login`, `hermes setup`) on the same machine, or paste an API key. |
+| Goals page not in the sidebar | Open /<PREFIX>/goals directly, or Settings → Experimental → Goals Sidebar Link. |
 
-**Step-by-step**
+#### Stretch challenge
 
-1. Create a Telegram bot with BotFather. 1. Open Telegram and search for @BotFather. 2. Send /newbot. 3. Enter a display name (e.g. Nimbus Supplies Assistant). 4. Enter a username — must be unique and end in _bot (e.g. nimbus_supplies_bot). 5. BotFather replies with an HTTP API token like 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11. Copy it.
-2. Register and start the Telegram channel. Or just ask the agent: "Connect Telegram using the bot token I got from BotFather" Or just ask the agent: "Start the Telegram channel and confirm it is live"
+Compare your Paperclip company with the Hermes studio from Lab 4: which governance features (org chart, budgets, hiring gate, audit log) would you have had to build yourself in Hermes?
 
-   ```bash
-   openclaw channel add telegram --token 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
-   openclaw channel start telegram
-   ```
+### Lab 7 — Hire the Marketing Team Through the Board Approval Gate
 
-3. Test Telegram. In Telegram, search for your bot's username and send: > Hi, do you supply recycled A4 paper for Nimbus Supplies? The agent should reply using the model you connected in Lab 16.
-4. Add and start the WhatsApp channel. Or just ask the agent: "Add WhatsApp as a channel and show me the pairing QR code" Or just ask the agent: "Start the WhatsApp channel so I can scan the QR code"
+**Day 2 · 45 min · Multi-agent organisation · LO3** — Let the CEO design the team, then approve, push back on or reshape every hire — with budgets, a Tavily web-search secret, a shared brand skill and an independent auditor.
 
-   ```bash
-   openclaw channel add whatsapp
-   openclaw channel start whatsapp
-   ```
+#### Business scenario
 
-5. Pair WhatsApp by scanning the QR. On your phone: WhatsApp → Settings → Linked Devices → Link a Device, then scan the QR code shown in the terminal. Wait for whatsapp: connected in the OpenClaw log. > WhatsApp keeps a stateful session on disk at ~/.openclaw/whatsapp/. Do not delete that folder unless you intend to re-pair.
-6. Confirm both channels are running at the same time. One gateway hosts many channels — the same Nimbus Supplies agent now answers on both. Or just ask the agent: "Which channels are you listening on right now?"
+Ava needs a team to hit the goals. In a real company you would never let a manager hire without approval, and you would never let the person who writes the ads also approve them. You ask Ava for a hiring plan, approve the hires that make sense, push back on one, give the researcher live web search, share the brand-voice skill, and make sure the Compliance Auditor reports to the CEO — not to the content team it audits.
 
-   ```bash
-   openclaw channel list
-   openclaw gateway status
-   ```
+#### Goal
 
-7. Inspect and manage a channel. Useful day-to-day commands:
+Improve the effectiveness of an AI-agent workforce through organisation design — roles, reporting lines, budgets, tools (live search) and shared skills (LO3).
 
-   ```bash
-   openclaw channel show telegram
-   openclaw channel restart whatsapp   # e.g. after the QR expires
-   ```
+#### Before you start
 
+- Lab 6 complete: Ava is CEO, the hiring gate is ON, budgets are set
+- Your Tavily key from Day 1 (or a new free key from tavily.com)
+- This lab's data/ copied into ~/kopi-kaki
 
-**Test it**
+![Lab 7 — the Agents org chart view: Board → CEO → specialists](courseware/assets/paperclip/pc-org.png)
+*Lab 7 — the Agents org chart view: Board → CEO → specialists*
 
-openclaw channel list shows telegram and whatsapp both running, a message to the Telegram bot gets an agent reply, a message to the linked WhatsApp account gets an agent reply, and openclaw gateway status shows both connected.
+#### You will deliver
 
-> **Note:** Full commands and screenshots are in labs/lab17-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+- A plan document from Ava (roles, mandates, adapters, budgets, reporting lines)
+- 5 specialists hired through Approvals: Market Researcher, Content Strategist, Copywriter, Video Producer, Compliance Auditor
+- At least one hire sent back with 'Request revision' and resubmitted
+- Organization secret tavily_api_key bound to the researcher as TAVILY_API_KEY
+- kopi-brand-voice skill in the company library, attached to the Copywriter and Auditor
 
----
+| Who | Role |
+|---|---|
+| Agents | CEO + 5 specialist agents |
+| You (human) | Approve, revise or reject each hire; enforce separation of duties |
 
+#### Concepts in action
 
-### Lab 18 — Skills
+- Role specialisation + reporting lines = coordination
+- Separation of duties: the auditor must not report to those it audits
+- Secrets: tools without exposing keys in prompts
+- Per-agent budgets = cost control by design
 
-Learning outcome: LO3: Extend an agent with registry and custom skills..
+#### Lab files
 
-Goal: The learner installs and removes skills from the skills.sh registry, invokes them from chat, and builds a custom Nimbus Supplies skill (nimbus-quote) under ~/.openclaw/skills/ so the agent handles a recurring back-office task — drafting an itemised customer quote with GST — the same way every time.
+labs/lab07-paperclip-hire-marketing-team/ — README.md, LAB-07-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-**What you'll build**
+#### Step-by-step
 
-Registry skills plus a custom nimbus-quote skill that produces itemised, GST-inclusive quotes   (Tools: OpenClaw, skills.sh registry, ~/.openclaw/skills/, openclaw skills.)
+**Step 1 — Store the Tavily key as an organization secret**
 
-**Step-by-step**
+Reuse the Tavily key you used on Day 1 (or get a free one at tavily.com). Avatar menu → Settings → Secrets → New secret → Name tavily_api_key, paste the value in the Value field (stored once, never shown again) → create. Do not paste keys into a terminal, a prompt or a task.
 
-1. List the skills currently installed. Or just ask the agent: "What skills do you have installed?"
+**Step 2 — Ask the CEO for a hiring plan**
 
-   ```bash
-   openclaw skills list
-   ```
+Prompt — paste into *Paperclip → New Task (assign to Ava)*:
 
-2. Install a few useful skills from the registry. Skills come from <https://skills.sh/>: Or just ask the agent: "Install the web-research skill from the skills.sh registry"
+```text
+Propose the team to hit our three company goals.
+Propose the smallest team that can research, plan, write, produce video and audit our marketing every week. For each role give: name, mandate (3 bullets), reports to, adapter, monthly budget in USD, tools and skills it needs.
+Rules: the Compliance Auditor must not report to anyone whose work it audits; the total team budget must fit our USD 60/month company budget with Ava's USD 15 included.
+Save it as a plan, ask me to confirm, then submit each hire for Board approval with its budget.
+```
 
-   ```bash
-   openclaw skills add web-research --source skills.sh
-   openclaw skills add self-improvement --source skills.sh
-   ```
+✓ Expected: A plan document and a confirmation card; after you confirm, hire requests appear in Approvals.
 
-3. Invoke a skill from chat. In your Telegram or WhatsApp channel, send:
+**Step 3 — Review the plan against a reference**
 
-   ```bash
-   /skill web-research "Who are the main office-supplies wholesalers in Singapore?"
-   ```
+Compare Ava's plan with paperclip-org-plan.md. A good plan has clear mandates, budgets that add up, and an independent auditor. Note one thing Ava did better than the reference and one thing to change. Then click Confirm on the plan's confirmation card (a checkbox card in the task thread).
 
-4. Remove a skill you do not need (keeps the agent focused and safe):
+**Step 4 — Approve — and push back once**
 
-   ```bash
-   openclaw skills remove self-improvement
-   ```
+Dashboard → Pending Approvals (or /<PREFIX>/approvals) → each 'Hire Agent' card → View details → See full request (budget, reports to, adapter). Approve the hires that fit. For one, click Request revision and explain in Comments — e.g. 'Video Producer budget too high: cap at USD 10 and render drafts first'. CLI fallback:
 
-5. Refresh the registry index if a skill you expect is missing:
+```bash
+npx paperclipai approval list -C <company-id> --status pending
+npx paperclipai approval approve <approval-id> --decision-note "Approved"
+npx paperclipai approval request-revision <approval-id> --decision-note "Cap Video Producer at USD 10/month"
+```
 
-   ```bash
-   openclaw skills update
-   ```
+✓ Expected: Approved agents become active; the revised hire comes back for a second decision.
 
-6. Build a custom Nimbus Supplies skill. Skills live under ~/.openclaw/skills/. Create a folder and a skill definition. (File layout is shown here as a documented example — confirm the exact schema for your version at <https://docs.openclaw.ai/> before relying on advanced fields.) Or just ask the agent: "Create a new custom skill called nimbus-quote for drafting itemised customer quotes"
+**Step 5 — Give the researcher live web search**
 
-   ```bash
-   mkdir -p ~/.openclaw/skills/nimbus-quote
-   ```
+Agents → Market Researcher → Harness / Runtime → Environment variables → Add variable: Name TAVILY_API_KEY → Value source 'Organization secret' → select tavily_api_key → Save changes. The key never appears in prompts or tasks.
 
-7. Register and test the custom skill. Or just ask the agent: "Reload your skills so the new nimbus-quote skill is picked up"
+**Step 6 — Share the brand-voice skill**
 
-   ```bash
-   openclaw skills list                 # confirm nimbus-quote appears
-   openclaw gateway restart             # reload skills if it is not picked up
-   ```
+Create the company skill from the file in your workspace, then attach it to the Copywriter and the Compliance Auditor (check under Org → Skills and Agent → Skills).
 
-8. The natural-language way You can skip the CLI entirely and simply ask the agent: "Install the github skill from ClawHub and show me what it can do".
+```bash
+npx paperclipai skills create -C <company-id> --name "Kopi brand voice" --slug kopi-brand-voice --body-file ~/kopi-kaki/skills/kopi-brand-voice/SKILL.md
+npx paperclipai skills agent sync <copywriter-id> --skill kopi-brand-voice --mode add -C <company-id>
+npx paperclipai skills agent sync <auditor-id> --skill kopi-brand-voice --mode add -C <company-id>
+```
 
-**Test it**
+**Step 7 — Check the reporting lines**
 
-openclaw skills list shows the registry skills plus the custom nimbus-quote, /skill web-research runs end-to-end, and /skill nimbus-quote produces an itemised quote with a 9% GST line and standard terms, marking any unknown price as TBC instead of guessing.
+Agents → Org chart view. Expected: Board → Ava → {Market Researcher, Content Strategist, Compliance Auditor}; Content Strategist → {Copywriter, Video Producer}. If the auditor reports to the strategist, change it in Harness / Runtime → Agent identity → Reports to — and write one sentence on why.
 
-> **Note:** Full commands and screenshots are in labs/lab18-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+**Step 8 — Smoke-test the researcher**
 
----
+Prompt — paste into *Paperclip → New Task (assign to Market Researcher)*:
 
+```text
+Smoke test - live search.
+Use Tavily to find 3 news items from the last 60 days about coffee or cold-brew trends in Singapore or Southeast Asia. For each: headline, date, URL and a one-line takeaway for Kopi Kaki. Mark anything you could not verify.
+```
 
-### Lab 19 — Tools & Integrations
+✓ Expected: Three results with URLs in the task thread.
 
-Learning outcome: LO3: Extend an agent with third-party tool integrations..
+#### Test it
 
-Goal: The learner extends the Nimbus Supplies agent with two real integrations — Firecrawl (JS-rendered web scraping) and AgentMail (its own inbox/outbox) — then runs an end-to-end back-office task: research a supplier's website prices, draft an itemised quote with the Lab 18 skill, and email it to a customer. Tool profiles and allow/deny lists scope tools per channel.
+> **✅ Test it:** Five specialists in the Org chart view; the auditor reports to Ava; the researcher's smoke test returns cited Tavily results.
+>
+> - [ ] 5 specialists active, each with a budget
+> - [ ] At least one hire went through Request revision
+> - [ ] TAVILY_API_KEY bound to the researcher from an organization secret
+> - [ ] Auditor reports to Ava; smoke test has URLs
+> - [ ] PP evidence: take ONE screenshot now of the Agents org chart view (Ava + hired specialists) — Task 3 of the Practical Performance uses it
 
-**What you'll build**
+#### Troubleshooting
 
-A Firecrawl + AgentMail integrated agent that scrapes supplier prices and emails an itemised quote   (Tools: OpenClaw, Firecrawl, AgentMail, openclaw tools.)
+| Symptom | Fix |
+|---|---|
+| Hires joined without approval | The hiring gate was OFF — Settings → General → Hiring. Pause the agent and re-hire. |
+| No Approvals in the sidebar | Use the Dashboard 'Pending Approvals' card or /<PREFIX>/approvals. |
+| Researcher can't search | A plain-text env row shadows the secret — switch its Value source to 'Organization secret' and Save. |
+| Plan exceeds budget | Request revision with the numbers; Ava must fit the total inside USD 60. |
 
-**Step-by-step**
+#### Stretch challenge
 
-1. Inspect the built-in tools first. Or just ask the agent: "What tools do you have, grouped by category?"
+Ask Ava to propose a sixth role — Community Manager — and decide whether the value justifies the extra budget. Record your Board decision as an approval comment.
 
-   ```bash
-   openclaw tools list
-   ```
+### Lab 8 — Run the #ShiokColdBrew Launch as a Project — Review, Revise, Release
 
-2. Enable Firecrawl. Sign up at <https://www.firecrawl.dev/>, then Dashboard → API Keys → copy the fc-... key: Or just ask the agent: "Enable the Firecrawl scraping tool with my API key"
+**Day 2 · 55 min · Multi-agent project with Board review · LO3** — Turn the campaign into seven linked tasks, let the team execute research → plan → copy → video → audit, and use an approval gate to send work back until it is good enough to release.
 
-   ```bash
-   export FIRECRAWL_API_KEY="fc-..."
-   openclaw tools enable firecrawl --api-key "$FIRECRAWL_API_KEY"
-   openclaw tools status firecrawl
-   ```
+#### Business scenario
 
-3. Smoke-test Firecrawl from chat. In Telegram or WhatsApp: > Use Firecrawl to fetch the products page of a stationery supplier's website and list their A4 paper options with prices in 5 bullets.
-4. Enable AgentMail. Create an inbox at <https://agentmail.to/>, copy the API key and inbox address: Or just ask the agent: "Set up AgentMail with my API key so you have your own inbox"
+Ava's team is hired. Now it must deliver the launch campaign pack the Marketing Lead asked for on Day 1 — but as a company: tracked tasks, dependencies, owners, costs and an audit trail. Your job is the Board review: the deliverables that go public stop with you, and you either approve them or send them back with specific comments.
 
-   ```bash
-   export AGENTMAIL_API_KEY="..."
-   openclaw tools enable agentmail \
-     --api-key "$AGENTMAIL_API_KEY" \
-     --inbox bot@yourname.agentmail.to
-   openclaw tools status agentmail
-   ```
+#### Goal
 
-5. Smoke-test AgentMail. From chat: > Send an email from my AgentMail inbox to <your-personal-email> with subject "Hello from Nimbus Supplies" and a friendly one-paragraph body. Check your inbox, reply to it, then ask: > Check my AgentMail inbox and summarise the latest reply.
-6. Run the real end-to-end task (research → quote → email). From a channel, send one instruction that chains both tools plus the skill from Lab 18: > A customer, Acme Cafe, wants 10 reams of recycled A4 paper and 5 boxes of black pens. Use Firecrawl to check current prices on our supplier's site, then use the nimbus-quote skill to draft an itemised quote, and email it from my AgentMail inbox to orders@acmecafe.example with subject "Your Nimbus Supplies quote".
-7. Scope tools per channel with profiles and allow/deny lists. Public channels should not run shell exec. Apply the safe messaging preset and lock down a public channel: Or just ask the agent: "On the Telegram channel, block shell command execution" Or just ask the agent: "On Telegram, allow only the web tool group"
+Run and evaluate an end-to-end multi-agent project, using review gates and revision cycles to improve output quality (LO3).
 
-   ```bash
-   openclaw channel set telegram --profile messaging
-   openclaw channel set telegram --deny exec
-   openclaw channel set telegram --allow group:web
-   openclaw channel show telegram
-   ```
+#### Before you start
 
-8. (Optional) Add one more integration of your choice. Pick one from <https://docs.openclaw.ai/tools> and enable it (exact name/flags per the docs), e.g.:
+- Lab 7 complete: five specialists hired and active
+- Day 1 outputs in ~/kopi-kaki/outputs (research brief, content calendar) — the team builds on them
 
-   ```bash
-   openclaw tools enable <tool-name> --api-key <KEY>
-   ```
+![Lab 8 — Tasks moving todo → in_progress → in_review → done](courseware/assets/paperclip/pc-tasks.png)
+*Lab 8 — Tasks moving todo → in_progress → in_review → done*
 
-9. The natural-language way You can skip the CLI entirely and simply ask the agent: "Use the browser to pull today's top three AI headlines and save them to headlines.md".
+#### You will deliver
 
-**Test it**
+- Project 'ShiokColdBrew Launch' linked to goal 1, with 7 tasks and blocked-by links
+- research-report, campaign plan + calendar, teaser captions, video script, video/storyboard + publish package
+- Compliance audit (agent reviewer) before your approval on captions, video and release pack
+- At least one task sent back with a comment and returned improved
+- A retrospective with cycle time, revisions and spend
 
-openclaw tools list --enabled shows firecrawl and agentmail, the agent scrapes a supplier URL and returns structured prices, an AgentMail send arrives in a real inbox, the end-to-end task produces an itemised quote email, and a channel set to --deny exec refuses shell-exec requests.
+| Who | Role |
+|---|---|
+| Agents | CEO + 5 specialists |
+| You (human) | Approve or send back every public deliverable; release |
 
-> **Note:** Full commands and screenshots are in labs/lab19-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+#### Concepts in action
 
----
+- Tasks + blocked-by = an ordered workflow with owners
+- Execution policy: agent Reviewer, then human Approver
+- Revision comments are feedback the agents act on
+- Audit → Activity = the trail for every decision
 
+#### Lab files
 
-### Lab 20 — Commands
+labs/lab08-paperclip-launch-campaign-project/ — README.md, LAB-08-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-Learning outcome: LO4: Operate an agent through its CLI and in-chat command surface..
+#### Step-by-step
 
-Goal: The learner becomes fluent in the two ways to drive OpenClaw daily: the CLI commands (config, model, doctor, gateway, channel, tools, skills, cron) and the in-chat slash commands operators and customers use inside a channel, building a personal quick-reference table for running the Nimbus Supplies back office and streaming live gateway logs.
+**Step 1 — Create the project**
 
-**What you'll build**
+Work → Projects → Add Project 'ShiokColdBrew Launch' → Configuration → link goal 1 (2,500 pre-orders). Paste campaign-brief.md into the description, and attach your Day 1 work so the team builds on it instead of starting again: ~/kopi-kaki/outputs/lab01/research-brief.md and ~/kopi-kaki/outputs/lab02/content-calendar-v2.csv.
 
-A personal quick-reference of the CLI and slash commands used to run Nimbus Supplies day to day   (Tools: OpenClaw, openclaw CLI, in-chat slash commands.)
+**Step 2 — Let the CEO build the backlog**
 
-**Step-by-step**
+Prompt — paste into *Paperclip → New Task (assign to Ava, project ShiokColdBrew Launch)*:
 
-1. openclaw config — read and change settings. Or just ask the agent: "Show me your current configuration settings"
+```text
+Set up the ShiokColdBrew Launch backlog.
+Create the 7 tasks in paperclip-backlog.csv inside project "ShiokColdBrew Launch" - same titles, assignees, priorities, blocked-by links and definitions of done (paste the definition of done into each task). Tasks 1 and 2 must start from the Day 1 research brief and content calendar attached to the project. Reply with the task keys.
+```
 
-   ```bash
-   openclaw config list                        # show all settings
-   openclaw config get model                   # get one setting
-   openclaw config set model anthropic/claude-opus-4-7
-   openclaw config edit                         # open the config file in $EDITOR
-   ```
+✓ Expected: 7 tasks with owners and blocked-by relationships.
 
-2. openclaw model — manage the brain.
+**Step 3 — Put the gates on the public deliverables**
 
-   ```bash
-   openclaw model list
-   openclaw model current
-   openclaw model use deepseek/deepseek-v4
-   openclaw model test
-   ```
+Open tasks 3 (captions), 5 (video + publish package) and 7 (release pack). In Properties → Execution: Reviewers → Compliance Auditor (the agent review stage), and Approvers → Assign to me (the human gate). When the owner marks a task done, Paperclip moves it to in_review — first to the auditor, then to you.
 
-3. openclaw doctor — health check (with auto-fix).
+**Step 4 — Start the work and watch it flow**
 
-   ```bash
-   openclaw doctor
-   openclaw doctor --fix
-   ```
+Assigning a task (or commenting on it) wakes its agent; if nothing starts, click Run now on the agent. Watch tasks move backlog → todo → in_progress → in_review → done, and blocked-by links release the next task. Audit → Runs shows every run and its cost.
 
-4. openclaw gateway — control the daemon that runs everything.
+**Step 5 — Board review — send something back**
 
-   ```bash
-   openclaw gateway status
-   openclaw gateway start
-   openclaw gateway stop
-   openclaw gateway restart
-   openclaw gateway logs --tail 50
-   openclaw gateway install     # install daemon (LaunchAgent / systemd / Task Scheduler)
-   ```
+When a task reaches 'Approval pending with you', read it against the brief. Send at least one back with specific, testable comments — in the task thread, or with the CLI (the comment must be in the same request):
 
-5. openclaw channel — manage the front doors.
+```bash
+npx paperclipai issue update <TASK-KEY> --status in_progress --comment "1) Only 3 TikTok posts - we need at least 6 for the 40,000-view KPI. 2) Caption 4 says 'healthier than soft drinks' - remove (rule C1). 3) Every post showing SHIOK20 must show its terms (rule C3)."
+```
 
-   ```bash
-   openclaw channel list
-   openclaw channel add telegram --token <TOKEN>
-   openclaw channel start whatsapp
-   openclaw channel show telegram
-   openclaw channel restart whatsapp
-   openclaw channel remove telegram
-   ```
+✓ Expected: The task returns to its owner, is revised and comes back to you.
 
-6. openclaw tools and openclaw skills — capabilities.
+**Step 6 — Approve and release**
 
-   ```bash
-   openclaw tools list
-   openclaw tools list --enabled
-   openclaw tools status agentmail
+Approve each gated task with a decision comment. For the release pack, check: what is ready, what is not, open risks, total spend. 'Released' means approved to publish — publishing itself stays a human action (or the Day 1 Telegram flow).
 
-   openclaw skills list
-   openclaw skills add web-research --source skills.sh
-   openclaw skills remove web-research
-   ```
+```bash
+npx paperclipai issue update <TASK-KEY> --status done --comment "Approved for release - post via the Telegram approval flow"
+```
 
-7. In-chat slash commands. These work inside any channel (Telegram, WhatsApp, CLI chat). Try each from your Nimbus Supplies bot:
-8. Watch it work live. In one terminal, follow the logs; in the channel, send a message and observe the corresponding lines:
+**Step 7 — Run the retrospective**
 
-   ```bash
-   openclaw gateway logs --follow
-   ```
+Prompt — paste into *Paperclip → New Task (assign to Ava)*:
 
+```text
+Launch project retrospective for ShiokColdBrew Launch.
+Report: cycle time per task, number of Board send-backs and auditor findings, spend per agent vs budget, and the three biggest quality problems we caught at review. Recommend two changes to agent instructions that would have prevented them.
+```
 
-**Test it**
+✓ Expected: A retrospective with metrics and two instruction changes (you will apply them in Lab 10).
 
-You can switch the model both from chat (/model, per-conversation) and globally from the CLI (openclaw model use), /whoami returns your platform user ID, openclaw gateway logs --follow streams live activity, and /help lists the available slash commands.
+#### Test it
 
-> **Note:** Full commands and screenshots are in labs/lab20-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+> **✅ Test it:** All 7 tasks done; at least one went back from in_review with a comment and returned improved; the release pack was approved by you with a comment.
+>
+> - [ ] Project linked to goal 1 with 7 linked tasks, all done
+> - [ ] Reviewer = Compliance Auditor and Approver = you on tasks 3, 5, 7
+> - [ ] ≥ 1 send-back with comment visible in Audit → Activity
+> - [ ] Retrospective lists cycle time, revisions, spend
 
----
+#### Troubleshooting
 
+| Symptom | Fix |
+|---|---|
+| Task never starts | Check it is assigned, not blocked, and the agent is not paused or out of budget (Audit → Budgets); then Run now on the agent. |
+| Task went straight to done | No Approver was set before the owner finished — set Properties → Execution → Approvers and reopen it. |
+| Approving fails with 422 | Only the named approver can approve, and a comment is required in the same request. |
+| Video not rendered | Accept a storyboard + script; rendering is optional on Day 2. |
 
-### Lab 21 — Cron Jobs & Heartbeat
+#### Stretch challenge
 
-Learning outcome: LO4: Automate agent work with scheduled crons and a monitoring heartbeat..
+Add a dependency the plan missed (e.g. 'Legal check of SHIOK20 terms' before release). How does one new gate change cycle time and risk?
 
-Goal: The learner makes Nimbus Supplies run unattended by scheduling recurring tasks with cron (a nightly sales report and a weekly supplier price-check using Firecrawl) and monitoring uptime with the heartbeat, so the gateway self-checks, auto-restarts on failure, and can page an external monitor if it dies.
+### Lab 9 — Automate the Weekly Video Pipeline with a Routine and a Board Gate
 
-**What you'll build**
+**Day 2 · 45 min · Scheduled multi-agent workflow · LO3** — Turn research → script → production → audit → publish-ready into a routine that fires every Monday at 10:00 — and still stops for your approval.
 
-A nightly sales-report cron, a weekly price-check cron, and an enabled self-healing heartbeat   (Tools: OpenClaw, openclaw cron, gateway heartbeat, Firecrawl + AgentMail.)
+#### Business scenario
 
-**Step-by-step**
+Goal 2 is one approved short video every week. You do not want to create the task by hand every Monday, but you also never want a video to go out unseen. You create the 'Weekly Kopi Short' routine: the clock creates the task, Ava delegates the pipeline, and the finished package waits for a Board approval.
 
-1. Create the nightly sales-report cron. Cron syntax is <min> <hour> <day> <month> <weekday>. Or just ask the agent: "Every night at 9pm, summarise today's customer chats and quotes and post it to Telegram"
+#### Goal
 
-   ```bash
-   # Every day at 21:00 — post a Nimbus Supplies end-of-day summary to Telegram
-   openclaw cron create \
-     --schedule "0 21 * * *" \
-     --prompt "Summarise today's Nimbus Supplies customer chats and any quotes sent. List open questions that still need a human." \
-     --channel telegram \
-     --name nightly-sales-report
-   ```
+Automate a recurring multi-agent workflow while keeping a human approval gate, and assess the trade-off between autonomy and control (LO3).
 
-2. Create a weekly supplier price-check cron (uses Firecrawl from Lab 19):
+#### Before you start
 
-   ```bash
-   # Every Monday at 08:00 — check supplier prices and email me
-   openclaw cron create \
-     --schedule "0 8 * * 1" \
-     --prompt "Use Firecrawl to fetch our main supplier's A4 paper price and email me the current price via AgentMail with subject 'Weekly supplier price'." \
-     --channel telegram \
-     --name weekly-price-check
-   ```
+- Labs 7–8 complete: the team has delivered at least one reviewed package
 
-3. List and inspect your crons. Or just ask the agent: "What cron jobs do you have scheduled?"
+![Lab 9 — a routine's generated task delegating each stage](courseware/assets/paperclip/pc-routine-pipeline.png)
+*Lab 9 — a routine's generated task delegating each stage*
 
-   ```bash
-   openclaw cron list
-   openclaw cron show nightly-sales-report
-   openclaw cron logs nightly-sales-report --tail 20
-   ```
+#### You will deliver
 
-4. Fire a cron on demand to test it now (ignores the schedule): Or just ask the agent: "Run the nightly sales report right now so I can check it works"
+- Routine 'Weekly Kopi Short' for Ava — schedule trigger every week, Monday 10:00, Asia/Singapore
+- One manual Run that produced a complete package
+- Publish package + video/storyboard + audit in the run's task
+- A Board Approval request that you approved (or rejected) with a comment
 
-   ```bash
-   openclaw cron run nightly-sales-report
-   ```
+| Who | Role |
+|---|---|
+| Agents | CEO + Researcher + Copywriter + Video Producer + Auditor |
+| You (human) | Approve each week's video before it is published |
 
-5. Disable / enable / delete crons as your needs change:
+#### Concepts in action
 
-   ```bash
-   openclaw cron disable weekly-price-check
-   openclaw cron enable  weekly-price-check
-   openclaw cron delete  weekly-price-check   # only if you no longer need it
-   ```
+- Routine = trigger + generated task (a cron for a company)
+- Heartbeats: agents wake on schedule or on assignment
+- Autonomy level L4 Approver — the agents ask only at the gate
+- Same pipeline as Lab 4, now governed and repeatable
 
-6. Enable the heartbeat. The heartbeat is a periodic self-check that verifies the gateway is alive, the model responds, and channels are connected; on failure the daemon attempts auto-restart and logs the incident. Or just ask the agent: "Turn on your heartbeat self-check every 60 seconds" Or just ask the agent: "Is your heartbeat healthy? Give me the status"
+#### Lab files
 
-   ```bash
-   openclaw gateway heartbeat enable --interval 60s
-   openclaw gateway heartbeat status
-   openclaw gateway heartbeat logs --tail 20
-   ```
+labs/lab09-paperclip-weekly-video-routine/ — README.md, LAB-09-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-7. (Optional) Push a heartbeat ping to an external monitor so you are paged if Nimbus Supplies goes dark (e.g. a free <https://healthchecks.io/> check):
+#### Step-by-step
 
-   ```bash
-   openclaw gateway heartbeat webhook \
-     --url https://hc-ping.com/<your-uuid> \
-     --interval 5m
-   ```
+**Step 1 — Create the routine**
 
-8. Confirm auto-restart works. Ensure the daemon is installed to auto-start, then simulate a crash: Or just ask the agent: "Shut down your gateway - I want to check the heartbeat restarts you"
+Work → Routines → Create routine. Title 'Weekly Kopi Short'; For: Ava; in: ShiokColdBrew Launch (or a new project 'Weekly Content'); Advanced delivery settings → concurrency 'skip_if_active'. Paste the instructions below, then Create routine. (Without a default agent the routine stays a paused draft.)
 
-   ```bash
-   openclaw gateway status        # expect "running" + "auto-start: yes"
-   openclaw gateway stop
-   # wait ~60s for the service manager to restart it
-   openclaw gateway status        # expect "running" again
-   ```
+Prompt — paste into *Paperclip → Routines → Create routine → Instructions*:
 
-9. The natural-language way You can skip the CLI entirely and simply ask the agent: "Add a heartbeat task: every 30 minutes, check my inbox and flag anything urgent".
+```text
+Produce this week's Kopi Short (research -> script -> production -> audit -> publish-ready).
+Delegate: Market Researcher picks one fresh angle (cite 2 sources); Copywriter writes a 20-30 second script in the Kopi Kaki voice (kopi-brand-voice); Video Producer renders the video, or a 6-frame storyboard if rendering is unavailable; Compliance Auditor checks compliance-rules.md (C1-C10) and video-qa-checklist.md (V1-V9).
+Deliver a publish package: title, description with AI disclosure, 3-5 hashtags incl. #ShiokColdBrew, thumbnail, captions.
+Gate: before anything is published, file a Board approval request with the package attached. Do NOT publish. Stay within each agent's budget.
+```
 
-**Test it**
+✓ Expected: The routine lands on its Triggers tab.
 
-openclaw cron list shows nightly-sales-report and weekly-price-check, openclaw cron run delivers a summary to Telegram immediately, openclaw gateway heartbeat status reports healthy, and after openclaw gateway stop the service manager restarts the gateway within about a minute.
+**Step 2 — Add the weekly trigger**
 
-> **Note:** Full commands and screenshots are in labs/lab21-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+Triggers → Add trigger → 'On a schedule' → Repeat: Every week → Monday → Time 10:00 → Time zone Asia/Singapore → Add schedule. (The default repeat is Weekdays — change it.) CLI alternative:
 
----
+```bash
+npx paperclipai routine list -C <company-id>
+npx paperclipai routine trigger:create <routine-id> --payload-json '{"kind":"schedule","cronExpression":"0 10 * * 1","timezone":"Asia/Singapore"}'
+```
 
+✓ Expected: Next run: Monday 10:00 SGT.
 
-### Lab 22 — Memory & Context
+**Step 3 — Test before you trust — Run it now**
 
-Learning outcome: LO2: Give an agent persistent, user-scoped memory..
+Click Run on the routine's header (or Run now in the list). A new task is created for Ava; follow her delegation in the task thread and in Audit → Runs.
 
-Goal: The learner gives the Nimbus Supplies agent durable memory so it recalls customer preferences across conversations: using the in-chat /memory command, inspecting where OpenClaw persists state under ~/.openclaw/, teaching a customer's standing preference, clearing the conversation to prove it is real memory, and confirming recall in a later separate chat.
+```bash
+npx paperclipai routine run <routine-id>
+npx paperclipai routine runs <routine-id> --limit 5
+```
 
-**What you'll build**
+**Step 4 — Board gate — approve or send back**
 
-An agent that persistently remembers a customer's standing preferences and applies them in a fresh conversation   (Tools: OpenClaw, /memory, /clear, ~/.openclaw/ state.)
+Two gates, two strengths. (1) The Board approval request is prompt-enforced — the agents file it because the routine's instructions say so. (2) Approvers on a task are runtime-enforced, but routine-generated tasks are not guaranteed to carry them, so open the generated task and set Properties → Execution → Approvers → Assign to me every week. Then Dashboard → Pending Approvals → 'Board Approval' card: watch the video (or storyboard), read the audit, Approve, Reject or Request revision — and say why in Comments.
 
-**Step-by-step**
+**Step 5 — Tune the autonomy**
 
-1. See what OpenClaw stores on disk. Or just ask the agent: "Show me what you store in your ~/.openclaw state folder"
+Decide what may run without you each week (research, script, audit) and what must stop for you (publishing, any price or promo change). Add it as a rule to Ava's AGENTS.md so next Monday's run follows it.
 
-   ```bash
-   ls -la ~/.openclaw/
-   ```
+#### Test it
 
-2. Inspect your current memory from chat. In your Telegram or WhatsApp bot:
+> **✅ Test it:** A manual Run produced a full package and a Board Approval request; the routine shows a weekly Monday 10:00 Asia/Singapore trigger.
+>
+> - [ ] Routine active with a weekly Monday 10:00 Asia/Singapore trigger
+> - [ ] Manual run created a task and completed the pipeline
+> - [ ] The generated task shows you as Approver
+> - [ ] A Board Approval request decided by you with a comment
 
-   ```bash
-   /memory
-   ```
+#### Troubleshooting
 
-3. Teach the agent a durable customer preference. Still in chat, send a plain-language instruction: > Remember this for future chats: our customer Acme Cafe always wants recycled A4 paper (never standard), delivery on Tuesdays only, and quotes addressed to Mei from Acme. Then confirm it was captured:
+| Symptom | Fix |
+|---|---|
+| Routine is a paused draft | Set a default agent (For: Ava) — the automation toggle needs one. |
+| Sub-tasks not created | Ava may be paused or over budget — check Audit → Budgets; raise the cap or wait. |
+| No approval request appeared | Agents follow the instructions — make the 'file a Board approval request' line explicit, and set yourself as Approver on the task. |
+| Wrong time | Edit the trigger's time zone to Asia/Singapore. |
 
-   ```bash
-   /memory
-   ```
+#### Stretch challenge
 
-4. Clear the conversation to prove it is real memory, not just context.
+Add a second trigger: a webhook that starts the pipeline when a competitor launches a product. What new risks does an event-driven trigger add, and what gate would you add?
 
-   ```bash
-   /clear
-   ```
+### Lab 10 — Govern, Measure & Improve Your Human–AI Workforce
 
-5. Recall in a fresh conversation. In the now-cleared chat, ask something that requires the remembered facts: > Draft a quote for Acme Cafe: 10 reams of A4 paper and 5 boxes of black pens. A correct agent should automatically choose recycled A4, note Tuesday delivery, and address the quote to Mei — without you repeating any of it. (This pairs perfectly with the nimbus-quote skill from Lab 18.)
-6. Edit or correct a memory. If a preference changes, update it in natural language and re-check: > Update your memory: Acme Cafe now accepts delivery on Tuesdays or Thursdays.
+**Day 2 · 45 min · Workforce governance · LO3** — Read the costs and the audit trail, score every agent, pause or re-budget one, fix the instructions that caused rework, and present a Board report on what the AI workforce delivered.
 
-   ```bash
-   /memory
-   ```
+#### Business scenario
 
-7. Back up memory before major changes (memory lives under ~/.openclaw/, so the Lab 15 backup habit applies): Or just ask the agent: "Back up all your memory and state to a dated folder in my home directory"
+One month in, the owners ask the Board three questions: what did the AI workforce deliver, what did it cost, and is it safe? You use Paperclip's dashboard, Audit (Activity, Runs, Costs, Budgets) and your scorecard to answer — and you act: pause or re-budget the agent in the red, improve the instructions that caused rework, and decide what humans keep doing.
 
-   ```bash
-   mkdir -p ~/openclaw-backup-$(date +%F)
-   cp -R ~/.openclaw/ ~/openclaw-backup-$(date +%F)/openclaw-state 2>/dev/null || true
-   ```
+#### Goal
 
+Evaluate and improve an AI-agent workforce with metrics, audit evidence and governance controls, and recommend improvements to stakeholders (LO3).
 
-**Test it**
+#### Before you start
 
-/memory shows the customer preferences after you teach them, after /clear the /memory list still shows them (short-term context cleared, long-term memory retained), and a fresh quote request for the customer automatically applies recycled paper, Tuesday delivery and the correct recipient name without repetition.
+- Labs 6–9 complete (live data), plus agent-scorecard.csv for a month of mock history
 
-> **Note:** Full commands and screenshots are in labs/lab22-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+![Lab 10 — agents with status and budgets: pause, re-budget, improve](courseware/assets/paperclip/pc-agents.png)
+*Lab 10 — agents with status and budgets: pause, re-budget, improve*
 
----
+#### You will deliver
 
+- scorecard — per-agent output, quality, cost vs budget with a RAG status
+- One agent paused or re-budgeted, with the reason in a comment
+- Improved instructions for the agent with the most revisions and audit findings — the Copywriter in the mock data (a new Revision you can restore)
+- board-report — value, cost, risk, human role, next-quarter decisions — approved by you
 
-### Lab 23 — Security
+| Who | Role |
+|---|---|
+| Agents | Whole company (CEO + 5 specialists) |
+| You (human) | Evaluate, intervene, improve, report — and stay accountable |
 
-Learning outcome: LO4: Secure an agent with key management, allowlists, sandboxing and audit..
+#### Concepts in action
 
-Goal: The learner hardens the Nimbus Supplies deployment before real customers: storing API keys as environment variables (never in cleartext config), restricting who can DM the bot with allowlists, applying per-channel tool deny lists, tightening the code-execution sandbox (timeout/memory/network), reviewing the audit log, and rotating provider keys.
+- Evaluate on utility, quality, cost and safety
+- Budget controls: 80% warning, 100% auto-pause
+- Audit trail = accountability evidence (IMDA agentic AI framework)
+- Improve the harness (instructions, gates), not just the model
 
-**What you'll build**
+#### Lab files
 
-A hardened agent with keys in env, DM allowlists, per-channel deny lists, a capped sandbox and an exported audit log   (Tools: OpenClaw, allowlists, tool deny lists, exec/python sandbox, gateway logs.)
+labs/lab10-paperclip-govern-measure-improve/ — README.md, LAB-10-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.
 
-**Step-by-step**
+#### Step-by-step
 
-1. Secure API keys — never hardcode or commit them. Store keys once as environment variables. macOS / Linux — append to ~/.zshrc or ~/.bashrc:
+**Step 1 — Read the money**
 
-   ```bash
-   export ANTHROPIC_API_KEY="sk-ant-..."
-   export FIRECRAWL_API_KEY="fc-..."
-   export AGENTMAIL_API_KEY="..."
-   ```
+Dashboard → Month Spend card; then Audit → Costs and Audit → Budgets. Which agents passed the 80% warning? Is any auto-paused at 100%? Compare with agent-scorecard.csv (a month of mock history) and your live numbers from Labs 6–9.
 
-2. Restrict who can DM the bot (allowlists). By default anyone who finds your Telegram bot can message it. Lock it to known users: Or just ask the agent: "Only allow Telegram users 12345678 and 87654321 to message you; block everyone else"
+```bash
+npx paperclipai cost summary -C <company-id>
+npx paperclipai cost by-agent -C <company-id>
+npx paperclipai budget overview -C <company-id>
+```
 
-   ```bash
-   openclaw channel set telegram \
-     --allow-users 12345678,87654321 \
-     --pair-mode allowlist
-   ```
+**Step 2 — Read the audit trail**
 
-3. Apply tool deny lists (least privilege per channel). A customer-facing channel has no business running shell commands or deleting files: Or just ask the agent: "On Telegram, deny shell exec and any file writes or deletes"
+Audit → Activity. Find one hire approval, one Request revision, one task send-back, one Board Approval decision and one budget event. This trail is your evidence of human accountability — the core of Singapore's Model AI Governance Framework for Agentic AI.
 
-   ```bash
-   openclaw channel set telegram --deny exec,fs.write,fs.delete
-   openclaw channel set telegram --allow group:web
-   openclaw channel set telegram --profile messaging
-   openclaw channel show telegram | grep -E "(allow|deny|profile)"
-   ```
+**Step 3 — Build the scorecard with the CEO**
 
-4. Tighten the code-execution sandbox. The exec / Python tools run sandboxed — cap time, memory, and network: Or just ask the agent: "Cap your exec sandbox at 10 seconds, 256MB memory and no network access"
+Prompt — paste into *Paperclip → New Task (assign to Ava; Approvers → Assign to me)*:
 
-   ```bash
-   openclaw tools config exec \
-     --timeout 10s \
-     --memory 256mb \
-     --network deny
+```text
+Monthly agent scorecard.
+Using Paperclip's costs and activity data plus agent-scorecard.csv, produce a scorecard with one row per agent: tasks done, Board send-backs, audit findings, spend vs budget, cost per completed task, and a RAG status (green/amber/red) with a one-line reason. Show your calculations.
+```
 
-   openclaw tools config python \
-     --timeout 30s \
-     --memory 512mb \
-     --network deny
-   ```
+✓ Expected: A scorecard you can spot-check against Audit → Costs.
 
-5. Review the audit log. Every tool call, model call, and channel event is logged:
+**Step 4 — Intervene**
 
-   ```bash
-   openclaw gateway logs --tail 100
-   openclaw gateway logs --filter tool=exec
-   openclaw gateway logs --since 1h --filter level=warn
-   openclaw gateway logs --export ~/openclaw-audit-$(date +%F).log
-   ```
+Take the red agent (in the mock data: Video Producer — over budget, 2 revisions). As the Board either Pause it (agent header) or raise/lower its budget, and record why in a comment. Pause is reversible; Terminate is permanent.
 
-6. Rotate provider keys on a schedule (e.g. every 90 days). 1. Generate a new key in the provider dashboard. 2. Update the environment variable. 3. Restart the gateway: openclaw gateway restart. 4. Confirm openclaw model test still works. 5. Revoke the old key in the provider dashboard.
+```bash
+npx paperclipai agent pause <video-producer-id>
+# or re-budget (cents):
+npx paperclipai budget agent:update <video-producer-id> --payload-json '{"budgetMonthlyCents":800}'
+```
 
-**Test it**
+**Step 5 — Improve the harness, not the blame**
 
-cat ~/.openclaw/config.toml does not contain raw API keys, a user not on the Telegram allowlist gets a not-authorized response, openclaw channel show telegram lists the deny list and messaging profile, and the audit log shows blocked exec attempts on a locked channel.
+The agent that causes the most rework is the Copywriter (4 audit findings, 3 Board revisions in the mock data). Fix the instructions that let those mistakes through. (For the Video Producer you already acted on cost in the previous step.)
 
-> **Note:** Full commands and screenshots are in labs/lab23-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
+Prompt — paste into *Paperclip → Agents → Copywriter → Instructions (AGENTS.md)*:
 
----
+```text
+Add to your rules:
+- Before submitting any caption, run the kopi-brand-voice self-check and fix every FAIL; attach the table to the task.
+- Never write health or halal claims (C1, C4). Any post with SHIOK20 must show its exact terms (C3).
+- If the same rule fails twice on one task, stop and ask the Content Strategist instead of resubmitting.
+```
 
+✓ Expected: Saved as a new Revision (Governance → Revisions → Restore is your undo). Resume the Video Producer if you paused it.
 
-### Lab 24 — Multi-Agent Workforce
+**Step 6 — Write the Board report**
 
-Learning outcome: LO5: Orchestrate cooperating multi-agent teams to deliver a business outcome..
+Prompt — paste into *Paperclip → New Task (assign to Ava; Approvers → Assign to me)*:
 
-Goal: In the OpenClaw capstone the learner splits the single agent into three cooperating agents — Sales (customer-facing on Telegram/WhatsApp), Research (supplier scouting with Firecrawl), and Ops (email, quotes, nightly crons) — each with least-privilege tools, and runs one end-to-end business scenario across all three, with a verified fallback using isolated OPENCLAW_HOME instances that cooperate via AgentMail and a shared folder.
+```text
+Board report - month 1 of the AI growth studio.
+Write a one-page report for Kopi Kaki's owners: (1) value delivered vs the three goals, (2) total cost and cost per deliverable, (3) quality and safety - send-backs, audit findings, escalations, (4) what humans still do and why, (5) three decisions for next quarter.
+```
 
-**What you'll build**
+✓ Expected: A one-page report waiting for your approval — approve it with a comment.
 
-A three-agent Sales/Research/Ops workforce that runs a customer order end-to-end into a real quote email   (Tools: OpenClaw, openclaw agent (or isolated OPENCLAW_HOME instances), Firecrawl, AgentMail.)
+**Step 7 — Wrap up the class company (optional)**
 
-**Step-by-step**
+Stop scheduled work so nothing runs after class. To restart later, open each routine (Work → Routines) and switch its automation back on.
 
-1. Create three named agents. Attempt the native multi-agent path first (confirm exact syntax in the docs): Or just ask the agent: "Create a new agent named Sales to handle customer-facing chats"
+```bash
+npx paperclipai routines disable-all -C <company-id>
+```
 
-   ```bash
-   openclaw agent create sales
-   openclaw agent create research
-   openclaw agent create ops
-   openclaw agent list
-   ```
+#### Test it
 
-2. Give each agent least-privilege tools (mirrors Lab 19/23 allow-deny, applied per agent): Or just ask the agent: "Give the Sales agent web and quoting tools only, with no shell or file writes" Or just ask the agent: "Restrict the Research agent to Firecrawl, web search and browser only"
+> **✅ Test it:** Scorecard numbers match Audit → Costs for at least two agents; one intervention and one instruction change are logged with reasons.
+>
+> - [ ] Scorecard values match Audit → Costs for ≥ 2 agents
+> - [ ] A pause or budget change with a written reason
+> - [ ] New Revision of the Copywriter's instructions
+> - [ ] Board report approved by you with a comment
 
-   ```bash
-   # Sales — web + quoting only, no shell, no filesystem writes
-   openclaw agent set sales --allow group:web --deny exec,fs.write,fs.delete
+#### Troubleshooting
 
-   # Research — scraping only
-   openclaw agent set research --allow firecrawl,web_search,browser --deny exec,fs.write
+| Symptom | Fix |
+|---|---|
+| Costs show zero | Subscription-based adapters may report little or no billed cost — use the mock scorecard for the analysis. |
+| Paused agent still running | A run in progress finishes; no new work starts until you Resume. |
+| Budget-paused agent resumed by itself | Budgets reset on the 1st of the month (UTC) — pause manually to keep it stopped. |
 
-   # Ops — email + files, no public channel exposure
-   openclaw agent set ops --allow agentmail,group:fs
-   ```
+#### Stretch challenge
 
-3. Attach channels to the right agents. Or just ask the agent: "Route the Telegram channel to the Sales agent"
+Decide the autonomy level (L1 Operator → L5 Observer) for each agent next quarter and justify it in one line each.
 
-   ```bash
-   # Customer traffic goes to Sales
-   openclaw channel set telegram --agent sales
-   openclaw channel set whatsapp --agent sales
+## Assessment Preparation
 
-   # A private research bot for the operator (see Lab 17 for creating a 2nd bot)
-   openclaw channel add telegram --token <RESEARCH_BOT_TOKEN>
-   openclaw channel set <research-bot> --agent research
-   ```
-
-4. Give each agent the right skill/memory. Sales uses nimbus-quote and the customer memory from Lab 22; Research uses nimbus-supplier-brief (Lab 18 exercise). Install/enable as needed:
-
-   ```bash
-   openclaw skills list
-   ```
-
-5. Wire cooperation between agents. The simplest, robust hand-off uses the tools you already have: - Sales → Ops: when Sales captures an order, it asks Ops (via a shared note file or an AgentMail message) to produce and send the quote. - Ops → Research: when a price is unknown ("TBC"), Ops asks Research to look it up with Firecrawl. - Research → Ops: Research replies with the price; Ops finalises the quote email. Or just ask the agent: "Every night at 9pm, compile today's orders and quotes and post them to Telegram"
-
-   ```bash
-   # Ops nightly consolidation cron (from Lab 21, now owned by Ops)
-   openclaw cron create \
-     --schedule "0 21 * * *" \
-     --prompt "Compile today's Nimbus Supplies orders and quotes sent, and list anything waiting on Research." \
-     --channel telegram \
-     --name ops-nightly-report
-   ```
-
-6. Fallback (fully verified) — run agents as separate profiles/instances. If native multi-agent commands are not in your build, model each agent as its own OpenClaw configuration using only Lab 15–19 primitives: - Sales = your main instance with Telegram/WhatsApp, --profile messaging, deny exec,fs.write (Lab 23). - Research = a second instance pointed at a separate config dir with only Firecrawl/web tools enabled:
-
-   ```bash
-   OPENCLAW_HOME=~/.openclaw-research openclaw onboard
-     OPENCLAW_HOME=~/.openclaw-research openclaw tools enable firecrawl --api-key "$FIRECRAWL_API_KEY"
-   ```
-
-7. Run the end-to-end capstone scenario. From a customer's Telegram, trigger the whole workflow: > Hi Nimbus Supplies — I'm Mei from Acme Cafe. I need 10 reams of recycled A4 paper and 5 boxes of black pens. What's your best price and when can you deliver? Expected chain: 1. Sales greets Mei, recalls Acme's preferences from memory (recycled paper, Tuesday delivery — Lab 22), and captures the order. 2. Sales hands the order to Ops, which starts the nimbus-quote. The pen price is unknown → marked TBC. 3. Ops asks Research to fetch the current pen price via Firecrawl. 4. Research replies with the price; Ops finalises the itemised quote (with GST) and emails it to Acme via AgentMail. 5. That night, the ops-nightly-report cron summarises the day, including Mei's order.
-8. The natural-language way You can skip the CLI entirely and simply ask the agent: "Spawn two sub-agents to research our top two competitors in parallel, then compare their pricing".
-
-**Test it**
-
-Three agents (or isolated instances) each have a distinct least-privilege tool set (Sales cannot exec, Research cannot write files, Ops is not on a public channel), a customer Telegram message produces a real quote email combining memory, the nimbus-quote skill, a Firecrawl price lookup and AgentMail delivery, and the nightly cron posts a summary referencing the same order.
-
-> **Note:** Full commands and screenshots are in labs/lab24-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 25 — Dreaming — Idle Reflection & Self-Improvement
-
-Learning outcome: LO3: Use OpenClaw 'dreaming' so the agent reflects during idle time..
-
-Goal: Enable OpenClaw's 'dreaming' feature so the Nimbus Supplies agent uses idle time to review its memory, consolidate what it has learned, and generate useful follow-up actions and skill improvements — then inspect what it produced. Reference the OpenClaw functions playlist for the walkthrough.
-
-**What you'll build**
-
-An agent that, when idle, 'dreams' — reflecting on memory and proposing follow-ups you can review.   (Tools: OpenClaw, dreaming, memory.)
-
-**Step-by-step**
-
-1. Enable the dreaming feature in OpenClaw config. This flips the setting that lets the gateway schedule reflection cycles when the agent is idle: Or just ask the agent: "Turn on dreaming so you reflect and consolidate memory when idle"
-
-   ```bash
-   openclaw config set dreaming.enabled true
-   ```
-
-2. Let the agent sit idle so a dream cycle runs — or trigger one manually. Rather than wait for a natural idle window, force a cycle now so you can observe it immediately: Or just ask the agent: "Run a dream cycle now instead of waiting for idle time"
-
-   ```bash
-   openclaw dream run
-   ```
-
-3. Review what the dream produced. List the insights, follow-ups, and skill suggestions the cycle generated: Or just ask the agent: "Show me the insights and follow-ups from your last dream"
-
-   ```bash
-   openclaw dream list
-   ```
-
-4. Accept a useful follow-up the agent proposed. In the dashboard (or via the CLI shown in the video), open one proposal that genuinely helps Nimbus Supplies and approve it. Accepting promotes the proposal into a real action or a saved skill; declining discards it. This human review step keeps you in control of what the agent's downtime actually changes.
-
-**Test it**
-
-A dream cycle runs during idle time and produces reviewable insights/follow-ups from the agent's memory.
-
-> **Note:** Full commands and screenshots are in labs/lab25-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 26 — Use Cases & Key Functions
-
-Learning outcome: LO3: Apply OpenClaw's key functions to real back-office use cases..
-
-Goal: Tie the OpenClaw track together with practical use cases for Nimbus Supplies — a Google Workspace CLI assistant, a data-analytics agent, and a social-media-marketing agent — combining channels, skills, tools, memory, dreaming and crons into end-to-end automations. Each use case has its own reference video.
-
-**What you'll build**
-
-One or more end-to-end OpenClaw automations (Workspace, analytics or social media) solving a real use case.   (Tools: OpenClaw, skills, tools, Google Workspace, crons, memory.)
-
-**Step-by-step**
-
-1. Watch one of the use-case videos above and study how the presenter composes several functions into one automation — which channel triggers the flow, which skills and tools it calls, and how memory and crons fit in. Good starting points: a Google Workspace CLI assistant (Docs/Sheets/Gmail), a Data Analytics agent, or a Social Media Marketing agent.
-2. Pick a back-office use case. Choose one concrete Nimbus Supplies workflow to implement end-to-end. A strong default is "research a supplier, then email a quote": a customer asks for a price, the agent looks up current supplier pricing, applies a margin, and emails a formatted quote. Other options: customer FAQ Q&A on Telegram, or an automated nightly orders-and-quotes report.
-3. Compose the channels, skills and tools needed for it. Wire the pieces together for your chosen use case. For research-to-quote that means: the customer channel (e.g. Telegram) as the trigger, the skill that formats a quote (e.g. nimbus-quote from Lab 18), a research tool (Firecrawl / web_search) for live pricing, and a delivery tool (AgentMail) to send the email. Confirm the agent has permission to call each one.
-4. Run the automation end-to-end and verify the outcome. Send a real trigger — e.g. message the agent "What's your price for 50 kg of arabica beans?" on the customer channel — and watch the full chain fire: the agent recalls context from memory, runs the price lookup tool, builds the quote with the skill, and delivers it via email. Confirm the actual deliverable (the sent quote email) is correct, not just that the logs look busy.
-5. Schedule it or hand it to the multi-agent team from Lab 24. Make the automation ongoing. Either attach it to a cron (e.g. a nightly consolidation report) so it runs unattended, or delegate the use case to the Sales / Research / Ops agents you built in Lab 24 so the right specialist owns each step. This is what turns a one-off demo into part of an always-on Nimbus Supplies back office.
-
-**Test it**
-
-A real use case (Google Workspace, data analytics or social media) runs end-to-end using OpenClaw's channels, skills, tools and crons.
-
-> **Note:** Full commands and screenshots are in labs/lab26-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-## Topic 03 — Paperclip — Running & Governing a Company of AI Agents  (34%)
-
-Install (Windows & Mac) · Company, CEO & Mission · Adaptors · Task Backlog · Tavily Search API · Hire the Team · Daily Routine
-
-**Key concepts**
-
-- Paperclip is an operating system for a company of AI agents, self-hosted with Docker Compose on Windows (WSL2) or macOS; you are the Board, a CEO agent reports to you, and specialists report to the CEO.
-- Running use case: 'Altera AI Blogs' — a zero-human company whose mission is to research the AI landscape and publish AI-related blogs end to end; the mission you write steers every agent it hires.
-- Model adaptors (built-in Claude Code, Codex and Gemini CLI) are the agents' engine; the Tavily Search API — stored as a Secret and bound to a runtime env var — gives researchers live web results.
-- The company runs off a detailed task backlog (todo -> in_progress -> in_review -> done) whose core task hires the agents to publish the blogs end to end — every hire pauses at a Board approval gate — and a daily 3pm routine generates and runs the publish task automatically.
-
-
-### Lab 27 — Install Paperclip on Windows & Mac
-
-Learning outcome: LO1: Install and self-host Paperclip on Windows and macOS..
-
-Goal: Watch the Paperclip overview, then self-host Paperclip with Docker Compose on your own machine — Docker Desktop on macOS, or Docker Desktop + WSL2 on Windows — and open the dashboard at http://localhost:3100.
-
-**What you'll build**
-
-A running Paperclip instance at http://localhost:3100 on Windows or Mac.   (Tools: Paperclip, Docker Desktop, Docker Compose.)
-
-**Step-by-step**
-
-1. Install Docker Desktop — macOS: download from docker.com; Windows: enable WSL2 first, then install Docker Desktop with the WSL2 backend - macOS — download Docker Desktop from docker.com (https://www.docker.com/products/docker-desktop/), drag it into Applications, launch it and wait for the whale icon to settle. - Windows — enable WSL2 first (open PowerShell as Administrator), then install Docker Desktop and select the WSL2 backend during setup:
-
-   ```bash
-   wsl --install
-   ```
-
-2. Clone the Paperclip repository
-
-   ```bash
-   git clone https://github.com/paperclipai/paperclip.git
-   ```
-
-3. Start Paperclip with the quickstart compose file (same command in the macOS Terminal or the Windows WSL2/PowerShell shell)
-
-   ```bash
-   docker compose -f docker-compose.quickstart.yml up --build
-   ```
-
-4. Open the dashboard in your browser at http://localhost:3100 and create your Board account Browse to http://localhost:3100 (http://localhost:3100). The first-run screen asks you to create your Board account — this identity is the human owner every agent ultimately answers to. Sign in and land on the empty dashboard.
-
-**Test it**
-
-Docker shows the Paperclip containers running and the dashboard loads at http://localhost:3100 on your platform.
-
-> **Note:** Full commands and screenshots are in labs/lab27-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 28 — Setup Company, CEO & Mission
-
-Learning outcome: LO2: Found the company — name, mission and the CEO agent..
-
-Goal: Found 'Altera AI Blogs': create the company, write its mission (research the AI landscape daily and publish AI-related blogs end to end), set the monthly budget, then hire the CEO agent — the Chief Officer who will run the blog operation and report to you, the Board.
-
-**What you'll build**
-
-A company with a mission and budget, plus an approved CEO agent at the top of the org chart.   (Tools: Paperclip, company settings, org chart.)
-
-**Step-by-step**
-
-1. Create the company 'Altera AI Blogs' from the company switcher In the dashboard open the company switcher (top of the sidebar) and choose New company. Name it exactly: > Altera AI Blogs This is the zero-human company you will govern for the rest of the topic.
-2. Write the mission — it steers every agent the company hires In the company setup (or Company Settings → Mission), write the mission statement: > Research the AI landscape daily and publish AI-related blogs end to end The mission is not decoration: every agent the company hires reads it and aligns its work to it, so a vague mission produces a vague company.
-3. Set the monthly budget cap in Company Settings Open Company Settings and set the monthly budget cap (e.g. $50/month to start). The budget is the hard ceiling on what the whole company may spend on model calls — agents cannot exceed it, which makes it your first governance lever as the Board.
-4. Hire the CEO agent (Chief Officer) and approve the hire — you are the Board Hire the company's first agent: the CEO (Chief Officer). The hire pauses at an approval gate — as the Board, review the CEO's mandate and click Approve. The CEO is the only agent that reports directly to you; every later hire will report to the CEO.
-5. Open the Org page and confirm the structure: Board above the CEO Open the Org page and check the org chart: Board (you) at the top, the CEO directly beneath. This two-node chart is the seed of the whole workforce you will grow in Labs 30–33.
-
-**Test it**
-
-The company exists with a mission and budget, and an approved CEO agent sits under the Board on the org chart.
-
-> **Note:** Full commands and screenshots are in labs/lab28-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 29 — Setup Adaptor
-
-Learning outcome: LO2: Connect a model adaptor as the agents' engine..
-
-Goal: Give every Altera AI Blogs agent a brain. An adaptor is the bridge between Paperclip and the language model that does the reasoning: when any agent (the CEO or a specialist) picks up a task, Paperclip hands the work to the adaptor, which runs it on the underlying model and streams the result back to the task. Paperclip ships three BUILT-IN adaptors that piggyback on locally installed CLIs — Claude Code (claude_local, 9 models), Codex (codex_local, 10 models) and Gemini CLI (gemini_local, 8 models) — and supports installable EXTERNAL adaptor packages (alpha). You install/log in to the CLI on the host so Paperclip can detect it, confirm it shows as available under Settings → Instance settings → Adapters, use the power icon to hide adaptors you don't want agents to pick, and restart Paperclip if detection fails. Whatever adaptor you enable here powers every hire in Labs 30-33.
-
-**What you'll build**
-
-A detected, enabled model adaptor (Claude Code, Codex or Gemini CLI) powering every Altera AI Blogs agent.   (Tools: Paperclip, model adaptors (Claude Code / Codex / Gemini CLI).)
-
-**Step-by-step**
-
-1. Install / log in to the adaptor CLI on the host so Paperclip can detect it Paperclip detects adaptor CLIs installed on the host machine. Install and authenticate at least one — e.g. Claude Code (claude and log in) or the OpenAI Codex CLI (codex and log in) — on the same machine that runs the Paperclip containers.
-2. Open Settings → Instance settings → Adapters in the dashboard In the dashboard go to Settings → Instance settings → Adapters. This page is the registry of every engine the instance can run agents on.
-3. Confirm the built-in adaptors are listed and yours shows as available You should see the three built-ins with their model counts: - Claude Code (claude_local) — 9 models - Codex (codex_local) — 10 models - Gemini CLI (gemini_local) — 8 models The adaptor whose CLI you installed in step 2 should show as available/detected.
-4. Use the power icon to hide adaptors; 'Install Adapter' adds external adaptor packages (alpha) Two controls on this page matter for governance: - The power icon on each adaptor toggles it — hide adaptors you don't want agents to pick, so hires can only run on engines you have vetted. - Install Adapter adds external adaptor packages beyond the three built-ins. This feature is alpha — expect rough edges.
-5. Restart Paperclip if your adaptor is not detected Detection happens at startup, so a CLI installed after Paperclip came up may not show until a restart:
-
-   ```bash
-   docker compose -f docker-compose.quickstart.yml restart
-   ```
-
-
-**Test it**
-
-Settings → Adapters lists the built-in adaptors and your chosen adaptor is detected and enabled for agents.
-
-> **Note:** Full commands and screenshots are in labs/lab29-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 30 — Create the Task Backlog
-
-Learning outcome: LO3: Create a detailed task backlog that drives the company..
-
-Goal: Write the backlog that runs Altera AI Blogs. Every task gets a precise title AND a detailed description — the description is the agent's brief, so vague tasks produce vague work. The CORE task is 'Hire the agents to publish the AI-related blogs end to end'; the rest build the blog pipeline around it.
-
-**What you'll build**
-
-A Tasks board holding six well-specified tasks, with the end-to-end blog-publishing hire as the core task.   (Tools: Paperclip, Tasks board.)
-
-**Step-by-step**
-
-1. Create the CORE task — 'Hire the agents to publish the AI-related blogs end to end' — and assign it to the CEO Title: > Hire the agents to publish the AI-related blogs end to end Description: > Based on the content strategy, propose which agents to hire (research analyst, blog writer, editor/publisher, SEO/marketer) with roles, budgets and reporting lines, so the company can research, write, edit and publish AI blogs without human writers. Assign it to the CEO. This is the core task of the whole topic — in Lab 32 the CEO works it to staff the company.
-2. Create 'Define the AI blog content strategy and editorial plan' Title: > Define the AI blog content strategy and editorial plan Description: > Pick the beats (models, chips, policy, funding), the publishing cadence, the blog format and the quality bar for every published post.
-3. Create 'Scaffold the blog workspace & tooling foundation' Title: > Scaffold the blog workspace & tooling foundation Description: > Set up the workspace folder structure, post templates, style guide and source register the whole team will use.
-4. Create 'Build the AI news sources watchlist' Title: > Build the AI news sources watchlist Description: > Assemble the RSS feeds, publication sites, X accounts, arXiv categories and company blogs to monitor, with priority tiers and de-duplication rules.
-5. Create 'Produce and publish the first AI blog post' Title: > Produce and publish the first AI blog post Description: > Pull the top stories from the watchlist, verify each against two independent sources, draft a cited post and publish it for Board review.
-6. Create 'Wire the research pipeline to live search' Title: > Wire the research pipeline to live search Description: > Integrate the Tavily Search API so researchers query the live web with fresh results (depends on the Tavily key from the next lab).
-
-**Test it**
-
-The Tasks board shows all six tasks, each with a detailed description, and the core hiring task is assigned to the CEO.
-
-> **Note:** Full commands and screenshots are in labs/lab30-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 31 — Add the Tavily Search API
-
-Learning outcome: LO2: Wire live web search into the company via the Tavily Search API..
-
-Goal: A blog company needs fresh information. Create a Tavily API key, store it as a company Secret, and bind it to the TAVILY_API_KEY runtime environment variable — Paperclip resolves the secret server-side when a run starts, so the key never sits in a prompt or a repo.
-
-**What you'll build**
-
-A TAVILY_API_KEY secret bound to the agents' runtime environment, verified with a live search task.   (Tools: Paperclip, Secrets, Tavily Search API.)
-
-**Step-by-step**
-
-1. Create a Tavily account and copy an API key from app.tavily.com Sign up at app.tavily.com (https://app.tavily.com), open the dashboard and copy an API key (it starts with tvly-). Keep it in your clipboard — you will paste it once, into a secret, and nowhere else.
-2. Open Settings → Company settings → Secrets and click 'New secret' In the Paperclip dashboard go to Settings → Company settings → Secrets and click New secret. Secrets are company-scoped: every agent the company hires can be granted them, but no agent ever reads them in plain text.
-3. Store the key as a secret (e.g. name it tavily) Name the secret (e.g. tavily), paste the API key as its value, and save. Secrets are injected at run start, never shown to agents in plain text — the value will not appear in prompts, task logs or the repo.
-4. Bind it to TAVILY_API_KEY via an agent's Environment variables (or a project's Env field) Now map the secret to the environment variable the Tavily SDK/CLI expects: - Open an agent's Environment variables (or a project's Env field), - add the key TAVILY_API_KEY, - choose Secret as the value type, and - select the stored tavily secret. At run start Paperclip resolves the binding server-side and the agent's runtime sees TAVILY_API_KEY set — without the key ever passing through a prompt.
-5. Verify with a live search task Create a task for an agent with the binding: > Use Tavily to find today's three biggest AI announcements and list your sources The agent should return fresh, cited results — stories from today with source links, not stale training-data knowledge.
-
-**Test it**
-
-The secret exists, TAVILY_API_KEY is bound to the runtime env, and a live-search task returns fresh cited results.
-
-> **Note:** Full commands and screenshots are in labs/lab31-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 32 — Hire the Members Under the Hiring Task
-
-Learning outcome: LO3: Staff the company through the hiring task, behind approval gates..
-
-Goal: Let Altera AI Blogs staff itself — all of it happening UNDER the core task from Lab 30, 'Hire the agents to publish the AI-related blogs end to end'. You move that task to in_progress and the CEO works it: inside the task it drafts a hiring plan proposing each specialist the blog pipeline needs — a research analyst (scans the watchlist and verifies stories), a blog writer (drafts cited posts), an editor/publisher (reviews, formats and publishes) and an SEO/marketer (titles, tags and distribution) — each with a mandate, a budget cap and a reporting line to the CEO. Every proposed hire pauses at an approval gate for you, the Board: approve it and the agent is created; reject it and the CEO revises the plan. When the gates clear, the new members appear in the Agents sidebar and on the Org chart beneath the CEO, and you assign them the rest of the backlog so the pipeline runs end to end — research → draft → edit → publish.
-
-**What you'll build**
-
-A Board-approved blog team (research analyst, blog writer, editor/publisher, SEO/marketer) hired under the core task, visible on the org chart and taking the backlog.   (Tools: Paperclip, hiring task, approval gates, org chart.)
-
-**Step-by-step**
-
-1. Open the CORE task 'Hire the agents to publish the AI-related blogs end to end' and move it to in_progress On the Tasks board open the CORE task 'Hire the agents to publish the AI-related blogs end to end' and move it to in_progress. The CEO starts working the brief and drafts the hiring plan inside this task — watch the task's activity log as the plan takes shape.
-2. Review the proposed roles in the task's hiring plan — research analyst, blog writer, editor/publisher, SEO/marketer Read the CEO's plan as a Board member would. It should propose the blog-pipeline specialists — research analyst, blog writer, editor/publisher, SEO/marketer — and for each: the mandate, a per-agent budget, and the reporting line (everyone reports to the CEO).
-3. Approve each proposed hire at its approval gate (or reject and ask for a revised proposal) — you are the Board Each proposed hire pauses at an approval gate. For every one, either: - Approve — the agent is hired and comes online, or - Reject with a comment — the CEO revises the proposal (e.g. lower budget, sharper mandate) and resubmits. Nothing joins the company without an explicit Board decision — this gate is the human-in-the-loop control at the heart of Paperclip governance.
-4. Confirm the new members appear under Agents and on the Org chart beneath the CEO Open Agents and check every approved specialist is listed, then open the Org chart and confirm the structure: Board → CEO → the four specialists beneath the CEO.
-5. Assign the rest of the backlog to the new team and watch the pipeline run: research → draft → edit → publish Assign the remaining Lab 30 tasks to the right specialists — the content strategy and watchlist to the research analyst, the workspace scaffold and the first post to the blog writer, review and publication to the editor/publisher, titles/tags/distribution to the SEO/marketer — and watch the board: the pipeline runs research → draft → edit → publish, with tasks flowing todo → in_progress → in_review → done, the CEO coordinating and you approving anything that hits a gate.
-
-**Test it**
-
-The core hiring task reaches in_review/done, every hire was Board-approved under that task, and the specialists appear on the org chart publishing the first posts.
-
-> **Note:** Full commands and screenshots are in labs/lab32-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-### Lab 33 — Routine & Trigger — Publish Daily at 3pm
-
-Learning outcome: LO3: Automate the company with a scheduled routine and trigger..
-
-Goal: Put Altera AI Blogs on autopilot. Create a Routine with a daily 3:00pm trigger that generates and runs the blog-publishing task automatically — the routine fires, creates the day's 'Produce and publish today's AI blog post' task, the team executes the pipeline (research → draft → edit → publish), and the finished post lands in in_review for the Board. No human kicks it off.
-
-**What you'll build**
-
-A daily 3:00pm routine that generates and runs the blog-publishing task automatically.   (Tools: Paperclip, Routines, triggers, Tasks board.)
-
-**Step-by-step**
-
-1. Open the Routines page from the sidebar (Work → Routines) In the dashboard sidebar open Work → Routines. This page holds every scheduled automation the company runs — it is the equivalent of a cron board for your agent workforce.
-2. Create a new routine: 'Daily AI blog publish' Click New routine and name it: > Daily AI blog publish
-3. Set the trigger: schedule, daily at 3:00pm (15:00) In the routine's trigger section choose schedule and set it to daily at 3:00pm (15:00). The trigger is what fires the routine — from now on the clock, not a human, starts the day's publishing run.
-4. Define what the routine generates: the task 'Produce and publish today's AI blog post' Configure the routine to generate the task: > Produce and publish today's AI blog post Description: > Pull the top stories from the watchlist, verify against two sources, draft a cited post, publish for Board review — assigned to the team. Every time the trigger fires, a fresh copy of this task lands on the board and the team executes it end to end.
-5. Save and enable the routine, then trigger it once manually to confirm it creates and runs the task Save the routine and switch it to enabled, then use the manual run/trigger now control to fire it once. Confirm on the Tasks board that the task was created and the team started the pipeline: research → draft → edit → publish.
-6. At the next 3:00pm, confirm the task was generated and executed automatically Wait for the next 3:00pm tick and check: the task 'Produce and publish today's AI blog post' was generated and executed with no human action, and the finished post is sitting in in_review for you, the Board.
-
-**Test it**
-
-The routine is enabled with a daily 15:00 trigger, a manual run creates and executes the publish task, and the next 3pm run happens without human action.
-
-> **Note:** Full commands and screenshots are in labs/lab33-*/README.md. Use only accounts, keys and hosts you own, and keep agents under human oversight.
-
----
-
-
-## Wrap-Up — The Agent Build Arc and Governance
-
-These cross-cutting themes run through every platform in the course. Study this section alongside the labs so the same skillset transfers from Hermes to OpenClaw to Paperclip and into your own production agents.
-
-**The agent build arc**
-
-Every platform follows the same progression — the order in which you built each agent in the labs:
-
-- Install — set up the runtime (Hermes CLI/TUI, the OpenClaw Node.js gateway daemon, or Paperclip via Docker Compose).
-- Models — connect an LLM provider (Claude, OpenAI, OpenRouter, MiniMax or DeepSeek) and pick a capable model.
-- Channels — reach the agent where work happens (Telegram, WhatsApp, Discord, Slack and more).
-- Memory — give the agent durable, user- or company-scoped recall across sessions and surfaces.
-- Skills & tools — extend the agent with reusable skills and third-party tool/integration calls.
-- Crons & heartbeat — schedule recurring work and let a heartbeat keep the agent running.
-- Security — isolate execution in sandboxes, store secrets in config, and gate risky actions with approvals.
-- Multi-agent — orchestrate a coordinator plus specialist workers to deliver an end-to-end business outcome.
-
-**Human-in-the-loop governance**
-
-- Approvals — important or destructive actions pause for explicit human sign-off before they run.
-- Budgets — company- and per-agent spend caps warn at 80% and pause at 100% so costs never run away.
-- Sandboxing — agents execute in isolated backends (Docker, SSH, or a remote host) so the host stays safe.
-- Audit — an activity log and cost-events trail record who did what, giving you a CFO-style view of the workforce.
-- Least privilege — scope each channel, skill and tool with allow/deny lists so agents can only do their job.
-
----
-
-
-## Next Steps
-
-- First pass: complete every lab on your own machine, following the commands in each lab file.
-- Second pass: redo the labs from memory until installing, connecting and securing an agent is automatic.
-- Extend the labs with your own skills, tools and integrations for a workflow you care about.
-- Deploy an agent on a VPS or cloud backend for 24/7 operation, with budgets, approvals and audit turned on.
-- Explore multi-agent orchestration — a coordinator plus specialists — for a realistic end-to-end business task.
-- Review each lab's detailed steps in this guide and re-run the labs on your own machine.
-
+- Written Assessment (WA) — Short-Answer Questions (SAQ), 1 hour, open book.
+- Practical Performance (PP) — three tasks, each with ONE screenshot from a lab (Lab 1 Hermes agent, Lab 4 multi-agent studio, Lab 7 Paperclip org chart) plus written analysis, 1 hour, open book.
+- Open book: slides, this Learner Guide and approved materials only.
+- Practice at https://exams.tertiaryinfotech.com before the assessment.
+- On the day: TRAQOM survey → Assessment digital attendance → WA then PP → submit on the LMS → sign the Assessment Summary Record.
 
 ## Glossary
 
-- **Autonomous AI agent** — An LLM-driven system that perceives, reasons, acts with tools and remembers, running under human oversight.
-- **Agent stack** — The layers that make an agent work: model, memory, skills, tools, channels and a scheduler/security layer.
-- **Model / provider** — The LLM (and the vendor serving it) that gives the agent its reasoning — e.g. Claude, OpenAI, OpenRouter.
-- **Channel** — A messaging surface the agent is reachable on, such as Telegram, WhatsApp, Discord or Slack.
-- **Memory** — Durable, user- or company-scoped storage that lets the agent recall context across sessions and surfaces.
-- **Skill** — A reusable, named capability an agent can install or create and invoke on demand.
-- **Tool / integration** — An external action or service the agent can call — web search, image generation, email, GitHub via MCP.
-- **MCP** — Model Context Protocol — a standard way to connect an agent to external tool servers.
-- **Cron / heartbeat** — A schedule that triggers recurring agent work; a heartbeat self-checks and keeps the agent running.
-- **Sandbox** — An isolated execution backend (Docker, SSH, remote host) that contains what an agent's commands can touch.
-- **Approval gate** — A human sign-off required before an agent performs an important or destructive action.
-- **Budget cap** — A spend limit at company or per-agent level that warns at 80% and pauses work at 100%.
-- **Multi-agent orchestration** — A coordinator agent delegating to specialist worker agents to deliver an end-to-end outcome.
+| Term | Meaning |
+|---|---|
+| AI agent | An autonomous LLM-based program that pursues a goal with tools in a bounded environment |
+| Agentic AI | A system of multiple specialised agents with orchestration, shared memory and coordinated autonomy |
+| Agentic loop | Gather context → act → verify → repeat |
+| Harness | Everything around the model: loop, tools, context, memory, skills, verification, guardrails, orchestration, observability |
+| Skill | A SKILL.md folder of procedural know-how an agent loads on demand |
+| Profile (Hermes) | An isolated agent with its own SOUL.md, memory, skills and sessions |
+| Kanban (Hermes) | A durable task board with dependencies, comments, reviews and swarms shared by profiles |
+| Cron / routine | A schedule that starts agent work without a human prompt |
+| Human-in-the-loop | A person approves before an action happens |
+| Human-on-the-loop | A person monitors and can intervene while the agent acts |
+| Board (Paperclip) | The human owner who approves hires, strategy and gated work |
+| Adapter (Paperclip) | The agent runtime an employee runs on (Claude Code, Codex, Gemini CLI, Hermes …) |
+| RAG | Retrieval Augmented Generation — retrieve from a curated corpus, then generate |
+| World model | A model that predicts how the world changes after an action |
+| MCP | Model Context Protocol — an open standard for connecting agents to tools and data |

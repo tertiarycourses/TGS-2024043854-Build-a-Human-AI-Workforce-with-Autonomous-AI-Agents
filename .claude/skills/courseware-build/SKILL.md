@@ -1,6 +1,6 @@
 ---
 name: courseware-build
-description: Single-source build pipeline for a WSQ course — one content module (course_data.py + data_domainN.py) drives ALL artifacts (the all-white slide deck PPT, the Lesson Plan LP, the Learner Guide LG + its Markdown mirror, and the labs/ index) so they stay 100% aligned. Generic and course-agnostic: it locates the course repo and derives every filename from course_data, so the same engine works for any WSQ course. Use to regenerate courseware after editing course content.
+description: Single-source build pipeline for a WSQ course — one content module (course_data.py + data_domainN.py, or data_labs.py for use-case labs) drives ALL artifacts (the slide deck PPT — all-white house style or the Claude Code course design via ccdeck.py, the Lesson Plan LP, the Learner Guide LG + its Markdown mirror, and the labs/ index) so they stay 100% aligned. Generic and course-agnostic: it locates the course repo and derives every filename from course_data, so the same engine works for any WSQ course. Use to regenerate courseware after editing course content.
 ---
 
 # courseware-build — single-source WSQ courseware pipeline
@@ -61,3 +61,29 @@ Copy this skill into the new course's `.claude/skills/courseware-build/`, replac
 `data_domainN.py` with the new course's content, drop the course badge into `assets/`, and run the
 orchestrator. The engine files (build_*.py, prodoc.py, inject_toc.py, build_courseware.sh) are reused
 unchanged.
+
+## Use-case labs + Claude Code deck design (pattern proven on TGS-2024043854 v2.0, Oct 2026)
+
+Use this pattern when a course should run **connected use-case labs** (learners see business value)
+instead of feature tours (tools / memory / skills one by one). Reference implementation:
+`build/reference-usecase-labs/` (user level) — copy it into the course's `build/` and replace the content.
+
+### Engine files
+| File | Role |
+|---|---|
+| `ccdeck.py` | Slide components in the **"Agentic AI Applications with Claude Code" (TGS-2025052468) design**: ivory `FAF9F5` / charcoal `21201C`, terracotta `D97757`, Cambria headings, Calibri body, white shadowed cards with icon circles. Components: `cover(logo=)`, `section`, `cards`, `rows`, `timeline`, `loop`, `compare`, `table` (auto-grows font to fill rows), `image`, `statement`, `prompt` (copy-ready dark code panel), `lab_intro`, `lab_flow` (agent/human steps), `hub`, `trainer`, `flow`. Text is fit-to-box; arrow glyphs are forced to Calibri (Cambria/Caladea have no →). |
+| `render_icons.js` | react-icons → PNG (needs global `react`, `react-dom`, `react-icons`, `sharp`); `ccdeck.icon_png()` caches into `build/icons/`. |
+| `data_labs.py` | **Single source for every lab**: scenario, deliverables, agents vs human role, LO, `prereq`, `concepts`, `flow` (agent/human steps), `steps` (body / `cmd` / `prompt` / `where` / `expect`), `verify`, `trouble`, `challenge`. |
+| `mock_data.py` | Synthetic company pack (brief, brand guide, compliance rules, CSVs, SKILL.md files, templates) — seeded, deterministic. |
+| `build_labs.py` | Writes `labs/labNN-*/README.md`, `COPY-PROMPTS.txt`, `LAB-NN-Instructions.pdf` (headless Chrome print), `data/` (+ generated brand images), `labs/README.md`, and the offline **Lab Prompts page** `prompts/index.html` (Copy buttons; works from `file://`). Never deletes — it overwrites. |
+| `build_slides.py` | Writes `slide_map.json` (first slide of each section/lab) — the LP reads it, so LP slide numbers always match the deck. |
+| `version_history.py` | Document Version Control rows shared by LP and LG. |
+
+### Rules learned
+- **One company, one storyline**: every lab builds on the previous lab's outputs (`~/<workspace>/outputs/labNN/`); Day 2 imports Day 1 outputs instead of redoing them.
+- **Each lab ships**: README, instructions PDF, COPY-PROMPTS.txt, mock data, assets, prerequisites, and a checkpoint. Prompts appear on slides as `prompt` panels and on the prompts page (pattern from TGS-2024043856 M365 Copilot repo).
+- **Human-in-the-loop must be real**: say whether a gate is runtime-enforced (blocked task, Approvers, hiring gate) or prompt-enforced (agent rule). Cron/scheduled runs are fresh sessions — carry approval state in a file (e.g. `pending-approval` status), never in chat memory. Review the package before releasing a publish/post step; post exactly once.
+- **Approved CP governs timing**: map the schedule to the CP learning units (e.g. LU1 5 h / LU2 5 h / LU3 4 h + 2 h assessment); `course_data.LUS` + an LU column per schedule row; the LP asserts each LU's minutes.
+- **Verify platform commands against `--help` / local docs** before writing a lab (Hermes ships its docs in `~/.hermes/hermes-agent/website/docs`); flag anything unverified.
+- **Never commit assessment content in builders**: course-specific assessment builders (questions + model answers) and FG/AP data files (rubric) are git-ignored; the generic `wsq-assessment/build_assessment.py` is driven by a private override module.
+- `inject_toc.py` now writes the page-numbered entries as the cached result of a **real Word TOC field**; `prodoc.add_version_control` uses fixed column widths (`prodoc.set_widths`) so the record no longer spans pages.

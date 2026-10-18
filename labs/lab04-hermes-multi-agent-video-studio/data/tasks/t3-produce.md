@@ -1,0 +1,1 @@
+Read script.md and DESIGN.md. Use the hyperframes skill to render output/final.mp4 at 1080x1920, 20-30 s, with local TTS voice-over and captions. Start with --quality draft. Export a thumbnail output/thumb.png. If rendering is impossible on this machine, export a 6-frame storyboard (PNG) instead and say so.

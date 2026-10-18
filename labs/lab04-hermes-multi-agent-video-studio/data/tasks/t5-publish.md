@@ -1,0 +1,1 @@
+Only run after a human has unblocked this task. Build publish-package.md (title, description with 'AI-generated voice-over' disclosure, 3-5 hashtags incl. #ShiokColdBrew, thumbnail, captions .srt). Post output/final.mp4 to telegram:<channel_id> with hermes send and record the result.

@@ -1,0 +1,21 @@
+LAB 8 — Run the #ShiokColdBrew Launch as a Project — Review, Revise, Release
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] PROMPT — Let the CEO build the backlog  (paste into: Paperclip → New Task (assign to Ava, project ShiokColdBrew Launch))
+------------------------------------------------------------------------
+Set up the ShiokColdBrew Launch backlog.
+Create the 7 tasks in paperclip-backlog.csv inside project "ShiokColdBrew Launch" - same titles, assignees, priorities, blocked-by links and definitions of done (paste the definition of done into each task). Tasks 1 and 2 must start from the Day 1 research brief and content calendar attached to the project. Reply with the task keys.
+
+[2] TERMINAL — Board review — send something back
+------------------------------------------------------------------------
+npx paperclipai issue update <TASK-KEY> --status in_progress --comment "1) Only 3 TikTok posts - we need at least 6 for the 40,000-view KPI. 2) Caption 4 says 'healthier than soft drinks' - remove (rule C1). 3) Every post showing SHIOK20 must show its terms (rule C3)."
+
+[3] TERMINAL — Approve and release
+------------------------------------------------------------------------
+npx paperclipai issue update <TASK-KEY> --status done --comment "Approved for release - post via the Telegram approval flow"
+
+[4] PROMPT — Run the retrospective  (paste into: Paperclip → New Task (assign to Ava))
+------------------------------------------------------------------------
+Launch project retrospective for ShiokColdBrew Launch.
+Report: cycle time per task, number of Board send-backs and auditor findings, spend per agent vs budget, and the three biggest quality problems we caught at review. Recommend two changes to agent instructions that would have prevented them.

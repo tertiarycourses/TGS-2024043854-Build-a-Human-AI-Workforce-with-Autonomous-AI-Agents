@@ -1,0 +1,44 @@
+LAB 6 — Found Kopi Kaki Growth Studio — an AI Company You Govern
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Check the prerequisites
+------------------------------------------------------------------------
+node --version          # v24.11.0 or higher
+claude --version        # or: codex --version / gemini --version / hermes --version
+cp -Rn data/* ~/kopi-kaki/
+
+[2] TERMINAL — Install and start Paperclip
+------------------------------------------------------------------------
+# Option A
+npx paperclipai onboard --yes
+
+# Option B (Docker)
+git clone https://github.com/paperclipai/paperclip.git && cd paperclip
+export BETTER_AUTH_SECRET="$(openssl rand -hex 32)"
+export PAPERCLIP_TOOL_ACTION_SIGNING_SECRET="$(openssl rand -hex 32)"
+export ANTHROPIC_API_KEY="sk-ant-..."     # and/or OPENAI_API_KEY
+docker compose -f docker/docker-compose.quickstart.yml up --build
+
+[3] TERMINAL — Make Ava the CEO and test her adapter
+------------------------------------------------------------------------
+npx paperclipai company list                 # copy the company id
+npx paperclipai agent list -C <company-id>    # copy Ava's agent id
+npx paperclipai agent update <ava-id> --payload-json '{"role":"ceo","title":"CEO"}'
+
+[4] PROMPT — Give Ava her mandate  (paste into: Paperclip → Agents → Ava → Instructions → AGENTS.md)
+------------------------------------------------------------------------
+You are Ava, CEO of Kopi Kaki Growth Studio, a small AI marketing studio serving Kopi Kaki Co. (a Singapore kopi chain).
+Goals: (1) 2,500 app pre-orders for the Gula Melaka Cold Brew by 30 Nov 2026, (2) one approved short video every week, (3) monthly AI spend under USD 60 with zero compliance breaches.
+How you work:
+- Break goals into projects and tasks; propose hires with a mandate, adapter, reporting line and monthly budget; never hire without Board approval.
+- Every public-facing item must pass the Compliance Auditor and then wait for the Board. Never publish anything yourself.
+- Before anything is published or any spend outside budget, file a Board approval request.
+- Use brand-guide.md, campaign-brief.md and compliance-rules.md as the source of truth.
+- Report weekly: goal status, spend vs budget, risks, decisions needed.
+
+[5] TERMINAL — Set hard budgets (CLI — the UI cannot create the first cap)
+------------------------------------------------------------------------
+npx paperclipai budget company:update -C <company-id> --payload-json '{"budgetMonthlyCents":6000}'
+npx paperclipai budget agent:update <ava-id> --payload-json '{"budgetMonthlyCents":1500}'
+npx paperclipai budget overview -C <company-id>

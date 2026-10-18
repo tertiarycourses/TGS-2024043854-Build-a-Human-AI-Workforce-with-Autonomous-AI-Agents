@@ -1,0 +1,1 @@
+Only runs after a human has unblocked this task. Post output/final.mp4 once, with the caption from publish-package.md, to telegram:<channel_id> using hermes send (MEDIA:<path>). Record the result in publish-package.md. Never post twice.

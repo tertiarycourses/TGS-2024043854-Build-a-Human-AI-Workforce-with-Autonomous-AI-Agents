@@ -282,3 +282,14 @@ enable the Pages site, and skip any "deploy static site" phase for these repos. 
 repo homepage should point to the course page on www.tertiarycourses.com.sg instead.
 Lab web apps are run locally by learners (or demoed via localhost) — they don't need
 a hosted deployment.
+
+## Option — "Agentic AI Applications with Claude Code" design (ccdeck)
+
+When the user asks for the design of TGS-2025052468 (Claude Code course) — ivory/charcoal canvases,
+terracotta accent `D97757`, Cambria headings, white shadowed icon cards — build with
+`courseware-build/build/ccdeck.py` (reference: `courseware-build/build/reference-usecase-labs/build_slides.py`).
+All the admin hard rules above still apply (cover with logo + version + UEN + "WSQ Course Code",
+TRAQOM front and end, two trainer cards, LMS screenshot, Briefing → Assessment → Assessment Flow,
+Practice Exam, Thank You). Watch for: no → glyph in Cambria (ccdeck forces Calibri for arrows),
+long two-line titles (header shrinks them and pushes the subtitle), and monospace code panels
+(keep excerpts ≤ 14 short lines).
