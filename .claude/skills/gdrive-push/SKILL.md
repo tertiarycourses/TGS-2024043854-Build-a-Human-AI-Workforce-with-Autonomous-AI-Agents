@@ -98,3 +98,28 @@ server-side move to Archive (`moveto`) — there is no delete anywhere.
   in the browser (use the account that owns the courseware folder).
 - The `--drive-root-folder-id` flag scopes every call to the user-supplied folder,
   so the script cannot touch anything outside it.
+
+## HARD RULE — FG and AP are ALWAYS pushed (user rule, 18 Oct 2026)
+
+Every `/gdrive-push` run MUST also push the **Facilitator Guide and Assessment Plan** (DOCX + PDF) to
+the course folder's **`Facilitator Guide/`** and **`Assessment Plan/`** subfolders — a run that
+leaves them off Drive is **not finished**.
+
+1. **Source:** the private `assessment/fg-ap/` folder (`FG_<code>_<title>_vN`, `Assessment_Plan_<code>_<title>_vN`).
+   If it is empty but the FG/AP sit in `courseware/` (a git-ignored copy beside the deck/LP/LG), copy
+   them into `assessment/fg-ap/` first. If no FG/AP exists at all, build them with **`wsq-fg-ap`**
+   before pushing — never skip.
+2. **Push them FIRST, not last.** The main run reaches FG/AP only after the whole `labs/` sync, which
+   can take a long time on large lab trees; run the FG/AP pusher up front so they are on Drive even if
+   the long sync stalls:
+   ```bash
+   python3 ~/.claude/skills/wsq-fg-ap/scripts/push_fgap.py --dry-run --dir "<repo>/assessment/fg-ap" --code TGS-…
+   python3 ~/.claude/skills/wsq-fg-ap/scripts/push_fgap.py          --dir "<repo>/assessment/fg-ap" --code TGS-…
+   ```
+   (The main run then finds them unchanged by MD5 and skips them.)
+3. **Version continuity:** before pushing, compare with the FG/AP already on Drive — never push a
+   lower version number than what is there; carry the existing Version Control rows forward.
+4. **Verify on Drive** (`rclone lsjson "gdrive:Facilitator Guide" …` / `"gdrive:Assessment Plan"`) that
+   the new vN `.docx` + `.pdf` are present, the PDFs kept their file ids (in-place update) and the old
+   versions sit in `archive/`. Report the FG/AP links with the courseware links.
+5. Hand over to **`/tms-push`**, which must set/verify the two trainer-only LMS links.

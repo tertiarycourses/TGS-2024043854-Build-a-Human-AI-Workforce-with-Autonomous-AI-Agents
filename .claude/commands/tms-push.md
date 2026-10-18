@@ -70,3 +70,22 @@ If that yields anything other than **the WA paper plus exactly one PP/CS paper**
 ## Report
 
 State the courseware links that were set, **which two question papers** were attached, and confirm explicitly that the **answer keys were withheld** as trainer-only.
+
+## HARD RULE — FG and AP links are ALWAYS set (user rule, 18 Oct 2026)
+
+Every `/tms-push` run MUST write and verify **`facilitatorGuideUrl`** and **`assessmentPlanUrl`**
+(trainer-only fields) to the current FG / AP **PDF** in the course Drive folder's
+`Facilitator Guide/` and `Assessment Plan/` subfolders — in the SAME save as the courseware links:
+
+```bash
+python3 ~/.claude/scripts/lms_push.py --dry-run     # plan must list both FG and AP URLs
+python3 ~/.claude/scripts/lms_push.py               # one save: courseware + papers + FG + AP
+```
+
+- If `/gdrive-push` has not put FG/AP on Drive yet, run it (or the FG/AP pusher in `wsq-fg-ap`)
+  first — do not finish a `/tms-push` without both links.
+- Even when the Drive files were replaced **in place** (same file id), still verify the LMS links point
+  at those ids and serve the new version; normalise the URL format in the same single save.
+- **One save only:** every update-course save re-creates the learning units and orphans learner
+  progress, so combine FG/AP with the courseware fields instead of saving twice.
+- Report the two FG/AP links next to the courseware links, and state they are trainer-only.
