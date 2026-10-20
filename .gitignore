@@ -54,3 +54,10 @@ SG - Dr. Alfred Ang - Mastering OpenClaw*.pptx
 # FG / AP copies kept beside the courseware (trainer-only, embed answer keys) — never pushed
 courseware/FG_*
 courseware/Assessment_Plan_*
+
+# Facilitator Guide + Assessment Plan embed the answer keys and rubric:
+# trainer-only (Google Drive + TMS), never GitHub
+**/FG_*
+**/FG-*
+**/Assessment_Plan_*
+**/AP-*
