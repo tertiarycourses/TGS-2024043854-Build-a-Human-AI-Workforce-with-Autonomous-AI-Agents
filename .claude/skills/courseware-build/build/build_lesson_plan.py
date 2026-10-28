@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20
+from version_history import PRIOR, V20, V21
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -38,7 +38,8 @@ def slides_for(day, text):
     if t.startswith("Welcome"): return rng("admin", "t1a")
     if t.startswith("Topic 1 (Part A)"): return rng("t1a", "t1b")
     if t.startswith("Topic 1 (Part B)"): return rng("t1b", "activity")
-    if t.startswith("Activity"): return rng("activity", "t2")
+    if t.startswith("Activity") or t.startswith("Office workflow"): return rng("activity", "demo")
+    if t.startswith("Trainer demo"): return rng("demo", "t2")
     if t.startswith("Topic 2 — Lab 1"): return f"{MAP['t2']}–{MAP['lab2'] - 1}"
     if t.startswith("Topic 3"): return rng("t3", "lab6")
     for L in LABS:
@@ -57,7 +58,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20])
+prodoc.add_version_control(doc, PRIOR + [V20, V21])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 
@@ -70,7 +71,7 @@ def set_cell(cell, text, bold=False, size=9.5, color=None, fill=None):
 H("Course Information")
 info = [("Course Title", C.TITLE), ("WSQ Course Reference", C.COURSE_CODE),
         ("Training Provider", f"{C.ORG}  ({C.UEN.replace('UEN: ', 'UEN ')})"),
-        ("Duration", "2 days · 8 training hours per day (16 hours), including 2 hours of assessment"),
+        ("Duration", C.CONTACT_TIME_NOTE),
         ("Daily Timing", "9:30 am – 6:30 pm (1-hour lunch; tea breaks within training time)"),
         ("Mode", "Instructor-led; hands-on use-case labs on Hermes Agent and Paperclip (learner laptop)"),
         ("Course scenario", C.SCENARIO + " — all company data is fictional"),
@@ -114,8 +115,13 @@ c = lut.add_row().cells
 set_cell(c[0], "Assessment", bold=True, fill=ASSESS_FILL); set_cell(c[1], "WA-SAQ (1 h) + PP (1 h)"); set_cell(c[2], "Day 2, 4:30–6:30 pm")
 set_cell(c[3], "K1–K6, A1–A6"); set_cell(c[4], "2 h")
 prodoc.set_widths(lut, [0.75, 1.9, 2.4, 1.05, 0.7])
-p = doc.add_paragraph(); r = p.add_run("Total: 16 hours = LU1 5 h + LU2 5 h + LU3 4 h + assessment 2 h, matching the approved Course Proposal."); r.italic = True; r.font.size = Pt(9.5)
+p = doc.add_paragraph(); r = p.add_run("Scheduled LU allocations: 5 h + 5 h + 4 h, plus 2 h assessment; these include tea. Net instruction/practice is 13 h. Retained 9:30–18:30 timing was confirmed by the trainer."); r.italic = True; r.font.size = Pt(9.5)
 
+# Avoid an isolated table heading/header at the bottom of a page.
+for row in lut.rows[:2]:
+    for cell in row.cells:
+        for paragraph in cell.paragraphs:
+            paragraph.paragraph_format.keep_with_next = True
 H("Assessment")
 for a in [C.ASSESSMENT["written"], C.ASSESSMENT["practical"],
           "Format: Open Book — course slides, Learner Guide and approved materials only.",
@@ -138,7 +144,7 @@ for day in (1, 2):
         set_cell(cells[4], "—" if kind in ("break", "lunch") else slides_for(day, text), fill=fill)
         if kind != "lunch": training += mins
     prodoc.set_widths(tbl, [1.05, 0.75, 3.75, 0.6, 0.7])
-    p = doc.add_paragraph(); r = p.add_run(f"Total training time: {training} minutes ({training // 60} hours)."); r.italic = True
+    p = doc.add_paragraph(); r = p.add_run(f"Scheduled time excluding lunch: {training} minutes ({training // 60} hours), including tea and any assessment."); r.italic = True
     r.font.size = Pt(9.5); r.font.color.rgb = GREY
     assert training == 480, f"Day {day} training minutes = {training}, expected 480"
 

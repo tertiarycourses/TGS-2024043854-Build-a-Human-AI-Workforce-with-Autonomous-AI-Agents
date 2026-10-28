@@ -1,1 +1,2 @@
-Only after a PASS audit. Build publish-package.md: title, caption/description with 'AI-generated voice-over' disclosure, 3-5 hashtags incl. #ShiokColdBrew, thumbnail path, captions .srt path, proposed posting time. Do NOT post anything - the human reviews this package before the posting task is released.
+# Local release package
+After PASS audit, prepare release-package.md with video path and SHA256, source/storyboard paths, caption describing AI assistance, thumbnail/frame paths, audit and exact-version human decision. Never post externally.

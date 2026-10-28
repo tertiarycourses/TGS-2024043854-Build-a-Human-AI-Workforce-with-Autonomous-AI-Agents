@@ -11,8 +11,8 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v2.0"
-VERSION_DATE = "18 October 2026"
+VERSION      = "v2.1"
+VERSION_DATE = "29 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
 TRAINER      = "Dr. Alfred Ang"
@@ -31,76 +31,79 @@ LEARNING_OUTCOMES = [
 # ------------------------------------------------------------------ topics
 TOPICS = [
     dict(num=1, code="01", weighting="30%",
-         title="Foundations of Autonomous AI Agents & the Human–AI Workforce",
+         title="Human–AI Collaboration: Landscape, Agents, Use Cases & Futures",
          short="Foundations",
-         items=["A brief history of AI", "AI agents vs agentic AI", "The agentic loop & harness engineering",
-                "Brain · perception · action, memory & world models", "From single agent to human–AI collaboration",
-                "The 2026 agent market, use cases & governance"]),
+         items=["Current human–AI interaction landscape", "2023 prompt → 2024 context → 2025 harness → 2026 agents",
+                "48 practical workflows, scientific discovery and humanoid futures", "Single agents, teams, orchestration and human control",
+                "Agent mechanisms, evidence, permissions and governance"]),
     dict(num=2, code="02", weighting="35%",
-         title="Hermes Agent — From a Single AI Employee to a Multi-Agent Team",
+         title="Hermes Agent — Single-Agent Office Automation, Tools & Skills",
          short="Hermes Agent",
-         items=["Lab 1 · Your first AI employee", "Lab 2 · End-to-end social media campaign",
-                "Lab 3 · Human-in-the-loop publishing", "Lab 4 · Multi-agent video studio",
-                "Lab 5 · Campaign command centre"]),
+         items=["Lab 1 · Install Hermes, Telegram and an evidence brief", "Lab 2 · Gmail, Calendar, Drive, Excel, dashboard and PowerPoint",
+                "Lab 3 · Office approval and exception handling", "Day 2 bridge · Labs 4–5 Kanban and multi-agent work"]),
     dict(num=3, code="03", weighting="35%",
-         title="Paperclip — Running & Governing a Company of AI Agents",
+         title="Multi-Agent Teams — Kanban, Claude Code & Governance",
          short="Paperclip",
-         items=["Lab 6 · Found the AI company", "Lab 7 · Hire the team", "Lab 8 · Launch campaign project",
-                "Lab 9 · Weekly video routine", "Lab 10 · Govern, measure & improve"]),
+         items=["Labs 4–5 · Kanban video studio and analysis team", "Labs 6–7 · Company and org-chart governance",
+                "Lab 8 · Claude Code multi-agent video team", "Labs 9–10 · Repeatable work, evaluation and improvement"]),
 ]
 
 DAY_THEMES = {
-    1: "Foundations (Topic 1) & Hermes Agent — single to multi-agent (Topic 2, Labs 1–5)",
-    2: "Paperclip — a governed company of agents (Topic 3, Labs 6–10) & Final Assessment",
+    1: "Human–AI landscape and single Hermes agent: office automation, tools, skills and practice (Labs 1–3)",
+    2: "Multi-agent teams: Kanban, Claude Code video studio, governance (Labs 4–10), then assessment",
 }
+CONTACT_TIME_NOTE = "9:30 am–6:30 pm both days. 16 scheduled course hours excluding lunch include 13 hours instruction/practice, 1 hour tea breaks and 2 hours assessment. Tea is included in the scheduled LU allocations; this is not a claim of 14 net instructional hours."
 
 # ------------------------------------------------------------------ learning units (approved CP TPG-2024060313, TSC ICT-TEM-4034-1.1)
 # LU durations and K/A are fixed by the CP: LU1 5 h, LU2 5 h, LU3 4 h (+ 2 h assessment) = 16 h.
 LUS = [
     dict(lu="LU1", hours=5, codes=["K1", "K6", "A1", "A3"], lo=0,
          title="Foundations of autonomous AI agents and single-agent LLM applications",
-         covers="Topic 1 (Foundations) + Topic 2 Labs 1–2 (single Hermes agent)"),
+         covers="Topic 1 landscape, canvas and office design clinic + demo + Lab 1A installation and evidence brief"),
     dict(lu="LU2", hours=5, codes=["K4", "K5", "A2", "A6"], lo=1,
          title="Agent and multi-agent design for efficiency, with humans in the loop",
-         covers="Topic 2 Labs 3–5 (human-in-the-loop, multi-agent studio, swarm) + Topic 3 Lab 6 (designing a governed agent company)"),
+         covers="Lab 1B + Labs 2–5 tools/skills, human gates, Kanban studio and parallel team; governance introduction"),
     dict(lu="LU3", hours=4, codes=["K2", "K3", "A4", "A5"], lo=2,
          title="Evaluate and improve the effectiveness of an AI-agent workforce in product development",
-         covers="Topic 3 Labs 7–10 (team, launch project, routine, governance and improvement)"),
+         covers="Labs 6–10 company governance, Claude video team, repeatable work and evaluation"),
 ]
 
 # ------------------------------------------------------------------ schedule (9:30–18:30, 8 training hours/day)
 # (start, end, minutes, kind, text, LU)  kind: admin/topic/activity/lab/break/lunch/assess/recap
 SCHEDULE = {
  1: [
-  ("9:30", "9:50", 20, "admin", "Welcome, housekeeping, trainer introduction, learning outcomes and AM digital attendance", "LU1"),
-  ("9:50", "11:05", 75, "topic", "Topic 1 (Part A) — history of AI; AI agents vs agentic AI; the agentic loop; harness engineering; brain–perception–action; short- and long-term memory; RAG; world models", "LU1"),
-  ("11:05", "11:20", 15, "break", "Tea break", "LU1"),
-  ("11:20", "12:10", 50, "topic", "Topic 1 (Part B) — single agent → multi-agent → human–agent collaboration; levels of autonomy; agent society; the 2026 agent market (OpenClaw, Hermes, Paperclip, OpenAI Dots, Meta Muse, Block Buzz, Manus Cue …); Singapore's AgentSea; human–AI use cases in science, maths, drug discovery and business; risks and governance", "LU1"),
-  ("12:10", "12:35", 25, "activity", "Activity — Human–AI Workforce Canvas for Kopi Kaki Co., and start the Hermes Agent install", "LU1"),
-  ("12:35", "13:30", 55, "lab", "Topic 2 — Lab 1: Hire Your First AI Employee (Hermes) — customer & market research brief", "LU1"),
-  ("13:30", "14:30", 60, "lunch", "Lunch break", ""),
-  ("14:30", "15:30", 60, "lab", "Lab 2: End-to-End Social Media Campaign with one agent (skills + tools)", "LU1"),
-  ("15:30", "16:15", 45, "lab", "Lab 3: Human-in-the-Loop Publishing & Community Care (Telegram + cron)", "LU2"),
-  ("16:15", "16:30", 15, "break", "Tea break", "LU2"),
-  ("16:30", "17:30", 60, "lab", "Lab 4: Multi-Agent Video Studio — research → script → production → audit → publish", "LU2"),
-  ("17:30", "18:15", 45, "lab", "Lab 5: Multi-Agent Campaign Command Centre — measure, optimise & report", "LU2"),
-  ("18:15", "18:30", 15, "recap", "Day 1 recap, Q&A and PM digital attendance", "LU2"),
+  ("9:30","9:50",20,"admin","Welcome, attendance, learning outcomes and official SWDA AI subscription redemption steps","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — current human–AI landscape; history; agents and agentic AI; practical use-case gallery; science; future humanoid collaboration","LU1"),
+  ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
+  ("11:20","12:40",80,"topic","Topic 1 (Part B) — collaboration modes; single and multi-agent patterns; orchestration; tools, skills, memory, RAG, permissions, governance and evidence","LU1"),
+  ("12:40","13:00",20,"activity","Activity — design the Kopi Kaki launch-office canvas, inputs, outputs and human decisions","LU1"),
+  ("13:00","13:30",30,"activity","Office workflow design clinic — analyse task ownership, tool contracts and acceptance tests","LU1"),
+  ("13:30","14:30",60,"lunch","Lunch break",""),
+  ("14:30","14:45",15,"topic","Trainer demo — OpenAI Dots office workflow, tool evidence and human control; Hermes fallback","LU1"),
+  ("14:45","15:30",45,"lab","Lab 1: Activity 1A — install Hermes, connect Telegram and produce the source-linked brief (PP Q1 preparation)","LU1"),
+  ("15:30","16:00",30,"lab","Lab 1: Activity 1B — test tools, memory recall and evidence; analyse the agent design","LU2"),
+  ("16:00","16:15",15,"break","Tea break (included in scheduled LU time)","LU2"),
+  ("16:15","17:45",90,"lab","Lab 2: Single-agent launch office — gog Gmail/Calendar/Drive, Excel analysis, interactive dashboard and professional PowerPoint","LU2"),
+  ("17:45","18:15",30,"lab","Lab 3: Human approval, office exceptions and safe internal reporting","LU2"),
+  ("18:15","18:30",15,"recap","Day 1 recap, Q&A and PM digital attendance","LU2"),
  ],
  2: [
-  ("9:30", "9:45", 15, "recap", "Day 1 recap and AM digital attendance", "LU2"),
-  ("9:45", "10:15", 30, "topic", "Topic 3 — Paperclip: the company as the agent harness; Board, CEO and org chart; adapters; goals, projects and tasks; routines and heartbeats; budgets, approvals and the audit trail", "LU2"),
-  ("10:15", "11:15", 60, "lab", "Lab 6: Found Kopi Kaki Growth Studio — an AI company you govern", "LU2"),
-  ("11:15", "11:30", 15, "break", "Tea break", "LU2"),
-  ("11:30", "12:15", 45, "lab", "Lab 7: Hire the Marketing Team through the Board approval gate", "LU3"),
-  ("12:15", "13:15", 60, "lunch", "Lunch break", ""),
-  ("13:15", "14:10", 55, "lab", "Lab 8: Run the #ShiokColdBrew launch as a project — review, revise, release", "LU3"),
-  ("14:10", "14:55", 45, "lab", "Lab 9: Automate the weekly video pipeline with a routine and a Board gate", "LU3"),
-  ("14:55", "15:10", 15, "break", "Tea break", "LU3"),
-  ("15:10", "15:55", 45, "lab", "Lab 10: Govern, measure & improve your human–AI workforce", "LU3"),
-  ("15:55", "16:15", 20, "recap", "Course recap, practice exam and Q&A", "LU3"),
-  ("16:15", "16:30", 15, "assess", "Briefing for Assessment", "LU3"),
-  ("16:30", "17:30", 60, "assess", "Written Assessment (WA) — Short-Answer Questions (SAQ), 1 hour, open book", "ASSESS"),
-  ("17:30", "18:30", 60, "assess", "Practical Performance (PP) — 1 hour, open book; TRAQOM survey and PM / assessment digital attendance", "ASSESS"),
+  ("9:30","9:45",15,"recap","Day 1 recap and AM attendance; prepare the multi-agent board","LU2"),
+  ("9:45","10:35",50,"lab","Lab 4: Multi-Agent Video Studio — Kanban roles, dependencies, production, audit and human release gate","LU2"),
+  ("10:35","11:10",35,"lab","Lab 5: Multi-Agent Campaign Command Centre — parallel analysis, verifier and synthesis","LU2"),
+  ("11:10","11:25",15,"break","Tea break (included in scheduled LU time)","LU2"),
+  ("11:25","11:30",5,"topic","Topic 3 — company-level governance and team accountability","LU2"),
+  ("11:30","12:15",45,"lab","Lab 6: Found Kopi Kaki Growth Studio — mission, company and governed CEO","LU3"),
+  ("12:15","13:15",60,"lunch","Lunch break",""),
+  ("13:15","13:50",35,"lab","Lab 7: Hire the Marketing Team through the Board gate — org-chart evidence for PP Q3","LU3"),
+  ("13:50","14:40",50,"lab","Lab 8: Claude Code Agent Team — create and audit a launch video with independent teammates","LU3"),
+  ("14:40","15:10",30,"lab","Lab 9: Repeatable Weekly Video Pipeline — routine, verification and Board review","LU3"),
+  ("15:10","15:25",15,"break","Tea break (included in scheduled LU time)","LU3"),
+  ("15:25","16:00",35,"lab","Lab 10: Govern, Measure and Improve — compare single-agent and team workflows","LU3"),
+  ("16:00","16:15",15,"recap","Course recap, practice questions and Q&A","LU3"),
+  ("16:15","16:30",15,"assess","Briefing for Assessment","LU3"),
+  ("16:30","17:30",60,"assess","Written Assessment (WA) — 1 hour, open book","ASSESS"),
+  ("17:30","18:30",60,"assess","Practical Performance (PP) — 1 hour, open book; TRAQOM survey and PM / assessment attendance","ASSESS"),
  ],
 }
 

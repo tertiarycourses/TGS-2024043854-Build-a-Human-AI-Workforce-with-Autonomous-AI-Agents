@@ -1,65 +1,37 @@
-LAB 4 — Multi-Agent Video Studio — Research → Script → Production → Audit → Publish
+LAB 4 — Multi-Agent Video Studio — Kanban, Production & Human Review
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — Install the HyperFrames video skill
+[1] TERMINAL — Inspect the preflighted studio (5 min)
 ------------------------------------------------------------------------
-hermes skills install official/creative/hyperframes --yes
-bash "$(dirname "$(find ~/.hermes/skills -path '*/hyperframes/SKILL.md' | head -1)")/scripts/setup.sh"
-npx hyperframes doctor
+hermes --version
+hermes profile --help
+hermes kanban --help
+hermes gateway status
+ffmpeg -version
+ffprobe -version
 
-[2] TERMINAL — Create the shared studio workspace
+[2] PROMPT — Create or inspect the actual Kanban contracts (10 min)  (paste into: Hermes lead chat in ~/kopi-kaki)
 ------------------------------------------------------------------------
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/.hermes/skills/marketing && cp -R ~/kopi-kaki/skills/brand-compliance-audit ~/.hermes/skills/marketing/
-mkdir -p ~/kopi-kaki/video-studio/output
-# put YOUR channel id (from Lab 3: hermes send --list telegram) into the posting brief
-CH="telegram:-100XXXXXXXXXX"
-perl -pi -e "s/telegram:<channel_id>/$CH/" ~/kopi-kaki/tasks/t6-post.md
-cp ~/kopi-kaki/DESIGN.md ~/kopi-kaki/brand-guide.md ~/kopi-kaki/campaign-brief.md ~/kopi-kaki/compliance-rules.md ~/kopi-kaki/video-qa-checklist.md ~/kopi-kaki/video-studio/
+Inspect current Hermes profile and Kanban help. Use distinct profiles researcher, scriptwriter, producer, auditor and publisher. Create or inspect a real launch-video board: research -> storyboard -> human storyboard review -> render -> independent audit -> human release gate -> local package. Each task needs one owner, source input, unique output path and done criteria. Do not revert another worker’s files. Keep the release/package task blocked until my decision. Publisher may only prepare a local package; never post to Telegram channels, social media, email or the web. Show the real task/profile state and dependency links.
 
-[3] TERMINAL — Staff the studio — five profiles with routing descriptions
+[3] PROMPT — Research, write and approve the scenes (10 min)  (paste into: Hermes lead chat)
 ------------------------------------------------------------------------
-hermes profile create researcher --clone --description "Finds hooks, trends and proof points for a short video; writes research.md with cited sources"
-hermes profile create scriptwriter --clone --description "Turns research.md into a 25-second script and 6-scene list in script.md"
-hermes profile create producer --clone --description "Renders script.md into a 9:16 MP4 with HyperFrames; writes output/final.mp4"
-hermes profile create auditor --clone --description "Audits a video and its copy against video-qa-checklist.md and compliance-rules.md; PASS or FAIL with fixes"
-hermes profile create publisher --clone --description "Builds the publish package and posts an approved video to the Telegram channel"
-for p in researcher scriptwriter producer auditor publisher; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-hermes profile list
+Dispatch the researcher to extract approved launch facts and source IDs from the Day 1 office pack into outputs/lab04/research.md. Scriptwriter writes three five-second scenes into storyboard.md. Pause for my exact-copy approval. No health, halal or unsupported market claims. Use only approved product facts and supplied/licensed assets.
 
-[4] TERMINAL — Build the task graph with a human gate
+[4] TERMINAL — Render a real video (10 min)
 ------------------------------------------------------------------------
-S=dir:$HOME/kopi-kaki/video-studio
-hermes kanban create "Research hooks for the Gula Melaka Cold Brew launch short" --assignee researcher --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t1-research.md
-hermes kanban create "Write the 25-second script and scene list" --assignee scriptwriter --parent <T1> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t2-script.md
-hermes kanban create "Render the 9:16 launch video with HyperFrames" --assignee producer --parent <T2> --workspace $S --tenant kopi-video --skill hyperframes --max-runtime 45m --body-file ~/kopi-kaki/tasks/t3-produce.md
-hermes kanban create "Audit the video and copy (V1-V9, C1-C10)" --assignee auditor --parent <T3> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
-hermes kanban create "Build the publish package (do not post)" --assignee publisher --parent <T4> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t5-package.md
-hermes kanban create "Post the approved video to the channel" --assignee publisher --parent <T5> --workspace $S --tenant kopi-video --initial-status blocked --body-file ~/kopi-kaki/tasks/t6-post.md
+python3 tools/render_launch_video.py --out outputs/lab04/video
+ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json outputs/lab04/video/final.mp4
 
-[5] TERMINAL — Watch the studio work
+[5] PROMPT — Render a real video (10 min)  (paste into: Hermes lead chat)
 ------------------------------------------------------------------------
-hermes kanban watch --tenant kopi-video
-# or open the web dashboard:
-hermes dashboard
+My reviewed storyboard is approved for local production. Dispatch the producer to adapt the reviewed render_launch_video.py scene copy and create outputs/lab04/video/final.mp4. Preserve the verified facts. Save the render command and metadata; do not advance to release before audit and my decision.
 
-[6] TERMINAL — If the auditor says FAIL — rework, don't restart
+[6] PROMPT — Audit, revise and keep the release gate visible (10 min)  (paste into: Hermes lead chat)
 ------------------------------------------------------------------------
-hermes kanban create "Rework the video: apply the audit-report.md fixes" --assignee producer --parent <T4> --workspace $S --tenant kopi-video --skill hyperframes --body "Fix V5: show SHIOK20 terms on the end card. Fix C9: AI voice-over disclosure. Re-render output/final.mp4."
-hermes kanban create "Re-audit the reworked video" --assignee auditor --parent <rework_id> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
+Dispatch the independent auditor to inspect every scene and the real ffprobe output. Check facts, brand, readability, duration, dimensions and rights. Save audit-report.md with evidence. I will watch the whole cut and request one correction. Re-render and re-audit it. Keep release blocked until my exact-version ACCEPT. Publisher then creates only release-package.md with file hash and audit reference; no external posting.
 
-[7] TERMINAL — Human gate — review the cut AND the package, then release
+[7] PROMPT — Capture evidence and reflect (5 min)  (paste into: Hermes lead chat)
 ------------------------------------------------------------------------
-open ~/kopi-kaki/video-studio/output/final.mp4     # Windows/WSL: explorer.exe, Linux: xdg-open
-cat ~/kopi-kaki/video-studio/publish-package.md
-hermes kanban unblock <T6>
-
-[8] TERMINAL — Confirm the post and close the loop
-------------------------------------------------------------------------
-hermes kanban list --tenant kopi-video
-hermes kanban show <T6>
-
-[9] PROMPT — Reflect — why a team beats one big agent  (paste into: Hermes chat)
-------------------------------------------------------------------------
-Read the Kanban history for tenant kopi-video (hermes kanban show for each task). Report per stage: which profile ran it, how long it took, how many retries or change requests it needed, and what was handed to the next stage. Then compare this five-agent design with a single agent doing everything: quality, cost, speed, reviewability.
+Summarise the real profile/task state, artifact paths, human decision and what failed or needed correction. Compare team coordination effort with Day 1’s single agent. Do not mark blocked or unfinished tasks as completed.

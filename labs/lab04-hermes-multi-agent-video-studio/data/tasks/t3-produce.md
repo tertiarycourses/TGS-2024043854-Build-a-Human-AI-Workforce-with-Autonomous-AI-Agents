@@ -1,1 +1,2 @@
-Read script.md and DESIGN.md. Use the hyperframes skill to render output/final.mp4 at 1080x1920, 20-30 s, with local TTS voice-over and captions. Start with --quality draft. Export a thumbnail output/thumb.png. If rendering is impossible on this machine, export a 6-frame storyboard (PNG) instead and say so.
+# Produce the approved local video
+Inspect tools/render_launch_video.py, adapt approved scene copy, render 15 seconds at 1080x1920, and save actual MP4, metadata and command log. A storyboard is a partial artifact, not completed video.

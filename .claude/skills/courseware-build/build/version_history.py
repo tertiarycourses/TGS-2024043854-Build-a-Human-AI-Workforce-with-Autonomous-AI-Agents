@@ -18,7 +18,7 @@ PRIOR = [
 ]
 
 import course_data as _CD
-V20 = ("2.0", _CD.VERSION_DATE,
+V20 = ("2.0", "18 October 2026",
        "Major revision. Deck redesigned in the 'Agentic AI Applications with Claude Code' house design. Topic 1 rebuilt as "
        "Foundations: history of AI, AI agents vs agentic AI, the agentic loop, harness engineering, the brain–perception–action "
        "framework, short/long-term memory, world models, single → multi-agent → human–agent collaboration paradigms, agent society, "
@@ -29,3 +29,5 @@ V20 = ("2.0", _CD.VERSION_DATE,
        "centre) and Day 2 Paperclip (found the company, hire the team, launch project, weekly video routine, govern & improve) — "
        "with mock data, brand assets, skills, instruction PDFs and a local Lab Prompts page. Assessment v5 aligned; FG and AP added.",
        TRAINER)
+
+V21 = ("2.1", "29 October 2026", "Human–AI landscape rebuilt with practical workflows, research evidence, collaboration modes and humanoid futures; Day 1 single Hermes office automation with gog, Excel, interactive dashboard and professional PPT; Day 2 Kanban and Claude Code video team; SWDA subscription steps and connected GitHub Pages prompts.", TRAINER)

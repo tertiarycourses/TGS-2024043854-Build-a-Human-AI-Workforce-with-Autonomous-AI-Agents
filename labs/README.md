@@ -6,28 +6,28 @@ Ten connected, use-case labs for **Kopi Kaki Co. — a fictional Singapore kopi 
 
 Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).
 
-## Day 1 — Topic 2: Hermes Agent (single agent → multi-agent → human gates)
+## Day 1 — One Hermes office assistant, tools and skills
 
 | # | Lab | Paradigm | Time | Instructions |
 |---|---|---|---|---|
-| 1 | [Hire Your First AI Employee — Customer & Market Research Brief](lab01-hermes-first-ai-employee/README.md) | Single agent | 55 min | [PDF](lab01-hermes-first-ai-employee/LAB-01-Instructions.pdf) |
-| 2 | [End-to-End Social Media Campaign with One Agent](lab02-hermes-social-media-campaign/README.md) | Single agent + skills | 60 min | [PDF](lab02-hermes-social-media-campaign/LAB-02-Instructions.pdf) |
-| 3 | [Human-in-the-Loop Publishing & Community Care (Telegram + Cron)](lab03-hermes-human-in-the-loop/README.md) | Human–agent collaboration | 45 min | [PDF](lab03-hermes-human-in-the-loop/LAB-03-Instructions.pdf) |
-| 4 | [Multi-Agent Video Studio — Research → Script → Production → Audit → Publish](lab04-hermes-multi-agent-video-studio/README.md) | Multi-agent (ordered pipeline) | 60 min | [PDF](lab04-hermes-multi-agent-video-studio/LAB-04-Instructions.pdf) |
-| 5 | [Multi-Agent Campaign Command Centre — Measure, Optimise & Report](lab05-hermes-campaign-command-centre/README.md) | Multi-agent (parallel swarm) | 45 min | [PDF](lab05-hermes-campaign-command-centre/LAB-05-Instructions.pdf) |
+| 1 | [Activity 1 — Install Hermes, Connect Telegram & Build the Launch Brief](lab01-hermes-first-ai-employee/README.md) | Single agent | 75 min | [PDF](lab01-hermes-first-ai-employee/LAB-01-Instructions.pdf) |
+| 2 | [Single-Agent Launch Office — Google, Excel, Dashboard & Professional PPT](lab02-hermes-social-media-campaign/README.md) | Single agent + four skills | 90 min | [PDF](lab02-hermes-social-media-campaign/LAB-02-Instructions.pdf) |
+| 3 | [Human-in-the-Loop Office Approval & Exception Handling](lab03-hermes-human-in-the-loop/README.md) | Human–agent collaboration | 30 min | [PDF](lab03-hermes-human-in-the-loop/LAB-03-Instructions.pdf) |
 
-## Day 2 — Topic 3: Paperclip (a governed company of agents)
+## Day 2 — Kanban teams, Claude multi-agent video and governance
 
 | # | Lab | Paradigm | Time | Instructions |
 |---|---|---|---|---|
-| 6 | [Found Kopi Kaki Growth Studio — an AI Company You Govern](lab06-paperclip-found-ai-company/README.md) | Human-governed company of agents | 60 min | [PDF](lab06-paperclip-found-ai-company/LAB-06-Instructions.pdf) |
-| 7 | [Hire the Marketing Team Through the Board Approval Gate](lab07-paperclip-hire-marketing-team/README.md) | Multi-agent organisation | 45 min | [PDF](lab07-paperclip-hire-marketing-team/LAB-07-Instructions.pdf) |
-| 8 | [Run the #ShiokColdBrew Launch as a Project — Review, Revise, Release](lab08-paperclip-launch-campaign-project/README.md) | Multi-agent project with Board review | 55 min | [PDF](lab08-paperclip-launch-campaign-project/LAB-08-Instructions.pdf) |
-| 9 | [Automate the Weekly Video Pipeline with a Routine and a Board Gate](lab09-paperclip-weekly-video-routine/README.md) | Scheduled multi-agent workflow | 45 min | [PDF](lab09-paperclip-weekly-video-routine/LAB-09-Instructions.pdf) |
-| 10 | [Govern, Measure & Improve Your Human–AI Workforce](lab10-paperclip-govern-measure-improve/README.md) | Workforce governance | 45 min | [PDF](lab10-paperclip-govern-measure-improve/LAB-10-Instructions.pdf) |
+| 4 | [Multi-Agent Video Studio — Kanban, Production & Human Review](lab04-hermes-multi-agent-video-studio/README.md) | Multi-agent (ordered pipeline) | 50 min | [PDF](lab04-hermes-multi-agent-video-studio/LAB-04-Instructions.pdf) |
+| 5 | [Multi-Agent Campaign Command Centre — Measure, Optimise & Report](lab05-hermes-campaign-command-centre/README.md) | Multi-agent (parallel swarm) | 35 min | [PDF](lab05-hermes-campaign-command-centre/LAB-05-Instructions.pdf) |
+| 6 | [Found Kopi Kaki Growth Studio — an AI Company You Govern](lab06-paperclip-found-ai-company/README.md) | Human-governed company of agents | 45 min | [PDF](lab06-paperclip-found-ai-company/LAB-06-Instructions.pdf) |
+| 7 | [Hire the Marketing Team Through the Board Approval Gate](lab07-paperclip-hire-marketing-team/README.md) | Multi-agent organisation | 35 min | [PDF](lab07-paperclip-hire-marketing-team/LAB-07-Instructions.pdf) |
+| 8 | [Claude Code Agent Team — Produce the Launch Video](lab08-paperclip-launch-campaign-project/README.md) | Claude team + human gate | 50 min | [PDF](lab08-paperclip-launch-campaign-project/LAB-08-Instructions.pdf) |
+| 9 | [Automate the Weekly Video Pipeline with a Routine and a Board Gate](lab09-paperclip-weekly-video-routine/README.md) | Scheduled multi-agent workflow | 30 min | [PDF](lab09-paperclip-weekly-video-routine/LAB-09-Instructions.pdf) |
+| 10 | [Govern, Measure & Improve Your Human–AI Workforce](lab10-paperclip-govern-measure-improve/README.md) | Workforce governance | 35 min | [PDF](lab10-paperclip-govern-measure-improve/LAB-10-Instructions.pdf) |
 
 ## Topic 1 activity
-Human–AI Workforce Canvas (in class, 15 min) — see the slide deck and Learner Guide; then start the Hermes install from Lab 1 step 1.
+Human–AI Workforce Canvas (in class, 20 min) — see the slide deck and Learner Guide; begin Hermes installation in Activity 1 after the lunch demo.
 
 ## Conventions
 - Prompts are plain English; terminal commands are marked `bash`.

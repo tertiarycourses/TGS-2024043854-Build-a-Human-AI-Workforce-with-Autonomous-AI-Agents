@@ -718,3 +718,26 @@ Gentle: slow push-ins, pour shots, 0.3-0.5 s eases. No flashing.
 - No faces of real customers. No text over busy photos without a backing panel.
 - Max 2 emojis. No ALL CAPS sentences.
 """
+
+# v2.1 office-to-team progression; preserve the canonical lab slugs and assessed evidence links.
+from labs_2026 import apply as _apply_2026
+_apply_2026(LABS)
+
+SOULS['producer'] = 'Produce a local 15-second 1080x1920 launch video from the human-approved storyboard. Inspect the reviewed tools/render_launch_video.py and use FFmpeg. Own only the video output folder. Save command, metadata and exact file hash. No paid APIs, unlicensed audio or external posting.'
+SOULS['publisher'] = 'Package locally only after the human accepts the exact audited video version. Write release-package.md with source artifact paths, hash and review record. Never post or send externally.'
+TASKS['t3-produce.md'] = '# Produce the approved local video\nInspect tools/render_launch_video.py, adapt approved scene copy, render 15 seconds at 1080x1920, and save actual MP4, metadata and command log. A storyboard is a partial artifact, not completed video.'
+TASKS['t6-post.md'] = '# Local release gate\nRemain blocked until the human accepts the exact reviewed video hash. Then create release-package.md locally. Never post externally.'
+
+TASKS['t1-research.md'] = '# Research the launch video\nUse the approved Day 1 office pack; extract only verified product facts with source file/review IDs into outputs/lab04/research.md. Propose a hook for a 15-second video. No unsupported claims.'
+TASKS['t2-script.md'] = '# Storyboard\nUse research.md and brand rules to write outputs/lab04/storyboard.md: three five-second scenes, main lines <=7 words, approved price/date, call to action and no unlicensed assets. Pause for human approval. Promo terms are required only if the promo is used.'
+TASKS['t4-audit.md'] = '# Independent audit\nCheck outputs/lab04/video/final.mp4 against the approved storyboard, actual ffprobe dimensions/duration, every scene, copy, rights and video-qa-checklist.md. Save audit-report.md with evidence. Failed checks return to producer. A frame pack alone is not a completed video.'
+TASKS['t5-package.md'] = '# Local release package\nAfter PASS audit, prepare release-package.md with video path and SHA256, source/storyboard paths, caption describing AI assistance, thumbnail/frame paths, audit and exact-version human decision. Never post externally.'
+LABS[7]['data']=['brand','brief','compliance','catalogue','video_qa','sk_voice','sk_audit']
+for step in LABS[4]['steps']:
+ for key,value in list(step.items()):
+  if isinstance(value,str):step[key]=value.replace('status stays "draft" so each post still goes through my Telegram approval','status stays "proposed" so each action still requires my explicit review').replace('an updated calendar','an updated office-action-plan.csv with action, owner, source evidence, due date and approval status')
+
+LABS[2]['prereq']=['Lab 1 private Telegram and local Desktop profile working','Lab 2 morning-brief.md, analysis-notes.md and qa-report.md available','No email sending, calendar changes or external publication is required']
+SOULS['researcher']='Read the approved Day 1 office pack. Extract only verified launch facts with source file/review IDs for a 15-second video. Write outputs/lab04/research.md, propose one hook and identify uncertainty. No invented claims.'
+SOULS['scriptwriter']='Use research.md and brand rules to write outputs/lab04/storyboard.md: three five-second scenes for a 15-second vertical video, main lines <=7 words, approved price/date and call to action. Promo terms are needed only if the promo appears. Pause for human approval before render.'
+SOULS['auditor']='Independently inspect outputs/lab04/video/final.mp4, actual ffprobe metadata and every scene against the approved storyboard and current video QA checklist. Write audit-report.md with evidence. Send failed checks back to producer; a frame pack alone is not a completed video.'

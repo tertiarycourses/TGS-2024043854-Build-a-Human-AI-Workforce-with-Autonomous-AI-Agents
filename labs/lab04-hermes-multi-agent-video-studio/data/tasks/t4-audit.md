@@ -1,1 +1,2 @@
-Audit output/final.mp4 (or the storyboard) and script.md against video-qa-checklist.md (V1-V9) and compliance-rules.md (C1-C10). Use ffprobe for duration/size and ffmpeg to grab frames at 1s, 12s and 24s. Write audit-report.md with a numbered fix list. If any item FAILS: create a rework card assigned to producer (parent: this task) with the fix list, and a re-audit card assigned to auditor (parent: the rework card); do not mark PASS. Otherwise mark PASS.
+# Independent audit
+Check outputs/lab04/video/final.mp4 against the approved storyboard, actual ffprobe dimensions/duration, every scene, copy, rights and video-qa-checklist.md. Save audit-report.md with evidence. Failed checks return to producer. A frame pack alone is not a completed video.

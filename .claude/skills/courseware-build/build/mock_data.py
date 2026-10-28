@@ -265,24 +265,19 @@ def approval_log_template():
     return _csv([], ["timestamp", "item", "channel", "agent", "decision (APPROVE/EDIT/REJECT)", "human_note", "published_ref"])
 
 def video_brief_template():
-    return """# Video Brief — (title)
+    return """# Video Brief — Kopi Kaki launch
 
-| Field | Value |
+| Field | Contract |
 |---|---|
-| Objective | |
-| Audience | |
-| Platform & format | TikTok / Reels · 9:16 · 20–30 s |
-| Hook (first 2 s) | |
-| Key message | |
-| Proof points (from brief only) | |
-| Call to action | Pre-order in the Kopi Kaki app · code SHIOK20 (terms) |
-| Must-avoid | see compliance-rules.md |
-
-## Scene list
-| # | Seconds | Visual | On-screen text | Voice-over |
-|---|---|---|---|---|
-| 1 | 0–2 | | | |
+| Labs 4 / 8 | 15 seconds; three five-second scenes; 9:16, 1080x1920 |
+| Lab 9 weekly variant | 20–30 seconds only when that routine's approved brief requests it |
+| Facts | Approved campaign brief + catalogue; source IDs required |
+| Promo | Optional; exact terms required if used |
+| Assets | Supplied/licensed; AI assistance disclosed in description |
+| Human checkpoints | Storyboard copy approval; full-video review; exact-version decision |
+| Release | Local package only; no external posting |
 """
+
 
 def video_qa_checklist():
     return """# Video QA Checklist (Auditor)
@@ -292,14 +287,14 @@ Score each item PASS / FAIL with a one-line reason. Any FAIL → `request-change
 | # | Check |
 |---|---|
 | V1 | Hook lands in the first 2 seconds |
-| V2 | Length 20–30 s, 9:16, 1080×1920 |
+| V2 | Match approved duration: Labs 4/8 = 15 s; Lab 9 routine = 20–30 s. Always 9:16, 1080×1920 |
 | V3 | Brand colours and logo (cream or brown background) used correctly |
-| V4 | On-screen text readable (≥ 48 px), max 7 words per card |
-| V5 | Price SGD 6.80 and SHIOK20 terms exactly as the brief |
+| V4 | Main on-screen text readable (≥ 48 px), max 7 words per main line; disclosure remains readable |
+| V5 | Approved price/date match the brief. If SHIOK20 is used, include all its exact terms; otherwise promo terms are not required |
 | V6 | No compliance-rules.md violation (C1–C10) |
-| V7 | AI voice or visuals disclosed (C9) |
-| V8 | Clear call to action in the last 3 seconds |
-| V9 | Publish package complete: title, description, 3–5 hashtags, thumbnail, captions file |
+| V7 | AI assistance disclosed in caption/description (C9); identify whether voice-over was actually used |
+| V8 | Approved call to action visible in the final scene |
+| V9 | Local release package includes video path/hash, approved storyboard, description/disclosure, audit evidence and human decision. No external posting |
 """
 
 # ------------------------------------------------------------------ skills (SKILL.md)

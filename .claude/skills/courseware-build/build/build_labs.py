@@ -12,6 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 import mock_data as M
 from data_labs import LABS, SOULS, TASKS, DESIGN_MD
+import pack_2026
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -71,6 +72,7 @@ def brand_images(dst):
 # ------------------------------------------------------------------ data packs
 def write(path, content):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.basename(path) == "AGENTS.md" and os.path.exists(path): return
     with open(path, "w", encoding="utf-8") as f: f.write(content)
 
 def data_pack(L, ddir, assets_src):
@@ -88,6 +90,7 @@ def data_pack(L, ddir, assets_src):
         files.append("tasks/swarm-definition-of-done.md")
     shutil.copytree(assets_src, os.path.join(ddir, "assets"), dirs_exist_ok=True)
     files += [f"assets/{f}" for f in sorted(os.listdir(assets_src))]
+    files += pack_2026.assets(L, ddir)
     return files
 
 DESCR = {
@@ -202,7 +205,7 @@ def to_pdf(html_text, out_pdf):
 def prompts_page():
     nav = "".join(f"<a href='#lab-{L['num']}'>Lab {L['num']}</a>" for L in LABS)
     picks = ""
-    for day, name in ((1, "Day 1 · Hermes Agent — single to multi-agent"), (2, "Day 2 · Paperclip — a governed company of agents")):
+    for day, name in ((1, "Day 1 · Single Hermes agent — office automation"), (2, "Day 2 · Multi-agent video studio — Kanban, Claude and governance")):
         picks += f"<h3>{e(name)}</h3><ul>" + "".join(
             f"<li><a href='#lab-{L['num']}'>Lab {L['num']} · {e(L['title'])}</a> <span class='meta'>· {L['minutes']} min</span></li>"
             for L in LABS if L["day"] == day) + "</ul>"
@@ -211,7 +214,9 @@ def prompts_page():
         rel = f"../labs/{L['slug']}"
         blocks = []
         n = 0
-        for st in L["steps"]:
+        for step_number, st in enumerate(L["steps"], 1):
+            blocks.append(f"<h3>{step_number}. {e(st['title'])}</h3>")
+            if st.get("body"): blocks.append(f"<p class='step-explanation'>{e(st['body'])}</p>")
             for kind in ("cmd", "prompt"):
                 if not st.get(kind): continue
                 n += 1; label = "Terminal" if kind == "cmd" else "Prompt"
@@ -240,20 +245,21 @@ details{{background:var(--panel);border:1px solid var(--rule);border-radius:10px
 #status{{position:fixed;bottom:16px;right:16px;background:#21201C;color:#fff;padding:8px 14px;border-radius:8px;opacity:0;transition:opacity .2s}}#status.on{{opacity:1}}
 @media(max-width:600px){{nav{{flex-wrap:nowrap;overflow:auto}}nav a{{flex:none}}h1{{font-size:26px}}pre{{font-size:12.5px}}}}
 </style></head><body><main class="wrap" id="top">
-<p class="k">{C.COURSE_CODE} · {e(C.SHORT_TITLE)} · {C.VERSION}</p><h1>Lab Prompts</h1>
+<p class="k">{C.COURSE_CODE} · {e(C.SHORT_TITLE)} · {C.VERSION}</p><h1>Lab Steps & Copyable Prompts</h1>
 <p class="meta">{e(C.TITLE)} — two days, ten connected labs for <b>Kopi Kaki Co.</b> (fictional). Pick your lab, click <b>Copy</b>, paste into the named place, and verify every result.
 This page works offline: open <code>prompts/index.html</code> from the downloaded course folder.</p>
+<div class="pick"><b>One connected project: the Kopi Kaki launch</b><p>Day 1: one office agent → Google Workspace → Excel → interactive dashboard → professional PPT.<br>Day 2: Kanban specialists → video production → independent audit → human decision.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
 <nav aria-label="Labs">{nav}</nav>
-<div class="pick"><b>Before Lab 1:</b> create the workspace <code>~/kopi-kaki</code> and copy each lab's <code>data/</code> folder into it as you go. Outputs go to <code>~/kopi-kaki/outputs/labNN/</code>.{picks}</div>
+<div class="pick"><b>Before Lab 1:</b> follow the installation step after the trainer demo, then use the workspace <code>~/kopi-kaki</code> and copy each lab's <code>data/</code> folder into it as you go. Outputs go to <code>~/kopi-kaki/outputs/labNN/</code>.{picks}</div>
 {''.join(secs)}
-<p class="foot">{FOOT}<br>{e(SYNTH)}</p></main><div id="status" role="status" aria-live="polite"></div>
+<p class="foot">{FOOT}<br>{e(SYNTH)}<br>Powered by <a href="https://www.tertiaryinfotech.com/">Tertiary Infotech Academy Pte Ltd</a></p></main><div id="status" role="status" aria-live="polite"></div>
 <script>
 function flash(m){{var s=document.getElementById('status');s.textContent=m;s.classList.add('on');setTimeout(function(){{s.classList.remove('on')}},1400)}}
-function fallback(t){{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{{document.execCommand('copy')}}catch(e){{}}a.remove()}}
+function fallback(t){{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();var ok=false;try{{ok=document.execCommand('copy')}}catch(e){{}}a.remove();return ok}}
 document.querySelectorAll('.copy').forEach(function(b){{b.addEventListener('click',function(){{
   var t=b.closest('.prompt').querySelector('pre').innerText;
   var done=function(){{b.textContent='Copied';b.classList.add('done');flash('Copied to clipboard');setTimeout(function(){{b.textContent='Copy';b.classList.remove('done')}},1500)}};
-  if(navigator.clipboard&&window.isSecureContext){{navigator.clipboard.writeText(t).then(done,function(){{fallback(t);done()}})}}else{{fallback(t);done()}}
+  if(navigator.clipboard&&window.isSecureContext){{navigator.clipboard.writeText(t).then(done,function(){{if(fallback(t)){{done()}}else{{flash('Copy unavailable: select the text and copy manually')}}}})}}else{{if(fallback(t)){{done()}}else{{flash('Copy unavailable: select the text and copy manually')}}}}
 }})}});
 </script></body></html>"""
     return page
@@ -263,13 +269,13 @@ def labs_index():
          f"Ten connected, use-case labs for **{C.SCENARIO}**. Every lab builds on the previous one and saves its work to `~/kopi-kaki/outputs/labNN/`.", "",
          "**Copy-ready prompts:** open [`../prompts/index.html`](../prompts/index.html) in your browser (works offline) — pick a lab, click **Copy**.", "",
          "Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).", ""]
-    for day, name in ((1, "Day 1 — Topic 2: Hermes Agent (single agent → multi-agent → human gates)"), (2, "Day 2 — Topic 3: Paperclip (a governed company of agents)")):
+    for day, name in ((1, "Day 1 — One Hermes office assistant, tools and skills"), (2, "Day 2 — Kanban teams, Claude multi-agent video and governance")):
         o += [f"## {name}", "", "| # | Lab | Paradigm | Time | Instructions |", "|---|---|---|---|---|"]
         for L in LABS:
             if L["day"] == day:
                 o.append(f"| {L['num']} | [{L['title']}]({L['slug']}/README.md) | {L['paradigm']} | {L['minutes']} min | [PDF]({L['slug']}/LAB-{L['num']:02d}-Instructions.pdf) |")
         o.append("")
-    o += ["## Topic 1 activity", "Human–AI Workforce Canvas (in class, 15 min) — see the slide deck and Learner Guide; then start the Hermes install from Lab 1 step 1.", "",
+    o += ["## Topic 1 activity", "Human–AI Workforce Canvas (in class, 20 min) — see the slide deck and Learner Guide; begin Hermes installation in Activity 1 after the lunch demo.", "",
           "## Conventions", "- Prompts are plain English; terminal commands are marked `bash`.",
           "- Hermes: start `hermes` inside `~/kopi-kaki` so `AGENTS.md` is loaded. Paperclip: http://localhost:3100.",
           "- Nothing public is ever published without a human APPROVE / Board approval.",
@@ -284,6 +290,8 @@ def main():
         ld = os.path.join(LABS_DIR, L["slug"])
         os.makedirs(ld, exist_ok=True)
         files = data_pack(L, os.path.join(ld, "data"), tmp_assets)
+        data_links = "".join(f"<li><a href=\"{e(f)}\">{e(f)}</a> — {e(describe(f))}</li>" for f in files)
+        write(os.path.join(ld,"data","index.html"),f"<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Lab {L['num']} data files</title><body style=\"font:18px system-ui;max-width:900px;margin:40px auto;padding:20px\"><h1>Lab {L['num']}: Data and tools</h1><p>Download the course ZIP for the full folder structure. These files contain synthetic training data only.</p><ul>{data_links}</ul><a href=\"../../../prompts/index.html#lab-{L['num']}\">Back to lab steps</a></body></html>")
         write(os.path.join(ld, "README.md"), readme(L, files))
         write(os.path.join(ld, "COPY-PROMPTS.txt"), copy_prompts(L))
         to_pdf(lab_html(L, files), os.path.join(ld, f"LAB-{L['num']:02d}-Instructions.pdf"))

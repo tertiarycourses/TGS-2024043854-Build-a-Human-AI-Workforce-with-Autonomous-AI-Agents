@@ -1,8 +1,0 @@
-#,issue title,assign to,priority,blocked by #,definition of done
-1,Research: refresh the Day 1 research brief with current cold-brew trends & competitor moves,Market Researcher,high,,"research-report.md updating outputs/lab01/research-brief.md with ≥ 5 dated, cited sources and the chosen angle"
-2,Extend the Day 1 two-week calendar into the full 4-week #ShiokColdBrew plan,Content Strategist,high,1,campaign-plan.md + content-calendar.csv reusing the Day 1 posts and adding the launch and sustain phases (≥ 30 posts across 4 platforms)
-3,Write teaser-week captions (7 posts) in brand voice,Copywriter,medium,2,captions-teaser.md with self-check tables
-4,Script & storyboard the 25-second launch video,Video Producer,high,2,video-script.md with scene list
-5,Render the launch video and build the publish package,Video Producer,high,4,launch-video.mp4 (or storyboard frames) + publish-package.md
-6,Compliance audit of captions and video,Compliance Auditor,high,"3,5",audit-report.md — PASS/FAIL per rule
-7,Board review & release pack,CEO,high,6,release-pack.md summarising what is ready for the Board to approve

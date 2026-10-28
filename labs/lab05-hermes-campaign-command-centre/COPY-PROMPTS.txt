@@ -25,7 +25,7 @@ open ~/kopi-kaki/outputs/lab05/dashboard.html
 
 [4] PROMPT — Decide and record  (paste into: Hermes chat in ~/kopi-kaki)
 ------------------------------------------------------------------------
-I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab02/content-calendar-v2.csv for 24-30 Nov to apply the approved changes (status stays "draft" so each post still goes through my Telegram approval).
+I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab05/office-action-plan.csv for 24-30 Nov to apply the approved changes (status stays "proposed" so each action still requires my explicit review).
 
 [5] TERMINAL — Make it weekly
 ------------------------------------------------------------------------

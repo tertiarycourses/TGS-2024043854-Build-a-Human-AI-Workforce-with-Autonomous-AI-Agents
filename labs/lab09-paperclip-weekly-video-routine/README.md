@@ -1,6 +1,6 @@
 # Lab 9 — Automate the Weekly Video Pipeline with a Routine and a Board Gate
 
-**Day 2 · Topic 3 · 45 min · Scheduled multi-agent workflow · LO3**
+**Day 2 · Topic 3 · 30 min · Scheduled multi-agent workflow · LO3**
 
 > Turn research → script → production → audit → publish-ready into a routine that fires every Monday at 10:00 — and still stops for your approval.
 

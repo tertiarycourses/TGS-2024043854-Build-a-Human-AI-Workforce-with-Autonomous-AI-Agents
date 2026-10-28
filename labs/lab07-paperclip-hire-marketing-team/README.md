@@ -1,6 +1,6 @@
 # Lab 7 — Hire the Marketing Team Through the Board Approval Gate
 
-**Day 2 · Topic 3 · 45 min · Multi-agent organisation · LO3**
+**Day 2 · Topic 3 · 35 min · Multi-agent organisation · LO3**
 
 > Let the CEO design the team, then approve, push back on or reshape every hire — with budgets, a Tavily web-search secret, a shared brand skill and an independent auditor.
 

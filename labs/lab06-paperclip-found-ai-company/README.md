@@ -1,6 +1,6 @@
 # Lab 6 — Found Kopi Kaki Growth Studio — an AI Company You Govern
 
-**Day 2 · Topic 3 · 60 min · Human-governed company of agents · LO2**
+**Day 2 · Topic 3 · 45 min · Human-governed company of agents · LO2**
 
 > Self-host Paperclip, become the Board, set the goals and hard budgets, switch on the hiring gate and make your first agent the CEO.
 

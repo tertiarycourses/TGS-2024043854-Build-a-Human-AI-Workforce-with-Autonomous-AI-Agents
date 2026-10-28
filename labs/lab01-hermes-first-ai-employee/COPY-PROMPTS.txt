@@ -1,26 +1,16 @@
-LAB 1 — Hire Your First AI Employee — Customer & Market Research Brief
+LAB 1 — Activity 1 — Install Hermes, Connect Telegram & Build the Launch Brief
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — Install Hermes Agent (skip if your trainer pre-installed it)
+[1] PROMPT — Open the launch workspace in Desktop  (paste into: Hermes Desktop chat)
 ------------------------------------------------------------------------
-curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-# Windows PowerShell:  iex (irm https://hermes-agent.nousresearch.com/install.ps1)
-source ~/.zshrc    # or ~/.bashrc — puts 'hermes' on your PATH
+Work in my kopi-kaki workspace at <replace with its full local path>. List campaign-brief.md, brand-guide.md and customer-reviews.csv. Confirm the workspace path and selected local profile before doing any analysis. Do not open or print credentials.
 
-[2] TERMINAL — Connect a model and check health
+[2] PROMPT — Run the gateway and prove a round trip  (paste into: Your private Telegram bot chat)
 ------------------------------------------------------------------------
-hermes setup
-hermes doctor
+Use my ~/kopi-kaki workspace. Read campaign-brief.md. State the product name, approved price and launch date. Create outputs/lab01/telegram-check.md containing those three facts and the current timestamp. Do not send any email, create events or publish anything. Report the saved file path.
 
-[3] TERMINAL — Create the Kopi Kaki workspace and add the lab data
-------------------------------------------------------------------------
-mkdir -p ~/kopi-kaki/outputs/lab01
-cp -R data/* ~/kopi-kaki/
-cd ~/kopi-kaki
-hermes
-
-[4] PROMPT — Onboard Mia — persona and long-term memory  (paste into: Hermes chat (started inside ~/kopi-kaki))
+[3] PROMPT — Onboard Mia — persona and long-term memory  (paste into: Hermes Desktop chat in the launch workspace)
 ------------------------------------------------------------------------
 You are Mia, Kopi Kaki Co.'s AI marketing analyst. Read AGENTS.md, brand-guide.md and campaign-brief.md in this folder.
 
@@ -32,7 +22,7 @@ Save these facts to your long-term memory:
 
 Then summarise the company in 5 bullets and ask me the 3 questions a new analyst should ask on day one.
 
-[5] PROMPT — Perceive the data — analyse 60 customer reviews  (paste into: Hermes chat)
+[4] PROMPT — Perceive the data — analyse 60 customer reviews  (paste into: Hermes Desktop chat in the launch workspace)
 ------------------------------------------------------------------------
 Analyse customer-reviews.csv.
 1. Rating distribution (count and % for 1-5 stars) and average rating per outlet.
@@ -40,12 +30,12 @@ Analyse customer-reviews.csv.
 3. Anything relevant to a cold-brew launch (mentions of cold brew, sweetness, oat milk, app).
 Show your calculation method. Save the result as outputs/lab01/review-insights.md.
 
-[6] PROMPT — Perceive the world — live web research  (paste into: Hermes chat)
+[5] PROMPT — Perceive the world — live web research  (paste into: Hermes Desktop chat in the launch workspace)
 ------------------------------------------------------------------------
 Use web search to research specialty coffee and cold-brew trends in Singapore in 2026 (consumer preferences, price points, social media formats that work). Combine this with competitors.csv (the competitors are fictional - treat them as our internal notes).
 Rules: cite every web fact with its URL; mark anything you could not verify as UNVERIFIED; do not invent statistics.
 
-[7] PROMPT — Act — write the research brief  (paste into: Hermes chat)
+[6] PROMPT — Act — write the research brief  (paste into: Hermes Desktop chat in the launch workspace)
 ------------------------------------------------------------------------
 Write outputs/lab01/research-brief.md for the Marketing Lead with:
 1. Executive summary (5 lines).
@@ -55,15 +45,10 @@ Write outputs/lab01/research-brief.md for the Marketing Lead with:
 5. A final section "Decision needed" asking me to choose one angle.
 Follow the brand guide and compliance rules.
 
-[8] PROMPT — Human checkpoint — challenge, then decide  (paste into: Hermes chat)
+[7] PROMPT — Human checkpoint — challenge, then decide  (paste into: Hermes Desktop chat in the launch workspace)
 ------------------------------------------------------------------------
 Which review_ids support angle 2? Quote them. Then: I choose angle <1|2|3> because <your reason>. Save my decision and reason to long-term memory, and add a "Decision log" section to research-brief.md.
 
-[9] TERMINAL — Test long-term memory in a brand-new session
-------------------------------------------------------------------------
-cat ~/.hermes/memories/MEMORY.md
-hermes
-
-[10] PROMPT — Test long-term memory in a brand-new session  (paste into: New Hermes chat)
+[8] PROMPT — Test long-term memory in a brand-new session  (paste into: New Hermes Desktop chat, same local profile)
 ------------------------------------------------------------------------
 Which campaign angle did I choose, and why? What is the promo code and its terms? Tell me whether you got this from your memory file or by searching past sessions.

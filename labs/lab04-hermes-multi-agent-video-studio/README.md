@@ -1,35 +1,35 @@
-# Lab 4 — Multi-Agent Video Studio — Research → Script → Production → Audit → Publish
+# Lab 4 — Multi-Agent Video Studio — Kanban, Production & Human Review
 
-**Day 1 · Topic 2 · 60 min · Multi-agent (ordered pipeline) · LO2**
+**Day 2 · Topic 2 · 50 min · Multi-agent (ordered pipeline) · LO2**
 
-> Build a five-agent production team on the Kanban board, render a real 25-second vertical video with HyperFrames, let an auditor agent check it, and approve it yourself before it publishes.
+> Coordinate five distinct Hermes profiles on a Kanban board to create a local 15-second video and a reviewed release package.
 
 ## Goal
 Orchestrate a multi-agent team with role specialisation, dependencies and a human approval gate, and correlate the team design with quality, cost and speed (LO2).
 
 ## The business scenario
-The campaign needs a 25-second TikTok/Reels launch video. One agent doing everything is slow, expensive and hard to review, so you staff a studio: a researcher finds the hook, a scriptwriter writes it, a producer renders it, an auditor checks it against the brand and compliance rules, and a publisher prepares and posts it — but only after you approve the cut.
+Use the verified Day 1 launch-office evidence. The team must turn one approved campaign angle into a short video while making ownership, dependencies, review and the human release gate visible.
 
 ## You will deliver
-- 5 Hermes profiles with routing descriptions (researcher, scriptwriter, producer, auditor, publisher)
-- A Kanban task graph with dependencies and a human gate before publishing
-- video-studio/research.md, script.md (scene list), output/final.mp4 (9:16)
-- video-studio/audit-report.md — PASS/FAIL on V1–V9 and C1–C10
-- video-studio/publish-package.md, reviewed by you, then the video posted once to your Telegram channel
+- outputs/lab04/research.md and storyboard.md
+- outputs/lab04/video/final.mp4 — playable 15-second 1080x1920 local video
+- outputs/lab04/audit-report.md and release-package.md
+- Real Kanban task/profile state with dependency and blocked human-release gate for PP Q2
 
 ## Who does what
-- **Agents:** 5 Hermes profiles coordinated by the Kanban board
-- **You (the human):** Review the cut and the publish package, then release the posting task (or send it back with comments)
+- **Agents:** Five distinct Hermes profiles: researcher, scriptwriter, producer, auditor and publisher; publisher packages locally only
+- **You (the human):** Approve storyboard, watch the actual video, request a correction and decide whether the exact version is accepted
 
 ## Before you start
-- Lab 3 complete: Telegram bot connected, the gateway running (it dispatches Kanban tasks) and your channel ID from `hermes send --list telegram`
-- Node.js 22+ and FFmpeg (installed with Hermes) for video rendering
+- Trainer preflights five distinct Hermes profiles, model access and the gateway before Day 2; learners inspect and run them, rather than spending the 50-minute unit installing everything
+- Day 1 launch office pack; supplied brand assets and local render_launch_video.py
+- Python + Pillow, ffmpeg and ffprobe are installed and tested
 
 ## Concepts in action
-- Agentic AI = several specialised agents + orchestration (vs one AI agent)
-- Profile description = routing contract; SOUL.md = role + rules
-- Dependencies (--parent) make an ordered SOP pipeline
-- Auditor agent = verification; blocked task = human gate
+- Separate profile/context and output ownership for each specialist
+- Kanban task contracts and dependencies
+- Producer result must pass independent audit
+- Human gate is visible; classroom release means a local package, not public posting
 
 ## Lab files (`data/`)
 
@@ -58,6 +58,8 @@ The campaign needs a 25-second TikTok/Reels launch video. One agent doing everyt
 | `assets/brand-palette.png` | Brand image asset |
 | `assets/cold-brew-product-card.png` | Brand image asset |
 | `assets/kopi-kaki-logo.png` | Brand image asset |
+| `skills/launch-video/SKILL.md` | Agent skill (SKILL.md) |
+| `tools/render_launch_video.py` |  |
 
 _All company data in this lab (Kopi Kaki Co., people, reviews, comments, metrics, competitors) is fictional and generated for training._
 
@@ -65,130 +67,92 @@ Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Pr
 
 ## Steps
 
-### 1. Install the HyperFrames video skill
-HyperFrames (open source, no API key) renders MP4 videos from HTML + animation using headless Chrome and FFmpeg. Install the official optional skill and run its setup script once.
+### 1. Inspect the preflighted studio (5 min)
+Copy this lab’s tools and skills into the same workspace without overwriting AGENTS.md. The trainer has prepared the distinct profiles and provider access. If that preflight is missing, record setup time and complete the core run under trainer guidance; do not claim a role-play is a real team.
 
 ```bash
-hermes skills install official/creative/hyperframes --yes
-bash "$(dirname "$(find ~/.hermes/skills -path '*/hyperframes/SKILL.md' | head -1)")/scripts/setup.sh"
-npx hyperframes doctor
+hermes --version
+hermes profile --help
+hermes kanban --help
+hermes gateway status
+ffmpeg -version
+ffprobe -version
 ```
 
-✅ **Expected:** `npx hyperframes doctor` reports Node ≥ 22, FFmpeg and Chrome OK.
+✅ **Expected:** The learner can inspect actual profile/task state; gateway and renderer are available.
 
-### 2. Create the shared studio workspace
-All five agents share one folder so each stage can read the previous stage's output. Copy this lab's data — it includes DESIGN.md (the visual identity HyperFrames asks for), a SOUL.md per role and the auditor's skill. Install the skill BEFORE creating the profiles, because `--clone` copies your skills into each new profile.
-
-```bash
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/.hermes/skills/marketing && cp -R ~/kopi-kaki/skills/brand-compliance-audit ~/.hermes/skills/marketing/
-mkdir -p ~/kopi-kaki/video-studio/output
-# put YOUR channel id (from Lab 3: hermes send --list telegram) into the posting brief
-CH="telegram:-100XXXXXXXXXX"
-perl -pi -e "s/telegram:<channel_id>/$CH/" ~/kopi-kaki/tasks/t6-post.md
-cp ~/kopi-kaki/DESIGN.md ~/kopi-kaki/brand-guide.md ~/kopi-kaki/campaign-brief.md ~/kopi-kaki/compliance-rules.md ~/kopi-kaki/video-qa-checklist.md ~/kopi-kaki/video-studio/
-```
-
-### 3. Staff the studio — five profiles with routing descriptions
-Each profile is an isolated agent with its own memory and SOUL.md. The `--description` is the routing contract the Kanban orchestrator reads, so say exactly what the role takes in and hands off. `--clone` copies your model and keys.
-
-```bash
-hermes profile create researcher --clone --description "Finds hooks, trends and proof points for a short video; writes research.md with cited sources"
-hermes profile create scriptwriter --clone --description "Turns research.md into a 25-second script and 6-scene list in script.md"
-hermes profile create producer --clone --description "Renders script.md into a 9:16 MP4 with HyperFrames; writes output/final.mp4"
-hermes profile create auditor --clone --description "Audits a video and its copy against video-qa-checklist.md and compliance-rules.md; PASS or FAIL with fixes"
-hermes profile create publisher --clone --description "Builds the publish package and posts an approved video to the Telegram channel"
-for p in researcher scriptwriter producer auditor publisher; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-hermes profile list
-```
-
-✅ **Expected:** Five profiles listed (also visible on the dashboard's Profiles page).
-
-### 4. Build the task graph with a human gate
-Create the six tasks in order. Each `--parent` makes a task wait for the previous one. The publisher first only BUILDS the publish package (T5); the task that actually POSTS (T6) starts BLOCKED — only you can release it, after you have reviewed both the cut and the package. Copy each printed task ID into the next command (shown as <T1>, <T2> …).
-
-```bash
-S=dir:$HOME/kopi-kaki/video-studio
-hermes kanban create "Research hooks for the Gula Melaka Cold Brew launch short" --assignee researcher --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t1-research.md
-hermes kanban create "Write the 25-second script and scene list" --assignee scriptwriter --parent <T1> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t2-script.md
-hermes kanban create "Render the 9:16 launch video with HyperFrames" --assignee producer --parent <T2> --workspace $S --tenant kopi-video --skill hyperframes --max-runtime 45m --body-file ~/kopi-kaki/tasks/t3-produce.md
-hermes kanban create "Audit the video and copy (V1-V9, C1-C10)" --assignee auditor --parent <T3> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
-hermes kanban create "Build the publish package (do not post)" --assignee publisher --parent <T4> --workspace $S --tenant kopi-video --body-file ~/kopi-kaki/tasks/t5-package.md
-hermes kanban create "Post the approved video to the channel" --assignee publisher --parent <T5> --workspace $S --tenant kopi-video --initial-status blocked --body-file ~/kopi-kaki/tasks/t6-post.md
-```
-
-✅ **Expected:** `hermes kanban list --tenant kopi-video` shows 6 tasks; T6 is blocked.
-
-### 5. Watch the studio work
-The gateway from Lab 3 dispatches ready tasks to the right profile. Watch the lanes move (todo → ready → running → done) in the terminal or on the dashboard Kanban page. Open each task to read its comments and outputs.
-
-```bash
-hermes kanban watch --tenant kopi-video
-# or open the web dashboard:
-hermes dashboard
-```
-
-✅ **Expected:** research.md → script.md → output/final.mp4 → audit-report.md → publish-package.md appear in ~/kopi-kaki/video-studio.
-
-### 6. If the auditor says FAIL — rework, don't restart
-A FAIL is the system working. The auditor's brief tells it to create a rework card for the producer and a re-audit card for itself. If it did not, add them yourself — the fix list comes from audit-report.md. The package and posting tasks wait until a PASS.
-
-```bash
-hermes kanban create "Rework the video: apply the audit-report.md fixes" --assignee producer --parent <T4> --workspace $S --tenant kopi-video --skill hyperframes --body "Fix V5: show SHIOK20 terms on the end card. Fix C9: AI voice-over disclosure. Re-render output/final.mp4."
-hermes kanban create "Re-audit the reworked video" --assignee auditor --parent <rework_id> --workspace $S --tenant kopi-video --skill brand-compliance-audit --body-file ~/kopi-kaki/tasks/t4-audit.md
-```
-
-### 7. Human gate — review the cut AND the package, then release
-Open output/final.mp4 and publish-package.md. Check them against the brief yourself: does the hook land in 2 seconds, are the price and SHIOK20 terms right, is the AI disclosure in the description, are the hashtags on-brand? If yes, unblock T6. If not, comment on T5 (or create a rework card) and keep T6 blocked.
-
-```bash
-open ~/kopi-kaki/video-studio/output/final.mp4     # Windows/WSL: explorer.exe, Linux: xdg-open
-cat ~/kopi-kaki/video-studio/publish-package.md
-hermes kanban unblock <T6>
-```
-
-✅ **Expected:** T6 moves to ready and the publisher posts once.
-
-### 8. Confirm the post and close the loop
-The publisher posts the video with its caption to your channel exactly once and records the result in publish-package.md. Do not post it again yourself — check the channel and the board instead.
-
-```bash
-hermes kanban list --tenant kopi-video
-hermes kanban show <T6>
-```
-
-✅ **Expected:** The video is in your Telegram channel; all tasks are done.
-
-### 9. Reflect — why a team beats one big agent
-**Prompt** — paste into *Hermes chat*:
+### 2. Create or inspect the actual Kanban contracts (10 min)
+**Prompt** — paste into *Hermes lead chat in ~/kopi-kaki*:
 
 ```text
-Read the Kanban history for tenant kopi-video (hermes kanban show for each task). Report per stage: which profile ran it, how long it took, how many retries or change requests it needed, and what was handed to the next stage. Then compare this five-agent design with a single agent doing everything: quality, cost, speed, reviewability.
+Inspect current Hermes profile and Kanban help. Use distinct profiles researcher, scriptwriter, producer, auditor and publisher. Create or inspect a real launch-video board: research -> storyboard -> human storyboard review -> render -> independent audit -> human release gate -> local package. Each task needs one owner, source input, unique output path and done criteria. Do not revert another worker’s files. Keep the release/package task blocked until my decision. Publisher may only prepare a local package; never post to Telegram channels, social media, email or the web. Show the real task/profile state and dependency links.
 ```
 
-✅ **Expected:** A stage-by-stage table you can use in the assessment.
+✅ **Expected:** A real Kanban board shows owners, dependencies and the human gate.
+
+### 3. Research, write and approve the scenes (10 min)
+**Prompt** — paste into *Hermes lead chat*:
+
+```text
+Dispatch the researcher to extract approved launch facts and source IDs from the Day 1 office pack into outputs/lab04/research.md. Scriptwriter writes three five-second scenes into storyboard.md. Pause for my exact-copy approval. No health, halal or unsupported market claims. Use only approved product facts and supplied/licensed assets.
+```
+
+✅ **Expected:** Research and storyboard files exist. Human checks the scene copy before production.
+
+### 4. Render a real video (10 min)
+The producer inspects and adapts the supplied local renderer to the approved copy, then runs it. No paid video API is required. The real output is the MP4, not a tool-success message.
+
+```bash
+python3 tools/render_launch_video.py --out outputs/lab04/video
+ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json outputs/lab04/video/final.mp4
+```
+
+**Prompt** — paste into *Hermes lead chat*:
+
+```text
+My reviewed storyboard is approved for local production. Dispatch the producer to adapt the reviewed render_launch_video.py scene copy and create outputs/lab04/video/final.mp4. Preserve the verified facts. Save the render command and metadata; do not advance to release before audit and my decision.
+```
+
+✅ **Expected:** A playable MP4 exists, 1080x1920, approximately 15 seconds, with saved metadata.
+
+### 5. Audit, revise and keep the release gate visible (10 min)
+**Prompt** — paste into *Hermes lead chat*:
+
+```text
+Dispatch the independent auditor to inspect every scene and the real ffprobe output. Check facts, brand, readability, duration, dimensions and rights. Save audit-report.md with evidence. I will watch the whole cut and request one correction. Re-render and re-audit it. Keep release blocked until my exact-version ACCEPT. Publisher then creates only release-package.md with file hash and audit reference; no external posting.
+```
+
+✅ **Expected:** Independent evidence, one corrected defect or human-directed revision, and a human-reviewed local release pack.
+
+### 6. Capture evidence and reflect (5 min)
+Take one screenshot of the actual Kanban board showing multiple assigned profiles, a dependency and the human release gate. This supports PP Task 2; read the actual candidate paper for the written analysis requirements. Save source artifacts as supporting working files.
+
+**Prompt** — paste into *Hermes lead chat*:
+
+```text
+Summarise the real profile/task state, artifact paths, human decision and what failed or needed correction. Compare team coordination effort with Day 1’s single agent. Do not mark blocked or unfinished tasks as completed.
+```
+
+✅ **Expected:** PP evidence is from a real board; limitations are accurately stated.
 
 ## Verification / checkpoint
-- [ ] `hermes profile list` shows the five roles
-- [ ] final.mp4 is 1080×1920, 20–30 s (`ffprobe` or the auditor's report)
-- [ ] audit-report.md is PASS (or shows a FAIL that was fixed via request-changes)
-- [ ] The posting task (T6) completed only after your `unblock`, and the video was posted once
-- [ ] PP evidence: take ONE screenshot now of the Kanban board showing the tasks, dependencies and the posting gate — Task 2 of the Practical Performance uses it
+- [ ] Actual profiles and assigned Kanban tasks are visible
+- [ ] Dependencies block downstream work and the human gate controls local release
+- [ ] A playable 15-second 1080x1920 video has independent audit evidence
+- [ ] One screenshot shows the real team, dependency and human gate for PP Q2
 
-**Checkpoint:** final.mp4 is 9:16 and 20–30 s, the audit is PASS, and the posting task only ran after you reviewed the package and unblocked it.
+**Checkpoint:** Real distinct profiles + real Kanban dependencies + playable reviewed video + visible human release gate. No external publishing.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| Tasks never start | The dispatcher runs inside the gateway — `hermes gateway status`; restart with `hermes gateway restart`. |
-| Render fails | Run `npx hyperframes doctor`; the producer needs Node ≥ 22 and FFmpeg. Allow `--max-runtime 45m`. |
-| Stages can't see each other's files | Every task must use the same `--workspace dir:` path (not scratch/worktree). |
-| Publisher doesn't know where to post | Check t6-post.md contains your real channel id (step 2), not <channel_id>. |
-| Wrong profile picked a task | Sharpen the profile description: `hermes profile describe <name> "…"`. |
-| Rendering too slow on your laptop | Ask the producer for `--quality draft`, or accept a 6-frame storyboard (PNG) for the audit. |
+| Only one agent acts all roles | Inspect profile/task runtime; a role-play response is not a team. Use the trainer-preflighted real profiles. |
+| Tasks do not dispatch | Check gateway status, assigned profile, dependency state and provider access. |
+| Video renderer fails | Inspect ffmpeg error and dependencies; a storyboard is partial work and cannot be called completed video. |
+| Gate is bypassed | Stop dispatch, restore blocked release state and inspect whether any external action occurred. |
 
 ## Stretch challenge
-Shortcut: install `official/creative/kanban-video-orchestrator`, give it the brief, and compare the team it designs with yours. Which roles did it add or merge?
+Re-run one stage after changing the approved angle. Show which downstream artifacts become stale and require re-review.
 
 <sub>Part of the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · © 2026 Tertiary Infotech Academy Pte Ltd · www.tertiarycourses.com.sg</sub>

@@ -1,6 +1,6 @@
 # Lab 10 — Govern, Measure & Improve Your Human–AI Workforce
 
-**Day 2 · Topic 3 · 45 min · Workforce governance · LO3**
+**Day 2 · Topic 3 · 35 min · Workforce governance · LO3**
 
 > Read the costs and the audit trail, score every agent, pause or re-budget one, fix the instructions that caused rework, and present a Board report on what the AI workforce delivered.
 

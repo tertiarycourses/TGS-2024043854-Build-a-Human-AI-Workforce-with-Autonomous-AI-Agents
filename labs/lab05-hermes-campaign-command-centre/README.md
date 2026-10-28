@@ -1,6 +1,6 @@
 # Lab 5 — Multi-Agent Campaign Command Centre — Measure, Optimise & Report
 
-**Day 1 · Topic 2 · 45 min · Multi-agent (parallel swarm) · LO2**
+**Day 2 · Topic 2 · 35 min · Multi-agent (parallel swarm) · LO2**
 
 > Run three analysts in parallel, have a verifier check their numbers, and get a dashboard plus an optimisation plan you approve — then schedule it every Monday.
 
@@ -98,10 +98,10 @@ Open campaign-week1-metrics.csv in a spreadsheet. Sum app_preorders and paid_spe
 **Prompt** — paste into *Hermes chat in ~/kopi-kaki*:
 
 ```text
-I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab02/content-calendar-v2.csv for 24-30 Nov to apply the approved changes (status stays "draft" so each post still goes through my Telegram approval).
+I approve proposals <1 and 3> from outputs/lab05/optimisation-plan.md and reject proposal <2> because <reason>. Comment this decision on the swarm root card <swarm_root_id>, then update outputs/lab05/office-action-plan.csv for 24-30 Nov to apply the approved changes (status stays "proposed" so each action still requires my explicit review).
 ```
 
-✅ **Expected:** Decision comment on the board and an updated calendar.
+✅ **Expected:** Decision comment on the board and an updated office-action-plan.csv with action, owner, source evidence, due date and approval status.
 
 ### 6. Make it weekly
 ```bash
