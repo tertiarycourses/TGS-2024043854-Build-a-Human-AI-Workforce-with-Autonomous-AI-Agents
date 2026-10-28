@@ -741,3 +741,11 @@ LABS[2]['prereq']=['Lab 1 private Telegram and local Desktop profile working','L
 SOULS['researcher']='Read the approved Day 1 office pack. Extract only verified launch facts with source file/review IDs for a 15-second video. Write outputs/lab04/research.md, propose one hook and identify uncertainty. No invented claims.'
 SOULS['scriptwriter']='Use research.md and brand rules to write outputs/lab04/storyboard.md: three five-second scenes for a 15-second vertical video, main lines <=7 words, approved price/date and call to action. Promo terms are needed only if the promo appears. Pause for human approval before render.'
 SOULS['auditor']='Independently inspect outputs/lab04/video/final.mp4, actual ffprobe metadata and every scene against the approved storyboard and current video QA checklist. Write audit-report.md with evidence. Send failed checks back to producer; a frame pack alone is not a completed video.'
+
+# Current v2.2 delivery: exactly eight activities, four per day.
+from labs_v22 import apply as _apply_v22
+_apply_v22(LABS)
+for _key in ('researcher','scriptwriter','producer','auditor','publisher'):
+ SOULS[_key]=SOULS[_key].replace('outputs/lab04/','outputs/team/')
+for _key in list(TASKS):
+ TASKS[_key]=TASKS[_key].replace('outputs/lab04/','outputs/team/')

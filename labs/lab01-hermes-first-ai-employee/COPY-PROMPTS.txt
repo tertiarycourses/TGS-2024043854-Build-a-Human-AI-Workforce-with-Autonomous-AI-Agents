@@ -1,4 +1,4 @@
-LAB 1 — Activity 1 — Install Hermes, Connect Telegram & Build the Launch Brief
+LAB 1 — Activity 1 — Hermes Desktop, Telegram & the Launch Brief
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 

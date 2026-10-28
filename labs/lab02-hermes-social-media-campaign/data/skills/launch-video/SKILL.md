@@ -5,7 +5,7 @@ description: Produce a reviewed local launch video from the human-approved story
 # launch-video
 
 1. Read the approved scene text, brand rules and verified product facts.
-2. Use tools/render_launch_video.py as a deterministic FFmpeg baseline; inspect and adapt before rendering.
+2. Inspect tools/render_launch_video.py as a deterministic FFmpeg baseline. Copy it into the producer-owned output folder before adapting scene copy/layout; do not edit the shared tool while another worker runs.
 3. Produce three five-second scenes, 1080x1920, H.264 MP4. Use no unlicensed music, likeness or unsupported claim.
 4. Inspect every frame and ffprobe metadata; watch the full playable video.
 5. Reviewer records evidence and the human requests one revision. Re-render and re-audit.

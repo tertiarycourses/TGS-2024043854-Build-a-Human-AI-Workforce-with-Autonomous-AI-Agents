@@ -61,3 +61,11 @@ courseware/Assessment_Plan_*
 **/FG-*
 **/Assessment_Plan_*
 **/AP-*
+
+# Current private assessment builders
+.claude/skills/courseware-build/build/build_assessment_v6.py
+
+# Service keys and transient Office render files
+**/lms_tms_api_key
+courseware/.~lock.*
+courseware/lu*.tmp

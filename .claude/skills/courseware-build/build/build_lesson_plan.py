@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20, V21
+from version_history import PRIOR, V20, V21, V22
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -38,13 +38,13 @@ def slides_for(day, text):
     if t.startswith("Welcome"): return rng("admin", "t1a")
     if t.startswith("Topic 1 (Part A)"): return rng("t1a", "t1b")
     if t.startswith("Topic 1 (Part B)"): return rng("t1b", "activity")
-    if t.startswith("Activity") or t.startswith("Office workflow"): return rng("activity", "demo")
+    if t.startswith("Design discussion") or t.startswith("Office workflow"): return rng("activity", "demo")
     if t.startswith("Trainer demo"): return rng("demo", "t2")
     if t.startswith("Topic 2 — Lab 1"): return f"{MAP['t2']}–{MAP['lab2'] - 1}"
-    if t.startswith("Topic 3"): return rng("t3", "lab6")
+    if t.startswith("Topic 3"): return rng("t3", "lab5")
     for L in LABS:
         if t.startswith(f"Lab {L['num']}:"):
-            nxt = {5: "t2sum", 10: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+            nxt = {4: "t2sum", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
             return rng(f"lab{L['num']}", nxt)
     if t.startswith("Day 1 recap, Q&A"): return str(MAP["t2sum"])
     if t.startswith("Day 1 recap and AM"): return str(MAP["t2sum"])
@@ -58,7 +58,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 
@@ -73,7 +73,7 @@ info = [("Course Title", C.TITLE), ("WSQ Course Reference", C.COURSE_CODE),
         ("Training Provider", f"{C.ORG}  ({C.UEN.replace('UEN: ', 'UEN ')})"),
         ("Duration", C.CONTACT_TIME_NOTE),
         ("Daily Timing", "9:30 am – 6:30 pm (1-hour lunch; tea breaks within training time)"),
-        ("Mode", "Instructor-led; hands-on use-case labs on Hermes Agent and Paperclip (learner laptop)"),
+        ("Mode", "Instructor-led; hands-on use-case labs on Hermes Agent and OpenAI Dots (learner laptop)"),
         ("Course scenario", C.SCENARIO + " — all company data is fictional"),
         ("Slide deck", f"{C.SHORT_TITLE}-{C.VERSION}.pptx ({MAP['end'] - 1} slides)"),
         ("Trainer", C.TRAINER)]
@@ -155,7 +155,7 @@ for i, h in enumerate(["Lab", "Title", "Paradigm", "LO", "Slides"]):
     set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
 for L in LABS:
     c = lt.add_row().cells
-    nxt = {5: "t2sum", 10: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+    nxt = {4: "t2sum", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
     set_cell(c[0], f"Lab {L['num']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
     set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}", nxt))
 prodoc.set_widths(lt, [0.9, 3.4, 1.5, 0.5, 0.7])

@@ -31,3 +31,5 @@ V20 = ("2.0", "18 October 2026",
        TRAINER)
 
 V21 = ("2.1", "29 October 2026", "Human–AI landscape rebuilt with practical workflows, research evidence, collaboration modes and humanoid futures; Day 1 single Hermes office automation with gog, Excel, interactive dashboard and professional PPT; Day 2 Kanban and Claude Code video team; SWDA subscription steps and connected GitHub Pages prompts.", TRAINER)
+
+V22 = ("2.2", "29 October 2026", "Streamlined to eight connected activities, four per day, using Hermes Desktop and OpenAI Dots. Removed Paperclip and Claude-specific training. PP v6 evidence: Telegram, single-agent professional PPT with skills/tools, and multi-agent Kanban video creation with Hermes bots. FG/AP v5 aligned. Corrected shared use-case slide spacing.", TRAINER)

@@ -1,0 +1,4 @@
+test_id,question,expected_evidence
+S1,What is the launch price?,approved catalogue price passage
+S2,What are the complete promotion terms?,approved brief full terms
+S3,Is a health certification established?,INSUFFICIENT EVIDENCE

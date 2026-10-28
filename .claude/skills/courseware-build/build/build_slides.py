@@ -54,7 +54,7 @@ trainer(D, "Introduction", "[ Trainer Name ]", "[ Title / Role ]",
         [("grad", "Qualifications", ""), ("star", "Expertise", ""), ("briefcase", "Experience", ""), ("mail", "Contact / Profile", "")], template=True)
 trainer(D, "Introduction", "Dr. Alfred Ang", "AI Trainer & Engineer\nTertiary Infotech Academy",
         [("grad", "Qualifications", "PhD-qualified trainer specialising in AI, automation and software engineering."),
-         ("robot", "Expertise", "Builds autonomous AI agents and multi-agent workflows with Hermes Agent, Paperclip and Claude Code."),
+         ("robot", "Expertise", "Builds autonomous AI agents and multi-agent workflows with Hermes Agent and OpenAI Dots."),
          ("users", "Experience", "Trains professionals across Singapore on practical, project-based AI skills."),
          ("medal", "Certifications", "PMP, AWS, Microsoft, CompTIA, CKA, CKAD."),
          ("linkedin", "Profile", "linkedin.com/in/angchewhoe   ·   github.com/alfredang")])
@@ -73,7 +73,7 @@ cards(D, "Housekeeping", "Ground Rules", [
     ("75% attendance", "Required for funding eligibility.", "check"),
     ("Stay hands-on", "Follow along with every lab.", "tool")], cols=3, bottom=5.9)
 
-s = D.new(); header(D, s, "Roadmap", "Course Outline", "Three topics, ten connected use-case labs, one company: " + C.SCENARIO.split(" — ")[0] + ".")
+s = D.new(); header(D, s, "Roadmap", "Course Outline", "Three topics, eight connected activities, one company: " + C.SCENARIO.split(" — ")[0] + ".")
 for i, tp in enumerate(C.TOPICS):
     x = 0.6 + i * 4.1; card(s, x, 2.45, 3.9, 4.35)
     circle(s, x + 0.3, 2.7, 0.62, ACC); text(s, x + 0.3, 2.7, 0.62, 0.62, str(tp["num"]), 20, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
@@ -95,7 +95,7 @@ for day in (1, 2):
     table(D, "Roadmap", f"Lesson Plan — Day {day} (9:30 AM – 6:30 PM)", ["Time", "Session", "LU"], rows_,
           colw=[1.5, 9.7, 0.9], size=10.5 if day == 1 else 11)
 
-s = D.new(); header(D, s, "Roadmap · Hands-on", "Ten Labs, One Company",
+s = D.new(); header(D, s, "Roadmap · Hands-on", "Eight Activities, One Launch",
                     "Every lab builds on the last — the same Kopi Kaki campaign grows from one agent to a governed AI company.")
 for i, L in enumerate(LABS):
     r, c = divmod(i, 5); x = 0.6 + c * 2.46; y = 2.4 + r * 2.02
@@ -114,7 +114,7 @@ if os.path.exists(shot):
     picture(s, shot, 0.7, 2.5, maxw=6.6, maxh=4.25)
 for i, (ic, t, d) in enumerate([
         ("download", "Get the labs", "github.com/tertiarycourses/TGS-2024043854-… → Code → Download ZIP. Unzip anywhere."),
-        ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into Hermes, Telegram or Paperclip."),
+        ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into Hermes Desktop, Telegram or OpenAI Dots."),
         ("folder", "Use the lab folder", "labs/labNN-…/ holds README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt and data/."),
         ("check", "Verify every result", "Each lab ends with a checkpoint — evidence, not vibes.")]):
     y = 2.5 + i * 1.08; icon(s, ic, 7.7, y, 0.52)
@@ -179,7 +179,7 @@ U.demo(D, mark)
 # ====================================================================== TOPIC 2 · HERMES
 mark("t2")
 T2 = C.TOPICS[1]
-section(D, "Topic 2", T2["title"], T2["items"], sub="Day 1 — one Hermes agent for the launch office. Day 2 — Kanban team extension.")
+section(D, "Topic 2", T2["title"], T2["items"], sub="Day 1 — four activities using one Hermes Desktop agent for the launch office.")
 cards(D, "Topic 2 · Hermes Agent", "What Is Hermes Agent?", [
     ("Open source, self-hosted", "MIT licence by Nous Research. Runs on your laptop, a VPS, Docker or the desktop app.", "server"),
     ("Grows with you", "Persistent memory and session search; writes and improves its own skills after hard tasks.", "sparkles"),
@@ -197,22 +197,21 @@ hub(D, "Topic 2 · Hermes Agent", "Hermes Architecture — the Harness Around th
     ("kanban", "Cron · Profiles · Kanban", "schedule & orchestrate")])
 image(D, "Topic 2 · Hermes Agent", "The Hermes Dashboard", asset("screenshots", "hermes-dashboard.png"),
       caption="`hermes dashboard` opens http://127.0.0.1:9119 — sessions, skills, profiles, Kanban, cron, channels and keys in one place.")
-flow(D, "Topic 2 · Day 1 journey", "Two Days: Office Agent → Kanban Team → Human Gates", [
-    ("user", "Lab 1", "First AI employee — research brief, memory."),
-    ("megaphone", "Lab 2", "Google, Excel, interactive HTML and professional PPT."),
-    ("handshake", "Lab 3", "Office exceptions, source boundaries and exact-version review."),
-    ("video", "Lab 4", "5-agent video studio with a human gate."),
-    ("chart", "Lab 5", "Swarm analysis, dashboard, decisions.")],
+flow(D, "Topic 2 · Day 1 journey", "Four Office Activities: Connect → Read → Create → Approve", [
+    ("user", "Activity 1", "Hermes Desktop, Telegram and research brief."),
+    ("chart", "Activity 2", "Google sources and verified Excel analysis."),
+    ("file", "Activity 3", "Interactive dashboard and professional PPT."),
+    ("handshake", "Activity 4", "Office exceptions and exact-version approval.")],
     tipt="Each lab saves to ~/kopi-kaki/outputs/labNN — the next lab builds on it.")
 table(D, "Topic 2 · Day 1 journey", "The Kopi Kaki Company Pack (data/ in every lab)",
       ["File", "What it is", "Used in"],
       [("AGENTS.md", "Company context Hermes loads automatically from the folder", "All labs"),
        ("brand-guide.md · campaign-brief.md", "Voice, colours, formats · product, offer, KPIs, timeline", "All labs"),
-       ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Labs 2–5, 8–9"),
-       ("customer-reviews.csv · competitors.csv", "60 synthetic reviews · 6 fictional competitors", "Labs 1, 5"),
-       ("social-comments.csv", "20 comments incl. complaints, legal, PII, spam", "Labs 3, 5"),
-       ("campaign-week1-metrics.csv · sales-by-outlet.csv", "Post metrics and outlet sales for week 1", "Lab 5"),
-       ("skills/ · souls/ · tasks/ · DESIGN.md", "Ready-made skills, agent roles, task briefs, visual identity", "Labs 2, 4, 5")],
+       ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Activities 2–6, 8"),
+       ("customer-reviews.csv · competitors.csv", "60 synthetic reviews · 6 fictional competitors", "Activities 1, 5"),
+       ("social-comments.csv", "20 comments incl. complaints, legal, PII, spam", "Activities 4, 5"),
+       ("campaign-week1-metrics.csv · sales-by-outlet.csv", "Post metrics and outlet sales for week 1", "Activities 2, 5, 8"),
+       ("skills/ · souls/ · tasks/ · DESIGN.md", "Ready-made skills, agent roles, task briefs, visual identity", "Activities 2, 3, 5, 8")],
       colw=[4.0, 5.6, 2.5], size=11.5)
 
 LAB_EXTRAS = {}
@@ -238,179 +237,35 @@ def _cmd(L, kick, title, idx, side):
     prompt(D, kick, title, st["cmd"], side=side, label="TERMINAL  ·  copy from the Lab Prompts page")
 
 # --- Lab-specific concept / screenshot slides
-LAB_EXTRAS[1] = [
-    lambda L, k: table(D, k, "Context & Memory Files in Hermes", ["File", "Scope", "What goes in it", "Loaded"],
-        [("AGENTS.md (project)", "This folder", "Company facts, rules, current priority", "Every session started in the folder"),
-         ("SOUL.md", "~/.hermes/ (per profile)", "The agent's role, personality and standing rules", "Every session"),
-         ("MEMORY.md", "~/.hermes/memories/", "Facts the agent decides to remember (~2,200 chars)", "Session start"),
-         ("USER.md", "~/.hermes/memories/", "What it knows about you and your preferences", "Session start"),
-         ("Session history", "state database", "Every past conversation — searchable", "On demand (session search)")],
-        colw=[2.3, 2.4, 4.6, 2.8], size=12, tipt="Short-term = this session's context window. Long-term = the files and history above."),
-]
-LAB_EXTRAS[2] = [
-    lambda L,k: U.proof(D,k,"The Office Skill Contract",[
-        ("login","gog-office","Assigned identity, bounded reads, source IDs and separate service failures."),
-        ("chart","office-analytics","Actual workbook schema, reproducible calculations and reconciled totals."),
-        ("code","interactive-dashboard","Outlet filter, sorting, reset and CSV export; works offline."),
-        ("file","professional-ppt","Six editable slides, source notes, rendered checks and a real revision.")])
-]
-LAB_EXTRAS[3] = [
-    lambda L,k: U.trace(D,k,"The Office Review Gate",[
-        ("file","Draft","Name exact artifact and source IDs."),("alert","Challenge","Resolve conflict and reject untrusted instructions."),
-        ("user","Human decision","ACCEPT or REVISE for the exact file hash."),("check","Recheck","Verify changed output and record decision.")],
-        "An approval is specific to an artifact version; it does not grant future sending or publishing permission.")
-]
-LAB_EXTRAS[4] = [
-    lambda L,k: hub(D,k,"Five Profiles, One Observable Video Workflow","Kanban dependencies\n+ human gates",[
-        ("search","researcher","verified sources -> research.md"),("pen","scriptwriter","three scenes -> storyboard.md"),
-        ("film","producer","local renderer -> final.mp4"),("eyecheck","auditor","independent checks -> audit-report.md"),
-        ("file","publisher","local release-package.md only"),("user","Human owner","approve storyboard and exact final cut")]),
-    lambda L,k: image(D,k,"Inspect the Real Kanban Board",asset("screenshots","hermes-kanban.png"),
-        caption="Reference interface: inspect your own live owners, dependencies and blocked human gate. Capture your own PP evidence.")
-]
-LAB_EXTRAS[5] = [
-    lambda L, k: hub(D, k, "Parallel Swarm with a Verifier", "Swarm root:\nweek-1 review", [
-        ("chart", "analyst", "KPIs vs targets (CSV)"),
-        ("chat", "listener", "sentiment & risks"),
-        ("search", "researcher", "competitor & trend watch"),
-        ("check", "auditor = verifier", "re-computes the numbers"),
-        ("layers", "strategist = synthesiser", "dashboard + plan"),
-        ("user", "You", "spot-check, approve 1–2 changes")]),
-    lambda L, k: table(D, k, "The KPIs You Will Check", ["KPI", "Formula", "Target"],
-        [("App pre-orders", "Σ app_preorders", "2,500 by 30 Nov"),
-         ("Engagement rate", "(likes + comments + shares) ÷ reach", "≥ 8% (IG + TikTok)"),
-         ("Click-through rate", "link_clicks ÷ reach", "Trend up week on week"),
-         ("Cost per pre-order", "paid_spend_sgd ÷ app_preorders", "Lower is better"),
-         ("Video views", "Σ video_views (TikTok + Reels)", "40,000")],
-        colw=[3.0, 5.6, 3.5], size=13, tipt="Never forward a number you have not checked: verify at least one by hand."),
-    lambda L, k: _cmd(L, k, "Launch the Swarm", 1,
-                      [("users", "--worker", "Parallel cards: profile:title."),
-                       ("check", "--verifier", "Waits for all workers, re-checks."),
-                       ("layers", "--synthesizer", "Builds the dashboard and plan.")]),
-]
-
+LAB_EXTRAS[1] = [lambda L,k: U.trace(D,k,"Telegram Evidence: Channel → Runtime → Source",[("phone","Request","Private bot chat; no token in evidence."),("robot","Hermes profile","Same native workspace and allowed user."),("file","Source","Read launch brief and cite review IDs."),("check","Verify","Substantive reply + saved telegram-check.md.")],"PP Task 1: ONE Telegram screenshot; retain source brief and tool evidence.")]
+LAB_EXTRAS[2] = [lambda L,k: U.proof(D,k,"Read and Reconcile Before Creating",[("login","Identity","Explicit assigned account; inspect each service result separately."),("mail","Coverage","At most 10 launch records per service; source IDs and timestamps."),("chart","Formula","Revenue = SUM(revenue_sgd); no invented units or causal claim."),("check","Reconcile","Sales rows = outlet aggregates = analysis.json total.")])]
+LAB_EXTRAS[3] = [lambda L,k: U.trace(D,k,"One Agent, Two Artifact Skills",[("file","Source","Verified analysis.json and human decision."),("code","Dashboard","Filter, sort, reset and export offline."),("chart","PPT","Six editable slides and native revenue chart."),("eyecheck","Review","Render every slide; fix one real issue.")],"PP Task 2: ONE PPT screenshot; keep PPTX, reviewed PDF and skill/tool run as supporting evidence.")]
+LAB_EXTRAS[4] = [lambda L,k: U.trace(D,k,"Office Approval Is Version-Specific",[("mail","Untrusted input","Quote embedded email instructions as data."),("alert","Conflict","Record both deadlines and source IDs."),("user","Decision","Owner chooses authoritative date."),("check","Accept","Log exact file hash and recheck changes.")],"No external send, calendar write or public posting is required.")]
+LAB_EXTRAS[5] = [lambda L,k: hub(D,k,"Five Hermes Profiles, Distinct Owned Outputs","Kanban parents\n+ human gates",[("search","researcher","Source facts -> research.md"),("pen","scriptwriter","Three scenes -> storyboard.md"),("film","producer","Local renderer -> final.mp4"),("eyecheck","auditor","Independent evidence -> audit-report.md"),("file","publisher","Accepted local package only"),("user","Human owner","Unassigned gates; exact-version decisions")]),lambda L,k:image(D,k,"Inspect Your Actual Kanban Video Team",asset("screenshots","hermes-kanban.png"),caption="Reference UI only. Capture your own bot/profile owners, dependency state, video task/output and human gate.")]
 U.office(D)
-for L in LABS[:5]:
-    if L["num"] == 4:
-        mark("day2")
-        section(D,"Day 2","From One Office Agent to a Video Team",["Kanban contracts and dependencies","Specialist workers and independent review","Human approval of the exact output"])
-    lab_block(L)
+for L in LABS[:4]:lab_block(L)
 mark("t2sum")
-cards(D, "Topic 2 · Summary", "Hermes: From Office Work to Team Coordination", [
-    ("Single agent", "Mia produced a Google brief, Excel analysis, interactive dashboard and professional deck.", "robot"),
-    ("Human-in-the-loop", "Nothing went public without your APPROVE; risky comments came to you.", "handshake"),
-    ("Multi-agent", "A five-role studio and a verified analysis swarm.", "users"),
-    ("Harness", "Context, memory, skills, verification, gates, cron — the environment did the heavy lifting.", "gear")],
-    cols=4, dark=True)
-
-# ====================================================================== TOPIC 3 · PAPERCLIP
+U.trace(D,"Day 1 · Evidence chain","From Telegram to the Management Decision",[("phone","Activity 1","Real Telegram round trip."),("chart","Activity 2","Assigned Google sources + reconciled Excel."),("file","Activity 3","Interactive dashboard + professional PPT."),("user","Activity 4","Human challenge and exact-version approval.")],"Four activities, one company, one single-agent office pack.")
+mark("day2")
+section(D,"Day 2","Hermes Teams: From Source Facts to a Video",["Actual profiles and named Desktop bots","Kanban ownership and parent dependencies","Source assurance and Dots comparison","Independent audit and human acceptance"])
 mark("t3")
-T3 = C.TOPICS[2]
-section(D, "Topic 3", T3["title"], T3["items"], sub="Day 2 — compare a governed company with a Claude Code multi-agent video team.")
-cards(D, "Topic 3 · Paperclip", "What Is Paperclip?", [
-    ("The company as the harness", "Open-source orchestration for a company of agents — org chart, goals, budgets, governance.", "building"),
-    ("You are the Board", "Approve hires and strategy; pause, override, reassign or terminate any agent.", "gavel"),
-    ("Bring your own agent", "Adapters for Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Cursor …", "plug"),
-    ("Issues & goals", "Mission → goals → projects → issues: every task traces to a goal.", "target"),
-    ("Heartbeats & routines", "Agents wake on a schedule or when work is assigned; routines create recurring work.", "clock"),
-    ("Budgets & audit", "Per-agent budgets warn at 80% and auto-pause at 100%; append-only activity log.", "coins")],
-    cols=3, sub="\"If OpenClaw is an employee, Paperclip is the company.\" — self-hosted at http://localhost:3100.")
-image(D, "Topic 3 · Paperclip", "The Paperclip Dashboard", asset("paperclip", "pc-dashboard.png"),
-      caption="Agents, issues, costs and approvals for the whole company — the Board's control room.")
-table(D, "Topic 3 · Paperclip", "Hermes Agent vs Paperclip", ["", "Hermes Agent (Day 1)", "Paperclip (Day 2)"],
-      [("Unit", "An agent (employee) — or a team of profiles", "A company of agents"),
-       ("Orchestration", "Kanban board, dependencies, swarms", "Org chart, CEO delegation, projects & issues"),
-       ("Human control", "APPROVE prompts, approval modes, blocked tasks", "Board approvals for hires & strategy; in_review gates"),
-       ("Scheduling", "Cron jobs", "Routines + heartbeats"),
-       ("Cost control", "Model choice per profile", "Budgets per agent / project / company, auto-pause"),
-       ("Audit", "Sessions, Kanban history", "Immutable activity log, tool-call tracing"),
-       ("Best for", "A personal or team agent that learns", "Running recurring business functions with governance")],
-      colw=[2.0, 5.0, 5.1], size=12, hi_col=2)
-flow(D, "Topic 3 · Day 2 journey", "Day 2: Found → Hire → Deliver → Automate → Govern", [
-    ("building", "Lab 6", "Company, mission, budget, CEO."),
-    ("users", "Lab 7", "Hire the team at the approval gate."),
-    ("rocket", "Lab 8", "Claude Code team: research, storyboard, video and review."),
-    ("clock", "Lab 9", "Weekly video routine with a Board gate."),
-    ("gauge", "Lab 10", "Costs, audit, scorecard, improve.")],
-    tipt="Same Kopi Kaki campaign as Day 1 — compare what changes when the work is run as a company.")
-
-LAB_EXTRAS[6] = [
-    lambda L, k: _cmd(L, k, "Install and Start Paperclip", 1,
-                      [("terminal", "Option A", "npx paperclipai onboard --yes — Node.js 24.11+, local, no login."),
-                       ("box", "Option B", "Docker: set BETTER_AUTH_SECRET + signing secret, then compose up."),
-                       ("globe", "Open", "http://localhost:3100 → name the organization, create Ava.")]),
-    lambda L, k: _cmd(L, k, "Guard Rails: CEO Role and Hard Budgets", 7,
-                      [("briefcase", "Ava = CEO", "`agent update … role ceo` — the UI has no Role field."),
-                       ("gavel", "Hiring gate", "Settings → General → Hiring → require Board approval (default OFF)."),
-                       ("coins", "Budgets", "80% warning, 100% auto-pause — see Audit → Budgets.")]),
-    lambda L, k: image(D, k, "Adapters — the Agents' Engine", asset("paperclip", "pc-adapters.png"),
-                       caption="Enable the runtime you already have — Claude Code, Codex, Gemini CLI or Hermes — and test the connection."),
-]
-LAB_EXTRAS[7] = [
-    lambda L, k: table(D, k, "A Good Hiring Plan (reference)", ["Role", "Reports to", "Mandate", "Budget / mo"],
-        [("Market Researcher", "CEO", "Live trend, competitor and audience research with Tavily; cites sources", "USD 8"),
-         ("Content Strategist", "CEO", "Campaign plan, calendar and briefs", "USD 8"),
-         ("Copywriter", "Content Strategist", "Captions, scripts, replies in brand voice", "USD 8"),
-         ("Video Producer", "Content Strategist", "Storyboards, renders, publish package", "USD 10"),
-         ("Compliance Auditor", "CEO", "Audits every public item (C1–C10, V1–V9); can block release", "USD 5")],
-        colw=[2.6, 2.4, 5.4, 1.7], size=12, tipt="Separation of duties: the auditor must not report to the people whose work it audits."),
-    lambda L, k: image(D, k, "The Org Chart", asset("paperclip", "pc-org.png"),
-                       caption="Board → CEO → specialists. Every hire passed an explicit Board decision."),
-    lambda L, k: image(D, k, "Secrets — Tools Without Exposing Keys", asset("paperclip", "pc-secrets.png"),
-                       caption="Store TAVILY_API_KEY as a company Secret and bind it to the researcher's runtime — it never appears in prompts or issues."),
-]
-LAB_EXTRAS[8] = [
-    lambda L, k: table(D, k, "The Launch Backlog (paperclip-backlog.csv)", ["#", "Issue", "Owner", "Blocked by"],
-        [("1", "Research SG cold-brew trends & competitor moves", "Market Researcher", "—"),
-         ("2", "Campaign plan + 4-week content calendar", "Content Strategist", "1"),
-         ("3", "Teaser-week captions (7 posts)", "Copywriter", "2"),
-         ("4", "Script & storyboard the 25-s launch video", "Video Producer", "2"),
-         ("5", "Render video + publish package", "Video Producer", "4"),
-         ("6", "Compliance audit of captions and video", "Compliance Auditor", "3, 5"),
-         ("7", "Board review & release pack", "CEO", "6")],
-        colw=[0.6, 6.4, 3.2, 1.9], size=12),
-    lambda L, k: image(D, k, "Issues Flow to the Board", asset("paperclip", "pc-tasks.png"),
-                       caption="todo → in_progress → in_review → done. in_review is your quality gate: approve, or request changes with specific comments."),
-]
-LAB_EXTRAS[9] = [
-    lambda L, k: image(D, k, "A Routine Fires the Pipeline", asset("paperclip", "pc-routine-pipeline.png"),
-                       caption="Work → Routines: a schedule trigger (Monday 10:00, Asia/Singapore) generates the issue; the CEO delegates each stage."),
-    lambda L, k: image(D, k, "Run Now — Test Before You Trust", asset("paperclip", "pc-routine-run.png"),
-                       caption="Trigger the routine manually once and follow every stage before relying on the schedule."),
-]
-LAB_EXTRAS[10] = [
-    lambda L, k: table(D, k, "Month-1 Agent Scorecard (agent-scorecard.csv)",
-        ["Agent", "Issues done", "Audit FAILs", "Revisions", "Spend / budget (USD)", "Status"],
-        [("Ava (CEO)", "13 / 14", "0", "1", "11.20 / 15", "Green"),
-         ("Market Researcher", "9 / 9", "0", "0", "6.10 / 8", "Green"),
-         ("Content Strategist", "6 / 7", "1", "1", "7.90 / 8", "Amber — 99% of budget"),
-         ("Copywriter", "18 / 22", "4", "3", "5.30 / 8", "Amber — quality"),
-         ("Video Producer", "3 / 5", "2", "2", "10.40 / 10", "Red — over budget"),
-         ("Compliance Auditor", "27 / 27", "0", "0", "2.20 / 5", "Green")],
-        colw=[2.6, 1.6, 1.6, 1.5, 2.4, 2.4], size=12, hi_col=5),
-    lambda L, k: image(D, k, "Agents, Budgets and Status", asset("paperclip", "pc-agents.png"),
-                       caption="Pause is reversible; terminate is not. Fix the instructions that caused rework — improve the harness."),
-]
-# Lab 8 uses actual Claude Code teammates, not the legacy Paperclip project flow.
-LAB_EXTRAS[8] = []
-for L in LABS[5:]:
-    if L["num"] == 8: U.claude_team(D)
+section(D,"Topic 3",C.TOPICS[2]["title"],C.TOPICS[2]["items"],sub="Four connected activities continue the same Kopi Kaki launch.")
+import slides_v22 as V22
+V22.team_mechanisms(D)
+for L in LABS[4:]:
     lab_block(L)
+    if L["num"]==6:V22.source_assurance(D)
+    if L["num"]==7:V22.dots_review(D)
+    if L["num"]==8:V22.video_evaluation(D)
 mark("t3sum")
-cards(D, "Topic 3 · Summary", "Day 2: Video Team, Coordination and Governance", [
-    ("A company", "Mission, goals, budget and a CEO you approved.", "building"),
-    ("A team", "Specialists with mandates, budgets, secrets and an independent auditor.", "users"),
-    ("Delivery", "A Claude Code video team and a repeatable routine, independently audited.", "rocket"),
-    ("Governance", "Costs, audit trail, scorecard, interventions and a Board report.", "gavel")],
-    cols=4, dark=True)
+U.trace(D,"Day 2 · Verified outcome","Team Output Needs Four Kinds of Evidence",[("users","Execution","Distinct profile runs + owned tasks."),("film","Artifact","Playable MP4 + checked metadata."),("eyecheck","Review","Independent source and scene audit."),("hand","Human authority","Exact-version acceptance; local package only.")],"PP Task 3: ONE actual video-creation screenshot with Kanban team and Hermes bots; keep the supporting files.")
 
-# ====================================================================== CLOSE
 mark("wrap")
 section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Practice exam", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "Agents loop through perception, reasoning and action; the harness and the human make them reliable.", "brain"),
     ("Topic 2", "One Hermes Desktop agent produced the Google brief, Excel analysis, dashboard and PPT; Kanban extended it on Day 2.", "robot"),
-    ("Topic 3", "Claude teammates produced the video; company governance exposed budgets, accountability and human gates.", "building"),
+    ("Topic 3", "Hermes bots produced and audited the video; Dots supplied a supervised comparison; source checks and human gates remained visible.", "building"),
     ("Your workforce", "Decide per task: agent, agent team or human — and where the human approves.", "handshake")],
     cols=4)
 rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
@@ -432,7 +287,7 @@ mark("assess")
 s = D.new(); header(D, s, "Assessment", "Final Assessment")
 for i, (ic, t, d, dark) in enumerate([
         ("pen", "Written Assessment (WA)", "Short-Answer Questions — 1 hour, open book. Six questions on the knowledge from Topics 1–3.", False),
-        ("tool", "Practical Performance (PP)", "Three tasks — ONE screenshot each from Lab 1 (Hermes agent), Lab 4 (multi-agent studio with its human gate) and Lab 7 (Paperclip org chart), plus written analysis. 1 hour, open book.", True)]):
+        ("tool", "Practical Performance (PP)", "Three tasks — ONE screenshot each: Telegram (Activity 1), professional PPT using skills/tools (Activity 3), and real Kanban video team with Hermes bots (Activity 5 or 8). Written analysis; 1 hour, open book.", True)]):
     x = 0.6 + i * 6.15; card(s, x, 1.95, 5.95, 3.4, fill=CHAR if dark else WHITE)
     icon(s, ic, x + 0.3, 2.25, 0.6)
     text(s, x + 1.05, 2.3, 4.7, 0.5, t, 19, WHITE if dark else INK, bold=True, font=SERIF)

@@ -1,8 +1,8 @@
-LAB 2 — Single-Agent Launch Office — Google, Excel, Dashboard & Professional PPT
+LAB 2 — Activity 2 — Google Workspace & Verified Excel Analysis
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — Prepare the workspace and dependencies (5 min; trainer-preflighted)
+[1] TERMINAL — Inspect the preflighted workspace and tools (5 min)
 ------------------------------------------------------------------------
 mkdir -p ~/kopi-kaki/outputs/lab02
 cp -R data/tools data/skills ~/kopi-kaki/
@@ -45,23 +45,3 @@ Use the gog-office skill. Work only in ~/kopi-kaki with the trainer-assigned Goo
 [7] PROMPT — Analyse the Excel workbook (20 min)  (paste into: Hermes chat)
 ------------------------------------------------------------------------
 Use office-analytics. Inspect campaign-data.xlsx and tools/office_artifacts.py before running the analysis. Validate sheet names, columns, row counts, IDs and numeric types. Calculate revenue by outlet, rating distribution and engagement rates using the actual columns. Do not treat sales revenue as units × catalogue price unless the source schema supports it. Reconcile total outlet revenue to source rows. Write outputs/lab02/analysis-notes.md with formulas, assumptions, missing/duplicate rows and two evidence-backed recommendations. Explain one limitation that could change the decision.
-
-[8] TERMINAL — Build and test the interactive artifact (15 min)
-------------------------------------------------------------------------
-.office-venv/bin/python tools/office_artifacts.py dashboard --out outputs/lab02
-
-[9] PROMPT — Build and test the interactive artifact (15 min)  (paste into: Hermes chat)
-------------------------------------------------------------------------
-Use interactive-dashboard. Inspect analysis.json and the generated dashboard.html. Adapt it into a launch-management view with an outlet selector, revenue KPI, bar chart, sortable table, CSV export and a reset control. Keep all code and synthetic aggregates embedded so it works offline. Test All outlets, one outlet, reset and CSV export. Compare the visible totals to analysis.xlsx. Record the exact tests in qa-report.md. A screenshot is not proof of interactivity.
-
-[10] TERMINAL — Create the professional six-slide PPT (20 min)
-------------------------------------------------------------------------
-.office-venv/bin/python tools/office_artifacts.py ppt --out outputs/lab02
-
-[11] PROMPT — Create the professional six-slide PPT (20 min)  (paste into: Hermes chat)
-------------------------------------------------------------------------
-Use professional-ppt. Read the approved launch brief, analysis-notes.md, analysis.json and brand-guide.md. Create or revise outputs/lab02/management-brief.pptx into six editable slides: decision required; verified business context; outlet-performance chart; customer evidence; two options and trade-offs; recommendation and human decision. Use native shapes, an editable chart and a clear visual hierarchy. Cite source tables or review IDs in notes. Do not invent data or claims. Open or render every slide, fix clipping and check the chart totals. Save the reviewed PDF through the available PowerPoint/LibreOffice export. Record one real revision and its recheck in qa-report.md.
-
-[12] PROMPT — Human challenge and final evidence (10 min)  (paste into: Hermes chat)
-------------------------------------------------------------------------
-Show which spreadsheet rows support your recommendation. What alternative explanation could change it? I will choose the final recommendation. Update the dashboard and deck consistently if my choice changes. Add to qa-report.md: source identity and service coverage; reconciliation results; dashboard interaction checks; slide render checks; what failed and was fixed. Confirm no email, event, Drive permission or public content was changed.

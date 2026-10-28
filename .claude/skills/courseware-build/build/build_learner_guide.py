@@ -15,8 +15,10 @@ from docx.oxml import OxmlElement
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
+import workflow_visuals
+workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21
+from version_history import PRIOR, V20, V21, V22
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -45,7 +47,7 @@ def src(t): B.append(("src", t))
 # ====================================================================== front matter
 h1("About This Learner Guide")
 p(f"This Learner Guide accompanies the WSQ course **{C.TITLE}** ({C.COURSE_CODE}). It explains the concepts of Topic 1 in "
-  "depth and gives you detailed, step-by-step instructions for the ten hands-on labs. Use it during class and as an "
+  "depth and gives you detailed, step-by-step instructions for the eight connected activities. Use it during class and as an "
   "open-book reference in the assessment.")
 table(["Item", "Details"], [("Course", C.TITLE), ("Course code", C.COURSE_CODE), ("Duration", "2 days; 16 scheduled hours incl. 1 hour tea and 2 hours assessment"),
                             ("Provider", f"{C.ORG} ({C.UEN})"), ("Course scenario", C.SCENARIO + " — all company data is fictional"),
@@ -56,7 +58,7 @@ h2("Course Structure")
 table(["Topic", "Day", "What you do"], [
     ("1 · " + C.TOPICS[0]["title"], "Day 1 AM", "; ".join(C.TOPICS[0]["items"]) + "; Activity: Human–AI Workforce Canvas"),
     ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Labs 1–3: one Hermes office agent; Day 2 Labs 4–5: Kanban team"),
-    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Labs 4–10: Kanban, Claude Code video team and governance, then assessment")])
+    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation")])
 h2("How to Use the Lab Materials")
 numbered(["Download the course repository (Code → Download ZIP) and unzip it.",
           "Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.",
@@ -65,7 +67,7 @@ numbered(["Download the course repository (Code → Download ZIP) and unzip it."
           "Finish each lab with its checkpoint: evidence, not vibes."])
 img(os.path.join(SHOTS, "screenshots", "prompts-page.png"), "The Lab Prompts page (prompts/index.html)", 4.2)
 note("Preferred surface: Hermes Desktop. macOS/Windows learners use the official Desktop installer. On native Windows use the supplied PowerShell setup file and the same local profile for tools and Telegram; WSL is a separate runtime.\nPlatforms change quickly. If a command differs on your version, run it with --help and check the official docs: "
-     "https://hermes-agent.nousresearch.com/docs/ and https://docs.paperclip.ing.")
+     "https://hermes-agent.nousresearch.com/docs/ and https://learn.chatgpt.com/docs/dots/getting-started.")
 
 # ====================================================================== TOPIC 1
 from data_2026 import CASE_GROUPS, PATTERNS, SOURCES, VIDEOS
@@ -118,7 +120,7 @@ src("Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arx
 h2("1.8 Workforce canvas and office design clinic")
 numbered(["Name the launch-management decision and human owner.","List input email/event/file IDs, workbook sheets, approved product facts and source limitations.","Allocate each task: HUMAN, SINGLE AGENT, TEAM or FIXED WORKFLOW; explain why.","Write each tool's input/output contract and one failure condition.","Specify the output artifact, acceptance test, review owner and stop condition.","Keep the source-linked brief, Excel analysis, interactive dashboard and PPT as one consistent office pack."])
 h2("1.9 After-lunch demo and Activity 1")
-p("The trainer demonstrates an OpenAI Dot using approved training material if available, or a prepared recording/Hermes equivalent if the account lacks access. Observe actual actions, source evidence and human interruption. Do not require learners to buy access. Then Activity 1 installs the preferred Hermes Desktop app from https://hermes-agent.nousresearch.com/desktop, connects a private Telegram bot through Messaging → Telegram → Create with QR and produces a research brief or fresh-session recall evidence for PP Q1. Installation and Telegram alone do not satisfy the existing PP evidence requirement.")
+p("The trainer demonstrates an OpenAI Dot using approved training material if available, or a prepared recording/Hermes equivalent if the account lacks access. Observe actual actions, source evidence and human interruption. Do not require learners to buy access. Then Activity 1 installs the preferred Hermes Desktop app from https://hermes-agent.nousresearch.com/desktop, connects a private Telegram bot through Messaging → Telegram → Create with QR and produces a source-linked brief and substantive Telegram reply. PP Task 1 requires ONE Telegram interaction screenshot, plus the written analysis in the current paper; retain the brief and tool trace as supporting work.")
 h2("1.10 Sources and further reading")
 for title,url in SOURCES:src(title+": "+url)
 for title,url in [
@@ -131,23 +133,14 @@ for title,url in [
 ("Human–AI teams review","https://link.springer.com/article/10.1007/s00146-026-02977-z"),
 ("Deloitte — AI and VR collaboration scenarios","https://www.deloitte.com/global/en/insights/industry/technology/ai-and-vr-model-for-human-ai-collaboration.html"),
 ("ChatCollab research prototype","https://arxiv.org/html/2412.01992v1"),
-("Claude Code agent teams","https://code.claude.com/docs/en/agent-teams"),
+("Hermes Kanban","https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban"),
+("OpenAI Dots","https://learn.chatgpt.com/docs/dots/getting-started"),
 ("Figure Helix","https://www.figure.ai/news/helix"),
 ("Responsible robotics","https://deepmind.google/models/gemini-robotics/responsibly-advancing-ai-and-robotics/")]:src(title+": "+url)
 
 # ====================================================================== labs
-LAB_SHOTS = {
-    1: ("screenshots/hermes-dashboard.png", "Lab 1 — the Hermes dashboard: sessions of your onboarded agent (hermes dashboard)"),
-    2: ("screenshots/hermes-skills.png", "Hermes Skills page reference; verify the four current office skills in your installed version"),
-    3: ("screenshots/hermes-channels.png", "Lab 3 — the Channels page: Telegram connected to the gateway"),
-    4: ("screenshots/hermes-kanban.png", "Lab 4 — the Kanban board: the video studio's tasks, dependencies and the blocked posting gate"),
-    5: ("screenshots/hermes-profiles.png", "Lab 5 — Profiles: analyst, listener, strategist, researcher and auditor run the swarm"),
-    6: ("paperclip/pc-adapters.png", "Lab 6 — Settings → Adapters: the runtime your CEO agent runs on"),
-    7: ("paperclip/pc-org.png", "Lab 7 — the Agents org chart view: Board → CEO → specialists"),
+LAB_SHOTS = {**{n:(f"workflows/activity-{n:02d}.png",f"Activity {n} workflow model — design diagram, not executed learner evidence") for n in (2,4,6,7,8)},1:("screenshots/hermes-channels.png","Reference Messaging interface; capture your own Telegram request and reply for PP Task 1"),3:("screenshots/hermes-skills.png","Reference Skills interface; PP Task 2 screenshot shows your actual resulting professional PPT"),5:("screenshots/hermes-kanban.png","Reference Kanban interface; PP Task 3 uses your actual video team, bots, dependency and output task")}
 
-    9: ("paperclip/pc-routine-pipeline.png", "Lab 9 — a routine's generated task delegating each stage"),
-    10: ("paperclip/pc-agents.png", "Lab 10 — agents with status and budgets: pause, re-budget, improve"),
-}
 
 def lab_section(L):
     h2(f"Lab {L['num']} — {L['title']}")
@@ -185,22 +178,14 @@ table(["File / place", "What it holds", "Loaded"], [
     ("~/.hermes/memories/MEMORY.md and USER.md", "What the agent chose to remember; what it knows about you", "Session start"),
     ("~/.hermes/skills/", "Skills (SKILL.md folders)", "On demand, by description"),
     ("Kanban board", "Tasks, dependencies, comments, history", "Dispatched by the running gateway")])
-for L in LABS[:5]: lab_section(L)
+for L in LABS[:4]: lab_section(L)
 
 h1("Topic 3 — " + C.TOPICS[2]["title"])
-p("Paperclip (MIT licence) is open-source orchestration for a company of agents. You are the **Board**; a CEO agent reports to you and "
-  "specialists report to the CEO. Agents run on adapters you already have (Claude Code, Codex, Gemini CLI, Hermes …). Goals, projects "
-  "and tasks give every run a purpose; routines and heartbeats make work recurring; budgets (80% warning, 100% auto-pause), approval "
-  "gates and an append-only activity log keep it governed.")
-img(os.path.join(SHOTS, "paperclip", "pc-dashboard.png"), "The Paperclip dashboard (http://localhost:3100)", 5.2)
-table(["", "Hermes Agent (Day 1)", "Paperclip (Day 2)"], [
-    ("Unit", "An agent — or a team of profiles", "A company of agents"),
-    ("Orchestration", "Kanban, dependencies, swarms", "Org chart, CEO delegation, projects and tasks"),
-    ("Human control", "APPROVE prompts, approval modes, blocked tasks", "Hiring gate, Approvers on tasks, Board approvals"),
-    ("Scheduling", "Cron jobs", "Routines + heartbeats"),
-    ("Cost control", "Model choice per profile", "Budgets per agent / project / company"),
-    ("Audit", "Sessions, Kanban history", "Audit → Activity, Runs, Costs, Budgets")])
-for L in LABS[5:]: lab_section(L)
+p("Day 2 extends the same launch workspace into a real Hermes multi-agent video team. A profile stores an agent’s separate configuration and memory; Desktop Bot Mode presents a profile as a named bot. A Telegram bot is a messaging account, not another independent worker by itself. Kanban task IDs, parent dependencies, run history and saved outputs make the work observable.")
+p("First set and verify Manual orchestration (kanban.auto_decompose=false) in the selected training gateway; Auto can decompose triage cards. Human storyboard and final-acceptance cards are then created unassigned before production tasks, with source dependencies. The human checks the exact artifact and completes only the relevant gate. This supervised classroom convention is not a claim of built-in role-based approval enforcement. No worker is given external publication authority. Separate file ownership avoids workers overwriting one another.")
+p("Activity 6 checks approved source passages and missing/stale evidence, then assesses RAG versus a standard LLM for financial-services content, including ownership, access, ingestion, refresh, evaluation and maintenance. Activity 7 compares a real bounded Dots review if entitled; otherwise accurately record trainer observation or unavailable access. PP does not depend on paid Dots access. Activity 8 revises, audits and accepts a real playable MP4 locally.")
+table(["Evidence","Activity","What to inspect"],[("PP Task 1","1","ONE Telegram request/reply screenshot; no tokens"),("PP Task 2","3","ONE professional PPT screenshot; retain skill/tool logs, PPTX and reviewed PDF"),("PP Task 3","5 or 8","ONE actual Kanban video-team screenshot with Hermes bots, dependency/gate and render/output task; retain MP4 and audit")])
+for L in LABS[4:]: lab_section(L)
 
 # ====================================================================== close
 h1("Assessment Preparation")
@@ -211,7 +196,7 @@ bullets([C.ASSESSMENT["written"], C.ASSESSMENT["practical"],
 h1("Glossary")
 table(["Term", "Meaning"], [
     ("AI agent", "An autonomous LLM-based program that pursues a goal with tools in a bounded environment"),
-    ("Agentic AI", "A system of multiple specialised agents with orchestration, shared memory and coordinated autonomy"),
+    ("Agentic AI", "A goal-directed system that plans and acts; it may use one agent or several coordinated agents"),
     ("Agentic loop", "Gather context → act → verify → repeat"),
     ("Harness", "Everything around the model: loop, tools, context, memory, skills, verification, guardrails, orchestration, observability"),
     ("Skill", "A SKILL.md folder of procedural know-how an agent loads on demand"),
@@ -220,8 +205,8 @@ table(["Term", "Meaning"], [
     ("Cron / routine", "A schedule that starts agent work without a human prompt"),
     ("Human-in-the-loop", "A person approves before an action happens"),
     ("Human-on-the-loop", "A person monitors and can intervene while the agent acts"),
-    ("Board (Paperclip)", "The human owner who approves hires, strategy and gated work"),
-    ("Adapter (Paperclip)", "The agent runtime an employee runs on (Claude Code, Codex, Gemini CLI, Hermes …)"),
+    ("Desktop bot (Hermes)", "A profile presented as a named Bot Mode roster entry"),
+    ("OpenAI dot", "A persistent assistant whose actual access, actions and controls must be inspected"),
     ("RAG", "Retrieval Augmented Generation — retrieve from a curated corpus, then generate"),
     ("World model", "A model that predicts how the world changes after an action"),
     ("MCP", "Model Context Protocol — an open standard for connecting agents to tools and data")])
@@ -260,7 +245,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

@@ -1,64 +1,47 @@
 # Build a Human–AI Workforce with Autonomous AI Agents
 
-WSQ **TGS-2024043854** · Tertiary Infotech Academy Pte Ltd · **v2.1, 29 October 2026**
+WSQ **TGS-2024043854** · Tertiary Infotech Academy Pte Ltd · **v2.2, 29 October 2026**
 
-[Course registration](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) · [Live lab steps and prompts](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html) · [Sources](prompts/resources.html)
+Two days, one fictional Kopi Kaki launch and **eight connected activities: four per day**. Topic 1 covers the 2026 human–AI landscape, AI history,48 practical workflows, collaboration modes, science and clearly labelled humanoid futures. The engineering timeline uses overlapping teaching lenses, not invention dates.
 
-![Lab steps and copyable prompts](screenshot.png)
+[Open steps and copyable prompts](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html) · [Sources](prompts/resources.html) · [Download course ZIP](https://github.com/tertiarycourses/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/archive/refs/heads/main.zip)
 
-One connected project: **Kopi Kaki Co.’s product launch**. All company data is fictional. Start with a single office assistant, then build a coordinated video team with human decisions and verifiable outputs.
-
-## Learning journey
-
-| Stage | What learners do | Evidence |
+| Day | Focus | Outputs |
 |---|---|---|
-| Topic 1 | Map the human–AI landscape, history, agent types, collaboration modes, 48 practical opportunities, science and humanoid futures | Workforce canvas with owners, inputs, outputs and acceptance tests |
-| Day 1 · Labs 1–3 | Install **Hermes Desktop**, connect Telegram, use `gog` for Gmail/Calendar/Drive, analyse Excel, create an interactive HTML dashboard and a professional PPT | Source-linked brief, reconciled workbook, interactive artifact, editable slides, review log |
-| Day 2 · Labs 4–10 | Coordinate real Kanban specialists, produce a video with a **Claude Code agent team**, compare company governance and evaluate results | Real task/worker state, playable MP4, independent audit and exact-version human decision |
+| 1 | One Hermes Desktop agent, tools and skills | Telegram, assigned Google office brief, verified Excel, interactive dashboard, professional PPT and human approval |
+| 2 | Hermes bots and multi-agent Kanban; OpenAI Dots comparison | Real video team, source assurance, supervised Dots review, playable MP4, independent audit and exact-version local acceptance |
 
-The official SWDA free AI subscription eligibility and redemption steps appear near the beginning. Eligibility is checked through the live **Free AI sub** course label; subscription redemption follows eligible attendance and is separate from lab/API access.
+9:30 am–6:30 pm both days. 16 scheduled course hours excluding lunch include 13 hours instruction/practice, 1 hour tea breaks and 2 hours assessment. Tea is included in the scheduled LU allocations; this is not a claim of 14 net instructional hours.
+
+![Eight-activity prompt page](screenshot.png)
 
 ## Start here
 
-1. Download the repository ZIP through **Code → Download ZIP** and unzip it.
-2. Open [the live lab steps](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html), or open `prompts/index.html` locally for offline use.
-3. Download [Hermes Desktop from the official site](https://hermes-agent.nousresearch.com/desktop). Use one local profile for Desktop, tools and Telegram.
-4. Follow Lab 1 after the trainer’s lunch demo. Copy a prompt into the named app, inspect the result and complete its checkpoint.
-5. On native Windows use Lab 2’s `data/windows-office-setup.md` PowerShell instructions. Native Windows and WSL do not automatically share paths, tools or credentials.
+1. Download and unzip the course repository.
+2. Read the official SWDA subscription steps at the beginning of the course. Check the current **Free AI sub** course label and personal eligibility. Redemption follows eligible attendance; it is separate from lab/API/Dots access.
+3. After the lunch demonstration, use [Activity1](labs/lab01-hermes-first-ai-employee/README.md) to download [Hermes Desktop](https://hermes-agent.nousresearch.com/desktop), select the local training profile and connect Telegram.
+4. Follow the prompt page in order. Native Windows learners use the supplied PowerShell setup guide in Activities2/3/5/8; keep tools and credentials in the selected native runtime.
+5. Inspect real outputs and complete each verification checkpoint. Tools such as gog,Python and FFmpeg are not extra agents.
 
-## Connected labs
+## Eight connected activities
 
-| # | Day | Lab |
-|---|---|---|
-| 1 | 1 | [Hermes Desktop, Telegram and the launch brief](labs/lab01-hermes-first-ai-employee/README.md) |
-| 2 | 1 | [Single-agent office: Google, Excel, dashboard and PPT](labs/lab02-hermes-social-media-campaign/README.md) |
-| 3 | 1 | [Office approval and exception handling](labs/lab03-hermes-human-in-the-loop/README.md) |
-| 4 | 2 | [Kanban multi-agent video studio](labs/lab04-hermes-multi-agent-video-studio/README.md) |
-| 5 | 2 | [Parallel analysis and command centre](labs/lab05-hermes-campaign-command-centre/README.md) |
-| 6 | 2 | [Found the governed company](labs/lab06-paperclip-found-ai-company/README.md) |
-| 7 | 2 | [Hire the team and inspect the org chart](labs/lab07-paperclip-hire-marketing-team/README.md) |
-| 8 | 2 | [Claude Code team: create the launch video](labs/lab08-paperclip-launch-campaign-project/README.md) |
-| 9 | 2 | [Repeatable weekly video workflow](labs/lab09-paperclip-weekly-video-routine/README.md) |
-| 10 | 2 | [Govern, measure and improve](labs/lab10-paperclip-govern-measure-improve/README.md) |
+| Activity | Day | Exercise | Time |
+|---|---|---|---|
+| 1 | 1 | [Desktop + Telegram](labs/lab01-hermes-first-ai-employee/README.md) | 75 min |
+| 2 | 1 | [Google + Excel](labs/lab02-hermes-social-media-campaign/README.md) | 50 min |
+| 3 | 1 | [Dashboard + Professional PPT](labs/lab03-hermes-office-artifacts/README.md) | 40 min |
+| 4 | 1 | [Office Approval](labs/lab04-hermes-office-approval/README.md) | 30 min |
+| 5 | 2 | [Hermes Kanban Video Team](labs/lab05-hermes-kanban-video-team/README.md) | 85 min |
+| 6 | 2 | [Source Assurance](labs/lab06-hermes-source-assurance/README.md) | 45 min |
+| 7 | 2 | [Dots Launch Review](labs/lab07-openai-dots-launch-review/README.md) | 35 min |
+| 8 | 2 | [Video Revision + Release](labs/lab08-hermes-video-release/README.md) | 115 min |
 
-Every lab has instructions, a PDF, copyable prompts and a downloadable data index. Folder slugs are retained for stable links. Detailed procedures belong in the guides; slides use editable diagrams and evidence exhibits.
+## Practical evidence
 
-## Files and architecture
+PP Task1: **ONE Telegram interaction screenshot** from Activity1. PP Task2: **ONE professional PPT screenshot** from Activity3, with skills/tools working evidence retained. PP Task3: **ONE actual video-creation screenshot with a multi-agent Kanban team and Hermes bots** from Activity5 or8. Complete the written analysis in the current candidate paper and keep source files, PPTX, tool/run logs, MP4, independent audit and human decision available for verification.
 
-`courseware/` contains the current PPT/PDF, Learner Guide and Lesson Plan. `labs/` contains synthetic datasets, reviewed skills and executable helper tools. `prompts/` contains the learner website. The single-source builders keep the deck, guides, schedule, labs and prompts aligned.
+Assessment papers,answer keys,FG/AP and private trainer material are distributed through the authorised LMS/Drive workflow and are excluded from this public repository.
 
-Runtime: human owner → one Hermes agent + tools (Day 1) → Kanban/Claude specialist team + independent reviewer (Day 2) → human decision. `gog`, Python, HTML and FFmpeg are tools, not additional agents.
+The trainer preflights approved model access, assigned Google training records and OAuth, native tools/skills, actual separate Hermes profiles/bots and a tested local video renderer. Dots access is checked independently; record a real trainer demonstration as observed rather than personally executed. No paid video-generation API is required for the reviewed local renderer. All company data is synthetic. Final release in class means a **local package**; no sending, sharing or public posting is required.
 
-## Prerequisites and timing
-
-The trainer preflights model access, the assigned Google account and Desktop OAuth client, tool dependencies, separate agent profiles, Claude Code team access and a usage budget. A free consumer chat account or future subscription redemption does not guarantee these entitlements. No paid video generation API is needed for the supplied local renderer.
-
-Both days retain **9:30 am–6:30 pm**. The **16 scheduled course hours excluding lunch include 13 hours instruction/practice, 1 hour tea breaks and 2 hours assessment**. Scheduled learning-unit allocations include tea.
-
-## Publication and privacy
-
-GitHub Pages deploys only the learner-safe `prompts/`, `labs/` and landing page. Assessments, answer keys, FG/AP, private references, credentials and QA artifacts are excluded. The FG and AP are kept beside the other course documents locally and remain trainer-only. Nothing is sent or published by a learner lab without the required human decision; the video exercises produce local release packages.
-
-The local helper tools are checked with synthetic data. Each learner still verifies their own model, Telegram, Google and agent-team runtime; a generated guide is not evidence that those connections succeeded.
-
-Powered by **Tertiary Infotech Academy Pte Ltd** (UEN 201200696W) · © 2026 Tertiary Infotech Academy Pte Ltd.
+© Tertiary Infotech Academy Pte Ltd

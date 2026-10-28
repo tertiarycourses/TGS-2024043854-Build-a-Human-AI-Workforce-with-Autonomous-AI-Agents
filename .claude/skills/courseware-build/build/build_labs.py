@@ -79,15 +79,12 @@ def data_pack(L, ddir, assets_src):
     files = []
     for key in L["data"]:
         rel, fn = M.FILES[key]; write(os.path.join(ddir, rel), fn()); files.append(rel)
-    if L["num"] == 4:
+    if L["num"] in (5,8):
         write(os.path.join(ddir, "DESIGN.md"), DESIGN_MD); files.append("DESIGN.md")
         for k, v in SOULS.items():
             write(os.path.join(ddir, "souls", f"{k}.SOUL.md"), f"# {k} — SOUL.md\n\n{v}\n"); files.append(f"souls/{k}.SOUL.md")
         for k in ("t1-research.md", "t2-script.md", "t3-produce.md", "t4-audit.md", "t5-package.md", "t6-post.md"):
             write(os.path.join(ddir, "tasks", k), TASKS[k] + "\n"); files.append(f"tasks/{k}")
-    if L["num"] == 5:
-        write(os.path.join(ddir, "tasks", "swarm-definition-of-done.md"), TASKS["swarm-definition-of-done.md"] + "\n")
-        files.append("tasks/swarm-definition-of-done.md")
     shutil.copytree(assets_src, os.path.join(ddir, "assets"), dirs_exist_ok=True)
     files += [f"assets/{f}" for f in sorted(os.listdir(assets_src))]
     files += pack_2026.assets(L, ddir)
@@ -106,7 +103,7 @@ def describe(rel):
     b = os.path.basename(rel)
     if rel.startswith("skills/"): return "Agent skill (SKILL.md)"
     if rel.startswith("souls/"): return "Role + rules for one studio profile"
-    if rel.startswith("tasks/"): return "Task brief (used with --body-file)"
+    if rel.startswith("tasks/"): return "Task contract; use current Kanban tools or --body text"
     if rel.startswith("templates/"): return "Template"
     if rel.startswith("assets/"): return "Brand image asset"
     return DESCR.get(b, "")
@@ -205,7 +202,7 @@ def to_pdf(html_text, out_pdf):
 def prompts_page():
     nav = "".join(f"<a href='#lab-{L['num']}'>Lab {L['num']}</a>" for L in LABS)
     picks = ""
-    for day, name in ((1, "Day 1 · Single Hermes agent — office automation"), (2, "Day 2 · Multi-agent video studio — Kanban, Claude and governance")):
+    for day, name in ((1, "Day 1 · Single Hermes agent — office automation"), (2, "Day 2 · Multi-agent video studio — Hermes bots, Kanban and Dots")):
         picks += f"<h3>{e(name)}</h3><ul>" + "".join(
             f"<li><a href='#lab-{L['num']}'>Lab {L['num']} · {e(L['title'])}</a> <span class='meta'>· {L['minutes']} min</span></li>"
             for L in LABS if L["day"] == day) + "</ul>"
@@ -246,7 +243,7 @@ details{{background:var(--panel);border:1px solid var(--rule);border-radius:10px
 @media(max-width:600px){{nav{{flex-wrap:nowrap;overflow:auto}}nav a{{flex:none}}h1{{font-size:26px}}pre{{font-size:12.5px}}}}
 </style></head><body><main class="wrap" id="top">
 <p class="k">{C.COURSE_CODE} · {e(C.SHORT_TITLE)} · {C.VERSION}</p><h1>Lab Steps & Copyable Prompts</h1>
-<p class="meta">{e(C.TITLE)} — two days, ten connected labs for <b>Kopi Kaki Co.</b> (fictional). Pick your lab, click <b>Copy</b>, paste into the named place, and verify every result.
+<p class="meta">{e(C.TITLE)} — two days, eight connected activities for <b>Kopi Kaki Co.</b> (fictional). Pick your lab, click <b>Copy</b>, paste into the named place, and verify every result.
 This page works offline: open <code>prompts/index.html</code> from the downloaded course folder.</p>
 <div class="pick"><b>One connected project: the Kopi Kaki launch</b><p>Day 1: one office agent → Google Workspace → Excel → interactive dashboard → professional PPT.<br>Day 2: Kanban specialists → video production → independent audit → human decision.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
 <nav aria-label="Labs">{nav}</nav>
@@ -266,10 +263,10 @@ document.querySelectorAll('.copy').forEach(function(b){{b.addEventListener('clic
 
 def labs_index():
     o = [f"# Labs — {C.TITLE}", "",
-         f"Ten connected, use-case labs for **{C.SCENARIO}**. Every lab builds on the previous one and saves its work to `~/kopi-kaki/outputs/labNN/`.", "",
+         f"Eight connected activities for **{C.SCENARIO}**. Every activity builds on the previous one in the same workspace. The Day 1 office pack is saved under `outputs/lab02/`; the video team uses `outputs/team/`; follow each named artifact path.", "",
          "**Copy-ready prompts:** open [`../prompts/index.html`](../prompts/index.html) in your browser (works offline) — pick a lab, click **Copy**.", "",
          "Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).", ""]
-    for day, name in ((1, "Day 1 — One Hermes office assistant, tools and skills"), (2, "Day 2 — Kanban teams, Claude multi-agent video and governance")):
+    for day, name in ((1, "Day 1 — One Hermes office assistant, tools and skills"), (2, "Day 2 — Hermes bots, Kanban video, source assurance and Dots")):
         o += [f"## {name}", "", "| # | Lab | Paradigm | Time | Instructions |", "|---|---|---|---|---|"]
         for L in LABS:
             if L["day"] == day:
@@ -277,10 +274,10 @@ def labs_index():
         o.append("")
     o += ["## Topic 1 activity", "Human–AI Workforce Canvas (in class, 20 min) — see the slide deck and Learner Guide; begin Hermes installation in Activity 1 after the lunch demo.", "",
           "## Conventions", "- Prompts are plain English; terminal commands are marked `bash`.",
-          "- Hermes: start `hermes` inside `~/kopi-kaki` so `AGENTS.md` is loaded. Paperclip: http://localhost:3100.",
+          "- Hermes: start `hermes` inside `~/kopi-kaki` so `AGENTS.md` is loaded. OpenAI Dots: https://chatgpt.com/dots (verify entitlement).",
           "- Nothing public is ever published without a human APPROVE / Board approval.",
           "- Platforms move fast — if a command differs on your version, check `--help` and the official docs "
-          "([Hermes](https://hermes-agent.nousresearch.com/docs/) · [Paperclip](https://docs.paperclip.ing)).", "",
+          "([Hermes](https://hermes-agent.nousresearch.com/docs/) · [OpenAI Dots](https://learn.chatgpt.com/docs/dots/getting-started)).", "",
           f"<sub>{FOOT.replace('<b>', '**').replace('</b>', '**')}</sub>", ""]
     return "\n".join(o)
 

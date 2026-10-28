@@ -536,7 +536,9 @@ def flow(D, kicker, title, steps, sub=None, dark=False, tipt=None):
         icon(s, ic, x + 0.22, top + 0.55, 0.56)
         text(s, x + 0.22, top + 1.25, cw - 0.4, 0.5, t, 15, WHITE if dark else INK, bold=True, font=SERIF, minpt=11)
         text(s, x + 0.22, top + 1.75, cw - 0.4, ch - 1.85, d, 12, SOFT if dark else MUTED, minpt=9)
-        if i < n - 1:
-            line(s, x + cw + 0.03, top + ch / 2, x + cw + gap - 0.03, top + ch / 2, ACC, 2, arrow=True)
+    # Draw explicit native chevrons above all card shadows so the sequence stays visible.
+    for i in range(n - 1):
+        edge = 0.6 + i * (cw + gap) + cw
+        box(s, edge + 0.02, top + ch / 2 - 0.17, gap - 0.04, 0.34, fill=ACC, shape=MSO_SHAPE.CHEVRON)
     if tipt: tip(D, s, tipt, y=top + ch + 0.35)
     return s

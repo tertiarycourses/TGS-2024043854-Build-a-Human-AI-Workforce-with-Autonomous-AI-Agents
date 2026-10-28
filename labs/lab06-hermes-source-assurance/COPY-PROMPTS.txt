@@ -1,0 +1,19 @@
+LAB 6 — Activity 6 — Source Assurance, RAG Comparison & Maintenance
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] PROMPT — Register sources (10 min)  (paste into: Hermes Desktop chat in the Kopi Kaki workspace)
+------------------------------------------------------------------------
+Assign the researcher a separate source-register.md task. Inspect campaign-brief.md, product-catalogue.csv and compliance-rules.md. Record actual filenames, human-readable source IDs, current version/date if present, owner and permitted use. Quote exact supporting passages for price, launch date and promotion. Missing version metadata is a gap; do not invent it.
+
+[2] PROMPT — Run supported and unsupported retrieval tests (10 min)  (paste into: Hermes Desktop chat in the Kopi Kaki workspace)
+------------------------------------------------------------------------
+Use only the approved local sources for three tests: product price; full promo terms; whether the drink has a certified health benefit. Quote the supporting passage and source ID for each supported answer; answer INSUFFICIENT EVIDENCE for the unsupported health claim. Save retrieval-test.md. This is a small file-retrieval grounding exercise, not proof of a deployed vector database or production RAG system.
+
+[3] PROMPT — Verify independently and repair stale evidence (10 min)  (paste into: Hermes Desktop chat in the Kopi Kaki workspace)
+------------------------------------------------------------------------
+Assign the independent auditor to check each answer against the original source, not the researcher summary. In a separate training test fixture copy one price line and change it to an intentionally conflicting value; preserve the original files. Mark the fixture SYNTHETIC STALE TEST, detect the conflict and keep downstream release gated until I choose the authoritative source. Save verifier-report.md and the resolution; do not let majority vote decide factual truth.
+
+[4] PROMPT — Transfer to financial services and assess feasibility (15 min)  (paste into: Hermes Desktop chat in the Kopi Kaki workspace)
+------------------------------------------------------------------------
+Write rag-feasibility.md for a fictional financial-services client. Compare a standard LLM assistant with retrieval from a firm-approved corpus: strengths, limitations, provenance, latency, cost and access boundaries. Assess implementation feasibility: corpus owner, ingestion/chunking/indexing choice, permissions, source versioning and rollback, refresh/re-index routine, test questions, accuracy/relevance checks and human approval. Explain how this local passage test differs from a production RAG service. Give one condition under which the simpler standard assistant is adequate and one condition requiring retrieval.

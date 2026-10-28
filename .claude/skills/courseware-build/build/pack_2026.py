@@ -31,7 +31,7 @@ SKILLS={
 5. Open or render all six slides, fix clipping/overlap and compare chart totals to the workbook.
 6. Save PPTX and reviewed PDF. Record one actual revision and repeat check. Do not send or publish.'''),
 'launch-video':('Produce a reviewed local launch video from the human-approved storyboard and licensed/supplied assets.', '''1. Read the approved scene text, brand rules and verified product facts.
-2. Use tools/render_launch_video.py as a deterministic FFmpeg baseline; inspect and adapt before rendering.
+2. Inspect tools/render_launch_video.py as a deterministic FFmpeg baseline. Copy it into the producer-owned output folder before adapting scene copy/layout; do not edit the shared tool while another worker runs.
 3. Produce three five-second scenes, 1080x1920, H.264 MP4. Use no unlicensed music, likeness or unsupported claim.
 4. Inspect every frame and ffprobe metadata; watch the full playable video.
 5. Reviewer records evidence and the human requests one revision. Re-render and re-audit.
@@ -54,14 +54,14 @@ def assets(L,ddir):
    for c in ws[1]:c.font=Font(bold=True,color='FFFFFF');c.fill=PatternFill('solid',fgColor='5B3A29')
    ws.freeze_panes='A2'
   book.save(root/'campaign-data.xlsx');files.append('campaign-data.xlsx')
- if L['num'] in (2,4,8):
-  names=list(SKILLS) if L['num']==2 else ['launch-video']
+ if L['num'] in (2,3,5,8):
+  names=list(SKILLS) if L['num'] in (2,3) else ['launch-video']
   for name in names:
    description,steps=SKILLS[name];rel=f'skills/{name}/SKILL.md';p=root/rel;p.parent.mkdir(parents=True,exist_ok=True)
    p.write_text(f'---\nname: {name}\ndescription: {description}\n---\n# {name}\n\n{steps}\n');files.append(rel)
-  for script in (['office_artifacts.py','render_launch_video.py'] if L['num']==2 else ['render_launch_video.py']):
+  for script in (['office_artifacts.py','render_launch_video.py'] if L['num'] in (2,3) else ['render_launch_video.py']):
    rel='tools/'+script;(root/'tools').mkdir(exist_ok=True);shutil.copy2(templates/script,root/rel);files.append(rel)
- if L['num']==2:
+ if L['num'] in (2,3,5,8):
   rel='windows-office-setup.md';(root/rel).write_text("""# Native Windows Desktop office setup
 
 Use Hermes Desktop on its local Windows connection. These PowerShell commands run in that same Windows environment, not in WSL. The trainer installs Python and the official Windows gog ZIP first and checks gog.exe is on PATH.
@@ -94,18 +94,109 @@ Copy-Item -Recurse -Force .\\skills\\gog-office, .\\skills\\office-analytics, .\
 ```
 
 Restart/reload the selected Desktop session if required and verify the four skills are visible. Desktop/gateway tools must find the same gog.exe, Python environment and authorised account. If PATH changed after gateway startup, restart the training gateway through Desktop and recheck. Do not copy credential files between Windows and WSL or paste them into chat.
+
+
+## Day 2: native Windows Hermes video commands
+
+Use the same native workspace/runtime. Inspect real profiles, assigned tasks and gateway status:
+
+```powershell
+hermes profile list
+hermes kanban create --help
+hermes gateway status
+& .\.office-venv\Scripts\python.exe tools/render_launch_video.py --out outputs/team/video
+ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json outputs/team/video/final.mp4
+Get-FileHash outputs/team/video/final.mp4 -Algorithm SHA256
+```
+
+Use the supplied kanban-studio-runbook.md for task dependencies and unassigned human gates. No extra agent platform is required. Confirm ffmpeg/ffprobe and Python are on the native PATH used by Desktop/gateway. Do not run Bash `source` or Unix environment assignment in PowerShell.
 """.replace(chr(92)*2,chr(92)));files.append(rel)
- if L['num']==8:
+ if L['num'] in (5,8):
   rel='team-task-contracts.md';(root/rel).write_text('''# Launch video team contracts
 
 | Task | Owner | Input | Output | Blocked by | Acceptance |
 |---|---|---|---|---|---|
-| 1 Research | Researcher | Approved office pack | research.md | none | Every fact has source |
-| 2 Storyboard | Scriptwriter | research.md + brand | storyboard.md | 1 | Human approves scene text |
-| 3 Render | Producer | approved storyboard | video/final.mp4 | 2 + human gate | playable 15s, 1080x1920 |
-| 4 Audit | Reviewer | actual MP4 + sources | audit-report.md | 3 | metadata, facts, rights, readability |
+| 1 Research | researcher | Approved office pack | research.md | none | Every fact has source |
+| 2 Storyboard | scriptwriter | research.md + brand | storyboard.md | 1 | Human approves scene text |
+| 3 Render | producer | approved storyboard | video/final.mp4 | 2 + human gate | playable 15s, 1080x1920 |
+| 4 Audit | auditor | actual MP4 + sources | audit-report.md | 3 | metadata, facts, rights, readability |
 | 5 Accept | Human owner | reviewed video | decision-log.md | 4 | exact file hash + decision |
 
-Each worker owns separate output files. A task list describes coordination; inspect actual teammate sessions to prove the team ran. Do not publish externally.
+Each worker owns separate output files. A task list describes coordination; inspect actual distinct Hermes profile runs to prove the team ran. Do not publish externally.
 ''');files.append(rel)
+ if L['num'] in (5,8):
+  rel='kanban-studio-runbook.md';(root/rel).write_text(KANBAN_RUNBOOK);files.append(rel)
+ if L['num']==6:
+  rel='source-test-cases.csv';(root/rel).write_text('test_id,question,expected_evidence\nS1,What is the launch price?,approved catalogue price passage\nS2,What are the complete promotion terms?,approved brief full terms\nS3,Is a health certification established?,INSUFFICIENT EVIDENCE\n');files.append(rel)
  return files
+
+
+KANBAN_RUNBOOK = """# Hermes video studio — real profiles, dependencies and human gates
+
+Preflight the installed version, provider/tool access and distinct profiles before class. Desktop Bot Mode displays named profiles as bots; Telegram messaging bots are a different concept. A single conversation role-playing five people does not count.
+
+## 1. Inspect and prepare
+
+```text
+hermes --version
+hermes profile list
+hermes profile create --help
+hermes kanban create --help
+hermes kanban diagnostics
+hermes gateway status
+```
+
+Trainer may create missing profiles with `hermes profile create researcher --description "Extract approved launch facts with source IDs"`, and similarly scriptwriter, producer, auditor and publisher. Configure each through its actual profile settings; do not put credentials in prompts. Do not clone personal memory/credentials into a shared learner profile. In Desktop Bot Mode add the approved profiles to the roster using the current UI. Keep one running worker per profile.
+
+## 2. Disable automatic decomposition, then create human gates
+
+In the selected training gateway, set the board’s Orchestration Auto/Manual control to **Manual**, or configure `kanban.auto_decompose: false` in the correct profile config. Inspect the actual saved value and restart the selected gateway if needed. With Auto enabled, triage cards can be automatically decomposed and routed to workers, so an unassigned triage card alone is not a passive gate. Verify human cards remain unassigned/triage across a dispatcher tick before adding dependent work. Do not use Specify/Decompose on a human gate. Manual mode disables only built-in decomposition; it is not access control and does not prohibit profile-created tasks or wake-ups.
+
+The following commands are for the human operator. Agents use the corresponding Kanban tools. Replace all example IDs with actual returned IDs. Keep the explicit workspace in task bodies; inspect `--workspace` help if binding a task directory.
+
+```text
+hermes kanban create "HUMAN: approve exact storyboard" --triage --tenant kopi-video --body "Only the learner may complete this after inspecting the exact storyboard; workers must not modify this gate."
+hermes kanban create "HUMAN: accept exact final MP4" --triage --tenant kopi-video --body "Only the learner may complete this after playback, PASS audit and exact file hash. No external posting."
+hermes kanban list --tenant kopi-video
+```
+
+With Manual mode verified, unassigned triage cards remain pending human action; inspect their state rather than assuming a passive gate from their title. Add source and audit dependencies before proceeding. Human completing an unassigned gate is a supervised classroom convention; it is not an invented native role-based approval system. Withhold send/post tools from this workflow and inspect the gate after each hand-off.
+
+## 3. Wire the graph before dispatch
+
+Create the actual cards with owner, full source/workspace path, unique output and acceptance criteria. Add parent edges **at creation** with `--parent ACTUAL_ID` or the agent tool's `parents` field. Do not create a runnable child and link a prerequisite afterwards: it could already have started.
+
+| Card | Assignee | Parent(s) | Unique output / acceptance |
+|---|---|---|---|
+| Research | researcher | none | outputs/team/research.md; real source IDs |
+| Storyboard | scriptwriter | research | outputs/team/storyboard.md; three approved 5-second scenes |
+| HUMAN storyboard gate | none | storyboard | learner checks exact scene text |
+| Render | producer | HUMAN storyboard gate | outputs/team/video/final.mp4; playable 15s,1080x1920 |
+| Audit | auditor | render | outputs/team/audit-report.md; independently checked frames+metadata |
+| HUMAN final gate | none | audit | learner watches full video and accepts actual SHA256 |
+| Local package | publisher | HUMAN final gate | outputs/team/release-package.md; no external send/post |
+
+Example human creation syntax (replace IDs and workspace):
+
+```text
+hermes kanban create "Render approved video" --assignee producer --parent ACTUAL_STORYBOARD_GATE_ID --tenant kopi-video --body "Workspace FULL_LOCAL_PATH. Own only outputs/team/video/. Inspect approved storyboard and reviewed tools/render_launch_video.py. Produce actual MP4, command log and metadata. No external writes."
+hermes kanban list --tenant kopi-video
+hermes kanban show ACTUAL_RENDER_TASK_ID
+hermes kanban runs ACTUAL_RENDER_TASK_ID
+```
+
+Link the finished storyboard task as a parent of the existing unassigned storyboard gate, and audit as a parent of the unassigned final gate. Those gates have no worker, so the human inspects their dependencies before completing them. If any installed-version behaviour differs, stop and consult current official documentation/help rather than assuming an unsupported flag.
+
+## 4. Run, review and recover
+
+Use the already running Desktop-managed gateway; never start a second process polling the same Telegram bot. Dispatcher workers use separate profiles. Inspect actual runs and saved outputs. A worker completes only its own verified task; a failed or missing artifact stays incomplete. Human completes an unassigned gate only after its prerequisites are done and the exact artifact is accepted. A revision creates a follow-up task with the prior result as context; the changed output requires fresh audit and final acceptance.
+
+## 5. Evidence
+
+Capture one actual board/video-task screenshot for PP Task 3 showing bot/profile owners, a parent dependency or human gate, and the render/output task. Retain MP4, logs, source references, independent audit and exact-version human decision as working evidence. Keep tokens and unrelated records out of screenshots.
+
+Official documentation checked 29 October 2026:
+- https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban
+- https://hermes-agent.nousresearch.com/docs/user-guide/profiles
+- https://hermes-agent.nousresearch.com/docs/user-guide/desktop
+"""

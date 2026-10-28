@@ -30,3 +30,19 @@ Copy-Item -Recurse -Force .\skills\gog-office, .\skills\office-analytics, .\skil
 ```
 
 Restart/reload the selected Desktop session if required and verify the four skills are visible. Desktop/gateway tools must find the same gog.exe, Python environment and authorised account. If PATH changed after gateway startup, restart the training gateway through Desktop and recheck. Do not copy credential files between Windows and WSL or paste them into chat.
+
+
+## Day 2: native Windows Hermes video commands
+
+Use the same native workspace/runtime. Inspect real profiles, assigned tasks and gateway status:
+
+```powershell
+hermes profile list
+hermes kanban create --help
+hermes gateway status
+& .\.office-venv\Scripts\python.exe tools/render_launch_video.py --out outputs/team/video
+ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json outputs/team/video/final.mp4
+Get-FileHash outputs/team/video/final.mp4 -Algorithm SHA256
+```
+
+Use the supplied kanban-studio-runbook.md for task dependencies and unassigned human gates. No extra agent platform is required. Confirm ffmpeg/ffprobe and Python are on the native PATH used by Desktop/gateway. Do not run Bash `source` or Unix environment assignment in PowerShell.

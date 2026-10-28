@@ -1,4 +1,4 @@
-# Lab 1 — Activity 1 — Install Hermes, Connect Telegram & Build the Launch Brief
+# Lab 1 — Activity 1 — Hermes Desktop, Telegram & the Launch Brief
 
 **Day 1 · Topic 2 · 75 min · Single agent · LO1**
 
@@ -15,6 +15,7 @@ You are Kopi Kaki Co.'s Marketing Lead. The Gula Melaka Cold Brew launches on 1 
 - outputs/lab01/research-brief.md — trends, competitors, 3 campaign angles with evidence
 - Mia's long-term memory holds the brand facts and YOUR chosen angle (recalled in a new session)
 - outputs/lab01/telegram-check.md — bot round-trip and local file evidence, without credentials
+- ONE readable screenshot of your own Telegram request and substantive Hermes reply — PP Task 1; hide private identifiers and credentials
 
 ## Who does what
 - **Agents:** 1 Hermes agent — 'Mia', AI marketing analyst
@@ -167,13 +168,18 @@ Which campaign angle did I choose, and why? What is the promo code and its terms
 
 ✅ **Expected:** Mia answers correctly without re-reading the files.
 
+### 12. Capture the Telegram evidence
+Open your private training bot chat and ask it to explain the approved launch angle using source review IDs. Include your request and its substantive reply in ONE readable screenshot for PP Task 1. Crop unrelated chats and private identifiers; never include a bot token. Keep telegram-check.md and the source brief as working evidence.
+
+✅ **Expected:** Own Telegram request/reply is visible; this is the channel screenshot, not a Desktop-only frame.
+
 ## Verification / checkpoint
 - [ ] Telegram private chat reaches your local Hermes gateway and creates telegram-check.md
 - [ ] outputs/lab01/review-insights.md and research-brief.md exist and cite review IDs / URLs
 - [ ] The brief ends with a decision log naming the angle you chose
 - [ ] MEMORY.md contains the brand facts and your decision
 - [ ] A new session recalls the chosen angle and the SHIOK20 terms
-- [ ] PP evidence: take ONE screenshot now of the research brief or the memory recall — Task 1 of the Practical Performance uses it
+- [ ] PP Task 1: ONE own Telegram request and substantive Hermes reply screenshot; no tokens
 
 **Checkpoint:** Every insight cites review IDs or a URL; the angle you chose is recalled in a brand-new session.
 

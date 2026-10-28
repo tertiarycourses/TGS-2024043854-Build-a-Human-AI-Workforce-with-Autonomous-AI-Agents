@@ -19,21 +19,22 @@ def swda(D):
       ('check','Check eligibility','Verify the live MySkillsFuture course label and your own eligibility; a WSQ code alone is insufficient.'),
       ('clock','Wait for the official email','The request form arrives after eligible attendance; redemption is not a Day 1 prerequisite.'),
       ('hand','Choose carefully','Selection cannot be changed after submission. Compare the current official provider options first.'),
-      ('tool','Separate lab access','A consumer AI subscription does not automatically include API credits, Claude Code teams or Dots access.')],SWDA)
+      ('tool','Separate lab access','A consumer AI subscription does not automatically include API credits, Dots access or API credits.')],SWDA)
     s=D.prs.slides[-1]; text(s,0.7,6.63,11.8,0.28,'Official redemption guide (click)',11,ACC_D).text_frame.paragraphs[0].runs[0].hyperlink.address=SWDA
 
 def case_pair(D,group,ic,pair,index):
     s=D.new();header(D,s,'Topic 1 · 2026 opportunity gallery',group,'Proposed workflows · compare AI work, human decisions and observable evidence')
     for row,c in enumerate(pair):
       title,inp,work,human,out,metric,pattern=c;y=2.3+row*2.12
-      icon(s,ic,.65,y+.08,.46);text(s,1.3,y+.04,11,.33,f'{index+row:02d}  {title}  |  {pattern}',17,INK,bold=True,font=SERIF)
+      icon(s,ic,.68,y+.01,.37);text(s,1.22,y,10.95,.38,f'{index+row:02d}  {title}',17,INK,bold=True,font=SERIF)
+      text(s,1.24,y+.37,10.8,.22,pattern,11.5,TEAL,bold=True)
       nodes=[('INPUT',inp,'file'),('AGENT WORK',work,'robot'),('HUMAN DECISION',human,'user'),('EVIDENCE',out,'check')]
       for j,(label,body,glyph) in enumerate(nodes):
-        x=.65+j*3.08;card(s,x,y+.51,2.87,1.09,fill=CHAR if j==2 else WHITE,shadow=False)
-        text(s,x+.14,y+.61,2.59,.2,label,10.5,ACC if j==2 else TEAL,bold=True,autofit=False)
-        text(s,x+.14,y+.88,2.59,.59,body,13,SOFT if j==2 else MUTED,minpt=12)
-        if j<3:line(s,x+2.90,y+1.06,x+3.05,y+1.06,ACC,1.7,arrow=True)
-      text(s,.8,y+1.66,11.75,.33,'ACCEPT WHEN  '+metric,12,TEAL,bold=True,minpt=11.5)
+        x=.65+j*3.08;card(s,x,y+.68,2.87,1.02,fill=CHAR if j==2 else WHITE,shadow=False)
+        text(s,x+.14,y+.77,2.59,.2,label,10.5,ACC if j==2 else TEAL,bold=True,autofit=False)
+        text(s,x+.14,y+1.03,2.59,.57,body,13,SOFT if j==2 else MUTED,minpt=12)
+        if j<3:line(s,x+2.90,y+1.18,x+3.05,y+1.18,ACC,1.7,arrow=True)
+      text(s,.8,y+1.78,11.75,.31,'ACCEPT WHEN  '+metric,12,TEAL,bold=True,minpt=11.5)
     tag(D,'MODEL','Proposed classroom scenarios; not claims of actual deployments')
 
 def topic1(D,C,mark):
@@ -106,7 +107,7 @@ def topic1(D,C,mark):
     proof(D,'Topic 1 · Research comparison','Shared Workspaces Make Coordination Visible',[
       ('chat','ChatCollab research prototype','Human and AI participants used role-based collaboration in Slack on software tasks.'),
       ('file','Inspectable coordination','Participants could request inputs, wait for deliverables and communicate responsibilities.'),
-      ('kanban','Classroom transfer','Use Kanban for task state and Claude teams for agent sessions and communication.'),
+      ('kanban','Classroom transfer','Use Hermes profiles/bots for separate state and Kanban for owned tasks, dependencies and run evidence.'),
       ('scale','Limit','A research prototype does not establish that a classroom team will outperform one agent.')],'https://arxiv.org/html/2412.01992v1')
     mechanisms=[
      ('Tools, Skills and Memory Have Different Jobs',[('tool','Tool','A callable operation: gog reads a message or python calculates a table.'),('book','Skill','A reusable procedure with inputs, steps and checks: build the management deck.'),('memory','Memory','Persistent facts or preferences; keep secrets out of it.'),('check','Trace','Goal -> loaded skill -> tool calls -> saved artifact -> verification.')]),
@@ -152,8 +153,8 @@ def topic1(D,C,mark):
     proof(D,'Topic 1 · Agent market','Compare Products by Workflow Fit',[
       ('robot','Hermes','Day 1: local agent, tools, skills, memory and Telegram; one model loop owns the office pack.'),
       ('chat','OpenAI Dots','Trainer demo: persistent assistant and tool actions; use only available account capabilities.'),
-      ('users','Claude Code teams','Day 2: independent teammate sessions, shared tasks and direct communication; experimental.'),
-      ('building','Paperclip','Short governance comparison: company, org chart, approval and accountability evidence.')],'Official Hermes, OpenAI Dots, Claude Code agent teams and Paperclip documentation')
+      ('users','Hermes teams','Day 2: actual separate profiles/bots, owned outputs, Kanban parent edges and run history.'),
+      ('hand','Human oversight','Unassigned human gates, source verification and exact-version acceptance.')],'Official Hermes and OpenAI Dots documentation')
     mark('activity')
     trace(D,'Topic 1 · Canvas activity','Design the Launch Office Before Building It',[
       ('target','Pick the outcome','Prepare the launch manager’s office pack.'),('file','Map evidence','Email, events, Drive files and Excel source rows.'),('robot','Choose a mode','Single agent first; team only for separable work.'),('user','Name decisions','Manager chooses angle, accepts figures and approves release.')],
@@ -165,9 +166,9 @@ def topic1(D,C,mark):
       ('check','Definition of done','Figures reconcile; sources are traceable; HTML works offline; slides are readable; nothing sent.')])
     proof(D,'Topic 1 · Before lunch','What You Will Build in Two Days',[
       ('robot','Day 1: single agent','Install Hermes Desktop + Telegram; connect gog; analyse Excel; build dashboard and professional slides.'),
-      ('users','Day 2: agent team','Use Kanban ownership and dependencies; create a video with specialists and Claude Code teammates.'),
+      ('users','Day 2: agent team','Use Hermes bots with owned outputs, Kanban dependencies and independent video review.'),
       ('hand','Human role','Set goals, verify facts, challenge analysis, direct revisions and approve the exact release version.'),
-      ('check','Assessment bridge','Keep Lab 1 brief/recall, Lab 4 real Kanban studio and Lab 7 company org-chart evidence.')])
+      ('check','Assessment bridge','Keep Activity 1 Telegram, Activity 3 professional PPT and Activity 5/8 real Kanban video-team evidence.')])
 
 def demo(D,mark):
     mark('demo')
@@ -176,7 +177,7 @@ def demo(D,mark):
       '15-minute trainer demo. Use a prepared recording or Hermes if the trainer account lacks Dots access. No learner purchase required.',SOURCES[6][1])
     proof(D,'After lunch · Trainer demo','Watch the Work, Then Inspect the Result',[
       ('eye','Evidence','Which source supports each claimed meeting, email or product fact?'),('tool','Action','Did a tool actually run, or did the assistant only describe an intended action?'),
-      ('hand','Human control','Which action is pending approval? Can the person interrupt and revise?'),('check','Transition to Activity 1','Download Hermes Desktop, verify Telegram and produce the Lab 1 brief for PP Q1.')],SOURCES[6][1])
+      ('hand','Human control','Which action is pending approval? Can the person interrupt and revise?'),('check','Transition to Activity 1','Download Hermes Desktop, verify Telegram and produce the Lab 1 brief for PP Task 1.')],SOURCES[6][1])
 
 def office(D):
     trace(D,'Day 1 · Desktop first','Hermes Desktop: Download → Configure → Connect',[
@@ -212,21 +213,3 @@ def office(D):
      ('What Failed? Diagnose Before Retrying',[('login','OAuth error','Check account, client, enabled APIs and test-user eligibility.'),('server','Gateway error','Check running process, allowed ID and executable PATH.'),('chart','Data error','Inspect sheet names, numeric types and duplicates.'),('file','Artifact error','Open saved file; check actual output, not chat completion text.')]),
     ]
     for title,items in units:proof(D,'Day 1 · Single-agent practice',title,items)
-
-def claude_team(D):
-    section(D,'Day 2 · Claude Code teams','Build the Multi-Agent Video Studio',[
-      'Independent teammates + one shared task list','Separate file ownership and dependencies','Producer builds; reviewer checks','Human approves the exact video version'])
-    trace(D,'Day 2 · Team architecture','One Brief Becomes a Coordinated Video Project',[
-      ('search','Researcher','Verified claims -> research.md.'),('pen','Scriptwriter','Approved facts -> storyboard.md.'),('film','Producer','Storyboard + assets -> final.mp4.'),('eyecheck','Reviewer','Checks -> audit-report.md.')],
-      'Lead coordinates; each worker owns separate files. Human watches the final cut before any release.','https://code.claude.com/docs/en/agent-teams')
-    details=[
-     ('Claude Teams Need Explicit Enablement',[('terminal','Installation','Check claude --version and authorised trainer/learner access.'),('gear','Enable','CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude'),('users','Runtime','Team lead + independent teammate contexts + direct messages.'),('check','Evidence','Observe actual teammate sessions and tasks, not role-play in one response.')]),
-     ('A Kanban Card Is a Work Contract',[('user','Owner','Exactly one responsible worker.'),('file','Inputs + outputs','Explicit source file and unique output path.'),('layers','Dependencies','Storyboard waits for research; producer waits for approved storyboard.'),('check','Done','Reviewer confirms artifact and acceptance criteria.')]),
-     ('A Video Pipeline Has a Human Release Gate',[('file','Draft','15-second vertical cut, synthetic launch scenario.'),('eyecheck','Audit','Facts, 1080x1920, duration, readability and rights.'),('user','Watch','Human watches the whole cut and requests a revision.'),('lock','Release','Save approved-version record; classroom lab does not publish externally.')]),
-     ('Prevent Shared-File Collisions',[('search','Researcher','Writes outputs/team/research.md only.'),('pen','Scriptwriter','Writes outputs/team/storyboard.md only.'),('film','Producer','Writes outputs/team/video/ only.'),('eye','Reviewer','Writes outputs/team/audit-report.md only.')]),
-     ('Subagents and Teams Coordinate Differently',[('robot','One agent','One context owns all steps and artifacts.'),('users','Subagents','Delegate bounded work; results return to caller.'),('network','Team','Independent sessions share tasks and communicate.'),('scale','Choose','Use the simplest option that passes quality, time and cost checks.')]),
-     ('Two People Can Audit the Same Cut',[('eye','Reviewer','Checks technical and brand criteria.'),('user','Manager','Checks narrative, meaning and intended audience.'),('file','Feedback','Each finding names scene, timestamp and required change.'),('check','Accept','Fix -> re-render -> re-watch; archive superseded cut locally.')]),
-     ('Measure the Team Against Day 1',[('clock','Time','Include setup, coordination, execution and review.'),('coins','Cost','Record provider usage and any video charges.'),('check','Quality','Use the same factual and visual acceptance checks.'),('scale','Decision','Keep a team only if its extra work is justified.')]),
-     ('Team Completion Is an Artifact State',[('file','Research','Source-linked findings exist.'),('video','Video','Playable MP4 exists and metadata matches spec.'),('eyecheck','Audit','All mandatory checks pass; limitations stated.'),('hand','Approval','Human accepts the named exact version; no automatic posting.')]),
-    ]
-    for title,items in details:proof(D,'Day 2 · Agent-team practice',title,items,'https://code.claude.com/docs/en/agent-teams')

@@ -269,8 +269,7 @@ def video_brief_template():
 
 | Field | Contract |
 |---|---|
-| Labs 4 / 8 | 15 seconds; three five-second scenes; 9:16, 1080x1920 |
-| Lab 9 weekly variant | 20–30 seconds only when that routine's approved brief requests it |
+| Activities 5 / 8 | 15 seconds; three five-second scenes; 9:16, 1080x1920 |
 | Facts | Approved campaign brief + catalogue; source IDs required |
 | Promo | Optional; exact terms required if used |
 | Assets | Supplied/licensed; AI assistance disclosed in description |
@@ -287,7 +286,7 @@ Score each item PASS / FAIL with a one-line reason. Any FAIL → `request-change
 | # | Check |
 |---|---|
 | V1 | Hook lands in the first 2 seconds |
-| V2 | Match approved duration: Labs 4/8 = 15 s; Lab 9 routine = 20–30 s. Always 9:16, 1080×1920 |
+| V2 | Match approved duration: Activities 5/8 = 15 s. Always 9:16, 1080×1920 |
 | V3 | Brand colours and logo (cream or brown background) used correctly |
 | V4 | Main on-screen text readable (≥ 48 px), max 7 words per main line; disclosure remains readable |
 | V5 | Approved price/date match the brief. If SHIOK20 is used, include all its exact terms; otherwise promo terms are not required |

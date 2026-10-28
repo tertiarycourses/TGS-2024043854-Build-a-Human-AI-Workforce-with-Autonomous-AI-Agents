@@ -1,11 +1,11 @@
-# Lab 2 — Single-Agent Launch Office — Google, Excel, Dashboard & Professional PPT
+# Lab 2 — Activity 2 — Google Workspace & Verified Excel Analysis
 
-**Day 1 · Topic 2 · 90 min · Single agent + four skills · LO1**
+**Day 1 · Topic 2 · 50 min · One agent + gog + analytics skill · LO2**
 
 > One Hermes agent reads the assigned Google account, analyses an Excel workbook and builds an interactive dashboard and a management presentation.
 
 ## Goal
-Use tools and reusable skills to produce and verify office artifacts from source data, with traceable calculations and human decisions (LO1/LO2).
+Read assigned Gmail, Calendar and Drive records and analyse the Excel source using one Hermes agent (LO2).
 
 ## The business scenario
 Kopi Kaki’s launch manager needs a morning office brief, a reliable outlet-performance analysis, an interactive view for the meeting and six professional slides. All company data is fictional. Use only the trainer-assigned Google account and approved training files.
@@ -13,9 +13,7 @@ Kopi Kaki’s launch manager needs a morning office brief, a reliable outlet-per
 ## You will deliver
 - outputs/lab02/morning-brief.md — bounded Gmail, Calendar and Drive evidence with source IDs
 - outputs/lab02/analysis.xlsx and analysis.json — verified outlet and review metrics
-- outputs/lab02/dashboard.html — offline interactive filter, chart, table and CSV export
-- outputs/lab02/management-brief.pptx and a reviewed PDF — six editable professional slides
-- outputs/lab02/qa-report.md — checks, one correction and source-to-output trace
+- outputs/lab02/analysis-notes.md — formulas, reconciliation and recommendations
 
 ## Who does what
 - **Agents:** Exactly one Hermes agent; gog and Python are tools, not additional agents.
@@ -26,7 +24,7 @@ Kopi Kaki’s launch manager needs a morning office brief, a reliable outlet-per
 - Trainer-assigned Google training account, Desktop OAuth client JSON and approved Drive folder ID (provided privately)
 - Trainer pre-enables Gmail/Calendar/Drive APIs, configures consent and adds assigned users as test users if required
 - Python 3 with openpyxl, python-pptx and Pillow; PowerPoint or approved PDF renderer. gog requires macOS 15+ for current prebuilt macOS binaries; Windows Desktop uses the official native Windows gog ZIP and PowerShell.
-- All tool binaries, Python environment and account consent are preflighted before the 90-minute office exercise. In class: 25 min Google brief, 20 min Excel, 15 min dashboard, 20 min PPT and 10 min human QA. If preflight is incomplete, record it honestly and continue with local data while integration remains incomplete.
+- All tool binaries, Python environment and account consent are preflighted before the 50-minute Google/Excel exercise.
 
 ## Concepts in action
 - Tool = operation; skill = reusable procedure; memory = persisted facts
@@ -65,8 +63,8 @@ Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Pr
 
 ## Steps
 
-### 1. Prepare the workspace and dependencies (5 min; trainer-preflighted)
-From this lab folder copy its data files into the same ~/kopi-kaki workspace. Do not overwrite an existing AGENTS.md. The course’s reviewed skills and helper script are supplied; the agent must inspect and adapt their outputs. macOS/Linux commands are shown below. Native Windows Desktop learners use the Windows setup section in this lab's data/windows-office-setup.md. Use the same local profile; do not silently switch to WSL. Install the course skill folders in the selected profile's Skills directory, which may differ from ~/.hermes on native Windows.
+### 1. Inspect the preflighted workspace and tools (5 min)
+Trainer installs gog, Python dependencies and reviewed skills before class. Inspect their versions and paths in the same native Desktop runtime. Copy this activity’s data into the existing workspace without overwriting AGENTS.md. Use data/windows-office-setup.md for native PowerShell. The commands below are setup reference; do not spend the timed run reinstalling a working environment.
 
 ```bash
 mkdir -p ~/kopi-kaki/outputs/lab02
@@ -141,49 +139,11 @@ Use office-analytics. Inspect campaign-data.xlsx and tools/office_artifacts.py b
 
 ✅ **Expected:** analysis.xlsx and analysis.json contain reproducible aggregates; analysis-notes.md explains the actual source fields and checked totals.
 
-### 7. Build and test the interactive artifact (15 min)
-```bash
-.office-venv/bin/python tools/office_artifacts.py dashboard --out outputs/lab02
-```
-
-**Prompt** — paste into *Hermes chat*:
-
-```text
-Use interactive-dashboard. Inspect analysis.json and the generated dashboard.html. Adapt it into a launch-management view with an outlet selector, revenue KPI, bar chart, sortable table, CSV export and a reset control. Keep all code and synthetic aggregates embedded so it works offline. Test All outlets, one outlet, reset and CSV export. Compare the visible totals to analysis.xlsx. Record the exact tests in qa-report.md. A screenshot is not proof of interactivity.
-```
-
-✅ **Expected:** dashboard.html opens without a server and responds correctly to filtering, sorting, reset and CSV export.
-
-### 8. Create the professional six-slide PPT (20 min)
-```bash
-.office-venv/bin/python tools/office_artifacts.py ppt --out outputs/lab02
-```
-
-**Prompt** — paste into *Hermes chat*:
-
-```text
-Use professional-ppt. Read the approved launch brief, analysis-notes.md, analysis.json and brand-guide.md. Create or revise outputs/lab02/management-brief.pptx into six editable slides: decision required; verified business context; outlet-performance chart; customer evidence; two options and trade-offs; recommendation and human decision. Use native shapes, an editable chart and a clear visual hierarchy. Cite source tables or review IDs in notes. Do not invent data or claims. Open or render every slide, fix clipping and check the chart totals. Save the reviewed PDF through the available PowerPoint/LibreOffice export. Record one real revision and its recheck in qa-report.md.
-```
-
-✅ **Expected:** Six editable slides and a visually inspected PDF. Helper output is a starter; the agent adapts the narrative and checks it.
-
-### 9. Human challenge and final evidence (10 min)
-**Prompt** — paste into *Hermes chat*:
-
-```text
-Show which spreadsheet rows support your recommendation. What alternative explanation could change it? I will choose the final recommendation. Update the dashboard and deck consistently if my choice changes. Add to qa-report.md: source identity and service coverage; reconciliation results; dashboard interaction checks; slide render checks; what failed and was fixed. Confirm no email, event, Drive permission or public content was changed.
-```
-
-✅ **Expected:** The office pack tells one consistent story and preserves the human decision.
-
 ## Verification / checkpoint
 - [ ] Gmail, Calendar and Drive have independent identity/read evidence or accurately reported blocks
 - [ ] analysis.xlsx totals match source workbook and analysis.json; methods and rejected rows are documented
-- [ ] dashboard.html is interactive offline; outlet filter, sorting, reset and exported CSV are verified
-- [ ] management-brief.pptx has six editable slides, a checked chart and a reviewed PDF
-- [ ] qa-report.md contains one actual correction and repeat check; no external send/write
 
-**Checkpoint:** Three services are read or separately reported unavailable; Excel totals reconcile; dashboard filters/export work offline; six slides are editable and visually checked; no external write.
+**Checkpoint:** Independent service evidence and a reconciled Excel analysis; no external writes.
 
 ## Troubleshooting
 
