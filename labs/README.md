@@ -1,19 +1,19 @@
 # Labs — Build a Human-AI Workforce with Autonomous AI Agents
 
-Eight connected activities for **Kopi Kaki Co. — a fictional Singapore kopi chain launching the Gula Melaka Cold Brew (#ShiokColdBrew)**. Every activity builds on the previous one in the same workspace. The Day 1 office pack is saved under `outputs/lab02/`; the video team uses `outputs/team/`; follow each named artifact path.
+Eight activities: morning personal-assistant practice, then the **Kopi Kaki Co. — a fictional Singapore kopi chain launching the Gula Melaka Cold Brew (#ShiokColdBrew)** company scenario from Activity 2. The Day 1 office pack is saved under `outputs/lab02/`; the video team uses `outputs/team/`; follow each named artifact path.
 
 **Copy-ready prompts:** open [`../prompts/index.html`](../prompts/index.html) in your browser (works offline) — pick a lab, click **Copy**.
 
 Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).
 
-## Day 1 — One Hermes office assistant, tools and skills
+## Day 1 — Always-on assistant, then Hermes office tools and skills
 
 | # | Lab | Paradigm | Time | Instructions |
 |---|---|---|---|---|
-| 1 | [Activity 1 — Hermes Desktop, Telegram & the Launch Brief](lab01-hermes-first-ai-employee/README.md) | Single agent | 75 min | [PDF](lab01-hermes-first-ai-employee/LAB-01-Instructions.pdf) |
-| 2 | [Activity 2 — Google Workspace & Verified Excel Analysis](lab02-hermes-social-media-campaign/README.md) | One agent + gog + analytics skill | 50 min | [PDF](lab02-hermes-social-media-campaign/LAB-02-Instructions.pdf) |
-| 3 | [Activity 3 — Interactive Dashboard & Professional PPT](lab03-hermes-office-artifacts/README.md) | Single agent + four skills | 40 min | [PDF](lab03-hermes-office-artifacts/LAB-03-Instructions.pdf) |
-| 4 | [Activity 4 — Office Approval & Exception Handling](lab04-hermes-office-approval/README.md) | Human–agent collaboration | 30 min | [PDF](lab04-hermes-office-approval/LAB-04-Instructions.pdf) |
+| 1 | [Activity 1 — Set Up an Always-On Personal Assistant](lab01-always-on-personal-assistants/README.md) | Personal assistant + human decisions | 75 min | [PDF](lab01-always-on-personal-assistants/LAB-01-Instructions.pdf) |
+| 2 | [Activity 2 — Hermes Desktop, Tools, Skills & the Company Brief](lab02-hermes-desktop-skills/README.md) | Single agent | 90 min | [PDF](lab02-hermes-desktop-skills/LAB-02-Instructions.pdf) |
+| 3 | [Activity 3 — Hermes Gmail, Calendar, Drive & Excel](lab03-hermes-google-office/README.md) | One agent + gog + analytics skill | 50 min | [PDF](lab03-hermes-google-office/LAB-03-Instructions.pdf) |
+| 4 | [Activity 4 — Hermes Dashboard, Professional PPT & Single-Agent Video](lab04-hermes-ppt-video-artifacts/README.md) | One agent + office/video skills + human review | 70 min | [PDF](lab04-hermes-ppt-video-artifacts/LAB-04-Instructions.pdf) |
 
 ## Day 2 — Hermes bots, Kanban video, source assurance and Dots
 
@@ -25,7 +25,7 @@ Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `CO
 | 8 | [Activity 8 — Revise, Verify & Release the Team Video Locally](lab08-hermes-video-release/README.md) | Multi-agent team + human oversight | 115 min | [PDF](lab08-hermes-video-release/LAB-08-Instructions.pdf) |
 
 ## Topic 1 activity
-Human–AI Workforce Canvas (in class, 20 min) — see the slide deck and Learner Guide; begin Hermes installation in Activity 1 after the lunch demo.
+Activity 1: set up one accessible Muse, Dots or Grok Bot; check schedule and draft a reply. Activity 2 begins the company scenario and Hermes Desktop after lunch.
 
 ## Conventions
 - Prompts are plain English; terminal commands are marked `bash`.

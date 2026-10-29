@@ -6,8 +6,10 @@ ROOT=Path(__file__).resolve().parents[4]/'courseware'/'assets'/'workflows'
 FONTP='/System/Library/Fonts/Supplemental/Arial.ttf'
 BOLD='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
 MODELS={
-2:[('1  Confirm identity','Assigned Google account'),('2  Read sources','Gmail / Calendar / Drive'),('3  Analyse Excel','Schema + formulas + totals'),('4  Human checks','Sources + recommendations')],
-4:[('1  Inspect sources','Email text stays data'),('2  Surface conflict','Two deadlines + source IDs'),('3  Human decision','Owner chooses correction'),('4  Recheck version','File hash + approval log')],
+1:[('1  Choose + connect','One accessible assistant'),('2  Read sources','Assigned Gmail + Calendar'),('3  Draft + review','Source check + correction'),('4  Stop + evidence','Own request/result image')],
+2:[('1  Install Desktop','Official app + local profile'),('2  Review skills','Procedure + tools + access'),('3  Read company pack','Source IDs + research brief'),('4  Human decision','Choose angle + verify recall')],
+3:[('1  Confirm identity','Assigned Google account'),('2  Read sources','Gmail / Calendar / Drive'),('3  Analyse Excel','Schema + formulas + totals'),('4  Human checks','Sources + recommendations')],
+4:[('1  Dashboard + PPT','Verified interactive outputs'),('2  Single-agent video','Approved scenes + real MP4'),('3  Human decision','Exact test-email approval'),('4  Verify + evidence','Sent readback + artifact')],
 6:[('1  Register corpus','Source ID / version / owner'),('2  Retrieve passages','Supported or missing evidence'),('3  Independent check','Auditor detects stale fixture'),('4  Assess upkeep','Refresh / access / evaluation')],
 7:[('1  Verify access','Dots account + approved files'),('2  Delegate review','Named pack / bounded scope'),('3  Inspect and steer','Source support + correction'),('4  Stop and compare','Actual state + review effort')],
 8:[('1  Re-plan team tasks','Bots / owners / parent edges'),('2  Produce video','Approved copy -> actual MP4'),('3  Audit independently','Scenes / sources / metadata'),('4  Human accepts','Exact hash / local release')],

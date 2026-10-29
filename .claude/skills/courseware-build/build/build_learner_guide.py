@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22
+from version_history import PRIOR, V20, V21, V22, V23
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -56,14 +56,14 @@ h2("Learning Outcomes")
 bullets(C.LEARNING_OUTCOMES)
 h2("Course Structure")
 table(["Topic", "Day", "What you do"], [
-    ("1 · " + C.TOPICS[0]["title"], "Day 1 AM", "; ".join(C.TOPICS[0]["items"]) + "; Activity: Human–AI Workforce Canvas"),
-    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Labs 1–3: one Hermes office agent; Day 2 Labs 4–5: Kanban team"),
+    ("1 · " + C.TOPICS[0]["title"], "Day 1 AM", "; ".join(C.TOPICS[0]["items"]) + "; Activity 1: set up an always-on assistant"),
+    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Activities 2–4: Hermes Desktop, tools/skills, Google/Excel, dashboard/PPT and single-agent video"),
     ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation")])
 h2("How to Use the Lab Materials")
 numbered(["Download the course repository (Code → Download ZIP) and unzip it.",
           "Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.",
           "Each lab folder labs/labNN-…/ contains README.md, LAB-NN-Instructions.pdf (printable), COPY-PROMPTS.txt and data/ (mock company files, skills and brand assets).",
-          "Create one workspace folder ~/kopi-kaki and copy each lab's data/ into it as you go. Outputs are saved to ~/kopi-kaki/outputs/labNN/.",
+          "Morning Activity 1 uses a neutral training schedule/email scenario. At Activity 2, create one ~/kopi-kaki workspace for the company labs and preserve the documented shared output paths for Day 2.",
           "Finish each lab with its checkpoint: evidence, not vibes."])
 img(os.path.join(SHOTS, "screenshots", "prompts-page.png"), "The Lab Prompts page (prompts/index.html)", 4.2)
 note("Preferred surface: Hermes Desktop. macOS/Windows learners use the official Desktop installer. On native Windows use the supplied PowerShell setup file and the same local profile for tools and Telegram; WSL is a separate runtime.\nPlatforms change quickly. If a command differs on your version, run it with --help and check the official docs: "
@@ -78,36 +78,34 @@ src("Official guide: https://www.myskillsfuture.gov.sg/content/portal/en/career-
 note("Redemption follows eligible attendance. It is not a Day 1 prerequisite. Consumer subscription, agent access and API credits are separate entitlements; use trainer-provisioned lab access.")
 p(C.CONTACT_TIME_NOTE)
 h1("Topic 1 — " + C.TOPICS[0]["title"])
-h2("1.1 The current human–AI interaction landscape")
-p("Begin with the work and the relationship: who sets the goal, who acts, who checks, and who is accountable? The same launch can use a copilot for drafting, one digital agent for the office pack, a specialist team for video production and a human owner for consequential decisions. Scientific collaborators propose hypotheses for researchers to test; embodied agents also sense and act in physical environments.")
-table(["Agent type", "Interaction", "Observable evidence"],[("Conversational copilot","Person directs each edit","Accepted changes and source checks"),("Single digital agent","Human delegates a bounded outcome","Tool logs and saved office artifacts"),("Multi-agent team","Specialists coordinate separate responsibilities","Real teammate sessions, task owners and hand-offs"),("Persistent assistant","Bounded monitoring with human oversight","Run timestamps, coverage, exceptions and reports"),("Scientific collaborator","Expert sets research goals and tests proposals","Hypothesis provenance and experimental results"),("Embodied/humanoid agent","Person supervises physical task collaboration","Validated sensing, action limits, stop and recovery controls")])
-h2("1.2 AI history and four engineering lenses")
-p("AI developed through explicit rules, search, learning from data, language models and goal-directed tool use. These approaches coexist. The trainer's four-year sequence is a teaching framework, not a claim about when the methods were invented or first named.")
-table(["Course lens", "Focus", "Launch-office example"],[("2023 Prompt Engineering","Goal, audience and instruction","Write a management brief"),("2024 Context Engineering","Relevant source data and constraints","Add the catalogue, reviews, brand and policy"),("2025 Harness Engineering","Tools, state, checks and limits","Read-only gog, memory, acceptance tests and human gates"),("2026 AI Agents","Delegate action and inspect evidence","Agent builds and verifies a complete office pack")])
-p("An AI agent can plan multiple steps, use several tools and maintain state. Agentic AI is an umbrella term for systems that plan and act toward goals; it does not universally require multiple agents. In this course describe the actual runtime rather than relying only on a label.")
-h2("1.3 Forty-eight practical opportunities")
-p("The following are proposed workflow designs for discussion and adaptation. They are not claims that a named organisation has deployed them. Before adopting one, validate access, source quality, measurable acceptance criteria and the human decision owner. The deck shows these as editable workflow diagrams; this guide provides the complete scenario catalogue.")
-for group,ic,cases in CASE_GROUPS:
- h3(group)
- for title,inp,act,human,out,metric,mode in cases:
-  p("**"+title+"** — "+mode)
-  table(["Design field","Contract"],[("Input",inp),("AI work",act),("Human decision",human),("Output",out),("Accept when",metric)])
-h2("1.4 Evidence from research and practice")
-p("Google's AI co-scientist uses cooperating agents to generate and refine research hypotheses; researchers determine experimental validation. AlphaEvolve searches candidate programs against an evaluator. Neither a plausible hypothesis nor generated code alone establishes a scientific result.")
-p("The Pairit study of human–AI ad collaboration found higher output and text quality alongside weaker image quality and more homogeneous outputs. Treat these as task-specific results, not a universal productivity promise. In our labs evaluate accuracy, visual quality, diversity, cost and human review effort separately.")
-p("The early-adopter mental-model study involved interviews with 13 Microsoft developers. Team metaphors helped describe coordination but exposed transparency and error-propagation problems. ChatCollab is a research prototype showing human/AI roles and communication in a shared workspace; inspect real teammate state in our labs rather than treating a role-play as a working team.")
-p("Columbia's human-centred AI discussion and the 2026 collaboration studies motivate asking how a person wants to participate, providing interruption and correction, and measuring understandability and control as well as output quality. UNSW's workplace-governance discussion motivates explicit role authority, accountability and recourse.")
-h2("1.5 Future collaboration, including humanoid robots")
-p("Future-design scenarios: a warehouse worker delegates bounded pick-and-carry tasks; a technician receives tool-delivery support; hospital staff supervise non-clinical logistics; retail staff coordinate replenishment; engineers compare simulated factory layouts; scientists oversee persistent research collectives. These are opportunities to analyse, not promises of present deployment or readiness.")
-p("Figure Helix and Gemini Robotics provide current primary-source demonstrations and research on vision-language-action and embodied reasoning. A humanoid body does not imply general intelligence or permission to act. Distinguish a manufacturer demonstration, a controlled pilot, and a validated deployment. Human–robot work needs task-specific physical safety engineering, restricted zones, stop controls and tested recovery.")
-h2("1.6 Collaboration modes and coordination patterns")
-for title,sub,steps,evidence,failure in PATTERNS:
- h3(title);p(sub);table(["Stage","Contract"],[(t,d) for ic,t,d in steps]);p(evidence);note(failure)
-h2("1.7 Agent mechanisms learners must inspect")
-p("The agentic loop gathers context, selects an action, observes its result, verifies the work and either repeats, stops or asks for a human decision. Tools are operations; skills are reusable procedures; memory persists approved facts or preferences. One agent can use many tools and generate many artifacts.")
-p("Short-term context is limited to the current interaction. Long-term memory must be checked through its saved source and a new-session recall test. RAG retrieves evidence for an answer, but citations still need checking. A conceptual world model predicts how an action could change state; it does not guarantee that an imagined outcome will occur.")
-p("Treat email, web pages and document cells as untrusted task data. Instructions inside them cannot authorise sends, purchases or access changes. Confirm the assigned account; constrain read queries and runtime actions; inspect OAuth scope separately from tool-level readonly policy. Missing service access must be reported, not interpreted as no data.")
-p("Select the simplest design that meets the task. A fixed workflow follows predefined stages; an agent chooses steps dynamically. Parallel workers need separate output ownership. An orchestrator coordinates tasks and dependencies. An evaluator needs independent criteria. Human-in-the-loop blocks an action for approval; human-on-the-loop monitors bounded reversible work and can intervene.")
+h2("1.1 Brief history of AI")
+p("Begin with rules and expert systems, then learning from data, Transformers/chat and tool-using systems. These coexist: a 2026 agent still uses ordinary rules, databases and deterministic software. The following years are overlapping teaching lenses, not invention dates.")
+table(["Course lens","Focus","Observable mechanism"],[("2023 Prompt Engineering","Goal, audience and output","Specific instruction"),("2024 Context Engineering","Relevant facts and constraints","Selected source records"),("2025 Harness Engineering","Tools, state, checks and limits","Real tool results and approval controls"),("2026 AI Agents","Delegate work and inspect results","Verified artifacts and human decisions")])
+h2("1.2 AI agents do the work; humans decide")
+p("The agent reads permitted sources, selects tools, calculates, drafts and produces work. The human sets the goal and access, exercises judgment when facts or values conflict, approves consequential commitments and accepts the result. Capability and human authority should be explicit in the task, rather than inferred from a product label.")
+table(["Two work modes","AI work","Human judgment","Evidence"],[("Personal assistant","Email, calendar, travel options and daily brief","Priorities, conflicting commitments and exact sends/purchases","Source-checked schedule and reviewed draft"),("Digital worker","Coding, accounting, analysis and content production","Business decision, exceptions, release and quality acceptance","Patch, reconciliation, deck or video plus verified checks")])
+h2("1.3 Eight selected opportunities")
+table(["Use case","AI work","Human decision / acceptance"],[("Schedule + inbox","Read assigned records and propose a reply","Check actual event/message and approve wording"),("Travel planning","Compare routes and constraints","Confirm current options before booking"),("Management analyst","Reconcile workbook; create dashboard and PPT","Choose action and verify totals"),("Accounting assistant","Match invoices and flag differences","Accountant approves adjustments"),("Software engineer","Implement bounded changes and run checks","Reviewer accepts design and release"),("AI + scientist","Generate and critique hypotheses","Scientist validates experimentally"),("Video team","Research, storyboard, render and audit","Approve exact scenes and final MP4"),("Humanoid + technician","Bounded tool delivery or inspection support","Task-specific safety, stop and recovery; future design scenario")])
+p("Scientific hypotheses require experimental validation; a generated proposal is not a discovery. Embodied systems add sensing and physical action: manufacturer demos, controlled pilots and validated deployments are different levels of evidence. The humanoid scenario here is prospective, not a claim of general workplace readiness.")
+h2("1.4 Agentic AI and always-on AI agents")
+p("Agentic AI describes goal-directed systems that plan, act and use feedback; a system may contain one agent or a coordinated team. In this course we focus on an always-on AI agent as a persistent, 24/7-capable agentic system that can work between messages. This is the deployment focus of the course, not a universal definition of all AI agents or an uptime promise. A running host, access, budget and service availability are still required.")
+p("OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet and Grok Bot is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.")
+h2("1.5 Harness: the system around the model")
+table(["Component","Function","What to inspect"],[("Model","Proposes next tokens and actions","Model access and observed limitations"),("Tools","Execute reads, calculations, browsing and rendering","Actual executable/API result"),("Skills","Reusable procedures and verification checks","Reviewed SKILL.md, scripts and source"),("Memory","Persist approved preferences and decisions","Saved entry and fresh-session recall"),("Knowledge base","Curated evidence with owners and versions","Source access, freshness and passage support"),("Instructions","Goal, policies and output contract","Authority and stop conditions"),("Context","Selected instructions, memory, retrieved knowledge and recent tool results","Relevant material fits the finite context window"),("Agentic loop","Observe → select → act → verify → repeat/ask/stop","Real state changes and error handling"),("Security","Identity, permissions, approvals, budgets and logs","OAuth and runtime policy checked separately")])
+p("Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.")
+h2("1.6 The Big Four — comparison from BULDRR, updated for Singapore")
+p("Use the requested BULDRR article's job-fit, control, access and limits framework. It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.")
+table(["Agent","Useful starting job","Control / access checkpoint"],[("Claude Duet","Work briefs and proactive business follow-ups","Sensitive-action approval and prohibited actions; eligible US Pro/Max waitlist research preview"),("Meta Muse","Personal tasks, email and scheduling","Connector permissions and sensitive-action review; Singapore launch 27 October 2026; free core use"),("Grok Bot","Named workers and ongoing shared work","Inspect approvals; bots in one user share cloud computer/logins; verify eligible account"),("OpenAI Dots","Persistent goals and delegated tasks in ChatGPT","Inspect connections, custom rules and active tasks; verify eligible Pro/Business Premium workspace")])
+src("Requested comparison: https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots")
+src("Official product checks: https://claude.com/resources/articles/claude-duet ; https://docs.x.ai/grok-bot/computer-and-apps ; https://learn.chatgpt.com/docs/dots/getting-started")
+h3("News added to the PPT: Muse is available in Singapore")
+p("Meta's official announcement dated 27 October 2026 confirms Singapore availability, Gmail/Google Calendar/Instagram connections, sensitive-action approval and free core use with optional subscriptions. Local partner features roll out progressively. This supersedes the article's earlier Muse regional information; inspect what is actually available in each account. Muse is the recommended morning route, with provisioned Dots or Grok Bot as alternatives.")
+src("Meta Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/")
+src("Official iOS Singapore listing: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 ; Android Singapore listing: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura")
+p("Setup: install the official Meta developer app, sign in, then Settings → Connectors → Connect beside Gmail → Continue → browser authorization. Repeat for Google Calendar and verify the assigned identity in both services. You can also ask Muse to connect Gmail/Calendar. Keep sensitive-action approval enabled; use retrieve-only permissions where offered. Activity 1 provides all three guided routes and requires execution of one accessible route.")
+src("Muse connector steps: https://www.meta.com/help/superintelligence/1687253048996149/")
+h2("1.7 Evidence, ongoing work and human control")
+p("Check the schedule in Asia/Singapore against actual source events, draft a reply, correct one detail and inspect the real task stop/pause state. Closing a chat need not stop an ongoing responsibility. A store/install screen, generic chatbot or trainer demonstration is not the candidate's executed work. PP Task 1 requires TWO screenshots: image A of the learner's chosen always-on assistant request/result in Activity 1, and image B of a Hermes-generated artifact after Activity 4, plus the paper's written algorithm/strengths/limitations analysis.")
 h3("Inside the LLM: learning and next-token generation")
 p("A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.")
 p("The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.")
@@ -117,11 +115,7 @@ h3("RAG versus a standard LLM assistant, including maintenance")
 table(["Decision factor","Standard LLM assistant","RAG-enabled agent"],[("Evidence","Learned knowledge plus supplied context","Authorised retrieved passages plus supplied context"),("Useful strengths","Low setup overhead; drafting and general reasoning","Current/private document grounding and inspectable source references"),("Limitations","May lack internal/current facts; unsupported claims","Retrieval can miss evidence; stale index or poor chunks can mislead; citations may not support claims"),("Upkeep","Maintain instructions, model access and evaluations","Also curate documents, permissions, passage/index updates and retrieval tests"),("Cost and latency","Prompt/model usage and review","Also ingestion/indexing, retrieval and source-quality review"),("Human check","Verify important facts independently","Check source version, access and actual passage support")])
 p("A maintainable RAG pipeline registers source ownership and permissions, ingests approved documents, prepares passages, builds a search or vector index, retrieves authorised evidence and records source/version IDs. When a policy changes, remove obsolete versions, refresh the relevant index and rerun retrieval/answer checks. A vector embedding service is one option, not a requirement for every retrieval system. Choose the simplest design whose freshness, privacy, quality and upkeep fit the product.")
 src("Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arxiv.org/abs/2210.03629 ; retrieval-augmented generation: https://arxiv.org/abs/2005.11401")
-h2("1.8 Workforce canvas and office design clinic")
-numbered(["Name the launch-management decision and human owner.","List input email/event/file IDs, workbook sheets, approved product facts and source limitations.","Allocate each task: HUMAN, SINGLE AGENT, TEAM or FIXED WORKFLOW; explain why.","Write each tool's input/output contract and one failure condition.","Specify the output artifact, acceptance test, review owner and stop condition.","Keep the source-linked brief, Excel analysis, interactive dashboard and PPT as one consistent office pack."])
-h2("1.9 After-lunch demo and Activity 1")
-p("The trainer demonstrates an OpenAI Dot using approved training material if available, or a prepared recording/Hermes equivalent if the account lacks access. Observe actual actions, source evidence and human interruption. Do not require learners to buy access. Then Activity 1 installs the preferred Hermes Desktop app from https://hermes-agent.nousresearch.com/desktop, connects a private Telegram bot through Messaging → Telegram → Create with QR and produces a source-linked brief and substantive Telegram reply. PP Task 1 requires ONE Telegram interaction screenshot, plus the written analysis in the current paper; retain the brief and tool trace as supporting work.")
-h2("1.10 Sources and further reading")
+h2("1.8 Sources and further reading")
 for title,url in SOURCES:src(title+": "+url)
 for title,url in [
 ("IBM — human-AI collaboration","https://www.ibm.com/think/topics/human-ai-collaboration"),
@@ -139,7 +133,7 @@ for title,url in [
 ("Responsible robotics","https://deepmind.google/models/gemini-robotics/responsibly-advancing-ai-and-robotics/")]:src(title+": "+url)
 
 # ====================================================================== labs
-LAB_SHOTS = {**{n:(f"workflows/activity-{n:02d}.png",f"Activity {n} workflow model — design diagram, not executed learner evidence") for n in (2,4,6,7,8)},1:("screenshots/hermes-channels.png","Reference Messaging interface; capture your own Telegram request and reply for PP Task 1"),3:("screenshots/hermes-skills.png","Reference Skills interface; PP Task 2 screenshot shows your actual resulting professional PPT"),5:("screenshots/hermes-kanban.png","Reference Kanban interface; PP Task 3 uses your actual video team, bots, dependency and output task")}
+LAB_SHOTS = {**{n:(f"workflows/activity-{n:02d}.png",f"Activity {n} workflow model — design diagram, not executed learner evidence") for n in (1,2,3,4,6,7,8)},5:("screenshots/hermes-kanban.png","Reference Kanban interface; PP Task 3 uses your actual video team, bots, dependency and output task")}
 
 
 def lab_section(L):
@@ -154,7 +148,7 @@ def lab_section(L):
     table(["Who", "Role"], [("Agents", L["agents"]), ("You (human)", L["human"])])
     h3("Concepts in action"); bullets(L["concepts"])
     h3("Lab files")
-    p(f"labs/{L['slug']}/ — README.md, LAB-{L['num']:02d}-Instructions.pdf, COPY-PROMPTS.txt and data/. Copy data/ into ~/kopi-kaki.")
+    p(f"labs/{L['slug']}/ — README.md, LAB-{L['num']:02d}-Instructions.pdf, COPY-PROMPTS.txt and data/. Use the neutral training account for Activity 1; copy company data into ~/kopi-kaki from Activity 2.")
     h3("Step-by-step")
     for i, st in enumerate(L["steps"], 1):
         p(f"**Step {i} — {st['title']}**")
@@ -167,7 +161,12 @@ def lab_section(L):
     h3("Troubleshooting"); table(["Symptom", "Fix"], L["trouble"])
     h3("Stretch challenge"); p(L["challenge"])
 
+lab_section(LABS[0])
+h2("Morning results review and harness consolidation")
+p("Compare observed source accuracy, setup/run/review time, actual approval and stop controls, and explicit failures. Distinguish model weights from runtime context, memory from a managed knowledge base, human-in-the-loop approval from human-on-the-loop monitoring. Keep the task bounded and record unknowns before lunch.")
 h1("Topic 2 — " + C.TOPICS[1]["title"])
+h2("Introducing the company scenario — at the start of the Hermes labs")
+p(C.SCENARIO + ". All company data is fictional. Start this workspace after lunch; its source-linked brief and verified office artifacts become Day 2 team inputs.")
 p("Hermes Agent (Nous Research, MIT licence) is a self-hosted, self-improving agent with persistent memory, skills, tools and MCP, a "
   "messaging gateway (Telegram and 15+ channels), a cron scheduler, and profiles + a Kanban board for multi-agent teams. On Day 1 you "
   "build the single-agent office pack. On Day 2 extend it into a supervised video team.")
@@ -178,24 +177,23 @@ table(["File / place", "What it holds", "Loaded"], [
     ("~/.hermes/memories/MEMORY.md and USER.md", "What the agent chose to remember; what it knows about you", "Session start"),
     ("~/.hermes/skills/", "Skills (SKILL.md folders)", "On demand, by description"),
     ("Kanban board", "Tasks, dependencies, comments, history", "Dispatched by the running gateway")])
-for L in LABS[:4]: lab_section(L)
+for L in LABS[1:4]: lab_section(L)
 
 h1("Topic 3 — " + C.TOPICS[2]["title"])
 p("Day 2 extends the same launch workspace into a real Hermes multi-agent video team. A profile stores an agent’s separate configuration and memory; Desktop Bot Mode presents a profile as a named bot. A Telegram bot is a messaging account, not another independent worker by itself. Kanban task IDs, parent dependencies, run history and saved outputs make the work observable.")
 p("First set and verify Manual orchestration (kanban.auto_decompose=false) in the selected training gateway; Auto can decompose triage cards. Human storyboard and final-acceptance cards are then created unassigned before production tasks, with source dependencies. The human checks the exact artifact and completes only the relevant gate. This supervised classroom convention is not a claim of built-in role-based approval enforcement. No worker is given external publication authority. Separate file ownership avoids workers overwriting one another.")
 p("Activity 6 checks approved source passages and missing/stale evidence, then assesses RAG versus a standard LLM for financial-services content, including ownership, access, ingestion, refresh, evaluation and maintenance. Activity 7 compares a real bounded Dots review if entitled; otherwise accurately record trainer observation or unavailable access. PP does not depend on paid Dots access. Activity 8 revises, audits and accepts a real playable MP4 locally.")
-table(["Evidence","Activity","What to inspect"],[("PP Task 1","1","ONE Telegram request/reply screenshot; no tokens"),("PP Task 2","3","ONE professional PPT screenshot; retain skill/tool logs, PPTX and reviewed PDF"),("PP Task 3","5 or 8","ONE actual Kanban video-team screenshot with Hermes bots, dependency/gate and render/output task; retain MP4 and audit")])
+table(["Evidence","Activity","What to inspect"],[("PP Task 1","1 and 4","TWO images: own chosen assistant request/result + Hermes-generated artifact; no credentials"),("PP Task 2","4","ONE professional PPT screenshot; retain skill/tool logs, PPTX and reviewed PDF"),("PP Task 3","5 or 8","ONE actual Kanban video-team screenshot with Hermes bots, dependency/gate and render/output task; retain MP4 and audit")])
 for L in LABS[4:]: lab_section(L)
 
 # ====================================================================== close
 h1("Assessment Preparation")
 bullets([C.ASSESSMENT["written"], C.ASSESSMENT["practical"],
          "Open book: slides, this Learner Guide and approved materials only.",
-         "Practice at https://exams.tertiaryinfotech.com before the assessment.",
          "On the day: TRAQOM survey → Assessment digital attendance → WA then PP → submit on the LMS → sign the Assessment Summary Record."])
 h1("Glossary")
 table(["Term", "Meaning"], [
-    ("AI agent", "An autonomous LLM-based program that pursues a goal with tools in a bounded environment"),
+    ("AI agent", "A goal-directed program with tools and state; this course focuses on persistent, always-on deployments"),
     ("Agentic AI", "A goal-directed system that plans and acts; it may use one agent or several coordinated agents"),
     ("Agentic loop", "Gather context → act → verify → repeat"),
     ("Harness", "Everything around the model: loop, tools, context, memory, skills, verification, guardrails, orchestration, observability"),
@@ -245,7 +243,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

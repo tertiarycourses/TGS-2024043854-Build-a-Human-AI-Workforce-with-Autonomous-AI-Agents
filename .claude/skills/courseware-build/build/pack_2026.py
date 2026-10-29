@@ -1,6 +1,6 @@
 """Learner-safe assets generated from the same v2.1 source."""
 from pathlib import Path
-import csv,io,shutil
+import csv,io,shutil,re
 from openpyxl import Workbook
 from openpyxl.styles import Font,PatternFill
 import mock_data as M
@@ -39,8 +39,10 @@ SKILLS={
 Optional alternative: use a reviewed HyperFrames/Remotion skill after checking its current official docs and dependencies; require the same output and QA.''')}
 
 def assets(L,ddir):
- root=Path(ddir);files=[];templates=Path(__file__).parent/'templates'
- if L['num'] in (1,2):
+ root=Path(ddir);root.mkdir(parents=True,exist_ok=True);files=[];templates=Path(__file__).parent/'templates'
+ if L['num']==1:
+  rel='assistant-check-template.txt';(root/rel).write_text('Chosen route:\nActual account verified (redact in evidence):\nGmail result/source IDs or error:\nCalendar result/source IDs or error:\nCorrected draft:\nActual stop state:\nPP1 image A path:\nHermes image B to add after lunch:\n');files.append(rel)
+ if L['num'] in (2,3):
   book=Workbook();book.remove(book.active)
   for name,key in [('Reviews','reviews'),('Sales','sales'),('Metrics','metrics')]:
    rows=list(csv.reader(io.StringIO(M.FILES[key][1]())));ws=book.create_sheet(name)
@@ -54,14 +56,14 @@ def assets(L,ddir):
    for c in ws[1]:c.font=Font(bold=True,color='FFFFFF');c.fill=PatternFill('solid',fgColor='5B3A29')
    ws.freeze_panes='A2'
   book.save(root/'campaign-data.xlsx');files.append('campaign-data.xlsx')
- if L['num'] in (2,3,5,8):
-  names=list(SKILLS) if L['num'] in (2,3) else ['launch-video']
+ if L['num'] in (2,3,4,5,8):
+  names=list(SKILLS) if L['num'] in (2,3,4) else ['launch-video']
   for name in names:
    description,steps=SKILLS[name];rel=f'skills/{name}/SKILL.md';p=root/rel;p.parent.mkdir(parents=True,exist_ok=True)
    p.write_text(f'---\nname: {name}\ndescription: {description}\n---\n# {name}\n\n{steps}\n');files.append(rel)
-  for script in (['office_artifacts.py','render_launch_video.py'] if L['num'] in (2,3) else ['render_launch_video.py']):
+  for script in (['office_artifacts.py','render_launch_video.py'] if L['num'] in (2,3,4) else ['render_launch_video.py']):
    rel='tools/'+script;(root/'tools').mkdir(exist_ok=True);shutil.copy2(templates/script,root/rel);files.append(rel)
- if L['num'] in (2,3,5,8):
+ if L['num'] in (2,3,4,5,8):
   rel='windows-office-setup.md';(root/rel).write_text("""# Native Windows Desktop office setup
 
 Use Hermes Desktop on its local Windows connection. These PowerShell commands run in that same Windows environment, not in WSL. The trainer installs Python and the official Windows gog ZIP first and checks gog.exe is on PATH.
@@ -128,6 +130,17 @@ Each worker owns separate output files. A task list describes coordination; insp
   rel='kanban-studio-runbook.md';(root/rel).write_text(KANBAN_RUNBOOK);files.append(rel)
  if L['num']==6:
   rel='source-test-cases.csv';(root/rel).write_text('test_id,question,expected_evidence\nS1,What is the launch price?,approved catalogue price passage\nS2,What are the complete promotion terms?,approved brief full terms\nS3,Is a health certification established?,INSUFFICIENT EVIDENCE\n');files.append(rel)
+ if L['num'] in (2,3,4):
+  # Day1 companions only; keep Day2 copies/content unchanged.
+  wp=root/'windows-office-setup.md';wt=wp.read_text();wt=wt.replace('skills\\professional-ppt $profileSkillsPath','skills\\professional-ppt, .\\skills\\launch-video $profileSkillsPath').replace('verify the four skills','verify the five skills')
+  wt+='\n## Day 1 single-agent video\n\nAfter exact scene-text approval, use the same native environment:\n\n```powershell\n& .\\.office-venv\\Scripts\\python.exe tools/render_launch_video.py --out outputs/single-video\nffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json outputs/single-video/final.mp4\n```\n\nWatch the full video, recheck corrections and keep outputs/team/video separate for Day2.\n'
+  wp.write_text(wt)
+  rel='mac-linux-office-setup.md';(root/rel).write_text(MAC_SETUP);files.append(rel)
+ if L['num'] in (2,3,4):
+  rel='approved-test-send.md';(root/rel).write_text(TEST_SEND);files.append(rel)
+ if L['num'] in (2,3,4):
+  for rel in ('windows-office-setup.md','mac-linux-office-setup.md','approved-test-send.md'):
+   p=root/rel;p.write_text(wrap_commands(p.read_text()))
  return files
 
 
@@ -200,3 +213,82 @@ Official documentation checked 29 October 2026:
 - https://hermes-agent.nousresearch.com/docs/user-guide/profiles
 - https://hermes-agent.nousresearch.com/docs/user-guide/desktop
 """
+
+TEST_SEND = """# One approved training email — separate from read-only gog-office
+
+This procedure is used only for Activity 4's one test send. The read-only gog-office skill remains unchanged. Use an assigned Google training account and a trainer-approved test recipient; do not use customer or personal recipients.
+
+1. Inspect `gog auth list --json` privately and `gog auth add --help`, `gog gmail send --help`. Do not print tokens or client JSON. Preserve the account's existing OAuth client, services, scope modes and extra grants when reauthorizing; Calendar/Drive must remain available.
+2. Trainer preflights the installed Gmail write-scope mode needed for one send **and** Sent readback. A send-only grant may not allow reading Sent. Complete any changed consent in the provider browser, not chat. Do not broaden services because a read failed.
+3. Save exact approved recipient, subject, body and attachment list locally. Start with no attachments. Show them to the human and wait for explicit SEND approval of that exact version. The email may not authorise its own send.
+4. Preview with installed `--dry-run`. Only after exact approval, run the approved send once without runtime `--readonly` / `--gmail-no-send` on that one command. If account/global no-send policy still blocks it, the trainer resolves the authorised training policy or marks it blocked; never bypass another account's controls.
+
+macOS/Bash reference (replace variables privately; inspect installed help):
+
+```bash
+gog --account "$GOG_ACCOUNT" gmail send --to "$TRAINING_RECIPIENT" --subject "Training launch update" --body-file outputs/lab02/approved-email.txt --dry-run
+# Only after explicit human SEND approval of the exact preview:
+gog --account "$GOG_ACCOUNT" --json gmail send --to "$TRAINING_RECIPIENT" --subject "Training launch update" --body-file outputs/lab02/approved-email.txt
+# Replace ACTUAL_MESSAGE_ID with the real returned ID:
+gog --account "$GOG_ACCOUNT" --readonly --gmail-no-send --json gmail get ACTUAL_MESSAGE_ID
+```
+PowerShell uses `$env:GOG_ACCOUNT` and `$env:TRAINING_RECIPIENT` instead of Bash variables. Browser consent and the native Desktop runtime must use the same assigned account/keyring.
+
+5. Verify the actual returned message ID, Sent label and To/Subject/body against the approved version. Record one real send/readback in outputs/lab02/test-send-log.md. Do not auto-retry an uncertain send: check Sent first to avoid duplicates.
+6. Resume the default read-only/no-send runtime flags on all further reads. No calendar changes, public sharing or follow-up automations are authorised.
+
+If recipient, scope, approval or readback is unavailable, mark the send INCOMPLETE/BLOCKED and preserve the draft. A draft or tool success sentence is not proof of sending.
+
+Official source checked 29 October 2026: https://gogcli.sh/gmail-workflows.html and https://gogcli.sh/quickstart.html
+"""
+
+MAC_SETUP = """# Native macOS/Linux office setup
+
+Use the confirmed local Hermes Desktop workspace. Copy this activity's data contents into ~/kopi-kaki first; preserve existing AGENTS.md. Linux uses the official supported Hermes installation route where Desktop is unavailable. The trainer preflights a supported native Python,gog,FFmpeg/ffprobe and PPT/PDF renderer; app installation alone does not install these tools.
+
+```bash
+cd ~/kopi-kaki
+python3 -m venv .office-venv
+.office-venv/bin/python -m pip install openpyxl python-pptx Pillow
+.office-venv/bin/python -c 'import openpyxl, pptx, PIL; print("Office imports OK")'
+gog --version
+ffprobe -version
+```
+
+Run the probes through the selected Desktop runtime as well. The exact .office-venv/bin/python path is used by Activities3–4. If the trainer prepared it, verify the imports instead of recreating it. If a required dependency fails, record the block and resolve it before the timed artifact run.
+
+Review/install five supplied skill folders into the actual selected profile's Skills directory: gog-office,office-analytics,interactive-dashboard,professional-ppt,launch-video. Confirm all five are visible after reload. A skill directory is not an executable or an OAuth grant. Do not overwrite personal profile files or copy credentials into the course folder.
+
+After authorizing the assigned Google account, use --readonly and Gmail --gmail-no-send for reads. Activity4's one test send is a separate exact-content human-approved procedure in approved-test-send.md.
+
+```bash
+.office-venv/bin/python tools/office_artifacts.py analyse --input campaign-data.xlsx --out outputs/lab02
+.office-venv/bin/python tools/office_artifacts.py dashboard --out outputs/lab02
+.office-venv/bin/python tools/office_artifacts.py ppt --out outputs/lab02
+# Only after human scene-text approval:
+.office-venv/bin/python tools/render_launch_video.py --out outputs/single-video
+```
+
+Read the relevant skill first, inspect actual output,render/open every PPT slide,watch the full video and verify source totals and metadata. Keep Day1 outputs/single-video separate from Day2 outputs/team/video.
+
+Official sources: https://hermes-agent.nousresearch.com/docs/user-guide/desktop ; https://gogcli.sh/install.html ; https://docs.python.org/3/library/venv.html
+"""
+
+def wrap_commands(content):
+ """Explicit shell continuations keep printable commands executable at narrow width."""
+ language=None;out=[]
+ for line in content.splitlines():
+  if line.startswith('```'):
+   language=None if language else line[3:].strip();out.append(line);continue
+  if language not in ('bash','powershell') or len(line)<=84 or line.lstrip().startswith('#'):
+   out.append(line);continue
+  # Preserve quoted arguments; wrap only between lexical tokens.
+  tokens=re.findall(r"(?:[^\s\"']+|\"[^\"]*\"|'[^']*')+",line)
+  parts=[];part=''
+  for token in tokens:
+   if part and len(part)+1+len(token)>84:parts.append(part);part='  '+token
+   else:part+=((' ' if part else '')+token)
+  if part:parts.append(part)
+  continuation=' `' if language=='powershell' else ' '+chr(92)
+  out.extend(v+(continuation if i<len(parts)-1 else '') for i,v in enumerate(parts))
+ return '\n'.join(out)+'\n'

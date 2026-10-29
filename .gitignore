@@ -69,3 +69,5 @@ courseware/Assessment_Plan_*
 **/lms_tms_api_key
 courseware/.~lock.*
 courseware/lu*.tmp
+
+.claude/skills/courseware-build/build/build_assessment_v7.py

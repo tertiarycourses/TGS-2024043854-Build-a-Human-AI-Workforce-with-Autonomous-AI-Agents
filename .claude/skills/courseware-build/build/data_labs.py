@@ -749,3 +749,6 @@ for _key in ('researcher','scriptwriter','producer','auditor','publisher'):
  SOULS[_key]=SOULS[_key].replace('outputs/lab04/','outputs/team/')
 for _key in list(TASKS):
  TASKS[_key]=TASKS[_key].replace('outputs/lab04/','outputs/team/')
+
+import labs_v23
+labs_v23.apply(LABS)
