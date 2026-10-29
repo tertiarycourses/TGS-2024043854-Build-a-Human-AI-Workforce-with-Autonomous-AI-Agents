@@ -294,7 +294,7 @@ mark("t3sum")
 U.trace(D,"Day 2 · Verified outcome","Team Output Needs Four Kinds of Evidence",[("users","Execution","Distinct profile runs + owned tasks."),("film","Artifact","Playable MP4 + checked metadata."),("eyecheck","Review","Independent source and scene audit."),("hand","Human authority","Exact-version acceptance; local package only.")],"PP Task 3: ONE actual video-creation screenshot with Kanban team and Hermes bots; keep the supporting files.")
 
 mark("wrap")
-section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Human decisions", "Assessment", "Digital attendance"])
+section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Practice exam", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "Agents loop through perception, reasoning and action; the harness and the human make them reliable.", "brain"),
     ("Topic 2", "One Hermes Desktop agent produced the Google brief, Excel analysis, dashboard and PPT; Kanban extended it on Day 2.", "robot"),
@@ -306,6 +306,16 @@ rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
     ("puzzle", "Codify your SOPs", "Turn your team's checklists into SKILL.md skills and agent instructions."),
     ("shield", "Govern from day one", "Budgets, approval gates, audit trail — follow IMDA's agentic AI framework."),
     ("chart", "Measure", "Track cycle time, revisions, cost per deliverable and quality before you scale.")], dark=True)
+s = D.new(); header(D, s, "Test yourself", "Practice Exam", "Sharpen your readiness before the final assessment.")
+pe = asset("screenshots", "practice-exam.png")
+if os.path.exists(pe):
+    picture(s, pe, 0.7, 2.45, maxw=7.2, maxh=4.3)
+for i, (ic, t, d) in enumerate([("globe", "Open the portal", "https://exams.tertiaryinfotech.com"),
+                                ("clock", "Time yourself", "Attempt it under exam conditions."),
+                                ("book", "Review", "Read every explanation; revisit the matching lab.")]):
+    y = 2.6 + i * 1.35; icon(s, ic, 8.3, y, 0.55)
+    text(s, 9.0, y - 0.02, 3.7, 0.42, t, 16, INK, bold=True, font=SERIF)
+    text(s, 9.0, y + 0.42, 3.7, 0.8, d, 13, MUTED)
 mark("assess")
 s = D.new(); header(D, s, "Assessment", "Final Assessment")
 for i, (ic, t, d, dark) in enumerate([
@@ -325,7 +335,7 @@ card(s, 6.85, 1.95, 5.85, 4.3, fill=K.PANEL, shadow=False); icon(s, "phone", 7.1
 text(s, 7.9, 2.3, 4.6, 0.5, "Digital Attendance", 18, WHITE, bold=True, font=SERIF)
 text(s, 7.2, 3.15, 5.3, 2.9, "Take the AM, PM and Assessment digital attendance — scan the SSG QR code.\n\nMinimum 75% attendance is required for funding.", 15, SOFT, lh=1.25)
 s = D.new(dark=True)
-circle(s, 10.4, -1.6, 4.6, ACC); circle(s, 11.2, 5.2, 3.2, TEAL)
+circle(s, 10.4, -1.6, 4.6, ACC); circle(s, 11.6, 4.3, 2.6, TEAL)
 text(s, 0.9, 2.4, 10, 1.2, "Thank You!", 54, WHITE, bold=True, font=SERIF, autofit=False)
 text(s, 0.9, 3.75, 10, 0.6, "Questions? We're here to help — during and after class.", 18, SOFT, autofit=False)
 text(s, 0.9, 6.6, 11, 0.4, "enquiry@tertiaryinfotech.com   |   +65 6100 0613   |   www.tertiarycourses.com.sg", 13, K.DIM, autofit=False)

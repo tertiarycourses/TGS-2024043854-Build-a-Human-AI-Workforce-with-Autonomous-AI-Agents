@@ -11,7 +11,7 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v2.4"
+VERSION      = "v2.5"
 VERSION_DATE = "29 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
@@ -30,7 +30,7 @@ LEARNING_OUTCOMES = [
 
 # ------------------------------------------------------------------ topics
 TOPICS = [
- dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and two human–AI work modes", "Big Four: Duet, Muse, Grok Bot and Dots", "Activity 1 · Set up an always-on assistant", "Under the hood: harness, loop, context and human decisions"]),
+ dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and two human–AI work modes", "Big Five: Duet, Muse, Grok Bot, Dots and Manus Cue", "Activity 1 · Set up an always-on assistant", "Under the hood: harness, loop, context and human decisions"]),
  dict(num=2,code="02",weighting="35%",title="Hermes Agent — Single-Agent Office Automation, Tools & Skills",short="Hermes Agent",items=["Activity 2 · Hermes Desktop, tools, skills and source brief", "Activity 3 · gog: Gmail, Calendar, Drive and Excel", "Activity 4 · Dashboard, professional PPT and single-agent video", "Human review and one approved training email"]),
  dict(num=3,code="03",weighting="35%",title="Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight",short="Hermes Teams & Dots",items=["Activity 5 · Hermes bots and Kanban video studio", "Activity 6 · Source retrieval, verification and maintenance", "Activity 7 · Dots: supervised launch review", "Activity 8 · Team video revision, local release and evaluation"]),
 ]
@@ -42,7 +42,7 @@ CONTACT_TIME_NOTE = "9:30 am–6:30 pm both days. 16 scheduled course hours excl
 LUS = [
     dict(lu="LU1", hours=5, codes=["K1", "K6", "A1", "A3"], lo=0,
          title="Foundations of autonomous AI agents and single-agent LLM applications",
-         covers="Topic 1 history, collaboration, harness and Big Four + Activity 1 always-on setup + Activity 2A Hermes Desktop and company brief"),
+         covers="Topic 1 history, collaboration, harness and Big Five + Activity 1 always-on setup + Activity 2A Hermes Desktop and company brief"),
     dict(lu="LU2", hours=5, codes=["K4", "K5", "A2", "A6"], lo=1,
          title="Agent and multi-agent design for efficiency, with humans in the loop",
          covers="Activity 2B skills/tools + Activities 3–5: Google/Excel, office/video artifacts, human approval and Kanban video studio"),
@@ -56,9 +56,9 @@ LUS = [
 SCHEDULE = {
  1: [
   ("9:30","9:50",20,"admin","Welcome, attendance, outcomes and official SWDA AI subscription redemption steps","LU1"),
-  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; agentic AI and always-on agents; human–AI roles, two work modes and use cases; Big Four comparison and Singapore update","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; agentic AI and always-on agents; human–AI roles, two work modes and use cases; Big Five features (Duet, Muse, Grok Bot, Dots, Manus and Cue), comparison and Singapore update","LU1"),
   ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
-  ("11:20","12:35",75,"lab","Lab 1: Activity 1 — setup plan and walkthroughs (Muse, Dots, Grok Bot, Duet); connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
+  ("11:20","12:35",75,"lab","Lab 1: Activity 1 — setup plan and walkthroughs (Muse, Dots, Grok Bot; Duet and Cue for reference); connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
   ("12:35","12:50",15,"activity","Assistant results review — compare source accuracy, approval controls, limits and actual stop state","LU1"),
   ("12:50","13:30",40,"topic","Under the hood — how agents work: model in a harness, context, memory and RAG, tools and skills, the agentic loop, approvals and human-in/on-the-loop","LU1"),
   ("13:30","14:30",60,"lunch","Lunch break",""),

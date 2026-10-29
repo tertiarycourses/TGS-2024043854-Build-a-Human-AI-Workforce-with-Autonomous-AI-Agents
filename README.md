@@ -9,13 +9,13 @@ Learn to delegate real work to always-on AI agents and Hermes agent teams, while
 | Duration | 2 days, 9:30 am–6:30 pm (16 scheduled hours including 2 hours of assessment) |
 | Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) |
 | Funding | Up to 70% WSQ course-fee funding (50% baseline for Singapore Citizens/PRs aged 21+; 70% for Singapore Citizens aged 40+ or SME-sponsored). Eligibility and terms apply. |
-| Courseware | v2.4 · 29 October 2026 |
+| Courseware | v2.5 · 29 October 2026 |
 
 [Open the lab steps and copyable prompts](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html) · [Sources](prompts/resources.html) · [Download the course ZIP](https://github.com/tertiarycourses/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/archive/refs/heads/main.zip)
 
 ## About the course
 
-Day 1 starts with a brief history of AI, what agentic AI is, and how people and agents share work as a personal assistant or a digital worker. You compare the always-on "Big Four" (Claude Duet, Meta Muse, Grok Bot and OpenAI Dots) and set up one accessible assistant against a training Gmail and Calendar. After the exercise you look under the hood at the harness: context, memory, RAG, tools, skills, the agentic loop and human approval.
+Day 1 starts with a brief history of AI, what agentic AI is, and how people and agents share work as a personal assistant or a digital worker. You compare the always-on "Big Five" (Claude Duet, Meta Muse, Grok Bot, OpenAI Dots and Manus Cue) feature by feature, see what the Manus general agent can do, and set up one accessible assistant against a training Gmail and Calendar. After the exercise you look under the hood at the harness: context, memory, RAG, tools, skills, the agentic loop and human approval.
 
 In the afternoon a single Hermes Desktop agent runs the office for the fictional Kopi Kaki Co. launch: Google Workspace reads, a verified Excel analysis, an interactive dashboard, a professional PPT, a short video and one approved test email.
 
@@ -29,7 +29,7 @@ Day 2 turns the same workspace into a Hermes multi-agent Kanban video team, adds
 
 ## Topics covered
 
-1. **Human–AI Collaboration & Always-On AI Agents.** Brief AI history and two human–AI work modes; the Big Four always-on agents; setting up one assistant; under the hood: harness, loop, context and human decisions.
+1. **Human–AI Collaboration & Always-On AI Agents.** Brief AI history and two human–AI work modes; the Big Five always-on agents and their features; setting up one assistant; under the hood: harness, loop, context and human decisions.
 2. **Hermes Agent: Single-Agent Office Automation, Tools & Skills.** Hermes Desktop and reviewed skills; Gmail, Calendar, Drive and Excel through gog; dashboard, professional PPT and single-agent video; one approved training email.
 3. **Hermes Teams & OpenAI Dots: Kanban, Video & Human Oversight.** Hermes bots and a Kanban video studio; source retrieval, verification and maintenance; a supervised Dots launch review; team video revision, local release and evaluation.
 
@@ -54,7 +54,7 @@ For Activity 1, Muse is recommended in Singapore ([iOS](https://apps.apple.com/s
 
 | Material | Files |
 |---|---|
-| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v2.4.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v2.4.pdf) |
+| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v2.5.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v2.5.pdf) |
 | Learner Guide | [DOCX](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) · [Markdown](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) |
 | Lesson Plan | [DOCX](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) |
 | Activities | [labs/](labs/) · [prompts page](prompts/index.html) |

@@ -1,4 +1,4 @@
-"""Visual Day 1: history -> collaboration -> always-on -> Big Four -> real setup.
+"""Visual Day 1: history -> collaboration -> always-on -> Big Five -> real setup.
 All diagrams are editable teaching models, not simulated execution screenshots.
 """
 from ccdeck import *
@@ -9,13 +9,15 @@ METAHELP='https://www.meta.com/help/superintelligence/1687253048996149/'
 DUET='https://claude.com/resources/articles/claude-duet'
 GROK='https://docs.x.ai/grok-bot/computer-and-apps'
 DOTS='https://learn.chatgpt.com/docs/dots/getting-started'
+MANUS='https://manus.im/blog/introducing-manus-2-0'
+CUE='https://cue.im/'
 HERMES='https://hermes-agent.nousresearch.com/docs/user-guide/desktop'
 def source(D,url,label='Official source · checked 29 Oct 2026'):
  s=D.prs.slides[-1];t=text(s,.7,6.72,11.9,.24,label,10,TEAL);t.text_frame.paragraphs[0].runs[0].hyperlink.address=url
 
 def topic1(D,C,mark):
  mark('t1a')
- section(D,'Topic 1',C.TOPICS[0]['title'],['Brief history and what an agent is','AI does the work; humans decide','Always-on agents: Big Four and setup','Under the hood: how agents work'])
+ section(D,'Topic 1',C.TOPICS[0]['title'],['Brief history and what an agent is','AI does the work; humans decide','Always-on agents: Big Five and setup','Under the hood: how agents work'])
  timeline(D,'Topic 1 · Brief history','From Rules to Learning to Action',[
  ('Rules','1950s–80s','Explicit rules and expert systems.'),('Learning','1990s–2010s','Patterns learned from examples.'),('Language','2017–2023','Transformers and chat interfaces.'),('Action','2024 onward','Tool use, feedback and goal-directed work.')],foot='These approaches coexist. A modern agent still uses ordinary software, rules and databases.');tag(D,'MODEL','Attention Is All You Need 2017; ReAct 2022')
  timeline(D,'Topic 1 · Brief history','2023 → 2026: Four Engineering Lenses',[
@@ -62,29 +64,94 @@ def topic1(D,C,mark):
  ('target','Responsibility','Bounded goal + deadline + stop rule.'),('server','Runtime','Cloud host or running local gateway.'),('clock','Trigger','Schedule, incoming event or queued work.'),('file','Result','Saved output, exception or review request.')],
  'A closed laptop stops a local runtime. Cloud work still depends on access, budget, limits and service health.',DOTS)
  timeline(D,'Topic 1 · Deployment evolution','OpenClaw → Hermes → Hosted Personal Agents',[
- ('OpenClaw','Configurable harness','Local/server tools and channels.'),('Hermes Agent','Desktop + skills','Local workflow, memory and reusable procedures.'),('Hosted agents','Managed cloud','Dots, Muse, Duet and Grok Bot.'),('Your choice','Work + control','Access, oversight, cost and data boundaries.')],foot='A teaching progression in deployment choices, not corporate lineage or a claim one product replaced another.');tag(D,'ARCH','Official OpenClaw, Hermes, Meta, Anthropic, xAI and OpenAI docs')
- # Four product comparison using BULDRR axes; current vendor facts supersede article where newer.
+ ('OpenClaw','Configurable harness','Local/server tools and channels.'),('Hermes Agent','Desktop + skills','Local workflow, memory and reusable procedures.'),('Hosted agents','Managed cloud','Dots, Muse, Duet, Grok Bot and Cue.'),('Your choice','Work + control','Access, oversight, cost and data boundaries.')],foot='A teaching progression in deployment choices, not corporate lineage or a claim one product replaced another.');tag(D,'ARCH','Official OpenClaw, Hermes, Meta, Anthropic, xAI and OpenAI docs')
+ # Five-product overview (BULDRR covers four; Cue from official Manus sources), each agent's features, then the comparison.
  mark('t1b')
- cards(D,'Topic 1 · The Big Four','Same Always-On Idea, Different Jobs',[
- ('Claude Duet','Business brief and proactive work; inspect approval restrictions.','briefcase'),('Meta Muse','Personal errands and daily tasks; Singapore now available.','calendar'),('Grok Bot','Named workers and shared work; inspect shared-account access.','users'),('OpenAI Dots','Ongoing goals in the ChatGPT workspace; inspect delegated tasks.','target')],cols=4,sub='Comparison framework: BULDRR, updated 22 Oct 2026. Vendor checks: 29 Oct 2026.');tag(D,'MODEL',ARTICLE);source(D,ARTICLE,'Comparison reference: BULDRR · click to read')
- table(D,'Topic 1 · Big Four comparison','Choose by Job, Control and Actual Access',
- ['Product','Useful starting job','Human control to inspect','Access checkpoint'],[
- ('Duet','Work briefs and business follow-ups','Approval before sensitive actions; some actions disallowed','US Pro/Max waitlist preview'),
- ('Muse','Schedule, errands and personal email','Connector permissions + sensitive-action approval','Singapore since 27 Oct; free core use'),
- ('Grok Bot','Named workers sharing ongoing work','Approval settings; shared cloud logins across bots','Eligible paid account; verify entitlement'),
- ('Dots','Persistent goals and delegated tasks','Connection permissions, custom rules and review','Eligible Pro / Business Premium workspace')],colw=[1.4,3.4,4.6,2.7],size=13,tipt='No universal winner. Verify your current account, region, connector and action controls before delegating.');tag(D,'MODEL',ARTICLE+' ; '+DUET+' ; '+NEWS+' ; '+GROK+' ; '+DOTS)
- compare(D,'Topic 1 · Big Four boundaries','Several Avatars Do Not Prove a Working Team',
- ('Visible names','users',['A list of assistants shows roster entries.','Names may share credentials and a runtime.','A role diagram does not show execution.']),
- ('Observable team','kanban',['Distinct worker runs and owned outputs.','Dependencies and real hand-off state.','Independent review and human acceptance.']),tipt='Day 2 will inspect actual Hermes profiles, Kanban task IDs, MP4 and audit evidence.');tag(D,'EVIDENCE',GROK+' ; '+DOTS)
+ cards(D,'Topic 1 · The Big Five','Same Always-On Idea, Different Jobs',[
+ ('Claude Duet','Business brief and proactive work; inspect approval restrictions.','briefcase'),('Meta Muse','Personal errands and daily tasks; Singapore now available.','calendar'),('Grok Bot','Named workers and shared work; inspect shared-account access.','users'),('OpenAI Dots','Ongoing goals in the ChatGPT workspace; inspect delegated tasks.','target'),('Manus Cue','Personal agents with their own email, phone and wallet; inspect budgets.','phone')],cols=5,sub='Five hosted always-on agents. Each one’s features follow, with its official source.');tag(D,'MODEL',ARTICLE);source(D,ARTICLE,'Comparison reference: BULDRR · click to read')
+ def features(name,sub_,items,url,label):
+  cards(D,'Topic 1 · '+name,name+': What It Can Do',items,cols=3,sub=sub_,desc_pt=13);tag(D,'CASE',url);source(D,url,label)
+ features('Claude Duet','Anthropic research preview · 21 Oct 2026 · US Pro/Max via waitlist',[
+  ('Morning brief','A short daily brief on the most important items across your connected apps.','calendar'),
+  ('Watches for you','Checks connected accounts every few hours; messages you only when something needs you.','eye'),
+  ('Hand it tasks','From scheduling meetings to dashboards, forecasts, prototypes and web apps.','briefcase'),
+  ('Works while you are away','Its own virtual machine and browser; notifies you when done or when review is needed.','server'),
+  ('6,000+ connectors','Gmail, Slack, QuickBooks, Stripe, Gusto, HubSpot, Docusign, Canva and Shopify.','puzzle'),
+  ('You approve actions','Shows exactly what it will send, pay, sign or delete and waits; some actions stay off-limits.','shield')],
+  DUET,'Anthropic: Introducing Claude Duet · click')
+ features('Meta Muse','Meta · available in Singapore from 27 Oct 2026',[
+  ('Does the work','Manages email, coordinates schedules and turns long-term goals into action plans.','check'),
+  ('Connected apps','Gmail, Google Calendar and Instagram; Facebook, Instagram and Threads link via Accounts Center.','plug'),
+  ('Singapore partners','Shopee, Lazada, Grab, Singapore Airlines, Agoda, Klook, Trip.com and ShopBack, rolling out.','store'),
+  ('Asks before acting','Checks with you before sending an email or making a purchase; retrieve-only connectors available.','shield'),
+  ('Secure by design','Muse Secure VM keeps passwords and payment methods out of the agent’s view.','lock'),
+  ('Everywhere, mostly free','iOS, Android and muse.ai; free for most needs, with subscriptions for more.','phone')],
+  NEWS,'Meta Newsroom: Muse in Singapore · click')
+ s=D.prs.slides[-1];t=text(s,4.7,6.72,3.9,.24,'Meta Help: Muse Connectors · click',10,TEAL);t.text_frame.paragraphs[0].runs[0].hyperlink.address=METAHELP
  # Explicit requested news slide.
- s=D.new();header(D,s,'News · Singapore · 27 October 2026','Meta Muse Is Now Available in Singapore','Official Meta announcement · this updates the comparison article’s earlier regional information')
+ s=D.new();header(D,s,'Topic 1 · Singapore news','Meta Muse Is Now Available in Singapore','Official Meta announcement · 27 October 2026')
  circle(s,.8,2.45,1.55,TEAL);text(s,.8,2.78,1.55,.55,'SG',34,WHITE,bold=True,align='c',autofit=False)
- for j,(label,body) in enumerate([('Connect your day','Gmail + Google Calendar\nEmail and scheduling tasks'),('Choose the access','Review connector permissions\nApprove sensitive actions'),('Start the practical','iOS · Android · muse.ai\nFree core use; usage limits apply')]):
+ for j,(label,body) in enumerate([('Connect your day','Gmail + Google Calendar\nEmail and scheduling tasks'),('Choose the access','Review connector permissions\nApprove sensitive actions'),('Start the practical','iOS · Android · muse.ai\nFree for most needs')]):
   x=2.75+j*3.23;card(s,x,2.48,3.02,2.64,shadow=False);text(s,x+.2,2.73,2.62,.65,label,21,INK,bold=True,font=SERIF);text(s,x+.2,3.58,2.62,1.2,body,17,MUTED)
  text(s,.85,5.55,11.6,.65,'Class choice: recommend Muse for the morning assistant setup; use only the assigned training account.',20,TEAL,bold=True)
  tag(D,'CASE',NEWS);source(D,NEWS,'Meta Newsroom · 27 Oct 2026 · click for the Singapore launch announcement')
  proof(D,'Topic 1 · Singapore news','Local Connectors: Availability Is Progressive',[
  ('calendar','Live announced connectors','Gmail, Google Calendar and Instagram in Singapore.'),('store','Local ecosystem','Meta names shopping, travel and dining partners including Grab, Shopee and Singapore Airlines.'),('clock','Rollout condition','Partner features roll out progressively; an announcement is not proof each account has every feature.'),('user','Class decision','Practice schedule checks and draft emails; no bookings or purchases in this exercise.')],NEWS);source(D,NEWS)
+ features('Grok Bot','xAI · Grok Bot documentation, updated 28 Oct 2026',[
+  ('Persistent cloud computer','Browser, command line and files; work continues while your laptop is closed.','server'),
+  ('Several bots, one computer','Each bot gets its own screen; sessions, files and logins are shared across your bots.','users'),
+  ('Watch or take over','Open the live computer view, or take control for a sign-in, passkey or CAPTCHA.','eye'),
+  ('Apps and MCP','Gmail, Calendar, Sheets, Slack and Notion; a bot can add an MCP server when asked.','puzzle'),
+  ('Its own email address','Claim name@mail.grokbot.com; routines can start when mail arrives.','mail'),
+  ('Secure sign-in and review','Vault, 1Password and Secure Forms fill logins unseen; Auto Review gates sends.','shield')],
+  GROK,'xAI docs: Grok Bot computer and apps · click')
+ features('OpenAI Dots','OpenAI · ChatGPT Learn documentation, checked 29 Oct 2026',[
+  ('Ongoing responsibilities','Give one dot several long-running jobs instead of one-off chats.','target'),
+  ('Its own cloud computer','Works in its own browser; optionally on your computer while the ChatGPT app is open.','server'),
+  ('Plugins for apps','Connect email, calendar, files and more through ChatGPT plugins.','puzzle'),
+  ('Message it anywhere','Add contact methods such as Slack; a channel does not grant inbox access.','chat'),
+  ('Delegates and schedules','Hands parts to ChatGPT Work or Codex; fixed schedules and event triggers.','clock'),
+  ('Inspect Activity','Review delegated work and requests for input; built-in approval checks apply.','eyecheck')],
+  DOTS,'ChatGPT Learn: Get started with your dot · click')
+ # Manus: the general agent behind Cue (layout follows the supplied Manus capability slide).
+ s=D.new();header(D,s,'Topic 1 · Manus','Manus: A General AI Agent That Gets Work Done','Delivers research, slides, websites, images, videos, charts and more')
+ card(s,.6,2.35,12.1,2.05);text(s,.9,2.48,6,.4,'Core capabilities',17,INK,bold=True,font=SERIF)
+ for j,(ic,ti,de) in enumerate([('search','1  Deep research and synthesis','Research across many sources, synthesise insights and draft reports, presentations, websites, apps and dashboards.'),
+   ('robot','2  Autonomous task execution','Plan and run complex, multi-step tasks across files, websites and connected tools with minimal human intervention.'),
+   ('bolt','3  Automations and integrations','Schedule recurring tasks, trigger workflows from events and connect external apps to automate repetitive work.')]):
+  x=.9+j*3.95;icon(s,ic,x,2.98,.46);text(s,x+.58,2.95,3.25,.42,ti,13,INK,bold=True,minpt=10);text(s,x+.58,3.33,3.25,1.0,de,11,MUTED,minpt=9)
+ text(s,.6,4.55,6,.4,'See it in action: prompts to try',15,INK,bold=True,font=SERIF)
+ for j,(ti,de) in enumerate([('Research and slide generation','In one prompt, research and build a slide deck on the Singapore vs India AI startup ecosystems.'),
+   ('Web dev: live data','Build a page that tracks Singapore traffic from live camera feeds with AI-powered monitoring.'),
+   ('Web dev: data visualisation','Interactive 3D models with sun-path analysis, view corridors and unit details for HDB BTO projects.')]):
+  x=.6+j*4.1;card(s,x,5.0,3.9,1.55);text(s,x+.22,5.12,3.5,.4,ti,14,ACC,bold=True,font=SERIF,minpt=11);text(s,x+.22,5.55,3.5,.95,de,11.5,MUTED,minpt=9)
+ tag(D,'CASE',MANUS);source(D,'https://manus.im/','Try Manus: manus.im · click')
+ features('Manus 2.0','Manus · launched 28 Sep 2026 on web, desktop and mobile',[
+  ('Cascade harness','New in-house agent harness; brings in specialised capabilities only when the work needs them.','layers'),
+  ('Cloud Computer','A dedicated environment that keeps a project or automation running around the clock.','server'),
+  ('Event-triggered automations','A new email, calendar event, Slack or Notion update can start a task.','bolt'),
+  ('Studio: video editor','A first cut on an editable timeline: swap music, drop in your own footage, export.','film'),
+  ('Studio: game dev','Build, edit and publish playable games, including multiplayer on a Cloud Computer.','rocket'),
+  ('Computer use','Works in a visible, authorised workspace on your computer; you stay in control.','eye')],
+  MANUS,'Manus: Introducing Manus 2.0 · click')
+ features('Manus Cue','Manus · early access since 28 Sep 2026 · free with an invite code',[
+  ('Agent identity','Each agent has its own email address, phone number, wallet and computer.','user'),
+  ('Calls and messages','Takes calls you forward and leaves a summary; emails from its own address.','phone'),
+  ('Payments with limits','Pays from its own wallet within the budget and permissions you set.','coins'),
+  ('Agent teams','Put agents in a group chat with a shared goal; you make the final call.','users'),
+  ('Connectors and routines','Gmail, Trip.com, Oura and more; define a routine for the steps you repeat.','puzzle'),
+  ('Scan and create','Scan a store’s QR code to create an agent that orders or holds your place.','camera')],
+  CUE,'Cue by Manus: cue.im · click')
+ table(D,'Topic 1 · Big Five comparison','Choose by Job, Control and Actual Access',
+ ['Product','Useful starting job','Human control to inspect','Access checkpoint'],[
+ ('Duet','Work briefs and business follow-ups','Approval before sensitive actions; some actions disallowed','US Pro/Max waitlist preview'),
+ ('Muse','Schedule, errands and personal email','Connector permissions + sensitive-action approval','Singapore since 27 Oct; free core use'),
+ ('Grok Bot','Named workers sharing ongoing work','Approval settings; shared cloud logins across bots','Check your plan’s access'),
+ ('Dots','Persistent goals and delegated tasks','Connection permissions, custom rules and review','Check access and preview limits for your account'),
+ ('Cue','Personal errands, bookings and calls','Per-agent permissions, wallet budget, review boundaries','Early access; free with invite code')],colw=[1.4,3.4,4.6,2.7],size=12.5,tipt='No universal winner. Verify your current account, region, connector and action controls before delegating.');tag(D,'MODEL',ARTICLE+' ; '+DUET+' ; '+NEWS+' ; '+GROK+' ; '+DOTS)
+ compare(D,'Topic 1 · Big Five boundaries','Several Avatars Do Not Prove a Working Team',
+ ('Visible names','users',['A list of assistants shows roster entries.','Names may share credentials and a runtime.','A role diagram does not show execution.']),
+ ('Observable team','kanban',['Distinct worker runs and owned outputs.','Dependencies and real hand-off state.','Independent review and human acceptance.']),tipt='Day 2 will inspect actual Hermes profiles, Kanban task IDs, MP4 and audit evidence.');tag(D,'EVIDENCE',GROK+' ; '+DOTS)
  # One real setup walkthrough per always-on agent, from each vendor's official docs (checked 29 Oct 2026).
  mark('lab1')  # Lab 1 session opens with the setup plan and walkthroughs
  trace(D,'Topic 1 · Setup plan','One Morning Exercise, Three Guided Routes',[
@@ -116,13 +183,21 @@ def topic1(D,C,mark):
   'All bots on one account share a cloud computer, logins and apps. A @mail.grokbot.com address is the bot’s own inbox, not your Gmail.',
   [('xAI docs: Grok Bot computer and apps · click',GROK)]),
  ('Claude Duet',[
-  ('user','Get access','Pro or Max plan; join the waitlist at claude.com/product/claude-duet.'),
+  ('user','Get access','Pro or Max plan; join the Claude Duet waitlist on claude.com.'),
   ('download','Install','Open the Claude Duet app (iOS / Android) or claude.ai once invited.'),
   ('memory','Carry context','Memory, skills and connected apps carry over from your Claude account.'),
   ('puzzle','Connect apps','Add Gmail, Calendar, Slack or others from the Claude Marketplace.'),
   ('chat','Set the brief','Tell it what to watch and how often; approve every send or payment.')],
-  'Research preview: US Pro/Max via waitlist. Background checks every few hours use your plan limits; some actions stay off-limits even with approval.',
-  [('Anthropic: Introducing Claude Duet · click',DUET)])]
+  'Reference route, not an assessed route. Research preview: US Pro/Max via waitlist. Background checks every few hours use your plan limits; some actions stay off-limits even with approval.',
+  [('Anthropic: Introducing Claude Duet · click',DUET)]),
+ ('Manus Cue',[
+  ('download','Get Cue','Use cue.im on the web, the desktop app or Android; iOS app pending review.'),
+  ('login','Invite code','Early access: sign up with an invite code from your trainer or an existing user.'),
+  ('user','Create an agent','Give it one responsibility and the context it needs.'),
+  ('lock','Identity + limits','Choose its email, phone, wallet and computer; set budgets and approvals.'),
+  ('puzzle','Connect + routines','Connect Gmail or other services, then define routines for repeat steps.')],
+  'Reference route, not an assessed route. Keep wallet budgets small and require approval for payments, calls and messages.',
+  [('Cue by Manus: cue.im · click',CUE),('Manus: Introducing Manus 2.0 · click',MANUS)])]
  for name,steps,tipt,links in setups:
   trace(D,'Topic 1 · Always-on setup','How to Set Up '+name,steps,tipt,links[0][1])
   s=D.prs.slides[-1]

@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 2.4 · 29 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 2.5 · 29 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -37,7 +37,7 @@ This Learner Guide accompanies the WSQ course **Build a Human-AI Workforce with 
 
 | Topic | Day | What you do |
 |---|---|---|
-| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and two human–AI work modes; Big Four: Duet, Muse, Grok Bot and Dots; Activity 1 · Set up an always-on assistant; Under the hood: harness, loop, context and human decisions; Activity 1: set up an always-on assistant |
+| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and two human–AI work modes; Big Five: Duet, Muse, Grok Bot, Dots and Manus Cue; Activity 1 · Set up an always-on assistant; Under the hood: harness, loop, context and human decisions; Activity 1: set up an always-on assistant |
 | 2 · Hermes Agent — Single-Agent Office Automation, Tools & Skills | Day 1 PM | Activities 2–4: Hermes Desktop, tools/skills, Google/Excel, dashboard/PPT and single-agent video |
 | 3 · Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight | Day 2 | Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation |
 
@@ -124,11 +124,11 @@ Worked example: Kopi Kaki Co. launches a new iced oat latte. At every stage the 
 | 4 Launch | Posts the approved content and sorts incoming feedback into a queue. | Complaints and anything sensitive. |
 | 5 Measure + improve | Compares week-1 sales with the target and suggests what to change. | Keep, change or stop the product. |
 
-### 1.5 Always-on deployment and the Big Four
+### 1.5 Always-on deployment and the Big Five
 
-OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet and Grok Bot is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.
+OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet, Grok Bot and Cue is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.
 
-Use the requested BULDRR article's job-fit, control, access and limits framework. It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.
+Compare the agents with a job-fit, control, access and limits framework (BULDRR). It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.
 
 | Agent | Useful starting job | Control / access checkpoint |
 |---|---|---|
@@ -137,13 +137,31 @@ Use the requested BULDRR article's job-fit, control, access and limits framework
 | Grok Bot | Named workers and ongoing shared work | Inspect approvals; bots in one user share cloud computer/logins; verify eligible account |
 | OpenAI Dots | Persistent goals and delegated tasks in ChatGPT | Inspect connections, custom rules and active tasks; verify eligible Pro/Business Premium workspace |
 
+#### What each always-on agent can do
+
+Features below are from each vendor's official pages, checked 29 October 2026.
+
+| Agent | Key features | Access (29 Oct 2026) |
+|---|---|---|
+| Claude Duet | Morning brief across connected apps; checks accounts every few hours and messages only when something needs you; own virtual machine and browser; 6,000+ connectors (Gmail, Slack, QuickBooks, Stripe, HubSpot, Docusign…); shows exactly what it will send, pay, sign or delete and waits for approval | Research preview, US Pro/Max via waitlist |
+| Meta Muse | Manages email, schedules and goals; Gmail, Google Calendar and Instagram connectors; Singapore partners (Shopee, Lazada, Grab, Singapore Airlines, Agoda, Klook, Trip.com, ShopBack) rolling out; checks before sending or buying; Muse Secure VM keeps passwords and payment methods out of the agent's view | Singapore since 27 Oct 2026; free for most needs |
+| Grok Bot | Persistent cloud computer (browser, command line, files) shared by your bots; watch live or take over for sign-ins; Gmail, Calendar, Sheets, Slack, Notion and MCP servers; its own @mail.grokbot.com address; Vault/1Password sign-ins and Auto Review | Check your plan's access |
+| OpenAI Dots | Several ongoing responsibilities per dot; its own cloud computer, optionally your computer; plugins for email, calendar and files; contact methods such as Slack; delegates to ChatGPT Work or Codex; schedules, event triggers and an Activity view | Check access and preview limits for your account |
+| Manus Cue | Each agent has its own email, phone number, wallet and computer; takes forwarded calls; pays within budgets you set; agents collaborate in a group chat; connectors (Gmail, Trip.com…) and routines; scan a QR code to create an agent | Early access, free with an invite code |
+
+#### Manus — the general agent behind Cue
+
+Manus is a general AI agent that delivers research, slides, websites, images, videos and charts. Core capabilities: deep research and synthesis; autonomous multi-step task execution across files, websites and tools; and automations and integrations (scheduled tasks, event triggers and connected apps). Manus 2.0 (28 September 2026) adds the Cascade agent harness, Cloud Computer, event-triggered Automations, Studio with a video editor and game development, and computer use on your own machine. Course prompts to try in Manus: research and build a slide deck comparing the Singapore and India AI startup ecosystems; a page tracking Singapore traffic from live camera feeds; interactive 3D models with sun-path analysis for HDB BTO projects.
+
+<sub>Manus 2.0 and Cue: https://manus.im/blog/introducing-manus-2-0 ; https://cue.im/</sub>
+
 <sub>Requested comparison: https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots</sub>
 
 <sub>Official product checks: https://claude.com/resources/articles/claude-duet ; https://docs.x.ai/grok-bot/computer-and-apps ; https://learn.chatgpt.com/docs/dots/getting-started</sub>
 
-#### News added to the PPT: Muse is available in Singapore
+#### Muse is available in Singapore
 
-Meta's official announcement dated 27 October 2026 confirms Singapore availability, Gmail/Google Calendar/Instagram connections, sensitive-action approval and free core use with optional subscriptions. Local partner features roll out progressively. This supersedes the article's earlier Muse regional information; inspect what is actually available in each account. Muse is the recommended morning route, with provisioned Dots or Grok Bot as alternatives.
+Meta's official announcement dated 27 October 2026 confirms Singapore availability, Gmail/Google Calendar/Instagram connections, sensitive-action approval and free core use with optional subscriptions. Local partner features roll out progressively. Muse is the recommended morning route, with provisioned Dots or Grok Bot as alternatives.
 
 <sub>Meta Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/</sub>
 
@@ -151,35 +169,35 @@ Meta's official announcement dated 27 October 2026 confirms Singapore availabili
 
 ### 1.6 How to set up an always-on assistant
 
-The class executes one route: Muse is recommended in Singapore; use Dots or Grok Bot only with an eligible account. Claude Duet is shown for reference (US Pro/Max research preview). Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
+The class executes one route: Muse is recommended in Singapore; use Dots or Grok Bot only with an eligible account. Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
 
 #### Meta Muse (recommended)
 
-1. Install Muse from Meta (iOS / Android) or open muse.ai; confirm the developer is Meta Platforms, Inc.
-2. Complete sign-in and onboarding; Facebook, Instagram and Threads link automatically through Accounts Center.
-3. Go to Settings → Connectors → Connect beside Gmail → Continue.
-4. Finish the Google login in the browser; repeat for Google Calendar.
-5. Keep retrieve-only where offered and approve sends and invites. Shortcut: ask “Connect my Gmail”; disconnect anytime in Settings → Connectors.
+- Step 1 — Install Muse from Meta (iOS / Android) or open muse.ai; confirm the developer is Meta Platforms, Inc.
+- Step 2 — Complete sign-in and onboarding; Facebook, Instagram and Threads link automatically through Accounts Center.
+- Step 3 — Go to Settings → Connectors → Connect beside Gmail → Continue.
+- Step 4 — Finish the Google login in the browser; repeat for Google Calendar.
+- Step 5 — Keep retrieve-only where offered and approve sends and invites. Shortcut: ask “Connect my Gmail”; disconnect anytime in Settings → Connectors.
 
 <sub>Muse connector steps: https://www.meta.com/help/superintelligence/1687253048996149/</sub>
 
 #### OpenAI Dots (eligible workspace)
 
-1. Open dots in the ChatGPT mobile app, desktop app or a desktop browser (mobile web is not supported) and follow the introduction.
-2. Name your dot and choose its appearance; both can change later.
-3. Connect plugins for email, calendar and files, authorising each one.
-4. Optional: open the dot’s profile and select Add to connect a contact method such as Slack. A messaging channel does not grant inbox or computer access.
-5. Describe an ongoing responsibility, its sources and which decisions need you. Ending a conversation does not necessarily stop assigned work; check Activity.
+- Step 1 — Open dots in the ChatGPT mobile app, desktop app or a desktop browser (mobile web is not supported) and follow the introduction.
+- Step 2 — Name your dot and choose its appearance; both can change later.
+- Step 3 — Connect plugins for email, calendar and files, authorising each one.
+- Step 4 — Optional: open the dot’s profile and select Add to connect a contact method such as Slack. A messaging channel does not grant inbox or computer access.
+- Step 5 — Describe an ongoing responsibility, its sources and which decisions need you. Ending a conversation does not necessarily stop assigned work; check Activity.
 
 <sub>Dots getting started: https://learn.chatgpt.com/docs/dots/getting-started</sub>
 
 #### Grok Bot (eligible account)
 
-1. Start at x.ai/bot; install the desktop or mobile app and sign in.
-2. Create a bot: sidebar + → Create a Bot → name it → Create.
-3. Open Connect apps (mobile: avatar → Connect apps) and add Gmail.
-4. Finish the Google login in the browser; repeat for Google Calendar.
-5. Confirm both appear under Installed. “Added” does not mean signed in; choose Authenticate if an app shows Needs auth.
+- Step 1 — Start at x.ai/bot; install the desktop or mobile app and sign in.
+- Step 2 — Create a bot: sidebar + → Create a Bot → name it → Create.
+- Step 3 — Open Connect apps (mobile: avatar → Connect apps) and add Gmail.
+- Step 4 — Finish the Google login in the browser; repeat for Google Calendar.
+- Step 5 — Confirm both appear under Installed. “Added” does not mean signed in; choose Authenticate if an app shows Needs auth.
 
 All bots on one account share a cloud computer, browser logins and connected apps. A @mail.grokbot.com address is the bot’s own inbox, not your Gmail.
 
@@ -187,13 +205,23 @@ All bots on one account share a cloud computer, browser logins and connected app
 
 #### Claude Duet (reference — US research preview)
 
-1. Have a Pro or Max plan and join the waitlist at claude.com/product/claude-duet.
-2. Once invited, open the Claude Duet app (iOS / Android) or claude.ai.
-3. Memory, skills and connected apps carry over from your Claude account.
-4. Add connectors such as Gmail, Calendar or Slack from the Claude Marketplace.
-5. Tell it what to watch and how often. It asks before it sends, pays, signs or deletes; some actions stay off-limits even with approval.
+- Step 1 — Have a Pro or Max plan and join the Claude Duet waitlist on claude.com.
+- Step 2 — Once invited, open the Claude Duet app (iOS / Android) or claude.ai.
+- Step 3 — Memory, skills and connected apps carry over from your Claude account.
+- Step 4 — Add connectors such as Gmail, Calendar or Slack from the Claude Marketplace.
+- Step 5 — Tell it what to watch and how often. It asks before it sends, pays, signs or deletes; some actions stay off-limits even with approval.
 
 <sub>Introducing Claude Duet: https://claude.com/resources/articles/claude-duet</sub>
+
+#### Manus Cue (reference — early access)
+
+- Step 1 — Use cue.im on the web, the desktop app or Android; the iOS app is pending review.
+- Step 2 — Sign up with an invite code from your trainer or an existing user during early access.
+- Step 3 — Create an agent and give it one responsibility and the context it needs.
+- Step 4 — Choose its email, phone, wallet and computer; set wallet budgets and which actions need your approval.
+- Step 5 — Connect Gmail or other services, then define routines for steps you repeat. Keep budgets small and require approval for payments, calls and messages.
+
+<sub>Cue by Manus: https://cue.im/ ; Manus 2.0 announcement: https://manus.im/blog/introducing-manus-2-0</sub>
 
 ### 1.7 Evidence, ongoing work and human control
 
