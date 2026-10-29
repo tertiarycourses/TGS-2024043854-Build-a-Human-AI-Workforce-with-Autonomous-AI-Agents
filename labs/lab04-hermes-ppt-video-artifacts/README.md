@@ -2,7 +2,7 @@
 
 **Day 1 · Topic 2 · 70 min · One agent + office/video skills + human review · LO2**
 
-> One Hermes agent reads the assigned Google account, analyses an Excel workbook and builds an interactive dashboard and a management presentation.
+> One Hermes agent turns the verified analysis into an interactive dashboard, a professional PPT and a short video, then sends one approved training email.
 
 ## Goal
 Use a single Hermes agent with reusable skills and tools to create and verify interactive and presentation artifacts (LO2; PP Task 2).

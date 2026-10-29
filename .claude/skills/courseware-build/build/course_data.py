@@ -11,7 +11,7 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v2.3"
+VERSION      = "v2.4"
 VERSION_DATE = "29 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
@@ -30,7 +30,7 @@ LEARNING_OUTCOMES = [
 
 # ------------------------------------------------------------------ topics
 TOPICS = [
- dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and two human–AI work modes", "Agent harness, loop, context and human decisions", "Big Four: Duet, Muse, Grok Bot and Dots", "Activity 1 · Set up an always-on assistant"]),
+ dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and two human–AI work modes", "Big Four: Duet, Muse, Grok Bot and Dots", "Activity 1 · Set up an always-on assistant", "Under the hood: harness, loop, context and human decisions"]),
  dict(num=2,code="02",weighting="35%",title="Hermes Agent — Single-Agent Office Automation, Tools & Skills",short="Hermes Agent",items=["Activity 2 · Hermes Desktop, tools, skills and source brief", "Activity 3 · gog: Gmail, Calendar, Drive and Excel", "Activity 4 · Dashboard, professional PPT and single-agent video", "Human review and one approved training email"]),
  dict(num=3,code="03",weighting="35%",title="Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight",short="Hermes Teams & Dots",items=["Activity 5 · Hermes bots and Kanban video studio", "Activity 6 · Source retrieval, verification and maintenance", "Activity 7 · Dots: supervised launch review", "Activity 8 · Team video revision, local release and evaluation"]),
 ]
@@ -56,11 +56,11 @@ LUS = [
 SCHEDULE = {
  1: [
   ("9:30","9:50",20,"admin","Welcome, attendance, outcomes and official SWDA AI subscription redemption steps","LU1"),
-  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; human–AI roles; two work modes; always-on agents; harness and Big Four comparison","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; agentic AI and always-on agents; human–AI roles, two work modes and use cases; Big Four comparison and Singapore update","LU1"),
   ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
-  ("11:20","12:35",75,"lab","Lab 1: Activity 1 — set up one accessible always-on assistant; Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
-  ("12:35","13:00",25,"activity","Assistant results review — compare source accuracy, approval controls, limits and actual stop state","LU1"),
-  ("13:00","13:30",30,"topic","Harness consolidation — context, memory, knowledge base, instructions, tools, security and human judgment","LU1"),
+  ("11:20","12:35",75,"lab","Lab 1: Activity 1 — setup plan and walkthroughs (Muse, Dots, Grok Bot, Duet); connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
+  ("12:35","12:50",15,"activity","Assistant results review — compare source accuracy, approval controls, limits and actual stop state","LU1"),
+  ("12:50","13:30",40,"topic","Under the hood — how agents work: model in a harness, context, memory and RAG, tools and skills, the agentic loop, approvals and human-in/on-the-loop","LU1"),
   ("13:30","14:30",60,"lunch","Lunch break",""),
   ("14:30","15:30",60,"lab","Lab 2: Activity 2A — introduce Kopi Kaki; Hermes Desktop, features, tools and reviewed skills","LU1"),
   ("15:30","16:00",30,"lab","Lab 2: Activity 2B — install office/gog/video skills, verify tools and save the source brief","LU2"),
@@ -75,7 +75,7 @@ SCHEDULE = {
   ("9:45","10:35",50,"lab","Lab 5: Activity 5A — Hermes bots, Kanban roles, dependencies and video production","LU2"),
   ("10:35","11:10",35,"lab","Lab 5: Activity 5B — independent audit, human revision and video-team evidence","LU2"),
   ("11:10","11:25",15,"break","Tea break (included in scheduled LU time)","LU2"),
-  ("11:25","11:30",5,"topic","Topic 3 — team source assurance and accountability","LU2"),
+  ("11:25","11:30",5,"topic","Source assurance introduction — claims, passages, versions and owners","LU2"),
   ("11:30","12:15",45,"lab","Lab 6: Activity 6 — source retrieval, verification and RAG maintenance","LU3"),
   ("12:15","13:15",60,"lunch","Lunch break",""),
   ("13:15","13:50",35,"lab","Lab 7: Activity 7 — supervised OpenAI Dots launch review and Hermes comparison","LU3"),

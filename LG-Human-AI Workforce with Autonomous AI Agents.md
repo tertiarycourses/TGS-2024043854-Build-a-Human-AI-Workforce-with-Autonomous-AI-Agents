@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 2.3 · 29 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 2.4 · 29 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -37,7 +37,7 @@ This Learner Guide accompanies the WSQ course **Build a Human-AI Workforce with 
 
 | Topic | Day | What you do |
 |---|---|---|
-| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and two human–AI work modes; Agent harness, loop, context and human decisions; Big Four: Duet, Muse, Grok Bot and Dots; Activity 1 · Set up an always-on assistant; Activity 1: set up an always-on assistant |
+| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and two human–AI work modes; Big Four: Duet, Muse, Grok Bot and Dots; Activity 1 · Set up an always-on assistant; Under the hood: harness, loop, context and human decisions; Activity 1: set up an always-on assistant |
 | 2 · Hermes Agent — Single-Agent Office Automation, Tools & Skills | Day 1 PM | Activities 2–4: Hermes Desktop, tools/skills, Google/Excel, dashboard/PPT and single-agent video |
 | 3 · Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight | Day 2 | Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation |
 
@@ -84,7 +84,11 @@ Begin with rules and expert systems, then learning from data, Transformers/chat 
 | 2025 Harness Engineering | Tools, state, checks and limits | Real tool results and approval controls |
 | 2026 AI Agents | Delegate work and inspect results | Verified artifacts and human decisions |
 
-### 1.2 AI agents do the work; humans decide
+### 1.2 Agentic AI and always-on AI agents
+
+Agentic AI describes goal-directed systems that plan, act and use feedback; a system may contain one agent or a coordinated team. In this course we focus on an always-on AI agent as a persistent, 24/7-capable agentic system that can work between messages. This is the deployment focus of the course, not a universal definition of all AI agents or an uptime promise. A running host, access, budget and service availability are still required.
+
+### 1.3 AI agents do the work; humans decide
 
 The agent reads permitted sources, selects tools, calculates, drafts and produces work. The human sets the goal and access, exercises judgment when facts or values conflict, approves consequential commitments and accepts the result. Capability and human authority should be explicit in the task, rather than inferred from a product label.
 
@@ -93,7 +97,7 @@ The agent reads permitted sources, selects tools, calculates, drafts and produce
 | Personal assistant | Email, calendar, travel options and daily brief | Priorities, conflicting commitments and exact sends/purchases | Source-checked schedule and reviewed draft |
 | Digital worker | Coding, accounting, analysis and content production | Business decision, exceptions, release and quality acceptance | Patch, reconciliation, deck or video plus verified checks |
 
-### 1.3 Eight selected opportunities
+### 1.4 Eight selected opportunities
 
 | Use case | AI work | Human decision / acceptance |
 |---|---|---|
@@ -108,29 +112,21 @@ The agent reads permitted sources, selects tools, calculates, drafts and produce
 
 Scientific hypotheses require experimental validation; a generated proposal is not a discovery. Embodied systems add sensing and physical action: manufacturer demos, controlled pilots and validated deployments are different levels of evidence. The humanoid scenario here is prospective, not a claim of general workplace readiness.
 
-### 1.4 Agentic AI and always-on AI agents
+#### Product development: agents across the lifecycle
 
-Agentic AI describes goal-directed systems that plan, act and use feedback; a system may contain one agent or a coordinated team. In this course we focus on an always-on AI agent as a persistent, 24/7-capable agentic system that can work between messages. This is the deployment focus of the course, not a universal definition of all AI agents or an uptime promise. A running host, access, budget and service availability are still required.
+Worked example: Kopi Kaki Co. launches a new iced oat latte. At every stage the agent does the work and a person makes the decision that carries business risk.
+
+| Stage | What the agent does | What the human decides |
+|---|---|---|
+| 1 Discovery | Reads 200 customer reviews and competitor menus; lists the top requests with review IDs. | Which customer problem to solve. |
+| 2 Design + build | Drafts the drink spec, menu card, poster and a short launch video script. | Recipe, price and brand wording. |
+| 3 Test + QA | Auditor agent re-checks prices, allergens and claims against the source sheet. | Fix flagged errors; sign off release. |
+| 4 Launch | Posts the approved content and sorts incoming feedback into a queue. | Complaints and anything sensitive. |
+| 5 Measure + improve | Compares week-1 sales with the target and suggests what to change. | Keep, change or stop the product. |
+
+### 1.5 Always-on deployment and the Big Four
 
 OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet and Grok Bot is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.
-
-### 1.5 Harness: the system around the model
-
-| Component | Function | What to inspect |
-|---|---|---|
-| Model | Proposes next tokens and actions | Model access and observed limitations |
-| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
-| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
-| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
-| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
-| Instructions | Goal, policies and output contract | Authority and stop conditions |
-| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
-| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
-| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
-
-Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.
-
-### 1.6 The Big Four — comparison from BULDRR, updated for Singapore
 
 Use the requested BULDRR article's job-fit, control, access and limits framework. It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.
 
@@ -153,94 +149,55 @@ Meta's official announcement dated 27 October 2026 confirms Singapore availabili
 
 <sub>Official iOS Singapore listing: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 ; Android Singapore listing: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura</sub>
 
-Setup: install the official Meta developer app, sign in, then Settings → Connectors → Connect beside Gmail → Continue → browser authorization. Repeat for Google Calendar and verify the assigned identity in both services. You can also ask Muse to connect Gmail/Calendar. Keep sensitive-action approval enabled; use retrieve-only permissions where offered. Activity 1 provides all three guided routes and requires execution of one accessible route.
+### 1.6 How to set up an always-on assistant
+
+The class executes one route: Muse is recommended in Singapore; use Dots or Grok Bot only with an eligible account. Claude Duet is shown for reference (US Pro/Max research preview). Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
+
+#### Meta Muse (recommended)
+
+1. Install Muse from Meta (iOS / Android) or open muse.ai; confirm the developer is Meta Platforms, Inc.
+2. Complete sign-in and onboarding; Facebook, Instagram and Threads link automatically through Accounts Center.
+3. Go to Settings → Connectors → Connect beside Gmail → Continue.
+4. Finish the Google login in the browser; repeat for Google Calendar.
+5. Keep retrieve-only where offered and approve sends and invites. Shortcut: ask “Connect my Gmail”; disconnect anytime in Settings → Connectors.
 
 <sub>Muse connector steps: https://www.meta.com/help/superintelligence/1687253048996149/</sub>
+
+#### OpenAI Dots (eligible workspace)
+
+1. Open dots in the ChatGPT mobile app, desktop app or a desktop browser (mobile web is not supported) and follow the introduction.
+2. Name your dot and choose its appearance; both can change later.
+3. Connect plugins for email, calendar and files, authorising each one.
+4. Optional: open the dot’s profile and select Add to connect a contact method such as Slack. A messaging channel does not grant inbox or computer access.
+5. Describe an ongoing responsibility, its sources and which decisions need you. Ending a conversation does not necessarily stop assigned work; check Activity.
+
+<sub>Dots getting started: https://learn.chatgpt.com/docs/dots/getting-started</sub>
+
+#### Grok Bot (eligible account)
+
+1. Start at x.ai/bot; install the desktop or mobile app and sign in.
+2. Create a bot: sidebar + → Create a Bot → name it → Create.
+3. Open Connect apps (mobile: avatar → Connect apps) and add Gmail.
+4. Finish the Google login in the browser; repeat for Google Calendar.
+5. Confirm both appear under Installed. “Added” does not mean signed in; choose Authenticate if an app shows Needs auth.
+
+All bots on one account share a cloud computer, browser logins and connected apps. A @mail.grokbot.com address is the bot’s own inbox, not your Gmail.
+
+<sub>Grok Bot computer and apps: https://docs.x.ai/grok-bot/computer-and-apps</sub>
+
+#### Claude Duet (reference — US research preview)
+
+1. Have a Pro or Max plan and join the waitlist at claude.com/product/claude-duet.
+2. Once invited, open the Claude Duet app (iOS / Android) or claude.ai.
+3. Memory, skills and connected apps carry over from your Claude account.
+4. Add connectors such as Gmail, Calendar or Slack from the Claude Marketplace.
+5. Tell it what to watch and how often. It asks before it sends, pays, signs or deletes; some actions stay off-limits even with approval.
+
+<sub>Introducing Claude Duet: https://claude.com/resources/articles/claude-duet</sub>
 
 ### 1.7 Evidence, ongoing work and human control
 
 Check the schedule in Asia/Singapore against actual source events, draft a reply, correct one detail and inspect the real task stop/pause state. Closing a chat need not stop an ongoing responsibility. A store/install screen, generic chatbot or trainer demonstration is not the candidate's executed work. PP Task 1 requires TWO screenshots: image A of the learner's chosen always-on assistant request/result in Activity 1, and image B of a Hermes-generated artifact after Activity 4, plus the paper's written algorithm/strengths/limitations analysis.
-
-#### Inside the LLM: learning and next-token generation
-
-A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.
-
-The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
-
-#### Transfer case: logistics exception work
-
-A logistics agent can interpret varied shipment notes and organise an exception brief, while deterministic tools calculate delays from shipment IDs and promised/actual timestamps. Limitations include missing scans, changed schedules, ambiguous customer notes, hallucinated causes and inappropriate autonomous action. Require source IDs and timestamps, explicit unknowns, independently checked calculations and a dispatcher decision before changing a route or contacting a customer. Evaluate observed data and controls rather than assuming that fluent language means the operational conclusion is correct.
-
-#### RAG versus a standard LLM assistant, including maintenance
-
-| Decision factor | Standard LLM assistant | RAG-enabled agent |
-|---|---|---|
-| Evidence | Learned knowledge plus supplied context | Authorised retrieved passages plus supplied context |
-| Useful strengths | Low setup overhead; drafting and general reasoning | Current/private document grounding and inspectable source references |
-| Limitations | May lack internal/current facts; unsupported claims | Retrieval can miss evidence; stale index or poor chunks can mislead; citations may not support claims |
-| Upkeep | Maintain instructions, model access and evaluations | Also curate documents, permissions, passage/index updates and retrieval tests |
-| Cost and latency | Prompt/model usage and review | Also ingestion/indexing, retrieval and source-quality review |
-| Human check | Verify important facts independently | Check source version, access and actual passage support |
-
-A maintainable RAG pipeline registers source ownership and permissions, ingests approved documents, prepares passages, builds a search or vector index, retrieves authorised evidence and records source/version IDs. When a policy changes, remove obsolete versions, refresh the relevant index and rerun retrieval/answer checks. A vector embedding service is one option, not a requirement for every retrieval system. Choose the simplest design whose freshness, privacy, quality and upkeep fit the product.
-
-<sub>Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arxiv.org/abs/2210.03629 ; retrieval-augmented generation: https://arxiv.org/abs/2005.11401</sub>
-
-### 1.8 Sources and further reading
-
-<sub>Hermes installation: https://hermes-agent.nousresearch.com/docs/</sub>
-
-<sub>Hermes Telegram gateway: https://hermes-agent.nousresearch.com/docs/user-guide/messaging</sub>
-
-<sub>Hermes skills: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills</sub>
-
-<sub>gog installation and platform requirements: https://gogcli.sh/install.html</sub>
-
-<sub>gog OAuth and read commands: https://gogcli.sh/quickstart.html</sub>
-
-<sub>gog command policy and readonly flag: https://github.com/openclaw/gogcli</sub>
-
-<sub>OpenAI Dots: product demo reference: https://openai.com/index/introducing-dots/</sub>
-
-<sub>Google AI co-scientist: research case: https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/</sub>
-
-<sub>AlphaEvolve: evaluators and algorithm search: https://arxiv.org/abs/2506.13131</sub>
-
-<sub>Workflow, routing, parallelism and orchestrator patterns: https://www.anthropic.com/research/building-effective-agents</sub>
-
-<sub>Context engineering: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</sub>
-
-<sub>PptxGenJS: editable PowerPoint output: https://gitbrent.github.io/PptxGenJS/</sub>
-
-<sub>FFmpeg: local video rendering: https://ffmpeg.org/ffmpeg.html</sub>
-
-<sub>HyperFrames: optional AI video workflow: https://github.com/heygen-com/hyperframes</sub>
-
-<sub>IBM — human-AI collaboration: https://www.ibm.com/think/topics/human-ai-collaboration</sub>
-
-<sub>Columbia — building AI that understands people: https://www.cs.columbia.edu/2026/building-ai-that-understands-people/</sub>
-
-<sub>UNSW — workplace design and governance: https://www.businessthink.unsw.edu.au/articles/ai-agents-workplace-human-ai-collaboration-governance</sub>
-
-<sub>Mental models of multi-agent early adopters: https://arxiv.org/html/2510.06224v1</sub>
-
-<sub>Human–AI field experiment: https://arxiv.org/html/2503.18238v3</sub>
-
-<sub>Performance and preferences: https://link.springer.com/article/10.1186/s41235-026-00713-1</sub>
-
-<sub>Human–AI teams review: https://link.springer.com/article/10.1007/s00146-026-02977-z</sub>
-
-<sub>Deloitte — AI and VR collaboration scenarios: https://www.deloitte.com/global/en/insights/industry/technology/ai-and-vr-model-for-human-ai-collaboration.html</sub>
-
-<sub>ChatCollab research prototype: https://arxiv.org/html/2412.01992v1</sub>
-
-<sub>Hermes Kanban: https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban</sub>
-
-<sub>OpenAI Dots: https://learn.chatgpt.com/docs/dots/getting-started</sub>
-
-<sub>Figure Helix: https://www.figure.ai/news/helix</sub>
-
-<sub>Responsible robotics: https://deepmind.google/models/gemini-robotics/responsibly-advancing-ai-and-robotics/</sub>
 
 ### Lab 1 — Activity 1 — Set Up an Always-On Personal Assistant
 
@@ -360,9 +317,106 @@ Inspect active tasks/responsibilities and pause or stop the specific task using 
 
 Compare the same task on a second accessible route: source accuracy, approval controls, elapsed time and human effort.
 
-### Morning results review and harness consolidation
+### 1.8 Under the hood: how agents work
+
+After the morning exercise, open the system you just used. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.
+
+| Component | Function | What to inspect |
+|---|---|---|
+| Model | Proposes next tokens and actions | Model access and observed limitations |
+| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
+| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
+| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
+| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
+| Instructions | Goal, policies and output contract | Authority and stop conditions |
+| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
+| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
+| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
+
+Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.
+
+#### Inside the LLM: learning and next-token generation
+
+A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.
+
+The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
+
+#### Transfer case: logistics exception work
+
+A logistics agent can interpret varied shipment notes and organise an exception brief, while deterministic tools calculate delays from shipment IDs and promised/actual timestamps. Limitations include missing scans, changed schedules, ambiguous customer notes, hallucinated causes and inappropriate autonomous action. Require source IDs and timestamps, explicit unknowns, independently checked calculations and a dispatcher decision before changing a route or contacting a customer. Evaluate observed data and controls rather than assuming that fluent language means the operational conclusion is correct.
+
+#### RAG versus a standard LLM assistant, including maintenance
+
+| Decision factor | Standard LLM assistant | RAG-enabled agent |
+|---|---|---|
+| Evidence | Learned knowledge plus supplied context | Authorised retrieved passages plus supplied context |
+| Useful strengths | Low setup overhead; drafting and general reasoning | Current/private document grounding and inspectable source references |
+| Limitations | May lack internal/current facts; unsupported claims | Retrieval can miss evidence; stale index or poor chunks can mislead; citations may not support claims |
+| Upkeep | Maintain instructions, model access and evaluations | Also curate documents, permissions, passage/index updates and retrieval tests |
+| Cost and latency | Prompt/model usage and review | Also ingestion/indexing, retrieval and source-quality review |
+| Human check | Verify important facts independently | Check source version, access and actual passage support |
+
+A maintainable RAG pipeline registers source ownership and permissions, ingests approved documents, prepares passages, builds a search or vector index, retrieves authorised evidence and records source/version IDs. When a policy changes, remove obsolete versions, refresh the relevant index and rerun retrieval/answer checks. A vector embedding service is one option, not a requirement for every retrieval system. Choose the simplest design whose freshness, privacy, quality and upkeep fit the product.
+
+<sub>Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arxiv.org/abs/2210.03629 ; retrieval-augmented generation: https://arxiv.org/abs/2005.11401</sub>
 
 Compare observed source accuracy, setup/run/review time, actual approval and stop controls, and explicit failures. Distinguish model weights from runtime context, memory from a managed knowledge base, human-in-the-loop approval from human-on-the-loop monitoring. Keep the task bounded and record unknowns before lunch.
+
+### 1.9 Sources and further reading
+
+<sub>Hermes installation: https://hermes-agent.nousresearch.com/docs/</sub>
+
+<sub>Hermes Telegram gateway: https://hermes-agent.nousresearch.com/docs/user-guide/messaging</sub>
+
+<sub>Hermes skills: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills</sub>
+
+<sub>gog installation and platform requirements: https://gogcli.sh/install.html</sub>
+
+<sub>gog OAuth and read commands: https://gogcli.sh/quickstart.html</sub>
+
+<sub>gog command policy and readonly flag: https://github.com/openclaw/gogcli</sub>
+
+<sub>OpenAI Dots: product demo reference: https://openai.com/index/introducing-dots/</sub>
+
+<sub>Google AI co-scientist: research case: https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/</sub>
+
+<sub>AlphaEvolve: evaluators and algorithm search: https://arxiv.org/abs/2506.13131</sub>
+
+<sub>Workflow, routing, parallelism and orchestrator patterns: https://www.anthropic.com/research/building-effective-agents</sub>
+
+<sub>Context engineering: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</sub>
+
+<sub>PptxGenJS: editable PowerPoint output: https://gitbrent.github.io/PptxGenJS/</sub>
+
+<sub>FFmpeg: local video rendering: https://ffmpeg.org/ffmpeg.html</sub>
+
+<sub>HyperFrames: optional AI video workflow: https://github.com/heygen-com/hyperframes</sub>
+
+<sub>IBM — human-AI collaboration: https://www.ibm.com/think/topics/human-ai-collaboration</sub>
+
+<sub>Columbia — building AI that understands people: https://www.cs.columbia.edu/2026/building-ai-that-understands-people/</sub>
+
+<sub>UNSW — workplace design and governance: https://www.businessthink.unsw.edu.au/articles/ai-agents-workplace-human-ai-collaboration-governance</sub>
+
+<sub>Mental models of multi-agent early adopters: https://arxiv.org/html/2510.06224v1</sub>
+
+<sub>Human–AI field experiment: https://arxiv.org/html/2503.18238v3</sub>
+
+<sub>Performance and preferences: https://link.springer.com/article/10.1186/s41235-026-00713-1</sub>
+
+<sub>Human–AI teams review: https://link.springer.com/article/10.1007/s00146-026-02977-z</sub>
+
+<sub>Deloitte — AI and VR collaboration scenarios: https://www.deloitte.com/global/en/insights/industry/technology/ai-and-vr-model-for-human-ai-collaboration.html</sub>
+
+<sub>ChatCollab research prototype: https://arxiv.org/html/2412.01992v1</sub>
+
+<sub>Hermes Kanban: https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban</sub>
+
+<sub>OpenAI Dots: https://learn.chatgpt.com/docs/dots/getting-started</sub>
+
+<sub>Figure Helix: https://www.figure.ai/news/helix</sub>
+
+<sub>Responsible robotics: https://deepmind.google/models/gemini-robotics/responsibly-advancing-ai-and-robotics/</sub>
 
 ## Topic 2 — Hermes Agent — Single-Agent Office Automation, Tools & Skills
 
@@ -486,7 +540,7 @@ Work in the confirmed Kopi Kaki workspace. Read brand-guide.md, campaign-brief.m
 
 **Step 6 — Verify persistence and native runtime (10 min)**
 
-Inspect the approved memory entry, then start a fresh chat with the same local profile and explicit workspace. Ask which angle you chose and why, and whether the answer used persisted memory or source/session search. Optional extension: Messaging → Telegram → Create with QR; verify numeric allowlist, restart if requested and use the existing gateway for one private round trip. Telegram is optional in v2.3; it does not replace the morning assistant screenshot.
+Inspect the approved memory entry, then start a fresh chat with the same local profile and explicit workspace. Ask which angle you chose and why, and whether the answer used persisted memory or source/session search. Optional extension: Messaging → Telegram → Create with QR; verify numeric allowlist, restart if requested and use the existing gateway for one private round trip. Telegram is optional in this course; it does not replace the morning assistant screenshot.
 
 ✓ Expected: Fresh-session recall checked; source IDs and decision agree.
 
@@ -663,7 +717,7 @@ Teach Hermes a revised office-pack skill containing the checks you found useful.
 
 ### Lab 4 — Activity 4 — Hermes Dashboard, Professional PPT & Single-Agent Video
 
-**Day 1 · 70 min · One agent + office/video skills + human review · LO2** — One Hermes agent reads the assigned Google account, analyses an Excel workbook and builds an interactive dashboard and a management presentation.
+**Day 1 · 70 min · One agent + office/video skills + human review · LO2** — One Hermes agent turns the verified analysis into an interactive dashboard, a professional PPT and a short video, then sends one approved training email.
 
 #### Business scenario
 

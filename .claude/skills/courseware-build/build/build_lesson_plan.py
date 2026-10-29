@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23
+from version_history import PRIOR, V20, V21, V22, V23, V24
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -32,25 +32,24 @@ HEADER_FILL = "1F6FEB"; TOPIC_FILL = "E8F0FE"; BREAK_FILL = "FFF4E5"; LUNCH_FILL
 KIND_FILL = {"topic": TOPIC_FILL, "activity": TOPIC_FILL, "break": BREAK_FILL, "lunch": LUNCH_FILL, "assess": ASSESS_FILL,
              "admin": "F3F5F8", "recap": "F3F5F8", "lab": None}
 
-def rng(a, b): return f"{MAP[a]}–{MAP[b] - 1}"
+def rng(a, b): return str(MAP[a]) if MAP[b] - 1 == MAP[a] else f"{MAP[a]}–{MAP[b] - 1}"
 def slides_for(day, text):
     t = text
     if t.startswith("Welcome"): return rng("admin", "t1a")
     if t.startswith("Topic 1 (Part A)"): return rng("t1a", "lab1")
     if t.startswith("Assistant results"): return rng("activity", "consolidation")
-    if t.startswith("Harness consolidation"): return rng("consolidation", "t2")
-    if t.startswith("Topic 1 (Part B)"): return rng("t1b", "activity")
-    if t.startswith("Design discussion") or t.startswith("Office workflow"): return rng("activity", "demo")
-    if t.startswith("Trainer demo"): return rng("demo", "t2")
-    if t.startswith("Lab 2: Activity 2A"): return f"{MAP['t2']}–{MAP['lab3'] - 1}"
-    if t.startswith("Topic 3"): return rng("t3", "lab5")
+    if t.startswith("Under the hood"): return rng("consolidation", "t2")
+    if t.startswith("Lab 2: Activity 2A"): return rng("t2", "lab2i")
+    if t.startswith("Lab 2: Activity 2B"): return rng("lab2i", "lab3")
+    if t.startswith("Source assurance introduction"): return str(MAP["lab6"])
+    if t.startswith("Lab 6:"): return f"{MAP['lab6'] + 1}–{MAP['lab7'] - 1}"
     for L in LABS:
         if t.startswith(f"Lab {L['num']}:"):
-            nxt = {1: "lab1end", 4: "t2sum", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+            nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
             return rng(f"lab{L['num']}", nxt)
-    if t.startswith("Day 1 recap, Q&A"): return str(MAP["t2sum"])
-    if t.startswith("Day 1 recap and AM"): return str(MAP["t2sum"])
-    if t.startswith("Course recap"): return rng("wrap", "assess")
+    if t.startswith("Day 1 recap, Q&A"): return rng("t2close", "day2")
+    if t.startswith("Day 1 recap and AM"): return rng("t2sum", "lab5")
+    if t.startswith("Course recap"): return rng("t3sum", "assess")
     if t.startswith("Briefing"): return str(MAP["briefing"])
     if t.startswith("Written") or t.startswith("Practical"): return rng("assess", "end")
     return "—"
@@ -60,7 +59,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 
@@ -157,7 +156,7 @@ for i, h in enumerate(["Lab", "Title", "Paradigm", "LO", "Slides"]):
     set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
 for L in LABS:
     c = lt.add_row().cells
-    nxt = {1: "lab1end", 4: "t2sum", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
+    nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
     set_cell(c[0], f"Lab {L['num']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
     set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}", nxt))
 prodoc.set_widths(lt, [0.9, 3.4, 1.5, 0.5, 0.7])

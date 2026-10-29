@@ -51,7 +51,7 @@ def topic1(D,C,mark):
      ('Capability axis','tool',['A chatbot can draft without tools.','An agent chooses tools and checks results.','Multiple agents add separate contexts and coordination.']),
      ('Human authority axis','hand',['Assist: a person directs each step.','Delegate: agent works within a bounded goal.','Approve: person controls consequential release.']),tipt='One agent can be highly autonomous; a team can still require human approval at every release.');tag(D,'MODEL','Anthropic building effective agents')
     timeline(D,'Topic 1 · History','From Rules to Models to Action',[
-      ('Rules','1950s–80s','People encode explicit expert rules.'),('Learning','1990s–2010s','Models learn patterns from data.'),('Language','2017–2022','Transformers and chat interfaces scale generation.'),('Tool use','2022 onward','Models act, observe results and revise plans.')],foot='Different eras coexist: a 2026 agent still uses ordinary rules, databases and deterministic software.');tag(D,'MODEL','Vaswani et al., Attention Is All You Need; ReAct 2022')
+      ('Rules','1950s–80s','People encode explicit expert rules.'),('Learning','1990s–2010s','Models learn patterns from data.'),('Language','2017–2023','Transformers and chat interfaces scale generation.'),('Tool use','2024 onward','Models act, observe results and revise plans.')],foot='Different eras coexist: a 2026 agent still uses ordinary rules, databases and deterministic software.');tag(D,'MODEL','Vaswani et al., Attention Is All You Need; ReAct 2022')
     timeline(D,'Topic 1 · History','2023 → 2026: Four Engineering Lenses',[
      ('Prompt Engineering','2023','Instruction: “Write a launch brief.”'),('Context Engineering','2024','Supply catalogue, policy and source data.'),('Harness Engineering','2025','Add tools, state, checks and approval gates.'),('AI Agents','2026','Delegate work; inspect actions and results.')],foot='Course framing requested by the trainer: overlapping lenses, not invention dates or exclusive historical eras.');tag(D,'MODEL','Pedagogical framing; Anthropic context engineering 2025; agent workflows 2024')
     trace(D,'Topic 1 · History in practice','The Same Brief Gains Four Layers',[
@@ -180,14 +180,16 @@ def demo(D,mark):
       ('hand','Human control','Which action is pending approval? Can the person interrupt and revise?'),('check','Transition to Activity 1','Download Hermes Desktop, verify Telegram and produce the Lab 1 brief for PP Task 1.')],SOURCES[6][1])
 
 def office(D):
-    trace(D,'Day 1 · Desktop first','Hermes Desktop: Download → Configure → Connect',[
+    """Day 1 Hermes concept slides keyed by title; build_slides places each before its lab."""
+    R={}
+    R['Hermes Desktop: Download → Configure → Connect']=lambda k:trace(D,k,'Hermes Desktop: Download → Configure → Connect',[
       ('download','Official installer','Mac: DMG. Windows: EXE. Linux: linked terminal route.'),
       ('login','Local profile','Select approved provider and verify a real reply.'),
       ('folder','Workspace','Open the launch folder and confirm source files.'),
       ('chat','Optional Telegram','Messaging → Telegram → Create with QR; verify allowlist and restart.')],
       'If Telegram is enabled, use the same local runtime as Desktop/tools. Native Windows and WSL do not automatically share credentials or files.',
       'https://hermes-agent.nousresearch.com/desktop ; https://hermes-agent.nousresearch.com/docs/user-guide/desktop')
-    trace(D,'Day 1 · Office automation','One Hermes Agent Runs the Launch Office',[
+    R['One Hermes Agent Runs the Launch Office']=lambda k:trace(D,k,'One Hermes Agent Runs the Launch Office',[
       ('mail','gog + Google','Read assigned Gmail, Calendar and Drive.'),('chart','Spreadsheet tools','Calculate and reconcile Excel data.'),('code','HTML skill','Create a filterable local dashboard.'),('file','PPT skill','Produce an editable management deck.')],
       'All outputs stay local until reviewed. Tool count does not change the number of agents.')
     units=[
@@ -212,4 +214,5 @@ def office(D):
      ('Practice Checkpoint: Validate the Office Pack',[('mail','Brief','IDs from three services, with coverage and conflicts.'),('chart','Workbook','Totals reconcile; rejected rows documented.'),('code','Dashboard','Filters and CSV export work offline.'),('file','Deck','Six editable slides with sources and a checked PDF.')]),
      ('What Failed? Diagnose Before Retrying',[('login','OAuth error','Check account, client, enabled APIs and test-user eligibility.'),('server','Gateway error','Check running process, allowed ID and executable PATH.'),('chart','Data error','Inspect sheet names, numeric types and duplicates.'),('file','Artifact error','Open saved file; check actual output, not chat completion text.')]),
     ]
-    for title,items in units:proof(D,'Day 1 · Single-agent practice',title,items)
+    for title,items in units:R[title]=lambda k,title=title,items=items:proof(D,k,title,items)
+    return R

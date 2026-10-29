@@ -114,7 +114,7 @@ Work in the confirmed Kopi Kaki workspace. Read brand-guide.md, campaign-brief.m
 ✅ **Expected:** The shared Day 2 source brief exists and ends with an explicit human decision.
 
 ### 6. Verify persistence and native runtime (10 min)
-Inspect the approved memory entry, then start a fresh chat with the same local profile and explicit workspace. Ask which angle you chose and why, and whether the answer used persisted memory or source/session search. Optional extension: Messaging → Telegram → Create with QR; verify numeric allowlist, restart if requested and use the existing gateway for one private round trip. Telegram is optional in v2.3; it does not replace the morning assistant screenshot.
+Inspect the approved memory entry, then start a fresh chat with the same local profile and explicit workspace. Ask which angle you chose and why, and whether the answer used persisted memory or source/session search. Optional extension: Messaging → Telegram → Create with QR; verify numeric allowlist, restart if requested and use the existing gateway for one private round trip. Telegram is optional in this course; it does not replace the morning assistant screenshot.
 
 ✅ **Expected:** Fresh-session recall checked; source IDs and decision agree.
 

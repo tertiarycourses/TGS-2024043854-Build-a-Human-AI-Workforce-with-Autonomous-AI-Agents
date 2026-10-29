@@ -56,8 +56,9 @@ trainer(D, "Introduction", "Dr. Alfred Ang", "AI Trainer & Engineer\nTertiary In
         [("grad", "Qualifications", "PhD-qualified trainer specialising in AI, automation and software engineering."),
          ("robot", "Expertise", "Builds autonomous AI agents and multi-agent workflows with Hermes Agent and OpenAI Dots."),
          ("users", "Experience", "Trains professionals across Singapore on practical, project-based AI skills."),
-         ("medal", "Certifications", "PMP, AWS, Microsoft, CompTIA, CKA, CKAD."),
-         ("linkedin", "Profile", "linkedin.com/in/angchewhoe   ·   github.com/alfredang")])
+         ("medal", "Certifications", "Claude Certified Associate (Foundations), PMP, AWS, Microsoft, CompTIA, CKA, CKAD."),
+         ("linkedin", "Profile", "linkedin.com/in/angchewhoe   ·   github.com/alfredang")],
+        badge=asset("claude-certified-associate.png"))
 
 s = D.new(dark=True); header(D, s, "Introduction", "Let's Know Each Other", "Take a minute to introduce yourself to the class:")
 for i, (ic, t) in enumerate([("user", "Your name & role"), ("briefcase", "What you do day to day"),
@@ -121,11 +122,9 @@ for i, (ic, t, d) in enumerate([
     text(s, 8.38, y - 0.04, 4.4, 0.38, t, 15, INK, bold=True, font=SERIF)
     text(s, 8.38, y + 0.34, 4.4, 0.7, d, 11.5, MUTED, minpt=9)
 
-image(D, "Learning Management System", "Courseware & Assessment on the LMS", asset("screenshots", "lms-portal.png"),
-      side=[("login", "Log in", "lms-tms.tertiaryinfotech.com with your registered email + OTP."),
-            ("download", "Download the courseware", "Slides, Learner Guide and Lesson Plan for the open-book assessment."),
-            ("clipboard", "Take the assessment", "Complete the WA and PP and upload your answers on the LMS.")],
-      caption="LMS: https://lms-tms.tertiaryinfotech.com/  →  open this course  →  Courseware tab.")
+image(D, "Course Portal", "Login to LMS and Download Course Material", asset("screenshots", "lms-login.png"),
+      caption="Log in at lms-tms.tertiaryinfotech.com with your registered email and the OTP sent to your inbox, "
+              "then open this course to download the slides and Learner Guide.")
 flow(D, "Learning Management System", "Download Course Material", [
     ("globe", "Open the LMS", "Go to lms-tms.tertiaryinfotech.com"),
     ("mail", "Send OTP", "Enter your registered email and click Send OTP."),
@@ -164,17 +163,18 @@ import slides_v23 as V23
 LAB_EXTRAS = {}
 def lab_block(L):
     kick = f"Topic {L['topic']} · Lab {L['num']}"
-    mark(f"lab{L['num']}")
+    if f"lab{L['num']}" not in MARK: mark(f"lab{L['num']}")
+    mark(f"lab{L['num']}i")
     lab_intro(D, L, kick)
     lab_flow(D, L, kick)
     for fn in LAB_EXTRAS.get(L["num"], []): fn(L, kick)
     pr = [st for st in L["steps"] if st.get("prompt")]
-    key = pr[:2] if L["num"] not in (6, 9) else pr[:1]
+    key = pr[:1] if L["num"] in (6, 9) else (pr if L["num"] == 4 else pr[:2])
     for st in key:
         prompt(D, kick, st["title"], st["prompt"],
                side=[("chat", "Paste into", st.get("where", "Hermes chat")),
                      ("check", "Expect", st.get("expect", "A saved output in your workspace.")),
-                     ("hand", "You decide", L["human"])])
+                     ("hand", "You decide", st.get("decide", L["human"]))])
     rows(D, kick, f"Lab {L['num']} — Checkpoint & Reflection",
          [("check", "Verify", v) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", "  ·  ".join(L["concepts"][:2])),
                                                               ("rocket", "Stretch challenge", L["challenge"])], dark=True)
@@ -199,7 +199,7 @@ V23.consolidation(D,mark)
 # ====================================================================== TOPIC 2 · HERMES
 mark("t2")
 T2 = C.TOPICS[1]
-section(D, "Topic 2", T2["title"], T2["items"], sub="After lunch — introduce the company scenario and one Hermes office worker (Activities 2–4).")
+section(D, "Topic 2", T2["title"], T2["items"], sub="After lunch: the company scenario and one Hermes office worker.")
 s = D.new(dark=True); header(D, s, "The course scenario", "Meet Kopi Kaki Co.",
                              "A fictional Singapore kopi chain — the company used in the afternoon and Day 2 labs. All data is synthetic.")
 facts = [("store", "12 outlets · 140 staff", "Heritage kopi, modern craft — Tiong Bahru to Changi T3."),
@@ -212,26 +212,7 @@ for i, (ic, t, d) in enumerate(facts):
     text(s, x + 1.08, y + 0.28, 4.7, 0.5, t, 17, WHITE, bold=True, font=SERIF)
     text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
 
-cards(D, "Topic 2 · Hermes Agent", "What Is Hermes Agent?", [
-    ("Open source, self-hosted", "MIT licence by Nous Research. Runs on your laptop, a VPS, Docker or the desktop app.", "server"),
-    ("Grows with you", "Persistent memory and session search; writes and improves its own skills after hard tasks.", "sparkles"),
-    ("Every channel", "One gateway: CLI, Telegram, WhatsApp, Slack, Discord, Signal, email …", "chat"),
-    ("Tools & MCP", "Web search, files, terminal, browser, image generation, TTS and any MCP server.", "tool"),
-    ("Proactive", "Built-in cron scheduler runs jobs and delivers results to your chat.", "clock"),
-    ("Multi-agent", "Profiles (isolated agents) + a Kanban board with dependencies, reviews and swarms.", "kanban")],
-    cols=3, sub="Inspect the current installed version and verify each required tool before practice.")
-hub(D, "Topic 2 · Hermes Agent", "Hermes Architecture — the Harness Around the Model", "Hermes agent loop\n+ your LLM", [
-    ("file", "Context", "AGENTS.md, SOUL.md, USER.md"),
-    ("memory", "Memory", "MEMORY.md + session search"),
-    ("puzzle", "Skills", "SKILL.md, hub + self-written"),
-    ("tool", "Tools & MCP", "web, files, terminal, images"),
-    ("chat", "Gateway", "Telegram, Slack, WhatsApp …"),
-    ("kanban", "Cron · Profiles · Kanban", "schedule & orchestrate")])
-image(D, "Topic 2 · Hermes Agent", "The Hermes Dashboard", asset("screenshots", "hermes-dashboard.png"),
-      caption="`hermes dashboard` opens http://127.0.0.1:9119 — sessions, skills, profiles, Kanban, cron, channels and keys in one place.")
-flow(D,"Topic 2 · Afternoon journey","One Hermes Office Worker: Set Up → Analyse → Create",[
- ("download","Activity 2","Desktop, reviewed skills and source brief."),("chart","Activity 3","Google Workspace reads and verified Excel."),("file","Activity 4","Dashboard, PPT, single-agent video and approved test send.")],tipt="Keep source/output paths consistent for the Day 2 team.")
-table(D, "Topic 2 · Day 1 journey", "The Kopi Kaki Company Pack (data/ in every lab)",
+table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)",
       ["File", "What it is", "Used in"],
       [("AGENTS.md", "Company context Hermes loads automatically from the folder", "Activities 2–8"),
        ("brand-guide.md · campaign-brief.md", "Voice, colours, formats · product, offer, KPIs, timeline", "Activities 2–8"),
@@ -242,9 +223,60 @@ table(D, "Topic 2 · Day 1 journey", "The Kopi Kaki Company Pack (data/ in every
        ("skills/ · souls/ · tasks/ · DESIGN.md", "Ready-made skills, agent roles, task briefs, visual identity", "Activities 2–5, 8")],
       colw=[4.0, 5.6, 2.5], size=11.5)
 
-U.office(D)
-V23.office_extra(D)
-for L in LABS[1:4]:lab_block(L)
+
+cards(D, "Topic 2 · Hermes Agent", "What Is Hermes Agent?", [
+    ("Open source, self-hosted", "MIT licence by Nous Research. Runs on your laptop, a VPS, Docker or the desktop app.", "server"),
+    ("Grows with you", "Persistent memory and session search; writes and improves its own skills after hard tasks.", "sparkles"),
+    ("Every channel", "One gateway: CLI, Telegram, WhatsApp, Slack, Discord, Signal, email …", "chat"),
+    ("Tools & MCP", "Web search, files, terminal, browser, image generation, TTS and any MCP server.", "tool"),
+    ("Proactive", "Built-in cron scheduler runs jobs and delivers results to your chat.", "clock"),
+    ("Multi-agent", "Profiles (isolated agents) + a Kanban board with dependencies, reviews and swarms.", "kanban")],
+    cols=3, sub="Inspect the current installed version and verify each required tool before practice.")
+hub(D, "Topic 2 · Hermes Agent", "Hermes Architecture — This Morning's Harness, in Hermes", "Hermes agent loop\n+ your LLM", [
+    ("file", "Context", "AGENTS.md, SOUL.md, USER.md"),
+    ("memory", "Memory", "MEMORY.md + session search"),
+    ("puzzle", "Skills", "SKILL.md, hub + self-written"),
+    ("tool", "Tools & MCP", "web, files, terminal, images"),
+    ("chat", "Gateway", "Telegram, Slack, WhatsApp …"),
+    ("kanban", "Cron · Profiles · Kanban", "schedule & orchestrate")])
+image(D, "Topic 2 · Hermes Agent", "The Hermes Dashboard", asset("screenshots", "hermes-dashboard.png"),
+      caption="`hermes dashboard` opens http://127.0.0.1:9119 — sessions, skills, profiles, Kanban, cron, channels and keys in one place.")
+flow(D,"Topic 2 · Afternoon journey","One Hermes Office Worker: Set Up → Analyse → Create",[
+ ("download","Activity 2","Desktop, reviewed skills and source brief."),("chart","Activity 3","Google Workspace reads and verified Excel."),("file","Activity 4","Dashboard, PPT, single-agent video and approved test send.")],tipt="Keep source/output paths consistent for the Day 2 team.")
+# Day 1 afternoon: each lab is preceded by exactly the concepts it uses.
+T2S = {**U.office(D), **V23.office_extra(D)}
+def t2(kick, titles):
+    for ti in titles: T2S[ti](kick)
+t2("Topic 2 · The office toolset", ["One Hermes Agent Runs the Launch Office"])
+mark("lab2")
+t2("Topic 2 · Desktop and skills", [
+    "Hermes Desktop: Download → Configure → Connect", "Native Desktop and WSL Are Separate Runtimes",
+    "Optional Telegram: A Channel, Not a Second Agent", "Install a Skill Only After Reviewing Its Source",
+    "Five Skills, One Hermes Agent", "Skill Instructions Cannot Create Capabilities",
+    "Check Skill, Tool and Permission Separately", "The Office Pack Has a Stable Data Contract"])
+lab_block(LABS[1])
+mark("lab3")
+t2("Topic 2 · Google Workspace and Excel", [
+    "Google Login: Identity Before Data", "First Authorise Read-Only Gmail", "gog Is a Tool; the gog Skill Is the Procedure",
+    "Gmail: Bound the Search and Trace the Claims", "Calendar: Inspect Time and Availability",
+    "Drive: Permission Does Not Prove Relevance", "One Office Brief Reconciles Three Services",
+    "Excel Analysis Begins with a Data Contract", "Revenue Must Match the Supplied Schema",
+    "Review Themes Need Counts and Evidence", "Missing Values Change the Answer"])
+lab_block(LABS[2])
+mark("lab4")
+t2("Topic 2 · Dashboard, PPT and video", [
+    "Interactive Artifacts: A Local HTML Dashboard", "Interactivity Must Change the Evidence View",
+    "A Professional PPT Needs a Decision Story", "The PPT Skill Makes Quality Repeatable",
+    "Separate Content Errors from Layout Errors", "Make a Single-Agent Video Before a Team Video",
+    "A Storyboard Is an Input, Not a Completed Video", "Video Rights and Facts Need Checks",
+    "A Small Video Change Invalidates Old Acceptance", "An Email Draft Is Not a Sent Message",
+    "One Test Send Is a Separate Procedure", "Read-Only Defaults Resume After the Test"])
+lab_block(LABS[3])
+mark("t2close")
+t2("Day 1 · Close", [
+    "Practice Checkpoint: Validate the Office Pack", "What Failed? Diagnose Before Retrying",
+    "Office Failures Should Stay Visible", "Total Time Includes Setup and Human Review",
+    "Create a Reusable Skill from a Real Correction"])
 mark("t2sum")
 U.trace(D,"Day 1 · Evidence chain","Assistant → Hermes → Verified Work",[("calendar","Activity 1","Chosen always-on assistant; PP1 image A."),("book","Activity 2","Hermes Desktop, skills and company brief."),("chart","Activity 3","Google sources and reconciled Excel."),("file","Activity 4","PPT/video; PP1 image B and PP2 PPT.")],"AI agents do the work; humans set goals, exercise judgment and accept results.")
 mark("day2")
@@ -252,12 +284,12 @@ section(D,"Day 2","Hermes Teams: From Source Facts to a Video",["Actual profiles
 mark("t3")
 section(D,"Topic 3",C.TOPICS[2]["title"],C.TOPICS[2]["items"],sub="Four connected activities continue the same Kopi Kaki launch.")
 import slides_v22 as V22
-V22.team_mechanisms(D)
+mark("lab5"); V22.team_mechanisms(D)
 for L in LABS[4:]:
+    if L["num"]==6:mark("lab6"); V22.source_assurance(D)
+    if L["num"]==7:mark("lab7"); V22.dots_review(D)
+    if L["num"]==8:mark("lab8"); V22.video_evaluation(D)
     lab_block(L)
-    if L["num"]==6:V22.source_assurance(D)
-    if L["num"]==7:V22.dots_review(D)
-    if L["num"]==8:V22.video_evaluation(D)
 mark("t3sum")
 U.trace(D,"Day 2 · Verified outcome","Team Output Needs Four Kinds of Evidence",[("users","Execution","Distinct profile runs + owned tasks."),("film","Artifact","Playable MP4 + checked metadata."),("eyecheck","Review","Independent source and scene audit."),("hand","Human authority","Exact-version acceptance; local package only.")],"PP Task 3: ONE actual video-creation screenshot with Kanban team and Hermes bots; keep the supporting files.")
 

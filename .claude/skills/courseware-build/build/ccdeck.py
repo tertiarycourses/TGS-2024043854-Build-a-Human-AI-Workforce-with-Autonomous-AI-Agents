@@ -9,7 +9,7 @@ and keeps text inside its box via a conservative fit-to-box font sizing.
 Icons are react-icons glyphs rendered to PNG by render_icons.js and cached in
 ./icons/.
 """
-import math, os, subprocess
+import math, os, re, subprocess
 from lxml import etree
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
@@ -251,7 +251,7 @@ def section(D, label, title, items, sub=None):
     circle(s, -1.7, 5.0, 4.4, ACC)
     text(s, 0.9, 2.0, 7.6, 0.5, label.upper(), 18, ACC, bold=True, autofit=False)
     text(s, 0.85, 2.55, 7.9, 2.2, title, 40, WHITE, bold=True, font=SERIF, cw=0.52, lh=1.04)
-    if sub: text(s, 0.9, 4.75, 7.6, 0.9, sub, 15, SOFT)
+    if sub: text(s, 0.9, 4.72, 7.6, 0.3, sub, 15, SOFT, minpt=11)  # one line: clears the circle
     n = len(items); rowh = 0.56 if n <= 6 else 0.46
     ph = 0.45 + n * rowh
     py = max(0.6, (7.5 - ph) / 2 - 0.2)
@@ -317,14 +317,19 @@ def timeline(D, kicker, title, nodes, sub=None, foot=None, dark=True):
     ly = 3.75 if not sub else 4.05
     line(s, x0 + w / 2, ly, x1 - w / 2, ly, MUTED if dark else SOFT, 2)
     d = 0.86 if n <= 5 else (0.74 if n <= 7 else 0.64)
+    ysz = 14 if n <= 6 else 11.5
+    # Grow the circle so the longest unbreakable word fits inside it (breaks allowed at spaces and dashes).
+    longest = max(len(tok) for _, yr, _ in nodes for tok in re.split(r"[\s]+|(?<=[–-])", yr) if tok)
+    d = min(max(d, (longest * ysz * 0.56 / 72 + 0.08) / 0.8), w - 0.2)
     for i, (lab, yr, desc) in enumerate(nodes):
         cx = x0 + w * i + w / 2
-        text(s, cx - w / 2 + 0.03, ly - 1.45, w - 0.06, 0.95, lab, 15 if n <= 5 else 12.5, ACC, bold=True,
+        text(s, cx - w / 2 + 0.03, ly - d / 2 - 1.03, w - 0.06, 0.95, lab, 15 if n <= 5 else 12.5, ACC, bold=True,
              font=SERIF, align="c", anchor="b", minpt=9)
         circle(s, cx - d / 2, ly - d / 2, d, ACC)
-        text(s, cx - d / 2, ly - d / 2, d, d, yr, 14 if n <= 6 else 11.5, WHITE, bold=True, font=SERIF,
+        text(s, cx - d / 2, ly - d / 2, d, d, yr, ysz, WHITE, bold=True, font=SERIF,
              align="c", anchor="m", autofit=False)
-        text(s, cx - w / 2 + 0.03, ly + d / 2 + 0.15, w - 0.06, 1.75, desc, 12 if n <= 6 else 10.5,
+        dy = ly + d / 2 + 0.15
+        text(s, cx - w / 2 + 0.03, dy, w - 0.06, min(1.75, 6.4 - dy), desc, 12 if n <= 6 else 10.5,
              SOFT if dark else MUTED, align="c", minpt=8.5)
     if foot: text(s, 0.6, 6.45, 12.1, 0.42, foot, 13, ACC, align="c", minpt=10)
     return s
@@ -453,15 +458,15 @@ def lab_intro(D, lab, kicker):
     text(s, 1.65, top + 0.32, 5.0, 0.56, "The business scenario", 18, WHITE, bold=True, font=SERIF, anchor="m")
     text(s, 0.9, top + 1.1, 5.75, 3.05, lab["scenario"], 14, SOFT, minpt=9.5, lh=1.2)
     # right column
-    card(s, 7.1, top, 5.6, 2.55, fill=WHITE)
+    card(s, 7.1, top, 5.6, 2.7, fill=WHITE)
     text(s, 7.35, top + 0.18, 5.1, 0.4, "You will deliver", 16, INK, bold=True, font=SERIF)
-    text(s, 7.35, top + 0.62, 5.15, 1.85, "\n".join("✓  " + d for d in lab["deliverables"]), 12.5, MUTED, minpt=9, lh=1.15)
-    card(s, 7.1, top + 2.72, 5.6, 1.58, fill=WHITE)
-    rich(s, 7.35, top + 2.86, 5.15, 1.35, [
-        [("Agents  ", dict(color=ACC, bold=True, size=12.5)), (lab["agents"], dict(color=MUTED, size=12.5))],
-        [("Human role  ", dict(color=ACC, bold=True, size=12.5)), (lab["human"], dict(color=MUTED, size=12.5))],
-        [("Time  ", dict(color=ACC, bold=True, size=12.5)), (f"{lab['minutes']} min  ·  {lab['paradigm']}  ·  labs/{lab['slug']}/", dict(color=MUTED, size=12.5))],
-    ], size=12.5, space=3)
+    text(s, 7.35, top + 0.6, 5.15, 2.02, "\n".join("✓  " + d for d in lab["deliverables"]), 12.5, MUTED, minpt=9.5, lh=1.12)
+    card(s, 7.1, top + 2.85, 5.6, 1.45, fill=WHITE)
+    rich(s, 7.35, top + 2.93, 5.15, 1.32, [
+        [("Agents  ", dict(color=ACC, bold=True, size=11.5)), (lab["agents"], dict(color=MUTED, size=11.5))],
+        [("Human role  ", dict(color=ACC, bold=True, size=11.5)), (lab["human"], dict(color=MUTED, size=11.5))],
+        [("Time  ", dict(color=ACC, bold=True, size=11.5)), (f"{lab['minutes']} min  ·  {lab['paradigm']}", dict(color=MUTED, size=11.5))],
+    ], size=11.5, space=2)
     return s
 
 def lab_flow(D, lab, kicker):
@@ -507,13 +512,17 @@ def hub(D, kicker, title, center, spokes, sub=None, foot=None, dark=False):
     if foot: tip(D, s, foot, y=6.55)
     return s
 
-def trainer(D, kicker, name, role, rows_, template=False):
+def trainer(D, kicker, name, role, rows_, template=False, badge=None):
+    """badge: optional certification badge image, shown under the role (card content shifts up)."""
     s = D.new(); header(D, s, kicker, "About the Trainer")
     card(s, 0.9, 1.95, 3.6, 3.9, fill=CHAR)
-    circle(s, 2.25, 2.35, 0.9, ACC)
-    text(s, 2.25, 2.35, 0.9, 0.9, "?" if template else "AA", 22, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
-    text(s, 1.05, 3.45, 3.3, 0.6, name, 20, WHITE, bold=True, font=SERIF, align="c")
-    text(s, 1.05, 4.1, 3.3, 1.2, role, 12.5, ACC, align="c")
+    dy = -0.2 if badge else 0
+    circle(s, 2.25, 2.35 + dy, 0.9, ACC)
+    text(s, 2.25, 2.35 + dy, 0.9, 0.9, "?" if template else "AA", 22, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
+    text(s, 1.05, 3.4 + dy, 3.3, 0.6, name, 20, WHITE, bold=True, font=SERIF, align="c")
+    text(s, 1.05, 3.95 + dy, 3.3, 0.75 if badge else 1.2, role, 12.5, ACC, align="c")
+    if badge:
+        s.shapes.add_picture(badge, Inches(2.7 - 0.6), Inches(4.5), Inches(1.2), Inches(1.2))
     n = len(rows_); rh = 4.6 / n
     for i, (ic, lab, val) in enumerate(rows_):
         y = 1.95 + i * rh
