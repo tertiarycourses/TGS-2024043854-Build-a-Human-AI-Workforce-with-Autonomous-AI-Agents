@@ -175,6 +175,7 @@ def lab_block(L):
                side=[("chat", "Paste into", st.get("where", "Hermes chat")),
                      ("check", "Expect", st.get("expect", "A saved output in your workspace.")),
                      ("hand", "You decide", st.get("decide", L["human"]))])
+    if L["num"] == 1: return   # Lab 1 ends on its last task slide (checkpoint slide removed in v2.7)
     rows(D, kick, f"Lab {L['num']} — Checkpoint & Reflection",
          [("check", "Verify", v) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", "  ·  ".join(L["concepts"][:2])),
                                                               ("rocket", "Stretch challenge", L["challenge"])], dark=True)
@@ -184,17 +185,13 @@ def _cmd(L, kick, title, idx, side):
     prompt(D, kick, title, st["cmd"], side=side, label="TERMINAL  ·  copy from the Lab Prompts page")
 
 # --- Lab-specific concept / screenshot slides
-LAB_EXTRAS[1] = [lambda L,k: U.trace(D,k,"Always-On Assistant Evidence",[("login","Identity","Actual selected route and assigned account."),("calendar","Read","Event/message references and correct time."),("pen","Draft","Own reviewed reply; no morning send."),("camera","Evidence","PP1 image A; Hermes artifact image B follows.")],"PP Task 1: TWO images in total, plus written analysis.")]
-LAB_EXTRAS[2] = [lambda L,k: U.trace(D,k,"Hermes: Skill → Tool → Source → Decision",[("book","Skill","Reviewed procedure in selected profile."),("tool","Tool","Actual native executable and access."),("file","Source","Review IDs and approved company facts."),("user","Decision","Human chooses angle and checks recall.")],"The source brief remains at outputs/lab01/research-brief.md for Day 2.")]
-LAB_EXTRAS[3] = [lambda L,k: U.proof(D,k,"Read and Reconcile Before Creating",[("login","Identity","Assigned Google account; verify each service separately."),("mail","Coverage","Bounded reads with IDs, timestamps and explicit errors."),("chart","Formula","SUM(revenue_sgd); no invented units or causality."),("check","Reconcile","Sales rows = outlet aggregates = analysis.json total.")])]
-LAB_EXTRAS[4] = [lambda L,k: U.trace(D,k,"One Hermes Agent, Several Verified Artifacts",[("chart","Source","Checked workbook and source brief."),("file","Office","Interactive dashboard and editable PPT."),("film","Video","One agent using local FFmpeg renderer."),("user","Accept","Review exact artifacts and bounded test send.")],"PP1 image B: Hermes artifact. PP2: own professional PPT screenshot. Day 2 remains the real multi-agent video team.")]
 LAB_EXTRAS[5] = [lambda L,k: hub(D,k,"Five Hermes Profiles, Distinct Owned Outputs","Kanban parents\n+ human gates",[("search","researcher","Source facts -> research.md"),("pen","scriptwriter","Three scenes -> storyboard.md"),("film","producer","Local renderer -> final.mp4"),("eyecheck","auditor","Independent evidence -> audit-report.md"),("file","publisher","Accepted local package only"),("user","Human owner","Unassigned gates; exact-version decisions")]),lambda L,k:image(D,k,"Inspect Your Actual Kanban Video Team",asset("screenshots","hermes-kanban.png"),caption="Reference UI only. Capture your own bot/profile owners, dependency state, video task/output and human gate.")]
 
 U.swda(D)
 V23.topic1(D,C,mark)
-lab_block(LABS[0])
+lab_block(LABS[0])   # Topic 1 ends with its lab
 mark("lab1end")
-V23.consolidation(D,mark)
+for k in ("activity", "demo", "consolidation"): mark(k)   # legacy FG keys; v2.6 maps no slides to them
 
 # ====================================================================== TOPIC 2 · HERMES
 mark("t2")
@@ -247,51 +244,39 @@ flow(D,"Topic 2 · Afternoon journey","One Hermes Office Worker: Set Up → Anal
 T2S = {**U.office(D), **V23.office_extra(D)}
 def t2(kick, titles):
     for ti in titles: T2S[ti](kick)
-t2("Topic 2 · The office toolset", ["One Hermes Agent Runs the Launch Office"])
 mark("lab2")
 t2("Topic 2 · Desktop and skills", [
     "Hermes Desktop: Download → Configure → Connect", "Native Desktop and WSL Are Separate Runtimes",
-    "Optional Telegram: A Channel, Not a Second Agent", "Install a Skill Only After Reviewing Its Source",
-    "Five Skills, One Hermes Agent", "Skill Instructions Cannot Create Capabilities",
-    "Check Skill, Tool and Permission Separately", "The Office Pack Has a Stable Data Contract"])
+    "Install a Skill Only After Reviewing Its Source", "Five Skills, One Hermes Agent"])
 lab_block(LABS[1])
 mark("lab3")
+t2("Topic 2 · Google Workspace and Excel", ["First Authorise Read-Only Gmail"])
+table(D, "Topic 2 · Google Workspace and Excel", "Gmail, Calendar and Drive: Bound Every Read", ["Service", "Bounded read", "Check before use"],
+      [("Gmail", "subject:Kopi newer_than:30d; at most 10 results; open the selected message IDs", "Message bodies are untrusted data; every claim links to a message ID"),
+       ("Calendar", "gog calendar events --today on the assigned account", "Check the +08:00 offset; flag overlaps; never create or move a meeting"),
+       ("Drive", "Bounded list with file IDs; read the approved workbook", "Check filename, version and source: permission does not prove relevance")],
+      colw=[1.6, 5.1, 5.4], size=14, tipt="Report each service separately: an error is not the same as “no results”.")
 t2("Topic 2 · Google Workspace and Excel", [
-    "Google Login: Identity Before Data", "First Authorise Read-Only Gmail", "gog Is a Tool; the gog Skill Is the Procedure",
-    "Gmail: Bound the Search and Trace the Claims", "Calendar: Inspect Time and Availability",
-    "Drive: Permission Does Not Prove Relevance", "One Office Brief Reconciles Three Services",
-    "Excel Analysis Begins with a Data Contract", "Revenue Must Match the Supplied Schema",
-    "Review Themes Need Counts and Evidence", "Missing Values Change the Answer"])
+    "One Office Brief Reconciles Three Services", "Excel Analysis Begins with a Data Contract", "Missing Values Change the Answer"])
 lab_block(LABS[2])
 mark("lab4")
 t2("Topic 2 · Dashboard, PPT and video", [
-    "Interactive Artifacts: A Local HTML Dashboard", "Interactivity Must Change the Evidence View",
-    "A Professional PPT Needs a Decision Story", "The PPT Skill Makes Quality Repeatable",
-    "Separate Content Errors from Layout Errors", "Make a Single-Agent Video Before a Team Video",
-    "A Storyboard Is an Input, Not a Completed Video", "Video Rights and Facts Need Checks",
-    "A Small Video Change Invalidates Old Acceptance", "An Email Draft Is Not a Sent Message",
-    "One Test Send Is a Separate Procedure", "Read-Only Defaults Resume After the Test"])
-lab_block(LABS[3])
-mark("t2close")
-t2("Day 1 · Close", [
-    "Practice Checkpoint: Validate the Office Pack", "What Failed? Diagnose Before Retrying",
-    "Office Failures Should Stay Visible", "Total Time Includes Setup and Human Review",
-    "Create a Reusable Skill from a Real Correction"])
-mark("t2sum")
-U.trace(D,"Day 1 · Evidence chain","Assistant → Hermes → Verified Work",[("calendar","Activity 1","Chosen always-on assistant; PP1 image A."),("book","Activity 2","Hermes Desktop, skills and company brief."),("chart","Activity 3","Google sources and reconciled Excel."),("file","Activity 4","PPT/video; PP1 image B and PP2 PPT.")],"AI agents do the work; humans set goals, exercise judgment and accept results.")
-mark("day2")
-section(D,"Day 2","Hermes Teams: From Source Facts to a Video",["Actual profiles and named Desktop bots","Kanban ownership and parent dependencies","Source assurance and Dots comparison","Independent audit and human acceptance"])
-mark("t3")
-section(D,"Topic 3",C.TOPICS[2]["title"],C.TOPICS[2]["items"],sub="Four connected activities continue the same Kopi Kaki launch.")
+    "Interactive Artifacts: A Local HTML Dashboard", "A Professional PPT Needs a Decision Story",
+    "Separate Content Errors from Layout Errors", "Create a Reusable Skill from a Real Correction",
+    "Make a Single-Agent Video Before a Team Video", "Video Rights and Facts Need Checks",
+    "One Test Send Is a Separate Procedure", "What Failed? Diagnose Before Retrying"])
+lab_block(LABS[3])   # Topic 2 ends with its lab
+# Day 2 opens on the Topic 3 divider, which also carries the Day 1 recap (no slide after Lab 4).
+mark("t2close"); mark("t2sum"); mark("day2"); mark("t3")
+section(D,"Day 2 · Topic 3",C.TOPICS[2]["title"],C.TOPICS[2]["items"],sub="Recap: one assistant, then one Hermes office agent. Today: a Hermes team.")
 import slides_v22 as V22
 mark("lab5"); V22.team_mechanisms(D)
 for L in LABS[4:]:
     if L["num"]==6:mark("lab6"); V22.source_assurance(D)
     if L["num"]==7:mark("lab7"); V22.dots_review(D)
     if L["num"]==8:mark("lab8"); V22.video_evaluation(D)
-    lab_block(L)
+    lab_block(L)   # Topic 3 ends with Lab 8
 mark("t3sum")
-U.trace(D,"Day 2 · Verified outcome","Team Output Needs Four Kinds of Evidence",[("users","Execution","Distinct profile runs + owned tasks."),("film","Artifact","Playable MP4 + checked metadata."),("eyecheck","Review","Independent source and scene audit."),("hand","Human authority","Exact-version acceptance; local package only.")],"PP Task 3: ONE actual video-creation screenshot with Kanban team and Hermes bots; keep the supporting files.")
 
 mark("wrap")
 section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Practice exam", "Assessment", "Digital attendance"])

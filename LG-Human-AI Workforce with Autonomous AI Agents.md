@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 2.5 · 29 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 2.8 · 30 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -37,7 +37,7 @@ This Learner Guide accompanies the WSQ course **Build a Human-AI Workforce with 
 
 | Topic | Day | What you do |
 |---|---|---|
-| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and two human–AI work modes; Big Five: Duet, Muse, Grok Bot, Dots and Manus Cue; Activity 1 · Set up an always-on assistant; Under the hood: harness, loop, context and human decisions; Activity 1: set up an always-on assistant |
+| 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and what agentic AI is; Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide; Two work modes, five collaboration patterns, use cases and the Big Five always-on agents; Activity 1 · Set up an always-on assistant; Activity 1: set up an always-on assistant |
 | 2 · Hermes Agent — Single-Agent Office Automation, Tools & Skills | Day 1 PM | Activities 2–4: Hermes Desktop, tools/skills, Google/Excel, dashboard/PPT and single-agent video |
 | 3 · Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight | Day 2 | Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation |
 
@@ -77,6 +77,26 @@ Check the official MySkillsFuture 'Free AI sub' label and your own eligibility. 
 
 Begin with rules and expert systems, then learning from data, Transformers/chat and tool-using systems. These coexist: a 2026 agent still uses ordinary rules, databases and deterministic software. The following years are overlapping teaching lenses, not invention dates.
 
+#### AI application categories: different inputs, different work
+
+Organisations use several categories of AI application side by side. Each takes a different input, performs a different operation and needs a different human check.
+
+| Category | Typical input → operation → output | Key capability | Human check |
+|---|---|---|---|
+| LLM / generative | Text brief → generate draft → proposed reply | Understand and produce natural language | Facts, tone and intent |
+| Computer vision | Images → detect patterns → defect flags | Analyse images and video for inspection and classification | Validated inspection labels |
+| Predictive analytics | Historical rows → fit/forecast → demand estimate | Forecast outcomes from historical data | Error against held-out actuals |
+| Autonomous agent | Goal + tools → act/observe → verified artifact | Pursue a goal through the agentic loop with tools, memory and skills | Access, action and result |
+| Scientific AI | Evidence → propose/rank → hypotheses | Generate and rank hypotheses or designs at scale | Experimental validation |
+
+#### Singapore in the news: AgentSea in public healthcare
+
+In late May 2026 Synapxe, Singapore's national healthtech agency, launched AgentSea, an agentic AI platform co-developed with AWS. It is available to more than 80,000 public healthcare professionals, who build their own agents in plain language. By 24 August 2026 they had created more than 12,000 agents, and more than 300 had been shared for colleagues to reuse. A National Heart Centre cardiologist uses an agent to summarise patient histories before clinic, halving more than 40 minutes of daily pre-clerking. He still verifies the summary and makes the clinical assessment. KK Women's and Children's Hospital uses an agent to generate daily rosters. The platform rejects requests for sensitive data such as card or ID numbers, and the Ministry of Health's updated AI in Healthcare Guidelines keep professional judgment with people.
+
+<sub>The Straits Times, 24 Aug 2026: https://www.straitstimes.com/tech/new-platform-to-create-ai-agents-available-to-all-public-healthcare-professionals</sub>
+
+#### 2023 → 2026: four engineering lenses
+
 | Course lens | Focus | Observable mechanism |
 |---|---|---|
 | 2023 Prompt Engineering | Goal, audience and output | Specific instruction |
@@ -88,29 +108,109 @@ Begin with rules and expert systems, then learning from data, Transformers/chat 
 
 Agentic AI describes goal-directed systems that plan, act and use feedback; a system may contain one agent or a coordinated team. In this course we focus on an always-on AI agent as a persistent, 24/7-capable agentic system that can work between messages. This is the deployment focus of the course, not a universal definition of all AI agents or an uptime promise. A running host, access, budget and service availability are still required.
 
-### 1.3 AI agents do the work; humans decide
+### 1.3 Under the hood: how agents work
 
-The agent reads permitted sources, selects tools, calculates, drafts and produces work. The human sets the goal and access, exercises judgment when facts or values conflict, approves consequential commitments and accepts the result. Capability and human authority should be explicit in the task, rather than inferred from a product label.
+**Analogy.** A person does work with a brain and a body, fuelled by food. An AI agent does work with a model (the brain: it reasons and proposes the next step) and a harness (the body: tools, memory, skills and controls), fuelled by tokens. No food, no work; no tokens, no work. Every read, reasoning step and reply spends tokens, so a token budget is the agent's running cost.
+
+Before using an agent, open the system it runs in. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.
+
+| Component | Function | What to inspect |
+|---|---|---|
+| Model | Proposes next tokens and actions | Model access and observed limitations |
+| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
+| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
+| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
+| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
+| Instructions | Goal, policies and output contract | Authority and stop conditions |
+| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
+| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
+| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
+
+Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.
+
+#### Inside the LLM: learning and next-token generation
+
+A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.
+
+The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
+
+#### Transfer case: logistics exception work
+
+A logistics agent can interpret varied shipment notes and organise an exception brief, while deterministic tools calculate delays from shipment IDs and promised/actual timestamps. Limitations include missing scans, changed schedules, ambiguous customer notes, hallucinated causes and inappropriate autonomous action. Require source IDs and timestamps, explicit unknowns, independently checked calculations and a dispatcher decision before changing a route or contacting a customer. Evaluate observed data and controls rather than assuming that fluent language means the operational conclusion is correct.
+
+#### RAG versus a standard LLM assistant, including maintenance
+
+| Decision factor | Standard LLM assistant | RAG-enabled agent |
+|---|---|---|
+| Evidence | Learned knowledge plus supplied context | Authorised retrieved passages plus supplied context |
+| Useful strengths | Low setup overhead; drafting and general reasoning | Current/private document grounding and inspectable source references |
+| Limitations | May lack internal/current facts; unsupported claims | Retrieval can miss evidence; stale index or poor chunks can mislead; citations may not support claims |
+| Upkeep | Maintain instructions, model access and evaluations | Also curate documents, permissions, passage/index updates and retrieval tests |
+| Cost and latency | Prompt/model usage and review | Also ingestion/indexing, retrieval and source-quality review |
+| Human check | Verify important facts independently | Check source version, access and actual passage support |
+
+A maintainable RAG pipeline registers source ownership and permissions, ingests approved documents, prepares passages, builds a search or vector index, retrieves authorised evidence and records source/version IDs. When a policy changes, remove obsolete versions, refresh the relevant index and rerun retrieval/answer checks. A vector embedding service is one option, not a requirement for every retrieval system. Choose the simplest design whose freshness, privacy, quality and upkeep fit the product.
+
+<sub>Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arxiv.org/abs/2210.03629 ; retrieval-augmented generation: https://arxiv.org/abs/2005.11401</sub>
+
+Compare observed source accuracy, setup/run/review time, actual approval and stop controls, and explicit failures. Distinguish model weights from runtime context, memory from a managed knowledge base, human-in-the-loop approval from human-on-the-loop monitoring. Keep the task bounded and record unknowns.
+
+### 1.4 AI agents do the work; humans decide
+
+Human-in-the-loop means the agent waits for an owner's approval before a consequential action; human-on-the-loop means a named owner monitors bounded, reversible work and can pause or correct it. The agent reads permitted sources, selects tools, calculates, drafts and produces work. The human sets the goal and access, exercises judgment when facts or values conflict, approves consequential commitments and accepts the result. Capability and human authority should be explicit in the task, rather than inferred from a product label.
 
 | Two work modes | AI work | Human judgment | Evidence |
 |---|---|---|---|
 | Personal assistant | Email, calendar, travel options and daily brief | Priorities, conflicting commitments and exact sends/purchases | Source-checked schedule and reviewed draft |
 | Digital worker | Coding, accounting, analysis and content production | Business decision, exceptions, release and quality acceptance | Patch, reconciliation, deck or video plus verified checks |
 
-### 1.4 Eight selected opportunities
+### 1.5 Five collaboration patterns
 
-| Use case | AI work | Human decision / acceptance |
+People and agents combine in five recurring patterns. As you move down the list, more people and more agents share the work. That makes ownership, hand-offs and permissions more important.
+
+![The five collaboration patterns, from one human with one agent (left) to inter-company collaboration (right)](courseware/assets/topic1/patterns-strip.jpg)
+*The five collaboration patterns, from one human with one agent (left) to inter-company collaboration (right)*
+
+| Pattern | How it works | The human decides | Watch for |
+|---|---|---|---|
+| 1 · One human, one AI agent | A personal assistant watches your mail and calendar and messages you with reminders, clashes and drafts (Activity 1). | Which commitment wins, what to reply, every send or acceptance. | Wrong account or stale facts; open the linked source before acting. |
+| 2 · Multiple humans, one AI agent | A shared team agent in a group chat takes requests from several people, updates systems and reports back. | Who may instruct it, whose request wins, who confirms a change. | Conflicting instructions, over-broad access; log who asked for what. |
+| 3 · One human, multiple AI agents | One owner directs specialist agents, e.g. separate Hermes profiles for research, script, video and publishing (Activities 5 and 8). | Splitting the goal, hand-offs, approval gates and final acceptance. | Lost hand-offs, duplicated work and cost per agent; use a Kanban board and an auditor. |
+| 4 · Multiple humans, multiple AI agents | A department shares one task board; every card has a human owner, an agent assignee and a status. | Each owner approves their agents' work; a lead resolves priorities. | Unclear accountability, agents overwriting files, access creeping across teams. |
+| 5 · Inter-company collaboration | Company A's agent exchanges requests, quotes or data with Company B's agent; each side runs its own checks. | Contracts, prices, what data may be shared and final acceptance on both sides. | The other agent's identity, personal data (PDPA), injected instructions and liability. |
+
+Real examples shown in class: a hosted assistant flagging a weekend schedule clash (pattern 1), an OpenClaw agent in a trainers' group chat reassigning a course run and reporting a blocker it could not fix (pattern 2), and six Hermes profiles forming a YouTube production line (pattern 3). Third-party names in these screenshots are blurred. Treat everything that arrives from another organisation's agent as untrusted data until a person verifies it.
+
+### 1.6 Use cases and product development
+
+Five business use cases show where agents already help organisations. In each, the agent prepares the work and a person keeps the decision that carries business risk.
+
+| Use case | What the agent does | What the human decides |
 |---|---|---|
-| Schedule + inbox | Read assigned records and propose a reply | Check actual event/message and approve wording |
-| Travel planning | Compare routes and constraints | Confirm current options before booking |
-| Management analyst | Reconcile workbook; create dashboard and PPT | Choose action and verify totals |
-| Accounting assistant | Match invoices and flag differences | Accountant approves adjustments |
-| Software engineer | Implement bounded changes and run checks | Reviewer accepts design and release |
-| AI + scientist | Generate and critique hypotheses | Scientist validates experimentally |
-| Video team | Research, storyboard, render and audit | Approve exact scenes and final MP4 |
-| Humanoid + technician | Bounded tool delivery or inspection support | Task-specific safety, stop and recovery; future design scenario |
+| Customer service operations | Classifies requests, looks up the account and past conversations, drafts a reply and suggests the next action; may complete simple cases within approved limits | Complex or sensitive cases; the limits on what it may complete |
+| IT service management | Collects technical details, checks known issues, creates tickets and routes them to the right support group | Technician fixes the problem; access changes are approved |
+| Finance operations | Reads invoices and payment queries, matches them with internal records, flags missing details and prepares items for approval | Payments and high-risk actions under clear approval rules |
+| Sales operations | Updates customer records, prepares meeting notes, checks account history and creates follow-up tasks | The salesperson owns the customer relationship |
+| Procurement and supply chain | Monitors orders, reviews supplier information, flags delays and gathers facts from several systems | The operations manager decides the response |
+| AI + scientist | Generates and critiques hypotheses | Scientist validates experimentally |
+| Humanoid + caregiver | Bounded elderly-care task such as handing over water or a walking aid | Caregiver authorises the task, keeps the stop control and checks the hand-off; future design scenario |
 
-Scientific hypotheses require experimental validation; a generated proposal is not a discovery. Embodied systems add sensing and physical action: manufacturer demos, controlled pilots and validated deployments are different levels of evidence. The humanoid scenario here is prospective, not a claim of general workplace readiness.
+<sub>Business use cases: Genic Solutions, 30 Sep 2026 — https://www.genicsolutions.com/ai-agents-for-business-use-cases-and-implementation/</sub>
+
+Scientific hypotheses require experimental validation; a generated proposal is not a discovery. Embodied systems add sensing and physical action: manufacturer demos, controlled pilots and validated deployments are different levels of evidence. The elderly-care humanoid scenario is prospective: sense the authorised room, plan one bounded task, have a caregiver authorise it and keep the stop control, then verify the hand-off and recovery. It is not a claim of readiness for homes or care facilities.
+
+#### AI for Science in the news (2026)
+
+| Result | What the agents did | What still has to be checked |
+|---|---|---|
+| Maths: a Millennium Prize problem (Quanta Magazine, 8 Sep 2026) | OpenAI ran about 10,000 autonomous agents to show that the 3D Navier–Stokes fluid equations can 'blow up'. | Checked in the Lean proof assistant, with humans confirming the formal statement; a priority dispute with two mathematicians continues. |
+| Drug discovery: a virtual biotech (Stanford Medicine, 17 Sep 2026) | 37,000 AI agents catalogued about 50,000 clinical trials in under a week and designed a lung-cancer antibody–drug conjugate. | A pharmaceutical company independently reached the same design; the team's next step is real-lab testing. |
+| Maths at volume (Nature, 7 Oct 2026) | OpenAI posted more than 700 AI-generated maths preprints from an unreleased model. | Mathematicians describe them as a 'messy first draft' and raise credit and pre-emption concerns. |
+| Maths, physics and computing claims (Firstpost, 27 Oct 2026) | OpenAI claims proofs on Kakeya conjectures and 4D quantum field theory, and an algorithm that would disprove the Exponential Time Hypothesis. | Claims awaiting verification by expert panels. |
+
+Agents can now propose results at massive scale, but proof checkers, laboratories and experts still decide what counts as a discovery.
+
+<sub>Sources: https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/ ; https://med.stanford.edu/news/all-news/2026/09/virtual-biotech-company.html ; https://www.nature.com/articles/d41586-026-03196-8 ; https://www.firstpost.com/tech/openai-claims-three-new-ai-breakthroughs-in-math-physics-and-computer-science-14055633.html</sub>
 
 #### Product development: agents across the lifecycle
 
@@ -124,54 +224,27 @@ Worked example: Kopi Kaki Co. launches a new iced oat latte. At every stage the 
 | 4 Launch | Posts the approved content and sorts incoming feedback into a queue. | Complaints and anything sensitive. |
 | 5 Measure + improve | Compares week-1 sales with the target and suggests what to change. | Keep, change or stop the product. |
 
-### 1.5 Always-on deployment and the Big Five
+### 1.7 Always-on agents: the Big Five
 
 OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet, Grok Bot and Cue is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.
 
 Compare the agents with a job-fit, control, access and limits framework (BULDRR). It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.
 
-| Agent | Useful starting job | Control / access checkpoint |
-|---|---|---|
-| Claude Duet | Work briefs and proactive business follow-ups | Sensitive-action approval and prohibited actions; eligible US Pro/Max waitlist research preview |
-| Meta Muse | Personal tasks, email and scheduling | Connector permissions and sensitive-action review; Singapore launch 27 October 2026; free core use |
-| Grok Bot | Named workers and ongoing shared work | Inspect approvals; bots in one user share cloud computer/logins; verify eligible account |
-| OpenAI Dots | Persistent goals and delegated tasks in ChatGPT | Inspect connections, custom rules and active tasks; verify eligible Pro/Business Premium workspace |
-
-#### What each always-on agent can do
-
-Features below are from each vendor's official pages, checked 29 October 2026.
-
-| Agent | Key features | Access (29 Oct 2026) |
-|---|---|---|
-| Claude Duet | Morning brief across connected apps; checks accounts every few hours and messages only when something needs you; own virtual machine and browser; 6,000+ connectors (Gmail, Slack, QuickBooks, Stripe, HubSpot, Docusign…); shows exactly what it will send, pay, sign or delete and waits for approval | Research preview, US Pro/Max via waitlist |
-| Meta Muse | Manages email, schedules and goals; Gmail, Google Calendar and Instagram connectors; Singapore partners (Shopee, Lazada, Grab, Singapore Airlines, Agoda, Klook, Trip.com, ShopBack) rolling out; checks before sending or buying; Muse Secure VM keeps passwords and payment methods out of the agent's view | Singapore since 27 Oct 2026; free for most needs |
-| Grok Bot | Persistent cloud computer (browser, command line, files) shared by your bots; watch live or take over for sign-ins; Gmail, Calendar, Sheets, Slack, Notion and MCP servers; its own @mail.grokbot.com address; Vault/1Password sign-ins and Auto Review | Check your plan's access |
-| OpenAI Dots | Several ongoing responsibilities per dot; its own cloud computer, optionally your computer; plugins for email, calendar and files; contact methods such as Slack; delegates to ChatGPT Work or Codex; schedules, event triggers and an Activity view | Check access and preview limits for your account |
-| Manus Cue | Each agent has its own email, phone number, wallet and computer; takes forwarded calls; pays within budgets you set; agents collaborate in a group chat; connectors (Gmail, Trip.com…) and routines; scan a QR code to create an agent | Early access, free with an invite code |
-
-#### Manus — the general agent behind Cue
-
-Manus is a general AI agent that delivers research, slides, websites, images, videos and charts. Core capabilities: deep research and synthesis; autonomous multi-step task execution across files, websites and tools; and automations and integrations (scheduled tasks, event triggers and connected apps). Manus 2.0 (28 September 2026) adds the Cascade agent harness, Cloud Computer, event-triggered Automations, Studio with a video editor and game development, and computer use on your own machine. Course prompts to try in Manus: research and build a slide deck comparing the Singapore and India AI startup ecosystems; a page tracking Singapore traffic from live camera feeds; interactive 3D models with sun-path analysis for HDB BTO projects.
-
-<sub>Manus 2.0 and Cue: https://manus.im/blog/introducing-manus-2-0 ; https://cue.im/</sub>
-
-<sub>Requested comparison: https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots</sub>
-
-<sub>Official product checks: https://claude.com/resources/articles/claude-duet ; https://docs.x.ai/grok-bot/computer-and-apps ; https://learn.chatgpt.com/docs/dots/getting-started</sub>
-
-#### Muse is available in Singapore
-
-Meta's official announcement dated 27 October 2026 confirms Singapore availability, Gmail/Google Calendar/Instagram connections, sensitive-action approval and free core use with optional subscriptions. Local partner features roll out progressively. Muse is the recommended morning route, with provisioned Dots or Grok Bot as alternatives.
-
-<sub>Meta Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/</sub>
-
-<sub>Official iOS Singapore listing: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 ; Android Singapore listing: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura</sub>
-
-### 1.6 How to set up an always-on assistant
+| Agent | Useful starting job | Human control to inspect | Access checkpoint |
+|---|---|---|---|
+| Meta Muse | Schedule, errands and personal email | Connector permissions + sensitive-action approval | Singapore since 27 Oct; free core use |
+| OpenAI Dots | Persistent goals and delegated tasks | Connection permissions, custom rules and review | Check access and preview limits for your account |
+| Grok Bot | Named workers sharing ongoing work | Approval settings; shared cloud logins across bots | Check your plan's access |
+| Claude Duet | Work briefs and business follow-ups | Approval before sensitive actions; some actions disallowed | US Pro/Max waitlist preview |
+| Manus Cue | Personal errands, bookings and calls | Per-agent permissions, wallet budget, review boundaries | Early access; free with invite code |
 
 The class executes one route: Muse is recommended in Singapore; use Dots or Grok Bot only with an eligible account. Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
 
 #### Meta Muse (recommended)
+
+**What it can do** (Singapore since 27 Oct 2026; free for most needs): Manages email, schedules and goals; Gmail, Google Calendar and Instagram connectors; Singapore partners (Shopee, Lazada, Grab, Singapore Airlines, Agoda, Klook, Trip.com, ShopBack) rolling out; checks before sending or buying; Muse Secure VM keeps passwords and payment methods out of the agent's view.
+
+**How to set it up:**
 
 - Step 1 — Install Muse from Meta (iOS / Android) or open muse.ai; confirm the developer is Meta Platforms, Inc.
 - Step 2 — Complete sign-in and onboarding; Facebook, Instagram and Threads link automatically through Accounts Center.
@@ -181,7 +254,19 @@ The class executes one route: Muse is recommended in Singapore; use Dots or Grok
 
 <sub>Muse connector steps: https://www.meta.com/help/superintelligence/1687253048996149/</sub>
 
+<sub>Video (YouTube Short): 10 ways to use Muse — https://www.youtube.com/shorts/zuAAjV5dNMA</sub>
+
+Meta's announcement of 27 October 2026 confirms Singapore availability, Gmail/Google Calendar/Instagram connections, sensitive-action approval and free core use with optional subscriptions. Local partner features roll out progressively.
+
+<sub>Meta Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/</sub>
+
+<sub>Official iOS Singapore listing: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 ; Android Singapore listing: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura</sub>
+
 #### OpenAI Dots (eligible workspace)
+
+**What it can do** (Check access and preview limits for your account): Several ongoing responsibilities per dot; its own cloud computer, optionally your computer; plugins for email, calendar and files; contact methods such as Slack; delegates to ChatGPT Work or Codex; schedules, event triggers and an Activity view.
+
+**How to set it up:**
 
 - Step 1 — Open dots in the ChatGPT mobile app, desktop app or a desktop browser (mobile web is not supported) and follow the introduction.
 - Step 2 — Name your dot and choose its appearance; both can change later.
@@ -191,7 +276,13 @@ The class executes one route: Muse is recommended in Singapore; use Dots or Grok
 
 <sub>Dots getting started: https://learn.chatgpt.com/docs/dots/getting-started</sub>
 
+<sub>Video (YouTube Short): How to set up your first OpenAI dot — https://www.youtube.com/shorts/gdHwOn2kvT8</sub>
+
 #### Grok Bot (eligible account)
+
+**What it can do** (Check your plan's access): Persistent cloud computer (browser, command line, files) shared by your bots; watch live or take over for sign-ins; Gmail, Calendar, Sheets, Slack, Notion and MCP servers; its own @mail.grokbot.com address; Vault/1Password sign-ins and Auto Review.
+
+**How to set it up:**
 
 - Step 1 — Start at x.ai/bot; install the desktop or mobile app and sign in.
 - Step 2 — Create a bot: sidebar + → Create a Bot → name it → Create.
@@ -203,7 +294,13 @@ All bots on one account share a cloud computer, browser logins and connected app
 
 <sub>Grok Bot computer and apps: https://docs.x.ai/grok-bot/computer-and-apps</sub>
 
+<sub>Video (YouTube Short): 3 steps to set up Grok Bot — https://www.youtube.com/shorts/Gm_dlNAVOGI</sub>
+
 #### Claude Duet (reference — US research preview)
+
+**What it can do** (Research preview, US Pro/Max via waitlist): Morning brief across connected apps; checks accounts every few hours and messages only when something needs you; own virtual machine and browser; 6,000+ connectors (Gmail, Slack, QuickBooks, Stripe, HubSpot, Docusign…); shows exactly what it will send, pay, sign or delete and waits for approval.
+
+**How to set it up:**
 
 - Step 1 — Have a Pro or Max plan and join the Claude Duet waitlist on claude.com.
 - Step 2 — Once invited, open the Claude Duet app (iOS / Android) or claude.ai.
@@ -213,7 +310,13 @@ All bots on one account share a cloud computer, browser logins and connected app
 
 <sub>Introducing Claude Duet: https://claude.com/resources/articles/claude-duet</sub>
 
+<sub>Video (YouTube Short): Claude Duet is here — https://www.youtube.com/shorts/7G5hOD6oF4M</sub>
+
 #### Manus Cue (reference — early access)
+
+**What it can do** (Early access, free with an invite code): Each agent has its own email, phone number, wallet and computer; takes forwarded calls; pays within budgets you set; agents collaborate in a group chat; connectors (Gmail, Trip.com…) and routines; scan a QR code to create an agent.
+
+**How to set it up:**
 
 - Step 1 — Use cue.im on the web, the desktop app or Android; the iOS app is pending review.
 - Step 2 — Sign up with an invite code from your trainer or an existing user during early access.
@@ -221,9 +324,15 @@ All bots on one account share a cloud computer, browser logins and connected app
 - Step 4 — Choose its email, phone, wallet and computer; set wallet budgets and which actions need your approval.
 - Step 5 — Connect Gmail or other services, then define routines for steps you repeat. Keep budgets small and require approval for payments, calls and messages.
 
-<sub>Cue by Manus: https://cue.im/ ; Manus 2.0 announcement: https://manus.im/blog/introducing-manus-2-0</sub>
+<sub>Cue by Manus: https://cue.im/</sub>
 
-### 1.7 Evidence, ongoing work and human control
+<sub>Video (YouTube Short): Meet Manus Cue — https://www.youtube.com/shorts/ZW7gCKTLtpo</sub>
+
+<sub>Requested comparison: https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots</sub>
+
+<sub>Official product checks: https://claude.com/resources/articles/claude-duet ; https://docs.x.ai/grok-bot/computer-and-apps ; https://learn.chatgpt.com/docs/dots/getting-started</sub>
+
+### 1.8 Activity 1 checks and PP Task 1 evidence
 
 Check the schedule in Asia/Singapore against actual source events, draft a reply, correct one detail and inspect the real task stop/pause state. Closing a chat need not stop an ongoing responsibility. A store/install screen, generic chatbot or trainer demonstration is not the candidate's executed work. PP Task 1 requires TWO screenshots: image A of the learner's chosen always-on assistant request/result in Activity 1, and image B of a Hermes-generated artifact after Activity 4, plus the paper's written algorithm/strengths/limitations analysis.
 
@@ -281,19 +390,19 @@ Use Muse first in Singapore. Trainer demonstrates all three routes below; learne
 
 **Step 2 — Route A — install Meta Muse and connect (15 min)**
 
-Official Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/ . iOS: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 . Android: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura . Web: https://muse.ai . Open the official listing and confirm developer Meta Platforms, Inc.; install/open, complete app sign-in and onboarding. In Muse go to Settings → Connectors → Connect beside Gmail → Continue, then finish Google authorization in the browser. Repeat separately for Google Calendar, confirming the assigned account each time. Alternatively ask “Connect my Gmail” and “Connect my Google Calendar”. Prefer retrieve-only access where offered; retain approval for sensitive actions. Free core access does not mean unlimited usage or every local connector is live.
+Official Singapore launch: https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/ . iOS: https://apps.apple.com/sg/app/muse-from-meta/id6760173601 . Android: https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura . Web: https://muse.ai . Open the official listing and confirm developer Meta Platforms, Inc.; install/open, complete app sign-in and onboarding. In Muse go to Settings → Connectors → Connect beside Gmail → Continue, then finish Google authorization in the browser. Repeat separately for Google Calendar, confirming the assigned account each time. Alternatively ask “Connect my Gmail” and “Connect my Google Calendar”. Prefer retrieve-only access where offered; retain approval for sensitive actions. Free core access does not mean unlimited usage or every local connector is live. Short video overview: https://www.youtube.com/shorts/zuAAjV5dNMA .
 
 ✓ Expected: Gmail and Calendar show connected to the assigned account, or each missing connector is explicitly recorded.
 
 **Step 3 — Route B — set up an OpenAI Dot (guided alternative)**
 
-Open https://chatgpt.com/dots with a trainer-approved eligible account/workspace. Create a dot, choose a name and describe the bounded assistant task. Open its connections/plugins, install/connect Gmail and Google Calendar separately and authorize the assigned account in the provider browser. Inspect what each connection can read/change and retain sensitive-action review. Only enable local-computer access if the task requires it. Ordinary ChatGPT access, a consumer free subscription or SWDA benefit does not establish Dots entitlement. Official steps: https://learn.chatgpt.com/docs/dots/getting-started and /computers-and-apps .
+Open https://chatgpt.com/dots with a trainer-approved eligible account/workspace. Create a dot, choose a name and describe the bounded assistant task. Open its connections/plugins, install/connect Gmail and Google Calendar separately and authorize the assigned account in the provider browser. Inspect what each connection can read/change and retain sensitive-action review. Only enable local-computer access if the task requires it. Ordinary ChatGPT access, a consumer free subscription or SWDA benefit does not establish Dots entitlement. Official steps: https://learn.chatgpt.com/docs/dots/getting-started and /computers-and-apps . Short setup video: https://www.youtube.com/shorts/gdHwOn2kvT8 .
 
 ✓ Expected: An actual dot and two verified connections, or an honest access block.
 
 **Step 4 — Route C — set up Grok Bot (guided alternative)**
 
-Start at https://x.ai/bot and follow the official desktop download/sign-in instructions for the eligible Cursor/Grok account. Create a bot if one is not already present: sidebar + → Create a Bot → name → Create. Open Connect apps, add Gmail and authorize in the browser; repeat for Google Calendar and inspect Installed. Mobile route: official iOS https://apps.apple.com/us/app/grok-bot/id6794501026 or Android https://play.google.com/store/apps/details?id=ai.x.grok.bot ; avatar → Connect apps. Do not turn on Always Allow for sends. Bots in one user account share a cloud computer and logins; separate bot names are not credential isolation. Official: https://docs.x.ai/grok-bot/get-started and /computer-and-apps .
+Start at https://x.ai/bot and follow the official desktop download/sign-in instructions for the eligible Cursor/Grok account. Create a bot if one is not already present: sidebar + → Create a Bot → name → Create. Open Connect apps, add Gmail and authorize in the browser; repeat for Google Calendar and inspect Installed. Mobile route: official iOS https://apps.apple.com/us/app/grok-bot/id6794501026 or Android https://play.google.com/store/apps/details?id=ai.x.grok.bot ; avatar → Connect apps. Do not turn on Always Allow for sends. Bots in one user account share a cloud computer and logins; separate bot names are not credential isolation. Official: https://docs.x.ai/grok-bot/get-started and /computer-and-apps . Short setup video: https://www.youtube.com/shorts/Gm_dlNAVOGI .
 
 ✓ Expected: An actual Grok Bot and verified connections, or an honest access block.
 
@@ -344,51 +453,6 @@ Inspect active tasks/responsibilities and pause or stop the specific task using 
 #### Stretch challenge
 
 Compare the same task on a second accessible route: source accuracy, approval controls, elapsed time and human effort.
-
-### 1.8 Under the hood: how agents work
-
-After the morning exercise, open the system you just used. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.
-
-| Component | Function | What to inspect |
-|---|---|---|
-| Model | Proposes next tokens and actions | Model access and observed limitations |
-| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
-| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
-| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
-| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
-| Instructions | Goal, policies and output contract | Authority and stop conditions |
-| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
-| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
-| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
-
-Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.
-
-#### Inside the LLM: learning and next-token generation
-
-A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.
-
-The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
-
-#### Transfer case: logistics exception work
-
-A logistics agent can interpret varied shipment notes and organise an exception brief, while deterministic tools calculate delays from shipment IDs and promised/actual timestamps. Limitations include missing scans, changed schedules, ambiguous customer notes, hallucinated causes and inappropriate autonomous action. Require source IDs and timestamps, explicit unknowns, independently checked calculations and a dispatcher decision before changing a route or contacting a customer. Evaluate observed data and controls rather than assuming that fluent language means the operational conclusion is correct.
-
-#### RAG versus a standard LLM assistant, including maintenance
-
-| Decision factor | Standard LLM assistant | RAG-enabled agent |
-|---|---|---|
-| Evidence | Learned knowledge plus supplied context | Authorised retrieved passages plus supplied context |
-| Useful strengths | Low setup overhead; drafting and general reasoning | Current/private document grounding and inspectable source references |
-| Limitations | May lack internal/current facts; unsupported claims | Retrieval can miss evidence; stale index or poor chunks can mislead; citations may not support claims |
-| Upkeep | Maintain instructions, model access and evaluations | Also curate documents, permissions, passage/index updates and retrieval tests |
-| Cost and latency | Prompt/model usage and review | Also ingestion/indexing, retrieval and source-quality review |
-| Human check | Verify important facts independently | Check source version, access and actual passage support |
-
-A maintainable RAG pipeline registers source ownership and permissions, ingests approved documents, prepares passages, builds a search or vector index, retrieves authorised evidence and records source/version IDs. When a policy changes, remove obsolete versions, refresh the relevant index and rerun retrieval/answer checks. A vector embedding service is one option, not a requirement for every retrieval system. Choose the simplest design whose freshness, privacy, quality and upkeep fit the product.
-
-<sub>Model and agent foundations: https://arxiv.org/abs/1706.03762 ; https://arxiv.org/abs/2210.03629 ; retrieval-augmented generation: https://arxiv.org/abs/2005.11401</sub>
-
-Compare observed source accuracy, setup/run/review time, actual approval and stop controls, and explicit failures. Distinguish model weights from runtime context, memory from a managed knowledge base, human-in-the-loop approval from human-on-the-loop monitoring. Keep the task bounded and record unknowns before lunch.
 
 ### 1.9 Sources and further reading
 

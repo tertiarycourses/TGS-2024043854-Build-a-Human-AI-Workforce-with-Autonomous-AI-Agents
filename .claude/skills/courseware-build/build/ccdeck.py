@@ -92,7 +92,10 @@ class Deck:
                  'spd="med"><p:fade/></p:transition>')
         for s in self.prs.slides:
             if s.element.find(qn('p:transition')) is None:
-                s.element.append(etree.fromstring(trans))
+                # schema order: ... clrMapOvr, transition, timing (video slides already carry p:timing)
+                timing = s.element.find(qn('p:timing'))
+                if timing is not None: timing.addprevious(etree.fromstring(trans))
+                else: s.element.append(etree.fromstring(trans))
         self.prs.save(path)
 
 # ---------------------------------------------------------------- shape helpers

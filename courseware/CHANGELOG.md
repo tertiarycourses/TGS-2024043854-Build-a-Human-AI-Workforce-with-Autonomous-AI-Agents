@@ -1,5 +1,29 @@
 # Courseware change history
 
+## v2.8 — 30 October 2026
+
+Published release of the v2.7 Topic 1 review (below), plus:
+
+- **Use cases**: the "Two modes" gallery is replaced by **AI Agents for Business: Five Use Cases**, covering customer service operations, IT service management, finance operations, sales operations, and procurement and supply chain (Genic Solutions, 30 Sep 2026). Each shows input → agent work → human decision → evidence.
+- **AI for Science in the news** (after AI for Science): Navier–Stokes (Quanta, 8 Sep 2026), Stanford's virtual biotech of 37,000 agents (17 Sep 2026), 700+ OpenAI maths preprints (Nature, 7 Oct 2026) and OpenAI's maths/physics/computing claims (Firstpost, 27 Oct 2026). Each comes with its verification status.
+- **An AI Agent Works Like a Person**: a new visual analogy. Brain + body, fuelled by food, do the work; model + harness, fuelled by tokens, do the work. The under-the-hood hub now puts **AI agent** at the centre, with the model as one of its components.
+- QA fixes: Lesson Plan column widths and Lab 1 checkpoint range; Learner Guide heading/image pagination; Muse and Cue briefing polish; answer-key wording. FG/AP v10.
+
+## v2.7 — 30 October 2026 (not published separately)
+
+Trainer review of Topic 1.
+
+- **Singapore in the news** (straight after the AI history): Synapxe's AgentSea platform, built with AWS. More than 12,000 AI agents created by public healthcare staff between the end-May launch and 24 Aug 2026, available to 80,000+ professionals (The Straits Times, 24 Aug 2026).
+- **Five collaboration patterns**, one slide each with an illustration and an explanation: one human/one agent, multiple humans/one agent, one human/multiple agents, multiple humans/multiple agents, and inter-company. Patterns 1–3 show real screenshots, with third-party names blurred.
+- **AI for Science** and a **humanoid elderly-care task**: illustrations beside numbered steps.
+- **Big Five briefings**: each carries the product logo and an **embedded YouTube Short** (Muse, Dots, Grok Bot, Duet, Cue). The videos play inside PowerPoint as online videos and need an internet connection; the PDF shows the poster frame and a link. The same videos are linked in the LG and the Lab 1 routes.
+- **Removed from the deck**: the application-categories table; the detailed harness slides (weights vs context, context assembly, memory vs knowledge base, RAG, standard LLM vs RAG, authority boundary, four checks, harness limits); human-in/on-the-loop; product development; always-on runtime; the Manus general-agent slide; the four Activity 1 check slides; the PP Task 1 slide; and the Lab 1 checkpoint slide. The Learner Guide keeps the assessed content (1.1 application categories, 1.3 context/memory/RAG, 1.6 product development) and adds 1.5 Five collaboration patterns.
+- Timing and LU hours unchanged. Assessment v7 questions unchanged; answer-key citations re-bound to v2.7 and the LG. FG/AP v10.
+
+## v2.6 — 29 October 2026
+
+Streamlined for one continuous narration with no repeated content: 223 → 158 slides. **Topic 1** now runs history → what agentic AI is → "Under the hood" (moved before Activity 1, straight after the agentic-AI definition) → human-in/on-the-loop → work modes and use cases → always-on runtime → the Big Five (comparison table, then **one briefing slide per agent** with its features and setup: Muse, Dots, Grok Bot, Duet, Cue; then Manus) → Activity 1 checks → Lab 1. **Every topic now ends with its lab**: the results review folds into the Lab 1 checkpoint, the Day 1 close and Day 2 outcome slides are gone, and Day 2 opens on the Topic 3 divider, which carries the Day 1 recap. Merged or removed overlaps: separate feature/setup/Singapore-news slides per agent; Manus 2.0 (now on the Manus slide); context budget; keep-the-decision-simple; security example (now on the authority-boundary slide); the second SWDA subscription slide; email-draft check; duplicate PP Task 1 evidence; Day 1 skill/tool/permission duplicates; Telegram and data-contract slides; Gmail/Calendar/Drive (one table); revenue schema (on the Excel slide); interactivity (on the dashboard slide); PPT skill, storyboard, small-change, email-draft and read-only-default slides; Day 2 worker-state, human-gate (merged into parent edges), worker tools, dependency wait, five owners, run evidence, native runtime, verification contracts and stale downstream slides; repeated RAG, Dots-control and comparison slides; renderer, source-change, repeat-run, efficiency (kept as "Total Time…") and close-team slides. Day 1 morning re-timed within LU1 (Part A 75 min, Part B 40 min, Activity 1 75 min, checkpoint/results review 15 min). LP, LG (Topic 1 re-ordered; one subsection per agent), FG/AP v9 and answer-key slide citations aligned; activities, LU hours and assessment questions unchanged.
+
 ## v2.5 — 29 October 2026
 
 Always-on comparison extended to the Big Five with Manus Cue (official Manus sources). Each agent now has a features slide (Claude Duet, Meta Muse, Grok Bot, OpenAI Dots, Manus Cue), with a Manus general-agent slide (core capabilities and worked examples) and the Manus 2.0 additions; the Big Five comparison follows the features. "How to Set Up Manus Cue" added as a reference route; the assessed Activity 1 routes are unchanged. Practice Exam slide (exams.tertiaryinfotech.com) restored before the final assessment. LP, LG and README aligned.

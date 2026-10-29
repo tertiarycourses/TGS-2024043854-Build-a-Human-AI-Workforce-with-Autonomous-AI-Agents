@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -36,9 +36,9 @@ def rng(a, b): return str(MAP[a]) if MAP[b] - 1 == MAP[a] else f"{MAP[a]}–{MAP
 def slides_for(day, text):
     t = text
     if t.startswith("Welcome"): return rng("admin", "t1a")
-    if t.startswith("Topic 1 (Part A)"): return rng("t1a", "lab1")
-    if t.startswith("Assistant results"): return rng("activity", "consolidation")
-    if t.startswith("Under the hood"): return rng("consolidation", "t2")
+    if t.startswith("Topic 1 (Part A)"): return rng("t1a", "t1b")
+    if t.startswith("Topic 1 (Part B)"): return rng("t1b", "lab1")
+    if t.startswith("Lab 1 checkpoint"): return rng("lab1", "lab1end")
     if t.startswith("Lab 2: Activity 2A"): return rng("t2", "lab2i")
     if t.startswith("Lab 2: Activity 2B"): return rng("lab2i", "lab3")
     if t.startswith("Source assurance introduction"): return str(MAP["lab6"])
@@ -47,8 +47,8 @@ def slides_for(day, text):
         if t.startswith(f"Lab {L['num']}:"):
             nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
             return rng(f"lab{L['num']}", nxt)
-    if t.startswith("Day 1 recap, Q&A"): return rng("t2close", "day2")
-    if t.startswith("Day 1 recap and AM"): return rng("t2sum", "lab5")
+    if t.startswith("Day 1 recap, Q&A"): return str(MAP["day2"])
+    if t.startswith("Day 1 recap and AM"): return rng("day2", "lab5")
     if t.startswith("Course recap"): return rng("t3sum", "assess")
     if t.startswith("Briefing"): return str(MAP["briefing"])
     if t.startswith("Written") or t.startswith("Practical"): return rng("assess", "end")
@@ -59,7 +59,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 
@@ -115,7 +115,7 @@ for u in C.LUS:
 c = lut.add_row().cells
 set_cell(c[0], "Assessment", bold=True, fill=ASSESS_FILL); set_cell(c[1], "WA-SAQ (1 h) + PP (1 h)"); set_cell(c[2], "Day 2, 4:30–6:30 pm")
 set_cell(c[3], "K1–K6, A1–A6"); set_cell(c[4], "2 h")
-prodoc.set_widths(lut, [0.75, 1.9, 2.4, 1.05, 0.7])
+prodoc.set_widths(lut, [0.6, 1.8, 2.3, 1.0, 1.0])
 p = doc.add_paragraph(); r = p.add_run("Scheduled LU allocations: 5 h + 5 h + 4 h, plus 2 h assessment; these include tea. Net instruction/practice is 13 h. Retained 9:30–18:30 timing was confirmed by the trainer."); r.italic = True; r.font.size = Pt(9.5)
 
 # Avoid an isolated table heading/header at the bottom of a page.
@@ -144,7 +144,7 @@ for day in (1, 2):
         set_cell(cells[3], "Assessment" if lu == "ASSESS" else (lu or "—"), fill=fill)
         set_cell(cells[4], "—" if kind in ("break", "lunch") else slides_for(day, text), fill=fill)
         if kind != "lunch": training += mins
-    prodoc.set_widths(tbl, [1.05, 0.75, 3.75, 0.6, 0.7])
+    prodoc.set_widths(tbl, [1.0, 0.75, 3.55, 0.6, 0.95])
     p = doc.add_paragraph(); r = p.add_run(f"Scheduled time excluding lunch: {training} minutes ({training // 60} hours), including tea and any assessment."); r.italic = True
     r.font.size = Pt(9.5); r.font.color.rgb = GREY
     assert training == 480, f"Day {day} training minutes = {training}, expected 480"
@@ -158,8 +158,8 @@ for L in LABS:
     c = lt.add_row().cells
     nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
     set_cell(c[0], f"Lab {L['num']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
-    set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}", nxt))
-prodoc.set_widths(lt, [0.9, 3.4, 1.5, 0.5, 0.7])
+    set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}i", nxt))
+prodoc.set_widths(lt, [1.1, 3.2, 1.5, 0.5, 0.7])
 doc.add_paragraph("Lab materials: labs/labNN-*/ (README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt, data/) and the "
                   "Lab Prompts page prompts/index.html in the course repository.").runs[0].font.size = Pt(10)
 

@@ -11,8 +11,8 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v2.5"
-VERSION_DATE = "29 October 2026"
+VERSION      = "v2.8"
+VERSION_DATE = "30 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
 TRAINER      = "Dr. Alfred Ang"
@@ -30,7 +30,7 @@ LEARNING_OUTCOMES = [
 
 # ------------------------------------------------------------------ topics
 TOPICS = [
- dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and two human–AI work modes", "Big Five: Duet, Muse, Grok Bot, Dots and Manus Cue", "Activity 1 · Set up an always-on assistant", "Under the hood: harness, loop, context and human decisions"]),
+ dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and what agentic AI is", "Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide", "Two work modes, five collaboration patterns, use cases and the Big Five always-on agents", "Activity 1 · Set up an always-on assistant"]),
  dict(num=2,code="02",weighting="35%",title="Hermes Agent — Single-Agent Office Automation, Tools & Skills",short="Hermes Agent",items=["Activity 2 · Hermes Desktop, tools, skills and source brief", "Activity 3 · gog: Gmail, Calendar, Drive and Excel", "Activity 4 · Dashboard, professional PPT and single-agent video", "Human review and one approved training email"]),
  dict(num=3,code="03",weighting="35%",title="Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight",short="Hermes Teams & Dots",items=["Activity 5 · Hermes bots and Kanban video studio", "Activity 6 · Source retrieval, verification and maintenance", "Activity 7 · Dots: supervised launch review", "Activity 8 · Team video revision, local release and evaluation"]),
 ]
@@ -56,11 +56,11 @@ LUS = [
 SCHEDULE = {
  1: [
   ("9:30","9:50",20,"admin","Welcome, attendance, outcomes and official SWDA AI subscription redemption steps","LU1"),
-  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; agentic AI and always-on agents; human–AI roles, two work modes and use cases; Big Five features (Duet, Muse, Grok Bot, Dots, Manus and Cue), comparison and Singapore update","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; what agentic AI is; under the hood: the model in a harness, tools and skills, the agentic loop; AI does the work, humans decide; personal assistant vs digital worker; five collaboration patterns (one human/one agent to inter-company); use cases, AI for Science and a humanoid elderly-care task","LU1"),
   ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
-  ("11:20","12:35",75,"lab","Lab 1: Activity 1 — setup plan and walkthroughs (Muse, Dots, Grok Bot; Duet and Cue for reference); connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
-  ("12:35","12:50",15,"activity","Assistant results review — compare source accuracy, approval controls, limits and actual stop state","LU1"),
-  ("12:50","13:30",40,"topic","Under the hood — how agents work: model in a harness, context, memory and RAG, tools and skills, the agentic loop, approvals and human-in/on-the-loop","LU1"),
+  ("11:20","12:00",40,"topic","Topic 1 (Part B) — deployment evolution (OpenClaw → Hermes → hosted agents); the Big Five comparison and one briefing slide each (Muse, Dots, Grok Bot, Duet, Cue) with official sources and setup videos; choose the Activity 1 route","LU1"),
+  ("12:00","13:15",75,"lab","Lab 1: Activity 1 — connect one assistant (Muse, Dots or Grok Bot) to Gmail/Calendar; schedule check and email draft (PP Task 1 image A)","LU1"),
+  ("13:15","13:30",15,"activity","Lab 1 checkpoint and results review — source accuracy, approval controls, limits and actual stop state (trainer-led, using the Lab 1 checklist)","LU1"),
   ("13:30","14:30",60,"lunch","Lunch break",""),
   ("14:30","15:30",60,"lab","Lab 2: Activity 2A — introduce Kopi Kaki; Hermes Desktop, features, tools and reviewed skills","LU1"),
   ("15:30","16:00",30,"lab","Lab 2: Activity 2B — install office/gog/video skills, verify tools and save the source brief","LU2"),
@@ -85,8 +85,8 @@ SCHEDULE = {
   ("15:25","16:00",35,"lab","Lab 8: Activity 8C — final local release, scorecard and team improvement","LU3"),
   ("16:00","16:15",15,"recap","Course recap, practice questions and Q&A","LU3"),
   ("16:15","16:30",15,"assess","Briefing for Assessment","LU3"),
-  ("16:30","17:30",60,"assess","Written Assessment (WA) — 1 hour, open book","ASSESS"),
-  ("17:30","18:30",60,"assess","Practical Performance (PP) — 1 hour, open book; TRAQOM survey and PM / assessment attendance","ASSESS"),
+  ("16:30","17:30",60,"assess","Written Assessment (WA) — 1 hour, open book; TRAQOM survey and assessment attendance first","ASSESS"),
+  ("17:30","18:30",60,"assess","Practical Performance (PP) — 1 hour, open book; submit answers on the LMS and take PM attendance","ASSESS"),
  ],
 }
 
