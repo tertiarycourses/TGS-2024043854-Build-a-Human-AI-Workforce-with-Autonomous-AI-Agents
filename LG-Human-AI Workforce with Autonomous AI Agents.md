@@ -243,7 +243,7 @@ Compare the agents with a job-fit, control, access and limits framework (BULDRR)
 | Claude Duet | Work briefs and business follow-ups | Approval before sensitive actions; some actions disallowed | US Pro/Max waitlist preview |
 | Manus Cue | Personal errands, bookings and calls | Per-agent permissions, wallet budget, review boundaries | Early access; free with invite code |
 
-Activity 1 has two parts. **1A, everyone:** join Meta Muse at muse.ai with your Facebook account and redeem your trainer’s invite code. **1B, if your ChatGPT plan includes dots:** set up an OpenAI Dot and give it a standing job. Grok Bot, Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
+Activity 1 has three parts. **1A, everyone:** join Meta Muse at muse.ai with your Facebook account and redeem your trainer’s invite code. **1B, if your ChatGPT plan includes dots:** set up an OpenAI Dot and give it a standing job. **1C, everyone:** install Wispr Flow and speak your prompts instead of typing them. Grok Bot, Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
 
 #### Meta Muse (Activity 1A: everyone)
 

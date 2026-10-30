@@ -56,10 +56,10 @@ LUS = [
 SCHEDULE = {
  1: [
   ("9:30","9:50",20,"admin","Welcome, attendance, outcomes and official SWDA AI subscription redemption steps","LU1"),
-  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; what agentic AI is; under the hood: the model in a harness, tools and skills, the agentic loop; AI does the work, humans decide; personal assistant vs digital worker; five collaboration scenarios with named examples (one human/one agent to inter-company); use cases, AI for Science and a humanoid elderly-care task","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — AI history; what agentic AI is; under the hood (model, harness, tools, skills, loop); humans decide; assistant vs digital worker; five collaboration scenarios (Scenario 2 tried live on WhatsApp); use cases, AI for Science, humanoid elderly care","LU1"),
   ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
-  ("11:20","12:00",40,"topic","Topic 1 (Part B) — deployment evolution (OpenClaw → Hermes → hosted agents); the Big Five comparison and one briefing slide each (Muse, Dots, Grok Bot, Duet, Cue) with official sources and setup videos; Scenario 2 tried live on WhatsApp","LU1"),
-  ("12:00","13:15",75,"lab","Lab 1: Activity 1A — join Meta Muse at muse.ai and redeem the trainer’s invite code; Activity 1B — set up an OpenAI Dot (Pro/Business Premium); Activity 1C — speak prompts with Wispr Flow; connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
+  ("11:20","12:00",40,"topic","Topic 1 (Part B) — deployment evolution (OpenClaw → Hermes → hosted agents); the Big Five and one briefing slide each (Muse, Dots, Grok Bot, Duet, Cue) with embedded setup videos","LU1"),
+  ("12:00","13:15",75,"lab","Lab 1: 1A — join Meta Muse with the trainer’s invite code; 1B — set up an OpenAI Dot (Pro/Business Premium); 1C — speak prompts with Wispr Flow; Kopi Kaki schedule check and email draft (PP Task 1 image A)","LU1"),
   ("13:15","13:30",15,"activity","Lab 1 checkpoint and results review — source accuracy, approval controls, limits and actual stop state (trainer-led, using the Lab 1 checklist)","LU1"),
   ("13:30","14:30",60,"lunch","Lunch break",""),
   ("14:30","15:30",60,"lab","Lab 2: Activity 2A — the Kopi Kaki company pack; Hermes Desktop, features, tools and reviewed skills","LU1"),

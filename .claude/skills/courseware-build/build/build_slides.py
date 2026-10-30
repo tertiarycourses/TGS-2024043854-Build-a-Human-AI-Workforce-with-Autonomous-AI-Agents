@@ -99,13 +99,13 @@ for day in (1, 2):
 s = D.new(); header(D, s, "Roadmap · Hands-on", "Eight Activities Across Two Days",
                     "Four activities per day: personal assistant setup, Hermes office work, then a supervised video team.")
 for i, L in enumerate(LABS):
-    r, c = divmod(i, 4); x = 0.6 + c * 3.08; y = 2.4 + r * 2.02
+    r, c = divmod(i, 4); x = 0.6 + c * 3.08; y = 2.3 + r * 2.07
     dark = L["day"] == 2
-    card(s, x, y, 2.3, 1.88, fill=CHAR if dark else WHITE)
+    card(s, x, y, 2.3, 1.97, fill=CHAR if dark else WHITE)
     text(s, x + 0.18, y + 0.14, 2.0, 0.3, f"LAB {L['num']}  ·  DAY {L['day']}", 10, ACC, bold=True, autofit=False)
     icon(s, L["icon"], x + 0.18, y + 0.5, 0.48, fill=ACC if dark else TEAL)
-    text(s, x + 0.18, y + 1.05, 1.98, 0.6, L["short"], 13.5, WHITE if dark else INK, bold=True, font=SERIF, minpt=10)
-    text(s, x + 0.18, y + 1.6, 1.98, 0.35, L["paradigm"], 9.5, SOFT if dark else MUTED, minpt=8)
+    text(s, x + 0.18, y + 1.02, 1.98, 0.5, L["short"], 13.5, WHITE if dark else INK, bold=True, font=SERIF, minpt=10, lh=1.0)
+    text(s, x + 0.18, y + 1.53, 1.98, 0.4, L["paradigm"], 9.5, SOFT if dark else MUTED, minpt=8, lh=1.0)
 tip(D, s, "Day 1: always-on assistant, then Hermes office worker. Day 2: Hermes Kanban team, video and governance.", y=6.5)
 
 s = D.new(); header(D, s, "Roadmap · Hands-on", "Lab Materials & the Lab Prompts Page",
@@ -283,7 +283,7 @@ for L in LABS[4:]:
 mark("t3sum")
 
 mark("wrap")
-section(D, "Wrap-up", "Course Summary & Next Steps", ["Key takeaways", "Practice exam", "Assessment", "Digital attendance"])
+section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "Practice exam", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "Agents loop through perception, reasoning and action; the harness and the human make them reliable.", "brain"),
     ("Topic 2", "One Hermes Desktop agent produced the Google brief, Excel analysis, dashboard and PPT; Kanban extended it on Day 2.", "robot"),
