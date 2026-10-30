@@ -87,3 +87,18 @@ instead of feature tours (tools / memory / skills one by one). Reference impleme
 - **Verify platform commands against `--help` / local docs** before writing a lab (Hermes ships its docs in `~/.hermes/hermes-agent/website/docs`); flag anything unverified.
 - **Never commit assessment content in builders**: course-specific assessment builders (questions + model answers) and FG/AP data files (rubric) are git-ignored; the generic `wsq-assessment/build_assessment.py` is driven by a private override module.
 - `inject_toc.py` now writes the page-numbered entries as the cached result of a **real Word TOC field**; `prodoc.add_version_control` uses fixed column widths (`prodoc.set_widths`) so the record no longer spans pages.
+
+## Copy style — vivid pitch, never a template (user rule, 30 Oct 2026)
+
+Slide and LG copy must read like a strong pitch, not a filled-in form. See the WSQ projects `CLAUDE.md` for the full rules. In short:
+- The title makes a claim, the subtitle is a one-line pitch, and the body leads with named real examples (products, companies, numbers, dates).
+- **Do not repeat the same labelled rows across a series of slides** (e.g. "How it works / The human decides / Watch for" on every scenario). Vary the layout to suit the idea. Worked example: `slides_v23.scenario()` uses a hook paragraph plus "Where you see it today" with three named examples, instead of four fixed rows.
+- Verify every fact against its source; mark unverified claims; blur third-party names in screenshots.
+
+
+## YouTube videos: embed so they play on click in PowerPoint (user rule, 30 Oct 2026)
+
+Use the **`pptx-youtube-video`** skill (`~/.claude/skills/pptx-youtube-video/`) for every YouTube or online video in a
+deck: `add_online_video(slide, url, x, y, w, h)`. It writes PowerPoint's Online Film markup, verified with the
+trainer, and adds a "▶ Open in YouTube" fallback link. Never use a screenshot plus a link. Trainers must click
+**Enable Content** on PowerPoint's yellow "external media blocked" bar before videos play; say so in the trainer notes.

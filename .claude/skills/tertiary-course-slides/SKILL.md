@@ -65,3 +65,11 @@ enable the Pages site, and skip any "deploy static site" phase for these repos. 
 repo homepage should point to the course page on www.tertiarycourses.com.sg instead.
 Lab web apps are run locally by learners (or demoed via localhost) — they don't need
 a hosted deployment.
+
+
+## YouTube videos: embed so they play on click in PowerPoint (user rule, 30 Oct 2026)
+
+Use the **`pptx-youtube-video`** skill (`~/.claude/skills/pptx-youtube-video/`) for every YouTube or online video in a
+deck: `add_online_video(slide, url, x, y, w, h)`. It writes PowerPoint's Online Film markup, verified with the
+trainer, and adds a "▶ Open in YouTube" fallback link. Never use a screenshot plus a link. Trainers must click
+**Enable Content** on PowerPoint's yellow "external media blocked" bar before videos play; say so in the trainer notes.

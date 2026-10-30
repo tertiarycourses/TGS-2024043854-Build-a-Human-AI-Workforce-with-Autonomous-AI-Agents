@@ -35,20 +35,13 @@ def _narrow_header(s,w=10.55):
   if sh.has_text_frame and sh.top<Inches(2.2) and sh.width>Inches(11): sh.width=Inches(w)
 
 def online_video(s,url,poster,x,y,w,h,name='Online video'):
- """Embed a YouTube video as a PowerPoint online video (Insert > Online Video): it plays inside the slide when clicked.
- The poster frame is what PDF exports and offline viewers show."""
- from pptx.oxml.shapes.picture import CT_Picture
- from pptx.oxml.ns import qn
- from pptx.opc.constants import RELATIONSHIP_TYPE as RT
- vid=url.rstrip('/').split('/')[-1].split('?')[0];embed=f'https://www.youtube.com/embed/{vid}?feature=oembed'
- part=s.part
- v_rId=part.relate_to(embed,RT.VIDEO,is_external=True)
- m_rId=part.relate_to(embed,'http://schemas.microsoft.com/office/2007/relationships/media',is_external=True)
- _,p_rId=part.get_or_add_image_part(poster)
- pic=CT_Picture.new_video_pic(s.shapes._next_shape_id,name,v_rId,m_rId,p_rId,Inches(x),Inches(y),Inches(w),Inches(h))
- for el in pic.iter('{http://schemas.microsoft.com/office/powerpoint/2010/main}media'):
-  el.attrib.pop(qn('r:embed'));el.set(qn('r:link'),m_rId)
- s.shapes._spTree.append(pic);s.shapes._add_video_timing(pic)
+ """Click-to-play YouTube video, written exactly as PowerPoint's Insert > Video > Online Film does
+ (pptx_online_video.py is a copy of the user-level pptx-youtube-video skill). The poster is what PDF exports show."""
+ from pptx_online_video import add_online_video
+ pic=add_online_video(s,url,x,y,w,h,poster=poster,name=name)
+ # Fallback under every video: PowerPoint blocks online media until Enable Content, and offline rooms cannot stream.
+ t=text(s,x-.1,y+h+.07,w+.2,.26,'▶ Open in YouTube',10.5,TEAL,bold=True,align='c',autofit=False)
+ t.text_frame.paragraphs[0].runs[0].hyperlink.address=url
  return pic
 
 def brief(D,name,sub_,feats,steps,tipt,refs,logo=None,step=3.05,video=None):
@@ -57,7 +50,7 @@ def brief(D,name,sub_,feats,steps,tipt,refs,logo=None,step=3.05,video=None):
  if logo:_narrow_header(s);s.shapes.add_picture(t1a(logo),Inches(11.42),Inches(.5),Inches(1.28),Inches(1.28))
  top,bot=2.3,6.32
  if video:   # three columns: features 4.55 | setup 4.95 | 9:16 player 2.2
-  lw,rx,rw=4.55,5.35,4.95;vw=2.2;vh=min(bot-top,vw*16/9);vx=12.7-vw
+  lw,rx,rw=4.55,5.35,4.95;vh=bot-top-.36;vw=vh*9/16;vx=12.7-.1-vw   # 9:16 player, room below for the YouTube link
   card(s,vx-.06,top-.06,vw+.12,vh+.12,fill=INK)
   online_video(s,video[0],t1a(video[1]),vx,top,vw,vh,name=name+' video')
  else:lw,rx,rw=5.6,6.4,6.3
@@ -76,17 +69,19 @@ def brief(D,name,sub_,feats,steps,tipt,refs,logo=None,step=3.05,video=None):
   text(s,rx+.8,y+.28,rw-1.0,rh-.3,d,11.5 if not video else 10.5,SOFT,minpt=9)
  tip(D,s,tipt,y=6.38);tag(D,'CASE',' ; '.join(u for _,u in refs));links(D,refs,step=step)
 
-def pattern(D,n,title,sub_,rows_,img,shot=None,shot_cap=None,tipt=None):
- """One collaboration pattern: explanation rows (left), the pattern illustration and an optional real screenshot (right)."""
- s=D.new();header(D,s,'Topic 1 · Five collaboration patterns',f'Pattern {n} · {title}',sub_)
- top,bot=2.3,6.3
- lw=4.95 if shot else 12.1-(bot-top)-.25
- card(s,.6,top,lw,bot-top);rh=(bot-top-.2)/len(rows_)
- for i,(ic,t,d) in enumerate(rows_):
-  y=top+.14+i*rh;icon(s,ic,.82,y+.04,.4)
-  text(s,1.36,y-.02,lw-.95,.32,t,13,ACC if t.startswith('Real') else INK,bold=True,font=SERIF,minpt=10.5,autofit=False)
-  text(s,1.36,y+.28,lw-.95,rh-.32,d,11,MUTED,minpt=9)
- side=bot-top
+def scenario(D,n,title,pitch,hook,examples,img,shot=None,shot_cap=None,tipt=None):
+ """One collaboration scenario: a vivid hook and three named real-world examples (left), illustration + optional screenshot (right)."""
+ s=D.new();header(D,s,'Topic 1 · Five collaboration scenarios',f'Scenario {n} · {title}',pitch)
+ top,bot=2.3,6.3;side=bot-top
+ lw=4.95 if shot else 12.1-side-.25
+ card(s,.6,top,lw,bot-top)
+ text(s,.85,top+.16,lw-.5,1.12,hook,13,INK,font=SERIF,minpt=10.5,lh=1.12)
+ text(s,.85,top+1.36,lw-.5,.26,'WHERE YOU SEE IT TODAY',10,TEAL,bold=True,autofit=False)
+ y0=top+1.66;rh=(bot-.1-y0)/len(examples)
+ for i,(ic,t,d) in enumerate(examples):
+  y=y0+i*rh;icon(s,ic,.85,y+.02,.38)
+  text(s,1.35,y-.03,lw-.95,.3,t,12.5,INK,bold=True,font=SERIF,minpt=10,autofit=False)
+  text(s,1.35,y+.26,lw-.95,rh-.28,d,10.5,MUTED,minpt=9)
  picture(s,t1a(img),12.7-side,top,side,side,frame=True)
  if shot:
   x0=.6+lw+.22;bw=12.7-side-.22-x0
@@ -94,6 +89,113 @@ def pattern(D,n,title,sub_,rows_,img,shot=None,shot_cap=None,tipt=None):
   picture(s,t1a(shot),x0,top+.32,frame=True,maxw=bw,maxh=side-.36)
  if tipt:tip(D,s,tipt,y=6.42)
  return s
+
+def cta(D,label,url,y=6.08,icon_name='download'):
+ """A wide click-to-open button below the tip line (whole shape is the link, so the text keeps its styling)."""
+ s=D.prs.slides[-1];b=box(s,.6,y,12.1,.66,fill=ACC,shape=MSO_SHAPE.ROUNDED_RECTANGLE);b.click_action.hyperlink.address=url
+ icon(s,icon_name,.8,y+.11,.44,fill=ACC_D)
+ t=text(s,1.4,y+.08,11.1,.5,label,16,WHITE,bold=True,font=SERIF,anchor='m',autofit=False);t.click_action.hyperlink.address=url
+ return b
+
+WHATSAPP='https://wa.me/message/YMQB2CFYVGL3I1'
+def whatsapp_try(D):
+ """Scenario 2, live: every learner messages the same Tertiary Infotech Academy WhatsApp Business account."""
+ s=D.new();header(D,s,'Topic 1 · Try Scenario 2 now','Scan It: One WhatsApp Account, the Whole Room Chatting',
+  'Everyone here messages the same Tertiary Infotech Academy account at once. That is Scenario 2 in your pocket.')
+ x,y,w,h=picture(s,t1a('whatsapp-qr.png'),.6,2.25,maxw=3.9,maxh=3.7)
+ t=text(s,.6,y+h+.12,3.9,.26,'No camera? Click: wa.me/message/YMQB2CFYVGL3I1',10,TEAL,align='c',autofit=False);t.text_frame.paragraphs[0].runs[0].hyperlink.address=WHATSAPP
+ rx,rw=4.95,7.75
+ for i,(ic,ti,de) in enumerate([('camera','Scan the code','Point your phone camera at it. WhatsApp opens a chat with Tertiary Infotech Academy.'),
+   ('chat','Ask it something real','“Which AI agent courses run next month?”   “Send me this course’s brochure.”   “How do I check my SkillsFuture credit?”'),
+   ('users','Compare with your neighbour','Same question, same answer? Which replies came back instantly, and which waited for a person?')]):
+  yy=2.25+i*1.27;card(s,rx,yy,rw,1.12)
+  circle(s,rx+.22,yy+.3,.52,ACC);text(s,rx+.22,yy+.3,.52,.52,str(i+1),16,WHITE,bold=True,font=SERIF,align='c',anchor='m',autofit=False)
+  icon(s,ic,rx+.9,yy+.33,.46,fill=TEAL)
+  text(s,rx+1.55,yy+.12,rw-1.75,.36,ti,15,INK,bold=True,font=SERIF,autofit=False)
+  text(s,rx+1.55,yy+.48,rw-1.75,.6,de,12 if i!=1 else 11.5,MUTED,minpt=9.5,italic=(i==1))
+ tip(D,s,'One account, twenty conversations at once: notice how each chat stays separate, and when a human steps in.',y=6.3)
+ tag(D,'CASE',WHATSAPP);return s
+
+MUSE_WEB='https://muse.ai/';MUSE_CODE='H1KWDZ'
+def muse_invite(D,kick):
+ """Activity 1A: everyone joins Muse on the web and redeems the trainer's invite code."""
+ s=D.new();header(D,s,kick,'Activity 1A · Join Meta Muse and Claim 1 Billion Tokens',
+  'Sign in with Facebook, key in your trainer’s code within 48 hours, and you both get 1 billion Muse tokens.')
+ picture(s,t1a('muse-invite.png'),.6,2.2,maxw=3.45,maxh=4.0)
+ rx,rw=4.45,8.25
+ for i,(ti,de) in enumerate([('Open muse.ai','Sign in with Facebook. It works much like ChatGPT. On your phone? Install Muse from Meta.'),
+   ('Settings › General › Usage','Tap Redeem invite code.'),
+   ('Key in the code within 48 hours of joining','You and your trainer each receive 1 billion Muse tokens.')]):
+  yy=2.2+i*.88;circle(s,rx,yy+.04,.5,ACC)
+  text(s,rx,yy+.04,.5,.5,str(i+1),16,WHITE,bold=True,font=SERIF,align='c',anchor='m',autofit=False)
+  text(s,rx+.7,yy-.02,rw-.7,.36,ti,16,INK,bold=True,font=SERIF,autofit=False)
+  text(s,rx+.7,yy+.36,rw-.7,.42,de,12.5,MUTED,minpt=10)
+ card(s,rx,4.9,rw,1.3,fill=CHAR)
+ text(s,rx+.35,5.0,3.0,.3,'YOUR TRAINER’S INVITE CODE',11,SOFT,bold=True,autofit=False)
+ text(s,rx+.35,5.3,4.2,.8,MUSE_CODE,44,ACC,bold=True,font=MONO,autofit=False,anchor='m')
+ t=text(s,rx+4.7,5.12,3.3,.9,'muse.ai\nclick to open',20,WHITE,bold=True,font=SERIF,align='r',autofit=False)
+ t.click_action.hyperlink.address=MUSE_WEB   # shape-level link keeps the white text styling
+ tip(D,s,'Next, connect Gmail and Google Calendar in Settings → Connectors. Keep retrieve-only access and approve every send.',y=6.35)
+ tag(D,'CASE',MUSE_WEB+' ; Muse in-app Invite friends card, 30 Oct 2026');return s
+
+def dots_setup(D,kick):
+ """Activity 1B: learners whose ChatGPT plan includes dots set one up; everyone else watches the demo."""
+ s=D.new();header(D,s,kick,'Activity 1B · Give Your Own OpenAI Dot Its First Job',
+  'On ChatGPT Pro or Business Premium? Set up a dot that keeps working after you close the chat.')
+ top,bot=2.2,6.2
+ card(s,.6,top,3.7,bot-top,fill=CHAR);text(s,.85,top+.14,3.2,.32,'DO YOU HAVE DOTS?',12,ACC,bold=True,autofit=False)
+ for i,(ic,ti,de) in enumerate([('check','Pro · Business Premium','Rolling out now; your first dot is included.'),
+   ('building','Enterprise · Edu · Healthcare','Beta, once your workspace admin turns it on.'),
+   ('clock','Free · Go · Plus','Not in the launch rollout. Watch the demo; your Muse from 1A does the lab.')]):
+  yy=top+.6+i*1.1;icon(s,ic,.85,yy+.02,.42,fill=ACC if i==0 else PANEL)
+  text(s,1.4,yy-.04,2.8,.32,ti,13,WHITE,bold=True,font=SERIF,minpt=10.5,autofit=False)
+  text(s,1.4,yy+.28,2.8,.75,de,11,SOFT,minpt=9)
+ mx,mw=4.5,5.75
+ for i,(ti,de) in enumerate([('Open chatgpt.com/dots','ChatGPT mobile or desktop app, or a desktop browser (not mobile web).'),
+   ('Create and name your dot','Follow the intro; pick its look. You can change both later.'),
+   ('Connect Gmail and Calendar','Add each plugin and authorise it separately in the browser.'),
+   ('Give it a standing job','“Every weekday at 8 am, check my calendar for Kopi Kaki meetings and flag any clash.”')]):
+  yy=top+i*1.0;circle(s,mx,yy+.04,.46,ACC)
+  text(s,mx,yy+.04,.46,.46,str(i+1),15,WHITE,bold=True,font=SERIF,align='c',anchor='m',autofit=False)
+  text(s,mx+.62,yy-.02,mw-.62,.34,ti,14.5,INK,bold=True,font=SERIF,autofit=False)
+  text(s,mx+.62,yy+.32,mw-.62,.6,de,11.5,MUTED,minpt=9.5,italic=(i==3))
+ vh=bot-top-.36;vw=vh*9/16;vx=12.7-.1-vw
+ card(s,vx-.06,top-.06,vw+.12,vh+.12,fill=INK);online_video(s,DOTS_VIDEO,t1a('video-dots.jpg'),vx,top,vw,vh,name='OpenAI Dots setup video')
+ tip(D,s,'Closing the chat does not stop a dot. Open Activity to see what it is doing, and pause it when class ends.',y=6.35)
+ tag(D,'CASE','https://openai.com/index/introducing-dots/ ; '+DOTS)
+ links(D,[('OpenAI: Introducing dots (plans) · click','https://openai.com/index/introducing-dots/'),('ChatGPT Learn: Get started with your dot · click',DOTS)],y=6.8,step=4.2)
+ return s
+
+WISPR='https://wisprflow.ai/'
+def wispr(D,kick):
+ """Activity 1C: speak to agents with Wispr Flow instead of typing (facts from wisprflow.ai, 30 Oct 2026)."""
+ s=D.new();header(D,s,kick,'Activity 1C · Talk to Your Agents. Stop Typing to Them.',
+  'Wispr Flow turns your voice into clean text in any app, so every prompt to Muse, Dots or Hermes can be spoken.')
+ top,bot=2.2,5.9
+ card(s,.6,top,3.35,bot-top,fill=CHAR)
+ text(s,.85,top+.1,2.9,1.2,'4×',72,ACC,bold=True,font=SERIF,autofit=False)
+ text(s,.85,top+1.32,2.9,.36,'faster than your keyboard',16,WHITE,bold=True,font=SERIF,autofit=False)
+ text(s,.85,top+1.68,2.9,.26,'Wispr Flow’s own claim',10,SOFT,italic=True,autofit=False)
+ for i,(ic,t) in enumerate([('globe','100+ languages'),('coins','Free: 2,000 words a week'),('phone','Mac · Windows · iPhone · Android')]):
+  yy=top+2.12+i*.5;icon(s,ic,.85,yy,.36,fill=PANEL);text(s,1.32,yy-.01,2.55,.38,t,12,SOFT,anchor='m',autofit=False)
+ mx,mw=4.2,4.75
+ card(s,mx,top,mw,1.05,fill=LIGHT,shadow=False)
+ text(s,mx+.25,top+.12,mw-.5,.26,'TYPED',10,MUTED,bold=True,autofit=False)
+ text(s,mx+.25,top+.42,mw-.5,.5,'“check meetings”',17,MUTED,font=MONO,autofit=False)
+ card(s,mx,top+1.2,mw,bot-top-1.2)
+ text(s,mx+.25,top+1.32,mw-.5,.26,'SPOKEN · TIDIED BY FLOW',10,TEAL,bold=True,autofit=False)
+ text(s,mx+.25,top+1.62,mw-.5,1.55,'“Check this week’s Kopi Kaki meetings in Singapore time, flag anything that clashes with Thursday’s supplier tasting, and draft a reply to the outlet manager for me to approve.”',13.5,INK,font=SERIF,italic=True,minpt=11,lh=1.15)
+ text(s,mx+.25,bot-.5,mw-.5,.36,'Talking, you give the goal, context and finish line agents need.',11,MUTED,minpt=9.5)
+ rx,rw=9.2,3.5
+ for i,(ti,de) in enumerate([('Get Flow','Download from wisprflow.ai and sign up; the free plan needs no card.'),
+   ('Allow the mic','Grant microphone and accessibility access when asked.'),
+   ('Hold, speak, release','Hold your Flow shortcut, say the prompt, let go. The text lands in Muse, ChatGPT or Hermes.')]):
+  yy=top+i*1.24;circle(s,rx,yy+.04,.46,ACC)
+  text(s,rx,yy+.04,.46,.46,str(i+1),15,WHITE,bold=True,font=SERIF,align='c',anchor='m',autofit=False)
+  text(s,rx+.6,yy-.02,rw-.6,.34,ti,14.5,INK,bold=True,font=SERIF,autofit=False)
+  text(s,rx+.6,yy+.32,rw-.6,.85,de,11.5,MUTED,minpt=9.5)
+ cta(D,'Download Wispr Flow  →  wisprflow.ai   ·   then speak every prompt in this course',WISPR,icon_name='chat')
+ tag(D,'CASE',WISPR+' ; https://wisprflow.ai/pricing');return s
 
 GENIC='https://www.genicsolutions.com/ai-agents-for-business-use-cases-and-implementation/'
 AGENTSEA='https://www.straitstimes.com/tech/new-platform-to-create-ai-agents-available-to-all-public-healthcare-professionals'
@@ -179,9 +281,9 @@ def illustrated(D,k,title,steps,img,tipt,source):
 
 def topic1(D,C,mark):
  """Topic 1 narration: what agents are -> how they work -> where people decide -> where they are used
- -> the always-on agents (one briefing slide each) -> Activity 1 checks -> Lab 1 (the topic ends with its lab)."""
+ -> the always-on agents (one briefing slide each) -> Lab 1 (1A Muse invite, 1B Dots) (the topic ends with its lab)."""
  mark('t1a')
- section(D,'Topic 1',C.TOPICS[0]['title'],['Brief history and what an agent is','Under the hood: how agents work','AI does the work; humans decide','Five ways people and agents work together','Use cases and the Big Five always-on agents','Activity 1 · Set up one assistant'])
+ section(D,'Topic 1',C.TOPICS[0]['title'],['Brief history and what an agent is','Under the hood: how agents work','AI does the work; humans decide','Five collaboration scenarios','Use cases and the Big Five always-on agents','Activity 1 · Join Muse, set up a dot'])
  timeline(D,'Topic 1 · Brief history','From Rules to Learning to Action',[
  ('Rules','1950s–80s','Explicit rules and expert systems.'),('Learning','1990s–2010s','Patterns learned from examples.'),('Language','2017–2023','Transformers and chat interfaces.'),('Action','2024 onward','Tool use, feedback and goal-directed work.')],foot='These approaches coexist. A modern agent still uses ordinary software, rules and databases.');tag(D,'MODEL','Attention Is All You Need 2017; ReAct 2022')
  timeline(D,'Topic 1 · Brief history','2023 → 2026: Four Engineering Lenses',[
@@ -206,37 +308,38 @@ def topic1(D,C,mark):
  compare(D,'Topic 1 · Two collaboration modes','Personal Assistant or Digital Worker?',
  ('Personal assistant','calendar',['Organises YOUR day: email, schedule, travel.','Success: a source-checked brief and useful draft.','You decide priorities and approve commitments.']),
  ('Digital worker','briefcase',['Performs a BUSINESS role: analyst, coder, bookkeeper.','Success: verified work products and a review trail.','A named owner accepts the result and exceptions.']),tipt='These are work roles, not two different kinds of language model.');tag(D,'MODEL','IBM; BULDRR job-fit framing; course design')
- # Five collaboration patterns: from one person and one agent to agents working across companies.
- pattern(D,1,'One Human, One AI Agent','A personal assistant: one owner, one agent, one set of permissions',[
-  ('user','How it works','The agent watches your mail and calendar, then messages you with reminders, clashes and drafts.'),
-  ('phone','Real example','A hosted assistant flags a weekend clash: two booked course days and a new teaching invitation.'),
-  ('hand','The human decides','Which commitment wins, what to reply, and every send or acceptance.'),
-  ('alert','Watch for','The wrong account or stale facts. Open the linked email before acting on a reminder.')],
-  'pattern1.jpg','p1-assistant-chat.png','Real example · names blurred',tipt='Simplest pattern and the one in Lab 1: ownership is clear, but quality depends on one person reviewing.')
- pattern(D,2,'Multiple Humans, One AI Agent','A shared team agent in a group chat serves several people',[
-  ('users','How it works','Team members ask one agent in a shared channel; it updates systems and reports back to the group.'),
-  ('chat','Real example','In a trainers’ group chat, an OpenClaw agent reassigns a course run in the LMS and reports a blocker.'),
-  ('hand','The humans decide','Who may instruct the agent, whose request wins in a conflict, and who confirms the change.'),
-  ('alert','Watch for','Conflicting instructions and over-broad access. Log who asked for what.')],
-  'pattern2.jpg','p2-group-chat.png','Real example · names blurred',tipt='A good shared agent reports what it verified and what is still unknown, and escalates what it cannot fix.')
- pattern(D,3,'One Human, Multiple AI Agents','One owner directs a team of specialist agents',[
-  ('robot','How it works','Each agent is a separate Hermes profile with its own role, model, skills and running gateway.'),
-  ('server','Real example','Six profiles form a YouTube line: research → script → video → optimise → publish, plus the default agent.'),
-  ('hand','The human decides','Splits the goal, sets hand-offs and approval gates, and accepts the final output.'),
-  ('alert','Watch for','Lost hand-offs, duplicated work and cost per agent. Use a Kanban board and an auditor.')],
-  'pattern3.jpg','p3-hermes-profiles.png','Real example · Hermes profiles',tipt='This is the Day 2 pattern: your Hermes Kanban video team in Lab 5 and Lab 8.')
- pattern(D,4,'Multiple Humans, Multiple AI Agents','A department: several owners, each with agents, sharing one board',[
-  ('users','How it works','People and agents share one task board; every card has a human owner, an agent assignee and a status.'),
-  ('briefcase','Example','Marketing, finance and operations staff each run agents that research, calculate and draft one launch plan.'),
-  ('hand','The humans decide','Each owner approves their own agents’ work; a lead resolves priorities across teams.'),
-  ('alert','Watch for','Unclear accountability, agents overwriting each other’s files, and access creeping across teams.')],
-  'pattern4.jpg',tipt='Scale needs governance: named owners, a shared board, permissions per role and an audit trail.')
- pattern(D,5,'Inter-Company Collaboration','Agents from different organisations exchange work across a company boundary',[
-  ('send','How it works','Company A’s agent sends a request, quote or data package to Company B’s agent; each side runs its own checks.'),
-  ('briefcase','Example','A buyer’s procurement agent asks for quotes; the supplier’s sales agent checks stock and replies with an offer for sign-off.'),
-  ('hand','The humans decide','Contracts, prices, what data may be shared, and final acceptance on both sides.'),
-  ('alert','Watch for','Who the other agent really is, personal data (PDPA), injected instructions and liability for commitments.')],
-  'pattern5.jpg',tipt='Emerging pattern: treat everything from another company’s agent as untrusted data until a human verifies it.')
+ # Five collaboration scenarios (Scenario 2 is followed by a live WhatsApp try-it): from one person and one agent to agents working across companies.
+ scenario(D,1,'One Human, One AI Agent','Your own chief of staff that never clocks off',
+  'One person, one always-on agent. It works through your inbox and calendar overnight and is waiting with a brief, a clash and a draft before you wake up.',
+  [('sparkles','Always-on personal assistants','OpenAI Dots, Meta Muse, Grok Bot, Claude Duet and Manus Cue: the Big Five you meet later today.'),
+   ('server','A desktop agent on your own laptop','Hermes Desktop, the single office worker you run this afternoon.'),
+   ('code','A coding partner for one developer','Claude Code or OpenAI Codex working through one person’s repository.')],
+  'pattern1.jpg','p1-assistant-chat.png','Real example · names blurred',tipt='On the right: an assistant spots a weekend clash between two booked course days and a new teaching request.')
+ scenario(D,2,'Multiple Humans, One AI Agent','One agent, a whole team asking it for help',
+  'Drop one agent into the team chat and it becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the whole group.',
+  [('chat','A bot in the team group chat','An OpenClaw or Hermes agent in Telegram or WhatsApp, like the trainers’ chat on the right.'),
+   ('users','An assistant the whole channel can call','Claude in Slack, or any bot a channel can @mention.'),
+   ('inbox','A shared front desk','One agent triaging a shared support inbox for the whole service team.')],
+  'pattern2.jpg','p2-group-chat.png','Real example · names blurred',tipt='The best shared agents say out loud what they verified and what is still unknown.')
+ whatsapp_try(D)
+ scenario(D,3,'One Human, Multiple AI Agents','Be the manager of your own AI department',
+  'One person splits the goal and hands each piece to a specialist: a researcher, a writer, a producer and an auditor. The work runs in parallel while you approve the hand-offs.',
+  [('kanban','Hermes profiles on a Kanban board','Your Day 2 video studio: research → script → video → audit.'),
+   ('users','Several Grok Bots on one cloud computer','Each bot has its own screen while sharing files and logins.'),
+   ('robot','A Manus Cue agent team','Agents share a group chat and a goal; you make the final call.')],
+  'pattern3.jpg','p3-hermes-profiles.png','Real example · Hermes profiles',tipt='On the right: six Hermes profiles that run a YouTube channel from research to upload.')
+ scenario(D,4,'Multiple Humans, Multiple AI Agents','When a whole organisation runs on agents',
+  'Many people, each building and running their own agents, all pointed at shared goals. This is where agents stop being a gadget and become part of the workforce.',
+  [('hospital','Singapore public healthcare','80,000+ staff have built 12,000+ AgentSea agents and shared 300+ for colleagues to reuse.'),
+   ('flask','Stanford’s virtual biotech','A research team directs 37,000 AI scientist agents across drug-discovery divisions.'),
+   ('kanban','Your department’s shared board','Every card has a human owner and an agent assignee: Day 2 at team scale.')],
+  'pattern4.jpg',tipt='Scale needs governance: named owners, permissions for each role and an audit trail.')
+ scenario(D,5,'Inter-Company Collaboration','Your agent negotiates with their agent',
+  'Agents start working across the company wall. A buyer’s agent requests quotes, a supplier’s agent checks stock and replies, and people on both sides sign off.',
+  [('network','Agent-to-agent protocols','Open standards such as Google’s Agent2Agent (A2A) let agents from different vendors talk to each other.'),
+   ('cart','Personal agents meeting business services','Meta Muse working with Singapore partners such as Grab and Singapore Airlines as they roll out.'),
+   ('phone','Agents with their own identity','Manus Cue agents with their own email, phone and wallet, calling and paying outside businesses.')],
+  'pattern5.jpg',tipt='Treat anything from another company’s agent as untrusted until a person verifies it.')
  # Five business use cases (Genic Solutions, 30 Sep 2026); AI for Science and the humanoid task follow.
  cases=[
  ('Customer service operations','Incoming requests + account history','Classify, look up the account, draft a reply, suggest next step','Complex or sensitive cases; limits on what it may complete','Prepared response + next action','Less time spent searching for information','Digital worker · customer service'),
@@ -260,11 +363,11 @@ def topic1(D,C,mark):
  table(D,'Topic 1 · The Big Five','The Big Five: Same Always-On Idea, Different Jobs',
  ['Product','Useful starting job','Human control to inspect','Access checkpoint'],[
  ('Muse','Schedule, errands and personal email','Connector permissions + sensitive-action approval','Singapore since 27 Oct; free core use'),
- ('Dots','Persistent goals and delegated tasks','Connection permissions, custom rules and review','Check access and preview limits for your account'),
+ ('Dots','Persistent goals and delegated tasks','Connection permissions, custom rules and review','Pro, Business Premium; Enterprise beta'),
  ('Grok Bot','Named workers sharing ongoing work','Approval settings; shared cloud logins across bots','Check your plan’s access'),
  ('Duet','Work briefs and business follow-ups','Approval before sensitive actions; some actions disallowed','US Pro/Max waitlist preview'),
  ('Cue','Personal errands, bookings and calls','Per-agent permissions, wallet budget, review boundaries','Early access; free with invite code')],colw=[1.4,3.4,4.6,2.7],size=12.5,sub='Five hosted always-on agents; one briefing slide each follows, with its official source.',tipt='No universal winner. Verify your current account, region, connector and action controls before delegating.');tag(D,'MODEL',ARTICLE+' ; '+DUET+' ; '+NEWS+' ; '+GROK+' ; '+DOTS);source(D,ARTICLE,'Comparison reference: BULDRR · click to read')
- brief(D,'Meta Muse','Meta · available in Singapore since 27 Oct 2026 · recommended route for Activity 1',[
+ brief(D,'Meta Muse','Meta · available in Singapore since 27 Oct 2026 · Activity 1A: everyone joins with the trainer’s invite code',[
   ('check','Does the work','Manages email, coordinates schedules and turns long-term goals into action plans.'),
   ('plug','Connected apps','Gmail, Google Calendar and Instagram; Singapore partners such as Grab, Shopee and Singapore Airlines are rolling out.'),
   ('shield','Asks before acting','Checks with you before sending an email or making a purchase; retrieve-only connectors available.'),
@@ -276,7 +379,7 @@ def topic1(D,C,mark):
    ('Approvals','Keep retrieve-only where offered; approve every send or invite.')],
   'Shortcut: ask “Connect my Gmail”. Partner features roll out progressively; no bookings or purchases in class.',
   [('Meta Newsroom: Muse in SG · click',NEWS),('Meta Help: Connectors · click',METAHELP),('Muse iOS (SG) · click',IOS),('Muse Android (SG) · click',ANDROID),('YouTube: 10 ways to use Muse',MUSE_VIDEO)],logo='logo-muse.png',video=(MUSE_VIDEO,'video-muse.jpg'),step=2.44)
- brief(D,'OpenAI Dots','OpenAI · ChatGPT Learn documentation, checked 29 Oct 2026 · check your account’s access',[
+ brief(D,'OpenAI Dots','OpenAI · rolling out to ChatGPT Pro and Business Premium · Activity 1B if your plan has it',[
   ('target','Ongoing responsibilities','Give one dot several long-running jobs instead of one-off chats.'),
   ('server','Its own cloud computer','Works in its own browser; optionally on your computer while the ChatGPT app is open.'),
   ('puzzle','Plugins and channels','Email, calendar and files through plugins; Slack and other contact methods for messages.'),

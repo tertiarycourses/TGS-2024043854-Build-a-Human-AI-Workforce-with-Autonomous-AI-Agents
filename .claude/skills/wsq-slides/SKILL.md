@@ -293,3 +293,11 @@ TRAQOM front and end, two trainer cards, LMS screenshot, Briefing → Assessment
 Practice Exam, Thank You). Watch for: no → glyph in Cambria (ccdeck forces Calibri for arrows),
 long two-line titles (header shrinks them and pushes the subtitle), and monospace code panels
 (keep excerpts ≤ 14 short lines).
+
+
+## YouTube videos: embed so they play on click in PowerPoint (user rule, 30 Oct 2026)
+
+Use the **`pptx-youtube-video`** skill (`~/.claude/skills/pptx-youtube-video/`) for every YouTube or online video in a
+deck: `add_online_video(slide, url, x, y, w, h)`. It writes PowerPoint's Online Film markup, verified with the
+trainer, and adds a "▶ Open in YouTube" fallback link. Never use a screenshot plus a link. Trainers must click
+**Enable Content** on PowerPoint's yellow "external media blocked" bar before videos play; say so in the trainer notes.

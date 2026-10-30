@@ -161,11 +161,26 @@ flow(D, "Assessment", "Assessment Flow", ASSESS_FLOW, sub="On assessment day, fo
 import slides_2026 as U
 import slides_v23 as V23
 LAB_EXTRAS = {}
+def meet_kopi(kick):
+    """The course company, introduced at the start of Activity 1 (its meetings drive the Lab 1 schedule check)."""
+    s = D.new(dark=True); header(D, s, kick + " · Your company", "Meet Kopi Kaki Co.",
+                                 "The fictional Singapore kopi chain you work for from this activity to Day 2. Its meetings are your Activity 1 calendar. All data is synthetic.")
+    facts = [("store", "12 outlets · 140 staff", "Heritage kopi, modern craft — Tiong Bahru to Changi T3."),
+             ("coffee", "Launch: Gula Melaka Cold Brew", "SGD 6.80 · 1 Dec 2026 · code SHIOK20 (20% off first app order, 1–14 Dec)."),
+             ("target", "Campaign #ShiokColdBrew", "17 Nov – 14 Dec · SGD 15,000 · 2,500 pre-orders · 8% engagement · 40k views."),
+             ("shield", "Rules that matter", "No health or halal claims · no competitor bashing · human APPROVE before anything is public.")]
+    for i, (ic, t, d) in enumerate(facts):
+        r, c = divmod(i, 2); x = 0.6 + c * 6.15; y = 2.55 + r * 2.05
+        card(s, x, y, 5.95, 1.85, fill=K.PANEL, shadow=False); icon(s, ic, x + 0.28, y + 0.3, 0.6)
+        text(s, x + 1.08, y + 0.28, 4.7, 0.5, t, 17, WHITE, bold=True, font=SERIF)
+        text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
+
 def lab_block(L):
     kick = f"Topic {L['topic']} · Lab {L['num']}"
     if f"lab{L['num']}" not in MARK: mark(f"lab{L['num']}")
     mark(f"lab{L['num']}i")
     lab_intro(D, L, kick)
+    if L["num"] == 1: meet_kopi(kick)   # Activity 1 runs on Kopi Kaki meetings
     lab_flow(D, L, kick)
     for fn in LAB_EXTRAS.get(L["num"], []): fn(L, kick)
     pr = [st for st in L["steps"] if st.get("prompt")]
@@ -185,6 +200,7 @@ def _cmd(L, kick, title, idx, side):
     prompt(D, kick, title, st["cmd"], side=side, label="TERMINAL  ·  copy from the Lab Prompts page")
 
 # --- Lab-specific concept / screenshot slides
+LAB_EXTRAS[1] = [lambda L,k: V23.muse_invite(D,k), lambda L,k: V23.dots_setup(D,k), lambda L,k: V23.wispr(D,k)]   # Activity 1A / 1B visual slides
 LAB_EXTRAS[5] = [lambda L,k: hub(D,k,"Five Hermes Profiles, Distinct Owned Outputs","Kanban parents\n+ human gates",[("search","researcher","Source facts -> research.md"),("pen","scriptwriter","Three scenes -> storyboard.md"),("film","producer","Local renderer -> final.mp4"),("eyecheck","auditor","Independent evidence -> audit-report.md"),("file","publisher","Accepted local package only"),("user","Human owner","Unassigned gates; exact-version decisions")]),lambda L,k:image(D,k,"Inspect Your Actual Kanban Video Team",asset("screenshots","hermes-kanban.png"),caption="Reference UI only. Capture your own bot/profile owners, dependency state, video task/output and human gate.")]
 
 U.swda(D)
@@ -196,19 +212,7 @@ for k in ("activity", "demo", "consolidation"): mark(k)   # legacy FG keys; v2.6
 # ====================================================================== TOPIC 2 · HERMES
 mark("t2")
 T2 = C.TOPICS[1]
-section(D, "Topic 2", T2["title"], T2["items"], sub="After lunch: the company scenario and one Hermes office worker.")
-s = D.new(dark=True); header(D, s, "The course scenario", "Meet Kopi Kaki Co.",
-                             "A fictional Singapore kopi chain — the company used in the afternoon and Day 2 labs. All data is synthetic.")
-facts = [("store", "12 outlets · 140 staff", "Heritage kopi, modern craft — Tiong Bahru to Changi T3."),
-         ("coffee", "Launch: Gula Melaka Cold Brew", "SGD 6.80 · 1 Dec 2026 · code SHIOK20 (20% off first app order, 1–14 Dec)."),
-         ("target", "Campaign #ShiokColdBrew", "17 Nov – 14 Dec · SGD 15,000 · 2,500 pre-orders · 8% engagement · 40k views."),
-         ("shield", "Rules that matter", "No health or halal claims · no competitor bashing · human APPROVE before anything is public.")]
-for i, (ic, t, d) in enumerate(facts):
-    r, c = divmod(i, 2); x = 0.6 + c * 6.15; y = 2.55 + r * 2.05
-    card(s, x, y, 5.95, 1.85, fill=K.PANEL, shadow=False); icon(s, ic, x + 0.28, y + 0.3, 0.6)
-    text(s, x + 1.08, y + 0.28, 4.7, 0.5, t, 17, WHITE, bold=True, font=SERIF)
-    text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
-
+section(D, "Topic 2", T2["title"], T2["items"], sub="After lunch: one Hermes office worker for Kopi Kaki Co.")
 table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)",
       ["File", "What it is", "Used in"],
       [("AGENTS.md", "Company context Hermes loads automatically from the folder", "Activities 2–8"),
@@ -245,9 +249,9 @@ T2S = {**U.office(D), **V23.office_extra(D)}
 def t2(kick, titles):
     for ti in titles: T2S[ti](kick)
 mark("lab2")
-t2("Topic 2 · Desktop and skills", [
-    "Hermes Desktop: Download → Configure → Connect", "Native Desktop and WSL Are Separate Runtimes",
-    "Install a Skill Only After Reviewing Its Source", "Five Skills, One Hermes Agent"])
+t2("Topic 2 · Desktop and skills", ["Hermes Desktop: Download → Configure → Connect"])
+V23.cta(D, "Download Hermes Desktop for Mac, Windows or Linux  →  hermes-agent.nousresearch.com/desktop", "https://hermes-agent.nousresearch.com/desktop")
+t2("Topic 2 · Desktop and skills", ["Install a Skill Only After Reviewing Its Source", "Five Skills, One Hermes Agent"])
 lab_block(LABS[1])
 mark("lab3")
 t2("Topic 2 · Google Workspace and Excel", ["First Authorise Read-Only Gmail"])

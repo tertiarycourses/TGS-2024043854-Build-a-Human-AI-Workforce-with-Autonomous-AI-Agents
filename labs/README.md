@@ -10,7 +10,7 @@ Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `CO
 
 | # | Lab | Paradigm | Time | Instructions |
 |---|---|---|---|---|
-| 1 | [Activity 1 — Set Up an Always-On Personal Assistant](lab01-always-on-personal-assistants/README.md) | Personal assistant + human decisions | 75 min | [PDF](lab01-always-on-personal-assistants/LAB-01-Instructions.pdf) |
+| 1 | [Activity 1 — Join Meta Muse, Set Up an OpenAI Dot](lab01-always-on-personal-assistants/README.md) | Personal assistant + human decisions | 75 min | [PDF](lab01-always-on-personal-assistants/LAB-01-Instructions.pdf) |
 | 2 | [Activity 2 — Hermes Desktop, Tools, Skills & the Company Brief](lab02-hermes-desktop-skills/README.md) | Single agent | 90 min | [PDF](lab02-hermes-desktop-skills/LAB-02-Instructions.pdf) |
 | 3 | [Activity 3 — Hermes Gmail, Calendar, Drive & Excel](lab03-hermes-google-office/README.md) | One agent + gog + analytics skill | 50 min | [PDF](lab03-hermes-google-office/LAB-03-Instructions.pdf) |
 | 4 | [Activity 4 — Hermes Dashboard, Professional PPT & Single-Agent Video](lab04-hermes-ppt-video-artifacts/README.md) | One agent + office/video skills + human review | 70 min | [PDF](lab04-hermes-ppt-video-artifacts/LAB-04-Instructions.pdf) |

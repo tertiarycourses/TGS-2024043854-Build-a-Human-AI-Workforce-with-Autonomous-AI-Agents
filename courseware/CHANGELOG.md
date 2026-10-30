@@ -1,5 +1,31 @@
 # Courseware change history
 
+## v3.3 — 30 October 2026
+
+- **Activity 1C · Talk to your agents. Stop typing to them.** Learners install [Wispr Flow](https://wisprflow.ai/) (Mac, Windows, iPhone and Android; free for 2,000 words a week) and speak every prompt to Muse, Dots and Hermes. The new pitch slide shows a typed vs spoken prompt and has a download button. Activity 1B is trimmed to 10 minutes, so Lab 1 still takes 75.
+- **Videos:** each one has an **Open in YouTube** link underneath. PowerPoint blocks online media in a downloaded deck until you click **Enable Content** on the yellow security bar; then click the video in Slide Show.
+
+## v3.2 — 30 October 2026 (not published separately)
+
+- **YouTube videos play on click inside PowerPoint.** Each video now uses exactly what PowerPoint's Insert › Video › Online Film writes, including the click-to-play timing that v3.1 lacked, so v3.1 showed only the poster. Click a video in Slide Show to play it; it needs internet.
+
+## v3.1 — 30 October 2026 (not published separately)
+
+Includes the v3.0 and v2.9 changes below (neither was published separately).
+
+- **Activity 1 uses the Kopi Kaki Co. scenario.** Learners check any company meeting (launch review, supplier tasting, outlet visit) and draft the reply. The Dot's standing job watches Kopi Kaki meetings. The "Meet Kopi Kaki Co." slide moves from Topic 2 into Activity 1, straight after the Lab 1 intro.
+- **Hermes Desktop download link** ([hermes-agent.nousresearch.com/desktop](https://hermes-agent.nousresearch.com/desktop)) on its setup slide and in the Learner Guide. The "Native Desktop and WSL Are Separate Runtimes" slide is removed. PP Task 1 wording now reads "a meeting schedule"; questions, K/A codes and rubric are unchanged.
+
+## v3.0 — 30 October 2026 (not published separately)
+
+- **Activity 1 in two parts.** *1A, everyone:* join Meta Muse at muse.ai with Facebook, then redeem the trainer's invite code **H1KWDZ** in Settings › General › Usage within 48 hours of joining. You and the trainer each get 1 billion Muse tokens. *1B, if your ChatGPT plan includes dots:* set up an OpenAI Dot and give it a standing job. OpenAI is rolling dots out to Pro and Business Premium, with an Enterprise/Edu/Healthcare beta. Two new visual lab slides show the invite card, a plan check and the embedded Dots setup video. Grok Bot becomes a reference route.
+- **Try Scenario 2 live.** A new slide after Scenario 2: scan Tertiary Infotech Academy's WhatsApp Business QR code, so the whole class messages one account at once.
+- LG 1.5, 1.7 and the Lesson Plan updated to match; FG/AP v11. Assessment v7 unchanged (slide citations re-bound).
+
+## v2.9 — 30 October 2026 (not published separately)
+
+- **Five collaboration scenarios** replace the five "patterns". Each slide now opens with a one-line pitch and a vivid hook, then lists three named, real-world examples under "Where you see it today": Scenario 1 names Dots, Muse, Grok Bot, Duet and Cue, Hermes Desktop, and Claude Code/Codex; Scenario 4 names Singapore's AgentSea and Stanford's virtual biotech. The repeated "How it works / The human decides / Watch for" rows are gone. LG 1.5 is rewritten to match.
+
 ## v2.8 — 30 October 2026
 
 Published release of the v2.7 Topic 1 review (below), plus:

@@ -11,7 +11,7 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v2.8"
+VERSION      = "v3.3"
 VERSION_DATE = "30 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
@@ -30,7 +30,7 @@ LEARNING_OUTCOMES = [
 
 # ------------------------------------------------------------------ topics
 TOPICS = [
- dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and what agentic AI is", "Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide", "Two work modes, five collaboration patterns, use cases and the Big Five always-on agents", "Activity 1 · Set up an always-on assistant"]),
+ dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and what agentic AI is", "Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide", "Two work modes, five collaboration scenarios, use cases and the Big Five always-on agents", "Activity 1 · Join Meta Muse (invite code) and set up an OpenAI Dot"]),
  dict(num=2,code="02",weighting="35%",title="Hermes Agent — Single-Agent Office Automation, Tools & Skills",short="Hermes Agent",items=["Activity 2 · Hermes Desktop, tools, skills and source brief", "Activity 3 · gog: Gmail, Calendar, Drive and Excel", "Activity 4 · Dashboard, professional PPT and single-agent video", "Human review and one approved training email"]),
  dict(num=3,code="03",weighting="35%",title="Hermes Teams & OpenAI Dots — Kanban, Video & Human Oversight",short="Hermes Teams & Dots",items=["Activity 5 · Hermes bots and Kanban video studio", "Activity 6 · Source retrieval, verification and maintenance", "Activity 7 · Dots: supervised launch review", "Activity 8 · Team video revision, local release and evaluation"]),
 ]
@@ -56,13 +56,13 @@ LUS = [
 SCHEDULE = {
  1: [
   ("9:30","9:50",20,"admin","Welcome, attendance, outcomes and official SWDA AI subscription redemption steps","LU1"),
-  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; what agentic AI is; under the hood: the model in a harness, tools and skills, the agentic loop; AI does the work, humans decide; personal assistant vs digital worker; five collaboration patterns (one human/one agent to inter-company); use cases, AI for Science and a humanoid elderly-care task","LU1"),
+  ("9:50","11:05",75,"topic","Topic 1 (Part A) — brief AI history; what agentic AI is; under the hood: the model in a harness, tools and skills, the agentic loop; AI does the work, humans decide; personal assistant vs digital worker; five collaboration scenarios with named examples (one human/one agent to inter-company); use cases, AI for Science and a humanoid elderly-care task","LU1"),
   ("11:05","11:20",15,"break","Tea break (included in scheduled LU time)","LU1"),
-  ("11:20","12:00",40,"topic","Topic 1 (Part B) — deployment evolution (OpenClaw → Hermes → hosted agents); the Big Five comparison and one briefing slide each (Muse, Dots, Grok Bot, Duet, Cue) with official sources and setup videos; choose the Activity 1 route","LU1"),
-  ("12:00","13:15",75,"lab","Lab 1: Activity 1 — connect one assistant (Muse, Dots or Grok Bot) to Gmail/Calendar; schedule check and email draft (PP Task 1 image A)","LU1"),
+  ("11:20","12:00",40,"topic","Topic 1 (Part B) — deployment evolution (OpenClaw → Hermes → hosted agents); the Big Five comparison and one briefing slide each (Muse, Dots, Grok Bot, Duet, Cue) with official sources and setup videos; Scenario 2 tried live on WhatsApp","LU1"),
+  ("12:00","13:15",75,"lab","Lab 1: Activity 1A — join Meta Muse at muse.ai and redeem the trainer’s invite code; Activity 1B — set up an OpenAI Dot (Pro/Business Premium); Activity 1C — speak prompts with Wispr Flow; connect Gmail/Calendar, schedule check and email draft (PP Task 1 image A)","LU1"),
   ("13:15","13:30",15,"activity","Lab 1 checkpoint and results review — source accuracy, approval controls, limits and actual stop state (trainer-led, using the Lab 1 checklist)","LU1"),
   ("13:30","14:30",60,"lunch","Lunch break",""),
-  ("14:30","15:30",60,"lab","Lab 2: Activity 2A — introduce Kopi Kaki; Hermes Desktop, features, tools and reviewed skills","LU1"),
+  ("14:30","15:30",60,"lab","Lab 2: Activity 2A — the Kopi Kaki company pack; Hermes Desktop, features, tools and reviewed skills","LU1"),
   ("15:30","16:00",30,"lab","Lab 2: Activity 2B — install office/gog/video skills, verify tools and save the source brief","LU2"),
   ("16:00","16:15",15,"break","Tea break (included in scheduled LU time)","LU2"),
   ("16:15","17:05",50,"lab","Lab 3: Activity 3 — Hermes gog Gmail/Calendar/Drive and verified Excel analysis","LU2"),

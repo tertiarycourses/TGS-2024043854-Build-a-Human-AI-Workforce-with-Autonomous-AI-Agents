@@ -51,3 +51,11 @@ Implementation lives in the **tertiary-course-slides** skill (`make_slides.py`).
 3. **All content slides are card-format and visual.** content() renders numbered visual
    cards (LIGHT card + accent bar + number chip) — plain bullet-wall slides are banned
    everywhere, including admin slides (TRAQOM, Briefing, Assessment, recaps).
+
+
+## YouTube videos: embed so they play on click in PowerPoint (user rule, 30 Oct 2026)
+
+Use the **`pptx-youtube-video`** skill (`~/.claude/skills/pptx-youtube-video/`) for every YouTube or online video in a
+deck: `add_online_video(slide, url, x, y, w, h)`. It writes PowerPoint's Online Film markup, verified with the
+trainer, and adds a "▶ Open in YouTube" fallback link. Never use a screenshot plus a link. Trainers must click
+**Enable Content** on PowerPoint's yellow "external media blocked" bar before videos play; say so in the trainer notes.
