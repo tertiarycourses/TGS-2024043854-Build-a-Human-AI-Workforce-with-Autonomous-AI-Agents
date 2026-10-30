@@ -1,0 +1,61 @@
+LAB 4 — Activity 4 — Your Social Media Marketing Team
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Copy the lab data and create the output folders (3 min)
+------------------------------------------------------------------------
+cp -Rn data/* ~/kopi-kaki/
+mkdir -p ~/kopi-kaki/outputs/social/images
+cd ~/kopi-kaki && ls souls tasks tools
+
+[2] TERMINAL — Staff the team: five profiles, one job each (8 min)
+------------------------------------------------------------------------
+hermes profile create researcher --clone --description "Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact"
+hermes profile create linkedin-writer --clone --description "Writes the founder's LinkedIn post: story, proof, call to action; professional Singapore English"
+hermes profile create facebook-writer --clone --description "Writes the neighbourhood Facebook post: pop-up dates, launch day, friendly kopitiam voice"
+hermes profile create instagram-writer --clone --description "Writes the Instagram caption, first-line hook and hashtags for a 1080x1350 image post"
+hermes profile create image-creator --clone --description "Creates one on-brand 1080x1350 image per post with tools/make_post_image.py and builds the review gallery"
+for p in researcher linkedin-writer facebook-writer instagram-writer image-creator; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
+hermes profile list
+
+[3] PROMPT — Meet your team as bots (5 min)  (paste into: Hermes Desktop → Bots tab → researcher)
+------------------------------------------------------------------------
+Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in ~/kopi-kaki will you read first?
+
+[4] PROMPT — Build the Kanban board with a human gate (10 min)  (paste into: Hermes Desktop → default profile (Mia), started in ~/kopi-kaki)
+------------------------------------------------------------------------
+Use the Kanban tools to build the board for tenant kopi-social, workspace ~/kopi-kaki.
+1. Research launch angles - assignee researcher - body from tasks/s1-research.md.
+2. LinkedIn post - assignee linkedin-writer - parent: card 1 - body from tasks/s2-linkedin.md.
+3. Facebook post - assignee facebook-writer - parent: card 1 - body from tasks/s3-facebook.md.
+4. Instagram post - assignee instagram-writer - parent: card 1 - body from tasks/s4-instagram.md.
+5. Images and review gallery - assignee image-creator - parents: cards 2, 3 and 4 - body from tasks/s5-images.md.
+6. HUMAN: approve the posts - unassigned, parent: card 5. Only I complete this card.
+Show me the card IDs, assignees and parents as a table. Do not start anything outside this board and never post to a real account.
+
+[5] TERMINAL — Watch the team work (12 min)
+------------------------------------------------------------------------
+hermes kanban watch --tenant kopi-social
+# or the web view:
+hermes dashboard          # then open Kanban
+
+[6] TERMINAL — Open the posts gallery (5 min)
+------------------------------------------------------------------------
+open ~/kopi-kaki/outputs/social/gallery.html      # Windows: start  ·  Linux: xdg-open
+
+[7] TERMINAL — Review like the founder: APPROVE, EDIT or REJECT (10 min)
+------------------------------------------------------------------------
+hermes kanban list --tenant kopi-social
+hermes kanban complete <human_card_id>     # after you have checked the refreshed gallery
+
+[8] PROMPT — Review like the founder: APPROVE, EDIT or REJECT (10 min)  (paste into: Hermes Desktop → default profile (Mia))
+------------------------------------------------------------------------
+My decisions for the kopi-social posts:
+- LinkedIn: APPROVE
+- Facebook: EDIT - put the first pop-up date in the first line and cut the post to 80 words
+- Instagram: APPROVE
+Create a rework card for the facebook-writer with my edit as its body and the image creator's card as parent, then a card for the image-creator to refresh the gallery. Record every decision with date and reason in outputs/social/approval-log.md. Leave my HUMAN card open: I complete it myself.
+
+[9] PROMPT — Reflect: team versus one agent (5 min)  (paste into: Hermes Desktop → default profile (Mia))
+------------------------------------------------------------------------
+Compare today's five-profile team with you working alone: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a team, and when one agent?

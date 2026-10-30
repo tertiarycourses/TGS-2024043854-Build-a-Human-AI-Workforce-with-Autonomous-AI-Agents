@@ -720,6 +720,8 @@ Gentle: slow push-ins, pour shots, 0.3-0.5 s eases. No flashing.
 """
 
 # v2.1 office-to-team progression; preserve the canonical lab slugs and assessed evidence links.
+import copy as _copy
+RAW_LABS = _copy.deepcopy(LABS)   # the original v2.0 labs (Telegram/cron, Paperclip) reused by labs_v34
 from labs_2026 import apply as _apply_2026
 _apply_2026(LABS)
 
@@ -752,3 +754,6 @@ for _key in list(TASKS):
 
 import labs_v23
 labs_v23.apply(LABS)
+
+import labs_v34   # v3.4: one founder story, Activities 1-5 + Topic 2 setup + bonus Paperclip
+labs_v34.apply(LABS, RAW_LABS)

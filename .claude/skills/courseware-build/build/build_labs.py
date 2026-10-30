@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 import mock_data as M
 from data_labs import LABS, SOULS, TASKS, DESIGN_MD
-import pack_2026
+import pack_2026, pack_v34
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -25,6 +25,7 @@ def _find_repo(start):
 REPO = _find_repo(HERE)
 LABS_DIR = os.path.join(REPO, "labs")
 CHROME = os.environ.get("CHROME", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+def TOPIC(L): return 'Bonus topic' if L['topic'] == 4 else f"Topic {L['topic']}"
 FOOT = f"Part of the WSQ course <b>{C.TITLE}</b> ({C.COURSE_CODE}) · © 2026 {C.ORG} · www.tertiarycourses.com.sg"
 SYNTH = "All company data in this lab (Kopi Kaki Co., people, reviews, comments, metrics, competitors) is fictional and generated for training."
 
@@ -79,16 +80,12 @@ def data_pack(L, ddir, assets_src):
     files = []
     for key in L["data"]:
         rel, fn = M.FILES[key]; write(os.path.join(ddir, rel), fn()); files.append(rel)
-    if L["num"] in (5,8):
+    if L["code"] == "05":
         write(os.path.join(ddir, "DESIGN.md"), DESIGN_MD); files.append("DESIGN.md")
-        for k, v in SOULS.items():
-            write(os.path.join(ddir, "souls", f"{k}.SOUL.md"), f"# {k} — SOUL.md\n\n{v}\n"); files.append(f"souls/{k}.SOUL.md")
-        for k in ("t1-research.md", "t2-script.md", "t3-produce.md", "t4-audit.md", "t5-package.md", "t6-post.md"):
-            write(os.path.join(ddir, "tasks", k), TASKS[k] + "\n"); files.append(f"tasks/{k}")
-    if L["num"] != 1:
+    if L["code"] != "01":
         shutil.copytree(assets_src, os.path.join(ddir, "assets"), dirs_exist_ok=True)
         files += [f"assets/{f}" for f in sorted(os.listdir(assets_src))]
-    files += pack_2026.assets(L, ddir)
+    files += pack_v34.assets(L, ddir)
     return files
 
 DESCR = {
@@ -99,20 +96,23 @@ DESCR = {
  "sales-by-outlet.csv": "Weekly sales for 12 outlets", "video-qa-checklist.md": "V1–V9 video QA checks", "DESIGN.md": "Visual identity for HyperFrames",
  "paperclip-company-setup.md": "Values for the Paperclip company set-up", "paperclip-org-plan.md": "Reference hiring plan",
  "paperclip-backlog.csv": "7 launch issues with dependencies", "paperclip-routine-weekly-kopi-short.md": "Routine spec", "agent-scorecard.csv": "Month-1 agent scorecard (mock)",
+ "paperclip-opc-setup.md": "Values for the Kopi Kaki one-person company and the target org chart", "website-brief.md": "One-page website brief",
+ "approved-test-send.md": "Procedure for the one approved test email", "make_post_image.py": "Offline on-brand image tool (Pillow)",
 }
 def describe(rel):
     b = os.path.basename(rel)
     if rel.startswith("skills/"): return "Agent skill (SKILL.md)"
     if rel.startswith("souls/"): return "Role + rules for one studio profile"
-    if rel.startswith("tasks/"): return "Task contract; use current Kanban tools or --body text"
+    if rel.startswith("tasks/"): return "Task brief for one Kanban card"
+    if rel.startswith("tools/"): return DESCR.get(b, "Small local tool")
     if rel.startswith("templates/"): return "Template"
     if rel.startswith("assets/"): return "Brand image asset"
     return DESCR.get(b, "")
 
 # ------------------------------------------------------------------ README.md
 def readme(L, files):
-    o = [f"# Lab {L['num']} — {L['title']}", "",
-         f"**Day {L['day']} · Topic {L['topic']} · {L['minutes']} min · {L['paradigm']} · {L['lo']}**", "",
+    o = [f"# {L['label']} — {L['title']}", "",
+         f"**Day {L['day']} · {TOPIC(L)} · {L['minutes']} min · {L['paradigm']} · {L['lo']}**", "",
          f"> {L['hook']}", "", "## Goal", L["objective"], "", "## The business scenario", L["scenario"], "",
          "## You will deliver"] + [f"- {d}" for d in L["deliverables"]] + ["",
          "## Who does what", f"- **Agents:** {L['agents']}", f"- **You (the human):** {L['human']}", "",
@@ -121,7 +121,7 @@ def readme(L, files):
          "## Lab files (`data/`)", "", "| File | What it is |", "|---|---|"] + \
         [f"| `{f}` | {describe(f)} |" for f in files] + ["", f"_{SYNTH}_", "",
          "Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Prompts page](../../prompts/index.html). "
-         f"Printable instructions: [`LAB-{L['num']:02d}-Instructions.pdf`](LAB-{L['num']:02d}-Instructions.pdf).", "", "## Steps", ""]
+         f"Printable instructions: [`LAB-{L['code']}-Instructions.pdf`](LAB-{L['code']}-Instructions.pdf).", "", "## Steps", ""]
     for i, st in enumerate(L["steps"], 1):
         o.append(f"### {i}. {st['title']}")
         if st.get("body"): o += [st["body"], ""]
@@ -135,7 +135,7 @@ def readme(L, files):
     return "\n".join(o)
 
 def copy_prompts(L):
-    o = [f"LAB {L['num']} — {L['title']}", f"{C.TITLE} ({C.COURSE_CODE})", "=" * 72, ""]
+    o = [f"{L['label'].upper()} — {L['title']}", f"{C.TITLE} ({C.COURSE_CODE})", "=" * 72, ""]
     n = 0
     for st in L["steps"]:
         if st.get("prompt") or st.get("cmd"):
@@ -167,9 +167,9 @@ h2{break-after:avoid}.step{break-inside:avoid}.cover{background:#21201C;color:#f
 def e(t): return html.escape(str(t))
 
 def lab_html(L, files):
-    p = [f"<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Lab {L['num']} — {e(L['title'])}</title>",
+    p = [f"<!doctype html><html lang='en'><head><meta charset='utf-8'><title>{L['label']} — {e(L['title'])}</title>",
          f"<style>{CSS}{PRINT_CSS}</style></head><body><div class='wrap'>",
-         f"<div class='cover'><p class='k'>{C.COURSE_CODE} · Day {L['day']} · Lab {L['num']} · {L['minutes']} min</p>",
+         f"<div class='cover'><p class='k'>{C.COURSE_CODE} · Day {L['day']} · {L['label']} · {L['minutes']} min</p>",
          f"<h1>{e(L['title'])}</h1><p class='meta'>{e(C.TITLE)} · {e(L['paradigm'])} · {L['lo']}</p></div>",
          f"<p class='hook'>{e(L['hook'])}</p>",
          f"<h2>The business scenario</h2><p>{e(L['scenario'])}</p>",
@@ -200,13 +200,15 @@ def to_pdf(html_text, out_pdf):
                         f"--print-to-pdf={out_pdf}", "file://" + src], check=True, capture_output=True)
 
 # ------------------------------------------------------------------ prompts page
+SECTIONS = [(1, "Topic 1 · Your always-on CEO assistant"), (2, "Topic 2 · Your first AI employee: one Hermes agent"),
+            (3, "Topic 3 · Your AI marketing teams: social media and video"), (4, "Bonus topic (optional) · Kopi Kaki as a one-person company in Paperclip")]
 def prompts_page():
-    nav = "".join(f"<a href='#lab-{L['num']}'>Lab {L['num']}</a>" for L in LABS)
+    nav = "".join(f"<a href='#lab-{L['code']}'>{e(L['label'])}</a>" for L in LABS)
     picks = ""
-    for day, name in ((1, "Day 1 · Always-on assistant, then Hermes office automation"), (2, "Day 2 · Multi-agent video studio — Hermes bots, Kanban and Dots")):
+    for tp, name in SECTIONS:
         picks += f"<h3>{e(name)}</h3><ul>" + "".join(
-            f"<li><a href='#lab-{L['num']}'>Lab {L['num']} · {e(L['title'])}</a> <span class='meta'>· {L['minutes']} min</span></li>"
-            for L in LABS if L["day"] == day) + "</ul>"
+            f"<li><a href='#lab-{L['code']}'>{e(L['label'])} · {e(L['title'])}</a> <span class='meta'>· Day {L['day']} · {L['minutes']} min</span></li>"
+            for L in LABS if L["topic"] == tp) + "</ul>"
     secs = []
     for L in LABS:
         rel = f"../labs/{L['slug']}"
@@ -222,12 +224,14 @@ def prompts_page():
                 blocks.append(f"<div class='prompt'><header><div><b>{n}. {e(st['title'])}</b><span class='ptool'>{label} · paste into {e(where)}</span></div>"
                               f"<button class='copy' type='button'>Copy</button></header><pre>{e(st[kind])}</pre>"
                               + (f"<p class='exp'>✓ {e(st['expect'])}</p>" if st.get("expect") and kind == ("prompt" if st.get("prompt") else "cmd") else "") + "</div>")
-        secs.append(f"<section class='lab' id='lab-{L['num']}'><p class='k'>Lab {L['num']} · Day {L['day']} · Topic {L['topic']} · {L['minutes']} min · {e(L['paradigm'])}</p>"
+            if st.get("expect") and not (st.get("cmd") or st.get("prompt")): blocks.append(f"<p class='exp'>✓ {e(st['expect'])}</p>")
+        secs.append(f"<section class='lab' id='lab-{L['code']}'><p class='k'>{e(L['label'])} · Day {L['day']} · {TOPIC(L)} · {L['minutes']} min · {e(L['paradigm'])}</p>"
                     f"<h2>{e(L['title'])}</h2><p class='hook'>{e(L['hook'])}</p>"
-                    f"<p class='files'><a href='{rel}/LAB-{L['num']:02d}-Instructions.pdf'>Instructions PDF</a> · <a href='{rel}/README.md'>README</a> · "
+                    f"<p class='files'><a href='{rel}/LAB-{L['code']}-Instructions.pdf'>Instructions PDF</a> · <a href='{rel}/README.md'>README</a> · "
                     f"<a href='{rel}/COPY-PROMPTS.txt'>All prompts (.txt)</a> · <a href='{rel}/data/'>Data folder</a></p>"
                     f"<details><summary>Scenario & deliverables</summary><p>{e(L['scenario'])}</p><ul>" +
                     "".join(f"<li>{e(d)}</li>" for d in L["deliverables"]) + f"</ul><p><b>You:</b> {e(L['human'])}</p></details>" +
+                    (("<details><summary>Before you start</summary><ul>" + "".join(f"<li>{e(x)}</li>" for x in L["prereq"]) + "</ul></details>") if L.get("prereq") else "") +
                     "".join(blocks) + f"<p class='check'><b>Checkpoint:</b> {e(L['check'])}</p><p><a href='#top'>↑ Back to labs</a></p></section>")
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lab Prompts | {e(C.TITLE)}</title><style>{CSS}
@@ -244,11 +248,11 @@ details{{background:var(--panel);border:1px solid var(--rule);border-radius:10px
 @media(max-width:600px){{nav{{flex-wrap:nowrap;overflow:auto}}nav a{{flex:none}}h1{{font-size:26px}}pre{{font-size:12.5px}}}}
 </style></head><body><main class="wrap" id="top">
 <p class="k">{C.COURSE_CODE} · {e(C.SHORT_TITLE)} · {C.VERSION}</p><h1>Lab Steps & Copyable Prompts</h1>
-<p class="meta">{e(C.TITLE)} — two days, eight activities. Start with a personal-assistant exercise; begin the fictional company scenario after lunch. Pick your lab, click <b>Copy</b>, paste into the named place, and verify every result.
+<p class="meta">{e(C.TITLE)} — you are the founder of Kopi Kaki Co., a Singapore kopi startup, and AI agents help you start it: a CEO assistant, your first AI employee, two AI marketing teams and, as a bonus, a one-person company. Every step below has its instructions and a <b>Copy</b> button: copy, paste into the named place, and verify every result.
 This page works offline: open <code>prompts/index.html</code> from the downloaded course folder.</p>
-<div class="pick"><b>One connected project: the Kopi Kaki launch</b><p>Day 1: always-on assistant → Hermes Desktop and skills → Google/Excel → dashboard/PPT and single-agent video.<br>Day 2: Kanban specialists → video production → independent audit → human decision.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
+<div class="pick"><b>One connected story: start Kopi Kaki Co.</b><p>Day 1: always-on CEO assistant (Muse or Dots) → Hermes setup (model, Telegram, tools, skills, Firecrawl, gog, cron) → the Kopi Kaki website → the pitch deck.<br>Day 2: social media marketing team → video production team → AI security → bonus: Paperclip one-person company.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
 <nav aria-label="Labs">{nav}</nav>
-<div class="pick"><b>Before Lab 1:</b> set up one accessible always-on assistant with the assigned training Google account. After lunch, Activity 2 introduces the company workspace <code>~/kopi-kaki</code> and copy each lab's <code>data/</code> folder into it as you go. Outputs go to <code>~/kopi-kaki/outputs/labNN/</code>.{picks}</div>
+<div class="pick"><b>How it fits together:</b> Lab 1 uses the trainer-assigned Google account. From the Topic 2 setup on, everything happens in one company workspace, <code>~/kopi-kaki</code>: copy each lab's <code>data/</code> folder into it as you go, and each lab saves to <code>~/kopi-kaki/outputs/</code> (website, deck, social, video).{picks}</div>
 {''.join(secs)}
 <p class="foot">{FOOT}<br>{e(SYNTH)}<br>Powered by <a href="https://www.tertiaryinfotech.com/">Tertiary Infotech Academy Pte Ltd</a></p></main><div id="status" role="status" aria-live="polite"></div>
 <script>
@@ -264,21 +268,24 @@ document.querySelectorAll('.copy').forEach(function(b){{b.addEventListener('clic
 
 def labs_index():
     o = [f"# Labs — {C.TITLE}", "",
-         f"Eight activities: morning personal-assistant practice, then the **{C.SCENARIO}** company scenario from Activity 2. The Day 1 office pack is saved under `outputs/lab02/`; the video team uses `outputs/team/`; follow each named artifact path.", "",
-         "**Copy-ready prompts:** open [`../prompts/index.html`](../prompts/index.html) in your browser (works offline) — pick a lab, click **Copy**.", "",
-         "Each lab folder contains `README.md`, `LAB-NN-Instructions.pdf` (printable), `COPY-PROMPTS.txt` and `data/` (mock company files, skills and brand assets).", ""]
-    for day, name in ((1, "Day 1 — Always-on assistant, then Hermes office tools and skills"), (2, "Day 2 — Hermes bots, Kanban video, source assurance and Dots")):
-        o += [f"## {name}", "", "| # | Lab | Paradigm | Time | Instructions |", "|---|---|---|---|---|"]
+         "**The story:** you are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup opening its Tiong Bahru flagship on 1 Dec 2026. "
+         "AI agents help you start it — three mandatory topics and one bonus topic, one workspace (`~/kopi-kaki`).", "",
+         "**Copy-ready prompts:** open the [Lab Prompts page](../prompts/index.html) (also online on the course GitHub Page) — pick a lab, click **Copy**.", "",
+         "Each folder contains `README.md`, `LAB-<code>-Instructions.pdf` (printable, every step and prompt), `COPY-PROMPTS.txt` and `data/` (mock company files, skills, role files and tools).", ""]
+    for tp, name in SECTIONS:
+        o += [f"## {name}", "", "| Lab | Title | How agents work | Time | Instructions |", "|---|---|---|---|---|"]
         for L in LABS:
-            if L["day"] == day:
-                o.append(f"| {L['num']} | [{L['title']}]({L['slug']}/README.md) | {L['paradigm']} | {L['minutes']} min | [PDF]({L['slug']}/LAB-{L['num']:02d}-Instructions.pdf) |")
+            if L["topic"] == tp:
+                o.append(f"| {L['label']} | [{L['title']}]({L['slug']}/README.md) | {L['paradigm']} | {L['minutes']} min | [PDF]({L['slug']}/LAB-{L['code']}-Instructions.pdf) |")
         o.append("")
-    o += ["## Topic 1 activity", "Activity 1: set up one accessible Muse, Dots or Grok Bot; check schedule and draft a reply. Activity 2 begins the company scenario and Hermes Desktop after lunch.", "",
+    o += ["## Assessment evidence (Practical Performance)", "- Task 1: ONE Meta Muse or OpenAI Dots screenshot (Lab 1).",
+          "- Task 2: ONE Hermes Desktop/dashboard screenshot of your professional PPT (Lab 3).",
+          "- Task 3: TWO screenshots — your Hermes Kanban board and the video it produced (Lab 5).", "",
           "## Conventions", "- Prompts are plain English; terminal commands are marked `bash`.",
-          "- Hermes: start `hermes` inside `~/kopi-kaki` so `AGENTS.md` is loaded. OpenAI Dots: https://chatgpt.com/dots (verify entitlement).",
-          "- Nothing public is ever published without a human APPROVE / Board approval.",
+          "- Hermes: start it inside `~/kopi-kaki` so `AGENTS.md` is loaded.",
+          "- Nothing public is ever posted or sent without your explicit APPROVE.",
           "- Platforms move fast — if a command differs on your version, check `--help` and the official docs "
-          "([Hermes](https://hermes-agent.nousresearch.com/docs/) · [OpenAI Dots](https://learn.chatgpt.com/docs/dots/getting-started)).", "",
+          "([Hermes](https://hermes-agent.nousresearch.com/docs/) · [Paperclip](https://github.com/paperclipai/paperclip) · [OpenAI Dots](https://learn.chatgpt.com/docs/dots/getting-started)).", "",
           f"<sub>{FOOT.replace('<b>', '**').replace('</b>', '**')}</sub>", ""]
     return "\n".join(o)
 
@@ -289,11 +296,11 @@ def main():
         os.makedirs(ld, exist_ok=True)
         files = data_pack(L, os.path.join(ld, "data"), tmp_assets)
         data_links = "".join(f"<li><a href=\"{e(f)}\">{e(f)}</a> — {e(describe(f))}</li>" for f in files)
-        write(os.path.join(ld,"data","index.html"),f"<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Lab {L['num']} data files</title><body style=\"font:18px system-ui;max-width:900px;margin:40px auto;padding:20px\"><h1>Lab {L['num']}: Data and tools</h1><p>Download the course ZIP for the full folder structure. These files contain synthetic training data only.</p><ul>{data_links}</ul><a href=\"../../../prompts/index.html#lab-{L['num']}\">Back to lab steps</a></body></html>")
+        write(os.path.join(ld,"data","index.html"),f"<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>{L['label']} data files</title><body style=\"font:18px system-ui;max-width:900px;margin:40px auto;padding:20px\"><h1>{L['label']}: Data and tools</h1><p>Download the course ZIP for the full folder structure. These files contain synthetic training data only.</p><ul>{data_links}</ul><a href=\"../../../prompts/index.html#lab-{L['code']}\">Back to lab steps</a></body></html>")
         write(os.path.join(ld, "README.md"), readme(L, files))
         write(os.path.join(ld, "COPY-PROMPTS.txt"), copy_prompts(L))
-        to_pdf(lab_html(L, files), os.path.join(ld, f"LAB-{L['num']:02d}-Instructions.pdf"))
-        print("lab", L["num"], "->", L["slug"], f"({len(files)} data files)")
+        to_pdf(lab_html(L, files), os.path.join(ld, f"LAB-{L['code']}-Instructions.pdf"))
+        print(L["label"], "->", L["slug"], f"({len(files)} data files)")
     write(os.path.join(LABS_DIR, "README.md"), labs_index())
     write(os.path.join(REPO, "prompts", "index.html"), prompts_page())
     shutil.copy(os.path.join(tmp_assets, "kopi-kaki-logo.png"), os.path.join(REPO, "courseware", "assets", "logos", "kopi-kaki.png"))

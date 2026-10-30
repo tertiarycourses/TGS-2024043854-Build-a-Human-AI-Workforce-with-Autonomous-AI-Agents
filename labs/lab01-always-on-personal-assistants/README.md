@@ -1,19 +1,18 @@
-# Lab 1 — Activity 1 — Join Meta Muse, Set Up an OpenAI Dot
+# Lab 1 — Activity 1 — Your Always-On CEO Assistant: Meta Muse or OpenAI Dots
 
 **Day 1 · Topic 1 · 75 min · Personal assistant + human decisions · LO1**
 
-> Join Muse with your trainer’s invite code, add a dot if your plan has one, then speak to it with Wispr Flow: your schedule and an email, without typing.
+> Before you hire anyone, get a CEO assistant that never clocks off: it checks your schedule and drafts your email while you talk to it.
 
 ## Goal
 Inspect one always-on agent’s real access, actions, strengths and limitations; retain own-work evidence for PP Task 1 (LO1).
 
 ## The business scenario
-You work at Kopi Kaki Co., a fictional Singapore kopi chain launching Gula Melaka Cold Brew on 1 Dec 2026. Your week is packed with meetings: a launch review, a supplier tasting, an outlet visit. Pick any meeting on the calendar; your assistant checks it and drafts the reply. Use only the trainer-assigned Google account with synthetic Kopi Kaki mail and events.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Your week is packed: a launch review with your two baristas, a supplier tasting for the gula melaka, a pop-up site visit. Your always-on CEO assistant checks the calendar and drafts the replies. Use only the trainer-assigned Google account with synthetic Kopi Kaki mail and events.
 
 ## You will deliver
 - outputs/assistant/setup-check.md — agent/version, actual route, connection status, source IDs, limits and stop check
 - outputs/assistant/email-draft.txt — reviewed local copy; not sent
-- PP Task 1 image A: ONE own assistant request/result screenshot showing a real schedule check or email draft; add image B of a Hermes-generated artifact after Activity 4
 
 ## Who does what
 - **Agents:** 1A Meta Muse for everyone (muse.ai, trainer invite code); 1B OpenAI Dots if your ChatGPT plan includes dots; 1C Wispr Flow to speak your prompts
@@ -88,17 +87,17 @@ Pick one Kopi Kaki meeting you verified and draft a concise reply about it, usin
 ✅ **Expected:** Reviewed email text; correction linked to a source. Copy to outputs/assistant/email-draft.txt.
 
 ### 8. Inspect ongoing work and capture evidence (10 min)
-Inspect active tasks/responsibilities and pause or stop the specific task using the product’s actual controls. Leaving chat is not proof that ongoing work stopped. Save setup-check.md locally with selected route, actual reads, errors, source checks and stop state. Capture ONE readable own request/result screenshot as PP Task 1 image A; hide identifiers and unrelated mail. You will add a Hermes artifact screenshot as image B after lunch. If no route executed, record incomplete and arrange an executed attempt; a sample screenshot is not evidence.
+Inspect active tasks/responsibilities and pause or stop the specific task using the product’s actual controls. Leaving chat is not proof that ongoing work stopped. Save setup-check.md locally with selected route, actual reads, errors, source checks and stop state. Capture ONE readable own request/result screenshot for PP Task 1; hide identifiers and unrelated mail. If no route executed, record incomplete and arrange an executed attempt; a sample screenshot is not evidence.
 
-✅ **Expected:** Own assistant image A, local draft and verified task state.
+✅ **Expected:** Your PP Task 1 screenshot, local draft and verified task state.
 
 ## Verification / checkpoint
 - [ ] Chosen agent actually reads an assigned event or message and returns a substantive result
 - [ ] Calendar time/offset and email draft facts match independently opened source records
 - [ ] No message sent or meeting changed; actual task stop/pause state checked
-- [ ] PP1 image A is own executed work, not App Store, generic chat, mockup or trainer-only demo
+- [ ] Your PP Task 1 screenshot is own executed work, not App Store, generic chat, mockup or trainer-only demo
 
-**Checkpoint:** Muse joined with the invite code (plus a dot if your plan has one); real source evidence, reviewed draft and stop check; PP1 image A saved.
+**Checkpoint:** Muse joined with the invite code (plus a dot if your plan has one); real source evidence, reviewed draft and stop check; PP Task 1 screenshot saved.
 
 ## Troubleshooting
 

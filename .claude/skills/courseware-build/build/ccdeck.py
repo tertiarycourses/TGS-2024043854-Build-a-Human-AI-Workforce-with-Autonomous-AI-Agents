@@ -454,7 +454,7 @@ def prompt(D, kicker, title, prompt_text, sub=None, side=None, label="PROMPT  ·
 
 def lab_intro(D, lab, kicker):
     """Lab overview: scenario on the left (dark), deliverables + agents + time on the right."""
-    s = D.new(); header(D, s, kicker, f"Lab {lab['num']} — {lab['title']}", lab["hook"])
+    s = D.new(); header(D, s, kicker, f"{lab.get('label', 'Lab ' + str(lab['num']))} — {lab['title']}", lab["hook"])
     top = 2.45
     card(s, 0.6, top, 6.3, 4.3, fill=CHAR)
     icon(s, lab.get("icon", "rocket"), 0.9, top + 0.3, 0.6)
@@ -475,7 +475,7 @@ def lab_intro(D, lab, kicker):
 def lab_flow(D, lab, kicker):
     """The lab's step flow — numbered chevron-like cards (max 6)."""
     steps = lab["flow"]
-    s = D.new(dark=True); header(D, s, kicker, f"Lab {lab['num']} — How the workflow runs",
+    s = D.new(dark=True); header(D, s, kicker, f"{lab.get('label', 'Lab ' + str(lab['num']))} — How the workflow runs",
                                  "Perception → reasoning → action, with you at the checkpoints.")
     n = len(steps); gap = 0.18; W = 12.1; cw = (W - gap * (n - 1)) / n; top = 2.55; ch = 3.4
     for i, (ic, t, d, who) in enumerate(steps):

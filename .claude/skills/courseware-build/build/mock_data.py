@@ -14,8 +14,9 @@ import csv, io, random, datetime as dt
 SEED = 20261118
 COMPANY = "Kopi Kaki Co."
 LAUNCH = "Gula Melaka Cold Brew"
-OUTLETS = ["Tiong Bahru", "Tanjong Pagar", "Raffles Place", "Jurong East", "Punggol", "Paya Lebar",
-           "Bishan", "Clementi", "Tampines", "Woodlands", "Holland Village", "Changi Airport T3"]
+# A startup: one flagship (opening 1 Dec 2026) + soft-launch pop-ups where the tasting reviews were collected.
+OUTLETS = ["Tiong Bahru flagship (soft launch)", "Raffles Place pop-up", "Tanjong Pagar pop-up", "Punggol pop-up",
+           "Bishan pop-up", "Holland Village pop-up"]
 
 def _csv(rows, header):
     b = io.StringIO(); w = csv.writer(b, lineterminator="\n"); w.writerow(header); w.writerows(rows)
@@ -30,7 +31,7 @@ def agents_md():
 > All company data in this workspace is fictional training data.
 
 ## Who we are
-- **{COMPANY}** — a Singapore specialty kopi chain, founded 2019, 12 outlets, ~140 staff.
+- **{COMPANY}** — a Singapore kopi **startup**, founded 2026 by you (the founder-CEO). One flagship in Tiong Bahru opens on 1 Dec 2026; until then we sell at weekend pop-ups and take pre-orders in the Kopi Kaki app. Team: the founder, two baristas — and AI agents.
 - Positioning: *Heritage kopi, modern craft.* Traditional Nanyang roasting, third-wave care.
 - Customers: office workers 25–40 (weekday mornings), students 18–24 (afternoons), families (weekends).
 - Channels we post on: Instagram, TikTok, Facebook, LinkedIn (corporate news only), Telegram broadcast channel.
@@ -67,7 +68,7 @@ slow-brewed, served with a smile. "Kaki" means buddy — every customer is a kop
 ## Visual identity
 - Kopi Brown `#5B3A29` · Pandan Green `#4E8A3E` · Condensed-Milk Cream `#F6EBD9` · Gula Melaka Amber `#C7782A`
 - Typeface: rounded sans for headlines; logo always on cream or brown, never on busy photos.
-- Photography: natural light, hands holding cups, kopitiam tiles, real outlets — no stock models.
+- Photography: natural light, hands holding cups, kopitiam tiles, our flagship and pop-ups — no stock models.
 
 ## Words we love / avoid
 - Love: shiok, kopi kaki, slow-brewed, smooth, kopitiam, heritage, craft, share a cup
@@ -91,7 +92,7 @@ def campaign_brief():
 ## The product
 - **{LAUNCH}** — Nanyang-roast coffee steeped 12 hours, finished with gula melaka (palm sugar) syrup and
   coconut cream. Oat-milk option. Served over ice.
-- Price: **SGD 6.80** (regular) · **SGD 7.80** (large) · available at all 12 outlets and the Kopi Kaki app from **1 Dec 2026**.
+- Price: **SGD 6.80** (regular) · **SGD 7.80** (large) · available at the Tiong Bahru flagship, our pop-ups and the Kopi Kaki app from **1 Dec 2026**.
 
 ## Objectives & KPIs
 | Objective | KPI | Target |
@@ -102,7 +103,7 @@ def campaign_brief():
 | Loyalty | New app sign-ups | 1,200 |
 
 ## Audience
-1. **Office kaki** (25–40) — want a smooth afternoon pick-me-up near the CBD outlets.
+1. **Office kaki** (25–40) — want a smooth afternoon pick-me-up near our CBD pop-ups.
 2. **Student kaki** (18–24) — share-worthy drinks, value, TikTok.
 
 ## Key message
@@ -212,7 +213,7 @@ def social_comments():
         ("C07", "tiktok", "@cheapcoffee_bot", "Get 1000 followers FREE click my bio", "spam"),
         ("C08", "instagram", "@marcus.k", "Is SHIOK20 usable for the large size?", "question"),
         ("C09", "facebook", "Daniel Ong", "App charged me twice for a $6.80 order. Please refund.", "complaint-billing"),
-        ("C10", "tiktok", "@nightowl", "Which outlets open before 7am?", "question"),
+        ("C10", "tiktok", "@nightowl", "Will the Tiong Bahru flagship open before 7am?", "question"),
         ("C11", "instagram", "@straitsfoodie", "Hi, I'm a journalist with a food magazine — can I interview your founder?", "media-enquiry"),
         ("C12", "instagram", "@amy.bakes", "The ondeh ondeh cake + cold brew combo please!!", "praise"),
         ("C13", "facebook", "Lim KH", "Your coffee is worse than Kopi Corner, overpriced", "negative-competitor"),
@@ -222,7 +223,7 @@ def social_comments():
         ("C17", "instagram", "@kopi_kaki_fan", "Been a fan since Tiong Bahru opened! 🧡", "praise"),
         ("C18", "tiktok", "@lawyerly", "You used my photo without permission. Remove it or I will take legal action.", "legal-threat"),
         ("C19", "instagram", "@hungry.hippo", "Delivery on Grab?", "question"),
-        ("C20", "facebook", "Jason Teo", "Changi T3 outlet staff were super helpful 👍", "praise"),
+        ("C20", "facebook", "Jason Teo", "Raffles Place pop-up staff were super helpful 👍", "praise"),
     ]
     return _csv(rows, ["comment_id", "platform", "author_handle", "comment", "category_hint"])
 

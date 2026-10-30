@@ -1,0 +1,34 @@
+LAB 3 — Activity 3 — PPT Tool + Skill Build the Kopi Kaki Pitch Deck
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] TERMINAL — Copy the deck skill and check the PPT tool (3 min)
+------------------------------------------------------------------------
+cp -Rn data/* ~/kopi-kaki/
+cat ~/kopi-kaki/skills/kopi-pitch-deck/SKILL.md
+mkdir -p ~/.hermes/skills/office && cp -R ~/kopi-kaki/skills/kopi-pitch-deck ~/.hermes/skills/office/
+~/kopi-kaki/.office-venv/bin/python -c "import pptx; print('python-pptx', pptx.__version__)"
+hermes skills list | grep -i -E 'kopi-pitch-deck|microsoft-office'
+soffice --version
+
+[2] TERMINAL — Optional: add a hub PPT skill (3 min)
+------------------------------------------------------------------------
+hermes skills install official/finance/pptx-author
+
+[3] PROMPT — Brief the deck (15 min)  (paste into: Hermes Desktop — Mia, folder ~/kopi-kaki)
+------------------------------------------------------------------------
+Use the kopi-pitch-deck skill and python-pptx (~/kopi-kaki/.office-venv/bin/python). Build the Kopi Kaki Co. pitch deck for Friday's meeting with a bank relationship manager.
+- 8-10 slides: title · the problem · Gula Melaka Cold Brew (SGD 6.80, from 1 Dec 2026) · proof from the 60 pop-up tasting reviews (average rating and top themes with review IDs) · market and the 6 competitors · launch plan 17 Nov-14 Dec #ShiokColdBrew · KPIs (2,500 pre-orders, 8% engagement, 40,000 views) · budget SGD 15,000 · the ask (I will fill in the amount).
+- One NATIVE editable chart (ratings distribution or KPI targets), brand colours from brand-guide.md, the logo on the title slide.
+- Speaker notes: the source file for every number.
+Save outputs/deck/kopi-kaki-pitch.pptx, render outputs/deck/kopi-kaki-pitch.pdf with soffice, check every page for clipping or overlap, and write outputs/deck/qa-report.md.
+
+[4] TERMINAL — Check it: content errors and layout errors (8 min)
+------------------------------------------------------------------------
+open ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pdf
+open ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pptx
+cat ~/kopi-kaki/outputs/deck/qa-report.md
+
+[5] PROMPT — One revision, then approve (8 min)  (paste into: Hermes Desktop — Mia)
+------------------------------------------------------------------------
+Revise the deck: (1) make slide 2's headline state the problem in one sentence; (2) on the reviews slide show the average rating as one big number with the review count; (3) the ask slide: 'SGD 50,000 working capital for the Tiong Bahru flagship'. Re-render the PDF, re-check every page, and add the changes to qa-report.md. Then summarise what changed.

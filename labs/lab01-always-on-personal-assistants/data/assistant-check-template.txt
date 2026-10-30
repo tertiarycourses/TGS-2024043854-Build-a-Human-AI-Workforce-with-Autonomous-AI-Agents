@@ -4,5 +4,4 @@ Gmail result/source IDs or error:
 Calendar result/source IDs or error:
 Corrected draft:
 Actual stop state:
-PP1 image A path:
-Hermes image B to add after lunch:
+PP Task 1 screenshot path (Muse or Dots):

@@ -74,12 +74,14 @@ cards(D, "Housekeeping", "Ground Rules", [
     ("75% attendance", "Required for funding eligibility.", "check"),
     ("Stay hands-on", "Follow along with every lab.", "tool")], cols=3, bottom=5.9)
 
-s = D.new(); header(D, s, "Roadmap", "Course Outline", "Day 1: overview → always-on assistants → Hermes office practice. Day 2: Hermes teams and video.")
-for i, tp in enumerate(C.TOPICS):
-    x = 0.6 + i * 4.1; card(s, x, 2.45, 3.9, 4.35)
-    circle(s, x + 0.3, 2.7, 0.62, ACC); text(s, x + 0.3, 2.7, 0.62, 0.62, str(tp["num"]), 20, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
-    text(s, x + 0.3, 3.45, 3.35, 0.95, tp["title"], 16, INK, bold=True, font=SERIF)
-    text(s, x + 0.3, 4.45, 3.35, 2.25, "\n".join("•  " + it for it in tp["items"]), 12, MUTED, lh=1.25)
+s = D.new(); header(D, s, "Roadmap", "Course Outline", "You are the founder of Kopi Kaki Co. Three topics of agents help you start it; a bonus topic runs it as a one-person company.")
+for i, tp in enumerate(C.TOPICS + [C.BONUS]):
+    x = 0.6 + i * 3.08; bonus = tp is C.BONUS
+    card(s, x, 2.45, 2.9, 4.35, fill=CHAR if bonus else WHITE)
+    circle(s, x + 0.25, 2.65, 0.58, ACC); text(s, x + 0.25, 2.65, 0.58, 0.58, "B" if bonus else str(tp["num"]), 18, WHITE, bold=True, font=SERIF, align="c", anchor="m", autofit=False)
+    text(s, x + 0.95, 2.72, 1.85, 0.45, "BONUS · OPTIONAL" if bonus else f"TOPIC {tp['num']}", 10, ACC, bold=True, autofit=False)
+    text(s, x + 0.25, 3.35, 2.45, 1.05, tp["short"] if not bonus else "Paperclip one-person company", 15, WHITE if bonus else INK, bold=True, font=SERIF, minpt=11)
+    text(s, x + 0.25, 4.4, 2.5, 2.3, "\n".join("•  " + it for it in tp["items"]), 10.5, SOFT if bonus else MUTED, lh=1.18, minpt=8.5)
 
 cards(D, "What you'll achieve", "Learning Outcomes", [
     ("LO1 · Analyse AI applications", C.LEARNING_OUTCOMES[0].split(": ", 1)[1], "search"),
@@ -96,17 +98,17 @@ for day in (1, 2):
     table(D, "Roadmap", f"Lesson Plan — Day {day} (9:30 AM – 6:30 PM)", ["Time", "Session", "LU"], rows_,
           colw=[1.5, 9.7, 0.9], size=10.5 if day == 1 else 11)
 
-s = D.new(); header(D, s, "Roadmap · Hands-on", "Eight Activities Across Two Days",
-                    "Four activities per day: personal assistant setup, Hermes office work, then a supervised video team.")
+s = D.new(); header(D, s, "Roadmap · Hands-on", "Five Activities and a Bonus, One Startup Story",
+                    "Day 1: a CEO assistant, then your first AI employee. Day 2: AI marketing teams, then an AI company.")
 for i, L in enumerate(LABS):
     r, c = divmod(i, 4); x = 0.6 + c * 3.08; y = 2.3 + r * 2.07
     dark = L["day"] == 2
-    card(s, x, y, 2.3, 1.97, fill=CHAR if dark else WHITE)
-    text(s, x + 0.18, y + 0.14, 2.0, 0.3, f"LAB {L['num']}  ·  DAY {L['day']}", 10, ACC, bold=True, autofit=False)
+    card(s, x, y, 2.9, 1.97, fill=CHAR if dark else WHITE)
+    text(s, x + 0.18, y + 0.14, 2.6, 0.3, f"{L['label'].upper()}  ·  DAY {L['day']}", 10, ACC, bold=True, autofit=False)
     icon(s, L["icon"], x + 0.18, y + 0.5, 0.48, fill=ACC if dark else TEAL)
-    text(s, x + 0.18, y + 1.02, 1.98, 0.5, L["short"], 13.5, WHITE if dark else INK, bold=True, font=SERIF, minpt=10, lh=1.0)
-    text(s, x + 0.18, y + 1.53, 1.98, 0.4, L["paradigm"], 9.5, SOFT if dark else MUTED, minpt=8, lh=1.0)
-tip(D, s, "Day 1: always-on assistant, then Hermes office worker. Day 2: Hermes Kanban team, video and governance.", y=6.5)
+    text(s, x + 0.8, y + 0.52, 1.95, 0.5, L["short"], 13.5, WHITE if dark else INK, bold=True, font=SERIF, minpt=10, lh=1.0)
+    text(s, x + 0.18, y + 1.12, 2.55, 0.75, L["paradigm"], 10, SOFT if dark else MUTED, minpt=8, lh=1.05)
+tip(D, s, "PP evidence: Task 1 = Lab 1 Muse/Dots · Task 2 = Lab 3 Hermes PPT · Task 3 = Lab 5 Kanban + video. The bonus is optional.", y=6.5)
 
 s = D.new(); header(D, s, "Roadmap · Hands-on", "Lab Materials & the Lab Prompts Page",
                     "Everything you need is in the course repo: instructions PDF, mock data, skills and copy-ready prompts for every lab.")
@@ -164,8 +166,8 @@ LAB_EXTRAS = {}
 def meet_kopi(kick):
     """The course company, introduced at the start of Activity 1 (its meetings drive the Lab 1 schedule check)."""
     s = D.new(dark=True); header(D, s, kick + " · Your company", "Meet Kopi Kaki Co.",
-                                 "The fictional Singapore kopi chain you work for from this activity to Day 2. Its meetings are your Activity 1 calendar. All data is synthetic.")
-    facts = [("store", "12 outlets · 140 staff", "Heritage kopi, modern craft — Tiong Bahru to Changi T3."),
+                                 "You are the founder-CEO of this fictional Singapore kopi startup. Agents help you start it, from this activity to Day 2. All data is synthetic.")
+    facts = [("store", "A startup, founded by you", "Heritage kopi, modern craft. Flagship in Tiong Bahru opens 1 Dec 2026; pop-ups and app pre-orders until then."),
              ("coffee", "Launch: Gula Melaka Cold Brew", "SGD 6.80 · 1 Dec 2026 · code SHIOK20 (20% off first app order, 1–14 Dec)."),
              ("target", "Campaign #ShiokColdBrew", "17 Nov – 14 Dec · SGD 15,000 · 2,500 pre-orders · 8% engagement · 40k views."),
              ("shield", "Rules that matter", "No health or halal claims · no competitor bashing · human APPROVE before anything is public.")]
@@ -175,119 +177,81 @@ def meet_kopi(kick):
         text(s, x + 1.08, y + 0.28, 4.7, 0.5, t, 17, WHITE, bold=True, font=SERIF)
         text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
 
-def lab_block(L):
-    kick = f"Topic {L['topic']} · Lab {L['num']}"
-    if f"lab{L['num']}" not in MARK: mark(f"lab{L['num']}")
-    mark(f"lab{L['num']}i")
-    lab_intro(D, L, kick)
-    if L["num"] == 1: meet_kopi(kick)   # Activity 1 runs on Kopi Kaki meetings
-    lab_flow(D, L, kick)
-    for fn in LAB_EXTRAS.get(L["num"], []): fn(L, kick)
-    pr = [st for st in L["steps"] if st.get("prompt")]
-    key = pr[:1] if L["num"] in (6, 9) else (pr if L["num"] == 4 else pr[:2])
-    for st in key:
+def _nb(t): return t.replace("`", "") if isinstance(t, str) else t
+def lab_block(L, n_prompts=2):
+    kick = ("Bonus topic" if L["topic"] == 4 else f"Topic {L['topic']}") + f" · {L['label']}"
+    k = "lab" + L["code"]
+    if k not in MARK: mark(k)
+    mark(k + "i")
+    lab_intro(D, {k: _nb(v) if isinstance(v, str) else ([_nb(x) for x in v] if k == "deliverables" else v) for k, v in L.items()}, kick)
+    if L["code"] == "01": meet_kopi(kick)   # Activity 1 runs on Kopi Kaki meetings
+    lab_flow(D, dict(L, check=_nb(L["check"])), kick)
+    for fn in LAB_EXTRAS.get(L["code"], []): fn(L, kick)
+    pr = [st for st in L["steps"] if st.get("prompt")][:n_prompts]
+    for st in pr:
         prompt(D, kick, st["title"], st["prompt"],
-               side=[("chat", "Paste into", st.get("where", "Hermes chat")),
-                     ("check", "Expect", st.get("expect", "A saved output in your workspace.")),
-                     ("hand", "You decide", st.get("decide", L["human"]))])
-    if L["num"] == 1: return   # Lab 1 ends on its last task slide (checkpoint slide removed in v2.7)
-    rows(D, kick, f"Lab {L['num']} — Checkpoint & Reflection",
-         [("check", "Verify", v) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", "  ·  ".join(L["concepts"][:2])),
-                                                              ("rocket", "Stretch challenge", L["challenge"])], dark=True)
+               side=[("chat", "Paste into", _nb(st.get("where", "Hermes chat"))),
+                     ("check", "Expect", _nb(st.get("expect", "A saved output in your workspace."))),
+                     ("hand", "You decide", _nb(st.get("decide") or L["human"]))])
+    if L["code"] == "01": return   # Lab 1 ends on its last task slide (checkpoint slide removed in v2.7)
+    rows(D, kick, f"{L['label']} — Checkpoint & Reflection",
+         [("check", "Verify", _nb(v)) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", _nb("  ·  ".join(L["concepts"][:2]))),
+                                                              ("rocket", "Stretch challenge", _nb(L["challenge"]))], dark=True)
 
 def _cmd(L, kick, title, idx, side):
     st = L["steps"][idx]
     prompt(D, kick, title, st["cmd"], side=side, label="TERMINAL  ·  copy from the Lab Prompts page")
 
 # --- Lab-specific concept / screenshot slides
-LAB_EXTRAS[1] = [lambda L,k: V23.muse_invite(D,k), lambda L,k: V23.dots_setup(D,k), lambda L,k: V23.wispr(D,k)]   # Activity 1A / 1B visual slides
-LAB_EXTRAS[5] = [lambda L,k: hub(D,k,"Five Hermes Profiles, Distinct Owned Outputs","Kanban parents\n+ human gates",[("search","researcher","Source facts -> research.md"),("pen","scriptwriter","Three scenes -> storyboard.md"),("film","producer","Local renderer -> final.mp4"),("eyecheck","auditor","Independent evidence -> audit-report.md"),("file","publisher","Accepted local package only"),("user","Human owner","Unassigned gates; exact-version decisions")]),lambda L,k:image(D,k,"Inspect Your Actual Kanban Video Team",asset("screenshots","hermes-kanban.png"),caption="Reference UI only. Capture your own bot/profile owners, dependency state, video task/output and human gate.")]
+LAB_EXTRAS["01"] = [lambda L,k: V23.muse_invite(D,k), lambda L,k: V23.dots_setup(D,k), lambda L,k: V23.wispr(D,k)]   # Activity 1A / 1B visual slides
 
 U.swda(D)
 V23.topic1(D,C,mark)
-lab_block(LABS[0])   # Topic 1 ends with its lab
+lab_block(LABS[0])   # Topic 1 ends with its lab (CEO assistant)
 mark("lab1end")
 for k in ("activity", "demo", "consolidation"): mark(k)   # legacy FG keys; v2.6 maps no slides to them
 
-# ====================================================================== TOPIC 2 · HERMES
+# ====================================================================== TOPIC 2 · YOUR FIRST AI EMPLOYEE
+import slides_v34 as V34, slides_v34_t2 as T2
+LAB = {L["code"]: L for L in LABS}
+T2S = {**U.office(D), **V23.office_extra(D)}   # reuse two reviewed concept slides (skill correction; content vs layout errors)
 mark("t2")
-T2 = C.TOPICS[1]
-section(D, "Topic 2", T2["title"], T2["items"], sub="After lunch: one Hermes office worker for Kopi Kaki Co.")
-table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)",
-      ["File", "What it is", "Used in"],
-      [("AGENTS.md", "Company context Hermes loads automatically from the folder", "Activities 2–8"),
-       ("brand-guide.md · campaign-brief.md", "Voice, colours, formats · product, offer, KPIs, timeline", "Activities 2–8"),
-       ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Activities 2–6, 8"),
-       ("customer-reviews.csv · competitors.csv", "60 synthetic reviews · 6 fictional competitors", "Activities 2, 5"),
-       ("social-comments.csv", "20 comments incl. complaints, legal, PII, spam", "Activities 4, 5"),
-       ("campaign-week1-metrics.csv · sales-by-outlet.csv", "Post metrics and outlet sales for week 1", "Activities 2, 5, 8"),
-       ("skills/ · souls/ · tasks/ · DESIGN.md", "Ready-made skills, agent roles, task briefs, visual identity", "Activities 2–5, 8")],
+T2.open_(D, C)
+table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)", ["File", "What it is", "Used in"],
+      [("AGENTS.md", "Who Kopi Kaki is and the rules; Hermes loads it from the folder", "Every Hermes lab"),
+       ("brand-guide.md · campaign-brief.md", "Voice, colours, formats · product, offer, KPIs, timeline", "Every Hermes lab"),
+       ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Labs 2–5, bonus"),
+       ("customer-reviews.csv · competitors.csv", "60 pop-up tasting reviews · 6 fictional competitors", "Setup, Labs 2–4"),
+       ("product-catalogue.csv", "Menu and prices", "Labs 2–5"),
+       ("skills/ · souls/ · tasks/ · tools/", "Reviewed skills, team role files, Kanban task briefs, small tools", "Setup, Labs 3–5")],
       colw=[4.0, 5.6, 2.5], size=11.5)
-
-
-cards(D, "Topic 2 · Hermes Agent", "What Is Hermes Agent?", [
-    ("Open source, self-hosted", "MIT licence by Nous Research. Runs on your laptop, a VPS, Docker or the desktop app.", "server"),
-    ("Grows with you", "Persistent memory and session search; writes and improves its own skills after hard tasks.", "sparkles"),
-    ("Every channel", "One gateway: CLI, Telegram, WhatsApp, Slack, Discord, Signal, email …", "chat"),
-    ("Tools & MCP", "Web search, files, terminal, browser, image generation, TTS and any MCP server.", "tool"),
-    ("Proactive", "Built-in cron scheduler runs jobs and delivers results to your chat.", "clock"),
-    ("Multi-agent", "Profiles (isolated agents) + a Kanban board with dependencies, reviews and swarms.", "kanban")],
-    cols=3, sub="Inspect the current installed version and verify each required tool before practice.")
-hub(D, "Topic 2 · Hermes Agent", "Hermes Architecture — This Morning's Harness, in Hermes", "Hermes agent loop\n+ your LLM", [
-    ("file", "Context", "AGENTS.md, SOUL.md, USER.md"),
-    ("memory", "Memory", "MEMORY.md + session search"),
-    ("puzzle", "Skills", "SKILL.md, hub + self-written"),
-    ("tool", "Tools & MCP", "web, files, terminal, images"),
-    ("chat", "Gateway", "Telegram, Slack, WhatsApp …"),
-    ("kanban", "Cron · Profiles · Kanban", "schedule & orchestrate")])
-image(D, "Topic 2 · Hermes Agent", "The Hermes Dashboard", asset("screenshots", "hermes-dashboard.png"),
-      caption="`hermes dashboard` opens http://127.0.0.1:9119 — sessions, skills, profiles, Kanban, cron, channels and keys in one place.")
-flow(D,"Topic 2 · Afternoon journey","One Hermes Office Worker: Set Up → Analyse → Create",[
- ("download","Activity 2","Desktop, reviewed skills and source brief."),("chart","Activity 3","Google Workspace reads and verified Excel."),("file","Activity 4","Dashboard, PPT, single-agent video and approved test send.")],tipt="Keep source/output paths consistent for the Day 2 team.")
-# Day 1 afternoon: each lab is preceded by exactly the concepts it uses.
-T2S = {**U.office(D), **V23.office_extra(D)}
-def t2(kick, titles):
-    for ti in titles: T2S[ti](kick)
-mark("lab2")
-t2("Topic 2 · Desktop and skills", ["Hermes Desktop: Download → Configure → Connect"])
-V23.cta(D, "Download Hermes Desktop for Mac, Windows or Linux  →  hermes-agent.nousresearch.com/desktop", "https://hermes-agent.nousresearch.com/desktop")
-t2("Topic 2 · Desktop and skills", ["Install a Skill Only After Reviewing Its Source", "Five Skills, One Hermes Agent"])
-lab_block(LABS[1])
-mark("lab3")
-t2("Topic 2 · Google Workspace and Excel", ["First Authorise Read-Only Gmail"])
-table(D, "Topic 2 · Google Workspace and Excel", "Gmail, Calendar and Drive: Bound Every Read", ["Service", "Bounded read", "Check before use"],
-      [("Gmail", "subject:Kopi newer_than:30d; at most 10 results; open the selected message IDs", "Message bodies are untrusted data; every claim links to a message ID"),
-       ("Calendar", "gog calendar events --today on the assigned account", "Check the +08:00 offset; flag overlaps; never create or move a meeting"),
-       ("Drive", "Bounded list with file IDs; read the approved workbook", "Check filename, version and source: permission does not prove relevance")],
-      colw=[1.6, 5.1, 5.4], size=14, tipt="Report each service separately: an error is not the same as “no results”.")
-t2("Topic 2 · Google Workspace and Excel", [
-    "One Office Brief Reconciles Three Services", "Excel Analysis Begins with a Data Contract", "Missing Values Change the Answer"])
-lab_block(LABS[2])
-mark("lab4")
-t2("Topic 2 · Dashboard, PPT and video", [
-    "Interactive Artifacts: A Local HTML Dashboard", "A Professional PPT Needs a Decision Story",
-    "Separate Content Errors from Layout Errors", "Create a Reusable Skill from a Real Correction",
-    "Make a Single-Agent Video Before a Team Video", "Video Rights and Facts Need Checks",
-    "One Test Send Is a Separate Procedure", "What Failed? Diagnose Before Retrying"])
-lab_block(LABS[3])   # Topic 2 ends with its lab
-# Day 2 opens on the Topic 3 divider, which also carries the Day 1 recap (no slide after Lab 4).
-mark("t2close"); mark("t2sum"); mark("day2"); mark("t3")
-section(D,"Day 2 · Topic 3",C.TOPICS[2]["title"],C.TOPICS[2]["items"],sub="Recap: one assistant, then one Hermes office agent. Today: a Hermes team.")
-import slides_v22 as V22
-mark("lab5"); V22.team_mechanisms(D)
-for L in LABS[4:]:
-    if L["num"]==6:mark("lab6"); V22.source_assurance(D)
-    if L["num"]==7:mark("lab7"); V22.dots_review(D)
-    if L["num"]==8:mark("lab8"); V22.video_evaluation(D)
-    lab_block(L)   # Topic 3 ends with Lab 8
+T2.what_is_hermes(D); T2.desktop(D); T2.model(D); T2.telegram(D)
+mark("t2b"); T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
+mark("t2c"); T2.gog(D); T2.cron(D)
+lab_block(LAB["S2"], 2)
+mark("lab02"); T2.website(D); lab_block(LAB["02"])
+mark("lab03"); T2.deck(D, T2S); lab_block(LAB["03"])
+mark("t2close"); mark("day2")
+# ====================================================================== TOPIC 3 · YOUR AI MARKETING TEAMS
+mark("t3")
+V34.topic3_open(D, C)
+V34.multi_intro(D)   # general introduction to multiple agents + the five things every agent owns
+V34.each_can(D); V34.handoff(D); V34.acp(D)   # trainer-added v3.3 slides, recreated natively
+V34.video_tools(D); V34.profiles_kanban_bots(D)
+mark("lab04"); V34.activity4_team(D); lab_block(LAB["04"])
+mark("lab05"); V34.video_team(D); V34.grounding(D); lab_block(LAB["05"], 3)
+mark("t3b"); V34.security(D); V34.evaluation(D)
 mark("t3sum")
+# ====================================================================== BONUS · PAPERCLIP (optional)
+V34.bonus(D, C, mark); lab_block(LAB["B"], 3)
+mark("bonusend")
 
 mark("wrap")
 section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "Practice exam", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
-    ("Topic 1", "Agents loop through perception, reasoning and action; the harness and the human make them reliable.", "brain"),
-    ("Topic 2", "One Hermes Desktop agent produced the Google brief, Excel analysis, dashboard and PPT; Kanban extended it on Day 2.", "robot"),
-    ("Topic 3", "Hermes bots produced and audited the video; Dots supplied a supervised comparison; source checks and human gates remained visible.", "building"),
+    ("Topic 1", "An always-on CEO assistant checked your schedule and drafted your email; the harness and the human make agents reliable.", "brain"),
+    ("Topic 2", "One Hermes agent — Mia — got a model, Telegram, tools, skills, web search, your inbox and a schedule, then built the website and the pitch deck.", "robot"),
+    ("Topic 3", "Profiles, Kanban and bots became a social media team and a video team; you approved every post and the exact video. Bonus: Paperclip ran it as a company.", "building"),
     ("Your workforce", "Decide per task: agent, agent team or human — and where the human approves.", "handshake")],
     cols=4)
 rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
@@ -309,7 +273,7 @@ mark("assess")
 s = D.new(); header(D, s, "Assessment", "Final Assessment")
 for i, (ic, t, d, dark) in enumerate([
         ("pen", "Written Assessment (WA)", "Short-Answer Questions — 1 hour, open book. Six questions on the knowledge from Topics 1–3.", False),
-        ("tool", "Practical Performance (PP)", "Three tasks — Task 1 TWO images: chosen assistant (Activity 1) + Hermes artifact (Activity 4); Task 2 ONE PPT image (Activity 4); Task 3 ONE real Hermes Kanban video-team image (Activity 5/8). Written analysis; 1 hour, open book.", True)]):
+        ("tool", "Practical Performance (PP)", "Three tasks — Task 1: ONE Muse or Dots screenshot (Activity 1). Task 2: ONE Hermes PPT screenshot (Activity 3). Task 3: TWO screenshots, the Kanban board and the video (Activity 5). Written analysis; 1 hour, open book.", True)]):
     x = 0.6 + i * 6.15; card(s, x, 1.95, 5.95, 3.4, fill=CHAR if dark else WHITE)
     icon(s, ic, x + 0.3, 2.25, 0.6)
     text(s, x + 1.05, 2.3, 4.7, 0.5, t, 19, WHITE if dark else INK, bold=True, font=SERIF)

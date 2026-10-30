@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -57,8 +57,8 @@ bullets(C.LEARNING_OUTCOMES)
 h2("Course Structure")
 table(["Topic", "Day", "What you do"], [
     ("1 · " + C.TOPICS[0]["title"], "Day 1 AM", "; ".join(C.TOPICS[0]["items"]) + "; Activity 1: join Meta Muse with the trainer’s invite code and set up an OpenAI Dot"),
-    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Activities 2–4: Hermes Desktop, tools/skills, Google/Excel, dashboard/PPT and single-agent video"),
-    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activities 5–8: Hermes Kanban video team, source assurance, Dots and evaluation")])
+    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Topic 2 setup (Desktop, MiniMax, Telegram, tools, skills, Firecrawl, gog, cron) + Activity 2 website + Activity 3 pitch deck (PP Task 2)"),
+    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activity 4 social media team + Activity 5 video team (PP Task 3), AI security; bonus: Paperclip one-person company")])
 h2("How to Use the Lab Materials")
 numbered(["Download the course repository (Code → Download ZIP) and unzip it.",
           "Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.",
@@ -112,9 +112,9 @@ h2("1.5 Five collaboration scenarios")
 p("People and agents team up in five scenarios. Each step down the list adds more people or more agents, and with them more hand-offs, permissions and ownership to get right.")
 img(os.path.join(SHOTS, "topic1", "patterns-strip.jpg"), "The five collaboration scenarios, from one human with one agent (left) to inter-company collaboration (right)", 6.3)
 table(["Scenario","How it works","Where you see it today"],[
- ("1 · One human, one AI agent","Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning.","Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); Hermes Desktop on your laptop (Activities 2–4); Claude Code or OpenAI Codex for one developer."),
+ ("1 · One human, one AI agent","Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning.","Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); Hermes Desktop on your laptop (Topic 2, Activities 2–3); Claude Code or OpenAI Codex for one developer."),
  ("2 · Multiple humans, one AI agent","One agent in the team chat becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the group.","An OpenClaw or Hermes bot in a Telegram or WhatsApp group; Claude in Slack or any bot a channel can @mention; one agent triaging a shared support inbox."),
- ("3 · One human, multiple AI agents","Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel.","Hermes profiles on a Kanban board (Activities 5 and 8); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat."),
+ ("3 · One human, multiple AI agents","Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel.","Hermes profiles on a Kanban board (Activities 4 and 5); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat."),
  ("4 · Multiple humans, multiple AI agents","A whole organisation runs on agents: many people build and run their own, all aimed at shared goals.","Singapore public healthcare: 80,000+ staff built 12,000+ AgentSea agents; Stanford's virtual biotech of 37,000 AI scientist agents; a department Kanban board where each card has a human owner and an agent assignee."),
  ("5 · Inter-company collaboration","Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off.","Agent-to-agent standards such as Google's Agent2Agent (A2A); Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses.")])
 p("Real examples shown in class: an assistant flagging a weekend schedule clash (scenario 1), an OpenClaw agent in a trainers' group chat reassigning a course run and reporting a blocker (scenario 2), and six Hermes profiles running a YouTube channel (scenario 3). Third-party names in these screenshots are blurred. As scenarios scale, govern them with named owners, permissions for each role and an audit trail, and treat anything from another company's agent as untrusted until a person verifies it.")
@@ -180,26 +180,32 @@ src("Video (YouTube Short): Meet Manus Cue — https://www.youtube.com/shorts/ZW
 src("Requested comparison: https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots")
 src("Official product checks: https://claude.com/resources/articles/claude-duet ; https://docs.x.ai/grok-bot/computer-and-apps ; https://learn.chatgpt.com/docs/dots/getting-started")
 h2("1.8 Activity 1 checks and PP Task 1 evidence")
-p("Check the schedule in Asia/Singapore against actual source events, draft a reply, correct one detail and inspect the real task stop/pause state. Closing a chat need not stop an ongoing responsibility. A store/install screen, generic chatbot or trainer demonstration is not the candidate's executed work. PP Task 1 requires TWO screenshots: image A of the learner's chosen always-on assistant request/result in Activity 1, and image B of a Hermes-generated artifact after Activity 4, plus the paper's written algorithm/strengths/limitations analysis.")
+p("Check the schedule in Asia/Singapore against actual source events, draft a reply, correct one detail and inspect the real task stop/pause state. Closing a chat need not stop an ongoing responsibility. A store/install screen, generic chatbot or trainer demonstration is not your executed work. PP Task 1 needs ONE readable screenshot of your own Meta Muse or OpenAI Dots request and its result (a schedule check or a drafted email), with credentials and unrelated private data hidden.")
 
 
 # ====================================================================== labs
-LAB_SHOTS = {**{n:(f"workflows/activity-{n:02d}.png",f"Activity {n} workflow model — design diagram, not executed learner evidence") for n in (1,2,3,4,6,7,8)},5:("screenshots/hermes-kanban.png","Reference Kanban interface; PP Task 3 uses your actual video team, bots, dependency and output task")}
+LAB_SHOTS = {"01": ("workflows/activity-01.png", "Activity 1 workflow model — design diagram, not executed learner evidence"),
+             "S2": ("screenshots/hermes-dashboard.png", "The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)"),
+             "02": ("workflows/activity-02.png", "Activity 2 workflow: find, review, install UX skills, build, review — design diagram, not learner evidence"),
+             "03": ("workflows/activity-03.png", "Activity 3 workflow: equip, brief, build, render, approve — design diagram, not learner evidence"),
+             "04": ("screenshots/hermes-profiles.png", "Reference profiles view; your team has the five Activity 4 profiles"),
+             "05": ("screenshots/hermes-kanban.png", "Reference Kanban interface; PP Task 3 uses your own board and video"),
+             "B": ("paperclip/org-chart.png", "Paperclip org chart (trainer's demo company); yours shows Board → CEO → Chief of Staff → team")}
 
 
 def lab_section(L):
-    h2(f"Lab {L['num']} — {L['title']}")
+    h2(f"{L['label']} — {L['title']}")
     p(f"**Day {L['day']} · {L['minutes']} min · {L['paradigm']} · {L['lo']}** — {L['hook']}")
     h3("Business scenario"); p(L["scenario"])
     h3("Goal"); p(L["objective"])
     if L.get("prereq"): h3("Before you start"); bullets(L["prereq"])
-    shot = LAB_SHOTS.get(L["num"])
+    shot = LAB_SHOTS.get(L["code"])
     if shot: img(os.path.join(SHOTS, *shot[0].split("/")), shot[1], 5.0)
     h3("You will deliver"); bullets(L["deliverables"])
     table(["Who", "Role"], [("Agents", L["agents"]), ("You (human)", L["human"])])
     h3("Concepts in action"); bullets(L["concepts"])
     h3("Lab files")
-    p(f"labs/{L['slug']}/ — README.md, LAB-{L['num']:02d}-Instructions.pdf, COPY-PROMPTS.txt and data/. Use the neutral training account for Activity 1; copy company data into ~/kopi-kaki from Activity 2.")
+    p(f"labs/{L['slug']}/ — README.md, LAB-{L['code']}-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.")
     h3("Step-by-step")
     for i, st in enumerate(L["steps"], 1):
         p(f"**Step {i} — {st['title']}**")
@@ -229,27 +235,124 @@ for title,url in [
 ("OpenAI Dots","https://learn.chatgpt.com/docs/dots/getting-started"),
 ("Figure Helix","https://www.figure.ai/news/helix"),
 ("Responsible robotics","https://deepmind.google/models/gemini-robotics/responsibly-advancing-ai-and-robotics/")]:src(title+": "+url)
+LAB = {L["code"]: L for L in LABS}
+import labs_v34_t2 as T2SRC
 h1("Topic 2 — " + C.TOPICS[1]["title"])
-h2("Introducing the company scenario — at the start of the Hermes labs")
-p(C.SCENARIO + ". All company data is fictional. Start this workspace after lunch; its source-linked brief and verified office artifacts become Day 2 team inputs.")
-p("Hermes Agent (Nous Research, MIT licence) is a self-hosted, self-improving agent with persistent memory, skills, tools and MCP, a "
-  "messaging gateway (Telegram and 15+ channels), a cron scheduler, and profiles + a Kanban board for multi-agent teams. On Day 1 you "
-  "build the single-agent office pack. On Day 2 extend it into a supervised video team.")
+p(C.SCENARIO + ". You are the founder-CEO; all company data is fictional. "
+  "In Topic 1 an always-on assistant handled your schedule. In Topic 2 you hire your first AI employee — a Hermes agent called Mia — and give her, step by step, everything an employee needs.")
+h2("2.1 What Hermes Agent is")
+p("Hermes Agent (Nous Research, MIT licence) is an open-source, self-hosted agent: a model inside a harness of tools, skills, memory and channels. "
+  "It runs on your laptop (Hermes Desktop or the CLI), remembers across sessions, writes and improves its own skills, talks to you on Telegram and other channels, "
+  "runs scheduled jobs with its cron scheduler, and — in Topic 3 — works in teams through profiles and a Kanban board.")
+table(["Part", "What it is for Mia", "Where it lives"], [
+    ("Model", "The brain — MiniMax, OpenAI, Anthropic or a local model", "hermes model · Settings → Providers"),
+    ("Context", "Who Kopi Kaki is and the rules", "AGENTS.md in ~/kopi-kaki; SOUL.md per profile"),
+    ("Memory", "What she chose to remember about you and the work", "~/.hermes/memories/"),
+    ("Tools", "What she can do: web, terminal, files, browser, images, voice, cron", "hermes tools"),
+    ("Skills", "How to do a job well: steps, rules and checks in a SKILL.md", "~/.hermes/skills/"),
+    ("Gateway + cron", "How she reaches you, and when she starts work by herself", "hermes gateway · hermes cron")])
 img(os.path.join(SHOTS, "screenshots", "hermes-dashboard.png"), "The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)", 5.2)
-table(["File / place", "What it holds", "Loaded"], [
-    ("AGENTS.md (in the folder you start Hermes in)", "Company context and rules", "Every session in that folder"),
-    ("~/.hermes/SOUL.md (per profile)", "The agent's role, personality, standing rules", "Every session"),
-    ("~/.hermes/memories/MEMORY.md and USER.md", "What the agent chose to remember; what it knows about you", "Session start"),
-    ("~/.hermes/skills/", "Skills (SKILL.md folders)", "On demand, by description"),
-    ("Kanban board", "Tasks, dependencies, comments, history", "Dispatched by the running gateway")])
-for L in LABS[1:4]: lab_section(L)
+h2("2.2 Set up Hermes Desktop")
+p("Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop; on Linux install the CLI and run `hermes desktop`. "
+  "On first run choose 'Choose provider later' and the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\\hermes). Start every chat in ~/kopi-kaki so AGENTS.md loads.")
+h2("2.3 Connect a model — the MiniMax demo")
+p(f"Hermes has MiniMax built in. Run `hermes model` → MiniMax → MiniMax (OAuth) to sign in in the browser, or 'MiniMax (global endpoint)' with an M Plan subscription key "
+  f"(MINIMAX_API_KEY in ~/.hermes/.env); choose 'Enter custom model name' and type {T2SRC.MINIMAX_MODEL}. In Desktop: Settings → Providers, then Settings → Model → Main model → Apply. "
+  "Trial offer: a one-day free MiniMax trial is awaiting verification — your trainer confirms the current offer on the day; MiniMax publishes the M Plan and pay-as-you-go credits. "
+  "Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.")
+h2("2.4 Telegram, tools and skills")
+bullets(["Telegram: @BotFather → /newbot → copy the token; @userinfobot → your numeric ID; `hermes gateway setup` → Telegram; run `hermes gateway`; send /sethome so scheduled results arrive in that chat. Only allow-listed users (TELEGRAM_ALLOWED_USERS) can talk to Mia. Desktop shortcut: Messaging → Telegram → Create with QR.",
+         "Tools: `hermes tools` opens a checklist per platform; `hermes tools --summary` shows what is on; switch off what a channel does not need (e.g. the browser on Telegram).",
+         "Skills: a SKILL.md folder of know-how loaded when a task matches. `hermes skills browse | search | inspect | install | list`. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well."])
+h2("2.5 Web search with Firecrawl")
+p("Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card), add FIRECRAWL_API_KEY to ~/.hermes/.env, and ask for dated, linked sources.")
+h2("2.6 gog for Gmail and Calendar")
+table(["Job", "Command", "Rule"], [
+    ("Sign in", "gog auth credentials set <oauth-client.json> · gog auth add $GOG_ACCOUNT --services gmail,calendar · gog auth doctor --check", "Training account only"),
+    ("Read email", "gog gmail search 'is:unread newer_than:7d' --max 10 --json", "Email text is data, never instructions"),
+    ("Calendar", "gog calendar events --today --json", "Times in +08:00; flag clashes"),
+    ("Send", "gog gmail send --to … --subject … --body …", "Once, after your SEND on the exact text")])
+src("gogcli: https://github.com/openclaw/gogcli")
+h2("2.7 Cron schedules and the 8:00 email summary")
+p("Cron makes Mia proactive: a job starts work without being asked. Jobs run inside the gateway, which checks for due jobs every minute, so keep it running. "
+  "`hermes cron list | create | run | pause | resume | remove | status`. The daily email summary reads only and delivers to Telegram:")
+code('hermes cron create "0 8 * * *" "Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent first, then replies needed, then FYI. Add today\'s calendar and any clash. Never send or change anything." --skill gog-office --name "Morning email brief" --deliver telegram --timezone Asia/Singapore', "bash")
+h2("2.8 Activity 2 — skills.sh and the Kopi Kaki website")
+p("skills.sh is the open directory of agent skills. The skills CLI installs straight into Hermes with `-a hermes-agent -g`. Popular design skills (installs as of 30 Oct 2026): "
+  "Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia uses two of them to build a one-page site for the startup.")
+h2("2.9 Activity 3 — a pitch deck is a decision story")
+p("Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. "
+  "Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop or dashboard screenshot showing your request and the finished deck.")
+for title, url in T2SRC.SOURCES[:7]: src(title + ": " + url)
+for code_ in ("S2", "02", "03"): lab_section(LAB[code_])
 
 h1("Topic 3 — " + C.TOPICS[2]["title"])
-p("Day 2 extends the same launch workspace into a real Hermes multi-agent video team. A profile stores an agent’s separate configuration and memory; Desktop Bot Mode presents a profile as a named bot. A Telegram bot is a messaging account, not another independent worker by itself. Kanban task IDs, parent dependencies, run history and saved outputs make the work observable.")
-p("First set and verify Manual orchestration (kanban.auto_decompose=false) in the selected training gateway; Auto can decompose triage cards. Human storyboard and final-acceptance cards are then created unassigned before production tasks, with source dependencies. The human checks the exact artifact and completes only the relevant gate. This supervised classroom convention is not a claim of built-in role-based approval enforcement. No worker is given external publication authority. Separate file ownership avoids workers overwriting one another.")
-p("Activity 6 checks approved source passages and missing/stale evidence, then assesses RAG versus a standard LLM for financial-services content, including ownership, access, ingestion, refresh, evaluation and maintenance. Activity 7 compares a real bounded Dots review if entitled; otherwise accurately record trainer observation or unavailable access. PP does not depend on paid Dots access. Activity 8 revises, audits and accepts a real playable MP4 locally.")
-table(["Evidence","Activity","What to inspect"],[("PP Task 1","1 and 4","TWO images: own chosen assistant request/result + Hermes-generated artifact; no credentials"),("PP Task 2","4","ONE professional PPT screenshot; retain skill/tool logs, PPTX and reviewed PDF"),("PP Task 3","5 or 8","ONE actual Kanban video-team screenshot with Hermes bots, dependency/gate and render/output task; retain MP4 and audit")])
-for L in LABS[4:]: lab_section(L)
+h2("3.1 From one employee to a team of agents")
+p("A multi-agent system splits one big goal into specialist jobs that hand work to each other, with a human in charge. One agent fills one context window with every task and uses one set of "
+  "instructions for every voice; a team gives each job its own agent and runs independent jobs in parallel. More agents also mean more hand-offs to check, so use a team when the jobs are truly different.")
+table(["Every agent has its own…", "What it means", "Kopi Kaki example"], [
+    ("Tools", "What it can do", "image-creator has the image tool; researcher has web search"),
+    ("Unique skills", "How it does the job well", "video-producer has the hyperframes skill"),
+    ("Model", "How it thinks — big or small, any provider", "a careful model for the researcher, a fast one for drafts"),
+    ("Instructions", "Who it is and its rules (SOUL.md + AGENTS.md)", "the reviewer never approves on your behalf"),
+    ("Context window", "What it is holding in mind — its own memory and session", "the writers never see each other's drafts")])
+h2("3.2 How agents talk: the damaged-order example and ACP")
+p("“My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; "
+  "a customer agent confirms the fix. Each hands a structured message to the next. At Kopi Kaki the same four hand-offs handle “My cold brew pre-order arrived spilled”, with refunds above SGD 20 waiting for you.")
+p("Agent Communication Protocol (ACP) is a standardised framework that enables AI agents to communicate in a structured, secure and predictable way by defining how they exchange messages, interpret intent, share context, "
+  "and coordinate actions reliably at scale. IBM Research launched ACP in March 2025 for its open-source BeeAI platform; BeeAI and ACP were donated to the Linux Foundation, and in August 2025 ACP merged into the A2A (Agent2Agent) protocol.")
+src("LF AI & Data — ACP joins forces with A2A (29 Aug 2025): https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/")
+h2("3.3 Video skills and tools")
+table(["Tool", "How it makes video", "Install for Hermes"], [
+    ("HyperFrames (HeyGen)", "HTML/CSS + GSAP timing → MP4; lint, snapshot, preview, render; local voice-over with `npx hyperframes tts`", "hermes skills install official/creative/hyperframes · npx hyperframes doctor"),
+    ("Remotion", "React components → MP4; strong for templated videos at scale", "npx skills add remotion-dev/skills -a hermes-agent -g"),
+    ("Manim", "Python maths animation (3Blue1Brown style)", "built-in manim-video skill; pip install manim (+ LaTeX)")])
+h2("3.4 Profiles, the Kanban board and bots")
+bullets(["Profile — a separate Hermes agent with its own SOUL.md, memory, skills and model: `hermes profile create <name> --clone`.",
+         "Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done and the gateway is running; bind parents when you create the card. HUMAN cards are unassigned and only you complete them (`hermes kanban complete <id>`).",
+         "Bots — Desktop Bot Mode (the Bots tab) shows each profile as a named bot you can chat with; optionally give a profile its own Telegram bot token and run `<profile> gateway start`. A Telegram bot is a messaging account: two chats do not make two agents, separate profiles do."])
+img(os.path.join(SHOTS, "screenshots", "hermes-kanban.png"), "Reference Hermes Kanban board", 5.2)
+lab_section(LAB["04"])
+h2("3.5 Grounding: RAG versus a standard LLM")
+p("A standard LLM answers from what it learned: fluent and cheap, but it does not know your price, dates or latest policy and can state a wrong fact confidently. A retrieval-augmented (RAG) system answers from passages it retrieved, "
+  "quotes the approved source and its version, and says INSUFFICIENT EVIDENCE when nothing supports a claim — but it needs source owners, indexing, access control and refresh. "
+  "In Activity 5 the researcher writes claim | source file | exact quote: that table is your RAG audit trail.")
+table(["Test", "Example question", "Correct behaviour"], [
+    ("Supported", "What does the cold brew cost?", "Quote the catalogue line: SGD 6.80"),
+    ("Partial", "What is the SHIOK20 offer?", "Give the discount AND its terms, or mark incomplete"),
+    ("Unsupported", "Is it healthier than soft drinks?", "INSUFFICIENT EVIDENCE — no source, no claim"),
+    ("Conflicting", "Two files disagree on the launch date", "Stop and ask the source owner")])
+p("Maintenance is part of feasibility: when a source changes, refresh the index, retire the obsolete version, re-run the four tests and re-review everything that quoted it. Evaluate retrieval by relevance, support, latency and cost — not fluency. "
+  "A regulated business (bank, insurer, clinic) adds a named source owner, per-document access control and an audit log of every refresh.")
+lab_section(LAB["05"])
+h2("3.6 Evaluate and improve the team")
+table(["Metric", "What to measure"], [("Cycle time", "Brief to accepted output, including reviews and retries"), ("First-pass acceptance", "Share of outputs approved without revision"),
+      ("Cost per accepted item", "Model and tool spend plus review minutes"), ("Defect rate", "Fact, brand and video-quality failures, counted separately")])
+p("Measure the same four numbers before and after any change to a skill, a SOUL.md or the team; keep a change only when the measured benefit exceeds its overhead. Compare the team with the agency quote (SGD 3,000 and two weeks) including your own review time.")
+h2("3.7 Five principles of AI security")
+table(["Principle", "Question", "Rule"], [
+    ("Data Control", "What AI can see", "Classify your data (public, internal, confidential) and decide exactly which data the AI may access."),
+    ("Permission Control", "What AI can do", "Grant only the rights needed — read, write, edit, delete. Ask before anything destructive."),
+    ("Human in the Loop", "Who approves", "A person reviews and approves high-impact actions — sends, posts, payments, deletions."),
+    ("Traceability", "What happened", "Log every prompt, tool call and change so actions can be audited, explained and rolled back."),
+    ("Right-Sized Models", "Not the most powerful", "The smallest model that does the job has less autonomy and risk.")])
+p("In Hermes: read-only gog, a Telegram allow-list, approvals.mode manual, HUMAN Kanban cards, run history and file hashes, and a smaller model per profile.")
+
+h1("Bonus Topic (optional) — Paperclip: Kopi Kaki as a One-Person Company")
+p("Kopi Kaki Co. decides to run as a one-person company (OPC): you are the founder, the Board and the only human. Paperclip (open source, github.com/paperclipai/paperclip) runs a company of AI agents — org chart, job titles, "
+  "reporting lines, budgets, tasks and an approval inbox. Hermes Kanban organises tasks; Paperclip organises people. Its agents run on CLIs you already have (Hermes, Claude Code, Codex or Gemini CLI) as adapters.")
+bullets(["Install: `npx paperclipai onboard --yes`, then open http://localhost:3100 (Node.js 24.11+).",
+         "Set up the company: Kopi Kaki Co., the mission, a USD 60/month training budget, and Settings → General → Hiring → 'Require board approval for new hires' ON.",
+         "Set up the CEO (Ava): role CEO via the CLI and written instructions in AGENTS.md; her first task is to hire a Chief of Staff.",
+         "The Chief of Staff hires the marketing team — researcher, social copywriter, image creator, video producer, voice-over artist and an independent content reviewer — each through your Board approval.",
+         "Show the org chart: Board → CEO → Chief of Staff → team. Then give the team the Activity 5 video brief and compare the result with your Hermes Kanban team."])
+img(os.path.join(SHOTS, "paperclip", "dashboard.png"), "Paperclip dashboard at http://localhost:3100 (trainer's demo company)", 5.2)
+table(["", "Hermes Kanban team (Activity 5)", "Paperclip company (bonus)"], [
+    ("Who breaks down the work", "You create every card and parent", "The CEO and Chief of Staff create tasks"),
+    ("Who decides the team", "You create the profiles", "Managers propose hires; you approve"),
+    ("Control", "HUMAN cards on the board", "Approval inbox, budgets, hiring gate"),
+    ("Best for", "A known pipeline you want to run exactly", "An ongoing operation you want to delegate and govern")])
+lab_section(LAB["B"])
 
 # ====================================================================== close
 h1("Assessment Preparation")
@@ -308,7 +411,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

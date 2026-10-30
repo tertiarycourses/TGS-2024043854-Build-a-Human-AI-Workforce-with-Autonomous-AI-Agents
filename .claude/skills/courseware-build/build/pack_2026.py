@@ -41,7 +41,7 @@ Optional alternative: use a reviewed HyperFrames/Remotion skill after checking i
 def assets(L,ddir):
  root=Path(ddir);root.mkdir(parents=True,exist_ok=True);files=[];templates=Path(__file__).parent/'templates'
  if L['num']==1:
-  rel='assistant-check-template.txt';(root/rel).write_text('Chosen route:\nActual account verified (redact in evidence):\nGmail result/source IDs or error:\nCalendar result/source IDs or error:\nCorrected draft:\nActual stop state:\nPP1 image A path:\nHermes image B to add after lunch:\n');files.append(rel)
+  rel='assistant-check-template.txt';(root/rel).write_text('Chosen route:\nActual account verified (redact in evidence):\nGmail result/source IDs or error:\nCalendar result/source IDs or error:\nCorrected draft:\nActual stop state:\nPP Task 1 screenshot path (Muse or Dots):\n');files.append(rel)
  if L['num'] in (2,3):
   book=Workbook();book.remove(book.active)
   for name,key in [('Reviews','reviews'),('Sales','sales'),('Metrics','metrics')]:

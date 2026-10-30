@@ -1,0 +1,61 @@
+review_id,date,outlet,source,rating,text
+R1029,2026-08-01,Raffles Place pop-up,Instagram,3,Cold brew tasted watery once.
+R1032,2026-08-03,Tiong Bahru flagship (soft launch),Facebook,3,"Average, prefer the old menu."
+R1054,2026-08-04,Raffles Place pop-up,Instagram,5,"Friendly staff, fast queue at Raffles Place."
+R1021,2026-08-06,Punggol pop-up,Google,5,Kaya toast set is perfect for breakfast.
+R1004,2026-08-07,Tanjong Pagar pop-up,Google,5,Kaya toast set is perfect for breakfast.
+R1008,2026-08-07,Punggol pop-up,App,5,Pandan latte is shiok!
+R1015,2026-08-09,Holland Village pop-up,App,4,"Nice cold brew, wish there was a large size."
+R1055,2026-08-09,Punggol pop-up,App,3,"Kopi was okay, a bit too sweet today."
+R1049,2026-08-11,Bishan pop-up,Facebook,4,"Tasty, slightly pricey vs kopitiam."
+R1017,2026-08-12,Bishan pop-up,App,5,"Love the cold brew, not too sweet."
+R1056,2026-08-12,Raffles Place pop-up,Facebook,5,"Smooth kopi, just like my grandfather's kopitiam."
+R1020,2026-08-13,Punggol pop-up,App,4,"Nice cold brew, wish there was a large size."
+R1053,2026-08-17,Tiong Bahru flagship (soft launch),Facebook,4,Good kopi but the queue at lunch is long.
+R1027,2026-08-18,Raffles Place pop-up,Facebook,5,Pandan latte is shiok!
+R1022,2026-08-19,Raffles Place pop-up,Facebook,2,Waited 20 minutes for an app order.
+R1048,2026-08-19,Holland Village pop-up,Facebook,2,Waited 20 minutes for an app order.
+R1059,2026-08-21,Tiong Bahru flagship (soft launch),App,5,"Friendly staff, fast queue at Raffles Place."
+R1003,2026-08-22,Raffles Place pop-up,Google,4,"App ordering works well, pickup was quick."
+R1040,2026-08-22,Holland Village pop-up,Facebook,3,"Average, prefer the old menu."
+R1038,2026-08-23,Punggol pop-up,Instagram,5,"Friendly staff, fast queue at Raffles Place."
+R1052,2026-08-23,Tiong Bahru flagship (soft launch),Instagram,4,Good kopi but the queue at lunch is long.
+R1060,2026-08-24,Tanjong Pagar pop-up,Instagram,4,Would love more oat milk options.
+R1026,2026-08-25,Holland Village pop-up,Instagram,1,App charged me twice and no refund yet.
+R1031,2026-08-25,Punggol pop-up,Instagram,4,Would love more oat milk options.
+R1001,2026-08-27,Tanjong Pagar pop-up,Google,2,Staff forgot my oat milk.
+R1006,2026-08-27,Punggol pop-up,App,4,Would love more oat milk options.
+R1002,2026-08-29,Punggol pop-up,Instagram,5,"Smooth kopi, just like my grandfather's kopitiam."
+R1007,2026-08-30,Tiong Bahru flagship (soft launch),Facebook,5,Kaya toast set is perfect for breakfast.
+R1034,2026-08-30,Bishan pop-up,App,5,Kaya toast set is perfect for breakfast.
+R1044,2026-08-31,Tiong Bahru flagship (soft launch),Google,4,"App ordering works well, pickup was quick."
+R1036,2026-09-01,Holland Village pop-up,Facebook,5,Kaya toast set is perfect for breakfast.
+R1024,2026-09-04,Raffles Place pop-up,Instagram,5,"Great aroma, cosy outlet."
+R1037,2026-09-06,Bishan pop-up,App,2,Drink was lukewarm.
+R1039,2026-09-10,Tiong Bahru flagship (soft launch),Instagram,4,Would love more oat milk options.
+R1023,2026-09-12,Holland Village pop-up,Facebook,4,"Nice cold brew, wish there was a large size."
+R1011,2026-09-13,Bishan pop-up,Facebook,4,"Tasty, slightly pricey vs kopitiam."
+R1018,2026-09-14,Tiong Bahru flagship (soft launch),Google,2,Waited 20 minutes for an app order.
+R1005,2026-09-15,Holland Village pop-up,Google,5,"Friendly staff, fast queue at Raffles Place."
+R1010,2026-09-15,Tiong Bahru flagship (soft launch),Google,2,Drink was lukewarm.
+R1042,2026-09-18,Tiong Bahru flagship (soft launch),App,3,"Average, prefer the old menu."
+R1012,2026-09-20,Holland Village pop-up,Instagram,4,"Nice cold brew, wish there was a large size."
+R1035,2026-09-20,Bishan pop-up,Facebook,5,"Great aroma, cosy outlet."
+R1041,2026-09-20,Raffles Place pop-up,Google,5,"Great aroma, cosy outlet."
+R1016,2026-09-22,Bishan pop-up,Google,5,"Love the cold brew, not too sweet."
+R1030,2026-09-22,Tanjong Pagar pop-up,Instagram,4,"Nice cold brew, wish there was a large size."
+R1047,2026-09-24,Bishan pop-up,Google,5,Pandan latte is shiok!
+R1014,2026-09-25,Punggol pop-up,App,3,"Average, prefer the old menu."
+R1058,2026-09-26,Tiong Bahru flagship (soft launch),Google,1,"Found the cup leaking, nobody responded to my email."
+R1046,2026-10-08,Tanjong Pagar pop-up,Google,5,"Smooth kopi, just like my grandfather's kopitiam."
+R1057,2026-10-08,Raffles Place pop-up,Facebook,4,"App ordering works well, pickup was quick."
+R1019,2026-10-09,Punggol pop-up,Facebook,4,"Tasty, slightly pricey vs kopitiam."
+R1045,2026-10-09,Holland Village pop-up,App,5,"Great aroma, cosy outlet."
+R1050,2026-10-10,Raffles Place pop-up,App,4,"Nice cold brew, wish there was a large size."
+R1033,2026-10-12,Raffles Place pop-up,Facebook,4,"Nice cold brew, wish there was a large size."
+R1025,2026-10-14,Tiong Bahru flagship (soft launch),Instagram,4,"App ordering works well, pickup was quick."
+R1051,2026-10-14,Tanjong Pagar pop-up,Facebook,5,Kaya toast set is perfect for breakfast.
+R1028,2026-10-18,Holland Village pop-up,Facebook,5,"Great aroma, cosy outlet."
+R1043,2026-10-18,Punggol pop-up,Facebook,5,"Smooth kopi, just like my grandfather's kopitiam."
+R1009,2026-10-19,Raffles Place pop-up,Facebook,3,"Average, prefer the old menu."
+R1013,2026-10-20,Tiong Bahru flagship (soft launch),App,4,"Tasty, slightly pricey vs kopitiam."

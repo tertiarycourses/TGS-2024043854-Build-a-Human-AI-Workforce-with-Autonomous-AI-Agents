@@ -9,17 +9,17 @@ Learn to delegate real work to always-on AI agents and Hermes agent teams, while
 | Duration | 2 days, 9:30 am–6:30 pm (16 scheduled hours including 2 hours of assessment) |
 | Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) |
 | Funding | Up to 70% WSQ course-fee funding (50% baseline for Singapore Citizens/PRs aged 21+; 70% for Singapore Citizens aged 40+ or SME-sponsored). Eligibility and terms apply. |
-| Courseware | v3.3 · 30 October 2026 |
+| Courseware | v3.4 · 31 October 2026 |
 
 [Open the lab steps and copyable prompts](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html) · [Sources](prompts/resources.html) · [Download the course ZIP](https://github.com/tertiarycourses/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/archive/refs/heads/main.zip)
 
 ## About the course
 
-Day 1 starts with a brief history of AI and Singapore's AgentSea healthcare agents, explains what agentic AI is and looks under the hood: the model inside its harness, tools, skills and the agentic loop. You see how people and agents share work: as a personal assistant or a digital worker, and in five collaboration scenarios, from one person with an always-on assistant such as OpenAI Dots to agents negotiating across companies. Then you look at five business use cases and the 2026 AI-for-Science breakthroughs, with what each still needs a person to verify. Then you get a one-slide briefing on each always-on "Big Five" agent (Meta Muse, OpenAI Dots, Grok Bot, Claude Duet and Manus Cue), each with an embedded setup video, and set up one accessible assistant against a training Gmail and Calendar.
+You play the founder-CEO of **Kopi Kaki Co.**, a fictional Singapore kopi startup opening its Tiong Bahru flagship on 1 December 2026, and you use AI agents to help start it. People keep the goals, the judgement and every approval.
 
-In the afternoon a single Hermes Desktop agent runs the office for the fictional Kopi Kaki Co. launch: Google Workspace reads, a verified Excel analysis, an interactive dashboard, a professional PPT, a short video and one approved test email.
+Day 1 begins with a brief history of AI, what agentic AI is and how an agent works under the hood. You then meet the always-on "Big Five" assistants and set up **Meta Muse** or **OpenAI Dots** as your CEO assistant. In the afternoon you hire your first AI employee, a **Hermes Agent**. You give it a model (MiniMax demo), Telegram, tools, skills, Firecrawl web search, Gmail and Calendar through gog, and a daily 8:00 email-summary cron. Then it builds the Kopi Kaki website with UX skills from skills.sh and a professional pitch deck with a PPT tool and skill.
 
-Day 2 turns the same workspace into a Hermes multi-agent Kanban video team, adds source assurance and RAG maintenance, compares a supervised OpenAI Dots review, and ends with an audited, human-accepted local release.
+Day 2 moves from one agent to a team. Each agent has its own tools, skills, model, instructions and context window, and agents hand work to each other (the Agent Communication Protocol, now part of A2A). With Hermes profiles, a Kanban board and bots you run a **social media marketing team** (LinkedIn, Facebook, Instagram, images) and a **video production team** (research, script, HyperFrames render, voice-over, review, then your approval). The day closes with the five principles of AI security. An optional bonus topic runs Kopi Kaki as a **one-person company in Paperclip**, where a CEO agent hires a Chief of Staff and the Chief of Staff hires the marketing team.
 
 ## Learning outcomes
 
@@ -29,46 +29,41 @@ Day 2 turns the same workspace into a Hermes multi-agent Kanban video team, adds
 
 ## Topics covered
 
-1. **Human–AI Collaboration & Always-On AI Agents.** Brief AI history and what agentic AI is; under the hood: the model in a harness, tools, skills and the agentic loop; humans decide; two work modes and five collaboration scenarios with real examples; use cases; the Big Five always-on agents (features, setup and video); setting up one assistant.
-2. **Hermes Agent: Single-Agent Office Automation, Tools & Skills.** Hermes Desktop and reviewed skills; Gmail, Calendar, Drive and Excel through gog; dashboard, professional PPT and single-agent video; one approved training email.
-3. **Hermes Teams & OpenAI Dots: Kanban, Video & Human Oversight.** Hermes bots and a Kanban video studio; source retrieval, verification and maintenance; a supervised Dots launch review; team video revision, local release and evaluation.
+1. **Human–AI Collaboration & Always-On AI Agents.** AI history and agentic AI; under the hood (model, harness, tools, skills, the agentic loop); five collaboration scenarios; use cases; the Big Five always-on agents; Activity 1.
+2. **Hermes Agent — Your First AI Employee.** What Hermes is; Hermes Desktop; connecting a model (MiniMax demo); Telegram; tools; skills; Firecrawl; gog for Gmail and Calendar; cron schedules and a daily email summary; Activities 2 and 3.
+3. **Hermes Teams — Marketing & Video Production.** Introduction to multiple agents and how they talk (ACP/A2A); video tools (HyperFrames, Remotion, Manim); profiles, Kanban and bots; grounding and RAG; five principles of AI security; Activities 4 and 5.
+4. **Bonus (optional) — Paperclip: Kopi Kaki as a One-Person Company.** Install Paperclip; set up the company and the CEO; the CEO hires a Chief of Staff, who hires the marketing team; the org chart; the team makes the video; compare with Hermes Kanban.
 
-## Activities
+## Labs
 
-Eight connected activities, four per day. Each folder holds a README, an instructions PDF, copyable prompts and its data.
+Every lab folder holds a README, a printable instructions PDF with every step and prompt, `COPY-PROMPTS.txt` and its synthetic data. **[Open the Lab Prompts page](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html)** to copy each prompt with one click.
 
-| Activity | Day | Exercise | Time |
+| Lab | Day | Exercise | Time |
 |---|---|---|---|
-| 1 | 1 | [Set up an always-on personal assistant](labs/lab01-always-on-personal-assistants/README.md) | 75 min |
-| 2 | 1 | [Hermes Desktop, tools, skills and the company brief](labs/lab02-hermes-desktop-skills/README.md) | 90 min |
-| 3 | 1 | [Hermes Gmail, Calendar, Drive and Excel](labs/lab03-hermes-google-office/README.md) | 50 min |
-| 4 | 1 | [Dashboard, professional PPT and single-agent video](labs/lab04-hermes-ppt-video-artifacts/README.md) | 70 min |
-| 5 | 2 | [Hermes bots and Kanban video studio](labs/lab05-hermes-kanban-video-team/README.md) | 85 min |
-| 6 | 2 | [Source assurance, RAG comparison and maintenance](labs/lab06-hermes-source-assurance/README.md) | 45 min |
-| 7 | 2 | [OpenAI Dots: supervised launch review](labs/lab07-openai-dots-launch-review/README.md) | 35 min |
-| 8 | 2 | [Revise, verify and release the team video locally](labs/lab08-hermes-video-release/README.md) | 115 min |
-
-In Activity 1A every learner joins Meta Muse ([Web](https://muse.ai) · [iOS](https://apps.apple.com/sg/app/muse-from-meta/id6760173601) · [Android](https://play.google.com/store/apps/details?gl=sg&id=com.facebook.aura)) and redeems the trainer's invite code in Settings › General › Usage within 48 hours of joining. In Activity 1B, learners whose ChatGPT plan includes [dots](https://openai.com/index/introducing-dots/) (Pro or Business Premium at launch) set one up. Activity 2 uses [Hermes Desktop](https://hermes-agent.nousresearch.com/desktop).
+| Lab 1 | 1 | [Your always-on CEO assistant: Meta Muse or OpenAI Dots](labs/lab01-always-on-personal-assistants/README.md) | 75 min |
+| Topic 2 Setup | 1 | [Hire your first AI employee: Hermes Agent setup](labs/setup02-hermes-first-ai-employee/README.md) | 120 min |
+| Lab 2 | 1 | [UX skills from skills.sh build the Kopi Kaki website](labs/lab02-kopi-kaki-website/README.md) | 45 min |
+| Lab 3 | 1 | [PPT tool + skill build the Kopi Kaki pitch deck](labs/lab03-kopi-kaki-pitch-deck/README.md) | 45 min |
+| Lab 4 | 2 | [Your social media marketing team](labs/lab04-social-media-marketing-team/README.md) | 60 min |
+| Lab 5 | 2 | [Your video production team](labs/lab05-video-production-team/README.md) | 130 min |
+| Bonus | 2 | [Paperclip: run Kopi Kaki as a one-person company](labs/bonus-paperclip-one-person-company/README.md) | 60 min |
 
 ## Course materials in this repository
 
 | Material | Files |
 |---|---|
-| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.3.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.3.pdf) |
+| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.4.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.4.pdf) |
 | Learner Guide | [DOCX](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) · [Markdown](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) |
 | Lesson Plan | [DOCX](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) |
-| Activities | [labs/](labs/) · [prompts page](prompts/index.html) |
-| Change history | [CHANGELOG](courseware/CHANGELOG.md) |
-
-Keep each activity's documented output paths: Day 2 reuses the Day 1 outputs. Native Windows and WSL use separate paths and credentials, and an existing `AGENTS.md` should be preserved.
+| Labs | [labs/](labs/) · [Lab Prompts page](prompts/index.html) · [Sources](prompts/resources.html) |
 
 ## Practical evidence
 
-- **PP Task 1:** two own-work images. One shows your chosen always-on assistant's request and result (Activity 1); the other shows a Hermes-generated artifact (Activity 4).
-- **PP Task 2:** one professional PPT image (Activity 4), with the skills and tools evidence retained.
-- **PP Task 3:** one image of your actual Kanban video team with Hermes bots (Activity 5 or 8).
+- **PP Task 1:** one screenshot of your own Meta Muse or OpenAI Dots request and its result (Lab 1).
+- **PP Task 2:** one Hermes Desktop or dashboard screenshot of the professional PPT your agent built (Lab 3).
+- **PP Task 3:** two screenshots, your Hermes Kanban board and the video it produced (Lab 5).
 
-Keep the original artifacts, source references, runs, MP4 and audit files. Store or install screens, mockups and trainer demonstrations do not count as your own execution.
+Keep the original files (PPTX, MP4, review and approval notes). Store or install screens, mockups and trainer demonstrations do not count as your own work.
 
 ## What is public and what is not
 

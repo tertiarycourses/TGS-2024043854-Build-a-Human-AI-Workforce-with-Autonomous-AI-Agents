@@ -1,4 +1,4 @@
-LAB 1 — Activity 1 — Join Meta Muse, Set Up an OpenAI Dot
+LAB 1 — Activity 1 — Your Always-On CEO Assistant: Meta Muse or OpenAI Dots
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 

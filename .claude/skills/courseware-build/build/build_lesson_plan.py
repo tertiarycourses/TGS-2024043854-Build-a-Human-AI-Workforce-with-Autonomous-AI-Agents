@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -33,23 +33,27 @@ KIND_FILL = {"topic": TOPIC_FILL, "activity": TOPIC_FILL, "break": BREAK_FILL, "
              "admin": "F3F5F8", "recap": "F3F5F8", "lab": None}
 
 def rng(a, b): return str(MAP[a]) if MAP[b] - 1 == MAP[a] else f"{MAP[a]}–{MAP[b] - 1}"
+NEXT = {"01": "lab1end", "S2": "lab02", "02": "lab03", "03": "t2close", "04": "lab05", "05": "t3b", "B": "bonusend"}
 def slides_for(day, text):
     t = text
     if t.startswith("Welcome"): return rng("admin", "t1a")
     if t.startswith("Topic 1 (Part A)"): return rng("t1a", "t1b")
-    if t.startswith("Topic 1 (Part B)"): return rng("t1b", "lab1")
-    if t.startswith("Lab 1 checkpoint"): return rng("lab1", "lab1end")
-    if t.startswith("Lab 2: Activity 2A"): return rng("t2", "lab2i")
-    if t.startswith("Lab 2: Activity 2B"): return rng("lab2i", "lab3")
-    if t.startswith("Source assurance introduction"): return str(MAP["lab6"])
-    if t.startswith("Lab 6:"): return f"{MAP['lab6'] + 1}–{MAP['lab7'] - 1}"
-    for L in LABS:
-        if t.startswith(f"Lab {L['num']}:"):
-            nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
-            return rng(f"lab{L['num']}", nxt)
+    if t.startswith("Topic 1 (Part B)"): return rng("t1b", "lab01")
+    if t.startswith("Lab 1:") or t.startswith("Activity 1 checkpoint"): return rng("lab01", "lab1end")
+    if t.startswith("Topic 2 (Part A)"): return rng("t2", "t2b")
+    if t.startswith("Topic 2 (Part B)"): return rng("t2b", "t2c")
+    if t.startswith("Topic 2 (Part C)"): return rng("t2c", "lab02")
+    if t.startswith("Lab 2:"): return rng("lab02", "lab03")
+    if t.startswith("Lab 3:"): return rng("lab03", "t2close")
     if t.startswith("Day 1 recap, Q&A"): return str(MAP["day2"])
-    if t.startswith("Day 1 recap and AM"): return rng("day2", "lab5")
-    if t.startswith("Course recap"): return rng("t3sum", "assess")
+    if t.startswith("Day 1 recap and AM"): return str(MAP["t3"])
+    if t.startswith("Topic 3 (Part A)"): return rng("t3", "lab04")
+    if t.startswith("Lab 4:"): return rng("lab04", "lab05")
+    if t.startswith("Lab 5: Activity 5A"): return rng("lab05", "lab05i")
+    if t.startswith("Lab 5: Activity 5B"): return rng("lab05i", "t3b")
+    if t.startswith("Topic 3 (Part B)"): return rng("t3b", "t3sum")
+    if t.startswith("Bonus"): return rng("bonus", "bonusend")
+    if t.startswith("Course recap"): return rng("wrap", "assess")
     if t.startswith("Briefing"): return str(MAP["briefing"])
     if t.startswith("Written") or t.startswith("Practical"): return rng("assess", "end")
     return "—"
@@ -59,7 +63,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 
@@ -156,12 +160,11 @@ for i, h in enumerate(["Lab", "Title", "Paradigm", "LO", "Slides"]):
     set_cell(hdr[i], h, bold=True, size=10, color=RGBColor(0xFF, 0xFF, 0xFF), fill=HEADER_FILL)
 for L in LABS:
     c = lt.add_row().cells
-    nxt = {1: "lab1end", 4: "t2close", 8: "t3sum"}.get(L["num"], f"lab{L['num'] + 1}")
-    set_cell(c[0], f"Lab {L['num']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
-    set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['num']}i", nxt))
+    set_cell(c[0], f"{L['label']} (Day {L['day']})", bold=True); set_cell(c[1], L["title"])
+    set_cell(c[2], L["paradigm"]); set_cell(c[3], L["lo"]); set_cell(c[4], rng(f"lab{L['code']}i", NEXT[L["code"]]))
 prodoc.set_widths(lt, [1.1, 3.2, 1.5, 0.5, 0.7])
-doc.add_paragraph("Lab materials: labs/labNN-*/ (README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt, data/) and the "
-                  "Lab Prompts page prompts/index.html in the course repository.").runs[0].font.size = Pt(10)
+doc.add_paragraph("Lab materials: one folder per lab under labs/ (README, LAB-<code>-Instructions.pdf, COPY-PROMPTS.txt, data/) and the "
+                  "Lab Prompts page prompts/index.html (also on the course GitHub Page). The bonus Paperclip lab is optional.").runs[0].font.size = Pt(10)
 
 prodoc.add_page_numbers(doc); prodoc.enable_update_fields(doc)
 OUT = os.path.join(REPO, "courseware", f"LP-{C.SHORT_TITLE}.docx")
