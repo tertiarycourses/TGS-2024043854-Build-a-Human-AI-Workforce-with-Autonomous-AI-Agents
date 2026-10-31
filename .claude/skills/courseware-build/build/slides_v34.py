@@ -13,6 +13,7 @@ PC = 'https://github.com/paperclipai/paperclip'
 HK = 'https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban'
 HP = 'https://hermes-agent.nousresearch.com/docs/user-guide/profiles'
 HF = 'https://hyperframes.heygen.com/'
+BM = 'https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode'
 
 def link(s, x, y, w, label, url, size=10):
     t = text(s, x, y, w, .26, label, size, TEAL, autofit=False); t.text_frame.paragraphs[0].runs[0].hyperlink.address = url
@@ -57,21 +58,21 @@ def before_after(D, kicker, title, sub, left, right, tipt=None):
 # ====================================================================== Topic 3
 def topic3_open(D, C):
     section(D, 'Day 2 · Topic 3', C.TOPICS[2]['title'], C.TOPICS[2]['items'],
-            sub='Recap: a CEO assistant, then your first AI employee. Today: AI teams.')
+            sub='Recap: a CEO assistant, then your first AI employee. Today: AI teams that run on a schedule.')
     big_number(D, 'Topic 3 · Two weeks to launch', '5 + 5',
-               'Five marketers and five video makers. You hire none of them.',
-               'Yesterday Mia worked alone. Today you split the launch into specialist jobs: a social media team writes for three platforms, '
-               'a production team makes the launch video. You stay the founder who approves everything.')
+               'Five bots in a group chat. Five agents on a board.',
+               'Yesterday Mia worked alone. Today you hire a team: five named bots write the launch posts together in one group chat, '
+               'one prompt builds a video team on a Kanban board, and a cron sets both to work every week. You approve everything.')
 
 def video_tools(D):
     s = D.new(); header(D, s, 'Topic 3 · Video skills and tools', 'Three Ways Your Agents Make Video with Code',
                         'No camera, no editor: the agent writes code, the tool renders an MP4. Pick the one that suits the job.')
-    tools = [('HyperFrames', 'by HeyGen · HTML → MP4', 'Write each scene as HTML/CSS with GSAP timing; lint, snapshot, preview, render. Built-in local voice-over (Kokoro).',
-              'Kopi Kaki uses it for the launch video.', 'hermes skills install \\\n  official/creative/hyperframes\nnpx hyperframes doctor', HF),
+    tools = [('HyperFrames', 'by HeyGen · HTML → MP4', 'Write each scene as HTML/CSS with GSAP timing; lint, snapshot, preview, render. Narrated with Hermes’s free Edge voice.',
+              'Kopi Kaki uses it for the launch video.', 'Ask Mia: “Install the official\nhyperframes skill and check\nwhat it needs.”', HF),
              ('Remotion', 'React → MP4', 'Each frame is a React component; strong for data-driven and templated videos at scale.',
-              'Good for 50 personalised promo cuts.', 'npx skills add remotion-dev/skills \\\n  -a hermes-agent -g', 'https://www.remotion.dev/'),
+              'Good for 50 personalised promo cuts.', 'Capabilities → Skills →\nsearch “remotion”', 'https://www.remotion.dev/'),
              ('Manim', 'Python → MP4', 'The maths-animation engine behind 3Blue1Brown: precise diagrams, graphs and equations that move.',
-              'Good for explaining how cold brew is made.', '# skill built in: manim-video\npip install manim   # + LaTeX', 'https://www.manim.community/')]
+              'Good for explaining how cold brew is made.', 'Built in: the manim-video\nskill (Mia installs Manim\nif you ask)', 'https://www.manim.community/')]
     for i, (name, tag_, what, use, cmd, url) in enumerate(tools):
         x = .6 + i * 4.1; dark = False
         card(s, x, 2.35, 3.9, 4.35, fill=CHAR if dark else WHITE)
@@ -84,44 +85,65 @@ def video_tools(D):
         link(s, x + .3, 6.32, 3.4, url.replace('https://', '') + ' · click', url)
     tag(D, 'TOOLS', HF + ' ; https://www.remotion.dev/ ; https://www.manim.community/')
 
-def profiles_kanban_bots(D):
-    hub(D, 'Topic 3 · Profiles', 'A Profile Is a Separate Employee', 'Each profile:\nown SOUL · memory\nskills · model', [
-        ('search', 'researcher', 'Facts with a source file'), ('pen', 'linkedin-writer', 'Founder story for investors'),
-        ('chat', 'facebook-writer', 'Neighbours and pop-ups'), ('image', 'instagram-writer', 'Hook, caption, hashtags'),
-        ('sparkles', 'image-creator', 'On-brand 1080×1350 images'), ('user', 'You', 'Approve every post')],
-        sub='hermes profile create <name> --clone copies your model and keys; SOUL.md gives the job and the rules.')
-    tag(D, 'ARCH', HP)
-    image(D, 'Topic 3 · Profiles', 'Your Team in the Hermes Dashboard', asset('screenshots', 'hermes-profiles.png'),
-          caption='Profiles listed side by side: each has its own configuration, memory and skills. Reference screenshot; capture your own team.')
+def bots_and_groups(D):
+    """Activity 4 concepts: hire named bots, then put them in one group chat (Hermes Desktop Bot Mode)."""
+    image(D, 'Topic 3 · Bots', 'Hire a Bot in 30 Seconds: Name, Title, Role', asset('screenshots', 'desktop', 'bot-edit-profile.png'),
+          side=[('users', 'Bots tab → New Agent', 'Three fields: Name, Title, Description. The bot introduces itself.'),
+                ('file', 'Advanced', 'Paste its role file as Custom SOUL.md; pick its model, skills and tools.'),
+                ('sparkles', 'Give it a face', 'Right-click → Edit Profile: Bot, Generate, Upload or a Pet.')],
+          caption='A bot is a Hermes profile with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat.')
+    tag(D, 'ARCH', BM)
+    image(D, 'Topic 3 · Group chats', 'Put Your Bots in One Room and Let Them Hand Off', asset('screenshots', 'desktop', 'bot-group-chat.png'),
+          side=[('users', 'Manage groups', 'Right-click a bot → Manage groups → create one. 2–6 bots per room.'),
+                ('chat', '@name hands off', 'Bots pull teammates in with @name; @user asks you to decide.'),
+                ('shield', 'Built-in brakes', 'Up to 3 rounds and 10 messages per send. Stop, Rename, Disband.')],
+          caption='Trainer’s test room: Eve and Dalong answer the same message and tag each other. Your room has five marketers.')
+    tag(D, 'ARCH', BM)
+
+def social_team(D):
+    s = D.new(); header(D, s, 'Topic 3 · Activity 4', 'Meet the Kopi Social Team: Five Names, Five Jobs',
+                        'Give each bot a name you will remember and a role it cannot misread. They share one group chat; you have the final word.')
+    team = [('search', 'Rafi', 'Market Researcher', 'Angles and facts, each with its source file. Goes first.'),
+            ('linkedin', 'Lin', 'LinkedIn Writer', 'The founder story for investors and catering buyers.'),
+            ('users', 'Farah', 'Facebook Writer', 'Neighbours, pop-up dates and the 1 Dec opening.'),
+            ('image', 'Ivy', 'Instagram Writer', 'The scroll-stopping hook, caption and hashtags.'),
+            ('sparkles', 'Pixel', 'Image Creator', 'One on-brand image per post and the review gallery.'),
+            ('user', 'You', 'Founder · @user', 'APPROVE, EDIT or REJECT every post. Nothing goes out without you.')]
+    for i, (ic, n, ttl, d) in enumerate(team):
+        r, c = divmod(i, 3); x = .6 + c * 4.1; y = 2.35 + r * 2.05; you = n == 'You'
+        card(s, x, y, 3.9, 1.85, fill=ACC_D if you else (CHAR if r == 0 and c == 0 else WHITE))
+        dark = you or (r == 0 and c == 0)
+        icon(s, ic, x + .25, y + .28, .6, fill=WHITE if you else ACC, glyph=ACC_D if you else WHITE)
+        text(s, x + 1.05, y + .2, 2.7, .45, n, 21, WHITE if dark else INK, bold=True, font=SERIF, autofit=False)
+        text(s, x + 1.05, y + .66, 2.7, .3, ttl.upper(), 10.5, LIGHT if you else ACC, bold=True, autofit=False)
+        text(s, x + .25, y + 1.05, 3.45, .75, d, 12, SOFT if dark else MUTED, minpt=9)
+    tag(D, 'CONCEPT', 'Course design; role files in labs/lab04-social-media-marketing-team/data/souls/')
+
+def kanban_board(D):
     s = D.new(); header(D, s, 'Topic 3 · Kanban', 'Parents First: A Card Runs Only When Its Inputs Exist',
-                        'The board is the team’s shared to-do list. A card with an open parent waits; your HUMAN card blocks everything after it.')
-    nodes = [('Research', 'researcher', 1.0, 3.65), ('LinkedIn', 'linkedin-writer', 4.1, 2.45), ('Facebook', 'facebook-writer', 4.1, 3.65),
-             ('Instagram', 'instagram-writer', 4.1, 4.85), ('Images + gallery', 'image-creator', 7.2, 3.65), ('HUMAN: approve', 'you, unassigned', 10.3, 3.65)]
-    for lab, who, x, y in nodes:
-        human = lab.startswith('HUMAN')
-        card(s, x, y, 2.45, .95, fill=ACC_D if human else WHITE)
-        text(s, x + .18, y + .08, 2.1, .4, lab, 14, WHITE if human else INK, bold=True, font=SERIF, autofit=False)
-        text(s, x + .18, y + .5, 2.1, .35, who, 11, LIGHT if human else MUTED, autofit=False)
-    for (x1, y1, x2, y2) in [(3.45, 4.12, 4.1, 2.92), (3.45, 4.12, 4.1, 4.12), (3.45, 4.12, 4.1, 5.32),
-                             (6.55, 2.92, 7.2, 4.12), (6.55, 4.12, 7.2, 4.12), (6.55, 5.32, 7.2, 4.12), (9.65, 4.12, 10.3, 4.12)]:
-        line(s, x1, y1, x2, y2, ACC, 1.75, arrow=True)
-    tip(D, s, 'Hermes dispatches a card when every parent is done and the gateway is running. Bind parents when you create the card, not afterwards.', y=6.25)
+                        'The board is the video team’s shared to-do list. One prompt to Mia creates the team and these seven cards; your two HUMAN cards hold everything after them.')
+    nodes = [('Research', 'video-researcher'), ('Script', 'scriptwriter'), ('HUMAN', 'approve script'), ('Voice-over', 'voice-over'),
+             ('Render', 'video-producer'), ('Review', 'video-reviewer'), ('HUMAN', 'approve exact video')]
+    w, gap, y = 1.55, .2, 3.3
+    for i, (lab, who) in enumerate(nodes):
+        x = .6 + i * (w + gap); human = lab == 'HUMAN'
+        card(s, x, y, w, 1.35, fill=ACC_D if human else WHITE)
+        text(s, x + .1, y + .15, w - .2, .45, lab, 15, WHITE if human else INK, bold=True, font=SERIF, align='c', autofit=False)
+        text(s, x + .1, y + .65, w - .2, .6, who, 10.5, LIGHT if human else MUTED, align='c', minpt=8)
+        if i < len(nodes) - 1: line(s, x + w + .01, y + .68, x + w + gap - .01, y + .68, ACC, 1.75, arrow=True)
+    text(s, .6, 5.05, 12.1, .9, 'Bots in a group chat (Activity 4) talk their way to a result. A board (Activity 5) makes the order explicit: '
+         'who goes next, what each card needs, and where the work stops for you. Use a board when the steps are known and the stakes are high.', 14, MUTED, minpt=11)
+    tip(D, s, 'Kanban in the left sidebar shows the board live. Open a card for its run history and output; PP Task 3 screenshot A comes from here.', y=6.2)
     tag(D, 'ARCH', HK)
     image(D, 'Topic 3 · Kanban', 'Watch the Board Work', asset('screenshots', 'hermes-kanban.png'),
-          caption='hermes kanban watch --tenant kopi-social in the terminal, or hermes dashboard → Kanban. Open a card for its run history and output path.')
-    before_after(D, 'Topic 3 · Bots', 'Bots: Talk to Each Team Member by Name',
-                 'A bot is how you reach a profile. The work is still tracked on the board.',
-                 ('Without bots', 'One chat, one voice', ['You ask Mia to “be the LinkedIn writer”.', 'Roles blur; memory mixes three platforms.', 'Hard to tell who wrote what.']),
-                 ('With bots', 'A roster of named specialists', ['Desktop Bot Mode (Bots tab) shows each profile as a bot.', 'Ask the researcher, brief the image creator, directly.', 'Optional: one Telegram bot per profile (<profile> gateway start).']),
-                 tipt='A Telegram bot is a messaging account. Two Telegram chats do not make two agents: separate profiles do.')
-    tag(D, 'ARCH', HP)
+          caption='Reference Kanban view: cards move from waiting to running to done as their parents finish. Your board shows the kopi-video cards and your HUMAN gates.')
 
 def activity4_team(D):
     s = D.new(dark=True); header(D, s, 'Topic 3 · Activity 4', 'One Brief, Three Platforms, Three Voices',
                                  'The same launch fact, written by the specialist for each audience.')
     posts = [('LinkedIn', 'linkedin', 'Founder story', '“I quit my bank job to bring back the kopitiam I grew up with. On 1 Dec our Tiong Bahru flagship opens…”'),
              ('Facebook', 'users', 'The neighbourhood', '“Tiong Bahru kakis! Catch our last pop-up this Saturday, then come say hi on 1 Dec. Gula Melaka Cold Brew, SGD 6.80.”'),
-             ('Instagram', 'image', 'The scroll-stopper', '“Slow-brewed. Shiok cold. 🧋 12 hours, real gula melaka, coconut cream. #ShiokColdBrew”')]
+             ('Instagram', 'image', 'The scroll-stopper', '“Slow-brewed. Shiok cold. 12 hours, real gula melaka, coconut cream. #ShiokColdBrew”')]
     for i, (pl, ic, aud, q) in enumerate(posts):
         x = .6 + i * 4.1
         card(s, x, 2.45, 3.9, 3.7, fill=K.PANEL, shadow=False); icon(s, ic, x + .3, 2.7, .56)
@@ -131,10 +153,10 @@ def activity4_team(D):
     tip(D, s, 'Sample copy for illustration. Your team writes its own from the brief, and you approve every post.', y=6.35)
 
 def video_team(D):
-    s = D.new(); header(D, s, 'Topic 3 · Activity 5', 'Your Production Line: Five Bots, Two Human Gates',
+    s = D.new(); header(D, s, 'Topic 3 · Activity 5', 'Your Production Line: Five Agents, Two Human Gates',
                         'Research → script → YOU approve → voice-over and render → independent review → YOU approve the exact file.')
     steps = [('search', 'Researcher', 'Claim | source | quote', False), ('pen', 'Scriptwriter', '4 scenes · 20 s', False), ('user', 'You', 'Approve the script', True),
-             ('chat', 'Voice-over', 'narration.wav', False), ('film', 'Producer', 'HyperFrames → MP4', False), ('eyecheck', 'Reviewer', 'V1–V9 + link', False), ('user', 'You', 'APPROVE <sha256>', True)]
+             ('chat', 'Voice-over', 'Free Edge voice', False), ('film', 'Producer', 'HyperFrames → MP4', False), ('eyecheck', 'Reviewer', 'V1–V9 + link', False), ('user', 'You', 'APPROVE <sha256>', True)]
     w = 1.58; gap = .14
     for i, (ic, t, d, human) in enumerate(steps):
         x = .6 + i * (w + gap)
@@ -178,6 +200,25 @@ def grounding(D):
            ('Cost', 'Ingestion + queries + human review', 'Model spend plus your review minutes')], colw=[2.2, 4.6, 5.3], size=13)
     tag(D, 'EVIDENCE', 'Course evaluation design')
 
+# ---------------------------------------------------------------- Activity 6 · content crons
+def crons_week(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Activity 6', 'A Week on Autopilot, With You Holding the Keys',
+                                 'Two scheduled jobs start the team’s work. Neither one approves anything.')
+    week = [('MON 9:00', 'Weekly social drafts', 'Three posts, three images and a gallery in a dated folder.', False),
+            ('MON 9:05', 'Telegram ping', '“Drafts ready — APPROVE, EDIT or REJECT.”', False),
+            ('YOU', 'Approve on your phone', 'Only approved posts are used.', True),
+            ('FRI 10:00', 'Weekly video draft', 'A new run on the kopi-video board.', False),
+            ('YOU', 'Two gates', 'Approve the script, then the exact video.', True)]
+    w, gap = 2.3, .15
+    for i, (when, t, d, you) in enumerate(week):
+        x = .6 + i * (w + gap)
+        card(s, x, 2.45, w, 3.1, fill=ACC_D if you else K.PANEL, shadow=False)
+        text(s, x + .2, 2.65, w - .4, .4, when, 15, WHITE if you else ACC, bold=True, autofit=False)
+        text(s, x + .2, 3.15, w - .4, .9, t, 17, WHITE, bold=True, font=SERIF, minpt=12)
+        text(s, x + .2, 4.15, w - .4, 1.3, d, 12.5, LIGHT if you else SOFT, minpt=9.5)
+    text(s, .6, 5.8, 12.1, .5, 'Automate the start of the work, never the approval. Test with Trigger now; pause what you cannot watch.', 14, LIGHT, minpt=11)
+    tag(D, 'CONCEPT', 'Course design; ' + 'https://hermes-agent.nousresearch.com/docs/user-guide/features/cron')
+
 # ---------------------------------------------------------------- evaluation (WA K3/K5) — after Activity 5
 def evaluation(D):
     big_number(D, 'Topic 3 · Was the team worth it?', 'SGD 3,000', 'versus your agents’ model bill and your review time.',
@@ -200,7 +241,7 @@ def security(D):
            ('Human in the Loop', 'Who approves', 'A person reviews and approves high-impact actions — sends, posts, payments, deletions.'),
            ('Traceability', 'What happened', 'Log every prompt, tool call and change so actions can be audited, explained and rolled back.'),
            ('Right-Sized Models', 'Not the most powerful', 'Do not use the most powerful model by default — the smallest model that does the job has less autonomy and risk.')],
-          'In Hermes: read-only gog, a Telegram allow-list, approvals.mode manual, HUMAN Kanban cards, run history and file hashes, a smaller model per profile.')
+          'In Hermes: a read-only Gmail connector, a Telegram approved-users list, @user questions in group chats, HUMAN Kanban cards, file fingerprints, a smaller model per bot.')
     tag(D, 'POLICY', 'Same five principles as TGS-2025052468 Agentic AI Applications with Claude Code (slide 75)')
 
 # ====================================================================== Bonus · Paperclip
@@ -213,14 +254,14 @@ def bonus(D, C, mark):
                'and the Chief of Staff hires the marketing team. Your job: set the mission, approve the hires, approve what goes public.')
     before_after(D, 'Bonus · What is Paperclip?', 'Kanban Organises Tasks. Paperclip Organises People.',
                  'Paperclip (open source) runs a company of AI agents: org chart, job titles, reporting lines, budgets and an approval inbox.',
-                 ('Hermes Kanban (Activities 4–5)', 'You are the manager', ['You create every card and every dependency.', 'You decide who does what.', 'Budgets and hiring are not modelled.']),
+                 ('Hermes Kanban (Activity 5)', 'You are the manager', ['You create every card and every dependency.', 'You decide who does what.', 'Budgets and hiring are not modelled.']),
                  ('Paperclip company (bonus)', 'You are the Board', ['A CEO agent breaks goals into tasks and hires.', 'Hires wait in your approval inbox.', 'Each agent has a budget and a manager.']),
                  tipt='Paperclip runs on agents you already have: Hermes, Claude Code, Codex or Gemini CLI become its “adapters”.')
     tag(D, 'ARCH', PC)
-    image(D, 'Bonus · Install', 'Install Paperclip: One Command, Then localhost:3100', asset('paperclip', 'dashboard.png'),
-          caption='npx paperclipai onboard --yes  →  open http://localhost:3100. Trainer’s demo company shown; you build Kopi Kaki Co. the same way.',
-          side=[('terminal', 'Prerequisite', 'Node.js 24.11+ and one signed-in agent CLI (Hermes from Topic 2 works).'),
-                ('server', 'Install', 'npx paperclipai onboard --yes (or Docker Compose).'),
+    image(D, 'Bonus · Install', 'Install Paperclip: One Request to Mia, Then localhost:3100', asset('paperclip', 'dashboard.png'),
+          caption='Ask Mia to install and start it, then open http://localhost:3100. Trainer’s demo company shown; you build Kopi Kaki Co. the same way.',
+          side=[('gear', 'Prerequisite', 'Node.js 24.11+ on the laptop (the trainer installs it) and Mia from Topic 2.'),
+                ('chat', 'Install', 'Ask Mia: “Install Paperclip and keep it running.” She runs the installer for you.'),
                 ('building', 'Company', 'Wizard: name it Kopi Kaki Co.; first agent Ava.')])
     image(D, 'Bonus · Set up the company', 'Kopi Kaki Co.: Mission, Budget, Hiring Gate', asset('paperclip', 'company-settings.png'),
           caption='Company settings hold the name, mission and budget. Then Settings → General → Hiring → “Require board approval for new hires” = ON.')
@@ -231,7 +272,7 @@ def bonus(D, C, mark):
          'Mission: launch the Gula Melaka Cold Brew on 1 Dec 2026.\n\n- You do not do the marketing work. You hire and manage.\n- First hire: a Chief of Staff who runs the marketing team.\n'
          '- Every hire: mandate, reporting line, budget, Board approval.\n- Every public item: independent reviewer, then the Board.\n- Report weekly: progress, spend, risks, decisions.',
          12.5, 'F1EDE4', font=K.MONO, minpt=9, cw=.62, lh=1.12)
-    for i, (ic, t, d) in enumerate([('briefcase', 'Role: CEO', 'Set with the CLI: agent update … role ceo'), ('file', 'Source files', 'Upload brand guide, brief, compliance rules'),
+    for i, (ic, t, d) in enumerate([('briefcase', 'Role: CEO', 'Paperclip has no Role field: ask Mia to set it'), ('file', 'Source files', 'Upload brand guide, brief, compliance rules'),
                                     ('gavel', 'First task', '“Hire a Chief of Staff” — it lands in your approval inbox')]):
         y = 2.45 + i * 1.45; icon(s, ic, 8.65, y, .52)
         text(s, 9.3, y - .03, 3.4, .4, t, 15, INK, bold=True, font=SERIF); text(s, 9.3, y + .4, 3.4, .9, d, 12, MUTED, minpt=9)
@@ -247,7 +288,7 @@ def bonus(D, C, mark):
           caption='Give the Chief of Staff the Activity 5 brief. Sub-tasks move through Todo → In Progress → In Review → Done, with your approvals in between.')
     table(D, 'Bonus · Compare', 'Same Video, Two Ways: Hermes Kanban vs Paperclip', ['', 'Hermes Kanban team (Activity 5)', 'Paperclip company (bonus)'],
           [('Who breaks down the work', 'You create every card and parent', 'The CEO and Chief of Staff create tasks'),
-           ('Who decides the team', 'You create the profiles', 'Managers propose hires; you approve'),
+           ('Who decides the team', 'You (one prompt to Mia) create the agents', 'Managers propose hires; you approve'),
            ('Control', 'HUMAN cards on the board', 'Approval inbox, budgets, hiring gate'),
            ('Visibility', 'Board, run history, files', 'Org chart, audit log, costs per agent'),
            ('Best for', 'A known pipeline you want to run exactly', 'An ongoing operation you want to delegate and govern')],
@@ -266,12 +307,12 @@ def multi_intro(D):
                  tipt='More agents also means more hand-offs to check. Use a team when the jobs are truly different, not just because you can.')
     tag(D, 'CONCEPT', 'Course design; Hermes profiles and Kanban docs')
     s = D.new(); header(D, s, 'Topic 3 · Multiple agents', 'Every Agent Brings Its Own Five Things',
-                        'In Hermes each agent is a profile. Change any of the five and you get a different employee.')
-    five = [('tool', 'Tools', 'What it can do', 'web, terminal, image, voice …', 'image-creator: image tool on'),
+                        'In Hermes each agent is a bot (a profile). Change any of the five and you get a different employee.')
+    five = [('tool', 'Tools', 'What it can do', 'web, terminal, image, voice …', 'Pixel: image tool on'),
             ('puzzle', 'Unique skills', 'How it does the job well', 'its own SKILL.md set', 'video-producer: hyperframes'),
-            ('brain', 'Model', 'How it thinks', 'big or small, any provider', 'researcher: a careful model'),
+            ('brain', 'Model', 'How it thinks', 'big or small, any provider', 'Rafi: a careful model'),
             ('file', 'Instructions', 'Who it is and its rules', 'SOUL.md + AGENTS.md', 'reviewer: never approves for you'),
-            ('layers', 'Context window', 'What it is holding in mind', 'its own memory and session', 'writers never see each other’s drafts')]
+            ('layers', 'Context window', 'What it is holding in mind', 'its own memory and session', 'each bot keeps its own chat and memory')]
     for i, (ic, t, q, how, eg) in enumerate(five):
         x = .6 + i * 2.46; dark = i % 2 == 1
         card(s, x, 2.4, 2.3, 4.0, fill=CHAR if dark else WHITE)
@@ -280,14 +321,14 @@ def multi_intro(D):
         text(s, x + .15, 3.95, 2.0, .55, q, 12, ACC, bold=True, align='c', minpt=9)
         text(s, x + .15, 4.55, 2.0, .75, how, 12, SOFT if dark else MUTED, align='c', minpt=9)
         text(s, x + .15, 5.35, 2.0, .9, eg, 11, LIGHT if dark else INK, align='c', minpt=8.5)
-    tip(D, s, 'hermes profile create <name> --clone, then edit its SOUL.md, skills, tools and model. Its context window starts empty and stays its own.', y=6.55)
+    tip(D, s, 'Hermes Desktop: Bots tab → New Agent → Name, Title, Description; Advanced for its SOUL.md, skills, tools and model.', y=6.55)
     tag(D, 'ARCH', HP)
 
 def each_can(D):
     s = D.new(dark=True); header(D, s, 'Topic 3 · How agents talk', 'Each Agent Can…',
-                                 'That is why a team beats one big agent: every member is set up differently. In Hermes, each profile is one member.')
-    for i, (ic, t, kk) in enumerate([('tool', 'have different tools', 'image-creator has the image tool; researcher has web search.'),
-                                     ('brain', 'access different knowledge', 'facebook-writer knows the pop-up dates; linkedin-writer knows the founder story.'),
+                                 'That is why a team beats one big agent: every member is set up differently. In Hermes, each bot is one member.')
+    for i, (ic, t, kk) in enumerate([('tool', 'have different tools', 'Pixel has the image tool; Rafi has web search.'),
+                                     ('brain', 'access different knowledge', 'Farah knows the pop-up dates; Lin knows the founder story.'),
                                      ('lock', 'operate under different permissions', 'reviewer can read but not render; nobody can post — only you approve.'),
                                      ('users', 'perform distinct roles', 'each SOUL.md says what the role owns and must never do.')]):
         x = .6 + i * 3.08

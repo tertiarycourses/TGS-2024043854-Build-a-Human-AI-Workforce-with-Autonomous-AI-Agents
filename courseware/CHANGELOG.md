@@ -1,5 +1,13 @@
 # Courseware change history
 
+## v3.5 — 31 October 2026
+
+- **No command lines.** Every Topic 2 and Topic 3 step is now a click in Hermes Desktop or a prompt the agent carries out. The trainer's Hermes Desktop screenshots (version check, Settings → Model, Telegram Create with QR, Voice, Capabilities → Skills and Connectors, Scheduled jobs, bot profiles and a bot group chat, the Activity 2 website) sit on the slides that explain them. The Telegram user ID is blurred.
+- **Model:** this class uses each learner's **ChatGPT Plus** plan (the free AI subscription slide now says to choose it). The **Nous Portal Free** tier ($0, free models only) and paid Nous plans are shown as alternatives. The MiniMax demo is removed.
+- **Gmail by Google sign-in:** Capabilities → Connectors → Gmail → Connect. No OAuth client and no gog CLI. A reviewed kopi-email-brief skill replaces gog-office. Free-tier connector access is marked awaiting verification.
+- **Activities:** 2 (website) and 3 (PPT) are single-agent. In **4**, learners hire five named bots (Rafi, Lin, Farah, Ivy, Pixel) and run them in one group chat. In **5**, one prompt builds the video team and its Kanban board. **New Activity 6** schedules jobs that auto-generate the weekly social drafts and a video draft, still behind approval.
+- Day 2 is re-timed inside the approved LU3 4 hours. Assessment v7 is unchanged. FG/AP v13.
+
 ## v3.3 — 30 October 2026
 
 - **Activity 1C · Talk to your agents. Stop typing to them.** Learners install [Wispr Flow](https://wisprflow.ai/) (Mac, Windows, iPhone and Android; free for 2,000 words a week) and speak every prompt to Muse, Dots and Hermes. The new pitch slide shows a typed vs spoken prompt and has a download button. Activity 1B is trimmed to 10 minutes, so Lab 1 still takes 75.

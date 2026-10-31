@@ -12,9 +12,9 @@ def trace(D,k,title,steps,evidence,source='Classroom workflow design',sub=None):
 def proof(D,k,title,items,source='Classroom verification model'):
     rows(D,k,title,items,dark=False);tag(D,'EVIDENCE',source)
 def swda(D):
-    trace(D,'Before we begin · SWDA','Free AI Subscription: Check, Attend, Redeem',[
-      ('user','Eligibility','Singapore Citizen; age 18+.'),('search','Course label','Find the official “Free AI sub” label.'),('mail','Notification','After attending an eligible course.'),('check','Request + activate','Choose once; follow the official email.')],
-      'One free six-month subscription per person. Eligible course end date: 16 Sep 2026 or later. Submit within 60 days of notification.',SWDA)
+    trace(D,'Before we begin · SWDA','Free AI Subscription: Redeem It as ChatGPT Plus',[
+      ('user','Eligibility','Singapore Citizen; age 18+.'),('search','Course label','Find the official “Free AI sub” label.'),('mail','Notification','After attending an eligible course.'),('check','Choose ChatGPT Plus','For this class, pick ChatGPT Plus: it becomes your Hermes agent’s brain.')],
+      'Sign up for ChatGPT Plus for this class: Hermes Desktop uses your plan as its model (no extra subscription). One free six-month subscription per person; eligible course end date 16 Sep 2026 or later; submit within 60 days of notification.',SWDA)
     s=D.prs.slides[-1]; text(s,0.7,6.8,11.8,0.24,'Official redemption guide (click)',11,ACC_D).text_frame.paragraphs[0].runs[0].hyperlink.address=SWDA
 
 def case_pair(D,group,ic,pair,index,kick='Topic 1 · 2026 opportunity gallery',sub='Proposed workflows · compare AI work, human decisions and observable evidence'):

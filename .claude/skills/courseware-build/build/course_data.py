@@ -11,7 +11,7 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v3.4"
+VERSION      = "v3.5"
 VERSION_DATE = "31 October 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
@@ -31,11 +31,11 @@ LEARNING_OUTCOMES = [
 # ------------------------------------------------------------------ topics
 TOPICS = [
  dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and what agentic AI is", "Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide", "Two work modes, five collaboration scenarios, use cases and the Big Five always-on agents", "Activity 1 · Join Meta Muse (invite code) and set up an OpenAI Dot"]),
- dict(num=2,code="02",weighting="35%",title="Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules",short="Hermes Agent",items=["What Hermes Agent is; set up Hermes Desktop and connect a model (MiniMax demo)", "Telegram, tools, skills and cron schedules", "gog for Gmail and Calendar; a daily email-summary cron; Firecrawl web search", "Activity 2 · UX skills from skills.sh build the Kopi Kaki website", "Activity 3 · PPT tool + skill build a professional Kopi Kaki deck (PP Task 2)"]),
- dict(num=3,code="03",weighting="35%",title="Hermes Teams — Marketing & Video Production with Profiles, Kanban & Bots",short="Hermes Teams",items=["Multiple agents: own tools, skills, model, instructions and context window; how agents talk (ACP)", "Video tools (HyperFrames, Remotion, Manim); profiles, Kanban and bots", "Activity 4 · Social media marketing team: LinkedIn, Facebook and Instagram posts with images", "Activity 5 · Video production team: research → script → video → voice-over → review → your approval (PP Task 3)", "Five principles of AI security"]),
+ dict(num=2,code="02",weighting="35%",title="Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules",short="Hermes Agent",items=["What Hermes Agent is; install Hermes Desktop; give Mia a brain: Nous free tier, your ChatGPT Plus plan or a paid model", "Telegram by QR code, voice, tools and skills, all from the Desktop window", "Gmail by Google sign-in (Connectors), Firecrawl web search and scheduled jobs", "Activity 2 · One agent + UX skills build the Kopi Kaki website", "Activity 3 · One agent + PPT tool and skill build the Kopi Kaki deck (PP Task 2)"]),
+ dict(num=3,code="03",weighting="35%",title="Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video",short="Hermes Teams",items=["Multiple agents: own tools, skills, model, instructions and context window; how agents talk (ACP)", "Activity 4 · Hire five named bots, put them in one group chat, get LinkedIn, Facebook and Instagram posts", "Activity 5 · One prompt builds a video team and its Kanban board: research → script → video → review → your approval (PP Task 3)", "Activity 6 · Crons auto-generate next week’s posts and video drafts, still behind your approval", "Five principles of AI security"]),
 ]
 BONUS = dict(num=4,code="B",title="Bonus (optional) — Paperclip: Kopi Kaki as a One-Person Company",short="Bonus · Paperclip",items=["What Paperclip is; install it", "Set up the company and the CEO (with instructions)", "CEO hires a Chief of Staff; the Chief of Staff hires the marketing team", "Org chart, then the team produces the video", "Compare Paperclip with the Hermes Kanban team"])
-DAY_THEMES = {1:"Human–AI overview → always-on assistants → Hermes Agent setup, tools, skills and schedules (Activities 1–3)",2:"Hermes marketing and video teams with profiles, Kanban and bots (Activities 4–5), AI security, optional Paperclip bonus, then assessment"}
+DAY_THEMES = {1:"Human–AI overview → always-on assistants → Hermes Agent setup, tools, skills and schedules (Activities 1–3)",2:"Hermes bots in a group chat, a Kanban video team and content crons (Activities 4–6), AI security, optional Paperclip bonus, then assessment"}
 CONTACT_TIME_NOTE = "9:30 am–6:30 pm both days. 16 scheduled course hours excluding lunch include 13 hours instruction/practice, 1 hour tea breaks and 2 hours assessment. Tea is included in the scheduled LU allocations; this is not a claim of 14 net instructional hours."
 
 # ------------------------------------------------------------------ learning units (approved CP TPG-2024060313, TSC ICT-TEM-4034-1.1)
@@ -43,13 +43,13 @@ CONTACT_TIME_NOTE = "9:30 am–6:30 pm both days. 16 scheduled course hours excl
 LUS = [
     dict(lu="LU1", hours=5, codes=["K1", "K6", "A1", "A3"], lo=0,
          title="Foundations of autonomous AI agents and single-agent LLM applications",
-         covers="Topic 1 history, collaboration, harness and Big Five + Activity 1 always-on assistant + Topic 2 Part A: Hermes Agent, Desktop, model (MiniMax) and Telegram"),
+         covers="Topic 1 history, collaboration, harness and Big Five + Activity 1 always-on assistant + Topic 2 Part A: Hermes Agent, Desktop, model (Nous free tier or ChatGPT Plus) and Telegram"),
     dict(lu="LU2", hours=5, codes=["K4", "K5", "A2", "A6"], lo=1,
          title="Agent and multi-agent design for efficiency, with humans in the loop",
-         covers="Topic 2 Part B: tools, skills, Firecrawl, gog and cron schedules + Activities 2–3 (Kopi website, professional PPT) + Topic 3 team set-up + Activity 4 social media marketing team"),
+         covers="Topic 2 Part B: voice, tools, skills, Firecrawl, Gmail connector and scheduled jobs + Activities 2–3 (single-agent website and PPT) + Topic 3 bots and group chats + Activity 4 social media bots"),
     dict(lu="LU3", hours=4, codes=["K2", "K3", "A4", "A5"], lo=2,
          title="Evaluate and improve the effectiveness of an AI-agent workforce in product development",
-         covers="Activity 5 video production team (researcher source checks, review and human approval), five principles of AI security, evaluation metrics and the optional Paperclip comparison"),
+         covers="Activity 5 Kanban video team (researcher source checks, review and human approval), Activity 6 content crons, five principles of AI security, evaluation metrics and the optional Paperclip comparison"),
 ]
 
 # ------------------------------------------------------------------ schedule (9:30–18:30, 8 training hours/day)
@@ -63,25 +63,26 @@ SCHEDULE = {
   ("12:00", "13:15", 75, "lab", "Lab 1: Activity 1 — 1A join Meta Muse with the trainer’s invite code; 1B set up an OpenAI Dot (Pro/Business Premium); 1C speak prompts with Wispr Flow; Kopi Kaki schedule check and email draft (PP Task 1)", "LU1"),
   ("13:15", "13:30", 15, "activity", "Activity 1 checkpoint and results review — source accuracy, approval controls, limits and actual stop state", "LU1"),
   ("13:30", "14:30", 60, "lunch", "Lunch break", ""),
-  ("14:30", "15:30", 60, "topic", "Topic 2 (Part A) — meet Kopi Kaki Co.; what Hermes Agent is; set up Hermes Desktop; connect a model (MiniMax demo); connect Telegram", "LU1"),
-  ("15:30", "16:00", 30, "topic", "Topic 2 (Part B) — configure tools; review and install skills; Firecrawl web search", "LU2"),
+  ("14:30", "15:30", 60, "topic", "Topic 2 (Part A) — meet Kopi Kaki Co.; what Hermes Agent is; install Hermes Desktop; connect a model (Nous Portal free tier or your ChatGPT Plus plan); Telegram by QR code", "LU1"),
+  ("15:30", "16:00", 30, "topic", "Topic 2 (Part B) — voice; tools and skills from Capabilities; Firecrawl web search", "LU2"),
   ("16:00", "16:15", 15, "break", "Tea break (included in scheduled LU time)", "LU2"),
-  ("16:15", "16:45", 30, "topic", "Topic 2 (Part C) — gog: read and send Gmail, check Calendar; cron schedules; a daily email-summary cron to Telegram", "LU2"),
-  ("16:45", "17:30", 45, "lab", "Lab 2: Activity 2 — install UX skills from skills.sh; Hermes builds the Kopi Kaki website", "LU2"),
-  ("17:30", "18:15", 45, "lab", "Lab 3: Activity 3 — PPT tool + skill: Hermes builds a professional Kopi Kaki deck (PP Task 2)", "LU2"),
+  ("16:15", "16:45", 30, "topic", "Topic 2 (Part C) — Gmail by Google sign-in (Connectors); scheduled jobs; a daily email summary to Telegram", "LU2"),
+  ("16:45", "17:30", 45, "lab", "Lab 2: Activity 2 — single agent: Mia installs UX skills from skills.sh and builds the Kopi Kaki website", "LU2"),
+  ("17:30", "18:15", 45, "lab", "Lab 3: Activity 3 — single agent: PPT tool + skill build a professional Kopi Kaki deck (PP Task 2)", "LU2"),
   ("18:15", "18:30", 15, "recap", "Day 1 recap, Q&A and PM digital attendance", "LU2"),
  ],
  2: [
   ("9:30", "9:45", 15, "recap", "Day 1 recap and AM attendance", "LU2"),
-  ("9:45", "10:15", 30, "topic", "Topic 3 (Part A) — introduction to multiple agents (each with its own tools, skills, model, instructions and context window); how agents talk (ACP); video skills and tools (HyperFrames, Remotion, Manim); Hermes profiles, the Kanban board and bots", "LU2"),
-  ("10:15", "11:15", 60, "lab", "Lab 4: Activity 4 — social media marketing team: researcher, LinkedIn/Facebook/Instagram writers and image creator; review the posts gallery", "LU2"),
+  ("9:45", "10:15", 30, "topic", "Topic 3 (Part A) — introduction to multiple agents (each with its own tools, skills, model, instructions and context window); how agents talk (ACP); hire bots with New Agent; group chats", "LU2"),
+  ("10:15", "11:15", 60, "lab", "Lab 4: Activity 4 — five named bots (researcher, LinkedIn, Facebook and Instagram writers, image creator) in one group chat write the launch posts; you approve each", "LU2"),
   ("11:15", "11:30", 15, "break", "Tea break (included in scheduled LU time)", "LU2"),
-  ("11:30", "12:15", 45, "lab", "Lab 5: Activity 5A — video production team: profiles, Kanban board and bots; researcher source checks and script", "LU3"),
+  ("11:30", "12:15", 45, "lab", "Lab 5: Activity 5A — video skills and tools; one prompt creates the video team and its Kanban board; researcher source checks and script", "LU3"),
   ("12:15", "13:15", 60, "lunch", "Lunch break", ""),
-  ("13:15", "14:40", 85, "lab", "Lab 5: Activity 5B — video production, voice-over and review; human approval of the exact video via its review link (PP Task 3)", "LU3"),
-  ("14:40", "15:10", 30, "topic", "Topic 3 (Part B) — five principles of AI security; RAG vs a standard LLM; four metrics to evaluate and improve the team", "LU3"),
-  ("15:10", "15:25", 15, "break", "Tea break (included in scheduled LU time)", "LU3"),
-  ("15:25", "16:00", 35, "topic", "Bonus (optional) — Paperclip: Kopi Kaki as a one-person company (trainer demo; full lab self-paced) and comparison with the Hermes Kanban team", "LU3"),
+  ("13:15", "14:25", 70, "lab", "Lab 5: Activity 5B — video production, voice-over and review; human approval of the exact video via its review link (PP Task 3)", "LU3"),
+  ("14:25", "14:55", 30, "lab", "Lab 6: Activity 6 — scheduled jobs auto-generate the weekly social posts and a video draft; you approve before anything is used", "LU3"),
+  ("14:55", "15:10", 15, "break", "Tea break (included in scheduled LU time)", "LU3"),
+  ("15:10", "15:40", 30, "topic", "Topic 3 (Part B) — five principles of AI security; RAG vs a standard LLM; four metrics to evaluate and improve the team", "LU3"),
+  ("15:40", "16:00", 20, "topic", "Bonus (optional) — Paperclip: Kopi Kaki as a one-person company (trainer demo; full lab self-paced) and comparison with the Hermes Kanban team", "LU3"),
   ("16:00", "16:15", 15, "recap", "Course recap, practice questions and Q&A", "LU3"),
   ("16:15", "16:30", 15, "assess", "Briefing for Assessment", "LU3"),
   ("16:30", "17:30", 60, "assess", "Written Assessment (WA) — 1 hour, open book; TRAQOM survey and assessment attendance first", "ASSESS"),

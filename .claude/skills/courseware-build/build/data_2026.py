@@ -6,9 +6,6 @@ SOURCES = [
  ('Hermes installation', 'https://hermes-agent.nousresearch.com/docs/'),
  ('Hermes Telegram gateway', 'https://hermes-agent.nousresearch.com/docs/user-guide/messaging'),
  ('Hermes skills', 'https://hermes-agent.nousresearch.com/docs/user-guide/features/skills'),
- ('gog installation and platform requirements', 'https://gogcli.sh/install.html'),
- ('gog OAuth and read commands', 'https://gogcli.sh/quickstart.html'),
- ('gog command policy and readonly flag', 'https://github.com/openclaw/gogcli'),
  ('OpenAI Dots: product demo reference', 'https://openai.com/index/introducing-dots/'),
  ('Google AI co-scientist: research case', 'https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/'),
  ('AlphaEvolve: evaluators and algorithm search', 'https://arxiv.org/abs/2506.13131'),
@@ -77,14 +74,14 @@ CASE_GROUPS = [
  ('Materials screening','Target properties + candidate dataset','Rank candidates under constraints','Scientist validates and tests','Candidate shortlist + provenance','Predictions distinguished from measurements','Model + expert experiment'),
  ('Grant proposal support','Call text + project evidence','Map requirements and draft work packages','Principal investigator owns commitments','Compliance matrix + proposal draft','All budget and capability claims verified','Sequential co-creation')]),
  ('Personal productivity & administration','calendar',[
- ('Morning work brief','Training Gmail + Calendar + Drive','Read bounded records; link evidence and conflicts','User prioritises the day','Brief with email, event and file IDs','Only assigned account; no sends or writes','Single Hermes + gog'),
+ ('Morning work brief','Training Gmail + Calendar + Drive','Read bounded records; link evidence and conflicts','User prioritises the day','Brief with email, event and file IDs','Only assigned account; no sends or writes','Single Hermes + Gmail connector'),
  ('Meeting preparation','Agenda + related emails and documents','Extract decisions needed and propose questions','Chair sets agenda','Meeting pack + source references','Date/time and attendees checked','Single agent + skills'),
  ('Follow-up tracking','Approved meeting notes + action list','Detect overdue actions and draft reminders','Owner approves recipients and wording','Draft reminders + task IDs','No duplicate task or external send','Single agent + approval'),
  ('Travel planning','Policy + dates + public options','Compare feasible itinerary and costs','Traveller chooses and books','Options table + current source links','No booking; estimates time-stamped','Research agent + user gate')]),
 ]
 PATTERNS = [
  ('Copilot: the person drives','Human selects each next step',[('user','Human task','Choose the decision or paragraph.'),('robot','AI proposal','Suggest alternatives using supplied context.'),('user','Human edit','Check and accept a specific change.')],'Example: trainer edits six-slide management pitch; evidence = tracked revisions.','No autonomous scheduling; do not imply the agent owns the outcome.'),
- ('Single agent: one accountable loop','One model can use many tools',[('target','Goal','Prepare a source-linked morning brief.'),('robot','Hermes loop','Read Gmail, Calendar and Drive using gog.'),('check','Verify','Reconcile records and save brief locally.')],'One agent + three services remains a single-agent design.','If a source fails, mark that section unavailable; never invent an empty inbox.'),
+ ('Single agent: one accountable loop','One model can use many tools',[('target','Goal','Prepare a source-linked morning brief.'),('robot','Hermes loop','Read Gmail, Calendar and Drive through connectors.'),('check','Verify','Reconcile records and save brief locally.')],'One agent + three services remains a single-agent design.','If a source fails, mark that section unavailable; never invent an empty inbox.'),
  ('Workflow: predefined sequence','Known path, explicit stage contract',[('file','Extract','Invoice -> {po_id, amount, tax}.'),('scale','Match','Compare against PO and receipt.'),('user','Review','Officer resolves mismatched amount.')],'Use when every invoice must pass the same controls.','A fixed workflow can use one agent; multiple stages do not prove multiple agents.'),
  ('Routing: send work to the right owner','Classification + confidence + fallback',[('inbox','Classify','Label FAQ / refund / food safety.'),('route','Route','FAQ to drafter; risks to manager.'),('user','Escalate','Unknown label or uncertainty -> human.')],'Output contract = {case_id, label, evidence, owner}.','A router must handle unknowns; do not force every case into a known category.'),
  ('Parallel specialists: divide independent work','Useful only for separable questions',[('users','Split','Review comments, sales and competitor notes.'),('file','Workers','Separate reports with source IDs.'),('check','Merge','Verifier reconciles shared totals.')],'Activity 5/8 compares specialist-team overhead with the single-agent baseline.','Parallel workers must not edit the same output file.'),

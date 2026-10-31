@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 3.4 · 31 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 3.5 · 31 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -10,7 +10,7 @@
 - [Before You Begin — Official SWDA AI Subscription](#before-you-begin--official-swda-ai-subscription)
 - [Topic 1 — Human–AI Collaboration & Always-On AI Agents](#topic-1--humanai-collaboration--always-on-ai-agents)
 - [Topic 2 — Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules](#topic-2--hermes-agent--your-first-ai-employee-setup-tools-skills--schedules)
-- [Topic 3 — Hermes Teams — Marketing & Video Production with Profiles, Kanban & Bots](#topic-3--hermes-teams--marketing--video-production-with-profiles-kanban--bots)
+- [Topic 3 — Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video](#topic-3--hermes-teams--bots-group-chats-kanban--crons-for-marketing-and-video)
 - [Bonus Topic (optional) — Paperclip: Kopi Kaki as a One-Person Company](#bonus-topic-optional--paperclip-kopi-kaki-as-a-one-person-company)
 - [Assessment Preparation](#assessment-preparation)
 - [Glossary](#glossary)
@@ -39,15 +39,15 @@ This Learner Guide accompanies the WSQ course **Build a Human-AI Workforce with 
 | Topic | Day | What you do |
 |---|---|---|
 | 1 · Human–AI Collaboration & Always-On AI Agents | Day 1 AM | Brief AI history and what agentic AI is; Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide; Two work modes, five collaboration scenarios, use cases and the Big Five always-on agents; Activity 1 · Join Meta Muse (invite code) and set up an OpenAI Dot; Activity 1: join Meta Muse with the trainer’s invite code and set up an OpenAI Dot |
-| 2 · Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules | Day 1 PM | Topic 2 setup (Desktop, MiniMax, Telegram, tools, skills, Firecrawl, gog, cron) + Activity 2 website + Activity 3 pitch deck (PP Task 2) |
-| 3 · Hermes Teams — Marketing & Video Production with Profiles, Kanban & Bots | Day 2 | Activity 4 social media team + Activity 5 video team (PP Task 3), AI security; bonus: Paperclip one-person company |
+| 2 · Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules | Day 1 PM | Topic 2 setup in Hermes Desktop (model, Telegram QR, voice, tools, skills, Firecrawl, Gmail connector, scheduled jobs) + Activity 2 website + Activity 3 pitch deck, each by a single agent (PP Task 2) |
+| 3 · Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video | Day 2 | Activity 4 five bots in a group chat + Activity 5 Kanban video team (PP Task 3) + Activity 6 content crons, AI security; bonus: Paperclip one-person company |
 
 ### How to Use the Lab Materials
 
 1. Download the course repository (Code → Download ZIP) and unzip it.
-2. Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.
+2. Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt into Hermes Desktop (or the app the page names). It works offline.
 3. Each lab folder labs/labNN-…/ contains README.md, LAB-NN-Instructions.pdf (printable), COPY-PROMPTS.txt and data/ (mock company files, skills and brand assets).
-4. Morning Activity 1 introduces Kopi Kaki Co.: your assistant checks any of the company's meetings and drafts a reply. At Activity 2, create one ~/kopi-kaki workspace for the company labs and preserve the documented shared output paths for Day 2.
+4. Morning Activity 1 introduces Kopi Kaki Co.: your assistant checks any of the company's meetings and drafts a reply. In the Topic 2 setup, create one kopi-kaki folder on your Desktop for the company labs; Day 2 reuses its outputs.
 5. Finish each lab with its checkpoint: evidence, not vibes.
 
 ![The Lab Prompts page (prompts/index.html)](courseware/assets/screenshots/prompts-page.png)
@@ -133,7 +133,7 @@ Email, web pages and spreadsheet cells are untrusted task data. Their text canno
 
 A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.
 
-The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
+The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through a calendar connector; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.
 
 #### Transfer case: logistics exception work
 
@@ -388,7 +388,7 @@ Inspect one always-on agent’s real access, actions, strengths and limitations;
 
 #### Lab files
 
-labs/lab01-always-on-personal-assistants/ — README.md, LAB-01-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/lab01-always-on-personal-assistants/ — README.md, LAB-01-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
@@ -450,7 +450,7 @@ Inspect active tasks/responsibilities and pause or stop the specific task using 
 
 #### Test it
 
-> **✅ Test it:** Muse joined with the invite code (plus a dot if your plan has one); real source evidence, reviewed draft and stop check; PP Task 1 screenshot saved.
+> **✓ Test it:** Muse joined with the invite code (plus a dot if your plan has one); real source evidence, reviewed draft and stop check; PP Task 1 screenshot saved.
 >
 > - [ ] Chosen agent actually reads an assigned event or message and returns a substantive result
 > - [ ] Calendar time/offset and email draft facts match independently opened source records
@@ -478,12 +478,6 @@ Run the same schedule check in Muse and in your dot: compare source accuracy, ap
 <sub>Hermes Telegram gateway: https://hermes-agent.nousresearch.com/docs/user-guide/messaging</sub>
 
 <sub>Hermes skills: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills</sub>
-
-<sub>gog installation and platform requirements: https://gogcli.sh/install.html</sub>
-
-<sub>gog OAuth and read commands: https://gogcli.sh/quickstart.html</sub>
-
-<sub>gog command policy and readonly flag: https://github.com/openclaw/gogcli</sub>
 
 <sub>OpenAI Dots: product demo reference: https://openai.com/index/introducing-dots/</sub>
 
@@ -533,109 +527,132 @@ Kopi Kaki Co. — a fictional Singapore kopi startup you found, launching the Gu
 
 ### 2.1 What Hermes Agent is
 
-Hermes Agent (Nous Research, MIT licence) is an open-source, self-hosted agent: a model inside a harness of tools, skills, memory and channels. It runs on your laptop (Hermes Desktop or the CLI), remembers across sessions, writes and improves its own skills, talks to you on Telegram and other channels, runs scheduled jobs with its cron scheduler, and — in Topic 3 — works in teams through profiles and a Kanban board.
+Hermes Agent (Nous Research, MIT licence) is an open-source agent: a model inside a harness of tools, skills, memory and channels. In this course you use it only through Hermes Desktop — an app you install like any other. Mia remembers across sessions, learns skills, talks to you on Telegram, runs scheduled jobs, and — in Topic 3 — works in teams of bots and on a Kanban board. Whenever a technical step is needed, Mia does it for you with her terminal tool; you never type commands.
 
-| Part | What it is for Mia | Where it lives |
+| Part | What it is for Mia | Where you set it in Hermes Desktop |
 |---|---|---|
-| Model | The brain — MiniMax, OpenAI, Anthropic or a local model | hermes model · Settings → Providers |
-| Context | Who Kopi Kaki is and the rules | AGENTS.md in ~/kopi-kaki; SOUL.md per profile |
-| Memory | What she chose to remember about you and the work | ~/.hermes/memories/ |
-| Tools | What she can do: web, terminal, files, browser, images, voice, cron | hermes tools |
-| Skills | How to do a job well: steps, rules and checks in a SKILL.md | ~/.hermes/skills/ |
-| Gateway + cron | How she reaches you, and when she starts work by herself | hermes gateway · hermes cron |
+| Model | The brain — your ChatGPT Plus plan, Nous free models or a paid model | Settings → Model → Main model |
+| Context | Who Kopi Kaki is and the rules | AGENTS.md in your Desktop/kopi-kaki folder |
+| Memory | What she chose to remember about you and the work | Settings → Memory & Context |
+| Tools & connectors | What she can do: web, files, browser, images, voice, schedules; apps such as Gmail | Capabilities → Tools / Connectors |
+| Skills | How to do a job well: steps, rules and checks in a SKILL.md | Capabilities → Skills, or ask Mia to install one |
+| Messaging + schedules | How she reaches you, and when she starts work by herself | Messaging · Scheduled jobs |
 
-![The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)](courseware/assets/screenshots/hermes-dashboard.png)
-*The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)*
+![Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel](courseware/assets/screenshots/desktop/skills.png)
+*Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel*
 
-### 2.2 Set up Hermes Desktop
+### 2.2 Install Hermes Desktop
 
-Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop; on Linux install the CLI and run `hermes desktop`. On first run choose 'Choose provider later' and the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\hermes). Start every chat in ~/kopi-kaki so AGENTS.md loads.
+Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop and install it like any app. On first run choose 'Choose provider later' and the Basic layout. Check Settings → About → Version & updates: it should say you are running the latest version. Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; start every Mia session with that folder as the working folder so AGENTS.md loads.
 
-### 2.3 Connect a model — the MiniMax demo
+![Settings → About → Version & updates](courseware/assets/screenshots/desktop/version.png)
+*Settings → About → Version & updates*
 
-Hermes has MiniMax built in. Run `hermes model` → MiniMax → MiniMax (OAuth) to sign in in the browser, or 'MiniMax (global endpoint)' with an M Plan subscription key (MINIMAX_API_KEY in ~/.hermes/.env); choose 'Enter custom model name' and type MiniMax-M3.1-Flash. In Desktop: Settings → Providers, then Settings → Model → Main model → Apply. Trial offer: a one-day free MiniMax trial is awaiting verification — your trainer confirms the current offer on the day; MiniMax publishes the M Plan and pay-as-you-go credits. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.
+### 2.3 Give Mia a brain: free, ChatGPT Plus or paid
 
-### 2.4 Telegram, tools and skills
+| Route | How | Cost |
+|---|---|---|
+| This class: ChatGPT Plus | Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply | Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed |
+| Free | Status bar → Sign in next to Nous → create a free Nous Portal account | Free tier: free models only, standard rate limits, $0 |
+| Paid | Nous Portal Plus, or another provider's key in Settings → Providers | Nous Plus USD 20/month (Super USD 100, Ultra USD 200) |
 
-- Telegram: @BotFather → /newbot → copy the token; @userinfobot → your numeric ID; `hermes gateway setup` → Telegram; run `hermes gateway`; send /sethome so scheduled results arrive in that chat. Only allow-listed users (TELEGRAM_ALLOWED_USERS) can talk to Mia. Desktop shortcut: Messaging → Telegram → Create with QR.
-- Tools: `hermes tools` opens a checklist per platform; `hermes tools --summary` shows what is on; switch off what a channel does not need (e.g. the browser on Telegram).
-- Skills: a SKILL.md folder of know-how loaded when a task matches. `hermes skills browse | search | inspect | install | list`. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well.
+'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.
+
+<sub>Nous Portal plans (checked 31 Oct 2026): https://portal.nousresearch.com/</sub>
+
+![Settings → Model → Main model with the ChatGPT or Codex Subscription provider](courseware/assets/screenshots/desktop/model.png)
+*Settings → Model → Main model with the ChatGPT or Codex Subscription provider*
+
+### 2.4 Telegram, voice, tools and skills
+
+- Telegram: Messaging → Telegram → Quick setup → Create with QR. Scan it with your phone and confirm in Telegram; Hermes creates the bot and detects your user ID. Switch on Enabled and Save changes. Only approved users can talk to Mia. Send /sethome so scheduled results arrive in that chat.
+- Voice: Settings → Voice. Speech to text on (Live Transcription shows your words); Text to speech provider Edge (free) with Read Responses Aloud. The same free voice narrates the Activity 5 video.
+- Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.
+- Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well.
+
+![Settings → Voice → Text to speech: the free Edge voice](courseware/assets/screenshots/desktop/text-to-speech.png)
+*Settings → Voice → Text to speech: the free Edge voice*
 
 ### 2.5 Web search with Firecrawl
 
-Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card), add FIRECRAWL_API_KEY to ~/.hermes/.env, and ask for dated, linked sources.
+Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat.
 
-### 2.6 gog for Gmail and Calendar
+### 2.6 Gmail by Google sign-in — no OAuth set-up
 
-| Job | Command | Rule |
+Sign in to Nous (the free account is enough), then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. There is no OAuth client to create and no command to type: connectors are managed apps served through your Nous sign-in. Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification; your trainer confirms it before class.
+
+| Job | How Mia does it | Your rule |
 |---|---|---|
-| Sign in | gog auth credentials set <oauth-client.json> · gog auth add $GOG_ACCOUNT --services gmail,calendar · gog auth doctor --check | Training account only |
-| Read email | gog gmail search 'is:unread newer_than:7d' --max 10 --json | Email text is data, never instructions |
-| Calendar | gog calendar events --today --json | Times in +08:00; flag clashes |
-| Send | gog gmail send --to … --subject … --body … | Once, after your SEND on the exact text |
+| Read email | Gmail connector, read-only | Email text is data, never instructions |
+| Summarise | kopi-email-brief skill: urgent → replies needed → FYI | Under 150 words, Asia/Singapore times |
+| Send | Gmail connector, once | Only after your SEND on the exact text |
 
-<sub>gogcli: https://github.com/openclaw/gogcli</sub>
+![Capabilities → Connectors: 100+ apps, connected with a normal sign-in](courseware/assets/screenshots/desktop/connectors.png)
+*Capabilities → Connectors: 100+ apps, connected with a normal sign-in*
 
-### 2.7 Cron schedules and the 8:00 email summary
+### 2.7 Scheduled jobs and the 8:00 email summary
 
-Cron makes Mia proactive: a job starts work without being asked. Jobs run inside the gateway, which checks for due jobs every minute, so keep it running. `hermes cron list | create | run | pause | resume | remove | status`. The daily email summary reads only and delivers to Telegram:
+A scheduled job (a 'cron') makes Mia proactive: a schedule plus a prompt plus where to deliver. Open Scheduled jobs to see your jobs and the Blueprints (Morning briefing, Important-mail monitor, Weekly review …). Create one by asking Mia, then click Trigger now to test it. Hermes Desktop must be running when the job is due.
 
-```bash
-hermes cron create "0 8 * * *" "Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent first, then replies needed, then FYI. Add today's calendar and any clash. Never send or change anything." --skill gog-office --name "Morning email brief" --deliver telegram --timezone Asia/Singapore
+```text
+Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything.
 ```
 
-### 2.8 Activity 2 — skills.sh and the Kopi Kaki website
+![Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now](courseware/assets/screenshots/desktop/scheduled-jobs.png)
+*Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now*
 
-skills.sh is the open directory of agent skills. The skills CLI installs straight into Hermes with `-a hermes-agent -g`. Popular design skills (installs as of 30 Oct 2026): Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia uses two of them to build a one-page site for the startup.
+### 2.8 Activity 2 — one agent builds the Kopi Kaki website
 
-### 2.9 Activity 3 — a pitch deck is a decision story
+skills.sh is the open directory of agent skills. Read a skill's SKILL.md on skills.sh, then ask Mia to install it. Popular design skills (installs as of 30 Oct 2026): Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia — a single agent — uses two of them to build a one-page site for the startup.
 
-Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop or dashboard screenshot showing your request and the finished deck.
+### 2.9 Activity 3 — one agent builds the pitch deck
+
+Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop screenshot showing your request and the finished deck.
 
 <sub>Hermes Desktop: https://hermes-agent.nousresearch.com/desktop</sub>
 
-<sub>Hermes docs — installation, providers, Telegram, tools, skills, cron, web search: https://hermes-agent.nousresearch.com/docs/</sub>
+<sub>Hermes docs — desktop, providers, messaging, tools, skills, cron, web search: https://hermes-agent.nousresearch.com/docs/</sub>
 
-<sub>MiniMax — Hermes Agent setup (M Plan): https://platform.minimax.io/docs/m-plan/hermes-agent</sub>
+<sub>Nous Portal — Free tier (free models only, $0) and paid plans: https://portal.nousresearch.com/</sub>
+
+<sub>Nous Portal — use your ChatGPT plan for inference: https://portal.nousresearch.com/help/chatgpt-plan-sharing</sub>
+
+<sub>Hermes Bot Mode — bots, group chats, routines: https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
+
+<sub>Hermes connectors (managed apps such as Gmail, via a Nous sign-in): https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-search#connectors-remote-tools</sub>
 
 <sub>Firecrawl pricing (free 1,000 credits/month): https://www.firecrawl.dev/pricing</sub>
 
-<sub>gogcli — Google Workspace CLI: https://github.com/openclaw/gogcli</sub>
-
-<sub>skills.sh — the open agent-skills directory: https://skills.sh/</sub>
-
-<sub>Vercel skills CLI (supports Hermes Agent): https://github.com/vercel-labs/skills</sub>
-
 ### Topic 2 Setup — Hire Your First AI Employee — Hermes Agent Setup
 
-**Day 1 · 120 min · One agent, many tools · LO1/LO2** — Install Hermes Desktop, give it a brain, put it on Telegram, arm it with tools and skills, then let it read your inbox and brief you every morning.
+**Day 1 · 120 min · One agent, many tools · LO1/LO2** — Install one app, sign in, scan one QR code. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.
 
 #### Business scenario
 
-You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Today your first hire is Mia, a Hermes agent that works from your laptop: she reads your Kopi Kaki inbox and calendar, searches the web for cold-brew trends, and messages you a summary on Telegram every morning before you open the pop-up.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Today your first hire is Mia, a Hermes agent that works from your laptop: she reads your Kopi Kaki inbox, searches the web for cold-brew trends, and messages you a summary on Telegram every morning before you open the pop-up.
 
 #### Goal
 
-Set up one Hermes Agent with a model, a messaging channel, tools, reviewed skills, web search, Google Workspace access and a schedule, and explain how each part changes what the agent can do (LO1, LO2).
+Set up one Hermes Agent in Hermes Desktop with a model, a messaging channel, voice, tools, reviewed skills, web search, Gmail access and a schedule, and explain how each part changes what the agent can do (LO1, LO2).
 
 #### Before you start
 
-- Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer), Windows 10/11, or Linux
+- Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer) or Windows 10/11
+- This class's model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account
 - A Telegram account on your phone
-- The trainer-assigned training Google account and OAuth client file (from Lab 1)
-- A model provider: a MiniMax account (demo) or the provider key your trainer assigns
+- The trainer-assigned training Google account (synthetic Kopi Kaki mail)
 - A free Firecrawl account (firecrawl.dev — 1,000 free credits a month, no card)
 
-![The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)](courseware/assets/screenshots/hermes-dashboard.png)
-*The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)*
+![Hermes Desktop → Messaging → Telegram → Create with QR](courseware/assets/screenshots/desktop/telegram-setup.png)
+*Hermes Desktop → Messaging → Telegram → Create with QR*
 
 #### You will deliver
 
-- Hermes Desktop running in ~/kopi-kaki with a working model (MiniMax demo or the trainer-assigned provider)
-- Mia answering you on Telegram from your allow-listed user ID
-- Tools and skills listed and tested; Firecrawl web search returning cited results
-- gog reading Gmail and Calendar; one approved test email sent
-- A daily 8:00 email-summary cron that delivers to Telegram
+- Hermes Desktop working in your Desktop/kopi-kaki folder with a model (Nous free tier, your ChatGPT Plus plan or a paid model)
+- Mia answering you on Telegram (set up with Create with QR) and reading answers aloud
+- Tools and skills checked in Capabilities; Firecrawl web search returning cited results
+- Gmail connected with a Google sign-in; one approved test email sent
+- A daily 8:00 email-summary scheduled job that delivers to Telegram
 
 | Who | Role |
 |---|---|
@@ -644,66 +661,46 @@ Set up one Hermes Agent with a model, a messaging channel, tools, reviewed skill
 
 #### Concepts in action
 
-- Model = the brain; Desktop/gateway = the body; tools = the hands; skills = the know-how
+- Model = the brain; Desktop = the body; tools = the hands; skills = the know-how
 - A channel (Telegram) lets the agent reach you; an allow-list decides who can reach it
-- Cron makes the agent proactive: it starts work without being asked
+- A scheduled job (cron) makes the agent proactive: it starts work without being asked
 - Read and send are different permissions: approve every send
 
 #### Lab files
 
-labs/setup02-hermes-first-ai-employee/ — README.md, LAB-S2-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/setup02-hermes-first-ai-employee/ — README.md, LAB-S2-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
-**Step 1 — Create the Kopi Kaki workspace (5 min)**
+**Step 1 — Unzip the labs and create your Kopi Kaki folder (5 min)**
 
-Everything your agents do for the startup happens in one folder. AGENTS.md tells every agent who Kopi Kaki is and the rules; Hermes loads it automatically when it starts in that folder. The small Python environment is used by the PPT and image tools later.
+Download the course ZIP (the trainer shares the link), unzip it, and create a folder called kopi-kaki on your Desktop. Open labs/setup02-hermes-first-ai-employee/data, select everything and drag it into the new kopi-kaki folder. This folder is your company: AGENTS.md inside it tells every agent who Kopi Kaki is and the rules.
 
-```bash
-mkdir -p ~/kopi-kaki && cp -Rn data/* ~/kopi-kaki/
-cd ~/kopi-kaki
-python3 -m venv .office-venv
-.office-venv/bin/python -m pip install python-pptx openpyxl Pillow
-ls
-```
-
-✓ Expected: ~/kopi-kaki holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/.
+✓ Expected: Desktop/kopi-kaki holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/.
 
 **Step 2 — Install Hermes Desktop (10 min)**
 
-Download the installer for your laptop from the official page: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows). On Linux install the CLI, then run `hermes desktop`. On first run, choose 'Choose provider later' — you connect the model in the next step — and pick the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\hermes).
+Download the installer from hermes-agent.nousresearch.com/desktop: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows), and run it like any app. On first run choose 'Choose provider later' (you pick the brain in the next step) and the Basic layout. Then open Settings → About → Version & updates: it should say you are running the latest version.
 
-```bash
-# Download: https://hermes-agent.nousresearch.com/desktop
-# CLI (macOS / Linux / WSL2):
-curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-# CLI (Windows PowerShell):
-iex (irm https://hermes-agent.nousresearch.com/install.ps1)
-hermes --version
-hermes desktop
+✓ Expected: Hermes Desktop opens; Version & updates shows 'You're running the latest version'.
+
+**Step 3 — Give Mia a brain: choose your model (10 min)**
+
+The model is the agent's brain. Pick ONE route. This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account (Free tier: free models only, standard rate limits, $0). Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.
+
+Prompt — paste into *Hermes Desktop — New session*:
+
+```text
+Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which model you are running on.
 ```
 
-✓ Expected: Hermes Desktop opens; `hermes --version` prints a version.
-
-**Step 3 — Connect a model — demo with MiniMax (10 min)**
-
-The model is the agent's brain. Hermes has MiniMax built in. Run `hermes model`, choose MiniMax → MiniMax (OAuth) and sign in in the browser, or choose 'MiniMax (global endpoint)' and paste your M Plan subscription key. Then choose 'Enter custom model name' and type MiniMax-M3.1-Flash. In Desktop the same setting is Settings → Providers, then Settings → Model → Main model → Apply. Trial offer: your trainer will confirm any current MiniMax free trial on the day (awaiting verification); MiniMax's published options are the M Plan and pay-as-you-go credits. Use the trainer-assigned provider if you have no MiniMax access.
-
-```bash
-hermes model                       # MiniMax → MiniMax (OAuth), or global endpoint + key
-# key alternative: add to ~/.hermes/.env
-#   MINIMAX_API_KEY=your-key
-# model name: MiniMax-M3.1-Flash
-hermes chat -q "Say hello in one line as Mia, Kopi Kaki's first AI employee."
-```
-
-✓ Expected: A one-line reply from the model.
+✓ Expected: A one-line reply that names the model.
 
 **Step 4 — Meet Mia: your first AI employee (5 min)**
 
-Start a Desktop chat with the working folder set to ~/kopi-kaki so AGENTS.md is loaded, and check that Mia knows the company.
+Start a New session and set its working folder to Desktop/kopi-kaki (the folder path shown above the message box), so AGENTS.md loads.
 
-Prompt — paste into *Hermes Desktop — new chat, folder ~/kopi-kaki*:
+Prompt — paste into *Hermes Desktop — New session, folder Desktop/kopi-kaki*:
 
 ```text
 You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
@@ -711,54 +708,57 @@ You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-
 
 ✓ Expected: Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules.
 
-**Step 5 — Put Mia on Telegram (10 min)**
+**Step 5 — Let Mia set up her own toolbox (3 min)**
 
-In Telegram open @BotFather → /newbot → choose a name (e.g. Mia Kopi Kaki) and a username ending in 'bot' → copy the token. Get your numeric user ID from @userinfobot. Only allow-listed users can talk to your agent. Desktop shortcut: Messaging → Telegram → Create with QR does all of this for you.
+Later labs need a few Python libraries (for slides, spreadsheets and images). You do not type any commands: Mia installs them for you and reports back.
 
-```bash
-hermes gateway setup          # choose Telegram, paste the token and your user ID
-# or add to ~/.hermes/.env:
-#   TELEGRAM_BOT_TOKEN=...
-#   TELEGRAM_ALLOWED_USERS=123456789
-hermes gateway                # keep running (service: hermes gateway install && hermes gateway start; WSL: hermes gateway run)
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Prepare this folder for the next labs: create a Python virtual environment called .office-venv here and install python-pptx, openpyxl and Pillow into it. Do not change anything outside this folder. Then tell me in two lines what you installed and whether it works.
 ```
 
-✓ Expected: Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there.
+✓ Expected: Mia confirms .office-venv exists with python-pptx, openpyxl and Pillow.
 
-**Step 6 — Configure Mia's tools (5 min)**
+**Step 6 — Put Mia on Telegram with one QR code (10 min)**
 
-Tools are what the agent can actually do: web, terminal, files, browser, images, voice, cron and more. Switch on only what the job needs (Principle 2: permission control).
+Messaging → Telegram → Quick setup → Create with QR. Scan the code with your phone and confirm in Telegram: Hermes creates the bot and detects your Telegram user ID for you. Switch Telegram to Enabled and click Save changes. Under Approved users you should see only yourself — strangers who find the bot get nothing.
 
-```bash
-hermes tools --summary
-hermes tools                  # tick or untick toolsets per platform
-hermes tools disable browser --platform telegram
+✓ Expected: Telegram shows Connected and you are the only approved user. Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there.
+
+**Step 7 — Talk to Mia with your voice (5 min)**
+
+Settings → Voice. Speech to text: switch it on (Live Transcription shows your words as you speak). Text to speech: provider Edge (free, no key), pick a voice such as en-US-AriaNeural, and switch on Read Responses Aloud. Then use the microphone in the chat and ask Mia a question out loud. Wispr Flow from Activity 1C works here too.
+
+✓ Expected: Mia hears your question and reads her answer aloud.
+
+**Step 8 — Check Mia's tools (5 min)**
+
+Capabilities → Tools shows every toolset Mia can use: web, files, terminal, browser, images, voice, schedules and more. Switch on only what the job needs (Principle 2: permission control). Mia uses the terminal tool for you — that is how she installed the toolbox — so you never have to.
+
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+List the toolsets you have switched on. Which ones do you need to read my email, search the web and make slides? Which would you switch off on Telegram, and why?
 ```
 
-✓ Expected: The summary lists the enabled toolsets for CLI and Telegram.
+✓ Expected: A short list that matches Capabilities → Tools, with a reason for each.
 
-**Step 7 — Review, then install skills (10 min)**
+**Step 9 — Review, then install a skill (10 min)**
 
-A skill is a SKILL.md folder of know-how the agent loads when a task matches it. Read every third-party skill before you install it. Start with the reviewed gog-office skill in this lab's data/, then browse the hub.
+A skill is a SKILL.md folder of know-how Mia loads when a task matches it. Browse Capabilities → Skills (Discover Skills shows what is already installed). Then install the reviewed kopi-email-brief skill from your folder — by asking. Read every third-party skill before you install it.
 
-```bash
-cat ~/kopi-kaki/skills/gog-office/SKILL.md
-mkdir -p ~/.hermes/skills/productivity && cp -R ~/kopi-kaki/skills/gog-office ~/.hermes/skills/productivity/
-hermes skills list
-hermes skills browse
-hermes skills search marketing
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Read skills/kopi-email-brief/SKILL.md in this folder. In three bullets, tell me what it makes you do and whether it runs any scripts. Then install it as one of your skills and confirm it is available.
 ```
 
-✓ Expected: gog-office appears in hermes skills list.
+✓ Expected: Mia reports 'Installed and verified' and kopi-email-brief appears in Capabilities → Skills.
 
-**Step 8 — Give Mia web search with Firecrawl (5 min)**
+**Step 10 — Give Mia web search with Firecrawl (5 min)**
 
-Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card) and add it to Hermes. Then ask a real question.
-
-```bash
-echo 'FIRECRAWL_API_KEY=fc-your-key' >> ~/.hermes/.env
-hermes tools                  # confirm the web toolset is on
-```
+Firecrawl is Hermes's default web search. Create a free account at firecrawl.dev (1,000 credits a month, no card) and copy your API key. In Hermes Desktop open Settings → Tools & Keys, find Firecrawl, paste the key and save. Never paste keys into a chat.
 
 Prompt — paste into *Hermes Desktop — Mia*:
 
@@ -768,100 +768,71 @@ Search the web for 3 news items from the last 90 days about cold brew or kopi tr
 
 ✓ Expected: Three dated items with URLs in outputs/research/trends.md.
 
-**Step 9 — Connect gog: read Gmail and check Calendar (10 min)**
+**Step 11 — Connect Gmail with a Google sign-in (10 min)**
 
-gog (gogcli) is a Google Workspace command-line tool Mia drives from the terminal. Sign in once with the trainer-assigned training account and its OAuth client. Read-only first.
-
-```bash
-brew install openclaw/tap/gogcli        # or: go install github.com/openclaw/gogcli/cmd/gog@latest
-gog auth credentials set ~/Downloads/training-oauth-client.json
-export GOG_ACCOUNT="REPLACE_WITH_ASSIGNED_GOOGLE_EMAIL"
-gog auth add "$GOG_ACCOUNT" --services gmail,calendar
-gog auth doctor --check
-gog --account "$GOG_ACCOUNT" gmail search 'is:unread newer_than:7d' --max 10 --json
-gog --account "$GOG_ACCOUNT" calendar events --today --json
-```
+No OAuth client and no command line: you sign in to Google the normal way. First make sure you are signed in to Nous (Sign in in the status bar; the free account is enough). Then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification: your trainer confirms it before class.
 
 Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-Use gog with the gog-office skill (account $GOG_ACCOUNT, read-only). List my unread Kopi Kaki emails from the last 7 days and today's calendar events in Asia/Singapore time. Flag any clash, any supplier or landlord email that needs a reply today, and anything that looks like phishing. Do not send or change anything.
+Using the Gmail connector (read-only), list my unread Kopi Kaki emails from the last 7 days. Flag any supplier or landlord email that needs a reply today and anything that looks like phishing. Do not send, delete or change anything.
 ```
 
-✓ Expected: A short brief with message IDs, event times (+08:00) and flagged items.
+✓ Expected: A short brief with senders, subjects and flagged items. Nothing sent or changed.
 
-**Step 10 — Send ONE approved email (5 min)**
+**Step 12 — Send ONE approved email (5 min)**
 
-Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address and shows the message ID. Re-authorise with send access only for this step if your account was added read-only.
-
-```bash
-gog --account "$GOG_ACCOUNT" gmail send --to TRAINER_TEST_ADDRESS --subject "Kopi Kaki tasting — Thursday 3 pm" --body "…approved text…"
-```
+Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address.
 
 Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with gog gmail send to the trainer-approved test address, show the message ID and confirm it is in Sent.
+Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with the Gmail connector to the trainer-approved test address and confirm it is in Sent.
 ```
 
-✓ Expected: One message ID and a Sent record — nothing sent before your SEND.
+✓ Expected: One sent message — nothing sent before your SEND.
 
-**Step 11 — Make Mia proactive: cron basics (5 min)**
+**Step 13 — Schedule the daily 8:00 email summary (10 min)**
 
-Cron makes the agent start work without being asked. Jobs run inside the gateway, which checks for due jobs every minute — keep it running.
+A scheduled job (cron) makes Mia start work without being asked. Open Scheduled jobs and look at the Blueprints (Morning briefing, Important-mail monitor …). Then create your own by asking Mia. Finally open the job in Scheduled jobs and click Trigger now to test it — do not wait until tomorrow.
 
-```bash
-hermes cron list
-hermes cron status
-# a test job you can delete afterwards:
-hermes cron create "every 2h" "Remind me to post the pop-up photo." --name test-reminder --deliver telegram
-hermes cron run <job_id>
-hermes cron remove <job_id>
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything. Show me the job when it is saved.
 ```
 
-✓ Expected: The test reminder arrives on Telegram, then the job is removed.
-
-**Step 12 — Schedule the daily 8:00 email summary (5 min)**
-
-Your morning brief before you open the pop-up: Mia reads the inbox at 8:00 Singapore time and messages you on Telegram. Reading only — the cron job never sends email.
-
-```bash
-hermes cron create "0 8 * * *" "Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent items first, then replies needed, then FYI. Add today's calendar events and any clash. Never send or change anything." --skill gog-office --name "Morning email brief" --deliver telegram --timezone Asia/Singapore
-hermes cron list
-hermes cron run <job_id>
-```
-
-✓ Expected: Your test run delivers a structured email summary to Telegram; the job is listed for 08:00 daily.
+✓ Expected: Scheduled jobs lists 'Morning email brief' (every day 8:00); Trigger now delivers a structured summary to Telegram.
 
 #### Test it
 
-> **✅ Test it:** Mia answers on Telegram, lists her tools and skills, returns cited web results, reads your inbox and calendar, and `hermes cron list` shows the 8:00 email summary.
+> **✓ Test it:** Mia answers on Telegram, lists her tools and skills, returns cited web results, reads your Gmail, and Scheduled jobs shows the 8:00 email summary.
 >
-> - [ ] Desktop runs in ~/kopi-kaki with a working model
-> - [ ] Mia replies on Telegram only to your user ID
-> - [ ] hermes tools --summary and hermes skills list show the expected tools and gog-office
+> - [ ] Hermes Desktop works in Desktop/kopi-kaki with a model you chose
+> - [ ] Mia replies on Telegram only to you, and reads answers aloud
+> - [ ] Capabilities shows the expected tools and the kopi-email-brief skill
 > - [ ] trends.md has three dated items with URLs
-> - [ ] gog reads Gmail and Calendar; one approved email has a message ID
-> - [ ] `hermes cron list` shows 'Morning email brief' at 08:00 Asia/Singapore
+> - [ ] Gmail is connected; one approved email sent
+> - [ ] Scheduled jobs shows 'Morning email brief' at 08:00 and a successful Trigger now
 
 #### Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `hermes: command not found` | Open a new terminal or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux/WSL2). |
-| MiniMax sign-in works but replies fail | Check the plan/credits on platform.minimax.io; re-run `hermes model` and type the model name exactly. |
-| Bot silent on Telegram | Is the gateway running? `hermes gateway status`; check TELEGRAM_ALLOWED_USERS has your numeric ID. |
-| Cron never fires | The gateway must be running; check `hermes cron status`. Results go to the /sethome chat. |
-| gog: access blocked | Use the trainer's OAuth client and the assigned account; run `gog auth doctor --check`. |
-| Web search returns nothing | Check FIRECRAWL_API_KEY in ~/.hermes/.env and that the web toolset is enabled. |
+| Mia does not reply / model error | Settings → Model → Main model: check the provider, sign in again and click Apply. On the Nous free tier pick a free model. |
+| ChatGPT sign-in fails | Use the account that has ChatGPT Plus; sign out and in again from Settings → Model. Use the free Nous route while you wait. |
+| Bot silent on Telegram | Messaging → Telegram: is it Enabled and Connected? Did you click Save changes? Are you listed under Approved users? |
+| Scheduled job never arrives | Hermes Desktop must be running at that time. Send /sethome in your Telegram chat, then click Trigger now. |
+| Gmail not listed or Connect fails | Sign in to Nous first (status bar). If Gmail still is not offered, tell your trainer — use the trainer's demo mailbox for this step. |
+| Web search returns nothing | Settings → Tools & Keys: check the Firecrawl key is saved; Capabilities → Tools: is web on? |
 
 #### Stretch challenge
 
-Add a second cron at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?
+Add a second scheduled job at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?
 
-### Lab 2 — Activity 2 — UX Skills from skills.sh Build the Kopi Kaki Website
+### Lab 2 — Activity 2 — One Agent Builds the Kopi Kaki Website with UX Skills
 
-**Day 1 · 45 min · One agent + installed UX skills · LO2** — A startup without a website does not exist. Install two UX skills from skills.sh and let Mia design, build and test your one-page site in 45 minutes.
+**Day 1 · 45 min · Single agent + installed UX skills · LO2** — A startup without a website does not exist. Ask Mia to install two UX skills from skills.sh, then let her design, build and test your one-page site in 45 minutes.
 
 #### Business scenario
 
@@ -873,12 +844,11 @@ Install third-party UX skills after reviewing their source, use them to brief a 
 
 #### Before you start
 
-- Topic 2 setup done: Mia works in ~/kopi-kaki
-- Node.js 22.20+ for the skills CLI (`node --version`)
-- This lab's data/ copied into ~/kopi-kaki
+- Topic 2 setup done: Mia works in your kopi-kaki folder
+- This lab's data/ dragged into Desktop/kopi-kaki
 
-![Activity 2 workflow: find, review, install UX skills, build, review — design diagram, not learner evidence](courseware/assets/workflows/activity-02.png)
-*Activity 2 workflow: find, review, install UX skills, build, review — design diagram, not learner evidence*
+![The trainer's Activity 2 result: one agent, two UX skills, one brief — your version will differ](courseware/assets/screenshots/desktop/kopi-website.png)
+*The trainer's Activity 2 result: one agent, two UX skills, one brief — your version will differ*
 
 #### You will deliver
 
@@ -899,48 +869,45 @@ Install third-party UX skills after reviewing their source, use them to brief a 
 
 #### Lab files
 
-labs/lab02-kopi-kaki-website/ — README.md, LAB-02-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/lab02-kopi-kaki-website/ — README.md, LAB-02-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
-**Step 1 — Copy the website brief (2 min)**
+**Step 1 — Copy the website brief into your company folder (2 min)**
 
-The brief says who the site is for, the sections, the brand and the definition of done.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). The brief says who the site is for, the sections, the brand and the definition of done.
 
-```bash
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/website
-cat ~/kopi-kaki/website-brief.md
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Read website-brief.md and tell me in three lines what you will build, for whom, and how we will know it is done.
 ```
+
+✓ Expected: Three lines that match the brief.
 
 **Step 2 — Choose UX skills on skills.sh (5 min)**
 
-Open skills.sh and search 'frontend' and 'design'. The most installed design skills include Anthropic's frontend-design (about 1.1 million installs), Vercel's web-design-guidelines and ui-ux-pro-max. Open each skill's page and read its SKILL.md: what will it make the agent do, and does it run any scripts?
-
-```bash
-# Browse: https://skills.sh/  (search: frontend, design)
-hermes skills search design --source skills-sh
-```
+Open skills.sh in your browser and search 'frontend' and 'design'. The most installed design skills include Anthropic's frontend-design (about 1.1 million installs), Vercel's web-design-guidelines and ui-ux-pro-max. Open each skill's page and read its SKILL.md: what will it make the agent do, and does it run any scripts?
 
 ✓ Expected: You can explain in one sentence what each skill changes.
 
-**Step 3 — Install two UX skills into Hermes (5 min)**
+**Step 3 — Ask Mia to install two UX skills (5 min)**
 
-The skills.sh command-line tool installs straight into Hermes with -a hermes-agent (-g = for your user, into ~/.hermes/skills).
+No command line: Mia installs the skills for herself. Afterwards they appear in Capabilities → Skills.
 
-```bash
-npx skills add https://github.com/anthropics/skills --skill frontend-design -a hermes-agent -g
-npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines -a hermes-agent -g
-hermes skills list | grep -i -E 'frontend-design|web-design'
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+Install these two skills from skills.sh for yourself: frontend-design from github.com/anthropics/skills and web-design-guidelines from github.com/vercel-labs/agent-skills. Read each SKILL.md first and tell me whether it runs any scripts. Then confirm both are installed and available.
 ```
 
-✓ Expected: Both skills appear in hermes skills list.
+✓ Expected: Both skills installed and listed in Capabilities → Skills.
 
 **Step 4 — Brief Mia like a design agency (15 min)**
 
-Start a new Desktop chat in ~/kopi-kaki so the new skills load.
+Start a New session in your kopi-kaki folder so the new skills load.
 
-Prompt — paste into *Hermes Desktop — Mia, folder ~/kopi-kaki*:
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
 
 ```text
 Use the frontend-design and web-design-guidelines skills. Build the Kopi Kaki Co. one-page website from website-brief.md.
@@ -948,18 +915,16 @@ Use the frontend-design and web-design-guidelines skills. Build the Kopi Kaki Co
 - Brand: colours and voice from brand-guide.md; use assets/kopi-kaki-logo.png and assets/cold-brew-product-card.png.
 - One self-contained outputs/website/index.html: inline CSS, no external libraries or fonts, responsive down to 375 px, accessible contrast.
 - No health or halal claims. Every price and date must match the source files.
-When done, list which skill rules you applied and every fact with its source file.
+When done, open the page in my browser, then list which skill rules you applied and every fact with its source file.
 ```
 
-✓ Expected: outputs/website/index.html and a list of applied rules and sourced facts.
+✓ Expected: outputs/website/index.html opens in your browser, plus a list of applied rules and sourced facts.
 
-**Step 5 — Open it and check it like a customer (5 min)**
+**Step 5 — Check it like a customer (5 min)**
 
-Open the page, then narrow the browser to phone width (or use the browser's device view). Check the price, the date, the pop-up information and the button.
+Look at the page Mia opened (or double-click outputs/website/index.html in your kopi-kaki folder). Narrow the browser window to phone width. Check the price, the date, the pop-up information and the button.
 
-```bash
-open ~/kopi-kaki/outputs/website/index.html      # Windows: start  ·  Linux: xdg-open
-```
+✓ Expected: The hero shows Gula Melaka Cold Brew, SGD 6.80 and 'Pouring from 1 Dec 2026'; the page still works at phone width.
 
 **Step 6 — Ask for one concrete revision (8 min)**
 
@@ -979,9 +944,9 @@ Save two screenshots — desktop and phone width — into outputs/website/. You 
 
 #### Test it
 
-> **✅ Test it:** index.html opens offline, uses the Kopi Kaki colours and facts, works at phone width, and review.md records your one requested change.
+> **✓ Test it:** index.html opens offline, uses the Kopi Kaki colours and facts, works at phone width, and review.md records your one requested change.
 >
-> - [ ] Two UX skills installed and listed
+> - [ ] Two UX skills installed and listed in Capabilities → Skills
 > - [ ] index.html opens offline with the Kopi Kaki colours, logo and product card
 > - [ ] Every price and date matches the source files
 > - [ ] Works at 375 px; review.md records your revision
@@ -990,17 +955,17 @@ Save two screenshots — desktop and phone width — into outputs/website/. You 
 
 | Symptom | Fix |
 |---|---|
-| `npx skills` fails | Install Node.js 22.20+ and retry; or use `hermes skills install skills-sh/anthropics/skills/frontend-design`. |
-| Skill not used | Start a new chat so newly installed skills load; name the skill in the prompt. |
-| Images missing | Check assets/ was copied into ~/kopi-kaki and the paths in index.html are relative. |
+| Skill install fails | Ask Mia what failed and to try the Hermes skills hub instead; or search the skill in Capabilities → Skills and click Install. |
+| Skill not used | Start a New session so newly installed skills load; name the skill in the prompt. |
+| Images missing | Check assets/ was dragged into your kopi-kaki folder and ask Mia to use relative paths. |
 
 #### Stretch challenge
 
-Install ui-ux-pro-max as a third skill and ask Mia for a second design. Which design would you ship, and what did the extra skill actually change?
+Ask Mia to install ui-ux-pro-max as a third skill and make a second design. Which design would you ship, and what did the extra skill actually change?
 
-### Lab 3 — Activity 3 — PPT Tool + Skill Build the Kopi Kaki Pitch Deck
+### Lab 3 — Activity 3 — One Agent Builds the Kopi Kaki Pitch Deck with a PPT Tool and Skill
 
-**Day 1 · 45 min · One agent + PPT tool and skill · LO2** — On Friday you pitch the bank for a SGD 50,000 loan. Mia turns your brief, reviews and competitors into a professional, editable deck — with a real chart.
+**Day 1 · 45 min · Single agent + PPT tool and skill · LO2** — On Friday you pitch the bank for a SGD 50,000 loan. Mia turns your brief, reviews and competitors into a professional, editable deck — with a real chart.
 
 #### Business scenario
 
@@ -1012,20 +977,19 @@ Use a presentation tool and a reviewed skill with one agent to produce a profess
 
 #### Before you start
 
-- Topic 2 setup and Activity 2 done
-- python-pptx in ~/kopi-kaki/.office-venv (from the setup step)
-- LibreOffice for the PDF render (`soffice --version`)
-- This lab's data/ copied into ~/kopi-kaki
+- Topic 2 setup and Activity 2 done (Mia's .office-venv toolbox exists)
+- This lab's data/ dragged into Desktop/kopi-kaki
+- Optional: LibreOffice, so Mia can save a PDF copy of the deck
 
-![Activity 3 workflow: equip, brief, build, render, approve — design diagram, not learner evidence](courseware/assets/workflows/activity-03.png)
-*Activity 3 workflow: equip, brief, build, render, approve — design diagram, not learner evidence*
+![Install a skill by asking: “install the kopi pitch deck skill”](courseware/assets/screenshots/desktop/install-skill-by-asking.png)
+*Install a skill by asking: “install the kopi pitch deck skill”*
 
 #### You will deliver
 
 - outputs/deck/kopi-kaki-pitch.pptx — 8–10 editable slides with one native chart
-- outputs/deck/kopi-kaki-pitch.pdf — rendered copy you reviewed slide by slide
+- outputs/deck/kopi-kaki-pitch.pdf — PDF copy, if LibreOffice is installed
 - outputs/deck/qa-report.md — facts checked against the source files, fixes made
-- PP Task 2 evidence: ONE screenshot of Hermes Desktop/dashboard showing the PPT run and the deck
+- PP Task 2 evidence: ONE screenshot of Hermes Desktop showing the PPT run and the deck
 
 | Who | Role |
 |---|---|
@@ -1040,58 +1004,45 @@ Use a presentation tool and a reviewed skill with one agent to produce a profess
 
 #### Lab files
 
-labs/lab03-kopi-kaki-pitch-deck/ — README.md, LAB-03-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/lab03-kopi-kaki-pitch-deck/ — README.md, LAB-03-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
-**Step 1 — Copy the deck skill and check the PPT tool (3 min)**
+**Step 1 — Ask Mia to install the deck skill (3 min)**
 
-The tool writes the file (python-pptx); the skill says how to build a good deck. Hermes also ships a built-in microsoft-office skill (Word, PowerPoint, Excel via python-pptx); the reviewed kopi-pitch-deck skill adds your story, brand and checks.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). The tool writes the file (python-pptx); the skill says how to build a good deck. You install the skill by asking — no command line.
 
-```bash
-cp -Rn data/* ~/kopi-kaki/
-cat ~/kopi-kaki/skills/kopi-pitch-deck/SKILL.md
-mkdir -p ~/.hermes/skills/office && cp -R ~/kopi-kaki/skills/kopi-pitch-deck ~/.hermes/skills/office/
-~/kopi-kaki/.office-venv/bin/python -c "import pptx; print('python-pptx', pptx.__version__)"
-hermes skills list | grep -i -E 'kopi-pitch-deck|microsoft-office'
-soffice --version
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+install the kopi pitch deck skill from skills/kopi-pitch-deck in this folder. Read its SKILL.md first and tell me in two lines what it makes you do. Then confirm it is available, and check that python-pptx works in .office-venv.
 ```
 
-✓ Expected: kopi-pitch-deck is listed; python-pptx prints its version.
+✓ Expected: 'Installed and verified the kopi-pitch-deck skill … readiness status available' and python-pptx works.
 
-**Step 2 — Optional: add a hub PPT skill (3 min)**
+**Step 2 — Optional: compare with a hub PPT skill (3 min)**
 
-For comparison, Hermes's optional pptx-author skill (adapted from Anthropic's) builds decks headless with python-pptx.
-
-```bash
-hermes skills install official/finance/pptx-author
-```
+Hermes's skills hub also has a general PowerPoint skill. Search 'pptx' in Capabilities → Skills, read it, and install it if you want to compare.
 
 **Step 3 — Brief the deck (15 min)**
 
-Start a new Desktop chat in ~/kopi-kaki. This is the run you will screenshot for PP Task 2.
+Start a New session in your kopi-kaki folder. This is the run you will screenshot for PP Task 2.
 
-Prompt — paste into *Hermes Desktop — Mia, folder ~/kopi-kaki*:
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
 
 ```text
-Use the kopi-pitch-deck skill and python-pptx (~/kopi-kaki/.office-venv/bin/python). Build the Kopi Kaki Co. pitch deck for Friday's meeting with a bank relationship manager.
+Use the kopi-pitch-deck skill and python-pptx (from .office-venv in this folder). Build the Kopi Kaki Co. pitch deck for Friday's meeting with a bank relationship manager.
 - 8-10 slides: title · the problem · Gula Melaka Cold Brew (SGD 6.80, from 1 Dec 2026) · proof from the 60 pop-up tasting reviews (average rating and top themes with review IDs) · market and the 6 competitors · launch plan 17 Nov-14 Dec #ShiokColdBrew · KPIs (2,500 pre-orders, 8% engagement, 40,000 views) · budget SGD 15,000 · the ask (I will fill in the amount).
 - One NATIVE editable chart (ratings distribution or KPI targets), brand colours from brand-guide.md, the logo on the title slide.
 - Speaker notes: the source file for every number.
-Save outputs/deck/kopi-kaki-pitch.pptx, render outputs/deck/kopi-kaki-pitch.pdf with soffice, check every page for clipping or overlap, and write outputs/deck/qa-report.md.
+Save outputs/deck/kopi-kaki-pitch.pptx. If LibreOffice is installed, also save outputs/deck/kopi-kaki-pitch.pdf and check every page for clipping or overlap. Write outputs/deck/qa-report.md, then open the deck for me.
 ```
 
-✓ Expected: kopi-kaki-pitch.pptx, the PDF and qa-report.md in outputs/deck/.
+✓ Expected: kopi-kaki-pitch.pptx (and the PDF if LibreOffice is installed) and qa-report.md in outputs/deck/.
 
 **Step 4 — Check it: content errors and layout errors (8 min)**
 
-Open the PDF and the PPTX. Content error = a wrong or unsourced number. Layout error = clipped, overlapping or unreadable text. Check three numbers against the source files yourself and click the chart to confirm it is editable.
-
-```bash
-open ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pdf
-open ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pptx
-cat ~/kopi-kaki/outputs/deck/qa-report.md
-```
+Open the deck Mia opened (or double-click it in outputs/deck/). Content error = a wrong or unsourced number. Layout error = clipped, overlapping or unreadable text. Check three numbers against the source files yourself and click the chart to confirm it is editable.
 
 **Step 5 — One revision, then approve (8 min)**
 
@@ -1100,38 +1051,38 @@ Ask for a concrete, testable change, then approve the deck.
 Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-Revise the deck: (1) make slide 2's headline state the problem in one sentence; (2) on the reviews slide show the average rating as one big number with the review count; (3) the ask slide: 'SGD 50,000 working capital for the Tiong Bahru flagship'. Re-render the PDF, re-check every page, and add the changes to qa-report.md. Then summarise what changed.
+Revise the deck: (1) make slide 2's headline state the problem in one sentence; (2) on the reviews slide show the average rating as one big number with the review count; (3) the ask slide: 'SGD 50,000 working capital for the Tiong Bahru flagship'. Re-check every slide, add the changes to qa-report.md, and summarise what changed.
 ```
 
-✓ Expected: Updated PPTX, PDF and qa-report.md.
+✓ Expected: Updated PPTX and qa-report.md.
 
 **Step 6 — Capture your PP Task 2 evidence (3 min)**
 
-Take ONE readable screenshot of Hermes Desktop (or the Hermes dashboard) showing your request and the finished deck — for example the chat with the saved .pptx path and the slides open beside it. Hide keys and private data. Keep the .pptx, the PDF and qa-report.md.
+Take ONE readable screenshot of Hermes Desktop showing your request and the finished deck — for example the chat with the saved .pptx path and the slides open beside it. Hide keys and private data. Keep the .pptx and qa-report.md.
 
 #### Test it
 
-> **✅ Test it:** The .pptx opens and is editable, the chart is a native chart, every number matches the source files, and your PP Task 2 screenshot is saved.
+> **✓ Test it:** The .pptx opens and is editable, the chart is a native chart, every number matches the source files, and your PP Task 2 screenshot is saved.
 >
-> - [ ] kopi-pitch-deck skill listed; python-pptx works
+> - [ ] kopi-pitch-deck skill installed and available
 > - [ ] 8-10 editable slides with one native chart
 > - [ ] Three numbers checked by you against the source files
-> - [ ] PDF has no clipped or overlapping text; qa-report.md lists fixes
-> - [ ] PP Task 2: ONE Hermes Desktop/dashboard screenshot showing the PPT run and the deck
+> - [ ] No clipped or overlapping text; qa-report.md lists fixes
+> - [ ] PP Task 2: ONE Hermes Desktop screenshot showing the PPT run and the deck
 
 #### Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `soffice: command not found` | Install LibreOffice (macOS: brew install --cask libreoffice) or open the .pptx and export PDF yourself. |
-| Chart is a picture | Ask Mia to use python-pptx chart_data / add_chart so the chart stays editable. |
+| No PDF | LibreOffice is not installed. That is fine: open the .pptx and use File → Export → PDF yourself. |
+| Chart is a picture | Ask Mia to use a python-pptx chart (add_chart) so the chart stays editable. |
 | Invented figures | Point Mia at the source files and the skill rule 'never invent figures'; ask for a sourced revision. |
 
 #### Stretch challenge
 
-Ask Mia to turn the same deck into a one-page investor memo (DOCX) with the microsoft-office skill. Which format would the bank manager read first?
+Ask Mia to turn the same deck into a one-page investor memo (Word). Which format would the bank manager read first?
 
-## Topic 3 — Hermes Teams — Marketing & Video Production with Profiles, Kanban & Bots
+## Topic 3 — Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video
 
 ### 3.1 From one employee to a team of agents
 
@@ -1139,11 +1090,11 @@ A multi-agent system splits one big goal into specialist jobs that hand work to 
 
 | Every agent has its own… | What it means | Kopi Kaki example |
 |---|---|---|
-| Tools | What it can do | image-creator has the image tool; researcher has web search |
+| Tools | What it can do | Pixel has the image tool; Rafi has web search |
 | Unique skills | How it does the job well | video-producer has the hyperframes skill |
-| Model | How it thinks — big or small, any provider | a careful model for the researcher, a fast one for drafts |
+| Model | How it thinks — big or small, any provider | a careful model for Rafi, a fast one for drafts |
 | Instructions | Who it is and its rules (SOUL.md + AGENTS.md) | the reviewer never approves on your behalf |
-| Context window | What it is holding in mind — its own memory and session | the writers never see each other's drafts |
+| Context window | What it is holding in mind — its own memory and session | each bot keeps its own chat and memory |
 
 ### 3.2 How agents talk: the damaged-order example and ACP
 
@@ -1153,190 +1104,160 @@ Agent Communication Protocol (ACP) is a standardised framework that enables AI a
 
 <sub>LF AI & Data — ACP joins forces with A2A (29 Aug 2025): https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/</sub>
 
-### 3.3 Video skills and tools
+### 3.3 Bots and group chats
 
-| Tool | How it makes video | Install for Hermes |
-|---|---|---|
-| HyperFrames (HeyGen) | HTML/CSS + GSAP timing → MP4; lint, snapshot, preview, render; local voice-over with `npx hyperframes tts` | hermes skills install official/creative/hyperframes · npx hyperframes doctor |
-| Remotion | React components → MP4; strong for templated videos at scale | npx skills add remotion-dev/skills -a hermes-agent -g |
-| Manim | Python maths animation (3Blue1Brown style) | built-in manim-video skill; pip install manim (+ LaTeX) |
+- Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. Hire one in the Bots tab → New Agent: Name, Title, Description; Advanced takes its role file as Custom SOUL.md. Right-click → Edit Profile gives it an avatar.
+- Group chat — right-click a bot → Manage groups → create a room for 2–6 bots. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.
+- Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), in the group 'Kopi Social Team'. You approve every post.
 
-### 3.4 Profiles, the Kanban board and bots
+<sub>Hermes Bot Mode (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
 
-- Profile — a separate Hermes agent with its own SOUL.md, memory, skills and model: `hermes profile create <name> --clone`.
-- Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done and the gateway is running; bind parents when you create the card. HUMAN cards are unassigned and only you complete them (`hermes kanban complete <id>`).
-- Bots — Desktop Bot Mode (the Bots tab) shows each profile as a named bot you can chat with; optionally give a profile its own Telegram bot token and run `<profile> gateway start`. A Telegram bot is a messaging account: two chats do not make two agents, separate profiles do.
+![Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description](courseware/assets/screenshots/desktop/bot-edit-profile.png)
+*Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description*
 
-![Reference Hermes Kanban board](courseware/assets/screenshots/hermes-kanban.png)
-*Reference Hermes Kanban board*
+### Lab 4 — Activity 4 — Your Social Media Team: Five Bots in One Group Chat
 
-### Lab 4 — Activity 4 — Your Social Media Marketing Team
-
-**Day 2 · 60 min · Multi-agent team on a Kanban board · LO2** — One researcher, three platform writers and an image creator work in parallel. In an hour you review a gallery of LinkedIn, Facebook and Instagram launch posts.
+**Day 2 · 60 min · Multiple named bots in one group chat · LO2** — Hire five bots with names and job titles, put them in one group chat, and post one brief. They hand off by @mention; you approve every post.
 
 #### Business scenario
 
-You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you build a team: each specialist owns one platform, and you approve every post before anything goes public.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you hire a team of bots: each specialist owns one platform, they talk in one group chat, and you approve every post before anything goes public.
 
 #### Goal
 
-Design a multi-agent team with profiles, a Kanban dependency graph and a human approval gate, and compare its output and effort with a single agent (LO2).
+Design a multi-agent team of named bots with clear roles, coordinate them in a group chat with a human approval step, and compare its output and effort with a single agent (LO2).
 
 #### Before you start
 
-- Topic 2 setup done: Hermes Desktop, a working model and Telegram (the gateway must be running for Kanban to dispatch work)
+- Topic 2 setup done: Hermes Desktop with a working model; Telegram connected
 - Activity 2 website and Activity 3 deck saved — the team reuses their facts
-- This lab's data/ copied into ~/kopi-kaki (souls/, tasks/ and tools/make_post_image.py are included)
+- This lab's data/ dragged into Desktop/kopi-kaki (souls/ holds the five role files; tools/make_post_image.py makes the images)
 
-![Reference profiles view; your team has the five Activity 4 profiles](courseware/assets/screenshots/hermes-profiles.png)
-*Reference profiles view; your team has the five Activity 4 profiles*
+![A bot group chat in Hermes Desktop (trainer's test room); yours is the Kopi Social Team](courseware/assets/screenshots/desktop/bot-group-chat.png)
+*A bot group chat in Hermes Desktop (trainer's test room); yours is the Kopi Social Team*
 
 #### You will deliver
 
-- Five Hermes profiles: researcher, linkedin-writer, facebook-writer, instagram-writer, image-creator
-- A Kanban board (tenant kopi-social) with dependencies and an unassigned HUMAN approval card
+- Five bots created with New Agent: Rafi (researcher), Lin (LinkedIn), Farah (Facebook), Ivy (Instagram), Pixel (images)
+- A group chat 'Kopi Social Team' where the bots hand off by @mention and ask you (@user) for decisions
 - outputs/social/research.md, linkedin.md, facebook.md, instagram.md and images/*.png
 - outputs/social/gallery.html — every post shown as it would appear on its platform
 - outputs/social/approval-log.md — APPROVE / EDIT / REJECT per post
 
 | Who | Role |
 |---|---|
-| Agents | 5 Hermes profiles shown as bots: researcher → 3 platform writers (in parallel) → image creator |
-| You (human) | Brief the campaign, approve or edit each post, nothing is posted publicly |
+| Agents | 5 named bots in one group chat: Rafi → Lin, Farah, Ivy → Pixel |
+| You (human) | Post the brief, approve or edit each post; nothing is posted publicly |
 
 #### Concepts in action
 
-- Profile = a separate agent: its own SOUL.md, memory, skills and model
-- Kanban = the team's shared to-do list: assignee, parent dependency, status, history
-- Parallel specialists + one human gate beat one generalist for multi-channel work
-- Bots = profiles you can talk to by name
+- A bot = a separate agent with its own name, role, instructions, memory and skills
+- A group chat lets bots talk to each other: @mention hands work to a teammate, @user asks you
+- Specialists + one human decision beat one generalist for multi-channel work
+- Hard caps (3 rounds, 10 messages per send) keep a room from spinning
 
 #### Lab files
 
-labs/lab04-social-media-marketing-team/ — README.md, LAB-04-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/lab04-social-media-marketing-team/ — README.md, LAB-04-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
-**Step 1 — Copy the lab data and create the output folders (3 min)**
+**Step 1 — Copy the team files into your company folder (3 min)**
 
-Open a terminal in this lab folder. The data/ folder holds the five team role files (souls/), the task briefs (tasks/), the brand files and a small image tool. Copy it into your company workspace without overwriting your own AGENTS.md.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
 
-```bash
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/social/images
-cd ~/kopi-kaki && ls souls tasks tools
-```
+✓ Expected: souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files.
 
-✓ Expected: souls/ lists researcher, linkedin-writer, facebook-writer, instagram-writer and image-creator.
+**Step 2 — Hire five bots with New Agent (12 min)**
 
-**Step 2 — Staff the team: five profiles, one job each (8 min)**
+Open the Bots tab (next to Sessions) and click New Agent. For each bot fill in Name, Title and Description below, open Advanced → Custom SOUL.md and paste the text of its souls/<name>.SOUL.md file, then create it. Each bot introduces itself in its own Bot Chat. Right-click a bot → Edit Profile to give it an avatar (Bot, Generate, Upload or a Pet).
+- Rafi · Market Researcher · Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact.
+- Lin · LinkedIn Writer · Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English.
+- Farah · Facebook Writer · Writes the neighbourhood Facebook post: pop-up dates, the 1 Dec opening, friendly kopitiam voice.
+- Ivy · Instagram Writer · Writes the Instagram hook, caption and hashtags, plus a one-line image brief.
+- Pixel · Image Creator · Makes one on-brand 1080x1350 image per post and the review gallery that shows every post as it will look.
 
-A profile is a separate Hermes agent with its own SOUL.md, memory, skills and settings. --clone copies your working model and keys from the default profile, so every specialist can think straight away. The description is how the board routes work to the right specialist.
+✓ Expected: Rafi, Lin, Farah, Ivy and Pixel appear in the Bots roster, each with its own title.
 
-```bash
-hermes profile create researcher --clone --description "Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact"
-hermes profile create linkedin-writer --clone --description "Writes the founder's LinkedIn post: story, proof, call to action; professional Singapore English"
-hermes profile create facebook-writer --clone --description "Writes the neighbourhood Facebook post: pop-up dates, launch day, friendly kopitiam voice"
-hermes profile create instagram-writer --clone --description "Writes the Instagram caption, first-line hook and hashtags for a 1080x1350 image post"
-hermes profile create image-creator --clone --description "Creates one on-brand 1080x1350 image per post with tools/make_post_image.py and builds the review gallery"
-for p in researcher linkedin-writer facebook-writer instagram-writer image-creator; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-hermes profile list
-```
+**Step 3 — Meet your team (5 min)**
 
-✓ Expected: hermes profile list shows the five new profiles next to default.
+Click each bot to open its Bot Chat and check that it answers in its own role. If a bot says it has no model, open Settings → Model, pick that bot under 'Applies to', choose your provider, sign in and Apply.
 
-**Step 3 — Meet your team as bots (5 min)**
-
-Hermes Desktop's Bot Mode (the Bots tab, on by default) shows every profile as a named bot you can chat with directly. Say hello to two of them and check that each answers in its own role. Optional: give a profile its own Telegram bot token, then run `<profile> gateway install` and `<profile> gateway start`. A bot is how you talk to a profile; the work itself is tracked on the Kanban board.
-
-Prompt — paste into *Hermes Desktop → Bots tab → researcher*:
+Prompt — paste into *Hermes Desktop → Bots tab → Rafi (then Lin)*:
 
 ```text
-Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in ~/kopi-kaki will you read first?
+Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in my Desktop/kopi-kaki folder will you read first?
 ```
 
 ✓ Expected: Each bot describes its own role and names AGENTS.md, campaign-brief.md and brand-guide.md.
 
-**Step 4 — Build the Kanban board with a human gate (10 min)**
+**Step 4 — Put the team in one group chat (5 min)**
 
-Ask your default agent (Mia) to build the board. Research runs first; the three writers run in parallel as soon as research is done; the image creator waits for all three; the last card is yours. Nothing is posted anywhere — the output is a review gallery.
+Right-click Rafi → Manage groups → create a group called 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). Click the group row → Open chat. In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.
 
-Prompt — paste into *Hermes Desktop → default profile (Mia), started in ~/kopi-kaki*:
+✓ Expected: The roster shows 'Kopi Social Team · 5 bots'; the room opens with all five members.
 
-```text
-Use the Kanban tools to build the board for tenant kopi-social, workspace ~/kopi-kaki.
-1. Research launch angles - assignee researcher - body from tasks/s1-research.md.
-2. LinkedIn post - assignee linkedin-writer - parent: card 1 - body from tasks/s2-linkedin.md.
-3. Facebook post - assignee facebook-writer - parent: card 1 - body from tasks/s3-facebook.md.
-4. Instagram post - assignee instagram-writer - parent: card 1 - body from tasks/s4-instagram.md.
-5. Images and review gallery - assignee image-creator - parents: cards 2, 3 and 4 - body from tasks/s5-images.md.
-6. HUMAN: approve the posts - unassigned, parent: card 5. Only I complete this card.
-Show me the card IDs, assignees and parents as a table. Do not start anything outside this board and never post to a real account.
-```
+**Step 5 — Post the brief and watch them hand off (15 min)**
 
-✓ Expected: A table of six cards; cards 2–4 depend on 1, card 5 on 2–4, card 6 on 5 and has no assignee.
+One message briefs the whole team. Rafi researches first; the three writers start when Rafi hands off. Watch the room: who speaks, who passes, who asks you.
 
-**Step 5 — Watch the team work (12 min)**
-
-Kanban dispatches each card to its profile as soon as its parents are done. Watch in the terminal or in the dashboard's Kanban view. Open a card to read its run history and output path.
-
-```bash
-hermes kanban watch --tenant kopi-social
-# or the web view:
-hermes dashboard          # then open Kanban
-```
-
-✓ Expected: Research finishes first, the three writers run side by side, then the image creator starts.
-
-**Step 6 — Open the posts gallery (5 min)**
-
-The image creator builds one page that shows every post the way it would look on its platform: LinkedIn text post, Facebook post with image, Instagram square with caption. Open it in your browser.
-
-```bash
-open ~/kopi-kaki/outputs/social/gallery.html      # Windows: start  ·  Linux: xdg-open
-```
-
-✓ Expected: Three platform cards, each with its image, copy and hashtags.
-
-**Step 7 — Review like the founder: APPROVE, EDIT or REJECT (10 min)**
-
-Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit — the writer reworks it and the gallery updates.
-
-```bash
-hermes kanban list --tenant kopi-social
-hermes kanban complete <human_card_id>     # after you have checked the refreshed gallery
-```
-
-Prompt — paste into *Hermes Desktop → default profile (Mia)*:
+Prompt — paste into *Hermes Desktop → Kopi Social Team (group chat)*:
 
 ```text
-My decisions for the kopi-social posts:
+Team, we launch the Gula Melaka Cold Brew on 1 Dec 2026. Work in Desktop/kopi-kaki and follow AGENTS.md, brand-guide.md and compliance-rules.md.
+@rafi research first: write outputs/social/research.md with 3 launch angles, the top 3 things tasters loved (with review IDs) and 5 approved facts with their source file. Then hand off to @lin @farah @ivy.
+@lin write outputs/social/linkedin.md, @farah write outputs/social/facebook.md, @ivy write outputs/social/instagram.md — each from research.md and your own role file.
+Never post anything. If you are unsure about a fact, ask me with @user.
+```
+
+✓ Expected: research.md first, then three platform drafts; anything uncertain comes to you as an @user question.
+
+**Step 6 — Ask Pixel for the images and the gallery (8 min)**
+
+Pixel makes one image per post with the small image tool in your folder and builds one page that shows every post the way it would look on its platform.
+
+Prompt — paste into *Hermes Desktop → Kopi Social Team*:
+
+```text
+@pixel make one 1080x1350 image for each of linkedin.md, facebook.md and instagram.md with tools/make_post_image.py (Python from .office-venv), save them in outputs/social/images/, then build outputs/social/gallery.html with one card per platform and open it for me.
+```
+
+✓ Expected: gallery.html opens: three platform cards, each with its image, copy and hashtags.
+
+**Step 7 — Review like the founder: APPROVE, EDIT or REJECT (8 min)**
+
+Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit.
+
+Prompt — paste into *Hermes Desktop → Kopi Social Team*:
+
+```text
+My decisions:
 - LinkedIn: APPROVE
-- Facebook: EDIT - put the first pop-up date in the first line and cut the post to 80 words
+- Facebook: EDIT — @farah put the first pop-up date in the first line and cut the post to 80 words
 - Instagram: APPROVE
-Create a rework card for the facebook-writer with my edit as its body and the image creator's card as parent, then a card for the image-creator to refresh the gallery. Record every decision with date and reason in outputs/social/approval-log.md. Leave my HUMAN card open: I complete it myself.
+@pixel when Farah is done, refresh the gallery and record every decision with today's date and my reason in outputs/social/approval-log.md.
 ```
 
-✓ Expected: A rework card runs; gallery.html shows the edited Facebook post; approval-log.md has three rows.
+✓ Expected: Farah revises; the gallery shows the edited Facebook post; approval-log.md has three rows.
 
-**Step 8 — Reflect: team versus one agent (5 min)**
+**Step 8 — Reflect: team versus one agent (4 min)**
 
-Compare the team with Mia working alone on Day 1.
+Compare the bots with Mia working alone in Activities 2 and 3.
 
-Prompt — paste into *Hermes Desktop → default profile (Mia)*:
+Prompt — paste into *Hermes Desktop → Mia (your first session)*:
 
 ```text
-Compare today's five-profile team with you working alone: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a team, and when one agent?
+Compare today's five-bot group chat with you working alone on Day 1: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a group of bots, and when one agent?
 ```
 
 ✓ Expected: A short evidence-based comparison you can discuss in class.
 
 #### Test it
 
-> **✅ Test it:** The board shows five owners, writers blocked on research, the image creator blocked on the writers, and every post in approval-log.md has your decision.
+> **✓ Test it:** The group chat shows Rafi's research first, three platform drafts, Pixel's gallery, and every post in approval-log.md has your decision.
 >
-> - [ ] `hermes profile list` shows the five team profiles
-> - [ ] The board shows parents: writers ← research; images ← all three writers; HUMAN ← images
+> - [ ] Five bots in the roster with names, titles and role files
+> - [ ] The group 'Kopi Social Team' shows the hand-off: research → three writers → images
 > - [ ] gallery.html shows three platform posts with images
 > - [ ] approval-log.md records a decision for every post; nothing was posted publicly
 
@@ -1344,14 +1265,30 @@ Compare today's five-profile team with you working alone: time to first draft, h
 
 | Symptom | Fix |
 |---|---|
-| Cards stay in Ready and never run | The gateway dispatches Kanban work: run `hermes gateway status` and start it (`hermes gateway run`). |
-| A profile cannot reach the model | Recreate it with --clone or run `hermes -p <profile> model` to pick the provider. |
-| Image tool fails | Install Pillow in the workspace venv: `.office-venv/bin/python -m pip install Pillow`. |
-| A writer invents a price or promo | Point it at product-catalogue.csv and campaign-brief.md in a rework card; add the rule to its SOUL.md. |
+| A bot has no model | Settings → Model → pick the bot under 'Applies to' → choose the provider, sign in, Apply. |
+| Nobody answers in the group | @mention the bot you want (@rafi …). A message with no mention lets each bot decide whether to speak. |
+| The room stops after three rounds | That is the safety cap. Send a short follow-up: '@lin @farah @ivy please continue from research.md'. |
+| Image tool fails | Ask Mia in your own session: 'Install Pillow into .office-venv in Desktop/kopi-kaki.' |
+| A writer invents a price or promo | Reply '@<writer> use only product-catalogue.csv and campaign-brief.md' and add the rule to its role file (Edit Profile → SOUL.md). |
 
 #### Stretch challenge
 
-Add a sixth profile, tiktok-writer, as a card that depends on research. What did the extra specialist cost in time and review effort, and was it worth it?
+Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?
+
+### 3.4 Video skills and tools, and the Kanban board
+
+| Tool | How it makes video | How to install |
+|---|---|---|
+| HyperFrames (HeyGen) | HTML/CSS + GSAP timing → MP4; lint, snapshot, preview, render | Ask Mia to install the official hyperframes skill and check what it needs |
+| Remotion | React components → MP4; strong for templated videos at scale | Capabilities → Skills → search 'remotion' |
+| Manim | Python maths animation (3Blue1Brown style) | Built-in manim-video skill; Mia installs Manim if you ask |
+
+- Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done. HUMAN cards are unassigned and only you complete them (or tell Mia 'I approve — complete the card for me').
+- Prompt method — in Activity 5 one prompt to Mia creates the five video agents (they also appear in the Bots tab) and the seven-card board with your two HUMAN gates. Open Kanban in the sidebar to watch it run.
+- Group chat or board? Bots in a group talk their way to a result; a board makes the order explicit. Use a board when the steps are known and the stakes are high.
+
+![Reference Hermes Kanban board](courseware/assets/screenshots/hermes-kanban.png)
+*Reference Hermes Kanban board*
 
 ### 3.5 Grounding: RAG versus a standard LLM
 
@@ -1366,9 +1303,9 @@ A standard LLM answers from what it learned: fluent and cheap, but it does not k
 
 Maintenance is part of feasibility: when a source changes, refresh the index, retire the obsolete version, re-run the four tests and re-review everything that quoted it. Evaluate retrieval by relevance, support, latency and cost — not fluency. A regulated business (bank, insurer, clinic) adds a named source owner, per-document access control and an audit log of every refresh.
 
-### Lab 5 — Activity 5 — Your Video Production Team
+### Lab 5 — Activity 5 — Your Video Team on a Kanban Board
 
-**Day 2 · 130 min · Multi-agent production line + human review · LO3** — Research, script, render, voice-over, review — five Hermes bots make the 20-second launch video, then send you a link. Nothing ships until you approve it.
+**Day 2 · 115 min · Agent team on a Kanban board + human gates · LO3** — One prompt hires a video team and builds its Kanban board. Research, script, voice-over, render, review: the board runs it; nothing ships until you approve.
 
 #### Business scenario
 
@@ -1380,24 +1317,25 @@ Run a multi-agent video team with Kanban dependencies, source checks and an inde
 
 #### Before you start
 
-- Activity 4 done: profiles, Kanban and the running gateway work
-- Node.js 22+ and FFmpeg for HyperFrames; Python 3.10+ for the local voice (Kokoro)
-- This lab's data/ copied into ~/kopi-kaki (souls/, tasks/, DESIGN.md and video-qa-checklist.md are included)
+- Activity 4 done
+- This lab's data/ dragged into Desktop/kopi-kaki (souls/, tasks/, DESIGN.md and video-qa-checklist.md)
+- Lab laptops: Node.js 22+ and FFmpeg for HyperFrames — Mia checks them for you; the trainer installs anything missing before class
+- Settings → Voice → Text to speech set to Edge (free) from the Topic 2 setup
 
 ![Reference Kanban interface; PP Task 3 uses your own board and video](courseware/assets/screenshots/hermes-kanban.png)
 *Reference Kanban interface; PP Task 3 uses your own board and video*
 
 #### You will deliver
 
-- Video skills installed: HyperFrames (Remotion, Manim for reference)
-- Five profiles: researcher, scriptwriter, video-producer, voice-over, video-reviewer
-- outputs/video/: research.md, script.md, narration.wav, final.mp4, review.md
+- Video skill installed from Capabilities → Skills: HyperFrames (Remotion, Manim for reference)
+- A video team created by prompt: video-researcher, scriptwriter, voice-over, video-producer, video-reviewer
+- outputs/video/: research.md, script.md, narration audio, final.mp4, review.md
 - Review link on Telegram; your APPROVE with the video's SHA-256
 - PP Task 3: TWO screenshots — Kanban board + video playing
 
 | Who | Role |
 |---|---|
-| Agents | 5 Hermes profiles shown as bots on a Kanban board |
+| Agents | 5 agents created by Mia from one prompt, working on a Kanban board |
 | You (human) | Approve the script, watch the exact cut, approve or request one revision |
 
 #### Concepts in action
@@ -1409,191 +1347,282 @@ Run a multi-agent video team with Kanban dependencies, source checks and an inde
 
 #### Lab files
 
-labs/lab05-video-production-team/ — README.md, LAB-05-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/lab05-video-production-team/ — README.md, LAB-05-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
-**Step 1 — Copy the lab data (2 min)**
+**Step 1 — Copy the video team files (2 min)**
 
-Copy the video team's role files, task briefs, design rules and QA checklist into your workspace.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist.
 
-```bash
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/video
-ls ~/kopi-kaki/souls ~/kopi-kaki/tasks
-```
+✓ Expected: souls/ now also lists video-researcher, scriptwriter, voice-over, video-producer and video-reviewer; tasks/ has v1–v5.
 
-✓ Expected: souls/ now also lists scriptwriter, video-producer, voice-over and video-reviewer.
+**Step 2 — Install the video skill — by asking (8 min)**
 
-**Step 2 — Install the video skills and tools: HyperFrames, Remotion, Manim (10 min)**
+HyperFrames (HeyGen) writes each scene as HTML and renders an MP4 — the team's renderer. Remotion (React) and Manim (maths animation) are alternatives worth knowing. You can also search 'hyperframes' in Capabilities → Skills and click Install.
 
-HyperFrames (HeyGen) writes videos as HTML and renders them to MP4 — the team's main renderer (Node.js 22+ and FFmpeg). Remotion (React) and Manim (Python maths animation; Hermes ships a manim-video skill, Manim itself needs Python 3.10+ and LaTeX) are alternatives worth knowing. Read each SKILL.md before you trust it.
-
-```bash
-hermes skills install official/creative/hyperframes
-npx hyperframes doctor
-npx skills add remotion-dev/skills -a hermes-agent -g
-hermes skills list | grep -i -E 'hyperframes|remotion|manim'
-# optional, for Manim: python3 -m pip install manim && manim --version
-```
-
-✓ Expected: hyperframes doctor reports Node, FFmpeg and a browser OK; the skills appear in hermes skills list.
-
-**Step 3 — Give the team a voice: local text-to-speech (5 min)**
-
-HyperFrames can narrate locally with the free Kokoro voice model — no account and no cost. Test it once.
-
-```bash
-python3 -m pip install kokoro-onnx soundfile
-npx hyperframes tts "Gula Melaka Cold Brew. A taste of the kopitiam, slow-brewed cold." --voice af_heart --output ~/kopi-kaki/outputs/video/voice-test.wav
-```
-
-✓ Expected: voice-test.wav plays a clear English voice.
-
-**Step 4 — Staff the production line: five profiles (6 min)**
-
-One researcher grounds every fact; the reviewer is independent of the producer. Each SOUL.md says what the role owns and what it must never do.
-
-```bash
-hermes profile create scriptwriter --clone --description "Turns research.md into a 20-second, 4-scene script with on-screen text and narration"
-hermes profile create video-producer --clone --description "Renders the approved script into a 1080x1920 MP4 with HyperFrames; owns outputs/video/final.mp4"
-hermes profile create voice-over --clone --description "Writes narration.txt from the approved script and records narration.wav with hyperframes tts"
-hermes profile create video-reviewer --clone --description "Independently checks the video against video-qa-checklist.md and the sources; sends the founder a review link"
-for p in scriptwriter video-producer voice-over video-reviewer; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-cp ~/kopi-kaki/souls/video-researcher.SOUL.md ~/.hermes/profiles/researcher/SOUL.md
-hermes profile list
-```
-
-✓ Expected: researcher (now the video researcher), scriptwriter, video-producer, voice-over and video-reviewer are listed.
-
-**Step 5 — Build the production board with two human gates (8 min)**
-
-Two cards are yours: approve the script before anything is rendered, and approve the exact final file. The producer and voice-over both depend on your script approval; the reviewer waits for both.
-
-Prompt — paste into *Hermes Desktop → default profile (Mia), started in ~/kopi-kaki*:
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
 
 ```text
-Use the Kanban tools to build the board for tenant kopi-video, workspace ~/kopi-kaki.
-1. Research the launch video - assignee researcher - body from tasks/v1-research.md.
-2. Write the 20-second script - assignee scriptwriter - parent: 1 - body from tasks/v2-script.md.
-3. HUMAN: approve the script - unassigned - parent: 2. Only I complete it.
-4. Record the voice-over - assignee voice-over - parent: 3 - body from tasks/v3-voice.md.
-5. Render the video - assignee video-producer - parents: 3 and 4 - skill hyperframes - body from tasks/v4-produce.md.
-6. Review and send me the link - assignee video-reviewer - parent: 5 - body from tasks/v5-review.md.
-7. HUMAN: approve the exact video - unassigned - parent: 6. Only I complete it.
-Show the card IDs, assignees and parents as a table. Never publish or post the video anywhere.
+Install the official hyperframes skill from the Hermes skills hub. Read its SKILL.md first and tell me what it needs. Then check that this laptop has what it needs (Node.js 22 or newer, FFmpeg, a browser) and run its health check. If anything is missing, tell me exactly what to ask the trainer to install. Do not change system settings.
 ```
 
-✓ Expected: A seven-card table with two unassigned HUMAN cards.
+✓ Expected: 'hyperframes' appears in Capabilities → Skills and the health check passes (or Mia names what is missing).
 
-**Step 6 — Research with source checks (8 min)**
+**Step 3 — One prompt: hire the video team and build its Kanban board (10 min)**
 
-The researcher may only use facts it can point to in a source file: this is grounding, the same idea as retrieval-augmented generation (RAG). Open research.md when the card is done and check two claims yourself.
+This is the prompt method: you describe the team and the work; Mia creates the five agents (they also appear in the Bots tab) and the Kanban board with your two HUMAN gates.
 
-```bash
-hermes kanban watch --tenant kopi-video
-cat ~/kopi-kaki/outputs/video/research.md
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Build my video production team and its Kanban board. Workspace: Desktop/kopi-kaki.
+1. Create these five agents (Hermes profiles) by cloning your settings, each with its role file as SOUL.md and the description shown:
+- video-researcher: Extracts the facts the video may use: claim | source file | exact quote (role file souls/video-researcher.SOUL.md)
+- scriptwriter: Turns research.md into a 20-second, 4-scene script, then waits for the founder (role file souls/scriptwriter.SOUL.md)
+- voice-over: Records the narration from the APPROVED script with Hermes text-to-speech (role file souls/voice-over.SOUL.md)
+- video-producer: Renders the APPROVED script into a 1080x1920 MP4 with HyperFrames (role file souls/video-producer.SOUL.md)
+- video-reviewer: Independently checks the video against the QA checklist and sends the founder a review link (role file souls/video-reviewer.SOUL.md)
+2. Create a Kanban board for tenant kopi-video with these cards:
+   1 Research the launch video · video-researcher · body tasks/v1-research.md
+   2 Write the 20-second script · scriptwriter · parent 1 · body tasks/v2-script.md
+   3 HUMAN: approve the script · unassigned · parent 2 · only I complete it
+   4 Record the voice-over · voice-over · parent 3 · body tasks/v3-voice.md
+   5 Render the video · video-producer · parents 3 and 4 · skill hyperframes · body tasks/v4-produce.md
+   6 Review and send me the link · video-reviewer · parent 5 · body tasks/v5-review.md
+   7 HUMAN: approve the exact video · unassigned · parent 6 · only I complete it
+3. Show me the agents and the cards (ID, assignee, parents) as two tables. Never publish or post the video anywhere.
 ```
 
-✓ Expected: Every claim in research.md names its source file and line (e.g. campaign-brief.md); unsupported ideas are marked UNVERIFIED.
+✓ Expected: Two tables: five agents, seven cards with two unassigned HUMAN cards. The agents appear in the Bots tab.
 
-**Step 7 — Approve the script — your first gate (5 min)**
+**Step 4 — Watch the board work (8 min)**
+
+Open Kanban in the left sidebar and choose the kopi-video board. A card runs only when every parent is done; your HUMAN card holds everything after it. Open a card to read its run history and output.
+
+✓ Expected: Research runs first, then the script; card 3 (yours) waits.
+
+**Step 5 — Check the research — grounding (5 min)**
+
+The researcher may only use facts it can point to in a source file: this is grounding, the same idea as retrieval-augmented generation (RAG). Check two claims yourself.
+
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+Open outputs/video/research.md for me and pick two claims. For each, show me the exact line in the source file that supports it.
+```
+
+✓ Expected: Every claim names its source file and quote; unsupported ideas are marked UNVERIFIED.
+
+**Step 6 — Approve the script — your first gate (5 min)**
 
 Read script.md: four scenes, 20 seconds, on-screen text of seven words or fewer per scene, price SGD 6.80, launch 1 Dec 2026, no health or halal claims. Approve it, or ask for one change first.
 
-```bash
-hermes kanban list --tenant kopi-video          # find the 'HUMAN: approve the script' card id
-hermes kanban complete <card_id>
-```
-
-Prompt — paste into *Hermes Desktop → default profile (Mia)*:
+Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-I have read outputs/video/script.md and APPROVE it as written. Note my approval with today's date in outputs/video/approvals.md. I have completed the HUMAN script card myself.
+I have read outputs/video/script.md and APPROVE it as written. Record my approval with today's date in outputs/video/approvals.md, then complete the 'HUMAN: approve the script' card on the kopi-video board for me.
 ```
 
 ✓ Expected: The voice-over and render cards start.
 
-**Step 8 — Production and voice-over (20 min)**
+**Step 7 — Production and voice-over (20 min)**
 
-The voice-over profile records narration.wav; the producer builds the HyperFrames composition, adds the narration and renders. Check the real file, not the success message.
+The voice-over agent records the narration with Hermes's free text-to-speech; the producer builds the HyperFrames video and adds the narration. Check the real file, not the success message.
 
-```bash
-ls -la ~/kopi-kaki/outputs/video/
-ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json ~/kopi-kaki/outputs/video/final.mp4
-```
-
-✓ Expected: final.mp4 exists, 1080×1920, about 20 seconds, with an audio stream.
-
-**Step 9 — Independent review and the review link (10 min)**
-
-The reviewer checks every scene against video-qa-checklist.md (V1–V9) and the sources, writes review.md, computes the file's SHA-256 and sends you a link on Telegram. The link serves the file from your laptop only.
-
-```bash
-cd ~/kopi-kaki/outputs/video && python3 -m http.server 8765
-# review link: http://localhost:8765/final.mp4
-shasum -a 256 final.mp4      # Windows: certutil -hashfile final.mp4 SHA256
-```
-
-✓ Expected: A Telegram message with the review link, PASS/FAIL per check and the SHA-256.
-
-**Step 10 — Approve the exact video — your final gate (10 min)**
-
-Watch the whole video from the link. If anything is wrong, request one revision: the producer re-renders, the reviewer re-checks, and the new file gets a new hash — your old approval does not carry over.
-
-```bash
-shasum -a 256 ~/kopi-kaki/outputs/video/final.mp4
-hermes kanban complete <human_video_card_id>      # only after the hashes match
-```
-
-Prompt — paste into *Hermes Desktop → default profile (Mia)*:
+Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-I watched http://localhost:8765/final.mp4 to the end. Check that its SHA-256 matches review.md. If it matches, record 'APPROVE <sha256>' with today's date in outputs/video/approvals.md. Do not post or publish the video anywhere.
+Check outputs/video/final.mp4 for me: does it exist, what are its width, height and duration, and does it have an audio track? Answer in one line per check.
 ```
 
-✓ Expected: approvals.md shows APPROVE with the same hash as review.md.
+✓ Expected: final.mp4 exists, 1080×1920, about 20 seconds, with audio.
 
-**Step 11 — Capture your PP Task 3 evidence (5 min)**
+**Step 8 — Independent review and the review link (10 min)**
 
-Take TWO readable screenshots of your own work: (A) the Kanban board (dashboard Kanban view) showing the profile/bot names, a dependency or HUMAN gate and the video task; (B) final.mp4 playing in a media player. Hide keys and private data. Keep final.mp4, research.md, review.md and approvals.md.
+The reviewer checks every scene against video-qa-checklist.md (V1–V9) and the sources, writes review.md with the file's SHA-256 fingerprint, starts a local link and messages you on Telegram. The link works on your laptop only.
 
-**Step 12 — Reflect: what did the team buy you? (5 min)**
+✓ Expected: A Telegram message with the review link (http://localhost:8765/final.mp4), PASS/FAIL per check and the SHA-256.
+
+**Step 9 — Approve the exact video — your final gate (10 min)**
+
+Watch the whole video from the link. If anything is wrong, request one revision: the producer re-renders, the reviewer re-checks, and the new file gets a new fingerprint — your old approval does not carry over.
+
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+I watched http://localhost:8765/final.mp4 to the end. Check that its SHA-256 matches review.md. If it matches, record 'APPROVE <sha256>' with today's date in outputs/video/approvals.md and complete the 'HUMAN: approve the exact video' card for me. Do not post or publish the video anywhere.
+```
+
+✓ Expected: approvals.md shows APPROVE with the same fingerprint as review.md.
+
+**Step 10 — Capture your PP Task 3 evidence (5 min)**
+
+Take TWO readable screenshots of your own work: (A) the Kanban view in Hermes Desktop showing the agent names, a dependency or HUMAN gate and the video task; (B) final.mp4 playing in a media player. Hide keys and private data. Keep final.mp4, research.md, review.md and approvals.md.
+
+**Step 11 — Reflect: what did the team buy you? (5 min)**
 
 Compare effort, cost and quality.
 
-Prompt — paste into *Hermes Desktop → default profile (Mia)*:
+Prompt — paste into *Hermes Desktop — Mia*:
 
 ```text
-Summarise the kopi-video run: total time, number of runs per card, what the reviewer caught, my revisions and an estimated model cost. Compare with an agency quote of SGD 3,000 and two weeks. What would you change in one SOUL.md to cut my review time next week?
+Summarise the kopi-video run: total time, number of runs per card, what the reviewer caught, my revisions and an estimated model cost. Compare with an agency quote of SGD 3,000 and two weeks. What would you change in one role file to cut my review time next week?
 ```
 
 ✓ Expected: An honest summary including what failed.
 
 #### Test it
 
-> **✅ Test it:** final.mp4 plays at 1080×1920, review.md passes V1–V9 with evidence, and your APPROVE names the same SHA-256 as the file you watched.
+> **✓ Test it:** final.mp4 plays at 1080×1920, review.md passes V1–V9 with evidence, and your APPROVE names the same SHA-256 as the file you watched.
 >
-> - [ ] Video skills installed and `npx hyperframes doctor` passes
+> - [ ] hyperframes installed and its health check passes
+> - [ ] Five video agents and a seven-card board with two HUMAN gates, created by one prompt
 > - [ ] research.md links every claim to a source file
 > - [ ] final.mp4 is 1080×1920, ~20 s, with narration
-> - [ ] review.md passes V1–V9 with evidence; approvals.md hash = file hash
+> - [ ] review.md passes V1–V9 with evidence; approvals.md fingerprint = file fingerprint
 > - [ ] PP Task 3: two screenshots — Kanban board and the video playing
 
 #### Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `hyperframes doctor` fails on FFmpeg | Install FFmpeg (macOS `brew install ffmpeg`, Windows `winget install ffmpeg`) and reopen the terminal. |
-| Render card runs before script approval | The render card was created without the HUMAN card as parent — block it, fix the parent, re-run. |
-| No audio in final.mp4 | Check narration.wav exists and the composition references it; ask the producer to re-render. |
-| Review link does not open | Keep the http.server terminal open; open the link on the same laptop. |
+| Cards stay waiting and never run | Keep Hermes Desktop open. Ask Mia: 'Why is card <n> on kopi-video not running?' |
+| HyperFrames health check fails | Node.js or FFmpeg is missing: ask the trainer; Mia tells you exactly which one. |
+| Render card ran before your approval | The card was created without the HUMAN card as parent. Ask Mia to block it, fix the parent and re-run. |
+| No audio in final.mp4 | Ask Mia to check the narration file exists and to have the producer re-render with it. |
+| Review link does not open | Open it on the same laptop; ask the reviewer to start the link again. |
 
 #### Stretch challenge
 
-Ask the producer for a 9:16 and a 1:1 cut from the same composition. How much extra review does a second format cost you?
+Ask Mia to add a second cut: a 1:1 square version from the same script. How much extra review does a second format cost you?
 
-### 3.6 Evaluate and improve the team
+### 3.6 Activity 6 — crons make next week's content
+
+A cron (scheduled job) starts the team's work without you: every Monday at 9:00 the week's three social drafts, every Friday at 10:00 a new video run on the Kanban board. Automate the start of the work, never the approval: drafts wait for your APPROVE, the video still stops at both HUMAN gates. Test every job with Trigger now, pause what you cannot watch, and log what each job produced in cron-log.md.
+
+### Lab 6 — Activity 6 — Crons Make Next Week's Posts and Video While You Sleep
+
+**Day 2 · 30 min · Scheduled jobs that start the team's work · LO3** — Your team works when you tell it to. A cron makes it work on Monday at 9:00 without you: fresh posts, a new video draft, waiting for your approval.
+
+#### Business scenario
+
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. The launch campaign runs for four weeks. You do not want to brief the team from scratch every Monday, so you schedule the work: every Monday the social bots draft the week's three posts, and every Friday the video team starts a new 15-second clip. The schedule starts the work; you still approve everything before it is used.
+
+#### Goal
+
+Automate recurring content work with scheduled jobs, keep a human approval gate on every output, and test, pause and measure the jobs (LO3).
+
+#### Before you start
+
+- Activities 4 and 5 done (bots, role files and the kopi-video board exist)
+- Telegram connected with /sethome from the Topic 2 setup
+- Hermes Desktop stays open while a job runs (on a laptop that sleeps, nothing runs)
+
+![Scheduled jobs: frequency, next run, prompt, Pause and Trigger now](courseware/assets/screenshots/desktop/scheduled-jobs.png)
+*Scheduled jobs: frequency, next run, prompt, Pause and Trigger now*
+
+#### You will deliver
+
+- A Monday 9:00 job: the social bots draft three posts into outputs/social/weekly/ and tell you on Telegram
+- A Friday 10:00 job: Mia starts a Kanban video run with your two HUMAN gates
+- Both jobs tested once with Trigger now, then left scheduled (or paused after class)
+- outputs/automation/cron-log.md: job, schedule, what it produced, what you approved
+
+| Who | Role |
+|---|---|
+| Agents | Mia and the Activity 4 and 5 teams, started by scheduled jobs |
+| You (human) | Choose the schedule, approve every post and video, pause a job that misbehaves |
+
+#### Concepts in action
+
+- A cron is a schedule plus a prompt: it starts work without being asked
+- Automate the start of the work, never the approval
+- Test with Trigger now before you trust a schedule; pause what you cannot watch
+- Measure what the automation saves: drafts per week, your review minutes, model cost
+
+#### Lab files
+
+labs/lab06-content-crons/ — README.md, LAB-06-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
+
+#### Step-by-step
+
+**Step 1 — Read a scheduled job like a recipe (3 min)**
+
+Open Scheduled jobs in the left sidebar and click your Morning email brief. Every job has the same parts: a name, a frequency, the next run, where it delivers, and the prompt it runs. Pause stops it; Trigger now runs it immediately. The Blueprints list shows ready-made jobs (Weekly review, Competitor news watch, Topic news digest …).
+
+✓ Expected: You can point to the frequency, the delivery target, the prompt, Pause and Trigger now.
+
+**Step 2 — Monday 9:00: the week's social drafts (7 min)**
+
+The job starts the work; you still approve. It writes drafts into a dated folder and tells you on Telegram — it never posts.
+
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Create a scheduled job called 'Weekly social drafts' that runs every Monday at 9:00 Asia/Singapore time and delivers to my Telegram.
+Job: in Desktop/kopi-kaki, read campaign-brief.md, research.md and last week's approval-log.md. Following the rules in souls/lin.SOUL.md, souls/farah.SOUL.md and souls/ivy.SOUL.md, draft this week's LinkedIn, Facebook and Instagram posts into outputs/social/weekly/<date>/, make one image per post with tools/make_post_image.py and a gallery.html. Then message me: 'Drafts ready — reply APPROVE, EDIT or REJECT per post'. Never post or publish anything.
+Show me the job when it is saved.
+```
+
+✓ Expected: 'Weekly social drafts' appears in Scheduled jobs: every Monday 9:00, delivered to Telegram.
+
+**Step 3 — Friday 10:00: a new video draft on the board (7 min)**
+
+This job does not make the video itself: it starts a new run on the Kanban board, so your two HUMAN gates still hold.
+
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Create a scheduled job called 'Weekly video draft' that runs every Friday at 10:00 Asia/Singapore time and delivers to my Telegram.
+Job: on the kopi-video Kanban board, create a new run for a 15-second clip about this week's best-performing angle from outputs/social/approval-log.md: the same seven cards as Activity 5 with both HUMAN gates (approve the script, approve the exact video). Message me when the script is waiting for my approval. Nothing is rendered before I approve the script; nothing is published.
+Show me the job when it is saved.
+```
+
+✓ Expected: 'Weekly video draft' appears in Scheduled jobs: every Friday 10:00.
+
+**Step 4 — Test both now with Trigger now (8 min)**
+
+Do not wait until Monday. In Scheduled jobs open each job and click Trigger now. Check Telegram, the new dated folder in outputs/social/weekly/ and the new cards on the kopi-video board.
+
+✓ Expected: Two Telegram messages; a dated drafts folder with three posts and a gallery; new kopi-video cards waiting at your HUMAN gate.
+
+**Step 5 — Log it and stay in control (5 min)**
+
+Automation you cannot see is automation you cannot trust. Record what each job does, then pause the video job after class so it does not spend model credits while nobody is watching.
+
+Prompt — paste into *Hermes Desktop — Mia*:
+
+```text
+Write outputs/automation/cron-log.md: one row per scheduled job with name, schedule, what the test run produced, model time used, and what still needs my approval. Then list my scheduled jobs with their next run time.
+```
+
+✓ Expected: cron-log.md with three rows (morning brief, social drafts, video draft); you paused 'Weekly video draft' in Scheduled jobs.
+
+#### Test it
+
+> **✓ Test it:** Scheduled jobs lists both jobs with the right times, each test run produced drafts and a Telegram message, and nothing was published without your approval.
+>
+> - [ ] Scheduled jobs lists 'Weekly social drafts' (Mon 9:00) and 'Weekly video draft' (Fri 10:00)
+> - [ ] Trigger now produced dated drafts, a gallery and new kopi-video cards
+> - [ ] Telegram received both notifications
+> - [ ] Nothing was posted or rendered without your approval
+> - [ ] cron-log.md records every job; the video job is paused after class
+
+#### Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| Job never runs | Hermes Desktop must be open and the laptop awake at that time. Use Trigger now to test. |
+| No Telegram message | Send /sethome in your Telegram chat with Mia, then Trigger now again. |
+| Wrong time | Ask Mia to set the job's timezone to Asia/Singapore, or edit the frequency in Scheduled jobs. |
+| The job did more than asked | Pause it, then tell Mia exactly what to remove from its prompt. Approval steps never move into a cron. |
+
+#### Stretch challenge
+
+Use the Competitor news watch blueprint for Kopi Kaki's six competitors. What should the job do when it finds a price cut: alert you, or draft a response for your approval?
+
+### 3.7 Evaluate and improve the team
 
 | Metric | What to measure |
 |---|---|
@@ -1604,7 +1633,7 @@ Ask the producer for a 9:16 and a 1:1 cut from the same composition. How much ex
 
 Measure the same four numbers before and after any change to a skill, a SOUL.md or the team; keep a change only when the measured benefit exceeds its overhead. Compare the team with the agency quote (SGD 3,000 and two weeks) including your own review time.
 
-### 3.7 Five principles of AI security
+### 3.8 Five principles of AI security
 
 | Principle | Question | Rule |
 |---|---|---|
@@ -1614,15 +1643,15 @@ Measure the same four numbers before and after any change to a skill, a SOUL.md 
 | Traceability | What happened | Log every prompt, tool call and change so actions can be audited, explained and rolled back. |
 | Right-Sized Models | Not the most powerful | The smallest model that does the job has less autonomy and risk. |
 
-In Hermes: read-only gog, a Telegram allow-list, approvals.mode manual, HUMAN Kanban cards, run history and file hashes, and a smaller model per profile.
+In Hermes: a read-only Gmail connector, the Telegram approved-users list, @user questions in group chats, HUMAN Kanban cards, run history and file fingerprints, and a smaller model per bot.
 
 ## Bonus Topic (optional) — Paperclip: Kopi Kaki as a One-Person Company
 
 Kopi Kaki Co. decides to run as a one-person company (OPC): you are the founder, the Board and the only human. Paperclip (open source, github.com/paperclipai/paperclip) runs a company of AI agents — org chart, job titles, reporting lines, budgets, tasks and an approval inbox. Hermes Kanban organises tasks; Paperclip organises people. Its agents run on CLIs you already have (Hermes, Claude Code, Codex or Gemini CLI) as adapters.
 
-- Install: `npx paperclipai onboard --yes`, then open http://localhost:3100 (Node.js 24.11+).
+- Install: ask Mia to install and start Paperclip (she runs its one-line onboarder for you), then open http://localhost:3100. Node.js 24.11+ must be on the laptop.
 - Set up the company: Kopi Kaki Co., the mission, a USD 60/month training budget, and Settings → General → Hiring → 'Require board approval for new hires' ON.
-- Set up the CEO (Ava): role CEO via the CLI and written instructions in AGENTS.md; her first task is to hire a Chief of Staff.
+- Set up the CEO (Ava): ask Mia to set her role to CEO (Paperclip has no Role field), then paste her written instructions into AGENTS.md; her first task is to hire a Chief of Staff.
 - The Chief of Staff hires the marketing team — researcher, social copywriter, image creator, video producer, voice-over artist and an independent content reviewer — each through your Board approval.
 - Show the org chart: Board → CEO → Chief of Staff → team. Then give the team the Activity 5 video brief and compare the result with your Hermes Kanban team.
 
@@ -1632,7 +1661,7 @@ Kopi Kaki Co. decides to run as a one-person company (OPC): you are the founder,
 |  | Hermes Kanban team (Activity 5) | Paperclip company (bonus) |
 |---|---|---|
 | Who breaks down the work | You create every card and parent | The CEO and Chief of Staff create tasks |
-| Who decides the team | You create the profiles | Managers propose hires; you approve |
+| Who decides the team | You (one prompt to Mia) create the agents | Managers propose hires; you approve |
 | Control | HUMAN cards on the board | Approval inbox, budgets, hiring gate |
 | Best for | A known pipeline you want to run exactly | An ongoing operation you want to delegate and govern |
 
@@ -1650,9 +1679,9 @@ Set up a governed AI company with an org chart, hiring approvals and budgets, an
 
 #### Before you start
 
-- Node.js 24.11+ (or Docker Desktop)
-- One agent CLI signed in on this laptop — Claude Code, Codex, Gemini CLI or the Hermes Agent from Topic 2
-- This lab's data/ copied into ~/kopi-kaki
+- Hermes Desktop with Mia working (Topic 2) — Mia installs and starts Paperclip for you
+- Node.js 24.11+ on the laptop (Mia checks; the trainer installs it if missing)
+- This lab's data/ dragged into Desktop/kopi-kaki
 
 ![Paperclip org chart (trainer's demo company); yours shows Board → CEO → Chief of Staff → team](courseware/assets/paperclip/org-chart.png)
 *Paperclip org chart (trainer's demo company); yours shows Board → CEO → Chief of Staff → team*
@@ -1679,61 +1708,37 @@ Set up a governed AI company with an org chart, hiring approvals and budgets, an
 
 #### Lab files
 
-labs/bonus-paperclip-one-person-company/ — README.md, LAB-B-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.
+labs/bonus-paperclip-one-person-company/ — README.md, LAB-B-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.
 
 #### Step-by-step
 
 **Step 1 — What Paperclip is (5 min)**
 
-Paperclip (open source, github.com/paperclipai/paperclip) runs a company of AI agents: an org chart, job titles, reporting lines, budgets, tasks and an approval inbox. You are the Board. Hermes Kanban organised tasks for your team; Paperclip organises the people — who reports to whom, who may hire, and what each agent may spend. Watch the overview first.
+Paperclip (open source, github.com/paperclipai/paperclip) runs a company of AI agents: an org chart, job titles, reporting lines, budgets, tasks and an approval inbox. You are the Board. Hermes Kanban organised tasks for your team; Paperclip organises the people — who reports to whom, who may hire, and what each agent may spend. Watch the overview first: https://www.youtube.com/watch?v=WNYe5mD4fY8
 
-```bash
-# Overview video: https://www.youtube.com/watch?v=WNYe5mD4fY8
-node --version          # v24.11.0 or higher
-hermes --version        # or: claude --version / codex --version
+**Step 2 — Ask Mia to install and start Paperclip (10 min)**
+
+No terminal for you: Mia runs the installer and keeps it running.
+
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Install Paperclip for me with its one-line onboarder (npx paperclipai onboard --yes) and keep it running. Check first that Node.js is 24.11 or newer; if not, stop and tell me what the trainer must install. When it is up, give me the link to open.
 ```
 
-✓ Expected: Node ≥ 24.11 and at least one signed-in agent CLI.
-
-**Step 2 — Install and start Paperclip (10 min)**
-
-Option A (recommended): the one-line onboarder — local, trusted, no login. Option B: Docker Desktop (Windows: enable WSL2 first with `wsl --install`); the compose file needs two secrets, and you will create an account and 'Claim this instance' on first visit. Leave the terminal running. Later restarts: `npx paperclipai run`.
-
-```bash
-# Option A
-npx paperclipai onboard --yes
-
-# Option B (Docker)
-git clone https://github.com/paperclipai/paperclip.git && cd paperclip
-export BETTER_AUTH_SECRET="$(openssl rand -hex 32)"
-export PAPERCLIP_TOOL_ACTION_SIGNING_SECRET="$(openssl rand -hex 32)"
-export ANTHROPIC_API_KEY="sk-ant-..."     # and/or OPENAI_API_KEY
-docker compose -f docker/docker-compose.quickstart.yml up --build
-```
-
-✓ Expected: 'Server running at http://localhost:3100' — open it in your browser.
+✓ Expected: Mia reports 'Server running at http://localhost:3100' — open it in your browser.
 
 **Step 3 — Set up the company: Kopi Kaki Co. (5 min)**
 
-In the onboarding wizard name the organization Kopi Kaki Co. Create the first agent and name her Ava. Connect a model (the same CLI you checked). Then set the mission in the organization description and a training budget cap. Leave the onboarding task waiting — hiring rules come first.
+In the onboarding wizard name the organization Kopi Kaki Co. Create the first agent and name her Ava. Connect a model. Then open Company settings: put the mission in the description and set the monthly budget to USD 60. Leave the onboarding task waiting — hiring rules come first.
 
-```bash
-npx paperclipai company list                 # copy the company id
-npx paperclipai budget company:update -C <company-id> --payload-json '{"budgetMonthlyCents":6000}'
-```
+✓ Expected: Kopi Kaki Co. exists with a USD 60/month budget.
 
-✓ Expected: Kopi Kaki Co. exists with a USD 60/month cap under Audit → Budgets.
+**Step 4 — Make Ava the CEO and write her instructions (8 min)**
 
-**Step 4 — Set up the CEO and write her instructions (8 min)**
+Paperclip's screen has no Role field, so ask Mia to set it. Then paste the CEO instructions below into Agents → Ava → Instructions → AGENTS.md, upload brand-guide.md, campaign-brief.md and compliance-rules.md with + (Add agent file), and switch ON Settings → General → Hiring → 'Require board approval for new hires'.
 
-Make Ava the CEO with the CLI, then replace the starter text in Agents → Ava → Instructions → AGENTS.md with the CEO instructions below. Upload brand-guide.md, campaign-brief.md and compliance-rules.md with + (Add agent file). Finally switch ON Settings → General → Hiring → 'Require board approval for new hires'.
-
-```bash
-npx paperclipai agent list -C <company-id>    # copy Ava's agent id
-npx paperclipai agent update <ava-id> --payload-json '{"role":"ceo","title":"CEO"}'
-```
-
-Prompt — paste into *Paperclip → Agents → Ava → Instructions → AGENTS.md*:
+Prompt — paste into *Paperclip → Agents → Ava → Instructions → AGENTS.md (after asking Mia: 'In Paperclip, set Ava's role to CEO and her title to CEO for me.')*:
 
 ```text
 You are Ava, CEO of Kopi Kaki Co., a Singapore kopi startup run as a one-person company: the founder is the Board and the only human.
@@ -1766,24 +1771,13 @@ Submit the hire for Board approval and tell me when it is waiting.
 
 **Step 6 — Approve the hire from the Board seat (3 min)**
 
-Dashboard → Pending Approvals → View details → See full request. Check mandate, budget and reporting line, then approve. CLI alternative:
-
-```bash
-npx paperclipai approval list -C <company-id> --status pending
-npx paperclipai approval approve <approval-id> --decision-note "Approved: Chief of Staff, USD 10/month"
-```
+Dashboard → Pending Approvals → View details → See full request. Check mandate, budget and reporting line, then click Approve.
 
 ✓ Expected: The Chief of Staff is active and reports to Ava.
 
 **Step 7 — Chief of Staff task: hire the marketing team (8 min)**
 
-Now the Chief of Staff staffs the same team you built by hand in Activities 4 and 5. Approve the hires that fit; send one back with Request revision.
-
-```bash
-npx paperclipai approval list -C <company-id> --status pending
-npx paperclipai approval approve <approval-id> --decision-note "Approved"
-npx paperclipai approval request-revision <approval-id> --decision-note "Cap the Video Producer at USD 8/month"
-```
+Now the Chief of Staff staffs the same team you built in Activities 4 and 5. In Pending Approvals approve the hires that fit; send one back with Request revision.
 
 Prompt — paste into *Paperclip → New Task (assign to the Chief of Staff)*:
 
@@ -1833,7 +1827,7 @@ End with a recommendation: when should a one-person company use a Kanban team, a
 
 #### Test it
 
-> **✅ Test it:** The org chart shows Board → CEO → Chief of Staff → marketing team, every hire has a Board approval, and comparison.md answers when to use Kanban and when to use Paperclip.
+> **✓ Test it:** The org chart shows Board → CEO → Chief of Staff → marketing team, every hire has a Board approval, and comparison.md answers when to use Kanban and when to use Paperclip.
 >
 > - [ ] http://localhost:3100 shows Kopi Kaki Co.; the hiring gate is ON
 > - [ ] Ava is CEO with written instructions
@@ -1845,11 +1839,9 @@ End with a recommendation: when should a one-person company use a Kanban team, a
 
 | Symptom | Fix |
 |---|---|
-| `node` too old | Install Node.js 24.11+ (e.g. from nodejs.org or `nvm install 24`). |
-| Docker: 'BETTER_AUTH_SECRET must be set' | Export both secrets (or put them in docker/.env) before `docker compose up`. |
-| Port 3100 busy | Paperclip falls back to another port — read the URL it prints. |
-| Run test fails | Sign in to the CLI first (e.g. `claude`, `codex login`, `hermes setup`) on the same machine, or paste an API key. |
-| Goals page not in the sidebar | Open /<PREFIX>/goals directly, or Settings → Experimental → Goals Sidebar Link. |
+| Node.js too old | Ask the trainer to install Node.js 24.11+ (nodejs.org), then ask Mia to try again. |
+| Port 3100 busy | Paperclip picks another port — ask Mia for the link it printed. |
+| Run test fails | The agent's model is not signed in: connect a model in the agent's Harness / Runtime page. |
 | Hires joined without approval | The hiring gate was OFF — Settings → General → Hiring. Pause the agent and re-hire. |
 
 #### Stretch challenge

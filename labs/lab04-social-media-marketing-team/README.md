@@ -1,36 +1,36 @@
-# Lab 4 — Activity 4 — Your Social Media Marketing Team
+# Lab 4 — Activity 4 — Your Social Media Team: Five Bots in One Group Chat
 
-**Day 2 · Topic 3 · 60 min · Multi-agent team on a Kanban board · LO2**
+**Day 2 · Topic 3 · 60 min · Multiple named bots in one group chat · LO2**
 
-> One researcher, three platform writers and an image creator work in parallel. In an hour you review a gallery of LinkedIn, Facebook and Instagram launch posts.
+> Hire five bots with names and job titles, put them in one group chat, and post one brief. They hand off by @mention; you approve every post.
 
 ## Goal
-Design a multi-agent team with profiles, a Kanban dependency graph and a human approval gate, and compare its output and effort with a single agent (LO2).
+Design a multi-agent team of named bots with clear roles, coordinate them in a group chat with a human approval step, and compare its output and effort with a single agent (LO2).
 
 ## The business scenario
-You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you build a team: each specialist owns one platform, and you approve every post before anything goes public.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you hire a team of bots: each specialist owns one platform, they talk in one group chat, and you approve every post before anything goes public.
 
 ## You will deliver
-- Five Hermes profiles: researcher, linkedin-writer, facebook-writer, instagram-writer, image-creator
-- A Kanban board (tenant kopi-social) with dependencies and an unassigned HUMAN approval card
+- Five bots created with New Agent: Rafi (researcher), Lin (LinkedIn), Farah (Facebook), Ivy (Instagram), Pixel (images)
+- A group chat 'Kopi Social Team' where the bots hand off by @mention and ask you (@user) for decisions
 - outputs/social/research.md, linkedin.md, facebook.md, instagram.md and images/*.png
 - outputs/social/gallery.html — every post shown as it would appear on its platform
 - outputs/social/approval-log.md — APPROVE / EDIT / REJECT per post
 
 ## Who does what
-- **Agents:** 5 Hermes profiles shown as bots: researcher → 3 platform writers (in parallel) → image creator
-- **You (the human):** Brief the campaign, approve or edit each post, nothing is posted publicly
+- **Agents:** 5 named bots in one group chat: Rafi → Lin, Farah, Ivy → Pixel
+- **You (the human):** Post the brief, approve or edit each post; nothing is posted publicly
 
 ## Before you start
-- Topic 2 setup done: Hermes Desktop, a working model and Telegram (the gateway must be running for Kanban to dispatch work)
+- Topic 2 setup done: Hermes Desktop with a working model; Telegram connected
 - Activity 2 website and Activity 3 deck saved — the team reuses their facts
-- This lab's data/ copied into ~/kopi-kaki (souls/, tasks/ and tools/make_post_image.py are included)
+- This lab's data/ dragged into Desktop/kopi-kaki (souls/ holds the five role files; tools/make_post_image.py makes the images)
 
 ## Concepts in action
-- Profile = a separate agent: its own SOUL.md, memory, skills and model
-- Kanban = the team's shared to-do list: assignee, parent dependency, status, history
-- Parallel specialists + one human gate beat one generalist for multi-channel work
-- Bots = profiles you can talk to by name
+- A bot = a separate agent with its own name, role, instructions, memory and skills
+- A group chat lets bots talk to each other: @mention hands work to a teammate, @user asks you
+- Specialists + one human decision beat one generalist for multi-channel work
+- Hard caps (3 rounds, 10 messages per send) keep a room from spinning
 
 ## Lab files (`data/`)
 
@@ -48,16 +48,11 @@ You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. Th
 | `assets/brand-palette.png` | Brand image asset |
 | `assets/cold-brew-product-card.png` | Brand image asset |
 | `assets/kopi-kaki-logo.png` | Brand image asset |
-| `souls/researcher.SOUL.md` | Role + rules for one studio profile |
-| `souls/linkedin-writer.SOUL.md` | Role + rules for one studio profile |
-| `souls/facebook-writer.SOUL.md` | Role + rules for one studio profile |
-| `souls/instagram-writer.SOUL.md` | Role + rules for one studio profile |
-| `souls/image-creator.SOUL.md` | Role + rules for one studio profile |
-| `tasks/s1-research.md` | Task brief for one Kanban card |
-| `tasks/s2-linkedin.md` | Task brief for one Kanban card |
-| `tasks/s3-facebook.md` | Task brief for one Kanban card |
-| `tasks/s4-instagram.md` | Task brief for one Kanban card |
-| `tasks/s5-images.md` | Task brief for one Kanban card |
+| `souls/rafi.SOUL.md` | Role + rules for one studio profile |
+| `souls/lin.SOUL.md` | Role + rules for one studio profile |
+| `souls/farah.SOUL.md` | Role + rules for one studio profile |
+| `souls/ivy.SOUL.md` | Role + rules for one studio profile |
+| `souls/pixel.SOUL.md` | Role + rules for one studio profile |
 | `tools/make_post_image.py` | Offline on-brand image tool (Pillow) |
 
 _All company data in this lab (Kopi Kaki Co., people, reviews, comments, metrics, competitors) is fictional and generated for training._
@@ -66,130 +61,107 @@ Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Pr
 
 ## Steps
 
-### 1. Copy the lab data and create the output folders (3 min)
-Open a terminal in this lab folder. The data/ folder holds the five team role files (souls/), the task briefs (tasks/), the brand files and a small image tool. Copy it into your company workspace without overwriting your own AGENTS.md.
+### 1. Copy the team files into your company folder (3 min)
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
 
-```bash
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/social/images
-cd ~/kopi-kaki && ls souls tasks tools
-```
+✓ **Expected:** souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files.
 
-✅ **Expected:** souls/ lists researcher, linkedin-writer, facebook-writer, instagram-writer and image-creator.
+### 2. Hire five bots with New Agent (12 min)
+Open the Bots tab (next to Sessions) and click New Agent. For each bot fill in Name, Title and Description below, open Advanced → Custom SOUL.md and paste the text of its souls/<name>.SOUL.md file, then create it. Each bot introduces itself in its own Bot Chat. Right-click a bot → Edit Profile to give it an avatar (Bot, Generate, Upload or a Pet).
+- Rafi · Market Researcher · Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact.
+- Lin · LinkedIn Writer · Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English.
+- Farah · Facebook Writer · Writes the neighbourhood Facebook post: pop-up dates, the 1 Dec opening, friendly kopitiam voice.
+- Ivy · Instagram Writer · Writes the Instagram hook, caption and hashtags, plus a one-line image brief.
+- Pixel · Image Creator · Makes one on-brand 1080x1350 image per post and the review gallery that shows every post as it will look.
 
-### 2. Staff the team: five profiles, one job each (8 min)
-A profile is a separate Hermes agent with its own SOUL.md, memory, skills and settings. --clone copies your working model and keys from the default profile, so every specialist can think straight away. The description is how the board routes work to the right specialist.
+✓ **Expected:** Rafi, Lin, Farah, Ivy and Pixel appear in the Bots roster, each with its own title.
 
-```bash
-hermes profile create researcher --clone --description "Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact"
-hermes profile create linkedin-writer --clone --description "Writes the founder's LinkedIn post: story, proof, call to action; professional Singapore English"
-hermes profile create facebook-writer --clone --description "Writes the neighbourhood Facebook post: pop-up dates, launch day, friendly kopitiam voice"
-hermes profile create instagram-writer --clone --description "Writes the Instagram caption, first-line hook and hashtags for a 1080x1350 image post"
-hermes profile create image-creator --clone --description "Creates one on-brand 1080x1350 image per post with tools/make_post_image.py and builds the review gallery"
-for p in researcher linkedin-writer facebook-writer instagram-writer image-creator; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-hermes profile list
-```
+### 3. Meet your team (5 min)
+Click each bot to open its Bot Chat and check that it answers in its own role. If a bot says it has no model, open Settings → Model, pick that bot under 'Applies to', choose your provider, sign in and Apply.
 
-✅ **Expected:** hermes profile list shows the five new profiles next to default.
-
-### 3. Meet your team as bots (5 min)
-Hermes Desktop's Bot Mode (the Bots tab, on by default) shows every profile as a named bot you can chat with directly. Say hello to two of them and check that each answers in its own role. Optional: give a profile its own Telegram bot token, then run `<profile> gateway install` and `<profile> gateway start`. A bot is how you talk to a profile; the work itself is tracked on the Kanban board.
-
-**Prompt** — paste into *Hermes Desktop → Bots tab → researcher*:
+**Prompt** — paste into *Hermes Desktop → Bots tab → Rafi (then Lin)*:
 
 ```text
-Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in ~/kopi-kaki will you read first?
+Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in my Desktop/kopi-kaki folder will you read first?
 ```
 
-✅ **Expected:** Each bot describes its own role and names AGENTS.md, campaign-brief.md and brand-guide.md.
+✓ **Expected:** Each bot describes its own role and names AGENTS.md, campaign-brief.md and brand-guide.md.
 
-### 4. Build the Kanban board with a human gate (10 min)
-Ask your default agent (Mia) to build the board. Research runs first; the three writers run in parallel as soon as research is done; the image creator waits for all three; the last card is yours. Nothing is posted anywhere — the output is a review gallery.
+### 4. Put the team in one group chat (5 min)
+Right-click Rafi → Manage groups → create a group called 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). Click the group row → Open chat. In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.
 
-**Prompt** — paste into *Hermes Desktop → default profile (Mia), started in ~/kopi-kaki*:
+✓ **Expected:** The roster shows 'Kopi Social Team · 5 bots'; the room opens with all five members.
+
+### 5. Post the brief and watch them hand off (15 min)
+One message briefs the whole team. Rafi researches first; the three writers start when Rafi hands off. Watch the room: who speaks, who passes, who asks you.
+
+**Prompt** — paste into *Hermes Desktop → Kopi Social Team (group chat)*:
 
 ```text
-Use the Kanban tools to build the board for tenant kopi-social, workspace ~/kopi-kaki.
-1. Research launch angles - assignee researcher - body from tasks/s1-research.md.
-2. LinkedIn post - assignee linkedin-writer - parent: card 1 - body from tasks/s2-linkedin.md.
-3. Facebook post - assignee facebook-writer - parent: card 1 - body from tasks/s3-facebook.md.
-4. Instagram post - assignee instagram-writer - parent: card 1 - body from tasks/s4-instagram.md.
-5. Images and review gallery - assignee image-creator - parents: cards 2, 3 and 4 - body from tasks/s5-images.md.
-6. HUMAN: approve the posts - unassigned, parent: card 5. Only I complete this card.
-Show me the card IDs, assignees and parents as a table. Do not start anything outside this board and never post to a real account.
+Team, we launch the Gula Melaka Cold Brew on 1 Dec 2026. Work in Desktop/kopi-kaki and follow AGENTS.md, brand-guide.md and compliance-rules.md.
+@rafi research first: write outputs/social/research.md with 3 launch angles, the top 3 things tasters loved (with review IDs) and 5 approved facts with their source file. Then hand off to @lin @farah @ivy.
+@lin write outputs/social/linkedin.md, @farah write outputs/social/facebook.md, @ivy write outputs/social/instagram.md — each from research.md and your own role file.
+Never post anything. If you are unsure about a fact, ask me with @user.
 ```
 
-✅ **Expected:** A table of six cards; cards 2–4 depend on 1, card 5 on 2–4, card 6 on 5 and has no assignee.
+✓ **Expected:** research.md first, then three platform drafts; anything uncertain comes to you as an @user question.
 
-### 5. Watch the team work (12 min)
-Kanban dispatches each card to its profile as soon as its parents are done. Watch in the terminal or in the dashboard's Kanban view. Open a card to read its run history and output path.
+### 6. Ask Pixel for the images and the gallery (8 min)
+Pixel makes one image per post with the small image tool in your folder and builds one page that shows every post the way it would look on its platform.
 
-```bash
-hermes kanban watch --tenant kopi-social
-# or the web view:
-hermes dashboard          # then open Kanban
-```
-
-✅ **Expected:** Research finishes first, the three writers run side by side, then the image creator starts.
-
-### 6. Open the posts gallery (5 min)
-The image creator builds one page that shows every post the way it would look on its platform: LinkedIn text post, Facebook post with image, Instagram square with caption. Open it in your browser.
-
-```bash
-open ~/kopi-kaki/outputs/social/gallery.html      # Windows: start  ·  Linux: xdg-open
-```
-
-✅ **Expected:** Three platform cards, each with its image, copy and hashtags.
-
-### 7. Review like the founder: APPROVE, EDIT or REJECT (10 min)
-Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit — the writer reworks it and the gallery updates.
-
-```bash
-hermes kanban list --tenant kopi-social
-hermes kanban complete <human_card_id>     # after you have checked the refreshed gallery
-```
-
-**Prompt** — paste into *Hermes Desktop → default profile (Mia)*:
+**Prompt** — paste into *Hermes Desktop → Kopi Social Team*:
 
 ```text
-My decisions for the kopi-social posts:
+@pixel make one 1080x1350 image for each of linkedin.md, facebook.md and instagram.md with tools/make_post_image.py (Python from .office-venv), save them in outputs/social/images/, then build outputs/social/gallery.html with one card per platform and open it for me.
+```
+
+✓ **Expected:** gallery.html opens: three platform cards, each with its image, copy and hashtags.
+
+### 7. Review like the founder: APPROVE, EDIT or REJECT (8 min)
+Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit.
+
+**Prompt** — paste into *Hermes Desktop → Kopi Social Team*:
+
+```text
+My decisions:
 - LinkedIn: APPROVE
-- Facebook: EDIT - put the first pop-up date in the first line and cut the post to 80 words
+- Facebook: EDIT — @farah put the first pop-up date in the first line and cut the post to 80 words
 - Instagram: APPROVE
-Create a rework card for the facebook-writer with my edit as its body and the image creator's card as parent, then a card for the image-creator to refresh the gallery. Record every decision with date and reason in outputs/social/approval-log.md. Leave my HUMAN card open: I complete it myself.
+@pixel when Farah is done, refresh the gallery and record every decision with today's date and my reason in outputs/social/approval-log.md.
 ```
 
-✅ **Expected:** A rework card runs; gallery.html shows the edited Facebook post; approval-log.md has three rows.
+✓ **Expected:** Farah revises; the gallery shows the edited Facebook post; approval-log.md has three rows.
 
-### 8. Reflect: team versus one agent (5 min)
-Compare the team with Mia working alone on Day 1.
+### 8. Reflect: team versus one agent (4 min)
+Compare the bots with Mia working alone in Activities 2 and 3.
 
-**Prompt** — paste into *Hermes Desktop → default profile (Mia)*:
+**Prompt** — paste into *Hermes Desktop → Mia (your first session)*:
 
 ```text
-Compare today's five-profile team with you working alone: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a team, and when one agent?
+Compare today's five-bot group chat with you working alone on Day 1: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a group of bots, and when one agent?
 ```
 
-✅ **Expected:** A short evidence-based comparison you can discuss in class.
+✓ **Expected:** A short evidence-based comparison you can discuss in class.
 
 ## Verification / checkpoint
-- [ ] `hermes profile list` shows the five team profiles
-- [ ] The board shows parents: writers ← research; images ← all three writers; HUMAN ← images
+- [ ] Five bots in the roster with names, titles and role files
+- [ ] The group 'Kopi Social Team' shows the hand-off: research → three writers → images
 - [ ] gallery.html shows three platform posts with images
 - [ ] approval-log.md records a decision for every post; nothing was posted publicly
 
-**Checkpoint:** The board shows five owners, writers blocked on research, the image creator blocked on the writers, and every post in approval-log.md has your decision.
+**Checkpoint:** The group chat shows Rafi's research first, three platform drafts, Pixel's gallery, and every post in approval-log.md has your decision.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| Cards stay in Ready and never run | The gateway dispatches Kanban work: run `hermes gateway status` and start it (`hermes gateway run`). |
-| A profile cannot reach the model | Recreate it with --clone or run `hermes -p <profile> model` to pick the provider. |
-| Image tool fails | Install Pillow in the workspace venv: `.office-venv/bin/python -m pip install Pillow`. |
-| A writer invents a price or promo | Point it at product-catalogue.csv and campaign-brief.md in a rework card; add the rule to its SOUL.md. |
+| A bot has no model | Settings → Model → pick the bot under 'Applies to' → choose the provider, sign in, Apply. |
+| Nobody answers in the group | @mention the bot you want (@rafi …). A message with no mention lets each bot decide whether to speak. |
+| The room stops after three rounds | That is the safety cap. Send a short follow-up: '@lin @farah @ivy please continue from research.md'. |
+| Image tool fails | Ask Mia in your own session: 'Install Pillow into .office-venv in Desktop/kopi-kaki.' |
+| A writer invents a price or promo | Reply '@<writer> use only product-catalogue.csv and campaign-brief.md' and add the rule to its role file (Edit Profile → SOUL.md). |
 
 ## Stretch challenge
-Add a sixth profile, tiktok-writer, as a card that depends on research. What did the extra specialist cost in time and review effort, and was it worth it?
+Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?
 
 <sub>Part of the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · © 2026 Tertiary Infotech Academy Pte Ltd · www.tertiarycourses.com.sg</sub>

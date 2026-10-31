@@ -17,15 +17,16 @@ Each folder contains `README.md`, `LAB-<code>-Instructions.pdf` (printable, ever
 | Lab | Title | How agents work | Time | Instructions |
 |---|---|---|---|---|
 | Topic 2 Setup | [Hire Your First AI Employee — Hermes Agent Setup](setup02-hermes-first-ai-employee/README.md) | One agent, many tools | 120 min | [PDF](setup02-hermes-first-ai-employee/LAB-S2-Instructions.pdf) |
-| Lab 2 | [Activity 2 — UX Skills from skills.sh Build the Kopi Kaki Website](lab02-kopi-kaki-website/README.md) | One agent + installed UX skills | 45 min | [PDF](lab02-kopi-kaki-website/LAB-02-Instructions.pdf) |
-| Lab 3 | [Activity 3 — PPT Tool + Skill Build the Kopi Kaki Pitch Deck](lab03-kopi-kaki-pitch-deck/README.md) | One agent + PPT tool and skill | 45 min | [PDF](lab03-kopi-kaki-pitch-deck/LAB-03-Instructions.pdf) |
+| Lab 2 | [Activity 2 — One Agent Builds the Kopi Kaki Website with UX Skills](lab02-kopi-kaki-website/README.md) | Single agent + installed UX skills | 45 min | [PDF](lab02-kopi-kaki-website/LAB-02-Instructions.pdf) |
+| Lab 3 | [Activity 3 — One Agent Builds the Kopi Kaki Pitch Deck with a PPT Tool and Skill](lab03-kopi-kaki-pitch-deck/README.md) | Single agent + PPT tool and skill | 45 min | [PDF](lab03-kopi-kaki-pitch-deck/LAB-03-Instructions.pdf) |
 
 ## Topic 3 · Your AI marketing teams: social media and video
 
 | Lab | Title | How agents work | Time | Instructions |
 |---|---|---|---|---|
-| Lab 4 | [Activity 4 — Your Social Media Marketing Team](lab04-social-media-marketing-team/README.md) | Multi-agent team on a Kanban board | 60 min | [PDF](lab04-social-media-marketing-team/LAB-04-Instructions.pdf) |
-| Lab 5 | [Activity 5 — Your Video Production Team](lab05-video-production-team/README.md) | Multi-agent production line + human review | 130 min | [PDF](lab05-video-production-team/LAB-05-Instructions.pdf) |
+| Lab 4 | [Activity 4 — Your Social Media Team: Five Bots in One Group Chat](lab04-social-media-marketing-team/README.md) | Multiple named bots in one group chat | 60 min | [PDF](lab04-social-media-marketing-team/LAB-04-Instructions.pdf) |
+| Lab 5 | [Activity 5 — Your Video Team on a Kanban Board](lab05-video-production-team/README.md) | Agent team on a Kanban board + human gates | 115 min | [PDF](lab05-video-production-team/LAB-05-Instructions.pdf) |
+| Lab 6 | [Activity 6 — Crons Make Next Week's Posts and Video While You Sleep](lab06-content-crons/README.md) | Scheduled jobs that start the team's work | 30 min | [PDF](lab06-content-crons/LAB-06-Instructions.pdf) |
 
 ## Bonus topic (optional) · Kopi Kaki as a one-person company in Paperclip
 

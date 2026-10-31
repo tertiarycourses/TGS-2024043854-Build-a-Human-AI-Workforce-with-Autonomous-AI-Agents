@@ -1,166 +1,192 @@
-"""Topic 2 guided setup + Activities 2 and 3 (v3.4). Commands checked against the Hermes docs (commit 5057eaa,
-30 Oct 2026), platform.minimax.io, gogcli.sh / github.com/openclaw/gogcli, firecrawl.dev and skills.sh on 31 Oct 2026."""
+"""Topic 2 guided setup + Activities 2 and 3 (v3.5: Hermes Desktop only — no command lines for learners).
+Every step is a click in Hermes Desktop or a prompt Mia carries out. Desktop screens match the trainer's
+screenshots of Hermes Desktop v0.22.5 (31 Oct 2026); Nous Portal tiers and Bot Mode checked against
+portal.nousresearch.com and the Hermes docs on 31 Oct 2026."""
 from labs_v34_steps import S
 
-MINIMAX_MODEL = "MiniMax-M3.1-Flash"
+MINIMAX_MODEL = "MiniMax-M3.1-Flash"   # kept for reference; v3.5 no longer demos MiniMax
+WSF = "Desktop/kopi-kaki"              # the learner's company folder (a normal folder on the Desktop)
 SOURCES = [
  ("Hermes Desktop", "https://hermes-agent.nousresearch.com/desktop"),
- ("Hermes docs — installation, providers, Telegram, tools, skills, cron, web search", "https://hermes-agent.nousresearch.com/docs/"),
- ("MiniMax — Hermes Agent setup (M Plan)", "https://platform.minimax.io/docs/m-plan/hermes-agent"),
+ ("Hermes docs — desktop, providers, messaging, tools, skills, cron, web search", "https://hermes-agent.nousresearch.com/docs/"),
+ ("Nous Portal — Free tier (free models only, $0) and paid plans", "https://portal.nousresearch.com/"),
+ ("Nous Portal — use your ChatGPT plan for inference", "https://portal.nousresearch.com/help/chatgpt-plan-sharing"),
+ ("Hermes Bot Mode — bots, group chats, routines", "https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode"),
+ ("Hermes connectors (managed apps such as Gmail, via a Nous sign-in)", "https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-search#connectors-remote-tools"),
  ("Firecrawl pricing (free 1,000 credits/month)", "https://www.firecrawl.dev/pricing"),
- ("gogcli — Google Workspace CLI", "https://github.com/openclaw/gogcli"),
  ("skills.sh — the open agent-skills directory", "https://skills.sh/"),
- ("Vercel skills CLI (supports Hermes Agent)", "https://github.com/vercel-labs/skills"),
  ("HyperFrames", "https://github.com/heygen-com/hyperframes"), ("Remotion agent skills", "https://github.com/remotion-dev/skills"),
  ("Manim Community", "https://www.manim.community/"), ("Paperclip", "https://github.com/paperclipai/paperclip"),
 ]
 
+COPY_DATA = ("In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, "
+             f"and drag it into your {WSF} folder. If asked about files that already exist, choose Skip (do not replace).")
+
 def setup(L, raw):
-    L["prereq"] = ["Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer), Windows 10/11, or Linux",
-                   "A Telegram account on your phone", "The trainer-assigned training Google account and OAuth client file (from Lab 1)",
-                   "A model provider: a MiniMax account (demo) or the provider key your trainer assigns",
+    L["prereq"] = ["Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer) or Windows 10/11",
+                   "This class's model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account",
+                   "A Telegram account on your phone", "The trainer-assigned training Google account (synthetic Kopi Kaki mail)",
                    "A free Firecrawl account (firecrawl.dev — 1,000 free credits a month, no card)"]
     L["steps"] = [
-     S("Create the Kopi Kaki workspace (5 min)",
-       "Everything your agents do for the startup happens in one folder. AGENTS.md tells every agent who Kopi Kaki is and the rules; Hermes loads it automatically when it starts in that folder. The small Python environment is used by the PPT and image tools later.",
-       cmd="mkdir -p ~/kopi-kaki && cp -Rn data/* ~/kopi-kaki/\ncd ~/kopi-kaki\npython3 -m venv .office-venv\n.office-venv/bin/python -m pip install python-pptx openpyxl Pillow\nls",
-       expect="~/kopi-kaki holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/."),
+     S("Unzip the labs and create your Kopi Kaki folder (5 min)",
+       "Download the course ZIP (the trainer shares the link), unzip it, and create a folder called kopi-kaki on your Desktop. "
+       "Open labs/setup02-hermes-first-ai-employee/data, select everything and drag it into the new kopi-kaki folder. "
+       "This folder is your company: AGENTS.md inside it tells every agent who Kopi Kaki is and the rules.",
+       expect=f"{WSF} holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/."),
      S("Install Hermes Desktop (10 min)",
-       "Download the installer for your laptop from the official page: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows). On Linux install the CLI, then run `hermes desktop`. On first run, choose 'Choose provider later' — you connect the model in the next step — and pick the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\\hermes).",
-       cmd="# Download: https://hermes-agent.nousresearch.com/desktop\n# CLI (macOS / Linux / WSL2):\ncurl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash\n# CLI (Windows PowerShell):\niex (irm https://hermes-agent.nousresearch.com/install.ps1)\nhermes --version\nhermes desktop",
-       expect="Hermes Desktop opens; `hermes --version` prints a version."),
-     S("Connect a model — demo with MiniMax (10 min)",
-       f"The model is the agent's brain. Hermes has MiniMax built in. Run `hermes model`, choose MiniMax → MiniMax (OAuth) and sign in in the browser, or choose 'MiniMax (global endpoint)' and paste your M Plan subscription key. Then choose 'Enter custom model name' and type {MINIMAX_MODEL}. In Desktop the same setting is Settings → Providers, then Settings → Model → Main model → Apply. "
-       "Trial offer: your trainer will confirm any current MiniMax free trial on the day (awaiting verification); MiniMax's published options are the M Plan and pay-as-you-go credits. Use the trainer-assigned provider if you have no MiniMax access.",
-       cmd=f"hermes model                       # MiniMax → MiniMax (OAuth), or global endpoint + key\n# key alternative: add to ~/.hermes/.env\n#   MINIMAX_API_KEY=your-key\n# model name: {MINIMAX_MODEL}\nhermes chat -q \"Say hello in one line as Mia, Kopi Kaki's first AI employee.\"",
-       expect="A one-line reply from the model."),
+       "Download the installer from hermes-agent.nousresearch.com/desktop: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows), and run it like any app. "
+       "On first run choose 'Choose provider later' (you pick the brain in the next step) and the Basic layout. "
+       "Then open Settings → About → Version & updates: it should say you are running the latest version.",
+       expect="Hermes Desktop opens; Version & updates shows 'You're running the latest version'."),
+     S("Give Mia a brain: choose your model (10 min)",
+       "The model is the agent's brain. Pick ONE route. "
+       "This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. "
+       "Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account (Free tier: free models only, standard rate limits, $0). "
+       "Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.",
+       where="Hermes Desktop — New session",
+       prompt="Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which model you are running on.",
+       expect="A one-line reply that names the model."),
      S("Meet Mia: your first AI employee (5 min)",
-       "Start a Desktop chat with the working folder set to ~/kopi-kaki so AGENTS.md is loaded, and check that Mia knows the company.",
-       where="Hermes Desktop — new chat, folder ~/kopi-kaki",
+       f"Start a New session and set its working folder to {WSF} (the folder path shown above the message box), so AGENTS.md loads.",
+       where=f"Hermes Desktop — New session, folder {WSF}",
        prompt="You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.",
        expect="Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules."),
-     S("Put Mia on Telegram (10 min)",
-       "In Telegram open @BotFather → /newbot → choose a name (e.g. Mia Kopi Kaki) and a username ending in 'bot' → copy the token. Get your numeric user ID from @userinfobot. Only allow-listed users can talk to your agent. Desktop shortcut: Messaging → Telegram → Create with QR does all of this for you.",
-       cmd="hermes gateway setup          # choose Telegram, paste the token and your user ID\n# or add to ~/.hermes/.env:\n#   TELEGRAM_BOT_TOKEN=...\n#   TELEGRAM_ALLOWED_USERS=123456789\nhermes gateway                # keep running (service: hermes gateway install && hermes gateway start; WSL: hermes gateway run)",
-       expect="Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there."),
-     S("Configure Mia's tools (5 min)",
-       "Tools are what the agent can actually do: web, terminal, files, browser, images, voice, cron and more. Switch on only what the job needs (Principle 2: permission control).",
-       cmd="hermes tools --summary\nhermes tools                  # tick or untick toolsets per platform\nhermes tools disable browser --platform telegram",
-       expect="The summary lists the enabled toolsets for CLI and Telegram."),
-     S("Review, then install skills (10 min)",
-       "A skill is a SKILL.md folder of know-how the agent loads when a task matches it. Read every third-party skill before you install it. Start with the reviewed gog-office skill in this lab's data/, then browse the hub.",
-       cmd="cat ~/kopi-kaki/skills/gog-office/SKILL.md\nmkdir -p ~/.hermes/skills/productivity && cp -R ~/kopi-kaki/skills/gog-office ~/.hermes/skills/productivity/\nhermes skills list\nhermes skills browse\nhermes skills search marketing",
-       expect="gog-office appears in hermes skills list."),
+     S("Let Mia set up her own toolbox (3 min)",
+       "Later labs need a few Python libraries (for slides, spreadsheets and images). You do not type any commands: Mia installs them for you and reports back.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="Prepare this folder for the next labs: create a Python virtual environment called .office-venv here and install python-pptx, openpyxl and Pillow into it. Do not change anything outside this folder. Then tell me in two lines what you installed and whether it works.",
+       expect="Mia confirms .office-venv exists with python-pptx, openpyxl and Pillow."),
+     S("Put Mia on Telegram with one QR code (10 min)",
+       "Messaging → Telegram → Quick setup → Create with QR. Scan the code with your phone and confirm in Telegram: Hermes creates the bot and detects your Telegram user ID for you. "
+       "Switch Telegram to Enabled and click Save changes. Under Approved users you should see only yourself — strangers who find the bot get nothing.",
+       expect="Telegram shows Connected and you are the only approved user. Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there."),
+     S("Talk to Mia with your voice (5 min)",
+       "Settings → Voice. Speech to text: switch it on (Live Transcription shows your words as you speak). Text to speech: provider Edge (free, no key), pick a voice such as en-US-AriaNeural, and switch on Read Responses Aloud. "
+       "Then use the microphone in the chat and ask Mia a question out loud. Wispr Flow from Activity 1C works here too.",
+       expect="Mia hears your question and reads her answer aloud."),
+     S("Check Mia's tools (5 min)",
+       "Capabilities → Tools shows every toolset Mia can use: web, files, terminal, browser, images, voice, schedules and more. Switch on only what the job needs (Principle 2: permission control). "
+       "Mia uses the terminal tool for you — that is how she installed the toolbox — so you never have to.",
+       where="Hermes Desktop — Mia",
+       prompt="List the toolsets you have switched on. Which ones do you need to read my email, search the web and make slides? Which would you switch off on Telegram, and why?",
+       expect="A short list that matches Capabilities → Tools, with a reason for each."),
+     S("Review, then install a skill (10 min)",
+       "A skill is a SKILL.md folder of know-how Mia loads when a task matches it. Browse Capabilities → Skills (Discover Skills shows what is already installed). "
+       "Then install the reviewed kopi-email-brief skill from your folder — by asking. Read every third-party skill before you install it.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="Read skills/kopi-email-brief/SKILL.md in this folder. In three bullets, tell me what it makes you do and whether it runs any scripts. Then install it as one of your skills and confirm it is available.",
+       expect="Mia reports 'Installed and verified' and kopi-email-brief appears in Capabilities → Skills."),
      S("Give Mia web search with Firecrawl (5 min)",
-       "Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card) and add it to Hermes. Then ask a real question.",
-       cmd="echo 'FIRECRAWL_API_KEY=fc-your-key' >> ~/.hermes/.env\nhermes tools                  # confirm the web toolset is on",
+       "Firecrawl is Hermes's default web search. Create a free account at firecrawl.dev (1,000 credits a month, no card) and copy your API key. "
+       "In Hermes Desktop open Settings → Tools & Keys, find Firecrawl, paste the key and save. Never paste keys into a chat.",
        where="Hermes Desktop — Mia",
        prompt="Search the web for 3 news items from the last 90 days about cold brew or kopi trends in Singapore. For each: headline, date, URL and one takeaway for Kopi Kaki's launch. Mark anything you could not verify. Save it to outputs/research/trends.md.",
        expect="Three dated items with URLs in outputs/research/trends.md."),
-     S("Connect gog: read Gmail and check Calendar (10 min)",
-       "gog (gogcli) is a Google Workspace command-line tool Mia drives from the terminal. Sign in once with the trainer-assigned training account and its OAuth client. Read-only first.",
-       cmd="brew install openclaw/tap/gogcli        # or: go install github.com/openclaw/gogcli/cmd/gog@latest\ngog auth credentials set ~/Downloads/training-oauth-client.json\nexport GOG_ACCOUNT=\"REPLACE_WITH_ASSIGNED_GOOGLE_EMAIL\"\ngog auth add \"$GOG_ACCOUNT\" --services gmail,calendar\ngog auth doctor --check\ngog --account \"$GOG_ACCOUNT\" gmail search 'is:unread newer_than:7d' --max 10 --json\ngog --account \"$GOG_ACCOUNT\" calendar events --today --json",
+     S("Connect Gmail with a Google sign-in (10 min)",
+       "No OAuth client and no command line: you sign in to Google the normal way. First make sure you are signed in to Nous (Sign in in the status bar; the free account is enough). "
+       "Then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. "
+       "Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification: your trainer confirms it before class.",
        where="Hermes Desktop — Mia",
-       prompt="Use gog with the gog-office skill (account $GOG_ACCOUNT, read-only). List my unread Kopi Kaki emails from the last 7 days and today's calendar events in Asia/Singapore time. Flag any clash, any supplier or landlord email that needs a reply today, and anything that looks like phishing. Do not send or change anything.",
-       expect="A short brief with message IDs, event times (+08:00) and flagged items."),
+       prompt="Using the Gmail connector (read-only), list my unread Kopi Kaki emails from the last 7 days. Flag any supplier or landlord email that needs a reply today and anything that looks like phishing. Do not send, delete or change anything.",
+       expect="A short brief with senders, subjects and flagged items. Nothing sent or changed."),
      S("Send ONE approved email (5 min)",
-       "Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address and shows the message ID. Re-authorise with send access only for this step if your account was added read-only.",
+       "Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address.",
        where="Hermes Desktop — Mia",
-       prompt="Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with gog gmail send to the trainer-approved test address, show the message ID and confirm it is in Sent.",
-       cmd="gog --account \"$GOG_ACCOUNT\" gmail send --to TRAINER_TEST_ADDRESS --subject \"Kopi Kaki tasting — Thursday 3 pm\" --body \"…approved text…\"",
-       expect="One message ID and a Sent record — nothing sent before your SEND.", decide="Approve the exact recipient, subject and body."),
-     S("Make Mia proactive: cron basics (5 min)",
-       "Cron makes the agent start work without being asked. Jobs run inside the gateway, which checks for due jobs every minute — keep it running.",
-       cmd="hermes cron list\nhermes cron status\n# a test job you can delete afterwards:\nhermes cron create \"every 2h\" \"Remind me to post the pop-up photo.\" --name test-reminder --deliver telegram\nhermes cron run <job_id>\nhermes cron remove <job_id>",
-       expect="The test reminder arrives on Telegram, then the job is removed."),
-     S("Schedule the daily 8:00 email summary (5 min)",
-       "Your morning brief before you open the pop-up: Mia reads the inbox at 8:00 Singapore time and messages you on Telegram. Reading only — the cron job never sends email.",
-       cmd="hermes cron create \"0 8 * * *\" \"Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent items first, then replies needed, then FYI. Add today's calendar events and any clash. Never send or change anything.\" --skill gog-office --name \"Morning email brief\" --deliver telegram --timezone Asia/Singapore\nhermes cron list\nhermes cron run <job_id>",
-       expect="Your test run delivers a structured email summary to Telegram; the job is listed for 08:00 daily."),
+       prompt="Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with the Gmail connector to the trainer-approved test address and confirm it is in Sent.",
+       expect="One sent message — nothing sent before your SEND.", decide="Approve the exact recipient, subject and body."),
+     S("Schedule the daily 8:00 email summary (10 min)",
+       "A scheduled job (cron) makes Mia start work without being asked. Open Scheduled jobs and look at the Blueprints (Morning briefing, Important-mail monitor …). "
+       "Then create your own by asking Mia. Finally open the job in Scheduled jobs and click Trigger now to test it — do not wait until tomorrow.",
+       where="Hermes Desktop — Mia",
+       prompt="Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything. Show me the job when it is saved.",
+       expect="Scheduled jobs lists 'Morning email brief' (every day 8:00); Trigger now delivers a structured summary to Telegram."),
     ]
-    L["verify"] = ["Desktop runs in ~/kopi-kaki with a working model", "Mia replies on Telegram only to your user ID",
-                   "hermes tools --summary and hermes skills list show the expected tools and gog-office",
-                   "trends.md has three dated items with URLs", "gog reads Gmail and Calendar; one approved email has a message ID",
-                   "`hermes cron list` shows 'Morning email brief' at 08:00 Asia/Singapore"]
-    L["trouble"] = [("`hermes: command not found`", "Open a new terminal or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux/WSL2)."),
-                    ("MiniMax sign-in works but replies fail", "Check the plan/credits on platform.minimax.io; re-run `hermes model` and type the model name exactly."),
-                    ("Bot silent on Telegram", "Is the gateway running? `hermes gateway status`; check TELEGRAM_ALLOWED_USERS has your numeric ID."),
-                    ("Cron never fires", "The gateway must be running; check `hermes cron status`. Results go to the /sethome chat."),
-                    ("gog: access blocked", "Use the trainer's OAuth client and the assigned account; run `gog auth doctor --check`."),
-                    ("Web search returns nothing", "Check FIRECRAWL_API_KEY in ~/.hermes/.env and that the web toolset is enabled.")]
-    L["challenge"] = "Add a second cron at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?"
+    L["verify"] = [f"Hermes Desktop works in {WSF} with a model you chose", "Mia replies on Telegram only to you, and reads answers aloud",
+                   "Capabilities shows the expected tools and the kopi-email-brief skill",
+                   "trends.md has three dated items with URLs", "Gmail is connected; one approved email sent",
+                   "Scheduled jobs shows 'Morning email brief' at 08:00 and a successful Trigger now"]
+    L["trouble"] = [("Mia does not reply / model error", "Settings → Model → Main model: check the provider, sign in again and click Apply. On the Nous free tier pick a free model."),
+                    ("ChatGPT sign-in fails", "Use the account that has ChatGPT Plus; sign out and in again from Settings → Model. Use the free Nous route while you wait."),
+                    ("Bot silent on Telegram", "Messaging → Telegram: is it Enabled and Connected? Did you click Save changes? Are you listed under Approved users?"),
+                    ("Scheduled job never arrives", "Hermes Desktop must be running at that time. Send /sethome in your Telegram chat, then click Trigger now."),
+                    ("Gmail not listed or Connect fails", "Sign in to Nous first (status bar). If Gmail still is not offered, tell your trainer — use the trainer's demo mailbox for this step."),
+                    ("Web search returns nothing", "Settings → Tools & Keys: check the Firecrawl key is saved; Capabilities → Tools: is web on?")]
+    L["challenge"] = "Add a second scheduled job at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?"
 
 def act2(L):
-    L["prereq"] = ["Topic 2 setup done: Mia works in ~/kopi-kaki", "Node.js 22.20+ for the skills CLI (`node --version`)", "This lab's data/ copied into ~/kopi-kaki"]
+    L["prereq"] = ["Topic 2 setup done: Mia works in your kopi-kaki folder", "This lab's data/ dragged into Desktop/kopi-kaki"]
     L["steps"] = [
-     S("Copy the website brief (2 min)", "The brief says who the site is for, the sections, the brand and the definition of done.",
-       cmd="cp -Rn data/* ~/kopi-kaki/\nmkdir -p ~/kopi-kaki/outputs/website\ncat ~/kopi-kaki/website-brief.md"),
+     S("Copy the website brief into your company folder (2 min)", COPY_DATA + " The brief says who the site is for, the sections, the brand and the definition of done.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="Read website-brief.md and tell me in three lines what you will build, for whom, and how we will know it is done.",
+       expect="Three lines that match the brief."),
      S("Choose UX skills on skills.sh (5 min)",
-       "Open skills.sh and search 'frontend' and 'design'. The most installed design skills include Anthropic's frontend-design (about 1.1 million installs), Vercel's web-design-guidelines and ui-ux-pro-max. Open each skill's page and read its SKILL.md: what will it make the agent do, and does it run any scripts?",
-       cmd="# Browse: https://skills.sh/  (search: frontend, design)\nhermes skills search design --source skills-sh",
+       "Open skills.sh in your browser and search 'frontend' and 'design'. The most installed design skills include Anthropic's frontend-design (about 1.1 million installs), Vercel's web-design-guidelines and ui-ux-pro-max. "
+       "Open each skill's page and read its SKILL.md: what will it make the agent do, and does it run any scripts?",
        expect="You can explain in one sentence what each skill changes."),
-     S("Install two UX skills into Hermes (5 min)",
-       "The skills.sh command-line tool installs straight into Hermes with -a hermes-agent (-g = for your user, into ~/.hermes/skills).",
-       cmd="npx skills add https://github.com/anthropics/skills --skill frontend-design -a hermes-agent -g\nnpx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines -a hermes-agent -g\nhermes skills list | grep -i -E 'frontend-design|web-design'",
-       expect="Both skills appear in hermes skills list."),
+     S("Ask Mia to install two UX skills (5 min)",
+       "No command line: Mia installs the skills for herself. Afterwards they appear in Capabilities → Skills.",
+       where="Hermes Desktop — Mia",
+       prompt="Install these two skills from skills.sh for yourself: frontend-design from github.com/anthropics/skills and web-design-guidelines from github.com/vercel-labs/agent-skills. Read each SKILL.md first and tell me whether it runs any scripts. Then confirm both are installed and available.",
+       expect="Both skills installed and listed in Capabilities → Skills."),
      S("Brief Mia like a design agency (15 min)",
-       "Start a new Desktop chat in ~/kopi-kaki so the new skills load.",
-       where="Hermes Desktop — Mia, folder ~/kopi-kaki",
+       "Start a New session in your kopi-kaki folder so the new skills load.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
        prompt="Use the frontend-design and web-design-guidelines skills. Build the Kopi Kaki Co. one-page website from website-brief.md.\n"
               "- Sections: hero (Gula Melaka Cold Brew, SGD 6.80, from 1 Dec 2026), our story (a startup founded in 2026), menu from product-catalogue.csv, pop-ups and the Tiong Bahru flagship, three short taster quotes from customer-reviews.csv (no names), app pre-order button, footer.\n"
               "- Brand: colours and voice from brand-guide.md; use assets/kopi-kaki-logo.png and assets/cold-brew-product-card.png.\n"
               "- One self-contained outputs/website/index.html: inline CSS, no external libraries or fonts, responsive down to 375 px, accessible contrast.\n"
               "- No health or halal claims. Every price and date must match the source files.\n"
-              "When done, list which skill rules you applied and every fact with its source file.",
-       expect="outputs/website/index.html and a list of applied rules and sourced facts."),
-     S("Open it and check it like a customer (5 min)",
-       "Open the page, then narrow the browser to phone width (or use the browser's device view). Check the price, the date, the pop-up information and the button.",
-       cmd="open ~/kopi-kaki/outputs/website/index.html      # Windows: start  ·  Linux: xdg-open"),
+              "When done, open the page in my browser, then list which skill rules you applied and every fact with its source file.",
+       expect="outputs/website/index.html opens in your browser, plus a list of applied rules and sourced facts."),
+     S("Check it like a customer (5 min)",
+       "Look at the page Mia opened (or double-click outputs/website/index.html in your kopi-kaki folder). Narrow the browser window to phone width. Check the price, the date, the pop-up information and the button.",
+       expect="The hero shows Gula Melaka Cold Brew, SGD 6.80 and 'Pouring from 1 Dec 2026'; the page still works at phone width."),
      S("Ask for one concrete revision (8 min)", "Give feedback an agent can test, not 'make it nicer'.",
        where="Hermes Desktop — Mia",
        prompt="Revise outputs/website/index.html: (1) move the pre-order button into the hero, visible without scrolling on a 375 px phone; (2) make the menu a two-column grid on desktop and one column on phone; (3) add the pop-up dates as a simple list. Then write outputs/website/review.md: what the skills changed, my requested fixes, and the checks you ran.",
        expect="Updated page and review.md.", decide="Is it on-brand, true and usable on a phone?"),
      S("Capture your website (2 min)", "Save two screenshots — desktop and phone width — into outputs/website/. You will reuse the site's facts in the pitch deck and the social posts."),
     ]
-    L["verify"] = ["Two UX skills installed and listed", "index.html opens offline with the Kopi Kaki colours, logo and product card",
+    L["verify"] = ["Two UX skills installed and listed in Capabilities → Skills", "index.html opens offline with the Kopi Kaki colours, logo and product card",
                    "Every price and date matches the source files", "Works at 375 px; review.md records your revision"]
-    L["trouble"] = [("`npx skills` fails", "Install Node.js 22.20+ and retry; or use `hermes skills install skills-sh/anthropics/skills/frontend-design`."),
-                    ("Skill not used", "Start a new chat so newly installed skills load; name the skill in the prompt."),
-                    ("Images missing", "Check assets/ was copied into ~/kopi-kaki and the paths in index.html are relative.")]
-    L["challenge"] = "Install ui-ux-pro-max as a third skill and ask Mia for a second design. Which design would you ship, and what did the extra skill actually change?"
+    L["trouble"] = [("Skill install fails", "Ask Mia what failed and to try the Hermes skills hub instead; or search the skill in Capabilities → Skills and click Install."),
+                    ("Skill not used", "Start a New session so newly installed skills load; name the skill in the prompt."),
+                    ("Images missing", "Check assets/ was dragged into your kopi-kaki folder and ask Mia to use relative paths.")]
+    L["challenge"] = "Ask Mia to install ui-ux-pro-max as a third skill and make a second design. Which design would you ship, and what did the extra skill actually change?"
 
 def act3(L):
-    L["prereq"] = ["Topic 2 setup and Activity 2 done", "python-pptx in ~/kopi-kaki/.office-venv (from the setup step)",
-                   "LibreOffice for the PDF render (`soffice --version`)", "This lab's data/ copied into ~/kopi-kaki"]
+    L["prereq"] = ["Topic 2 setup and Activity 2 done (Mia's .office-venv toolbox exists)", "This lab's data/ dragged into Desktop/kopi-kaki",
+                   "Optional: LibreOffice, so Mia can save a PDF copy of the deck"]
     L["steps"] = [
-     S("Copy the deck skill and check the PPT tool (3 min)",
-       "The tool writes the file (python-pptx); the skill says how to build a good deck. Hermes also ships a built-in microsoft-office skill (Word, PowerPoint, Excel via python-pptx); the reviewed kopi-pitch-deck skill adds your story, brand and checks.",
-       cmd="cp -Rn data/* ~/kopi-kaki/\ncat ~/kopi-kaki/skills/kopi-pitch-deck/SKILL.md\nmkdir -p ~/.hermes/skills/office && cp -R ~/kopi-kaki/skills/kopi-pitch-deck ~/.hermes/skills/office/\n~/kopi-kaki/.office-venv/bin/python -c \"import pptx; print('python-pptx', pptx.__version__)\"\nhermes skills list | grep -i -E 'kopi-pitch-deck|microsoft-office'\nsoffice --version",
-       expect="kopi-pitch-deck is listed; python-pptx prints its version."),
-     S("Optional: add a hub PPT skill (3 min)", "For comparison, Hermes's optional pptx-author skill (adapted from Anthropic's) builds decks headless with python-pptx.",
-       cmd="hermes skills install official/finance/pptx-author"),
-     S("Brief the deck (15 min)", "Start a new Desktop chat in ~/kopi-kaki. This is the run you will screenshot for PP Task 2.",
-       where="Hermes Desktop — Mia, folder ~/kopi-kaki",
-       prompt="Use the kopi-pitch-deck skill and python-pptx (~/kopi-kaki/.office-venv/bin/python). Build the Kopi Kaki Co. pitch deck for Friday's meeting with a bank relationship manager.\n"
+     S("Ask Mia to install the deck skill (3 min)",
+       COPY_DATA + " The tool writes the file (python-pptx); the skill says how to build a good deck. You install the skill by asking — no command line.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="install the kopi pitch deck skill from skills/kopi-pitch-deck in this folder. Read its SKILL.md first and tell me in two lines what it makes you do. Then confirm it is available, and check that python-pptx works in .office-venv.",
+       expect="'Installed and verified the kopi-pitch-deck skill … readiness status available' and python-pptx works."),
+     S("Optional: compare with a hub PPT skill (3 min)", "Hermes's skills hub also has a general PowerPoint skill. Search 'pptx' in Capabilities → Skills, read it, and install it if you want to compare."),
+     S("Brief the deck (15 min)", "Start a New session in your kopi-kaki folder. This is the run you will screenshot for PP Task 2.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="Use the kopi-pitch-deck skill and python-pptx (from .office-venv in this folder). Build the Kopi Kaki Co. pitch deck for Friday's meeting with a bank relationship manager.\n"
               "- 8-10 slides: title · the problem · Gula Melaka Cold Brew (SGD 6.80, from 1 Dec 2026) · proof from the 60 pop-up tasting reviews (average rating and top themes with review IDs) · market and the 6 competitors · launch plan 17 Nov-14 Dec #ShiokColdBrew · KPIs (2,500 pre-orders, 8% engagement, 40,000 views) · budget SGD 15,000 · the ask (I will fill in the amount).\n"
               "- One NATIVE editable chart (ratings distribution or KPI targets), brand colours from brand-guide.md, the logo on the title slide.\n"
               "- Speaker notes: the source file for every number.\n"
-              "Save outputs/deck/kopi-kaki-pitch.pptx, render outputs/deck/kopi-kaki-pitch.pdf with soffice, check every page for clipping or overlap, and write outputs/deck/qa-report.md.",
-       expect="kopi-kaki-pitch.pptx, the PDF and qa-report.md in outputs/deck/."),
+              "Save outputs/deck/kopi-kaki-pitch.pptx. If LibreOffice is installed, also save outputs/deck/kopi-kaki-pitch.pdf and check every page for clipping or overlap. Write outputs/deck/qa-report.md, then open the deck for me.",
+       expect="kopi-kaki-pitch.pptx (and the PDF if LibreOffice is installed) and qa-report.md in outputs/deck/."),
      S("Check it: content errors and layout errors (8 min)",
-       "Open the PDF and the PPTX. Content error = a wrong or unsourced number. Layout error = clipped, overlapping or unreadable text. Check three numbers against the source files yourself and click the chart to confirm it is editable.",
-       cmd="open ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pdf\nopen ~/kopi-kaki/outputs/deck/kopi-kaki-pitch.pptx\ncat ~/kopi-kaki/outputs/deck/qa-report.md"),
+       "Open the deck Mia opened (or double-click it in outputs/deck/). Content error = a wrong or unsourced number. Layout error = clipped, overlapping or unreadable text. "
+       "Check three numbers against the source files yourself and click the chart to confirm it is editable."),
      S("One revision, then approve (8 min)", "Ask for a concrete, testable change, then approve the deck.",
        where="Hermes Desktop — Mia",
-       prompt="Revise the deck: (1) make slide 2's headline state the problem in one sentence; (2) on the reviews slide show the average rating as one big number with the review count; (3) the ask slide: 'SGD 50,000 working capital for the Tiong Bahru flagship'. Re-render the PDF, re-check every page, and add the changes to qa-report.md. Then summarise what changed.",
-       expect="Updated PPTX, PDF and qa-report.md.", decide="Are the numbers right and the story convincing? Approve or ask for one more change."),
+       prompt="Revise the deck: (1) make slide 2's headline state the problem in one sentence; (2) on the reviews slide show the average rating as one big number with the review count; (3) the ask slide: 'SGD 50,000 working capital for the Tiong Bahru flagship'. Re-check every slide, add the changes to qa-report.md, and summarise what changed.",
+       expect="Updated PPTX and qa-report.md.", decide="Are the numbers right and the story convincing? Approve or ask for one more change."),
      S("Capture your PP Task 2 evidence (3 min)",
-       "Take ONE readable screenshot of Hermes Desktop (or the Hermes dashboard) showing your request and the finished deck — for example the chat with the saved .pptx path and the slides open beside it. Hide keys and private data. Keep the .pptx, the PDF and qa-report.md."),
+       "Take ONE readable screenshot of Hermes Desktop showing your request and the finished deck — for example the chat with the saved .pptx path and the slides open beside it. Hide keys and private data. Keep the .pptx and qa-report.md."),
     ]
-    L["verify"] = ["kopi-pitch-deck skill listed; python-pptx works", "8-10 editable slides with one native chart",
-                   "Three numbers checked by you against the source files", "PDF has no clipped or overlapping text; qa-report.md lists fixes",
-                   "PP Task 2: ONE Hermes Desktop/dashboard screenshot showing the PPT run and the deck"]
-    L["trouble"] = [("`soffice: command not found`", "Install LibreOffice (macOS: brew install --cask libreoffice) or open the .pptx and export PDF yourself."),
-                    ("Chart is a picture", "Ask Mia to use python-pptx chart_data / add_chart so the chart stays editable."),
+    L["verify"] = ["kopi-pitch-deck skill installed and available", "8-10 editable slides with one native chart",
+                   "Three numbers checked by you against the source files", "No clipped or overlapping text; qa-report.md lists fixes",
+                   "PP Task 2: ONE Hermes Desktop screenshot showing the PPT run and the deck"]
+    L["trouble"] = [("No PDF", "LibreOffice is not installed. That is fine: open the .pptx and use File → Export → PDF yourself."),
+                    ("Chart is a picture", "Ask Mia to use a python-pptx chart (add_chart) so the chart stays editable."),
                     ("Invented figures", "Point Mia at the source files and the skill rule 'never invent figures'; ask for a sourced revision.")]
-    L["challenge"] = "Ask Mia to turn the same deck into a one-page investor memo (DOCX) with the microsoft-office skill. Which format would the bank manager read first?"
+    L["challenge"] = "Ask Mia to turn the same deck into a one-page investor memo (Word). Which format would the bank manager read first?"

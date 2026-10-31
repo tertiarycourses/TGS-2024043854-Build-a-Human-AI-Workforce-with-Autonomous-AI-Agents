@@ -128,7 +128,7 @@ def readme(L, files):
         if st.get("cmd"): o += ["```bash", st["cmd"], "```", ""]
         if st.get("prompt"):
             o += [f"**Prompt** — paste into *{st.get('where', 'Hermes chat')}*:", "", "```text", st["prompt"], "```", ""]
-        if st.get("expect"): o += [f"✅ **Expected:** {st['expect']}", ""]
+        if st.get("expect"): o += [f"✓ **Expected:** {st['expect']}", ""]
     o += ["## Verification / checkpoint"] + [f"- [ ] {v}" for v in L["verify"]] + ["", f"**Checkpoint:** {L['check']}", "",
           "## Troubleshooting", "", "| Symptom | Fix |", "|---|---|"] + [f"| {a} | {b} |" for a, b in L["trouble"]] + ["",
           "## Stretch challenge", L["challenge"], "", f"<sub>{FOOT.replace('<b>', '**').replace('</b>', '**')}</sub>", ""]
@@ -149,7 +149,7 @@ def copy_prompts(L):
 CSS = """
 :root{--bg:#FAF9F5;--panel:#fff;--ink:#21201C;--muted:#6B6862;--acc:#D97757;--accd:#C2603F;--rule:#E3DFD6;--code:#2B2924;--codefg:#F1EDE4;--teal:#3A7D7B}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#21201C;--panel:#2E2C26;--ink:#F1EDE4;--muted:#C9C4B9;--rule:#45423B}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Calibri,Carlito,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Calibri,Carlito,Arial,-apple-system,"Segoe UI",sans-serif}
 h1,h2,h3{font-family:Cambria,Caladea,Georgia,serif;line-height:1.2}h1{font-size:30px;margin:6px 0 10px}h2{font-size:22px;margin:26px 0 10px}h3{font-size:17px;margin:20px 0 6px}
 .k{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0}
 .meta{color:var(--muted)}.hook{border-left:4px solid var(--acc);padding:8px 14px;background:var(--panel);border-radius:8px}
@@ -248,11 +248,11 @@ details{{background:var(--panel);border:1px solid var(--rule);border-radius:10px
 @media(max-width:600px){{nav{{flex-wrap:nowrap;overflow:auto}}nav a{{flex:none}}h1{{font-size:26px}}pre{{font-size:12.5px}}}}
 </style></head><body><main class="wrap" id="top">
 <p class="k">{C.COURSE_CODE} · {e(C.SHORT_TITLE)} · {C.VERSION}</p><h1>Lab Steps & Copyable Prompts</h1>
-<p class="meta">{e(C.TITLE)} — you are the founder of Kopi Kaki Co., a Singapore kopi startup, and AI agents help you start it: a CEO assistant, your first AI employee, two AI marketing teams and, as a bonus, a one-person company. Every step below has its instructions and a <b>Copy</b> button: copy, paste into the named place, and verify every result.
+<p class="meta">{e(C.TITLE)} — you are the founder of Kopi Kaki Co., a Singapore kopi startup, and AI agents help you start it: a CEO assistant, your first AI employee, a team of bots, a Kanban video team, content crons and, as a bonus, a one-person company. Every step below has its instructions and a <b>Copy</b> button: copy, paste into the named place, and verify every result.
 This page works offline: open <code>prompts/index.html</code> from the downloaded course folder.</p>
-<div class="pick"><b>One connected story: start Kopi Kaki Co.</b><p>Day 1: always-on CEO assistant (Muse or Dots) → Hermes setup (model, Telegram, tools, skills, Firecrawl, gog, cron) → the Kopi Kaki website → the pitch deck.<br>Day 2: social media marketing team → video production team → AI security → bonus: Paperclip one-person company.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
+<div class="pick"><b>One connected story: start Kopi Kaki Co.</b><p>Day 1: always-on CEO assistant (Muse or Dots) → Hermes Desktop setup (model, Telegram, voice, tools, skills, Firecrawl, Gmail, scheduled jobs) → one agent builds the website → one agent builds the pitch deck.<br>Day 2: five bots in a group chat write the posts → one prompt builds a Kanban video team → crons make next week's content → AI security → bonus: Paperclip one-person company. No terminal needed: every step is a click in Hermes Desktop or a prompt.</p><p><a href="https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/redeem-ai-subscription.html">Official SWDA free AI subscription steps</a> · <a href="resources.html">Sources and further reading</a> · <a href="{C.REPO_URL}/archive/refs/heads/main.zip">Download course ZIP</a></p></div>
 <nav aria-label="Labs">{nav}</nav>
-<div class="pick"><b>How it fits together:</b> Lab 1 uses the trainer-assigned Google account. From the Topic 2 setup on, everything happens in one company workspace, <code>~/kopi-kaki</code>: copy each lab's <code>data/</code> folder into it as you go, and each lab saves to <code>~/kopi-kaki/outputs/</code> (website, deck, social, video).{picks}</div>
+<div class="pick"><b>How it fits together:</b> Lab 1 uses the trainer-assigned Google account. From the Topic 2 setup on, everything happens in one company folder, <code>kopi-kaki</code> on your Desktop: drag each lab's <code>data/</code> folder into it as you go (Finder or File Explorer), and each lab saves to <code>kopi-kaki/outputs/</code> (website, deck, social, video).{picks}</div>
 {''.join(secs)}
 <p class="foot">{FOOT}<br>{e(SYNTH)}<br>Powered by <a href="https://www.tertiaryinfotech.com/">Tertiary Infotech Academy Pte Ltd</a></p></main><div id="status" role="status" aria-live="polite"></div>
 <script>

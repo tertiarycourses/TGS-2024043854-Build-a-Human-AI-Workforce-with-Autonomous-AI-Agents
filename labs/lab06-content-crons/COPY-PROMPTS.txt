@@ -1,0 +1,19 @@
+LAB 6 — Activity 6 — Crons Make Next Week's Posts and Video While You Sleep
+Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
+========================================================================
+
+[1] PROMPT — Monday 9:00: the week's social drafts (7 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
+------------------------------------------------------------------------
+Create a scheduled job called 'Weekly social drafts' that runs every Monday at 9:00 Asia/Singapore time and delivers to my Telegram.
+Job: in Desktop/kopi-kaki, read campaign-brief.md, research.md and last week's approval-log.md. Following the rules in souls/lin.SOUL.md, souls/farah.SOUL.md and souls/ivy.SOUL.md, draft this week's LinkedIn, Facebook and Instagram posts into outputs/social/weekly/<date>/, make one image per post with tools/make_post_image.py and a gallery.html. Then message me: 'Drafts ready — reply APPROVE, EDIT or REJECT per post'. Never post or publish anything.
+Show me the job when it is saved.
+
+[2] PROMPT — Friday 10:00: a new video draft on the board (7 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
+------------------------------------------------------------------------
+Create a scheduled job called 'Weekly video draft' that runs every Friday at 10:00 Asia/Singapore time and delivers to my Telegram.
+Job: on the kopi-video Kanban board, create a new run for a 15-second clip about this week's best-performing angle from outputs/social/approval-log.md: the same seven cards as Activity 5 with both HUMAN gates (approve the script, approve the exact video). Message me when the script is waiting for my approval. Nothing is rendered before I approve the script; nothing is published.
+Show me the job when it is saved.
+
+[3] PROMPT — Log it and stay in control (5 min)  (paste into: Hermes Desktop — Mia)
+------------------------------------------------------------------------
+Write outputs/automation/cron-log.md: one row per scheduled job with name, schedule, what the test run produced, model time used, and what still needs my approval. Then list my scheduled jobs with their next run time.

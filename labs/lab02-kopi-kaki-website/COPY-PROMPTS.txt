@@ -1,37 +1,24 @@
-LAB 2 — Activity 2 — UX Skills from skills.sh Build the Kopi Kaki Website
+LAB 2 — Activity 2 — One Agent Builds the Kopi Kaki Website with UX Skills
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — Copy the website brief (2 min)
+[1] PROMPT — Copy the website brief into your company folder (2 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/website
-cat ~/kopi-kaki/website-brief.md
+Read website-brief.md and tell me in three lines what you will build, for whom, and how we will know it is done.
 
-[2] TERMINAL — Choose UX skills on skills.sh (5 min)
+[2] PROMPT — Ask Mia to install two UX skills (5 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-# Browse: https://skills.sh/  (search: frontend, design)
-hermes skills search design --source skills-sh
+Install these two skills from skills.sh for yourself: frontend-design from github.com/anthropics/skills and web-design-guidelines from github.com/vercel-labs/agent-skills. Read each SKILL.md first and tell me whether it runs any scripts. Then confirm both are installed and available.
 
-[3] TERMINAL — Install two UX skills into Hermes (5 min)
-------------------------------------------------------------------------
-npx skills add https://github.com/anthropics/skills --skill frontend-design -a hermes-agent -g
-npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines -a hermes-agent -g
-hermes skills list | grep -i -E 'frontend-design|web-design'
-
-[4] PROMPT — Brief Mia like a design agency (15 min)  (paste into: Hermes Desktop — Mia, folder ~/kopi-kaki)
+[3] PROMPT — Brief Mia like a design agency (15 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------
 Use the frontend-design and web-design-guidelines skills. Build the Kopi Kaki Co. one-page website from website-brief.md.
 - Sections: hero (Gula Melaka Cold Brew, SGD 6.80, from 1 Dec 2026), our story (a startup founded in 2026), menu from product-catalogue.csv, pop-ups and the Tiong Bahru flagship, three short taster quotes from customer-reviews.csv (no names), app pre-order button, footer.
 - Brand: colours and voice from brand-guide.md; use assets/kopi-kaki-logo.png and assets/cold-brew-product-card.png.
 - One self-contained outputs/website/index.html: inline CSS, no external libraries or fonts, responsive down to 375 px, accessible contrast.
 - No health or halal claims. Every price and date must match the source files.
-When done, list which skill rules you applied and every fact with its source file.
+When done, open the page in my browser, then list which skill rules you applied and every fact with its source file.
 
-[5] TERMINAL — Open it and check it like a customer (5 min)
-------------------------------------------------------------------------
-open ~/kopi-kaki/outputs/website/index.html      # Windows: start  ·  Linux: xdg-open
-
-[6] PROMPT — Ask for one concrete revision (8 min)  (paste into: Hermes Desktop — Mia)
+[4] PROMPT — Ask for one concrete revision (8 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
 Revise outputs/website/index.html: (1) move the pre-order button into the hero, visible without scrolling on a 375 px phone; (2) make the menu a two-column grid on desktop and one column on phone; (3) add the pop-up dates as a simple list. Then write outputs/website/review.md: what the skills changed, my requested fixes, and the checks you ran.

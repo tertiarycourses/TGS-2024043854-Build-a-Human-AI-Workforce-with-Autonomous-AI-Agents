@@ -2,35 +2,11 @@ BONUS LAB — Paperclip: Run Kopi Kaki as a One-Person Company
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — What Paperclip is (5 min)
+[1] PROMPT — Ask Mia to install and start Paperclip (10 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------
-# Overview video: https://www.youtube.com/watch?v=WNYe5mD4fY8
-node --version          # v24.11.0 or higher
-hermes --version        # or: claude --version / codex --version
+Install Paperclip for me with its one-line onboarder (npx paperclipai onboard --yes) and keep it running. Check first that Node.js is 24.11 or newer; if not, stop and tell me what the trainer must install. When it is up, give me the link to open.
 
-[2] TERMINAL — Install and start Paperclip (10 min)
-------------------------------------------------------------------------
-# Option A
-npx paperclipai onboard --yes
-
-# Option B (Docker)
-git clone https://github.com/paperclipai/paperclip.git && cd paperclip
-export BETTER_AUTH_SECRET="$(openssl rand -hex 32)"
-export PAPERCLIP_TOOL_ACTION_SIGNING_SECRET="$(openssl rand -hex 32)"
-export ANTHROPIC_API_KEY="sk-ant-..."     # and/or OPENAI_API_KEY
-docker compose -f docker/docker-compose.quickstart.yml up --build
-
-[3] TERMINAL — Set up the company: Kopi Kaki Co. (5 min)
-------------------------------------------------------------------------
-npx paperclipai company list                 # copy the company id
-npx paperclipai budget company:update -C <company-id> --payload-json '{"budgetMonthlyCents":6000}'
-
-[4] TERMINAL — Set up the CEO and write her instructions (8 min)
-------------------------------------------------------------------------
-npx paperclipai agent list -C <company-id>    # copy Ava's agent id
-npx paperclipai agent update <ava-id> --payload-json '{"role":"ceo","title":"CEO"}'
-
-[5] PROMPT — Set up the CEO and write her instructions (8 min)  (paste into: Paperclip → Agents → Ava → Instructions → AGENTS.md)
+[2] PROMPT — Make Ava the CEO and write her instructions (8 min)  (paste into: Paperclip → Agents → Ava → Instructions → AGENTS.md (after asking Mia: 'In Paperclip, set Ava's role to CEO and her title to CEO for me.'))
 ------------------------------------------------------------------------
 You are Ava, CEO of Kopi Kaki Co., a Singapore kopi startup run as a one-person company: the founder is the Board and the only human.
 Mission: launch the Gula Melaka Cold Brew on 1 Dec 2026 - 2,500 app pre-orders, one approved short video every week, AI spend under USD 60/month, zero compliance breaches.
@@ -42,25 +18,14 @@ How you work:
 - Source of truth: brand-guide.md, campaign-brief.md, compliance-rules.md.
 - Report weekly to the Board: progress, spend vs budget, risks, decisions needed.
 
-[6] PROMPT — CEO task: hire a Chief of Staff (5 min)  (paste into: Paperclip → New Task (assign to Ava))
+[3] PROMPT — CEO task: hire a Chief of Staff (5 min)  (paste into: Paperclip → New Task (assign to Ava))
 ------------------------------------------------------------------------
 Hire a Chief of Staff for Kopi Kaki Co.
 Mandate (3 bullets): turn my goals into weekly plans, hire and manage the marketing team, report progress and risks to you every Friday.
 Reports to: you (CEO). Monthly budget: USD 10. Use the same adapter as you.
 Submit the hire for Board approval and tell me when it is waiting.
 
-[7] TERMINAL — Approve the hire from the Board seat (3 min)
-------------------------------------------------------------------------
-npx paperclipai approval list -C <company-id> --status pending
-npx paperclipai approval approve <approval-id> --decision-note "Approved: Chief of Staff, USD 10/month"
-
-[8] TERMINAL — Chief of Staff task: hire the marketing team (8 min)
-------------------------------------------------------------------------
-npx paperclipai approval list -C <company-id> --status pending
-npx paperclipai approval approve <approval-id> --decision-note "Approved"
-npx paperclipai approval request-revision <approval-id> --decision-note "Cap the Video Producer at USD 8/month"
-
-[9] PROMPT — Chief of Staff task: hire the marketing team (8 min)  (paste into: Paperclip → New Task (assign to the Chief of Staff))
+[4] PROMPT — Chief of Staff task: hire the marketing team (8 min)  (paste into: Paperclip → New Task (assign to the Chief of Staff))
 ------------------------------------------------------------------------
 Hire the Kopi Kaki marketing team. All report to you.
 - Market Researcher (finds facts with sources)
@@ -71,12 +36,12 @@ Hire the Kopi Kaki marketing team. All report to you.
 - Content Reviewer (independent: checks posts and videos against compliance-rules.md and video-qa-checklist.md; can block release)
 Give each a 3-bullet mandate and a monthly budget. The whole company must stay under USD 60/month including Ava and you. Submit every hire for Board approval.
 
-[10] PROMPT — Get the team to produce the launch video (10 min)  (paste into: Paperclip → New Task (assign to the Chief of Staff))
+[5] PROMPT — Get the team to produce the launch video (10 min)  (paste into: Paperclip → New Task (assign to the Chief of Staff))
 ------------------------------------------------------------------------
 Produce the Gula Melaka Cold Brew launch video: 20 seconds, 1080x1920, 4 scenes, narration, facts only from campaign-brief.md and product-catalogue.csv, SGD 6.80, launch 1 Dec 2026, no health or halal claims.
 Split it into tasks for the team, with the Content Reviewer checking the final file against video-qa-checklist.md. Ask me to approve the script before rendering and the exact final file before anything is used. Never publish.
 
-[11] PROMPT — Compare Paperclip with the Hermes Kanban team (8 min)  (paste into: Paperclip → New Task (assign to Ava))
+[6] PROMPT — Compare Paperclip with the Hermes Kanban team (8 min)  (paste into: Paperclip → New Task (assign to Ava))
 ------------------------------------------------------------------------
 Write comparison.md for the Board: Paperclip company vs the Hermes Kanban team from Activity 5 for the same launch video.
 Rows: set-up time, who decides the task breakdown, approvals and hiring control, budget control, visibility (org chart, audit), output quality, my review effort, cost.

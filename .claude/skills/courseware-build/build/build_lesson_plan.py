@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import course_data as C
 from data_labs import LABS
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -33,7 +33,7 @@ KIND_FILL = {"topic": TOPIC_FILL, "activity": TOPIC_FILL, "break": BREAK_FILL, "
              "admin": "F3F5F8", "recap": "F3F5F8", "lab": None}
 
 def rng(a, b): return str(MAP[a]) if MAP[b] - 1 == MAP[a] else f"{MAP[a]}–{MAP[b] - 1}"
-NEXT = {"01": "lab1end", "S2": "lab02", "02": "lab03", "03": "t2close", "04": "lab05", "05": "t3b", "B": "bonusend"}
+NEXT = {"01": "lab1end", "S2": "lab02", "02": "lab03", "03": "t2close", "04": "lab05", "05": "lab06", "06": "t3b", "B": "bonusend"}
 def slides_for(day, text):
     t = text
     if t.startswith("Welcome"): return rng("admin", "t1a")
@@ -50,7 +50,8 @@ def slides_for(day, text):
     if t.startswith("Topic 3 (Part A)"): return rng("t3", "lab04")
     if t.startswith("Lab 4:"): return rng("lab04", "lab05")
     if t.startswith("Lab 5: Activity 5A"): return rng("lab05", "lab05i")
-    if t.startswith("Lab 5: Activity 5B"): return rng("lab05i", "t3b")
+    if t.startswith("Lab 5: Activity 5B"): return rng("lab05i", "lab06")
+    if t.startswith("Lab 6:"): return rng("lab06", "t3b")
     if t.startswith("Topic 3 (Part B)"): return rng("t3b", "t3sum")
     if t.startswith("Bonus"): return rng("bonus", "bonusend")
     if t.startswith("Course recap"): return rng("wrap", "assess")
@@ -63,7 +64,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "LESSON PLAN", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35])
 prodoc.add_toc(doc)
 H = lambda t, l=1: doc.add_heading(t, level=l)
 

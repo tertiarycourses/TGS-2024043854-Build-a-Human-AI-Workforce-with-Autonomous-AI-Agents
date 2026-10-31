@@ -1,82 +1,46 @@
-LAB 5 — Activity 5 — Your Video Production Team
+LAB 5 — Activity 5 — Your Video Team on a Kanban Board
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] TERMINAL — Copy the lab data (2 min)
+[1] PROMPT — Install the video skill — by asking (8 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------
-cp -Rn data/* ~/kopi-kaki/
-mkdir -p ~/kopi-kaki/outputs/video
-ls ~/kopi-kaki/souls ~/kopi-kaki/tasks
+Install the official hyperframes skill from the Hermes skills hub. Read its SKILL.md first and tell me what it needs. Then check that this laptop has what it needs (Node.js 22 or newer, FFmpeg, a browser) and run its health check. If anything is missing, tell me exactly what to ask the trainer to install. Do not change system settings.
 
-[2] TERMINAL — Install the video skills and tools: HyperFrames, Remotion, Manim (10 min)
+[2] PROMPT — One prompt: hire the video team and build its Kanban board (10 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------
-hermes skills install official/creative/hyperframes
-npx hyperframes doctor
-npx skills add remotion-dev/skills -a hermes-agent -g
-hermes skills list | grep -i -E 'hyperframes|remotion|manim'
-# optional, for Manim: python3 -m pip install manim && manim --version
+Build my video production team and its Kanban board. Workspace: Desktop/kopi-kaki.
+1. Create these five agents (Hermes profiles) by cloning your settings, each with its role file as SOUL.md and the description shown:
+- video-researcher: Extracts the facts the video may use: claim | source file | exact quote (role file souls/video-researcher.SOUL.md)
+- scriptwriter: Turns research.md into a 20-second, 4-scene script, then waits for the founder (role file souls/scriptwriter.SOUL.md)
+- voice-over: Records the narration from the APPROVED script with Hermes text-to-speech (role file souls/voice-over.SOUL.md)
+- video-producer: Renders the APPROVED script into a 1080x1920 MP4 with HyperFrames (role file souls/video-producer.SOUL.md)
+- video-reviewer: Independently checks the video against the QA checklist and sends the founder a review link (role file souls/video-reviewer.SOUL.md)
+2. Create a Kanban board for tenant kopi-video with these cards:
+   1 Research the launch video · video-researcher · body tasks/v1-research.md
+   2 Write the 20-second script · scriptwriter · parent 1 · body tasks/v2-script.md
+   3 HUMAN: approve the script · unassigned · parent 2 · only I complete it
+   4 Record the voice-over · voice-over · parent 3 · body tasks/v3-voice.md
+   5 Render the video · video-producer · parents 3 and 4 · skill hyperframes · body tasks/v4-produce.md
+   6 Review and send me the link · video-reviewer · parent 5 · body tasks/v5-review.md
+   7 HUMAN: approve the exact video · unassigned · parent 6 · only I complete it
+3. Show me the agents and the cards (ID, assignee, parents) as two tables. Never publish or post the video anywhere.
 
-[3] TERMINAL — Give the team a voice: local text-to-speech (5 min)
+[3] PROMPT — Check the research — grounding (5 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-python3 -m pip install kokoro-onnx soundfile
-npx hyperframes tts "Gula Melaka Cold Brew. A taste of the kopitiam, slow-brewed cold." --voice af_heart --output ~/kopi-kaki/outputs/video/voice-test.wav
+Open outputs/video/research.md for me and pick two claims. For each, show me the exact line in the source file that supports it.
 
-[4] TERMINAL — Staff the production line: five profiles (6 min)
+[4] PROMPT — Approve the script — your first gate (5 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-hermes profile create scriptwriter --clone --description "Turns research.md into a 20-second, 4-scene script with on-screen text and narration"
-hermes profile create video-producer --clone --description "Renders the approved script into a 1080x1920 MP4 with HyperFrames; owns outputs/video/final.mp4"
-hermes profile create voice-over --clone --description "Writes narration.txt from the approved script and records narration.wav with hyperframes tts"
-hermes profile create video-reviewer --clone --description "Independently checks the video against video-qa-checklist.md and the sources; sends the founder a review link"
-for p in scriptwriter video-producer voice-over video-reviewer; do cp ~/kopi-kaki/souls/$p.SOUL.md ~/.hermes/profiles/$p/SOUL.md; done
-cp ~/kopi-kaki/souls/video-researcher.SOUL.md ~/.hermes/profiles/researcher/SOUL.md
-hermes profile list
+I have read outputs/video/script.md and APPROVE it as written. Record my approval with today's date in outputs/video/approvals.md, then complete the 'HUMAN: approve the script' card on the kopi-video board for me.
 
-[5] PROMPT — Build the production board with two human gates (8 min)  (paste into: Hermes Desktop → default profile (Mia), started in ~/kopi-kaki)
+[5] PROMPT — Production and voice-over (20 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-Use the Kanban tools to build the board for tenant kopi-video, workspace ~/kopi-kaki.
-1. Research the launch video - assignee researcher - body from tasks/v1-research.md.
-2. Write the 20-second script - assignee scriptwriter - parent: 1 - body from tasks/v2-script.md.
-3. HUMAN: approve the script - unassigned - parent: 2. Only I complete it.
-4. Record the voice-over - assignee voice-over - parent: 3 - body from tasks/v3-voice.md.
-5. Render the video - assignee video-producer - parents: 3 and 4 - skill hyperframes - body from tasks/v4-produce.md.
-6. Review and send me the link - assignee video-reviewer - parent: 5 - body from tasks/v5-review.md.
-7. HUMAN: approve the exact video - unassigned - parent: 6. Only I complete it.
-Show the card IDs, assignees and parents as a table. Never publish or post the video anywhere.
+Check outputs/video/final.mp4 for me: does it exist, what are its width, height and duration, and does it have an audio track? Answer in one line per check.
 
-[6] TERMINAL — Research with source checks (8 min)
+[6] PROMPT — Approve the exact video — your final gate (10 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-hermes kanban watch --tenant kopi-video
-cat ~/kopi-kaki/outputs/video/research.md
+I watched http://localhost:8765/final.mp4 to the end. Check that its SHA-256 matches review.md. If it matches, record 'APPROVE <sha256>' with today's date in outputs/video/approvals.md and complete the 'HUMAN: approve the exact video' card for me. Do not post or publish the video anywhere.
 
-[7] TERMINAL — Approve the script — your first gate (5 min)
+[7] PROMPT — Reflect: what did the team buy you? (5 min)  (paste into: Hermes Desktop — Mia)
 ------------------------------------------------------------------------
-hermes kanban list --tenant kopi-video          # find the 'HUMAN: approve the script' card id
-hermes kanban complete <card_id>
-
-[8] PROMPT — Approve the script — your first gate (5 min)  (paste into: Hermes Desktop → default profile (Mia))
-------------------------------------------------------------------------
-I have read outputs/video/script.md and APPROVE it as written. Note my approval with today's date in outputs/video/approvals.md. I have completed the HUMAN script card myself.
-
-[9] TERMINAL — Production and voice-over (20 min)
-------------------------------------------------------------------------
-ls -la ~/kopi-kaki/outputs/video/
-ffprobe -v error -show_entries stream=width,height -show_entries format=duration -of json ~/kopi-kaki/outputs/video/final.mp4
-
-[10] TERMINAL — Independent review and the review link (10 min)
-------------------------------------------------------------------------
-cd ~/kopi-kaki/outputs/video && python3 -m http.server 8765
-# review link: http://localhost:8765/final.mp4
-shasum -a 256 final.mp4      # Windows: certutil -hashfile final.mp4 SHA256
-
-[11] TERMINAL — Approve the exact video — your final gate (10 min)
-------------------------------------------------------------------------
-shasum -a 256 ~/kopi-kaki/outputs/video/final.mp4
-hermes kanban complete <human_video_card_id>      # only after the hashes match
-
-[12] PROMPT — Approve the exact video — your final gate (10 min)  (paste into: Hermes Desktop → default profile (Mia))
-------------------------------------------------------------------------
-I watched http://localhost:8765/final.mp4 to the end. Check that its SHA-256 matches review.md. If it matches, record 'APPROVE <sha256>' with today's date in outputs/video/approvals.md. Do not post or publish the video anywhere.
-
-[13] PROMPT — Reflect: what did the team buy you? (5 min)  (paste into: Hermes Desktop → default profile (Mia))
-------------------------------------------------------------------------
-Summarise the kopi-video run: total time, number of runs per card, what the reviewer caught, my revisions and an estimated model cost. Compare with an agency quote of SGD 3,000 and two weeks. What would you change in one SOUL.md to cut my review time next week?
+Summarise the kopi-video run: total time, number of runs per card, what the reviewer caught, my revisions and an estimated model cost. Compare with an agency quote of SGD 3,000 and two weeks. What would you change in one role file to cut my review time next week?

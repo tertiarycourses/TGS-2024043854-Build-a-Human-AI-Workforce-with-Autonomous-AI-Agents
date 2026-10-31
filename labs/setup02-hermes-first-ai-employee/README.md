@@ -2,36 +2,36 @@
 
 **Day 1 · Topic 2 · 120 min · One agent, many tools · LO1/LO2**
 
-> Install Hermes Desktop, give it a brain, put it on Telegram, arm it with tools and skills, then let it read your inbox and brief you every morning.
+> Install one app, sign in, scan one QR code. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.
 
 ## Goal
-Set up one Hermes Agent with a model, a messaging channel, tools, reviewed skills, web search, Google Workspace access and a schedule, and explain how each part changes what the agent can do (LO1, LO2).
+Set up one Hermes Agent in Hermes Desktop with a model, a messaging channel, voice, tools, reviewed skills, web search, Gmail access and a schedule, and explain how each part changes what the agent can do (LO1, LO2).
 
 ## The business scenario
-You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Today your first hire is Mia, a Hermes agent that works from your laptop: she reads your Kopi Kaki inbox and calendar, searches the web for cold-brew trends, and messages you a summary on Telegram every morning before you open the pop-up.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Today your first hire is Mia, a Hermes agent that works from your laptop: she reads your Kopi Kaki inbox, searches the web for cold-brew trends, and messages you a summary on Telegram every morning before you open the pop-up.
 
 ## You will deliver
-- Hermes Desktop running in ~/kopi-kaki with a working model (MiniMax demo or the trainer-assigned provider)
-- Mia answering you on Telegram from your allow-listed user ID
-- Tools and skills listed and tested; Firecrawl web search returning cited results
-- gog reading Gmail and Calendar; one approved test email sent
-- A daily 8:00 email-summary cron that delivers to Telegram
+- Hermes Desktop working in your Desktop/kopi-kaki folder with a model (Nous free tier, your ChatGPT Plus plan or a paid model)
+- Mia answering you on Telegram (set up with Create with QR) and reading answers aloud
+- Tools and skills checked in Capabilities; Firecrawl web search returning cited results
+- Gmail connected with a Google sign-in; one approved test email sent
+- A daily 8:00 email-summary scheduled job that delivers to Telegram
 
 ## Who does what
 - **Agents:** 1 Hermes agent — Mia, your first AI employee
 - **You (the human):** Choose the model and accounts, approve every send, own the schedule
 
 ## Before you start
-- Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer), Windows 10/11, or Linux
+- Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer) or Windows 10/11
+- This class's model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account
 - A Telegram account on your phone
-- The trainer-assigned training Google account and OAuth client file (from Lab 1)
-- A model provider: a MiniMax account (demo) or the provider key your trainer assigns
+- The trainer-assigned training Google account (synthetic Kopi Kaki mail)
 - A free Firecrawl account (firecrawl.dev — 1,000 free credits a month, no card)
 
 ## Concepts in action
-- Model = the brain; Desktop/gateway = the body; tools = the hands; skills = the know-how
+- Model = the brain; Desktop = the body; tools = the hands; skills = the know-how
 - A channel (Telegram) lets the agent reach you; an allow-list decides who can reach it
-- Cron makes the agent proactive: it starts work without being asked
+- A scheduled job (cron) makes the agent proactive: it starts work without being asked
 - Read and send are different permissions: approve every send
 
 ## Lab files (`data/`)
@@ -48,7 +48,7 @@ You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. Th
 | `assets/brand-palette.png` | Brand image asset |
 | `assets/cold-brew-product-card.png` | Brand image asset |
 | `assets/kopi-kaki-logo.png` | Brand image asset |
-| `skills/gog-office/SKILL.md` | Agent skill (SKILL.md) |
+| `skills/kopi-email-brief/SKILL.md` | Agent skill (SKILL.md) |
 | `approved-test-send.md` | Procedure for the one approved test email |
 
 _All company data in this lab (Kopi Kaki Co., people, reviews, comments, metrics, competitors) is fictional and generated for training._
@@ -57,102 +57,83 @@ Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Pr
 
 ## Steps
 
-### 1. Create the Kopi Kaki workspace (5 min)
-Everything your agents do for the startup happens in one folder. AGENTS.md tells every agent who Kopi Kaki is and the rules; Hermes loads it automatically when it starts in that folder. The small Python environment is used by the PPT and image tools later.
+### 1. Unzip the labs and create your Kopi Kaki folder (5 min)
+Download the course ZIP (the trainer shares the link), unzip it, and create a folder called kopi-kaki on your Desktop. Open labs/setup02-hermes-first-ai-employee/data, select everything and drag it into the new kopi-kaki folder. This folder is your company: AGENTS.md inside it tells every agent who Kopi Kaki is and the rules.
 
-```bash
-mkdir -p ~/kopi-kaki && cp -Rn data/* ~/kopi-kaki/
-cd ~/kopi-kaki
-python3 -m venv .office-venv
-.office-venv/bin/python -m pip install python-pptx openpyxl Pillow
-ls
-```
-
-✅ **Expected:** ~/kopi-kaki holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/.
+✓ **Expected:** Desktop/kopi-kaki holds AGENTS.md, brand-guide.md, campaign-brief.md, the reviews and competitor files and skills/.
 
 ### 2. Install Hermes Desktop (10 min)
-Download the installer for your laptop from the official page: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows). On Linux install the CLI, then run `hermes desktop`. On first run, choose 'Choose provider later' — you connect the model in the next step — and pick the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\hermes).
+Download the installer from hermes-agent.nousresearch.com/desktop: Hermes-Setup.dmg (Mac, Apple Silicon) or Hermes-Setup.exe (Windows), and run it like any app. On first run choose 'Choose provider later' (you pick the brain in the next step) and the Basic layout. Then open Settings → About → Version & updates: it should say you are running the latest version.
 
-```bash
-# Download: https://hermes-agent.nousresearch.com/desktop
-# CLI (macOS / Linux / WSL2):
-curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-# CLI (Windows PowerShell):
-iex (irm https://hermes-agent.nousresearch.com/install.ps1)
-hermes --version
-hermes desktop
+✓ **Expected:** Hermes Desktop opens; Version & updates shows 'You're running the latest version'.
+
+### 3. Give Mia a brain: choose your model (10 min)
+The model is the agent's brain. Pick ONE route. This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account (Free tier: free models only, standard rate limits, $0). Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.
+
+**Prompt** — paste into *Hermes Desktop — New session*:
+
+```text
+Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which model you are running on.
 ```
 
-✅ **Expected:** Hermes Desktop opens; `hermes --version` prints a version.
-
-### 3. Connect a model — demo with MiniMax (10 min)
-The model is the agent's brain. Hermes has MiniMax built in. Run `hermes model`, choose MiniMax → MiniMax (OAuth) and sign in in the browser, or choose 'MiniMax (global endpoint)' and paste your M Plan subscription key. Then choose 'Enter custom model name' and type MiniMax-M3.1-Flash. In Desktop the same setting is Settings → Providers, then Settings → Model → Main model → Apply. Trial offer: your trainer will confirm any current MiniMax free trial on the day (awaiting verification); MiniMax's published options are the M Plan and pay-as-you-go credits. Use the trainer-assigned provider if you have no MiniMax access.
-
-```bash
-hermes model                       # MiniMax → MiniMax (OAuth), or global endpoint + key
-# key alternative: add to ~/.hermes/.env
-#   MINIMAX_API_KEY=your-key
-# model name: MiniMax-M3.1-Flash
-hermes chat -q "Say hello in one line as Mia, Kopi Kaki's first AI employee."
-```
-
-✅ **Expected:** A one-line reply from the model.
+✓ **Expected:** A one-line reply that names the model.
 
 ### 4. Meet Mia: your first AI employee (5 min)
-Start a Desktop chat with the working folder set to ~/kopi-kaki so AGENTS.md is loaded, and check that Mia knows the company.
+Start a New session and set its working folder to Desktop/kopi-kaki (the folder path shown above the message box), so AGENTS.md loads.
 
-**Prompt** — paste into *Hermes Desktop — new chat, folder ~/kopi-kaki*:
+**Prompt** — paste into *Hermes Desktop — New session, folder Desktop/kopi-kaki*:
 
 ```text
 You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
 ```
 
-✅ **Expected:** Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules.
+✓ **Expected:** Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules.
 
-### 5. Put Mia on Telegram (10 min)
-In Telegram open @BotFather → /newbot → choose a name (e.g. Mia Kopi Kaki) and a username ending in 'bot' → copy the token. Get your numeric user ID from @userinfobot. Only allow-listed users can talk to your agent. Desktop shortcut: Messaging → Telegram → Create with QR does all of this for you.
+### 5. Let Mia set up her own toolbox (3 min)
+Later labs need a few Python libraries (for slides, spreadsheets and images). You do not type any commands: Mia installs them for you and reports back.
 
-```bash
-hermes gateway setup          # choose Telegram, paste the token and your user ID
-# or add to ~/.hermes/.env:
-#   TELEGRAM_BOT_TOKEN=...
-#   TELEGRAM_ALLOWED_USERS=123456789
-hermes gateway                # keep running (service: hermes gateway install && hermes gateway start; WSL: hermes gateway run)
+**Prompt** — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Prepare this folder for the next labs: create a Python virtual environment called .office-venv here and install python-pptx, openpyxl and Pillow into it. Do not change anything outside this folder. Then tell me in two lines what you installed and whether it works.
 ```
 
-✅ **Expected:** Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there.
+✓ **Expected:** Mia confirms .office-venv exists with python-pptx, openpyxl and Pillow.
 
-### 6. Configure Mia's tools (5 min)
-Tools are what the agent can actually do: web, terminal, files, browser, images, voice, cron and more. Switch on only what the job needs (Principle 2: permission control).
+### 6. Put Mia on Telegram with one QR code (10 min)
+Messaging → Telegram → Quick setup → Create with QR. Scan the code with your phone and confirm in Telegram: Hermes creates the bot and detects your Telegram user ID for you. Switch Telegram to Enabled and click Save changes. Under Approved users you should see only yourself — strangers who find the bot get nothing.
 
-```bash
-hermes tools --summary
-hermes tools                  # tick or untick toolsets per platform
-hermes tools disable browser --platform telegram
+✓ **Expected:** Telegram shows Connected and you are the only approved user. Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there.
+
+### 7. Talk to Mia with your voice (5 min)
+Settings → Voice. Speech to text: switch it on (Live Transcription shows your words as you speak). Text to speech: provider Edge (free, no key), pick a voice such as en-US-AriaNeural, and switch on Read Responses Aloud. Then use the microphone in the chat and ask Mia a question out loud. Wispr Flow from Activity 1C works here too.
+
+✓ **Expected:** Mia hears your question and reads her answer aloud.
+
+### 8. Check Mia's tools (5 min)
+Capabilities → Tools shows every toolset Mia can use: web, files, terminal, browser, images, voice, schedules and more. Switch on only what the job needs (Principle 2: permission control). Mia uses the terminal tool for you — that is how she installed the toolbox — so you never have to.
+
+**Prompt** — paste into *Hermes Desktop — Mia*:
+
+```text
+List the toolsets you have switched on. Which ones do you need to read my email, search the web and make slides? Which would you switch off on Telegram, and why?
 ```
 
-✅ **Expected:** The summary lists the enabled toolsets for CLI and Telegram.
+✓ **Expected:** A short list that matches Capabilities → Tools, with a reason for each.
 
-### 7. Review, then install skills (10 min)
-A skill is a SKILL.md folder of know-how the agent loads when a task matches it. Read every third-party skill before you install it. Start with the reviewed gog-office skill in this lab's data/, then browse the hub.
+### 9. Review, then install a skill (10 min)
+A skill is a SKILL.md folder of know-how Mia loads when a task matches it. Browse Capabilities → Skills (Discover Skills shows what is already installed). Then install the reviewed kopi-email-brief skill from your folder — by asking. Read every third-party skill before you install it.
 
-```bash
-cat ~/kopi-kaki/skills/gog-office/SKILL.md
-mkdir -p ~/.hermes/skills/productivity && cp -R ~/kopi-kaki/skills/gog-office ~/.hermes/skills/productivity/
-hermes skills list
-hermes skills browse
-hermes skills search marketing
+**Prompt** — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Read skills/kopi-email-brief/SKILL.md in this folder. In three bullets, tell me what it makes you do and whether it runs any scripts. Then install it as one of your skills and confirm it is available.
 ```
 
-✅ **Expected:** gog-office appears in hermes skills list.
+✓ **Expected:** Mia reports 'Installed and verified' and kopi-email-brief appears in Capabilities → Skills.
 
-### 8. Give Mia web search with Firecrawl (5 min)
-Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card) and add it to Hermes. Then ask a real question.
-
-```bash
-echo 'FIRECRAWL_API_KEY=fc-your-key' >> ~/.hermes/.env
-hermes tools                  # confirm the web toolset is on
-```
+### 10. Give Mia web search with Firecrawl (5 min)
+Firecrawl is Hermes's default web search. Create a free account at firecrawl.dev (1,000 credits a month, no card) and copy your API key. In Hermes Desktop open Settings → Tools & Keys, find Firecrawl, paste the key and save. Never paste keys into a chat.
 
 **Prompt** — paste into *Hermes Desktop — Mia*:
 
@@ -160,91 +141,63 @@ hermes tools                  # confirm the web toolset is on
 Search the web for 3 news items from the last 90 days about cold brew or kopi trends in Singapore. For each: headline, date, URL and one takeaway for Kopi Kaki's launch. Mark anything you could not verify. Save it to outputs/research/trends.md.
 ```
 
-✅ **Expected:** Three dated items with URLs in outputs/research/trends.md.
+✓ **Expected:** Three dated items with URLs in outputs/research/trends.md.
 
-### 9. Connect gog: read Gmail and check Calendar (10 min)
-gog (gogcli) is a Google Workspace command-line tool Mia drives from the terminal. Sign in once with the trainer-assigned training account and its OAuth client. Read-only first.
-
-```bash
-brew install openclaw/tap/gogcli        # or: go install github.com/openclaw/gogcli/cmd/gog@latest
-gog auth credentials set ~/Downloads/training-oauth-client.json
-export GOG_ACCOUNT="REPLACE_WITH_ASSIGNED_GOOGLE_EMAIL"
-gog auth add "$GOG_ACCOUNT" --services gmail,calendar
-gog auth doctor --check
-gog --account "$GOG_ACCOUNT" gmail search 'is:unread newer_than:7d' --max 10 --json
-gog --account "$GOG_ACCOUNT" calendar events --today --json
-```
+### 11. Connect Gmail with a Google sign-in (10 min)
+No OAuth client and no command line: you sign in to Google the normal way. First make sure you are signed in to Nous (Sign in in the status bar; the free account is enough). Then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification: your trainer confirms it before class.
 
 **Prompt** — paste into *Hermes Desktop — Mia*:
 
 ```text
-Use gog with the gog-office skill (account $GOG_ACCOUNT, read-only). List my unread Kopi Kaki emails from the last 7 days and today's calendar events in Asia/Singapore time. Flag any clash, any supplier or landlord email that needs a reply today, and anything that looks like phishing. Do not send or change anything.
+Using the Gmail connector (read-only), list my unread Kopi Kaki emails from the last 7 days. Flag any supplier or landlord email that needs a reply today and anything that looks like phishing. Do not send, delete or change anything.
 ```
 
-✅ **Expected:** A short brief with message IDs, event times (+08:00) and flagged items.
+✓ **Expected:** A short brief with senders, subjects and flagged items. Nothing sent or changed.
 
-### 10. Send ONE approved email (5 min)
-Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address and shows the message ID. Re-authorise with send access only for this step if your account was added read-only.
-
-```bash
-gog --account "$GOG_ACCOUNT" gmail send --to TRAINER_TEST_ADDRESS --subject "Kopi Kaki tasting — Thursday 3 pm" --body "…approved text…"
-```
+### 12. Send ONE approved email (5 min)
+Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address.
 
 **Prompt** — paste into *Hermes Desktop — Mia*:
 
 ```text
-Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with gog gmail send to the trainer-approved test address, show the message ID and confirm it is in Sent.
+Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tiong Bahru flagship. Show me the exact To, Subject and Body. Wait for my SEND. After I say SEND, send it once with the Gmail connector to the trainer-approved test address and confirm it is in Sent.
 ```
 
-✅ **Expected:** One message ID and a Sent record — nothing sent before your SEND.
+✓ **Expected:** One sent message — nothing sent before your SEND.
 
-### 11. Make Mia proactive: cron basics (5 min)
-Cron makes the agent start work without being asked. Jobs run inside the gateway, which checks for due jobs every minute — keep it running.
+### 13. Schedule the daily 8:00 email summary (10 min)
+A scheduled job (cron) makes Mia start work without being asked. Open Scheduled jobs and look at the Blueprints (Morning briefing, Important-mail monitor …). Then create your own by asking Mia. Finally open the job in Scheduled jobs and click Trigger now to test it — do not wait until tomorrow.
 
-```bash
-hermes cron list
-hermes cron status
-# a test job you can delete afterwards:
-hermes cron create "every 2h" "Remind me to post the pop-up photo." --name test-reminder --deliver telegram
-hermes cron run <job_id>
-hermes cron remove <job_id>
+**Prompt** — paste into *Hermes Desktop — Mia*:
+
+```text
+Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything. Show me the job when it is saved.
 ```
 
-✅ **Expected:** The test reminder arrives on Telegram, then the job is removed.
-
-### 12. Schedule the daily 8:00 email summary (5 min)
-Your morning brief before you open the pop-up: Mia reads the inbox at 8:00 Singapore time and messages you on Telegram. Reading only — the cron job never sends email.
-
-```bash
-hermes cron create "0 8 * * *" "Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent items first, then replies needed, then FYI. Add today's calendar events and any clash. Never send or change anything." --skill gog-office --name "Morning email brief" --deliver telegram --timezone Asia/Singapore
-hermes cron list
-hermes cron run <job_id>
-```
-
-✅ **Expected:** Your test run delivers a structured email summary to Telegram; the job is listed for 08:00 daily.
+✓ **Expected:** Scheduled jobs lists 'Morning email brief' (every day 8:00); Trigger now delivers a structured summary to Telegram.
 
 ## Verification / checkpoint
-- [ ] Desktop runs in ~/kopi-kaki with a working model
-- [ ] Mia replies on Telegram only to your user ID
-- [ ] hermes tools --summary and hermes skills list show the expected tools and gog-office
+- [ ] Hermes Desktop works in Desktop/kopi-kaki with a model you chose
+- [ ] Mia replies on Telegram only to you, and reads answers aloud
+- [ ] Capabilities shows the expected tools and the kopi-email-brief skill
 - [ ] trends.md has three dated items with URLs
-- [ ] gog reads Gmail and Calendar; one approved email has a message ID
-- [ ] `hermes cron list` shows 'Morning email brief' at 08:00 Asia/Singapore
+- [ ] Gmail is connected; one approved email sent
+- [ ] Scheduled jobs shows 'Morning email brief' at 08:00 and a successful Trigger now
 
-**Checkpoint:** Mia answers on Telegram, lists her tools and skills, returns cited web results, reads your inbox and calendar, and `hermes cron list` shows the 8:00 email summary.
+**Checkpoint:** Mia answers on Telegram, lists her tools and skills, returns cited web results, reads your Gmail, and Scheduled jobs shows the 8:00 email summary.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `hermes: command not found` | Open a new terminal or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux/WSL2). |
-| MiniMax sign-in works but replies fail | Check the plan/credits on platform.minimax.io; re-run `hermes model` and type the model name exactly. |
-| Bot silent on Telegram | Is the gateway running? `hermes gateway status`; check TELEGRAM_ALLOWED_USERS has your numeric ID. |
-| Cron never fires | The gateway must be running; check `hermes cron status`. Results go to the /sethome chat. |
-| gog: access blocked | Use the trainer's OAuth client and the assigned account; run `gog auth doctor --check`. |
-| Web search returns nothing | Check FIRECRAWL_API_KEY in ~/.hermes/.env and that the web toolset is enabled. |
+| Mia does not reply / model error | Settings → Model → Main model: check the provider, sign in again and click Apply. On the Nous free tier pick a free model. |
+| ChatGPT sign-in fails | Use the account that has ChatGPT Plus; sign out and in again from Settings → Model. Use the free Nous route while you wait. |
+| Bot silent on Telegram | Messaging → Telegram: is it Enabled and Connected? Did you click Save changes? Are you listed under Approved users? |
+| Scheduled job never arrives | Hermes Desktop must be running at that time. Send /sethome in your Telegram chat, then click Trigger now. |
+| Gmail not listed or Connect fails | Sign in to Nous first (status bar). If Gmail still is not offered, tell your trainer — use the trainer's demo mailbox for this step. |
+| Web search returns nothing | Settings → Tools & Keys: check the Firecrawl key is saved; Capabilities → Tools: is web on? |
 
 ## Stretch challenge
-Add a second cron at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?
+Add a second scheduled job at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?
 
 <sub>Part of the WSQ course **Build a Human-AI Workforce with Autonomous AI Agents** (TGS-2024043854) · © 2026 Tertiary Infotech Academy Pte Ltd · www.tertiarycourses.com.sg</sub>

@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -57,13 +57,13 @@ bullets(C.LEARNING_OUTCOMES)
 h2("Course Structure")
 table(["Topic", "Day", "What you do"], [
     ("1 · " + C.TOPICS[0]["title"], "Day 1 AM", "; ".join(C.TOPICS[0]["items"]) + "; Activity 1: join Meta Muse with the trainer’s invite code and set up an OpenAI Dot"),
-    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Topic 2 setup (Desktop, MiniMax, Telegram, tools, skills, Firecrawl, gog, cron) + Activity 2 website + Activity 3 pitch deck (PP Task 2)"),
-    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activity 4 social media team + Activity 5 video team (PP Task 3), AI security; bonus: Paperclip one-person company")])
+    ("2 · " + C.TOPICS[1]["title"], "Day 1 PM", "Topic 2 setup in Hermes Desktop (model, Telegram QR, voice, tools, skills, Firecrawl, Gmail connector, scheduled jobs) + Activity 2 website + Activity 3 pitch deck, each by a single agent (PP Task 2)"),
+    ("3 · " + C.TOPICS[2]["title"], "Day 2", "Activity 4 five bots in a group chat + Activity 5 Kanban video team (PP Task 3) + Activity 6 content crons, AI security; bonus: Paperclip one-person company")])
 h2("How to Use the Lab Materials")
 numbered(["Download the course repository (Code → Download ZIP) and unzip it.",
-          "Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt or command where the page says. It works offline.",
+          "Open prompts/index.html in your browser. Pick a lab, click Copy and paste the prompt into Hermes Desktop (or the app the page names). It works offline.",
           "Each lab folder labs/labNN-…/ contains README.md, LAB-NN-Instructions.pdf (printable), COPY-PROMPTS.txt and data/ (mock company files, skills and brand assets).",
-          "Morning Activity 1 introduces Kopi Kaki Co.: your assistant checks any of the company's meetings and drafts a reply. At Activity 2, create one ~/kopi-kaki workspace for the company labs and preserve the documented shared output paths for Day 2.",
+          "Morning Activity 1 introduces Kopi Kaki Co.: your assistant checks any of the company's meetings and drafts a reply. In the Topic 2 setup, create one kopi-kaki folder on your Desktop for the company labs; Day 2 reuses its outputs.",
           "Finish each lab with its checkpoint: evidence, not vibes."])
 img(os.path.join(SHOTS, "screenshots", "prompts-page.png"), "The Lab Prompts page (prompts/index.html)", 4.2)
 note("Preferred surface: Hermes Desktop. macOS/Windows learners use the official Desktop installer: download it from https://hermes-agent.nousresearch.com/desktop . On native Windows use the supplied PowerShell setup file and the same local profile for tools and Telegram; WSL is a separate runtime.\nPlatforms change quickly. If a command differs on your version, run it with --help and check the official docs: "
@@ -97,7 +97,7 @@ table(["Component","Function","What to inspect"],[("Model","Proposes next tokens
 p("Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.")
 h3("Inside the LLM: learning and next-token generation")
 p("A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.")
-p("The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through gog; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.")
+p("The agent harness wraps generation in an action loop. The model proposes a permitted tool action, the runtime executes it, and the real result returns as new context. For example, a model proposes reading calendar events through a calendar connector; the tool returns actual event records; the agent then checks time zones and writes a source-linked brief. Tool failure must remain visible rather than being replaced with an imagined result.")
 h3("Transfer case: logistics exception work")
 p("A logistics agent can interpret varied shipment notes and organise an exception brief, while deterministic tools calculate delays from shipment IDs and promised/actual timestamps. Limitations include missing scans, changed schedules, ambiguous customer notes, hallucinated causes and inappropriate autonomous action. Require source IDs and timestamps, explicit unknowns, independently checked calculations and a dispatcher decision before changing a route or contacting a customer. Evaluate observed data and controls rather than assuming that fluent language means the operational conclusion is correct.")
 h3("RAG versus a standard LLM assistant, including maintenance")
@@ -185,10 +185,11 @@ p("Check the schedule in Asia/Singapore against actual source events, draft a re
 
 # ====================================================================== labs
 LAB_SHOTS = {"01": ("workflows/activity-01.png", "Activity 1 workflow model — design diagram, not executed learner evidence"),
-             "S2": ("screenshots/hermes-dashboard.png", "The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)"),
-             "02": ("workflows/activity-02.png", "Activity 2 workflow: find, review, install UX skills, build, review — design diagram, not learner evidence"),
-             "03": ("workflows/activity-03.png", "Activity 3 workflow: equip, brief, build, render, approve — design diagram, not learner evidence"),
-             "04": ("screenshots/hermes-profiles.png", "Reference profiles view; your team has the five Activity 4 profiles"),
+             "S2": ("screenshots/desktop/telegram-setup.png", "Hermes Desktop → Messaging → Telegram → Create with QR"),
+             "02": ("screenshots/desktop/kopi-website.png", "The trainer's Activity 2 result: one agent, two UX skills, one brief — your version will differ"),
+             "03": ("screenshots/desktop/install-skill-by-asking.png", "Install a skill by asking: “install the kopi pitch deck skill”"),
+             "04": ("screenshots/desktop/bot-group-chat.png", "A bot group chat in Hermes Desktop (trainer's test room); yours is the Kopi Social Team"),
+             "06": ("screenshots/desktop/scheduled-jobs.png", "Scheduled jobs: frequency, next run, prompt, Pause and Trigger now"),
              "05": ("screenshots/hermes-kanban.png", "Reference Kanban interface; PP Task 3 uses your own board and video"),
              "B": ("paperclip/org-chart.png", "Paperclip org chart (trainer's demo company); yours shows Board → CEO → Chief of Staff → team")}
 
@@ -205,7 +206,7 @@ def lab_section(L):
     table(["Who", "Role"], [("Agents", L["agents"]), ("You (human)", L["human"])])
     h3("Concepts in action"); bullets(L["concepts"])
     h3("Lab files")
-    p(f"labs/{L['slug']}/ — README.md, LAB-{L['code']}-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, copy each lab's data/ into ~/kopi-kaki.")
+    p(f"labs/{L['slug']}/ — README.md, LAB-{L['code']}-Instructions.pdf, COPY-PROMPTS.txt and data/. Every prompt below is also on the Lab Prompts page with a Copy button. Use the training account for Activity 1; from the Topic 2 setup on, drag each lab's data/ into your Desktop/kopi-kaki folder (Finder or File Explorer). No step needs a terminal: everything is a click in Hermes Desktop or a prompt Mia carries out.")
     h3("Step-by-step")
     for i, st in enumerate(L["steps"], 1):
         p(f"**Step {i} — {st['title']}**")
@@ -241,48 +242,58 @@ h1("Topic 2 — " + C.TOPICS[1]["title"])
 p(C.SCENARIO + ". You are the founder-CEO; all company data is fictional. "
   "In Topic 1 an always-on assistant handled your schedule. In Topic 2 you hire your first AI employee — a Hermes agent called Mia — and give her, step by step, everything an employee needs.")
 h2("2.1 What Hermes Agent is")
-p("Hermes Agent (Nous Research, MIT licence) is an open-source, self-hosted agent: a model inside a harness of tools, skills, memory and channels. "
-  "It runs on your laptop (Hermes Desktop or the CLI), remembers across sessions, writes and improves its own skills, talks to you on Telegram and other channels, "
-  "runs scheduled jobs with its cron scheduler, and — in Topic 3 — works in teams through profiles and a Kanban board.")
-table(["Part", "What it is for Mia", "Where it lives"], [
-    ("Model", "The brain — MiniMax, OpenAI, Anthropic or a local model", "hermes model · Settings → Providers"),
-    ("Context", "Who Kopi Kaki is and the rules", "AGENTS.md in ~/kopi-kaki; SOUL.md per profile"),
-    ("Memory", "What she chose to remember about you and the work", "~/.hermes/memories/"),
-    ("Tools", "What she can do: web, terminal, files, browser, images, voice, cron", "hermes tools"),
-    ("Skills", "How to do a job well: steps, rules and checks in a SKILL.md", "~/.hermes/skills/"),
-    ("Gateway + cron", "How she reaches you, and when she starts work by herself", "hermes gateway · hermes cron")])
-img(os.path.join(SHOTS, "screenshots", "hermes-dashboard.png"), "The Hermes dashboard (hermes dashboard → http://127.0.0.1:9119)", 5.2)
-h2("2.2 Set up Hermes Desktop")
-p("Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop; on Linux install the CLI and run `hermes desktop`. "
-  "On first run choose 'Choose provider later' and the Basic layout. Data lives in ~/.hermes (Windows: %LOCALAPPDATA%\\hermes). Start every chat in ~/kopi-kaki so AGENTS.md loads.")
-h2("2.3 Connect a model — the MiniMax demo")
-p(f"Hermes has MiniMax built in. Run `hermes model` → MiniMax → MiniMax (OAuth) to sign in in the browser, or 'MiniMax (global endpoint)' with an M Plan subscription key "
-  f"(MINIMAX_API_KEY in ~/.hermes/.env); choose 'Enter custom model name' and type {T2SRC.MINIMAX_MODEL}. In Desktop: Settings → Providers, then Settings → Model → Main model → Apply. "
-  "Trial offer: a one-day free MiniMax trial is awaiting verification — your trainer confirms the current offer on the day; MiniMax publishes the M Plan and pay-as-you-go credits. "
-  "Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.")
-h2("2.4 Telegram, tools and skills")
-bullets(["Telegram: @BotFather → /newbot → copy the token; @userinfobot → your numeric ID; `hermes gateway setup` → Telegram; run `hermes gateway`; send /sethome so scheduled results arrive in that chat. Only allow-listed users (TELEGRAM_ALLOWED_USERS) can talk to Mia. Desktop shortcut: Messaging → Telegram → Create with QR.",
-         "Tools: `hermes tools` opens a checklist per platform; `hermes tools --summary` shows what is on; switch off what a channel does not need (e.g. the browser on Telegram).",
-         "Skills: a SKILL.md folder of know-how loaded when a task matches. `hermes skills browse | search | inspect | install | list`. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well."])
+p("Hermes Agent (Nous Research, MIT licence) is an open-source agent: a model inside a harness of tools, skills, memory and channels. "
+  "In this course you use it only through Hermes Desktop — an app you install like any other. Mia remembers across sessions, learns skills, talks to you on Telegram, "
+  "runs scheduled jobs, and — in Topic 3 — works in teams of bots and on a Kanban board. Whenever a technical step is needed, Mia does it for you with her terminal tool; you never type commands.")
+table(["Part", "What it is for Mia", "Where you set it in Hermes Desktop"], [
+    ("Model", "The brain — your ChatGPT Plus plan, Nous free models or a paid model", "Settings → Model → Main model"),
+    ("Context", "Who Kopi Kaki is and the rules", "AGENTS.md in your Desktop/kopi-kaki folder"),
+    ("Memory", "What she chose to remember about you and the work", "Settings → Memory & Context"),
+    ("Tools & connectors", "What she can do: web, files, browser, images, voice, schedules; apps such as Gmail", "Capabilities → Tools / Connectors"),
+    ("Skills", "How to do a job well: steps, rules and checks in a SKILL.md", "Capabilities → Skills, or ask Mia to install one"),
+    ("Messaging + schedules", "How she reaches you, and when she starts work by herself", "Messaging · Scheduled jobs")])
+img(os.path.join(SHOTS, "screenshots", "desktop", "skills.png"), "Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel", 5.2)
+h2("2.2 Install Hermes Desktop")
+p("Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop and install it like any app. "
+  "On first run choose 'Choose provider later' and the Basic layout. Check Settings → About → Version & updates: it should say you are running the latest version. "
+  "Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; start every Mia session with that folder as the working folder so AGENTS.md loads.")
+img(os.path.join(SHOTS, "screenshots", "desktop", "version.png"), "Settings → About → Version & updates", 4.6)
+h2("2.3 Give Mia a brain: free, ChatGPT Plus or paid")
+table(["Route", "How", "Cost"], [
+    ("This class: ChatGPT Plus", "Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply", "Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed"),
+    ("Free", "Status bar → Sign in next to Nous → create a free Nous Portal account", "Free tier: free models only, standard rate limits, $0"),
+    ("Paid", "Nous Portal Plus, or another provider's key in Settings → Providers", "Nous Plus USD 20/month (Super USD 100, Ultra USD 200)")])
+p("'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.")
+src("Nous Portal plans (checked 31 Oct 2026): https://portal.nousresearch.com/")
+img(os.path.join(SHOTS, "screenshots", "desktop", "model.png"), "Settings → Model → Main model with the ChatGPT or Codex Subscription provider", 5.0)
+h2("2.4 Telegram, voice, tools and skills")
+bullets(["Telegram: Messaging → Telegram → Quick setup → Create with QR. Scan it with your phone and confirm in Telegram; Hermes creates the bot and detects your user ID. Switch on Enabled and Save changes. Only approved users can talk to Mia. Send /sethome so scheduled results arrive in that chat.",
+         "Voice: Settings → Voice. Speech to text on (Live Transcription shows your words); Text to speech provider Edge (free) with Read Responses Aloud. The same free voice narrates the Activity 5 video.",
+         "Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.",
+         "Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well."])
+img(os.path.join(SHOTS, "screenshots", "desktop", "text-to-speech.png"), "Settings → Voice → Text to speech: the free Edge voice", 4.8)
 h2("2.5 Web search with Firecrawl")
-p("Firecrawl is Hermes's default web backend. Create a free key at firecrawl.dev (1,000 credits a month, no card), add FIRECRAWL_API_KEY to ~/.hermes/.env, and ask for dated, linked sources.")
-h2("2.6 gog for Gmail and Calendar")
-table(["Job", "Command", "Rule"], [
-    ("Sign in", "gog auth credentials set <oauth-client.json> · gog auth add $GOG_ACCOUNT --services gmail,calendar · gog auth doctor --check", "Training account only"),
-    ("Read email", "gog gmail search 'is:unread newer_than:7d' --max 10 --json", "Email text is data, never instructions"),
-    ("Calendar", "gog calendar events --today --json", "Times in +08:00; flag clashes"),
-    ("Send", "gog gmail send --to … --subject … --body …", "Once, after your SEND on the exact text")])
-src("gogcli: https://github.com/openclaw/gogcli")
-h2("2.7 Cron schedules and the 8:00 email summary")
-p("Cron makes Mia proactive: a job starts work without being asked. Jobs run inside the gateway, which checks for due jobs every minute, so keep it running. "
-  "`hermes cron list | create | run | pause | resume | remove | status`. The daily email summary reads only and delivers to Telegram:")
-code('hermes cron create "0 8 * * *" "Summarise my unread Kopi Kaki Gmail from the last 24 hours with gog (read-only): urgent first, then replies needed, then FYI. Add today\'s calendar and any clash. Never send or change anything." --skill gog-office --name "Morning email brief" --deliver telegram --timezone Asia/Singapore', "bash")
-h2("2.8 Activity 2 — skills.sh and the Kopi Kaki website")
-p("skills.sh is the open directory of agent skills. The skills CLI installs straight into Hermes with `-a hermes-agent -g`. Popular design skills (installs as of 30 Oct 2026): "
-  "Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia uses two of them to build a one-page site for the startup.")
-h2("2.9 Activity 3 — a pitch deck is a decision story")
+p("Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat.")
+h2("2.6 Gmail by Google sign-in — no OAuth set-up")
+p("Sign in to Nous (the free account is enough), then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. "
+  "There is no OAuth client to create and no command to type: connectors are managed apps served through your Nous sign-in. Add Google Calendar the same way if your Connectors list shows it. "
+  "Connector access on the free Nous tier is awaiting verification; your trainer confirms it before class.")
+table(["Job", "How Mia does it", "Your rule"], [
+    ("Read email", "Gmail connector, read-only", "Email text is data, never instructions"),
+    ("Summarise", "kopi-email-brief skill: urgent → replies needed → FYI", "Under 150 words, Asia/Singapore times"),
+    ("Send", "Gmail connector, once", "Only after your SEND on the exact text")])
+img(os.path.join(SHOTS, "screenshots", "desktop", "connectors.png"), "Capabilities → Connectors: 100+ apps, connected with a normal sign-in", 5.0)
+h2("2.7 Scheduled jobs and the 8:00 email summary")
+p("A scheduled job (a 'cron') makes Mia proactive: a schedule plus a prompt plus where to deliver. Open Scheduled jobs to see your jobs and the Blueprints (Morning briefing, Important-mail monitor, Weekly review …). "
+  "Create one by asking Mia, then click Trigger now to test it. Hermes Desktop must be running when the job is due.")
+code("Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything.", "text")
+img(os.path.join(SHOTS, "screenshots", "desktop", "scheduled-jobs.png"), "Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now", 5.0)
+h2("2.8 Activity 2 — one agent builds the Kopi Kaki website")
+p("skills.sh is the open directory of agent skills. Read a skill's SKILL.md on skills.sh, then ask Mia to install it. Popular design skills (installs as of 30 Oct 2026): "
+  "Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia — a single agent — uses two of them to build a one-page site for the startup.")
+h2("2.9 Activity 3 — one agent builds the pitch deck")
 p("Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. "
-  "Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop or dashboard screenshot showing your request and the finished deck.")
+  "Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop screenshot showing your request and the finished deck.")
 for title, url in T2SRC.SOURCES[:7]: src(title + ": " + url)
 for code_ in ("S2", "02", "03"): lab_section(LAB[code_])
 
@@ -291,28 +302,33 @@ h2("3.1 From one employee to a team of agents")
 p("A multi-agent system splits one big goal into specialist jobs that hand work to each other, with a human in charge. One agent fills one context window with every task and uses one set of "
   "instructions for every voice; a team gives each job its own agent and runs independent jobs in parallel. More agents also mean more hand-offs to check, so use a team when the jobs are truly different.")
 table(["Every agent has its own…", "What it means", "Kopi Kaki example"], [
-    ("Tools", "What it can do", "image-creator has the image tool; researcher has web search"),
+    ("Tools", "What it can do", "Pixel has the image tool; Rafi has web search"),
     ("Unique skills", "How it does the job well", "video-producer has the hyperframes skill"),
-    ("Model", "How it thinks — big or small, any provider", "a careful model for the researcher, a fast one for drafts"),
+    ("Model", "How it thinks — big or small, any provider", "a careful model for Rafi, a fast one for drafts"),
     ("Instructions", "Who it is and its rules (SOUL.md + AGENTS.md)", "the reviewer never approves on your behalf"),
-    ("Context window", "What it is holding in mind — its own memory and session", "the writers never see each other's drafts")])
+    ("Context window", "What it is holding in mind — its own memory and session", "each bot keeps its own chat and memory")])
 h2("3.2 How agents talk: the damaged-order example and ACP")
 p("“My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; "
   "a customer agent confirms the fix. Each hands a structured message to the next. At Kopi Kaki the same four hand-offs handle “My cold brew pre-order arrived spilled”, with refunds above SGD 20 waiting for you.")
 p("Agent Communication Protocol (ACP) is a standardised framework that enables AI agents to communicate in a structured, secure and predictable way by defining how they exchange messages, interpret intent, share context, "
   "and coordinate actions reliably at scale. IBM Research launched ACP in March 2025 for its open-source BeeAI platform; BeeAI and ACP were donated to the Linux Foundation, and in August 2025 ACP merged into the A2A (Agent2Agent) protocol.")
 src("LF AI & Data — ACP joins forces with A2A (29 Aug 2025): https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/")
-h2("3.3 Video skills and tools")
-table(["Tool", "How it makes video", "Install for Hermes"], [
-    ("HyperFrames (HeyGen)", "HTML/CSS + GSAP timing → MP4; lint, snapshot, preview, render; local voice-over with `npx hyperframes tts`", "hermes skills install official/creative/hyperframes · npx hyperframes doctor"),
-    ("Remotion", "React components → MP4; strong for templated videos at scale", "npx skills add remotion-dev/skills -a hermes-agent -g"),
-    ("Manim", "Python maths animation (3Blue1Brown style)", "built-in manim-video skill; pip install manim (+ LaTeX)")])
-h2("3.4 Profiles, the Kanban board and bots")
-bullets(["Profile — a separate Hermes agent with its own SOUL.md, memory, skills and model: `hermes profile create <name> --clone`.",
-         "Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done and the gateway is running; bind parents when you create the card. HUMAN cards are unassigned and only you complete them (`hermes kanban complete <id>`).",
-         "Bots — Desktop Bot Mode (the Bots tab) shows each profile as a named bot you can chat with; optionally give a profile its own Telegram bot token and run `<profile> gateway start`. A Telegram bot is a messaging account: two chats do not make two agents, separate profiles do."])
-img(os.path.join(SHOTS, "screenshots", "hermes-kanban.png"), "Reference Hermes Kanban board", 5.2)
+h2("3.3 Bots and group chats")
+bullets(["Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. Hire one in the Bots tab → New Agent: Name, Title, Description; Advanced takes its role file as Custom SOUL.md. Right-click → Edit Profile gives it an avatar.",
+         "Group chat — right-click a bot → Manage groups → create a room for 2–6 bots. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.",
+         "Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), in the group 'Kopi Social Team'. You approve every post."])
+src("Hermes Bot Mode (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode")
+img(os.path.join(SHOTS, "screenshots", "desktop", "bot-edit-profile.png"), "Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description", 4.4)
 lab_section(LAB["04"])
+h2("3.4 Video skills and tools, and the Kanban board")
+table(["Tool", "How it makes video", "How to install"], [
+    ("HyperFrames (HeyGen)", "HTML/CSS + GSAP timing → MP4; lint, snapshot, preview, render", "Ask Mia to install the official hyperframes skill and check what it needs"),
+    ("Remotion", "React components → MP4; strong for templated videos at scale", "Capabilities → Skills → search 'remotion'"),
+    ("Manim", "Python maths animation (3Blue1Brown style)", "Built-in manim-video skill; Mia installs Manim if you ask")])
+bullets(["Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done. HUMAN cards are unassigned and only you complete them (or tell Mia 'I approve — complete the card for me').",
+         "Prompt method — in Activity 5 one prompt to Mia creates the five video agents (they also appear in the Bots tab) and the seven-card board with your two HUMAN gates. Open Kanban in the sidebar to watch it run.",
+         "Group chat or board? Bots in a group talk their way to a result; a board makes the order explicit. Use a board when the steps are known and the stakes are high."])
+img(os.path.join(SHOTS, "screenshots", "hermes-kanban.png"), "Reference Hermes Kanban board", 5.2)
 h2("3.5 Grounding: RAG versus a standard LLM")
 p("A standard LLM answers from what it learned: fluent and cheap, but it does not know your price, dates or latest policy and can state a wrong fact confidently. A retrieval-augmented (RAG) system answers from passages it retrieved, "
   "quotes the approved source and its version, and says INSUFFICIENT EVIDENCE when nothing supports a claim — but it needs source owners, indexing, access control and refresh. "
@@ -325,31 +341,35 @@ table(["Test", "Example question", "Correct behaviour"], [
 p("Maintenance is part of feasibility: when a source changes, refresh the index, retire the obsolete version, re-run the four tests and re-review everything that quoted it. Evaluate retrieval by relevance, support, latency and cost — not fluency. "
   "A regulated business (bank, insurer, clinic) adds a named source owner, per-document access control and an audit log of every refresh.")
 lab_section(LAB["05"])
-h2("3.6 Evaluate and improve the team")
+h2("3.6 Activity 6 — crons make next week's content")
+p("A cron (scheduled job) starts the team's work without you: every Monday at 9:00 the week's three social drafts, every Friday at 10:00 a new video run on the Kanban board. "
+  "Automate the start of the work, never the approval: drafts wait for your APPROVE, the video still stops at both HUMAN gates. Test every job with Trigger now, pause what you cannot watch, and log what each job produced in cron-log.md.")
+lab_section(LAB["06"])
+h2("3.7 Evaluate and improve the team")
 table(["Metric", "What to measure"], [("Cycle time", "Brief to accepted output, including reviews and retries"), ("First-pass acceptance", "Share of outputs approved without revision"),
       ("Cost per accepted item", "Model and tool spend plus review minutes"), ("Defect rate", "Fact, brand and video-quality failures, counted separately")])
 p("Measure the same four numbers before and after any change to a skill, a SOUL.md or the team; keep a change only when the measured benefit exceeds its overhead. Compare the team with the agency quote (SGD 3,000 and two weeks) including your own review time.")
-h2("3.7 Five principles of AI security")
+h2("3.8 Five principles of AI security")
 table(["Principle", "Question", "Rule"], [
     ("Data Control", "What AI can see", "Classify your data (public, internal, confidential) and decide exactly which data the AI may access."),
     ("Permission Control", "What AI can do", "Grant only the rights needed — read, write, edit, delete. Ask before anything destructive."),
     ("Human in the Loop", "Who approves", "A person reviews and approves high-impact actions — sends, posts, payments, deletions."),
     ("Traceability", "What happened", "Log every prompt, tool call and change so actions can be audited, explained and rolled back."),
     ("Right-Sized Models", "Not the most powerful", "The smallest model that does the job has less autonomy and risk.")])
-p("In Hermes: read-only gog, a Telegram allow-list, approvals.mode manual, HUMAN Kanban cards, run history and file hashes, and a smaller model per profile.")
+p("In Hermes: a read-only Gmail connector, the Telegram approved-users list, @user questions in group chats, HUMAN Kanban cards, run history and file fingerprints, and a smaller model per bot.")
 
 h1("Bonus Topic (optional) — Paperclip: Kopi Kaki as a One-Person Company")
 p("Kopi Kaki Co. decides to run as a one-person company (OPC): you are the founder, the Board and the only human. Paperclip (open source, github.com/paperclipai/paperclip) runs a company of AI agents — org chart, job titles, "
   "reporting lines, budgets, tasks and an approval inbox. Hermes Kanban organises tasks; Paperclip organises people. Its agents run on CLIs you already have (Hermes, Claude Code, Codex or Gemini CLI) as adapters.")
-bullets(["Install: `npx paperclipai onboard --yes`, then open http://localhost:3100 (Node.js 24.11+).",
+bullets(["Install: ask Mia to install and start Paperclip (she runs its one-line onboarder for you), then open http://localhost:3100. Node.js 24.11+ must be on the laptop.",
          "Set up the company: Kopi Kaki Co., the mission, a USD 60/month training budget, and Settings → General → Hiring → 'Require board approval for new hires' ON.",
-         "Set up the CEO (Ava): role CEO via the CLI and written instructions in AGENTS.md; her first task is to hire a Chief of Staff.",
+         "Set up the CEO (Ava): ask Mia to set her role to CEO (Paperclip has no Role field), then paste her written instructions into AGENTS.md; her first task is to hire a Chief of Staff.",
          "The Chief of Staff hires the marketing team — researcher, social copywriter, image creator, video producer, voice-over artist and an independent content reviewer — each through your Board approval.",
          "Show the org chart: Board → CEO → Chief of Staff → team. Then give the team the Activity 5 video brief and compare the result with your Hermes Kanban team."])
 img(os.path.join(SHOTS, "paperclip", "dashboard.png"), "Paperclip dashboard at http://localhost:3100 (trainer's demo company)", 5.2)
 table(["", "Hermes Kanban team (Activity 5)", "Paperclip company (bonus)"], [
     ("Who breaks down the work", "You create every card and parent", "The CEO and Chief of Staff create tasks"),
-    ("Who decides the team", "You create the profiles", "Managers propose hires; you approve"),
+    ("Who decides the team", "You (one prompt to Mia) create the agents", "Managers propose hires; you approve"),
     ("Control", "HUMAN cards on the board", "Approval inbox, budgets, hiring gate"),
     ("Best for", "A known pipeline you want to run exactly", "An ongoing operation you want to delegate and govern")])
 lab_section(LAB["B"])
@@ -393,7 +413,7 @@ def render_md():
         elif k == "numbered": o += [f"{i}. {x}" for i, x in enumerate(b[1], 1)] + [""]
         elif k == "code": o += [f"```{b[2]}", b[1], "```", ""]
         elif k == "note": o += [f"> **Note:** {b[1]}", ""]
-        elif k == "testit": o += [f"> **✅ Test it:** {b[1]}", ">"] + [f"> - [ ] {v}" for v in b[2]] + [""]
+        elif k == "testit": o += [f"> **✓ Test it:** {b[1]}", ">"] + [f"> - [ ] {v}" for v in b[2]] + [""]
         elif k == "src": o += [f"<sub>{b[1]}</sub>", ""]
         elif k == "img":
             rel = os.path.relpath(b[1], REPO)
@@ -411,7 +431,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):
@@ -448,7 +468,7 @@ for b in B:
     elif k == "testit":
         t = doc.add_table(rows=1, cols=1); t.style = "Table Grid"; c = t.rows[0].cells[0]
         prodoc._shade_cell(c, "E8F7EE"); c.text = ""
-        r = c.paragraphs[0].add_run("✅ Test it — " + b[1]); r.bold = True; r.font.size = Pt(10.5)
+        r = c.paragraphs[0].add_run("✓ Test it — " + b[1]); r.bold = True; r.font.size = Pt(10.5)
         for v in b[2]:
             pp = c.add_paragraph(); rr = pp.add_run("☐  " + v); rr.font.size = Pt(10)
         doc.add_paragraph().paragraph_format.space_after = Pt(2)

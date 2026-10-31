@@ -98,8 +98,8 @@ for day in (1, 2):
     table(D, "Roadmap", f"Lesson Plan — Day {day} (9:30 AM – 6:30 PM)", ["Time", "Session", "LU"], rows_,
           colw=[1.5, 9.7, 0.9], size=10.5 if day == 1 else 11)
 
-s = D.new(); header(D, s, "Roadmap · Hands-on", "Five Activities and a Bonus, One Startup Story",
-                    "Day 1: a CEO assistant, then your first AI employee. Day 2: AI marketing teams, then an AI company.")
+s = D.new(); header(D, s, "Roadmap · Hands-on", "Six Activities and a Bonus, One Startup Story",
+                    "Day 1: a CEO assistant, then one AI employee builds your website and deck. Day 2: bots, a Kanban team and crons — then an AI company.")
 for i, L in enumerate(LABS):
     r, c = divmod(i, 4); x = 0.6 + c * 3.08; y = 2.3 + r * 2.07
     dark = L["day"] == 2
@@ -117,7 +117,7 @@ if os.path.exists(shot):
     picture(s, shot, 0.7, 2.5, maxw=6.6, maxh=4.25)
 for i, (ic, t, d) in enumerate([
         ("download", "Get the labs", "github.com/tertiarycourses/TGS-2024043854-… → Code → Download ZIP. Unzip anywhere."),
-        ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into your chosen assistant or Hermes Desktop, as specified."),
+        ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into Hermes Desktop. No terminal needed."),
         ("folder", "Use the lab folder", "labs/labNN-…/ holds README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt and data/."),
         ("check", "Verify every result", "Each lab ends with a checkpoint — evidence, not vibes.")]):
     y = 2.5 + i * 1.08; icon(s, ic, 7.7, y, 0.52)
@@ -223,13 +223,13 @@ table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)
        ("compliance-rules.md · video-qa-checklist.md", "C1–C10 brand-safety rules · V1–V9 video checks", "Labs 2–5, bonus"),
        ("customer-reviews.csv · competitors.csv", "60 pop-up tasting reviews · 6 fictional competitors", "Setup, Labs 2–4"),
        ("product-catalogue.csv", "Menu and prices", "Labs 2–5"),
-       ("skills/ · souls/ · tasks/ · tools/", "Reviewed skills, team role files, Kanban task briefs, small tools", "Setup, Labs 3–5")],
+       ("skills/ · souls/ · tasks/ · tools/", "Reviewed skills, bot role files, Kanban task briefs, small tools", "Setup, Labs 3–6")],
       colw=[4.0, 5.6, 2.5], size=11.5)
 T2.what_is_hermes(D); T2.desktop(D); T2.model(D); T2.telegram(D)
-mark("t2b"); T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
-mark("t2c"); T2.gog(D); T2.cron(D)
+mark("t2b"); T2.voice(D); T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
+mark("t2c"); T2.gmail(D); T2.cron(D)
 lab_block(LAB["S2"], 2)
-mark("lab02"); T2.website(D); lab_block(LAB["02"])
+mark("lab02"); T2.website(D); lab_block(LAB["02"], 3)
 mark("lab03"); T2.deck(D, T2S); lab_block(LAB["03"])
 mark("t2close"); mark("day2")
 # ====================================================================== TOPIC 3 · YOUR AI MARKETING TEAMS
@@ -237,9 +237,9 @@ mark("t3")
 V34.topic3_open(D, C)
 V34.multi_intro(D)   # general introduction to multiple agents + the five things every agent owns
 V34.each_can(D); V34.handoff(D); V34.acp(D)   # trainer-added v3.3 slides, recreated natively
-V34.video_tools(D); V34.profiles_kanban_bots(D)
-mark("lab04"); V34.activity4_team(D); lab_block(LAB["04"])
-mark("lab05"); V34.video_team(D); V34.grounding(D); lab_block(LAB["05"], 3)
+mark("lab04"); V34.bots_and_groups(D); V34.social_team(D); V34.activity4_team(D); lab_block(LAB["04"], 3)
+mark("lab05"); V34.video_tools(D); V34.kanban_board(D); V34.video_team(D); V34.grounding(D); lab_block(LAB["05"], 3)
+mark("lab06"); V34.crons_week(D); lab_block(LAB["06"], 2)
 mark("t3b"); V34.security(D); V34.evaluation(D)
 mark("t3sum")
 # ====================================================================== BONUS · PAPERCLIP (optional)
@@ -250,12 +250,12 @@ mark("wrap")
 section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "Practice exam", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "An always-on CEO assistant checked your schedule and drafted your email; the harness and the human make agents reliable.", "brain"),
-    ("Topic 2", "One Hermes agent — Mia — got a model, Telegram, tools, skills, web search, your inbox and a schedule, then built the website and the pitch deck.", "robot"),
-    ("Topic 3", "Profiles, Kanban and bots became a social media team and a video team; you approved every post and the exact video. Bonus: Paperclip ran it as a company.", "building"),
+    ("Topic 2", "One Hermes agent — Mia — got a model, Telegram, voice, tools, skills, web search, Gmail and a schedule, all from one app, then built the website and the pitch deck.", "robot"),
+    ("Topic 3", "Five bots in a group chat wrote the posts, a Kanban team made the video, and crons now start both every week; you approved everything. Bonus: Paperclip ran it as a company.", "building"),
     ("Your workforce", "Decide per task: agent, agent team or human — and where the human approves.", "handshake")],
     cols=4)
 rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
-    ("server", "Run 24/7", "Move Hermes to a small VPS or Docker host so cron and Telegram keep running."),
+    ("server", "Run 24/7", "Paid Nous Portal plans include one cloud-hosted agent, so scheduled jobs and Telegram keep running when your laptop sleeps."),
     ("puzzle", "Codify your SOPs", "Turn your team's checklists into SKILL.md skills and agent instructions."),
     ("shield", "Govern from day one", "Budgets, approval gates, audit trail — follow IMDA's agentic AI framework."),
     ("chart", "Measure", "Track cycle time, revisions, cost per deliverable and quality before you scale.")], dark=True)
