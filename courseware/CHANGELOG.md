@@ -1,5 +1,34 @@
 # Courseware change history
 
+## v3.7 — 1 November 2026
+
+- **A COPY THE PROMPTS button on every lab slide.** A large orange button sits at the top right of each lab intro slide and each prompt slide. Click it in Slide Show to open that lab's section of the Lab Prompts page (for example prompts/#lab-S2), where every prompt has a Copy button.
+- **No Practice Exam slide.** Removed at the end of the deck, as the trainer asked.
+- **The Learner Guide follows the deck.** The Topic 2 setup lab now comes before Activities 2 and 3.
+- Assessment v7 is unchanged. FG and AP v14.
+
+## v3.6 — 31 October 2026 (not published separately)
+
+- **The Big Five comparison is back (Topic 1).** A new slide puts Meta Muse, OpenAI Dots, Grok Bot, Claude Duet and Manus Cue side by side. For each agent it shows the maker, the model inside, what to use it for, a Kopi Kaki job and who can get it. The models, checked against each maker's announcement on 31 Oct 2026, are Muse Spark (Muse Wonder coming soon), GPT-6 Astra, Grok 4.6 then 4.7, Claude Opus 5.5, and the Manus 2.0 harness (Manus does not publish the model). The Learner Guide's section 1.7 has the same table.
+- **A2A removed (Topic 3).** The ACP/A2A protocol slide, its Learner Guide paragraph and the A2A example in Scenario 5 are gone. Scenario 5 now cites Grok Bot's own email inbox.
+- **Your multi-agent screenshots (Topic 3)** are redrawn as five native, editable diagrams in the deck style, each mapped onto Activities 4 and 5 (the Learner Guide gets a matching hub-and-spoke diagram):
+  - hub-and-spoke;
+  - how a request travels out to the spokes and back;
+  - task decomposition;
+  - the 5-step decomposition framework, answered for the Activity 5 video;
+  - subagents (Hermes `delegate_task`).
+- **Your v3.5 hand edits are ported.** The labs no longer have Checkpoint & Reflection slides; the checks stay in each lab sheet and in the Learner Guide. The "Was the team worth it?" slide is gone.
+- **Prompt links on the slides.** Every lab intro slide shows a clickable link to that lab on the Lab Prompts page (for example https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/#lab-S2). The label on every prompt slide opens the same section, so learners copy the prompt instead of retyping it.
+- **Topic 2 in your order:**
+  - What an AI agent is: the components slide moves here from Topic 1.
+  - What Hermes Agent is.
+  - Install Hermes Desktop, then hand Mia the AGENTS.md rulebook: in the chat box, + → Folder… → kopi-kaki, then a first prompt that tells her to follow AGENTS.md. Every Hermes lab now starts this way.
+  - Provider and model: Nous Portal free (Upstage Solar Mini 4) or ChatGPT Plus.
+  - Telegram, two ways: the quick Create with QR, or manually with BotFather, a token and Allowed Telegram user IDs.
+  - Tools and skills: the difference (moved from Topic 1), then Gmail, web design and PPTX. Firecrawl stays for Topic 3.
+  - Activities 2 (website) and 3 (PPT).
+- Assessment v7 is unchanged. The FG and AP are now v14.
+
 ## v3.5 — 31 October 2026
 
 - **No command lines.** Every Topic 2 and Topic 3 step is now a click in Hermes Desktop or a prompt the agent carries out. The trainer's Hermes Desktop screenshots (version check, Settings → Model, Telegram Create with QR, Voice, Capabilities → Skills and Connectors, Scheduled jobs, bot profiles and a bot group chat, the Activity 2 website) sit on the slides that explain them. The Telegram user ID is blurred.

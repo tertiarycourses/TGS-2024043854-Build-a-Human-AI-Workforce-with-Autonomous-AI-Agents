@@ -41,7 +41,7 @@ Each folder contains `README.md`, `LAB-<code>-Instructions.pdf` (printable, ever
 
 ## Conventions
 - Prompts are plain English; terminal commands are marked `bash`.
-- Hermes: start it inside `~/kopi-kaki` so `AGENTS.md` is loaded.
+- Hermes: in the chat box click + → Folder… and choose your kopi-kaki folder, then ask Mia to read and follow `AGENTS.md`.
 - Nothing public is ever posted or sent without your explicit APPROVE.
 - Platforms move fast — if a command differs on your version, check `--help` and the official docs ([Hermes](https://hermes-agent.nousresearch.com/docs/) · [Paperclip](https://github.com/paperclipai/paperclip) · [OpenAI Dots](https://learn.chatgpt.com/docs/dots/getting-started)).
 

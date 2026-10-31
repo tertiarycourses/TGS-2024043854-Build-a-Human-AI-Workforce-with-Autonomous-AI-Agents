@@ -119,7 +119,7 @@ for i, (ic, t, d) in enumerate([
         ("download", "Get the labs", "github.com/tertiarycourses/TGS-2024043854-… → Code → Download ZIP. Unzip anywhere."),
         ("file", "Open the prompts page", "Double-click prompts/index.html — pick your lab, click Copy, paste into Hermes Desktop. No terminal needed."),
         ("folder", "Use the lab folder", "labs/labNN-…/ holds README, LAB-NN-Instructions.pdf, COPY-PROMPTS.txt and data/."),
-        ("check", "Verify every result", "Each lab ends with a checkpoint — evidence, not vibes.")]):
+        ("check", "Verify every result", "Each lab sheet ends with its checks — evidence, not vibes.")]):
     y = 2.5 + i * 1.08; icon(s, ic, 7.7, y, 0.52)
     text(s, 8.38, y - 0.04, 4.4, 0.38, t, 15, INK, bold=True, font=SERIF)
     text(s, 8.38, y + 0.34, 4.4, 0.7, d, 11.5, MUTED, minpt=9)
@@ -178,12 +178,25 @@ def meet_kopi(kick):
         text(s, x + 1.08, y + 0.82, 4.65, 0.95, d, 13, SOFT)
 
 def _nb(t): return t.replace("`", "") if isinstance(t, str) else t
+PROMPTS_URL = "https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/"
+def prompts_link(L): return f"{PROMPTS_URL}#lab-{L['code']}"
+def prompts_button(s, L):
+    """Orange 'Lab Prompts' button, top right of the lab slide; the whole button opens this lab on the prompts page."""
+    from pptx.enum.shapes import MSO_SHAPE as _S
+    b = K.box(s, 8.45, 0.14, 4.3, 0.56, fill=K.ACC_D, line=K.WHITE, lw=2.0, shape=_S.ROUNDED_RECTANGLE, radius=0.5, shadow=True)
+    b.click_action.hyperlink.address = prompts_link(L)
+    t = text(s, 8.45, 0.14, 4.3, 0.56, f"▶  COPY THE PROMPTS  ·  lab {L['code']}", 15, K.WHITE, bold=True, align="c", anchor="m", autofit=False)
+    t.click_action.hyperlink.address = prompts_link(L)
 def lab_block(L, n_prompts=2):
     kick = ("Bonus topic" if L["topic"] == 4 else f"Topic {L['topic']}") + f" · {L['label']}"
     k = "lab" + L["code"]
     if k not in MARK: mark(k)
     mark(k + "i")
     lab_intro(D, {k: _nb(v) if isinstance(v, str) else ([_nb(x) for x in v] if k == "deliverables" else v) for k, v in L.items()}, kick)
+    s_i = D.prs.slides[-1]
+    prompts_button(s_i, L)
+    t = text(s_i, 0.6, 6.79, 12.1, 0.26, f"Copy every prompt for this lab ▸ {prompts_link(L)}", 11, K.TEAL, bold=True, autofit=False)
+    t.click_action.hyperlink.address = prompts_link(L)   # shape-level link keeps the teal text colour
     if L["code"] == "01": meet_kopi(kick)   # Activity 1 runs on Kopi Kaki meetings
     lab_flow(D, dict(L, check=_nb(L["check"])), kick)
     for fn in LAB_EXTRAS.get(L["code"], []): fn(L, kick)
@@ -192,11 +205,11 @@ def lab_block(L, n_prompts=2):
         prompt(D, kick, st["title"], st["prompt"],
                side=[("chat", "Paste into", _nb(st.get("where", "Hermes chat"))),
                      ("check", "Expect", _nb(st.get("expect", "A saved output in your workspace."))),
-                     ("hand", "You decide", _nb(st.get("decide") or L["human"]))])
-    if L["code"] == "01": return   # Lab 1 ends on its last task slide (checkpoint slide removed in v2.7)
-    rows(D, kick, f"{L['label']} — Checkpoint & Reflection",
-         [("check", "Verify", _nb(v)) for v in L["verify"][:3]] + [("lightbulb", "Concepts in action", _nb("  ·  ".join(L["concepts"][:2]))),
-                                                              ("rocket", "Stretch challenge", _nb(L["challenge"]))], dark=True)
+                     ("hand", "You decide", _nb(st.get("decide") or L["human"]))],
+               label=f"PROMPT  ·  click to copy it from the Lab Prompts page  ·  prompts/#lab-{L['code']}", url=prompts_link(L))
+        prompts_button(D.prs.slides[-1], L)
+    # No Checkpoint & Reflection slide: the trainer removed them from every lab (Lab 1 in v2.7, the rest in v3.5);
+    # the checks stay in each lab's README/PDF and the Learner Guide.
 
 def _cmd(L, kick, title, idx, side):
     st = L["steps"][idx]
@@ -225,9 +238,13 @@ table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)
        ("product-catalogue.csv", "Menu and prices", "Labs 2–5"),
        ("skills/ · souls/ · tasks/ · tools/", "Reviewed skills, bot role files, Kanban task briefs, small tools", "Setup, Labs 3–6")],
       colw=[4.0, 5.6, 2.5], size=11.5)
-T2.what_is_hermes(D); T2.desktop(D); T2.model(D); T2.telegram(D)
-mark("t2b"); T2.voice(D); T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
-mark("t2c"); T2.gmail(D); T2.cron(D)
+# Topic 2 order (trainer, v3.6): what an agent is -> what Hermes is -> install -> provider and model -> Telegram
+#   -> tools and skills (the difference; Gmail, web design, PPTX; Firecrawl kept for Topic 3) -> activities (website, PPT)
+V23.agent_components(D, "Topic 2 · What is an AI agent?")   # moved from Topic 1
+T2.what_is_hermes(D); T2.desktop(D); T2.folder(D); T2.model(D); T2.telegram(D)
+mark("t2b"); T2.voice(D); V23.tools_vs_skills(D, "Topic 2 · Tools and skills")   # moved from Topic 1
+T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
+mark("t2c"); T2.gmail(D); T2.cron(D); T2.web_skills(D); T2.pptx_skill(D)
 lab_block(LAB["S2"], 2)
 mark("lab02"); T2.website(D); lab_block(LAB["02"], 3)
 mark("lab03"); T2.deck(D, T2S); lab_block(LAB["03"])
@@ -236,18 +253,21 @@ mark("t2close"); mark("day2")
 mark("t3")
 V34.topic3_open(D, C)
 V34.multi_intro(D)   # general introduction to multiple agents + the five things every agent owns
-V34.each_can(D); V34.handoff(D); V34.acp(D)   # trainer-added v3.3 slides, recreated natively
-mark("lab04"); V34.bots_and_groups(D); V34.social_team(D); V34.activity4_team(D); lab_block(LAB["04"], 3)
-mark("lab05"); V34.video_tools(D); V34.kanban_board(D); V34.video_team(D); V34.grounding(D); lab_block(LAB["05"], 3)
+V34.hub_spoke(D); V34.comm_flow(D)   # trainer screenshots (v3.5 hand edit): hub-and-spoke
+V34.each_can(D); V34.handoff(D)   # trainer-added v3.3 slides, recreated natively
+V34.decomposition(D); V34.framework(D); V34.subagents(D)   # trainer screenshots (v3.5): task decomposition, subagents
+V34.bots_and_groups(D)   # Part A: hire bots with New Agent; group chats (LP row)
+mark("lab04"); V34.social_team(D); V34.activity4_team(D); lab_block(LAB["04"], 3)
+mark("lab05"); V34.video_tools(D); V34.kanban_board(D); V34.video_team(D); lab_block(LAB["05"], 3)
 mark("lab06"); V34.crons_week(D); lab_block(LAB["06"], 2)
-mark("t3b"); V34.security(D); V34.evaluation(D)
+mark("t3b"); V34.security(D); V34.grounding(D); V34.evaluation(D)   # Part B: security, RAG, metrics (LP row)
 mark("t3sum")
 # ====================================================================== BONUS · PAPERCLIP (optional)
 V34.bonus(D, C, mark); lab_block(LAB["B"], 3)
 mark("bonusend")
 
 mark("wrap")
-section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "Practice exam", "Assessment", "Digital attendance"])
+section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "Assessment", "Digital attendance"])
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "An always-on CEO assistant checked your schedule and drafted your email; the harness and the human make agents reliable.", "brain"),
     ("Topic 2", "One Hermes agent — Mia — got a model, Telegram, voice, tools, skills, web search, Gmail and a schedule, all from one app, then built the website and the pitch deck.", "robot"),
@@ -259,16 +279,7 @@ rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [
     ("puzzle", "Codify your SOPs", "Turn your team's checklists into SKILL.md skills and agent instructions."),
     ("shield", "Govern from day one", "Budgets, approval gates, audit trail — follow IMDA's agentic AI framework."),
     ("chart", "Measure", "Track cycle time, revisions, cost per deliverable and quality before you scale.")], dark=True)
-s = D.new(); header(D, s, "Test yourself", "Practice Exam", "Sharpen your readiness before the final assessment.")
-pe = asset("screenshots", "practice-exam.png")
-if os.path.exists(pe):
-    picture(s, pe, 0.7, 2.45, maxw=7.2, maxh=4.3)
-for i, (ic, t, d) in enumerate([("globe", "Open the portal", "https://exams.tertiaryinfotech.com"),
-                                ("clock", "Time yourself", "Attempt it under exam conditions."),
-                                ("book", "Review", "Read every explanation; revisit the matching lab.")]):
-    y = 2.6 + i * 1.35; icon(s, ic, 8.3, y, 0.55)
-    text(s, 9.0, y - 0.02, 3.7, 0.42, t, 16, INK, bold=True, font=SERIF)
-    text(s, 9.0, y + 0.42, 3.7, 0.8, d, 13, MUTED)
+# Practice Exam slide removed at the trainer’s request (v3.6, 1 Nov 2026).
 mark("assess")
 s = D.new(); header(D, s, "Assessment", "Final Assessment")
 for i, (ic, t, d, dark) in enumerate([

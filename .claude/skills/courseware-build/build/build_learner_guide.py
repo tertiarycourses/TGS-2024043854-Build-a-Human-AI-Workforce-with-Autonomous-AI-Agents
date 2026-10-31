@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -92,8 +92,6 @@ h2("1.2 Agentic AI and always-on AI agents")
 p("Agentic AI describes goal-directed systems that plan, act and use feedback; a system may contain one agent or a coordinated team. In this course we focus on an always-on AI agent as a persistent, 24/7-capable agentic system that can work between messages. This is the deployment focus of the course, not a universal definition of all AI agents or an uptime promise. A running host, access, budget and service availability are still required.")
 h2("1.3 Under the hood: how agents work")
 p("**Analogy.** A person does work with a brain and a body, fuelled by food. An AI agent does work with a model (the brain: it reasons and proposes the next step) and a harness (the body: tools, memory, skills and controls), fuelled by tokens. No food, no work; no tokens, no work. Every read, reasoning step and reply spends tokens, so a token budget is the agent's running cost.")
-p("Before using an agent, open the system it runs in. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.")
-table(["Component","Function","What to inspect"],[("Model","Proposes next tokens and actions","Model access and observed limitations"),("Tools","Execute reads, calculations, browsing and rendering","Actual executable/API result"),("Skills","Reusable procedures and verification checks","Reviewed SKILL.md, scripts and source"),("Memory","Persist approved preferences and decisions","Saved entry and fresh-session recall"),("Knowledge base","Curated evidence with owners and versions","Source access, freshness and passage support"),("Instructions","Goal, policies and output contract","Authority and stop conditions"),("Context","Selected instructions, memory, retrieved knowledge and recent tool results","Relevant material fits the finite context window"),("Agentic loop","Observe → select → act → verify → repeat/ask/stop","Real state changes and error handling"),("Security","Identity, permissions, approvals, budgets and logs","OAuth and runtime policy checked separately")])
 p("Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.")
 h3("Inside the LLM: learning and next-token generation")
 p("A common autoregressive LLM uses a Transformer: text is represented as tokens, attention relates relevant context, and learned weights estimate the probability of the next token given preceding context. Pretraining changes the weights by learning from examples; inference generates a response using those weights and the supplied context. A skill, memory entry or retrieved file changes runtime context, not the model weights. Generation is not a database lookup and confidence in wording does not prove correctness.")
@@ -116,7 +114,7 @@ table(["Scenario","How it works","Where you see it today"],[
  ("2 · Multiple humans, one AI agent","One agent in the team chat becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the group.","An OpenClaw or Hermes bot in a Telegram or WhatsApp group; Claude in Slack or any bot a channel can @mention; one agent triaging a shared support inbox."),
  ("3 · One human, multiple AI agents","Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel.","Hermes profiles on a Kanban board (Activities 4 and 5); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat."),
  ("4 · Multiple humans, multiple AI agents","A whole organisation runs on agents: many people build and run their own, all aimed at shared goals.","Singapore public healthcare: 80,000+ staff built 12,000+ AgentSea agents; Stanford's virtual biotech of 37,000 AI scientist agents; a department Kanban board where each card has a human owner and an agent assignee."),
- ("5 · Inter-company collaboration","Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off.","Agent-to-agent standards such as Google's Agent2Agent (A2A); Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses.")])
+ ("5 · Inter-company collaboration","Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off.","Grok Bots with their own @mail.grokbot.com inbox, where an outside company's email can start a routine; Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses.")])
 p("Real examples shown in class: an assistant flagging a weekend schedule clash (scenario 1), an OpenClaw agent in a trainers' group chat reassigning a course run and reporting a blocker (scenario 2), and six Hermes profiles running a YouTube channel (scenario 3). Third-party names in these screenshots are blurred. As scenarios scale, govern them with named owners, permissions for each role and an audit trail, and treat anything from another company's agent as untrusted until a person verifies it.")
 p("**Try scenario 2 now.** Scan the QR code below (or open https://wa.me/message/YMQB2CFYVGL3I1) to message Tertiary Infotech Academy's WhatsApp Business account. Everyone in the class messages the same account at once. Ask something real, such as which AI agent courses run next month or for this course's brochure, then compare answers with your neighbour: which replies came back instantly, and which waited for a person?")
 img(os.path.join(SHOTS, "topic1", "whatsapp-qr.png"), "Scan to chat with Tertiary Infotech Academy on WhatsApp", 2.2)
@@ -139,7 +137,10 @@ table(["Stage","What the agent does","What the human decides"],[("1 Discovery","
 h2("1.7 Always-on agents: the Big Five")
 p("OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet, Grok Bot and Cue is a teaching progression through deployment/work choices, not corporate lineage. Local agents stop when their runtime stops; a managed cloud agent can keep working while your device is off, within its current limits. A list of avatars is not proof of multi-agent execution; verify actual worker runs, owned outputs and hand-offs.")
 p("Compare the agents with a job-fit, control, access and limits framework (BULDRR). It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.")
-table(["Agent","Useful starting job","Human control to inspect","Access checkpoint"],[("Meta Muse","Schedule, errands and personal email","Connector permissions + sensitive-action approval","Singapore since 27 Oct; free core use"),("OpenAI Dots","Persistent goals and delegated tasks","Connection permissions, custom rules and review","Pro, Business Premium; Enterprise beta"),("Grok Bot","Named workers sharing ongoing work","Approval settings; shared cloud logins across bots","Check your plan's access"),("Claude Duet","Work briefs and business follow-ups","Approval before sensitive actions; some actions disallowed","US Pro/Max waitlist preview"),("Manus Cue","Personal errands, bookings and calls","Per-agent permissions, wallet budget, review boundaries","Early access; free with invite code")])
+p("**The Big Five side by side.** The model decides how the agent thinks; the use case decides whether it fits your job. Models below were checked on 31 October 2026 against each maker's own announcement; vendors change models without notice, so check again before you rely on one.")
+table(["Agent (maker)","Model inside","Use it for","At Kopi Kaki"],[("Meta Muse (Meta)","Muse Spark; Meta says Muse Wonder will power Muse soon, subscribers first","Personal email, schedules and goals; errands with Singapore partners such as Grab, Shopee and Singapore Airlines as they roll out","Sort your inbox and calendar before the Saturday pop-up"),("OpenAI Dots (OpenAI)","GPT-6 Astra","Ongoing goals inside ChatGPT, Slack and Teams; hands coding work to Codex","Check pre-orders every morning and flag a dip"),("Grok Bot (xAI)","Launched on Grok 4.6; Grok 4.7 (21 Sep 2026) is trained for the Grok Bot harness","A team of named bots (Research, Sales, Ops) sharing one cloud computer","A Research bot and a Sales bot working from one supplier list"),("Claude Duet (Anthropic)","Claude Opus 5.5","A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays, signs or deletes","A 7 am brief: overdue invoices and supplier emails that need you"),("Manus Cue (Manus)","Runs on the Manus 2.0 Cascade agent harness; Manus does not publish the model","Agents with their own email, phone and wallet: calls, bookings and payments within a budget","Call three venues and shortlist the launch party")])
+src("Models: Meta — https://ai.meta.com/blog/introducing-muse-spark-msl/ and https://research.meta.ai/blog/muse-wonder ; OpenAI — https://openai.com/index/introducing-dots/ ; xAI — https://x.ai/news/grok-4-7 ; Anthropic — https://claude.com/resources/articles/claude-duet ; Manus — https://manus.im/blog/introducing-manus-2-0")
+table(["Agent","Human control to inspect","Access checkpoint"],[("Meta Muse","Connector permissions + sensitive-action approval","Singapore since 27 Oct; free core use"),("OpenAI Dots","Connection permissions, custom rules and review","Pro, Business Premium; Enterprise beta"),("Grok Bot","Approval settings; shared cloud logins across bots","Check your plan's access"),("Claude Duet","Approval before sensitive actions; some actions disallowed","US Pro/Max waitlist preview"),("Manus Cue","Per-agent permissions, wallet budget, review boundaries","Early access; free with invite code")])
 p("Activity 1 has three parts. **1A, everyone:** join Meta Muse at muse.ai with your Facebook account and redeem your trainer’s invite code. **1B, if your ChatGPT plan includes dots:** set up an OpenAI Dot and give it a standing job. **1C, everyone:** install Wispr Flow and speak your prompts instead of typing them. Grok Bot, Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.")
 h3("Meta Muse (Activity 1A: everyone)")
 p("**What it can do** (Singapore since 27 Oct 2026; free for most needs): Manages email, schedules and goals; Gmail, Google Calendar and Instagram connectors; Singapore partners (Shopee, Lazada, Grab, Singapore Airlines, Agoda, Klook, Trip.com, ShopBack) rolling out; checks before sending or buying; Muse Secure VM keeps passwords and payment methods out of the agent's view.")
@@ -241,7 +242,10 @@ import labs_v34_t2 as T2SRC
 h1("Topic 2 — " + C.TOPICS[1]["title"])
 p(C.SCENARIO + ". You are the founder-CEO; all company data is fictional. "
   "In Topic 1 an always-on assistant handled your schedule. In Topic 2 you hire your first AI employee — a Hermes agent called Mia — and give her, step by step, everything an employee needs.")
-h2("2.1 What Hermes Agent is")
+h2("2.1 What an AI agent is")
+p("Before using an agent, open the system it runs in. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.")
+table(["Component","Function","What to inspect"],[("Model","Proposes next tokens and actions","Model access and observed limitations"),("Tools","Execute reads, calculations, browsing and rendering","Actual executable/API result"),("Skills","Reusable procedures and verification checks","Reviewed SKILL.md, scripts and source"),("Memory","Persist approved preferences and decisions","Saved entry and fresh-session recall"),("Knowledge base","Curated evidence with owners and versions","Source access, freshness and passage support"),("Instructions","Goal, policies and output contract","Authority and stop conditions"),("Context","Selected instructions, memory, retrieved knowledge and recent tool results","Relevant material fits the finite context window"),("Agentic loop","Observe → select → act → verify → repeat/ask/stop","Real state changes and error handling"),("Security","Identity, permissions, approvals, budgets and logs","OAuth and runtime policy checked separately")])
+h2("2.2 What Hermes Agent is")
 p("Hermes Agent (Nous Research, MIT licence) is an open-source agent: a model inside a harness of tools, skills, memory and channels. "
   "In this course you use it only through Hermes Desktop — an app you install like any other. Mia remembers across sessions, learns skills, talks to you on Telegram, "
   "runs scheduled jobs, and — in Topic 3 — works in teams of bots and on a Kanban board. Whenever a technical step is needed, Mia does it for you with her terminal tool; you never type commands.")
@@ -253,28 +257,48 @@ table(["Part", "What it is for Mia", "Where you set it in Hermes Desktop"], [
     ("Skills", "How to do a job well: steps, rules and checks in a SKILL.md", "Capabilities → Skills, or ask Mia to install one"),
     ("Messaging + schedules", "How she reaches you, and when she starts work by herself", "Messaging · Scheduled jobs")])
 img(os.path.join(SHOTS, "screenshots", "desktop", "skills.png"), "Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel", 5.2)
-h2("2.2 Install Hermes Desktop")
+h2("2.3 Install Hermes Desktop and point it at your company folder")
 p("Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop and install it like any app. "
   "On first run choose 'Choose provider later' and the Basic layout. Check Settings → About → Version & updates: it should say you are running the latest version. "
-  "Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; start every Mia session with that folder as the working folder so AGENTS.md loads.")
+  "Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; AGENTS.md sits at the top of that folder.")
+p("**Hand Mia the company rulebook: + → Folder….** AGENTS.md is Kopi Kaki's rulebook: who the company is and the rules every agent follows. It comes with every Hermes lab's data/ files. "
+  "In Hermes Desktop: (1) drag the lab's data/ files into Desktop/kopi-kaki; (2) in the chat box click + (left of 'Ask anything') → Folder… and choose kopi-kaki; "
+  "(3) send 'Read AGENTS.md in the attached folder and follow it for this session' and check her answer matches the rules. Do this at the start of every lab. Type @ to point Mia at a single file, e.g. @AGENTS.md.")
+src("Context files: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files")
 img(os.path.join(SHOTS, "screenshots", "desktop", "version.png"), "Settings → About → Version & updates", 4.6)
-h2("2.3 Give Mia a brain: free, ChatGPT Plus or paid")
+h2("2.4 Provider and model")
+p("The provider serves the model; the model is the brain. Pick one route:")
 table(["Route", "How", "Cost"], [
-    ("This class: ChatGPT Plus", "Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply", "Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed"),
-    ("Free", "Status bar → Sign in next to Nous → create a free Nous Portal account", "Free tier: free models only, standard rate limits, $0"),
+    ("Paid, this class: ChatGPT Plus", "Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply", "Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed"),
+    ("Free: Upstage Solar Mini 4", "Status bar → Sign in next to Nous → free Nous Portal account → Settings → Model → Provider: Nous Portal → Solar Mini 4", "$0 — free models only, standard rate limits; Solar Mini 4 is the most-used free model on Nous Portal (31 Oct 2026)"),
     ("Paid", "Nous Portal Plus, or another provider's key in Settings → Providers", "Nous Plus USD 20/month (Super USD 100, Ultra USD 200)")])
 p("'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.")
-src("Nous Portal plans (checked 31 Oct 2026): https://portal.nousresearch.com/")
+src("Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models")
 img(os.path.join(SHOTS, "screenshots", "desktop", "model.png"), "Settings → Model → Main model with the ChatGPT or Codex Subscription provider", 5.0)
-h2("2.4 Telegram, voice, tools and skills")
-bullets(["Telegram: Messaging → Telegram → Quick setup → Create with QR. Scan it with your phone and confirm in Telegram; Hermes creates the bot and detects your user ID. Switch on Enabled and Save changes. Only approved users can talk to Mia. Send /sethome so scheduled results arrive in that chat.",
-         "Voice: Settings → Voice. Speech to text on (Live Transcription shows your words); Text to speech provider Edge (free) with Read Responses Aloud. The same free voice narrates the Activity 5 video.",
-         "Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.",
-         "Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well."])
+h2("2.5 Telegram messaging and voice")
+p("Give Mia a phone number. Left sidebar → Messaging → Telegram offers two ways to create her bot.")
+p("**Quick way (recommended): Create with QR.** Quick setup → Create with QR. Scan the code with the Telegram app on your phone, or open the link on this computer (the code expires in 30 minutes), and confirm in Telegram. Hermes creates the bot and detects your Telegram user ID automatically. Switch on Enabled and click Save changes.")
+p("**Manual way: BotFather.** Use it if the QR code does not work, or to see what the quick way does for you.")
+bullets(["Step 1 — Talk to BotFather. Open Telegram and search for BotFather (look for the official blue verification tick). Tap Start, then send /newbot.",
+         "Step 2 — Name your bot. Choose a display name (e.g. Mia · Kopi Kaki), then a unique username that ends in bot or _bot (e.g. kopikaki_mia_bot). If the name is taken, BotFather asks you to pick another.",
+         "Step 3 — Get your API token. BotFather generates an API token. Copy it and keep it safe: it is the password to your bot. Never paste it into a chat, a prompt or a slide.",
+         "Step 4 — Connect it in Hermes. Messaging → Telegram: paste the token into Bot token and add your numeric user ID (message @userinfobot in Telegram to get it) under Allowed Telegram user IDs. Without it, anyone can message your bot. Switch on Enabled and click Save changes."])
+p("Either way: send 'hi' to your bot, then /sethome so scheduled results arrive in that chat.")
+img(os.path.join(SHOTS, "screenshots", "desktop", "telegram-setup.png"), "Messaging → Telegram: Quick setup, Get your credentials and the Bot token field", 5.0)
+src("Telegram bots and BotFather: https://core.telegram.org/bots/features#botfather ; Hermes Telegram: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram")
+bullets(["Voice: Settings → Voice. Speech to text on (Live Transcription shows your words); Text to speech provider Edge (free) with Read Responses Aloud. The same free voice narrates the Activity 5 video."])
 img(os.path.join(SHOTS, "screenshots", "desktop", "text-to-speech.png"), "Settings → Voice → Text to speech: the free Edge voice", 4.8)
-h2("2.5 Web search with Firecrawl")
-p("Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat.")
-h2("2.6 Gmail by Google sign-in — no OAuth set-up")
+h2("2.6 Tools and skills: Gmail, web design and PPTX")
+p("A tool is the agent's hands: it actually does something — reads Gmail through Google's API, writes a file, renders slides. A skill is know-how: a SKILL.md folder of steps, rules and checks that tells the agent how to use its tools well for one kind of job. Installing a skill gives Mia neither the tool nor the permission; check all three separately.")
+table(["Job", "Tool (the hands)", "Skill (the know-how)"], [
+    ("Gmail", "The Gmail connector reads and sends through Google's real API", "kopi-email-brief: what to read, how to brief you, never send without SEND"),
+    ("Web design", "The file tool writes index.html", "web-design-guidelines / frontend-design from skills.sh: layout, accessibility, style"),
+    ("PPTX", "python-pptx writes editable slides with a native chart", "kopi-pitch-deck: problem → product → proof → plan → ask, brand rules, checks")])
+bullets(["Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.",
+         "Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well."])
+h3("Web search with Firecrawl")
+p("Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat. Topic 3's social media and video teams use the same web search.")
+h3("Gmail: a connector (tool) plus the kopi-email-brief skill — no OAuth set-up")
 p("Sign in to Nous (the free account is enough), then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. "
   "There is no OAuth client to create and no command to type: connectors are managed apps served through your Nous sign-in. Add Google Calendar the same way if your Connectors list shows it. "
   "Connector access on the free Nous tier is awaiting verification; your trainer confirms it before class.")
@@ -283,19 +307,25 @@ table(["Job", "How Mia does it", "Your rule"], [
     ("Summarise", "kopi-email-brief skill: urgent → replies needed → FYI", "Under 150 words, Asia/Singapore times"),
     ("Send", "Gmail connector, once", "Only after your SEND on the exact text")])
 img(os.path.join(SHOTS, "screenshots", "desktop", "connectors.png"), "Capabilities → Connectors: 100+ apps, connected with a normal sign-in", 5.0)
-h2("2.7 Scheduled jobs and the 8:00 email summary")
+h3("Gmail on a schedule: the 8:00 email summary")
 p("A scheduled job (a 'cron') makes Mia proactive: a schedule plus a prompt plus where to deliver. Open Scheduled jobs to see your jobs and the Blueprints (Morning briefing, Important-mail monitor, Weekly review …). "
   "Create one by asking Mia, then click Trigger now to test it. Hermes Desktop must be running when the job is due.")
 code("Create a scheduled job called 'Morning email brief' that runs every day at 8:00 Asia/Singapore time and delivers to my Telegram. Job: use the kopi-email-brief skill and the Gmail connector to summarise my unread Kopi Kaki email from the last 24 hours: urgent first, then replies needed, then FYI. Read only — never send or change anything.", "text")
 img(os.path.join(SHOTS, "screenshots", "desktop", "scheduled-jobs.png"), "Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now", 5.0)
-h2("2.8 Activity 2 — one agent builds the Kopi Kaki website")
+h3("Web design: UX skills from skills.sh")
 p("skills.sh is the open directory of agent skills. Read a skill's SKILL.md on skills.sh, then ask Mia to install it. Popular design skills (installs as of 30 Oct 2026): "
-  "Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia — a single agent — uses two of them to build a one-page site for the startup.")
-h2("2.9 Activity 3 — one agent builds the pitch deck")
+  "Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). The file tool writes the page; the skills decide how it should look and what to check.")
+h3("PPTX: the python-pptx tool plus the kopi-pitch-deck skill")
+p("Ask for a deck with the tool alone and every run is a fresh guess about order, colours and checks. Add the kopi-pitch-deck skill and Mia follows the same story order, brand rules and checks every time; improve the skill once and every run benefits.")
+lab_section(LAB["S2"])   # setup lab sits before the activities, as in the deck
+h2("2.7 Activity 2 — one agent builds the Kopi Kaki website")
+p("Mia — a single agent — installs two design skills from skills.sh and builds a one-page site for the startup: hero, price, launch date and a pre-order button, in Kopi Kaki's colours. Check every fact against the company files.")
+lab_section(LAB["02"])
+h2("2.8 Activity 3 — one agent builds the pitch deck")
 p("Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. "
   "Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop screenshot showing your request and the finished deck.")
 for title, url in T2SRC.SOURCES[:7]: src(title + ": " + url)
-for code_ in ("S2", "02", "03"): lab_section(LAB[code_])
+lab_section(LAB["03"])
 
 h1("Topic 3 — " + C.TOPICS[2]["title"])
 h2("3.1 From one employee to a team of agents")
@@ -307,12 +337,21 @@ table(["Every agent has its own…", "What it means", "Kopi Kaki example"], [
     ("Model", "How it thinks — big or small, any provider", "a careful model for Rafi, a fast one for drafts"),
     ("Instructions", "Who it is and its rules (SOUL.md + AGENTS.md)", "the reviewer never approves on your behalf"),
     ("Context window", "What it is holding in mind — its own memory and session", "each bot keeps its own chat and memory")])
-h2("3.2 How agents talk: the damaged-order example and ACP")
-p("“My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; "
+h2("3.2 How agents work together: hub-and-spoke, hand-offs and subagents")
+p("**Hub-and-spoke.** Rather than giving every responsibility to one agent, a multi-agent system divides the work among specialist agents that work toward one goal. A coordinator (the hub) hands out the pieces and collects the results; the specialists (the spokes) each do one piece. In Activity 4 you are the hub, @mentioning Rafi, Lin, Farah, Ivy and Pixel in the Kopi Social Team group. In Activity 5 Mia is the hub: one prompt, five video agents, one board.")
+img(os.path.join(SHOTS, "workflows", "hub-and-spoke.png"), "The hub-and-spoke model: one coordinator (hub) hands work to specialists (spokes) and combines what comes back", 6.0)
+p("**How a request travels.** (1) Your request enters the coordinator; (2) the coordinator splits it into tasks; (3) the tasks move out to the subagents; (4) the results return to the coordinator; (5) one final response comes back to you. In Activity 5: you ask Mia for a 20-second launch video; she creates seven cards on the kopi-video board; the researcher, scriptwriter, voice-over, producer and reviewer each work their card; their files (research.md, script.md, the narration, the MP4, the review) come back; and Mia reports to you. Nothing ships until you approve the exact video.")
+p("**Hand-offs in practice.** “My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; "
   "a customer agent confirms the fix. Each hands a structured message to the next. At Kopi Kaki the same four hand-offs handle “My cold brew pre-order arrived spilled”, with refunds above SGD 20 waiting for you.")
-p("Agent Communication Protocol (ACP) is a standardised framework that enables AI agents to communicate in a structured, secure and predictable way by defining how they exchange messages, interpret intent, share context, "
-  "and coordinate actions reliably at scale. IBM Research launched ACP in March 2025 for its open-source BeeAI platform; BeeAI and ACP were donated to the Linux Foundation, and in August 2025 ACP merged into the A2A (Agent2Agent) protocol.")
-src("LF AI & Data — ACP joins forces with A2A (29 Aug 2025): https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/")
+p("**Task decomposition** turns one large objective into smaller, specialised tasks that subagents can do on their own: understand the request, identify logical subtasks, assign responsibilities, and make sure the outputs can be combined later. Ask five questions in order:")
+table(["Step", "Question", "Answered for Kopi Kaki (Activity 5)"], [
+    ("1 · Understand the primary objective", "What is the user actually asking for?", "A 20-second cold brew launch video you can post on 1 Dec"),
+    ("2 · Identify independent subtasks", "Which parts can be separated cleanly?", "Research, script, voice-over, render and review"),
+    ("3 · Assign specialisation", "Which subagent is best suited for each task?", "video-researcher, scriptwriter, voice-over, video-producer, video-reviewer"),
+    ("4 · Define expected outputs", "What should each subagent return?", "research.md, script.md, the narration, the MP4, review notes"),
+    ("5 · Plan aggregation", "How will the coordinator combine the results?", "Mia follows the board; your two HUMAN cards close each stage")])
+p("**Subagents.** A coordinator spawns a subagent through a task tool; in Hermes that tool is delegate_task. The subagent starts with a completely fresh conversation: it knows only the goal and context the coordinator writes, it inherits the coordinator's enabled tools, and only its final summary comes back. Hermes runs up to 10 subagents at once by default. Subagents are temporary helpers for one job; your named bots (Rafi and the team) and the video agents are profiles that stay, with their own role, memory and chat.")
+src("Hermes subagent delegation (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation")
 h2("3.3 Bots and group chats")
 bullets(["Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. Hire one in the Bots tab → New Agent: Name, Title, Description; Advanced takes its role file as Custom SOUL.md. Right-click → Edit Profile gives it an avatar.",
          "Group chat — right-click a bot → Manage groups → create a room for 2–6 bots. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.",
@@ -431,7 +470,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

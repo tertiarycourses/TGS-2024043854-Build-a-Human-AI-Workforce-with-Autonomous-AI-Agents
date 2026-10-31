@@ -27,5 +27,24 @@ def build():
   for x,y in [(590,105),(590,330)]:
    d.line((x,y,x+21,y),fill='#C2603F',width=4);d.polygon([(x+25,y),(x+15,y-7),(x+15,y+7)],fill='#C2603F')
   im.save(ROOT/f'activity-{n:02d}.png')
+ hub_spoke()
  return ROOT
 if __name__=='__main__':build()
+
+def hub_spoke():
+ """Learner Guide 3.2: the hub-and-spoke model, redrawn from the trainer's v3.5 screenshot with the Activity 4 team."""
+ im=Image.new('RGB',(1200,560),'#FAF9F5');d=ImageDraw.Draw(im)
+ B=lambda n:ImageFont.truetype(BOLD,n);R=lambda n:ImageFont.truetype(FONTP,n)
+ hx,hy=250,280
+ spokes=[('Rafi','market research'),('Lin','LinkedIn post'),('Farah','Facebook post'),('Ivy','Instagram post'),('Pixel','post images')]
+ for i,(n,job) in enumerate(spokes):
+  y=40+i*100
+  d.line((hx+95,hy,700,y+40),fill='#B9B4A9',width=4)
+  d.rounded_rectangle((700,y,1170,y+80),radius=14,fill='#FFFFFF',outline='#3A7D7B',width=3)
+  d.ellipse((718,y+14,770,y+66),fill='#3A7D7B');d.text((744,y+40),n[0],font=B(28),fill='#FFFFFF',anchor='mm')
+  d.text((790,y+20),n,font=B(32),fill='#21201C');d.text((925,y+24),job,font=R(28),fill='#6B6862')
+ d.ellipse((hx-95,hy-95,hx+95,hy+95),fill='#D97757')
+ d.text((hx,hy-14),'HUB',font=B(40),fill='#FFFFFF',anchor='mm');d.text((hx,hy+28),'coordinator',font=R(26),fill='#FFFFFF',anchor='mm')
+ d.text((hx,hy+130),'You, in Activity 4',font=B(30),fill='#21201C',anchor='mm')
+ d.text((935,548),'SPOKES · the specialists',font=B(24),fill='#3A7D7B',anchor='mb')
+ im.save(ROOT/'hub-and-spoke.png')

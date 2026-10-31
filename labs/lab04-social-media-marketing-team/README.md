@@ -36,7 +36,7 @@ You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. Th
 
 | File | What it is |
 |---|---|
-| `AGENTS.md` | Company context Hermes loads automatically |
+| `AGENTS.md` | Company rulebook: attach this folder with + → Folder… and tell Mia to follow it |
 | `brand-guide.md` | Brand voice, colours, platform formats |
 | `campaign-brief.md` | Gula Melaka Cold Brew campaign brief (offer, KPIs, timeline) |
 | `compliance-rules.md` | C1–C10 brand-safety and escalation rules |
@@ -62,7 +62,7 @@ Copy-ready prompts: [`COPY-PROMPTS.txt`](COPY-PROMPTS.txt) or the course [Lab Pr
 ## Steps
 
 ### 1. Copy the team files into your company folder (3 min)
-In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: Mia now has this lab's files and AGENTS.md. Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.' souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
 
 ✓ **Expected:** souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files.
 

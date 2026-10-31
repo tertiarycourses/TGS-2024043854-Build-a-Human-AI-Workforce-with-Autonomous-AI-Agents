@@ -2,6 +2,7 @@
 All diagrams are editable teaching models, not simulated execution screenshots.
 """
 from ccdeck import *
+import ccdeck as K
 from slides_2026 import trace,proof,tag,case_pair
 from labs_v23 import NEWS,IOS,ANDROID
 ARTICLE='https://buldrr.com/claude-duet-vs-muse-vs-grokbot-vs-dots'
@@ -292,13 +293,8 @@ def topic1(D,C,mark):
  compare(D,'Topic 1 · Agents and agentic AI','Agentic AI Is the System. An Agent Does the Work.',
  ('Agentic AI','network',['Goal-directed planning, action and feedback.','May contain one agent or a coordinated team.','The harness controls access, state and execution.']),
  ('Always-on agent · course focus','clock',['A persistent, 24/7-capable agentic system.','Can act between messages while runtime is available.','Examples: OpenClaw, Hermes, Muse and Dots.']),tipt='Always-on describes the deployment we study; it is not a universal definition of every AI agent or an uptime promise.');tag(D,'ARCH','Anthropic building effective agents; vendor agent documentation')
- # Under the hood (before Lab 1): analogy -> the model inside its harness -> tools and skills -> the loop.
+ # Under the hood (before Lab 1): analogy -> the loop. The agent components and tools vs skills moved to Topic 2 (v3.6, trainer order).
  analogy(D)
- hub(D,'Topic 1 · Under the hood','What Makes an AI Agent: a Model Inside a Working System','AI agent',[
- ('brain','Model','Reasons and proposes the next action.'),('tool','Tools','Read, calculate, browse, render.'),('book','Skills','Reusable procedures and checks.'),('memory','Memory','Approved persistent facts.'),('folder','Knowledge base','Curated evidence and versions.'),('file','Instructions','Goal, policy and output contract.'),('shield','Runtime controls','Loop, permissions, limits and logs.')],foot='A more capable model cannot compensate for missing access, poor sources or an unverified action.');tag(D,'ARCH',HERMES)
- compare(D,'Topic 1 · Under the hood','Tools Execute. Skills Explain How.',
- ('Tool','tool',['The Gmail connector reads your inbox through a real API.','Python calculates a workbook total.','FFmpeg renders an actual MP4.']),
- ('Skill','book',['kopi-email-brief sets read limits and source checks.','professional-ppt defines a repeatable slide process.','launch-video defines scenes, render and QA.']),tipt='Installing a skill creates neither the executable nor Google permission. Verify all three separately.');tag(D,'ARCH',HERMES)
  loop(D,'Topic 1 · Under the hood','The Agentic Loop: Observe, Act, Verify',[
  ('target','Goal','Bounded outcome'),('search','Observe','Read permitted evidence'),('brain','Select','Choose next action'),('tool','Act','Execute tool'),('eyecheck','Verify','Inspect real result'),('hand','Decide','Repeat, ask or stop')],foot='Tool errors are observations. Never replace an unavailable result with an invented success.');tag(D,'ARCH','ReAct; Hermes documentation')
  # Where people stay in charge.
@@ -336,7 +332,7 @@ def topic1(D,C,mark):
   'pattern4.jpg',tipt='Scale needs governance: named owners, permissions for each role and an audit trail.')
  scenario(D,5,'Inter-Company Collaboration','Your agent negotiates with their agent',
   'Agents start working across the company wall. A buyer’s agent requests quotes, a supplier’s agent checks stock and replies, and people on both sides sign off.',
-  [('network','Agent-to-agent protocols','Open standards such as Google’s Agent2Agent (A2A) let agents from different vendors talk to each other.'),
+  [('mail','Agents with their own inbox','Each Grok Bot gets its own @mail.grokbot.com address: an email from another company can start its routine.'),
    ('cart','Personal agents meeting business services','Meta Muse working with Singapore partners such as Grab and Singapore Airlines as they roll out.'),
    ('phone','Agents with their own identity','Manus Cue agents with their own email, phone and wallet, calling and paying outside businesses.')],
   'pattern5.jpg',tipt='Treat anything from another company’s agent as untrusted until a person verifies it.')
@@ -360,13 +356,14 @@ def topic1(D,C,mark):
  mark('t1b')
  timeline(D,'Topic 1 · Deployment evolution','OpenClaw → Hermes → Hosted Personal Agents',[
  ('OpenClaw','Configurable harness','Local/server tools and channels.'),('Hermes Agent','Desktop + skills','Local workflow, memory and reusable procedures.'),('Hosted agents','Managed cloud','Dots, Muse, Duet, Grok Bot and Cue.'),('Your choice','Work + control','Access, oversight, cost and data boundaries.')],foot='A teaching progression in deployment choices, not corporate lineage or a claim one product replaced another.');tag(D,'ARCH','Official OpenClaw, Hermes, Meta, Anthropic, xAI and OpenAI docs')
- table(D,'Topic 1 · The Big Five','The Big Five: Same Always-On Idea, Different Jobs',
- ['Product','Useful starting job','Human control to inspect','Access checkpoint'],[
- ('Muse','Schedule, errands and personal email','Connector permissions + sensitive-action approval','Singapore since 27 Oct; free core use'),
- ('Dots','Persistent goals and delegated tasks','Connection permissions, custom rules and review','Pro, Business Premium; Enterprise beta'),
- ('Grok Bot','Named workers sharing ongoing work','Approval settings; shared cloud logins across bots','Check your plan’s access'),
- ('Duet','Work briefs and business follow-ups','Approval before sensitive actions; some actions disallowed','US Pro/Max waitlist preview'),
- ('Cue','Personal errands, bookings and calls','Per-agent permissions, wallet budget, review boundaries','Early access; free with invite code')],colw=[1.4,3.4,4.6,2.7],size=12.5,sub='Five hosted always-on agents; one briefing slide each follows, with its official source.',tipt='No universal winner. Verify your current account, region, connector and action controls before delegating.');tag(D,'MODEL',ARTICLE+' ; '+DUET+' ; '+NEWS+' ; '+GROK+' ; '+DOTS);source(D,ARTICLE,'Comparison reference: BULDRR · click to read')
+ big_five_compare(D)
+ table(D,'Topic 1 · The Big Five','Before You Connect Anything: Who Asks First, Who Can Get In',
+ ['Product','Human control to inspect','Access checkpoint'],[
+ ('Muse','Connector permissions + sensitive-action approval','Singapore since 27 Oct; free core use'),
+ ('Dots','Connection permissions, custom rules and review','Pro, Business Premium; Enterprise beta'),
+ ('Grok Bot','Approval settings; shared cloud logins across bots','Check your plan’s access'),
+ ('Duet','Approval before sensitive actions; some actions disallowed','US Pro/Max waitlist preview'),
+ ('Cue','Per-agent permissions, wallet budget, review boundaries','Early access; free with invite code')],colw=[1.6,6.3,4.2],size=13,sub='Same always-on idea, different guard-rails. One briefing slide per agent follows, with its official source.',tipt='No universal winner. Verify your current account, region, connector and action controls before delegating.');tag(D,'MODEL',ARTICLE+' ; '+DUET+' ; '+NEWS+' ; '+GROK+' ; '+DOTS);source(D,ARTICLE,'Comparison reference: BULDRR · click to read')
  brief(D,'Meta Muse','Meta · available in Singapore since 27 Oct 2026 · Activity 1A: everyone joins with the trainer’s invite code',[
   ('check','Does the work','Manages email, coordinates schedules and turns long-term goals into action plans.'),
   ('plug','Connected apps','Gmail, Google Calendar and Instagram; Singapore partners such as Grab, Shopee and Singapore Airlines are rolling out.'),
@@ -427,6 +424,53 @@ def topic1(D,C,mark):
    ('Connect + routines','Connect Gmail or other services, then define routines for repeat steps.')],
   'Reference route, not assessed. Keep wallet budgets small; require approval for payments, calls and messages.',
   [('Cue by Manus: cue.im · click',CUE),('YouTube: Meet Manus Cue (Short) · click',CUE_VIDEO)],logo='logo-cue.png',video=(CUE_VIDEO,'video-cue.jpg'),step=4.2)
+
+MUSE_SPARK='https://ai.meta.com/blog/introducing-muse-spark-msl/'
+MUSE_WONDER='https://research.meta.ai/blog/muse-wonder'
+DOTS_NEWS='https://openai.com/index/introducing-dots/'
+GROK47='https://x.ai/news/grok-4-7'
+def big_five_compare(D):
+ """The Big Five side by side: maker, the model inside, what to hand it, a Kopi Kaki job and access (models checked 31 Oct 2026)."""
+ s=D.new(dark=True);header(D,s,'Topic 1 · The Big Five','Same Always-On Idea, Five Different Brains',
+  'The model decides how it thinks; the use case decides whether it fits your job. Pick by the job, then check who can get it.')
+ five=[('logo-muse.png','Meta Muse','Meta','Muse Spark','Muse Wonder coming soon, subscribers first',
+        'Personal email, schedules and goals; errands with Grab, Shopee and SIA as partners roll out','Sort your inbox and calendar before the Saturday pop-up','Singapore · free core use'),
+       ('logo-dots.png','OpenAI Dots','OpenAI','GPT-6 Astra','its own cloud computer, 24/7',
+        'Ongoing goals inside ChatGPT, Slack and Teams; hands code to Codex','Check pre-orders every morning and flag a dip','ChatGPT Pro · Business Premium'),
+       ('logo-grok.png','Grok Bot','xAI','Grok 4.6 → 4.7','4.7 is trained for the Grok Bot harness',
+        'A team of named bots (Research, Sales, Ops) on one shared cloud computer','A Research bot and a Sales bot share one supplier list','Paid plans · check yours'),
+       ('logo-duet.png','Claude Duet','Anthropic','Claude Opus 5.5','chosen for judgement: what needs you',
+        'A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays or signs','A 7 am brief: overdue invoices and supplier emails','US Pro/Max · waitlist'),
+       ('logo-cue.png','Manus Cue','Manus','Manus 2.0 harness','model not published by Manus',
+        'Agents with their own email, phone and wallet: calls, bookings, payments within a budget','Call three venues and shortlist the launch party','Early access · invite code')]
+ w=2.36;gap=.07
+ for k,(logo,name,maker,model,note,use,kk,acc) in enumerate(five):
+  x=.6+k*(w+gap)
+  card(s,x,2.3,w,4.35,fill=K.PANEL,shadow=False)
+  s.shapes.add_picture(t1a(logo),Inches(x+.15),Inches(2.42),Inches(.55),Inches(.55))
+  text(s,x+.78,2.4,w-.85,.34,name,14,WHITE,bold=True,font=SERIF,minpt=11)
+  text(s,x+.78,2.72,w-.85,.26,maker,10.5,SOFT,autofit=False)
+  text(s,x+.15,3.12,w-.3,.22,'MODEL INSIDE',9,ACC,bold=True,autofit=False)
+  text(s,x+.15,3.34,w-.3,.38,model,15.5,WHITE,bold=True,font=SERIF,minpt=11)
+  text(s,x+.15,3.72,w-.3,.36,note,9.5,SOFT,minpt=8)
+  text(s,x+.15,4.12,w-.3,.22,'USE IT FOR',9,ACC,bold=True,autofit=False)
+  text(s,x+.15,4.34,w-.3,.92,use,10.5,LIGHT,minpt=8.5)
+  text(s,x+.15,5.28,w-.3,.22,'AT KOPI KAKI',9,ACC,bold=True,autofit=False)
+  text(s,x+.15,5.5,w-.3,.62,kk,10.5,SOFT,minpt=8.5)
+  text(s,x+.15,6.17,w-.3,.4,acc,10,TEAL,bold=True,minpt=8)
+ text(s,.6,6.72,12.1,.24,'Models checked 31 Oct 2026 from Meta, OpenAI, xAI, Anthropic and Manus; vendors swap models without notice. Comparison: BULDRR, 22 Oct 2026.',9.5,SOFT,autofit=False)
+ tag(D,'EVIDENCE',' ; '.join([MUSE_SPARK,MUSE_WONDER,DOTS_NEWS,GROK47,DUET,MANUS,ARTICLE]))
+
+def agent_components(D,kick):
+ """What makes an AI agent (moved from Topic 1 to open Topic 2 in v3.6, trainer order)."""
+ hub(D,kick,'What Makes an AI Agent: a Model Inside a Working System','AI agent',[
+ ('brain','Model','Reasons and proposes the next action.'),('tool','Tools','Read, calculate, browse, render.'),('book','Skills','Reusable procedures and checks.'),('memory','Memory','Approved persistent facts.'),('folder','Knowledge base','Curated evidence and versions.'),('file','Instructions','Goal, policy and output contract.'),('shield','Runtime controls','Loop, permissions, limits and logs.')],foot='A more capable model cannot compensate for missing access, poor sources or an unverified action.');tag(D,'ARCH',HERMES)
+
+def tools_vs_skills(D,kick):
+ """The difference between tools and skills (moved from Topic 1 to Topic 2 · Tools and skills in v3.6)."""
+ compare(D,kick,'Tools Execute. Skills Explain How.',
+ ('Tool · the hands','tool',['Gmail: the connector reads and sends through Google’s real API.','Web design: the file tool writes index.html.','PPTX: python-pptx writes editable slides.']),
+ ('Skill · the know-how','book',['Gmail: kopi-email-brief says what to read and how to brief you.','Web design: web-design-guidelines checks layout and accessibility.','PPTX: kopi-pitch-deck sets the story order and the checks.']),tipt='Installing a skill creates neither the executable nor Google permission. Verify all three separately.');tag(D,'ARCH',HERMES)
 
 def pp1_evidence(D,kick):
  """PP Task 1 evidence, shown inside Lab 1."""

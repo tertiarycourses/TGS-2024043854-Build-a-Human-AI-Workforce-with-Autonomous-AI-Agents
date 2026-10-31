@@ -1,7 +1,7 @@
 """v3.4 — one founder story: AI agents help you START Kopi Kaki Co., a Singapore kopi startup.
 
 Topic 1  CEO assistant      Activity 1  Meta Muse / OpenAI Dots check your schedule and draft email (PP Task 1)
-Topic 2  First AI employee  Guided setup in Hermes Desktop (model, Telegram QR, voice, tools, skills, Firecrawl, Gmail connector, scheduled jobs)
+Topic 2  First AI employee  Guided setup in Hermes Desktop (company folder, model, Telegram bot (Create with QR or BotFather), voice, tools, skills, Firecrawl, Gmail connector, scheduled jobs)
                             Activity 2  UX skills from skills.sh -> the Kopi Kaki website
                             Activity 3  PPT tool + skill -> the Kopi Kaki investor & launch deck (PP Task 2)
 Topic 3  AI marketing teams Activity 4  Five named bots in one group chat write the social posts
@@ -38,12 +38,12 @@ def setup_t2():
  num=0, code="S2", label="Topic 2 Setup", day=1, topic=2, slug="setup02-hermes-first-ai-employee", icon="robot",
  title="Hire Your First AI Employee — Hermes Agent Setup",
  short="Hermes Setup", minutes=120, paradigm="One agent, many tools", lo="LO1/LO2",
- hook="Install one app, sign in, scan one QR code. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.",
+ hook="Install one app, point it at your company folder, pick a model, create a Telegram bot. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.",
  scenario=STORY + " Today your first hire is Mia, a Hermes agent that works from your laptop: she reads your Kopi Kaki inbox, "
           "searches the web for cold-brew trends, and messages you a summary on Telegram every morning before you open the pop-up.",
  objective="Set up one Hermes Agent in Hermes Desktop with a model, a messaging channel, voice, tools, reviewed skills, web search, Gmail access and a schedule, and explain how each part changes what the agent can do (LO1, LO2).",
  deliverables=["Hermes Desktop working in your Desktop/kopi-kaki folder with a model (Nous free tier, your ChatGPT Plus plan or a paid model)",
-               "Mia answering you on Telegram (set up with Create with QR) and reading answers aloud",
+               "Mia answering you on Telegram (Create with QR, or your own bot from BotFather) and reading answers aloud",
                "Tools and skills checked in Capabilities; Firecrawl web search returning cited results",
                "Gmail connected with a Google sign-in; one approved test email sent",
                "A daily 8:00 email-summary scheduled job that delivers to Telegram"],
@@ -54,7 +54,7 @@ def setup_t2():
            "A scheduled job (cron) makes the agent proactive: it starts work without being asked",
            "Read and send are different permissions: approve every send"],
  flow=[("download", "Install", "Desktop + Kopi Kaki folder.", "human"), ("brain", "Model", "Nous free tier or ChatGPT Plus.", "human"),
-       ("phone", "Telegram", "Messaging → Create with QR.", "human"), ("tool", "Tools & skills", "Capabilities: review and switch on.", "agent"),
+       ("phone", "Telegram", "Create with QR, or a BotFather token.", "human"), ("tool", "Tools & skills", "Capabilities: review and switch on.", "agent"),
        ("mail", "Gmail + web", "Sign in with Google; Firecrawl key.", "agent"), ("clock", "Schedule", "8:00 email summary to Telegram.", "agent")],
  check="Mia answers on Telegram, lists her tools and skills, returns cited web results, reads your Gmail, and Scheduled jobs shows the 8:00 email summary.",
  steps=[], verify=[], trouble=[], challenge="")

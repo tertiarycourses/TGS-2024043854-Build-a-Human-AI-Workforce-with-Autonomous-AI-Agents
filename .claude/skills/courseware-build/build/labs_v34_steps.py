@@ -14,7 +14,9 @@ def S(title, body="", cmd=None, prompt=None, where=None, expect=None, decide=Non
 
 WSF = "Desktop/kopi-kaki"
 COPY = ("In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it "
-        f"into your {WSF} folder. Choose Skip (do not replace) for files that already exist.")
+        f"into your {WSF} folder. Choose Skip (do not replace) for files that already exist. "
+        f"Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose {WSF}: Mia now has this lab's files and AGENTS.md. "
+        "Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.'")
 
 # The Activity 4 team: name, title, one-line description (pasted into New Agent), soul file
 SOCIAL_TEAM = [

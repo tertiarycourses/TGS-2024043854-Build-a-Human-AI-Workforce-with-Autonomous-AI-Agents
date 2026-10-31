@@ -35,7 +35,7 @@ You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. Th
 
 | File | What it is |
 |---|---|
-| `AGENTS.md` | Company context Hermes loads automatically |
+| `AGENTS.md` | Company rulebook: attach this folder with + → Folder… and tell Mia to follow it |
 | `brand-guide.md` | Brand voice, colours, platform formats |
 | `campaign-brief.md` | Gula Melaka Cold Brew campaign brief (offer, KPIs, timeline) |
 | `compliance-rules.md` | C1–C10 brand-safety and escalation rules |

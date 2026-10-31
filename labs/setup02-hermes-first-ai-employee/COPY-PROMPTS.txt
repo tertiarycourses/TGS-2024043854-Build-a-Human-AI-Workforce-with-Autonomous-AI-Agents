@@ -6,9 +6,9 @@ Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ------------------------------------------------------------------------
 Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which model you are running on.
 
-[2] PROMPT — Meet Mia: your first AI employee (5 min)  (paste into: Hermes Desktop — New session, folder Desktop/kopi-kaki)
+[2] PROMPT — Hand Mia the company rulebook and meet her (5 min)  (paste into: Hermes Desktop — New session)
 ------------------------------------------------------------------------
-You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
+You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md in the attached folder and follow AGENTS.md for this session. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
 
 [3] PROMPT — Let Mia set up her own toolbox (3 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
 ------------------------------------------------------------------------

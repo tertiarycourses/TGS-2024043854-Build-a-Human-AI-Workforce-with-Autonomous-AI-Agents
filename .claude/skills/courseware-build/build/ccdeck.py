@@ -433,7 +433,7 @@ def statement(D, kicker, big, small=None, dark=True):
     footer(D, s)
     return s
 
-def prompt(D, kicker, title, prompt_text, sub=None, side=None, label="PROMPT  ·  copy from the Lab Prompts page", dark=False):
+def prompt(D, kicker, title, prompt_text, sub=None, side=None, label="PROMPT  ·  copy from the Lab Prompts page", dark=False, url=None):
     """A copy-ready prompt panel (dark code card) + optional right-side notes."""
     s = D.new(dark=dark); header(D, s, kicker, title, sub)
     top = 2.4 if sub else 1.9; bot = 6.8
@@ -441,7 +441,8 @@ def prompt(D, kicker, title, prompt_text, sub=None, side=None, label="PROMPT  ·
     card(s, 0.6, top, pw, bot - top, fill=CODEBG, shadow=not dark)
     for k, c in enumerate(("E06C5A", "E5B454", "7DB36B")):
         circle(s, 0.82 + k * 0.24, top + 0.18, 0.13, c)
-    text(s, 1.6, top + 0.1, pw - 1.2, 0.3, label, 10, DIM, autofit=False)
+    lb = text(s, 1.6, top + 0.1, pw - 1.2, 0.3, label, 10, "7FB8B6" if url else DIM, autofit=False)
+    if url: lb.click_action.hyperlink.address = url   # whole label is clickable; text keeps its colour (run links turn theme-blue)
     text(s, 0.85, top + 0.5, pw - 0.5, bot - top - 0.62, prompt_text, 13, "F1EDE4", font=MONO, minpt=8, cw=0.66, lh=1.1)
     if side:
         n = len(side); rh = (bot - top) / n

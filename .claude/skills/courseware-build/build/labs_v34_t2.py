@@ -20,11 +20,13 @@ SOURCES = [
 ]
 
 COPY_DATA = ("In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, "
-             f"and drag it into your {WSF} folder. If asked about files that already exist, choose Skip (do not replace).")
+             f"and drag it into your {WSF} folder. If asked about files that already exist, choose Skip (do not replace). "
+             f"Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose {WSF}: Mia now has this lab's files and AGENTS.md. "
+             "Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.'")
 
 def setup(L, raw):
     L["prereq"] = ["Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer) or Windows 10/11",
-                   "This class's model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account",
+                   "A model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account (Upstage Solar Mini 4 is free)",
                    "A Telegram account on your phone", "The trainer-assigned training Google account (synthetic Kopi Kaki mail)",
                    "A free Firecrawl account (firecrawl.dev — 1,000 free credits a month, no card)"]
     L["steps"] = [
@@ -41,25 +43,33 @@ def setup(L, raw):
      S("Give Mia a brain: choose your model (10 min)",
        "The model is the agent's brain. Pick ONE route. "
        "This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. "
-       "Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account (Free tier: free models only, standard rate limits, $0). "
+       "Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account, then Settings → Model → Provider: Nous Portal → Upstage Solar Mini 4 (FREE). "
        "Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.",
        where="Hermes Desktop — New session",
        prompt="Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which model you are running on.",
        expect="A one-line reply that names the model."),
-     S("Meet Mia: your first AI employee (5 min)",
-       f"Start a New session and set its working folder to {WSF} (the folder path shown above the message box), so AGENTS.md loads.",
-       where=f"Hermes Desktop — New session, folder {WSF}",
-       prompt="You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.",
+     S("Hand Mia the company rulebook and meet her (5 min)",
+       f"Start a New session. In the chat box click + (left of Ask anything) → Folder… and choose {WSF}: that hands Mia the company files, including AGENTS.md, the company rulebook. "
+       "Then send this prompt. Do the same in every new session: + → Folder… → kopi-kaki, then 'Read AGENTS.md in the attached folder and follow it for this session.' Tip: type @ to point at one file, e.g. @AGENTS.md.",
+       where=f"Hermes Desktop — New session",
+       prompt="You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md in the attached folder and follow AGENTS.md for this session. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.",
        expect="Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules."),
      S("Let Mia set up her own toolbox (3 min)",
        "Later labs need a few Python libraries (for slides, spreadsheets and images). You do not type any commands: Mia installs them for you and reports back.",
        where=f"Hermes Desktop — Mia, folder {WSF}",
        prompt="Prepare this folder for the next labs: create a Python virtual environment called .office-venv here and install python-pptx, openpyxl and Pillow into it. Do not change anything outside this folder. Then tell me in two lines what you installed and whether it works.",
        expect="Mia confirms .office-venv exists with python-pptx, openpyxl and Pillow."),
-     S("Put Mia on Telegram with one QR code (10 min)",
-       "Messaging → Telegram → Quick setup → Create with QR. Scan the code with your phone and confirm in Telegram: Hermes creates the bot and detects your Telegram user ID for you. "
-       "Switch Telegram to Enabled and click Save changes. Under Approved users you should see only yourself — strangers who find the bot get nothing.",
+     S("Put Mia on Telegram: the quick way (5 min)",
+       "Left sidebar → Messaging → Telegram → Quick setup → Create with QR. Scan the code with the Telegram app on your phone, or open the link on this computer (it expires in 30 minutes), and confirm in Telegram. "
+       "Hermes creates the bot and detects your Telegram user ID. Switch Telegram to Enabled and click Save changes.",
        expect="Telegram shows Connected and you are the only approved user. Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there."),
+     S("Or the manual way: create the bot with BotFather (10 min)",
+       "Use this if the QR code does not work, or to see what it does for you. "
+       "Step 1 — talk to BotFather: open Telegram, search for BotFather (look for the blue verification tick), tap Start and send /newbot. "
+       "Step 2 — name your bot: a display name (e.g. Mia · Kopi Kaki), then a unique username ending in bot or _bot (e.g. kopikaki_mia_bot); if it is taken, BotFather asks for another. "
+       "Step 3 — get your API token: copy the token BotFather replies with and keep it safe; it is the password to your bot, so never paste it into a chat or a prompt. "
+       "Step 4 — in Hermes Desktop, Messaging → Telegram: paste the token into Bot token, put your numeric user ID from @userinfobot under Allowed Telegram user IDs, then Enabled → Save changes.",
+       expect="Telegram shows Connected with only you approved; your bot replies to 'hi'."),
      S("Talk to Mia with your voice (5 min)",
        "Settings → Voice. Speech to text: switch it on (Live Transcription shows your words as you speak). Text to speech: provider Edge (free, no key), pick a voice such as en-US-AriaNeural, and switch on Read Responses Aloud. "
        "Then use the microphone in the chat and ask Mia a question out loud. Wispr Flow from Activity 1C works here too.",

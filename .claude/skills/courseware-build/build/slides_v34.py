@@ -221,9 +221,6 @@ def crons_week(D):
 
 # ---------------------------------------------------------------- evaluation (WA K3/K5) — after Activity 5
 def evaluation(D):
-    big_number(D, 'Topic 3 · Was the team worth it?', 'SGD 3,000', 'versus your agents’ model bill and your review time.',
-               'The agency quote: SGD 3,000 and two weeks. Your team: a few dollars of model spend, an afternoon, and every minute you spent reviewing. '
-               'Count all of it before you decide.')
     cards(D, 'Topic 3 · Evaluate and improve', 'Four Metrics Support an Improvement Decision', [
         ('Cycle time', 'Brief to accepted video, including your reviews and every retry.', 'clock'),
         ('First-pass acceptance', 'Share of outputs you approved without a revision.', 'check'),
@@ -296,7 +293,6 @@ def bonus(D, C, mark):
     tag(D, 'EVIDENCE', 'Learner comparison; ' + PC + ' ; ' + HK)
 
 # ---------------------------------------------------------------- multi-agent communication (trainer slides, v3.3 hand edit → native)
-ACP = 'https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/'
 
 def multi_intro(D):
     """General introduction to multiple agents (trainer request): why a team, and what every agent owns."""
@@ -356,17 +352,129 @@ def handoff(D):
     tip(D, s, 'At Kopi Kaki: “My cold brew pre-order arrived spilled.” Same four hand-offs. A refund above SGD 20 waits for you: human in the loop.', y=6.1)
     tag(D, 'CONCEPT', 'Trainer slide (v3.3 hand edit) recreated')
 
-def acp(D):
-    s = D.new(dark=True); header(D, s, 'Topic 3 · How agents talk', 'What Is the Agent Communication Protocol?')
-    card(s, .6, 2.0, 2.6, 2.6, fill=K.PANEL, shadow=False); icon(s, 'chat', 1.2, 2.6, 1.4)
-    text(s, 3.6, 2.0, 9.1, 2.7, 'Agent Communication Protocol, or ACP, is a standardised framework that enables AI agents to communicate in a structured, '
-         'secure and predictable way by defining how they exchange messages, interpret intent, share context, and coordinate actions reliably at scale.',
-         20, WHITE, font=SERIF, minpt=14, lh=1.25)
-    for i, (t, d) in enumerate([('Mar 2025', 'IBM Research launches ACP for its open-source BeeAI platform.'),
-                                ('2025', 'BeeAI and ACP are donated to the Linux Foundation.'),
-                                ('Aug 2025', 'ACP merges into the A2A (Agent2Agent) protocol: one open standard for agents to call agents.')]):
-        x = .6 + i * 4.1
-        text(s, x, 5.0, 3.9, .45, t, 18, ACC, bold=True, font=SERIF, autofit=False)
-        text(s, x, 5.45, 3.85, .9, d, 12.5, SOFT, minpt=9.5)
-    text(s, .6, 6.55, 12, .26, 'Source: LF AI & Data Foundation, “ACP Joins Forces with A2A”, 29 Aug 2025; IBM Research ACP project page.', 10, SOFT, autofit=False)
-    tag(D, 'CONCEPT', ACP + ' ; https://research.ibm.com/projects/agent-communication-protocol')
+HD = 'https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation'
+# Topic 3 concept slides: the trainer's v3.5 multi-agent screenshots redrawn natively (same ideas, Kopi Kaki examples).
+
+def hub_spoke(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · How agents work together', 'Hub-and-Spoke: One Coordinator, Many Specialists',
+                                 'No single agent carries the whole job. The hub hands out the pieces, the spokes do them, and the hub puts the answer together.')
+    card(s, .6, 2.4, 4.45, 3.9, fill=K.PANEL, shadow=False)
+    text(s, .85, 2.58, 4.0, .28, 'THE IDEA', 11, ACC, bold=True, autofit=False)
+    text(s, .85, 2.9, 4.0, 1.0, 'Don’t give every job to one agent. Split the work among specialists who all pull toward one goal.', 16, WHITE, font=SERIF, minpt=12, lh=1.15)
+    for i, (ic, t, d) in enumerate([('robot', 'Hub · the coordinator', 'Hands out the pieces, collects the results, answers you.'),
+                                    ('users', 'Spokes · the specialists', 'Each does one piece with its own skills and tools.'),
+                                    ('target', 'One shared goal', 'Every piece comes back to a single answer.')]):
+        y = 4.05 + i * .72
+        icon(s, ic, .85, y + .04, .46)
+        text(s, 1.45, y, 3.45, .3, t, 13, WHITE, bold=True, font=SERIF, autofit=False)
+        text(s, 1.45, y + .3, 3.45, .38, d, 11, SOFT, minpt=9)
+    hx, hy, hd = 5.75, 3.55, 1.45
+    spokes = [('search', 'Rafi', 'market research'), ('linkedin', 'Lin', 'LinkedIn post'), ('users', 'Farah', 'Facebook post'),
+              ('image', 'Ivy', 'Instagram post'), ('camera', 'Pixel', 'post images')]
+    for i, (ic, n, job) in enumerate(spokes):
+        y = 2.4 + i * .8
+        line(s, hx + hd, hy + hd / 2, 9.25, y + .31, SOFT, 1.5)
+        card(s, 9.25, y, 3.45, .62, fill=K.PANEL, shadow=False)
+        icon(s, ic, 9.35, y + .08, .46, fill=TEAL)
+        text(s, 9.92, y + .06, 1.0, .5, n, 14, WHITE, bold=True, font=SERIF, anchor='m', autofit=False)
+        text(s, 10.85, y + .06, 1.8, .5, job, 11.5, SOFT, anchor='m', minpt=9)
+    icon(s, 'user', hx, hy, hd)
+    text(s, hx - .45, hy + hd + .1, hd + .9, .3, 'Coordinator (hub)', 13, WHITE, bold=True, font=SERIF, align='c', autofit=False)
+    text(s, hx - .45, hy + hd + .42, hd + .9, .3, 'Activity 4: you', 11, ACC, bold=True, align='c', autofit=False)
+    tip(D, s, 'Activity 5 has the same shape: Mia is the hub; the researcher, scriptwriter, voice-over, producer and reviewer are the spokes.', y=6.5, label='SAME SHAPE')
+    tag(D, 'CONCEPT', 'Redrawn from trainer-supplied screenshots (v3.5); ' + HK)
+
+def comm_flow(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · How agents work together', 'Out to the Spokes, Back to the Hub',
+                                 'Every request makes the same five-step round trip. Here it is with your Activity 5 video team.')
+    steps = [('chat', 'Request in', 'Your request reaches the coordinator.', '“Make a 20-second launch video for the Gula Melaka Cold Brew.”'),
+             ('layers', 'Split', 'The coordinator breaks it into tasks.', 'Mia creates seven cards on the kopi-video board.'),
+             ('send', 'Fan out', 'Each task goes to a specialist.', 'Researcher, scriptwriter, voice-over, producer, reviewer.'),
+             ('file', 'Results back', 'Each specialist returns its output.', 'research.md, script.md, narration, MP4, review notes.'),
+             ('check', 'One answer', 'The coordinator answers you once.', 'Mia reports; nothing ships until you approve the exact video.')]
+    w, gap = 2.3, .15
+    for lab, i0, i1, col in [('OUT TO THE SPOKES  →', 0, 2, ACC), ('←  BACK TO THE HUB', 3, 4, TEAL)]:
+        x0 = .6 + i0 * (w + gap); x1 = .6 + i1 * (w + gap) + w
+        box(s, x0, 2.38, x1 - x0, .06, fill=col)
+        text(s, x0, 2.48, x1 - x0, .3, lab, 11, col, bold=True, align='c', autofit=False)
+    for i, (ic, t, g, ex) in enumerate(steps):
+        x = .6 + i * (w + gap); cx = x + w / 2
+        icon(s, ic, cx - .42, 2.95, .84, fill=ACC if i < 3 else TEAL)
+        if i < 4: line(s, cx + .5, 3.37, cx + w + gap - .5, 3.37, SOFT, 1.75, arrow=True)
+        text(s, x, 3.9, w, .38, f'0{i + 1} · {t}', 15, WHITE, bold=True, font=SERIF, align='c', autofit=False)
+        text(s, x + .05, 4.3, w - .1, .6, g, 12, SOFT, align='c', minpt=9.5)
+        card(s, x, 5.0, w, 1.45, fill=K.PANEL, shadow=False)
+        text(s, x + .15, 5.1, w - .3, .25, 'ACTIVITY 5', 9.5, ACC if i < 3 else TEAL, bold=True, autofit=False)
+        text(s, x + .15, 5.36, w - .3, 1.0, ex, 11.5, LIGHT, minpt=9)
+    tag(D, 'CONCEPT', 'Redrawn from trainer-supplied screenshot (v3.5); ' + HK)
+
+def decomposition(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Task decomposition', 'Break the Goal Before You Hand It Out',
+                                 'Task decomposition turns one big objective into smaller, specialised jobs that a subagent can finish on its own.')
+    card(s, .6, 2.85, 3.5, 2.75, fill=ACC_D, shadow=False)
+    text(s, .85, 3.05, 3.0, .28, 'ONE LARGE OBJECTIVE', 11, LIGHT, bold=True, autofit=False)
+    text(s, .85, 3.4, 3.0, 2.0, 'A 20-second launch video for the Gula Melaka Cold Brew', 21, WHITE, bold=True, font=SERIF, minpt=14, lh=1.12)
+    subs = [('search', 'Gather the launch facts', 'video-researcher'), ('pen', 'Write a 4-scene script', 'scriptwriter'),
+            ('megaphone', 'Record the narration', 'voice-over'), ('film', 'Render the 1080×1920 MP4', 'video-producer'),
+            ('eyecheck', 'Check it against the QA list', 'video-reviewer')]
+    for i, (ic, t, who) in enumerate(subs):
+        y = 2.4 + i * .8
+        line(s, 4.1, 4.22, 4.85, y + .31, SOFT, 1.5)
+        card(s, 4.85, y, 4.3, .62, fill=K.PANEL, shadow=False)
+        icon(s, ic, 4.95, y + .08, .46, fill=TEAL)
+        text(s, 5.52, y + .06, 2.2, .5, t, 12.5, WHITE, bold=True, anchor='m', minpt=9.5)
+        text(s, 7.7, y + .06, 1.4, .5, who, 10.5, ACC, anchor='m', minpt=8)
+    text(s, 9.6, 2.42, 3.1, .28, 'A GOOD SPLIT', 11, ACC, bold=True, autofit=False)
+    for i, (t, d) in enumerate([('Understands the request', 'Restate the goal before splitting it.'),
+                                ('Finds logical subtasks', 'Pieces that can be done separately.'),
+                                ('Assigns each an owner', 'One specialist per piece.'),
+                                ('Fits back together', 'Each output feeds the next step.')]):
+        y = 2.8 + i * .9
+        text(s, 9.6, y, .5, .4, f'{i + 1}', 20, ACC, bold=True, font=SERIF, autofit=False)
+        text(s, 10.05, y, 2.65, .34, t, 13, WHITE, bold=True, font=SERIF, minpt=10)
+        text(s, 10.05, y + .34, 2.65, .5, d, 11, SOFT, minpt=9)
+    tag(D, 'CONCEPT', 'Redrawn from trainer-supplied screenshot (v3.5)')
+
+def framework(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Task decomposition', 'Five Questions Before Any Agent Starts Work',
+                                 'The 5-step decomposition framework. Ask the questions in order: your answers become the prompt that builds the team.')
+    from pptx.enum.shapes import MSO_SHAPE as _S
+    steps = [(ACC, 'user', 'Understand the primary objective', 'What is the user actually asking for?', 'A 20-second cold brew launch video you can post on 1 Dec.'),
+             (TEAL, 'search', 'Identify independent subtasks', 'Which parts can be separated cleanly?', 'Research, script, voice-over, render and review.'),
+             (PLUM, 'users', 'Assign specialisation', 'Which subagent suits each task best?', 'Researcher, scriptwriter, voice-over, producer, reviewer.'),
+             (OLIVE, 'file', 'Define expected outputs', 'What should each subagent return?', 'research.md · script.md · narration · MP4 · review notes.'),
+             (ACC_D, 'clipboard', 'Plan aggregation', 'How will the coordinator combine the results?', 'Mia follows the board; your two HUMAN cards close each stage.')]
+    w = 2.36
+    for i, (col, ic, t, q, kk) in enumerate(steps):
+        x = .6 + i * (w + .07)
+        box(s, x, 2.4, w, .95, fill=col, shape=_S.CHEVRON)
+        text(s, x + .38, 2.55, .7, .65, f'0{i + 1}', 24, WHITE, bold=True, font=SERIF, anchor='m', autofit=False)
+        s.shapes.add_picture(K.icon_png(ic, WHITE), Inches(x + 1.15), Inches(2.62), Inches(.5), Inches(.5))
+        text(s, x + .05, 3.5, w - .15, .62, t, 14, WHITE, bold=True, font=SERIF, minpt=11)
+        text(s, x + .05, 4.15, w - .15, .62, q, 12, SOFT, italic=True, minpt=9.5)
+        card(s, x, 4.95, w - .1, 1.5, fill=K.PANEL, shadow=False)
+        text(s, x + .15, 5.05, w - .4, .25, 'KOPI KAKI', 9.5, ACC, bold=True, autofit=False)
+        text(s, x + .15, 5.32, w - .4, 1.05, kk, 11.5, LIGHT, minpt=9)
+    tag(D, 'CONCEPT', 'Redrawn from trainer-supplied screenshot (v3.5)')
+
+def subagents(D):
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Subagents', 'Subagents Are Hired for One Job, Then Released',
+                                 'A coordinator spawns a subagent through a task tool. In Hermes that tool is delegate_task.')
+    nodes = [('robot', 'Coordinator', 'Mia writes the goal and every fact the helper needs.'),
+             ('tool', 'Task tool · delegate_task', 'Starts the helper with that goal and context: up to 10 at once by default.'),
+             ('user', 'Subagent', 'Starts with a blank conversation and Mia’s tools; returns only a summary.')]
+    for i, (ic, t, d) in enumerate(nodes):
+        cx = 2.4 + i * 4.27
+        icon(s, ic, cx - .6, 2.35, 1.2, fill=ACC if i != 1 else TEAL)
+        if i < 2: line(s, cx + .8, 2.95, cx + 4.27 - .8, 2.95, LIGHT, 2.5, arrow=True)
+        text(s, cx - 1.9, 3.65, 3.8, .38, t, 16, WHITE, bold=True, font=SERIF, align='c', autofit=False)
+        text(s, cx - 1.8, 4.05, 3.6, .62, d, 12, SOFT, align='c', minpt=9.5)
+    text(s, .6, 4.72, 12.1, .32, 'Subagents are spawned on demand. Your named bots are hired once.', 13, LIGHT, italic=True, align='c', autofit=False)
+    for i, (col, lab, t, d) in enumerate([(TEAL, 'SUBAGENT', 'Spawned for one job', 'Blank memory · Mia’s tools · reports a summary · gone when the job ends.'),
+                                          (ACC, 'NAMED BOT', 'Rafi, Lin, the video team', 'Hired once · keeps its role, memory and chat · you @mention it again tomorrow.')]):
+        x = .6 + i * 6.15
+        card(s, x, 5.2, 5.95, 1.25, fill=K.PANEL, shadow=False); box(s, x, 5.2, .09, 1.25, fill=col)
+        text(s, x + .3, 5.3, 1.6, .28, lab, 10.5, col, bold=True, autofit=False)
+        text(s, x + 1.9, 5.27, 3.9, .34, t, 14, WHITE, bold=True, font=SERIF, minpt=11)
+        text(s, x + .3, 5.7, 5.5, .65, d, 12, SOFT, minpt=9.5)
+    tag(D, 'ARCH', HD + ' ; redrawn from trainer-supplied screenshot (v3.5)')

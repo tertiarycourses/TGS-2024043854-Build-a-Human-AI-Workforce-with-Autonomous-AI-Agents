@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 3.5 · 31 October 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 3.7 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -113,20 +113,6 @@ Agentic AI describes goal-directed systems that plan, act and use feedback; a sy
 
 **Analogy.** A person does work with a brain and a body, fuelled by food. An AI agent does work with a model (the brain: it reasons and proposes the next step) and a harness (the body: tools, memory, skills and controls), fuelled by tokens. No food, no work; no tokens, no work. Every read, reasoning step and reply spends tokens, so a token budget is the agent's running cost.
 
-Before using an agent, open the system it runs in. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.
-
-| Component | Function | What to inspect |
-|---|---|---|
-| Model | Proposes next tokens and actions | Model access and observed limitations |
-| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
-| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
-| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
-| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
-| Instructions | Goal, policies and output contract | Authority and stop conditions |
-| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
-| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
-| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
-
 Email, web pages and spreadsheet cells are untrusted task data. Their text cannot authorise sends, purchases or new access. Skill installation grants neither executable capability nor OAuth permission. A failed service must be reported explicitly, never interpreted as an empty schedule or fabricated success.
 
 #### Inside the LLM: learning and next-token generation
@@ -178,7 +164,7 @@ People and agents team up in five scenarios. Each step down the list adds more p
 | 2 · Multiple humans, one AI agent | One agent in the team chat becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the group. | An OpenClaw or Hermes bot in a Telegram or WhatsApp group; Claude in Slack or any bot a channel can @mention; one agent triaging a shared support inbox. |
 | 3 · One human, multiple AI agents | Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel. | Hermes profiles on a Kanban board (Activities 4 and 5); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat. |
 | 4 · Multiple humans, multiple AI agents | A whole organisation runs on agents: many people build and run their own, all aimed at shared goals. | Singapore public healthcare: 80,000+ staff built 12,000+ AgentSea agents; Stanford's virtual biotech of 37,000 AI scientist agents; a department Kanban board where each card has a human owner and an agent assignee. |
-| 5 · Inter-company collaboration | Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off. | Agent-to-agent standards such as Google's Agent2Agent (A2A); Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses. |
+| 5 · Inter-company collaboration | Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off. | Grok Bots with their own @mail.grokbot.com inbox, where an outside company's email can start a routine; Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses. |
 
 Real examples shown in class: an assistant flagging a weekend schedule clash (scenario 1), an OpenClaw agent in a trainers' group chat reassigning a course run and reporting a blocker (scenario 2), and six Hermes profiles running a YouTube channel (scenario 3). Third-party names in these screenshots are blurred. As scenarios scale, govern them with named owners, permissions for each role and an audit trail, and treat anything from another company's agent as untrusted until a person verifies it.
 
@@ -236,13 +222,25 @@ OpenClaw → Hermes → hosted agents such as Dots, Muse, Duet, Grok Bot and Cue
 
 Compare the agents with a job-fit, control, access and limits framework (BULDRR). It was updated on 22 October 2026; newer official vendor information takes precedence. This is a task-selection framework, not an independent performance benchmark or a universal ranking.
 
-| Agent | Useful starting job | Human control to inspect | Access checkpoint |
+**The Big Five side by side.** The model decides how the agent thinks; the use case decides whether it fits your job. Models below were checked on 31 October 2026 against each maker's own announcement; vendors change models without notice, so check again before you rely on one.
+
+| Agent (maker) | Model inside | Use it for | At Kopi Kaki |
 |---|---|---|---|
-| Meta Muse | Schedule, errands and personal email | Connector permissions + sensitive-action approval | Singapore since 27 Oct; free core use |
-| OpenAI Dots | Persistent goals and delegated tasks | Connection permissions, custom rules and review | Pro, Business Premium; Enterprise beta |
-| Grok Bot | Named workers sharing ongoing work | Approval settings; shared cloud logins across bots | Check your plan's access |
-| Claude Duet | Work briefs and business follow-ups | Approval before sensitive actions; some actions disallowed | US Pro/Max waitlist preview |
-| Manus Cue | Personal errands, bookings and calls | Per-agent permissions, wallet budget, review boundaries | Early access; free with invite code |
+| Meta Muse (Meta) | Muse Spark; Meta says Muse Wonder will power Muse soon, subscribers first | Personal email, schedules and goals; errands with Singapore partners such as Grab, Shopee and Singapore Airlines as they roll out | Sort your inbox and calendar before the Saturday pop-up |
+| OpenAI Dots (OpenAI) | GPT-6 Astra | Ongoing goals inside ChatGPT, Slack and Teams; hands coding work to Codex | Check pre-orders every morning and flag a dip |
+| Grok Bot (xAI) | Launched on Grok 4.6; Grok 4.7 (21 Sep 2026) is trained for the Grok Bot harness | A team of named bots (Research, Sales, Ops) sharing one cloud computer | A Research bot and a Sales bot working from one supplier list |
+| Claude Duet (Anthropic) | Claude Opus 5.5 | A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays, signs or deletes | A 7 am brief: overdue invoices and supplier emails that need you |
+| Manus Cue (Manus) | Runs on the Manus 2.0 Cascade agent harness; Manus does not publish the model | Agents with their own email, phone and wallet: calls, bookings and payments within a budget | Call three venues and shortlist the launch party |
+
+<sub>Models: Meta — https://ai.meta.com/blog/introducing-muse-spark-msl/ and https://research.meta.ai/blog/muse-wonder ; OpenAI — https://openai.com/index/introducing-dots/ ; xAI — https://x.ai/news/grok-4-7 ; Anthropic — https://claude.com/resources/articles/claude-duet ; Manus — https://manus.im/blog/introducing-manus-2-0</sub>
+
+| Agent | Human control to inspect | Access checkpoint |
+|---|---|---|
+| Meta Muse | Connector permissions + sensitive-action approval | Singapore since 27 Oct; free core use |
+| OpenAI Dots | Connection permissions, custom rules and review | Pro, Business Premium; Enterprise beta |
+| Grok Bot | Approval settings; shared cloud logins across bots | Check your plan's access |
+| Claude Duet | Approval before sensitive actions; some actions disallowed | US Pro/Max waitlist preview |
+| Manus Cue | Per-agent permissions, wallet budget, review boundaries | Early access; free with invite code |
 
 Activity 1 has three parts. **1A, everyone:** join Meta Muse at muse.ai with your Facebook account and redeem your trainer’s invite code. **1B, if your ChatGPT plan includes dots:** set up an OpenAI Dot and give it a standing job. **1C, everyone:** install Wispr Flow and speak your prompts instead of typing them. Grok Bot, Claude Duet (US Pro/Max research preview) and Manus Cue (early access, invite code) are shown for reference. Use only the trainer-assigned Google account and connect Gmail and Google Calendar separately.
 
@@ -525,7 +523,23 @@ Run the same schedule check in Muse and in your dot: compare source accuracy, ap
 
 Kopi Kaki Co. — a fictional Singapore kopi startup you found, launching the Gula Melaka Cold Brew at its Tiong Bahru flagship on 1 Dec 2026 (#ShiokColdBrew). You are the founder-CEO; all company data is fictional. In Topic 1 an always-on assistant handled your schedule. In Topic 2 you hire your first AI employee — a Hermes agent called Mia — and give her, step by step, everything an employee needs.
 
-### 2.1 What Hermes Agent is
+### 2.1 What an AI agent is
+
+Before using an agent, open the system it runs in. The model sits inside a harness; the harness assembles context, calls tools, applies skills and limits, and stops for human decisions.
+
+| Component | Function | What to inspect |
+|---|---|---|
+| Model | Proposes next tokens and actions | Model access and observed limitations |
+| Tools | Execute reads, calculations, browsing and rendering | Actual executable/API result |
+| Skills | Reusable procedures and verification checks | Reviewed SKILL.md, scripts and source |
+| Memory | Persist approved preferences and decisions | Saved entry and fresh-session recall |
+| Knowledge base | Curated evidence with owners and versions | Source access, freshness and passage support |
+| Instructions | Goal, policies and output contract | Authority and stop conditions |
+| Context | Selected instructions, memory, retrieved knowledge and recent tool results | Relevant material fits the finite context window |
+| Agentic loop | Observe → select → act → verify → repeat/ask/stop | Real state changes and error handling |
+| Security | Identity, permissions, approvals, budgets and logs | OAuth and runtime policy checked separately |
+
+### 2.2 What Hermes Agent is
 
 Hermes Agent (Nous Research, MIT licence) is an open-source agent: a model inside a harness of tools, skills, memory and channels. In this course you use it only through Hermes Desktop — an app you install like any other. Mia remembers across sessions, learns skills, talks to you on Telegram, runs scheduled jobs, and — in Topic 3 — works in teams of bots and on a Kanban board. Whenever a technical step is needed, Mia does it for you with her terminal tool; you never type commands.
 
@@ -541,43 +555,77 @@ Hermes Agent (Nous Research, MIT licence) is an open-source agent: a model insid
 ![Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel](courseware/assets/screenshots/desktop/skills.png)
 *Hermes Desktop: the left sidebar (New session, Capabilities, Messaging, Scheduled jobs, Kanban) is your control panel*
 
-### 2.2 Install Hermes Desktop
+### 2.3 Install Hermes Desktop and point it at your company folder
 
-Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop and install it like any app. On first run choose 'Choose provider later' and the Basic layout. Check Settings → About → Version & updates: it should say you are running the latest version. Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; start every Mia session with that folder as the working folder so AGENTS.md loads.
+Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows) from hermes-agent.nousresearch.com/desktop and install it like any app. On first run choose 'Choose provider later' and the Basic layout. Check Settings → About → Version & updates: it should say you are running the latest version. Create a folder called kopi-kaki on your Desktop and drag the lab's data/ into it; AGENTS.md sits at the top of that folder.
+
+**Hand Mia the company rulebook: + → Folder….** AGENTS.md is Kopi Kaki's rulebook: who the company is and the rules every agent follows. It comes with every Hermes lab's data/ files. In Hermes Desktop: (1) drag the lab's data/ files into Desktop/kopi-kaki; (2) in the chat box click + (left of 'Ask anything') → Folder… and choose kopi-kaki; (3) send 'Read AGENTS.md in the attached folder and follow it for this session' and check her answer matches the rules. Do this at the start of every lab. Type @ to point Mia at a single file, e.g. @AGENTS.md.
+
+<sub>Context files: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files</sub>
 
 ![Settings → About → Version & updates](courseware/assets/screenshots/desktop/version.png)
 *Settings → About → Version & updates*
 
-### 2.3 Give Mia a brain: free, ChatGPT Plus or paid
+### 2.4 Provider and model
+
+The provider serves the model; the model is the brain. Pick one route:
 
 | Route | How | Cost |
 |---|---|---|
-| This class: ChatGPT Plus | Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply | Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed |
-| Free | Status bar → Sign in next to Nous → create a free Nous Portal account | Free tier: free models only, standard rate limits, $0 |
+| Paid, this class: ChatGPT Plus | Settings → Model → Main model → Provider 'ChatGPT or Codex Subscription' → sign in → pick the model → Apply | Your ChatGPT Plus plan (sign up for it as your free AI subscription); no Nous subscription needed |
+| Free: Upstage Solar Mini 4 | Status bar → Sign in next to Nous → free Nous Portal account → Settings → Model → Provider: Nous Portal → Solar Mini 4 | $0 — free models only, standard rate limits; Solar Mini 4 is the most-used free model on Nous Portal (31 Oct 2026) |
 | Paid | Nous Portal Plus, or another provider's key in Settings → Providers | Nous Plus USD 20/month (Super USD 100, Ultra USD 200) |
 
 'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.
 
-<sub>Nous Portal plans (checked 31 Oct 2026): https://portal.nousresearch.com/</sub>
+<sub>Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models</sub>
 
 ![Settings → Model → Main model with the ChatGPT or Codex Subscription provider](courseware/assets/screenshots/desktop/model.png)
 *Settings → Model → Main model with the ChatGPT or Codex Subscription provider*
 
-### 2.4 Telegram, voice, tools and skills
+### 2.5 Telegram messaging and voice
 
-- Telegram: Messaging → Telegram → Quick setup → Create with QR. Scan it with your phone and confirm in Telegram; Hermes creates the bot and detects your user ID. Switch on Enabled and Save changes. Only approved users can talk to Mia. Send /sethome so scheduled results arrive in that chat.
+Give Mia a phone number. Left sidebar → Messaging → Telegram offers two ways to create her bot.
+
+**Quick way (recommended): Create with QR.** Quick setup → Create with QR. Scan the code with the Telegram app on your phone, or open the link on this computer (the code expires in 30 minutes), and confirm in Telegram. Hermes creates the bot and detects your Telegram user ID automatically. Switch on Enabled and click Save changes.
+
+**Manual way: BotFather.** Use it if the QR code does not work, or to see what the quick way does for you.
+
+- Step 1 — Talk to BotFather. Open Telegram and search for BotFather (look for the official blue verification tick). Tap Start, then send /newbot.
+- Step 2 — Name your bot. Choose a display name (e.g. Mia · Kopi Kaki), then a unique username that ends in bot or _bot (e.g. kopikaki_mia_bot). If the name is taken, BotFather asks you to pick another.
+- Step 3 — Get your API token. BotFather generates an API token. Copy it and keep it safe: it is the password to your bot. Never paste it into a chat, a prompt or a slide.
+- Step 4 — Connect it in Hermes. Messaging → Telegram: paste the token into Bot token and add your numeric user ID (message @userinfobot in Telegram to get it) under Allowed Telegram user IDs. Without it, anyone can message your bot. Switch on Enabled and click Save changes.
+
+Either way: send 'hi' to your bot, then /sethome so scheduled results arrive in that chat.
+
+![Messaging → Telegram: Quick setup, Get your credentials and the Bot token field](courseware/assets/screenshots/desktop/telegram-setup.png)
+*Messaging → Telegram: Quick setup, Get your credentials and the Bot token field*
+
+<sub>Telegram bots and BotFather: https://core.telegram.org/bots/features#botfather ; Hermes Telegram: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram</sub>
+
 - Voice: Settings → Voice. Speech to text on (Live Transcription shows your words); Text to speech provider Edge (free) with Read Responses Aloud. The same free voice narrates the Activity 5 video.
-- Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.
-- Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well.
 
 ![Settings → Voice → Text to speech: the free Edge voice](courseware/assets/screenshots/desktop/text-to-speech.png)
 *Settings → Voice → Text to speech: the free Edge voice*
 
-### 2.5 Web search with Firecrawl
+### 2.6 Tools and skills: Gmail, web design and PPTX
 
-Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat.
+A tool is the agent's hands: it actually does something — reads Gmail through Google's API, writes a file, renders slides. A skill is know-how: a SKILL.md folder of steps, rules and checks that tells the agent how to use its tools well for one kind of job. Installing a skill gives Mia neither the tool nor the permission; check all three separately.
 
-### 2.6 Gmail by Google sign-in — no OAuth set-up
+| Job | Tool (the hands) | Skill (the know-how) |
+|---|---|---|
+| Gmail | The Gmail connector reads and sends through Google's real API | kopi-email-brief: what to read, how to brief you, never send without SEND |
+| Web design | The file tool writes index.html | web-design-guidelines / frontend-design from skills.sh: layout, accessibility, style |
+| PPTX | python-pptx writes editable slides with a native chart | kopi-pitch-deck: problem → product → proof → plan → ask, brand rules, checks |
+
+- Tools: Capabilities → Tools lists every toolset per bot; switch off what a channel does not need (e.g. the browser on Telegram). The terminal tool is how Mia installs things for you.
+- Skills: a SKILL.md folder of know-how loaded when a task matches. Browse Capabilities → Skills, or simply ask: 'install the kopi pitch deck skill'. Read every third-party SKILL.md before you install it. Tools do the work; skills know how to do it well.
+
+#### Web search with Firecrawl
+
+Firecrawl is Hermes's default web search. Create a free key at firecrawl.dev (1,000 credits a month, no card), paste it in Settings → Tools & Keys, and ask for dated, linked sources. Keys go in Settings, never in a chat. Topic 3's social media and video teams use the same web search.
+
+#### Gmail: a connector (tool) plus the kopi-email-brief skill — no OAuth set-up
 
 Sign in to Nous (the free account is enough), then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. There is no OAuth client to create and no command to type: connectors are managed apps served through your Nous sign-in. Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification; your trainer confirms it before class.
 
@@ -590,7 +638,7 @@ Sign in to Nous (the free account is enough), then Capabilities → Connectors �
 ![Capabilities → Connectors: 100+ apps, connected with a normal sign-in](courseware/assets/screenshots/desktop/connectors.png)
 *Capabilities → Connectors: 100+ apps, connected with a normal sign-in*
 
-### 2.7 Scheduled jobs and the 8:00 email summary
+#### Gmail on a schedule: the 8:00 email summary
 
 A scheduled job (a 'cron') makes Mia proactive: a schedule plus a prompt plus where to deliver. Open Scheduled jobs to see your jobs and the Blueprints (Morning briefing, Important-mail monitor, Weekly review …). Create one by asking Mia, then click Trigger now to test it. Hermes Desktop must be running when the job is due.
 
@@ -601,31 +649,17 @@ Create a scheduled job called 'Morning email brief' that runs every day at 8:00 
 ![Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now](courseware/assets/screenshots/desktop/scheduled-jobs.png)
 *Scheduled jobs: frequency, next run, delivery, prompt, Pause and Trigger now*
 
-### 2.8 Activity 2 — one agent builds the Kopi Kaki website
+#### Web design: UX skills from skills.sh
 
-skills.sh is the open directory of agent skills. Read a skill's SKILL.md on skills.sh, then ask Mia to install it. Popular design skills (installs as of 30 Oct 2026): Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). Mia — a single agent — uses two of them to build a one-page site for the startup.
+skills.sh is the open directory of agent skills. Read a skill's SKILL.md on skills.sh, then ask Mia to install it. Popular design skills (installs as of 30 Oct 2026): Anthropic's frontend-design (≈1.1M), Vercel's web-design-guidelines (≈804K) and ui-ux-pro-max (≈424K). The file tool writes the page; the skills decide how it should look and what to check.
 
-### 2.9 Activity 3 — one agent builds the pitch deck
+#### PPTX: the python-pptx tool plus the kopi-pitch-deck skill
 
-Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop screenshot showing your request and the finished deck.
-
-<sub>Hermes Desktop: https://hermes-agent.nousresearch.com/desktop</sub>
-
-<sub>Hermes docs — desktop, providers, messaging, tools, skills, cron, web search: https://hermes-agent.nousresearch.com/docs/</sub>
-
-<sub>Nous Portal — Free tier (free models only, $0) and paid plans: https://portal.nousresearch.com/</sub>
-
-<sub>Nous Portal — use your ChatGPT plan for inference: https://portal.nousresearch.com/help/chatgpt-plan-sharing</sub>
-
-<sub>Hermes Bot Mode — bots, group chats, routines: https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
-
-<sub>Hermes connectors (managed apps such as Gmail, via a Nous sign-in): https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-search#connectors-remote-tools</sub>
-
-<sub>Firecrawl pricing (free 1,000 credits/month): https://www.firecrawl.dev/pricing</sub>
+Ask for a deck with the tool alone and every run is a fresh guess about order, colours and checks. Add the kopi-pitch-deck skill and Mia follows the same story order, brand rules and checks every time; improve the skill once and every run benefits.
 
 ### Topic 2 Setup — Hire Your First AI Employee — Hermes Agent Setup
 
-**Day 1 · 120 min · One agent, many tools · LO1/LO2** — Install one app, sign in, scan one QR code. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.
+**Day 1 · 120 min · One agent, many tools · LO1/LO2** — Install one app, point it at your company folder, pick a model, create a Telegram bot. No command line: by the end Mia reads your Gmail, searches the web and briefs you on Telegram every morning.
 
 #### Business scenario
 
@@ -638,7 +672,7 @@ Set up one Hermes Agent in Hermes Desktop with a model, a messaging channel, voi
 #### Before you start
 
 - Laptop: macOS 12+ on Apple Silicon (Intel Macs are not supported by the Desktop installer) or Windows 10/11
-- This class's model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account
+- A model: your ChatGPT Plus plan (sign up for it as your free AI subscription), or a free Nous Portal account (Upstage Solar Mini 4 is free)
 - A Telegram account on your phone
 - The trainer-assigned training Google account (synthetic Kopi Kaki mail)
 - A free Firecrawl account (firecrawl.dev — 1,000 free credits a month, no card)
@@ -649,7 +683,7 @@ Set up one Hermes Agent in Hermes Desktop with a model, a messaging channel, voi
 #### You will deliver
 
 - Hermes Desktop working in your Desktop/kopi-kaki folder with a model (Nous free tier, your ChatGPT Plus plan or a paid model)
-- Mia answering you on Telegram (set up with Create with QR) and reading answers aloud
+- Mia answering you on Telegram (Create with QR, or your own bot from BotFather) and reading answers aloud
 - Tools and skills checked in Capabilities; Firecrawl web search returning cited results
 - Gmail connected with a Google sign-in; one approved test email sent
 - A daily 8:00 email-summary scheduled job that delivers to Telegram
@@ -686,7 +720,7 @@ Download the installer from hermes-agent.nousresearch.com/desktop: Hermes-Setup.
 
 **Step 3 — Give Mia a brain: choose your model (10 min)**
 
-The model is the agent's brain. Pick ONE route. This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account (Free tier: free models only, standard rate limits, $0). Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.
+The model is the agent's brain. Pick ONE route. This class (recommended): your ChatGPT Plus plan. Settings → Model → Main model → Provider: 'ChatGPT or Codex Subscription' → sign in with your ChatGPT account → pick the model → Apply. Free: click Sign in next to Nous in the status bar at the bottom of the window and create a free Nous Portal account, then Settings → Model → Provider: Nous Portal → Upstage Solar Mini 4 (FREE). Paid, if you want a stronger model later: Nous Portal Plus (USD 20 a month) or another provider's key in Settings → Providers.
 
 Prompt — paste into *Hermes Desktop — New session*:
 
@@ -696,14 +730,14 @@ Say hello in one line as Mia, Kopi Kaki's first AI employee, and tell me which m
 
 ✓ Expected: A one-line reply that names the model.
 
-**Step 4 — Meet Mia: your first AI employee (5 min)**
+**Step 4 — Hand Mia the company rulebook and meet her (5 min)**
 
-Start a New session and set its working folder to Desktop/kopi-kaki (the folder path shown above the message box), so AGENTS.md loads.
+Start a New session. In the chat box click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: that hands Mia the company files, including AGENTS.md, the company rulebook. Then send this prompt. Do the same in every new session: + → Folder… → kopi-kaki, then 'Read AGENTS.md in the attached folder and follow it for this session.' Tip: type @ to point at one file, e.g. @AGENTS.md.
 
-Prompt — paste into *Hermes Desktop — New session, folder Desktop/kopi-kaki*:
+Prompt — paste into *Hermes Desktop — New session*:
 
 ```text
-You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
+You are Mia, the first AI employee of Kopi Kaki Co. Read AGENTS.md and campaign-brief.md in the attached folder and follow AGENTS.md for this session. In five bullets: who we are, what we launch and when, the price, our KPIs, and the three rules you must never break.
 ```
 
 ✓ Expected: Five correct bullets: startup, Gula Melaka Cold Brew on 1 Dec 2026, SGD 6.80, the KPIs and the rules.
@@ -720,19 +754,25 @@ Prepare this folder for the next labs: create a Python virtual environment calle
 
 ✓ Expected: Mia confirms .office-venv exists with python-pptx, openpyxl and Pillow.
 
-**Step 6 — Put Mia on Telegram with one QR code (10 min)**
+**Step 6 — Put Mia on Telegram: the quick way (5 min)**
 
-Messaging → Telegram → Quick setup → Create with QR. Scan the code with your phone and confirm in Telegram: Hermes creates the bot and detects your Telegram user ID for you. Switch Telegram to Enabled and click Save changes. Under Approved users you should see only yourself — strangers who find the bot get nothing.
+Left sidebar → Messaging → Telegram → Quick setup → Create with QR. Scan the code with the Telegram app on your phone, or open the link on this computer (it expires in 30 minutes), and confirm in Telegram. Hermes creates the bot and detects your Telegram user ID. Switch Telegram to Enabled and click Save changes.
 
 ✓ Expected: Telegram shows Connected and you are the only approved user. Send 'hi' to your bot — Mia replies. Then send /sethome in that chat so scheduled results arrive there.
 
-**Step 7 — Talk to Mia with your voice (5 min)**
+**Step 7 — Or the manual way: create the bot with BotFather (10 min)**
+
+Use this if the QR code does not work, or to see what it does for you. Step 1 — talk to BotFather: open Telegram, search for BotFather (look for the blue verification tick), tap Start and send /newbot. Step 2 — name your bot: a display name (e.g. Mia · Kopi Kaki), then a unique username ending in bot or _bot (e.g. kopikaki_mia_bot); if it is taken, BotFather asks for another. Step 3 — get your API token: copy the token BotFather replies with and keep it safe; it is the password to your bot, so never paste it into a chat or a prompt. Step 4 — in Hermes Desktop, Messaging → Telegram: paste the token into Bot token, put your numeric user ID from @userinfobot under Allowed Telegram user IDs, then Enabled → Save changes.
+
+✓ Expected: Telegram shows Connected with only you approved; your bot replies to 'hi'.
+
+**Step 8 — Talk to Mia with your voice (5 min)**
 
 Settings → Voice. Speech to text: switch it on (Live Transcription shows your words as you speak). Text to speech: provider Edge (free, no key), pick a voice such as en-US-AriaNeural, and switch on Read Responses Aloud. Then use the microphone in the chat and ask Mia a question out loud. Wispr Flow from Activity 1C works here too.
 
 ✓ Expected: Mia hears your question and reads her answer aloud.
 
-**Step 8 — Check Mia's tools (5 min)**
+**Step 9 — Check Mia's tools (5 min)**
 
 Capabilities → Tools shows every toolset Mia can use: web, files, terminal, browser, images, voice, schedules and more. Switch on only what the job needs (Principle 2: permission control). Mia uses the terminal tool for you — that is how she installed the toolbox — so you never have to.
 
@@ -744,7 +784,7 @@ List the toolsets you have switched on. Which ones do you need to read my email,
 
 ✓ Expected: A short list that matches Capabilities → Tools, with a reason for each.
 
-**Step 9 — Review, then install a skill (10 min)**
+**Step 10 — Review, then install a skill (10 min)**
 
 A skill is a SKILL.md folder of know-how Mia loads when a task matches it. Browse Capabilities → Skills (Discover Skills shows what is already installed). Then install the reviewed kopi-email-brief skill from your folder — by asking. Read every third-party skill before you install it.
 
@@ -756,7 +796,7 @@ Read skills/kopi-email-brief/SKILL.md in this folder. In three bullets, tell me 
 
 ✓ Expected: Mia reports 'Installed and verified' and kopi-email-brief appears in Capabilities → Skills.
 
-**Step 10 — Give Mia web search with Firecrawl (5 min)**
+**Step 11 — Give Mia web search with Firecrawl (5 min)**
 
 Firecrawl is Hermes's default web search. Create a free account at firecrawl.dev (1,000 credits a month, no card) and copy your API key. In Hermes Desktop open Settings → Tools & Keys, find Firecrawl, paste the key and save. Never paste keys into a chat.
 
@@ -768,7 +808,7 @@ Search the web for 3 news items from the last 90 days about cold brew or kopi tr
 
 ✓ Expected: Three dated items with URLs in outputs/research/trends.md.
 
-**Step 11 — Connect Gmail with a Google sign-in (10 min)**
+**Step 12 — Connect Gmail with a Google sign-in (10 min)**
 
 No OAuth client and no command line: you sign in to Google the normal way. First make sure you are signed in to Nous (Sign in in the status bar; the free account is enough). Then Capabilities → Connectors → search 'Gmail' → Connect → choose the trainer-assigned training Google account → Allow. Add Google Calendar the same way if your Connectors list shows it. Connector access on the free Nous tier is awaiting verification: your trainer confirms it before class.
 
@@ -780,7 +820,7 @@ Using the Gmail connector (read-only), list my unread Kopi Kaki emails from the 
 
 ✓ Expected: A short brief with senders, subjects and flagged items. Nothing sent or changed.
 
-**Step 12 — Send ONE approved email (5 min)**
+**Step 13 — Send ONE approved email (5 min)**
 
 Sending is a separate permission. Mia drafts, you approve the exact text, then she sends once to the trainer-approved test address.
 
@@ -792,7 +832,7 @@ Draft a reply to the supplier tasting email confirming Thursday 3 pm at the Tion
 
 ✓ Expected: One sent message — nothing sent before your SEND.
 
-**Step 13 — Schedule the daily 8:00 email summary (10 min)**
+**Step 14 — Schedule the daily 8:00 email summary (10 min)**
 
 A scheduled job (cron) makes Mia start work without being asked. Open Scheduled jobs and look at the Blueprints (Morning briefing, Important-mail monitor …). Then create your own by asking Mia. Finally open the job in Scheduled jobs and click Trigger now to test it — do not wait until tomorrow.
 
@@ -829,6 +869,10 @@ Create a scheduled job called 'Morning email brief' that runs every day at 8:00 
 #### Stretch challenge
 
 Add a second scheduled job at 18:00 that summarises the day's pre-orders and emails into three lines on Telegram. Which part of the job would you never let a cron do unattended?
+
+### 2.7 Activity 2 — one agent builds the Kopi Kaki website
+
+Mia — a single agent — installs two design skills from skills.sh and builds a one-page site for the startup: hero, price, launch date and a pre-order button, in Kopi Kaki's colours. Check every fact against the company files.
 
 ### Lab 2 — Activity 2 — One Agent Builds the Kopi Kaki Website with UX Skills
 
@@ -875,7 +919,7 @@ labs/lab02-kopi-kaki-website/ — README.md, LAB-02-Instructions.pdf, COPY-PROMP
 
 **Step 1 — Copy the website brief into your company folder (2 min)**
 
-In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). The brief says who the site is for, the sections, the brand and the definition of done.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: Mia now has this lab's files and AGENTS.md. Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.' The brief says who the site is for, the sections, the brand and the definition of done.
 
 Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
 
@@ -963,6 +1007,24 @@ Save two screenshots — desktop and phone width — into outputs/website/. You 
 
 Ask Mia to install ui-ux-pro-max as a third skill and make a second design. Which design would you ship, and what did the extra skill actually change?
 
+### 2.8 Activity 3 — one agent builds the pitch deck
+
+Problem → product → proof → plan → ask. The kopi-pitch-deck skill gives Mia this order, the brand rules and the checks; python-pptx (the tool) writes editable slides with a native chart. Check content errors (a wrong or unsourced number) separately from layout errors (clipped or overlapping text). PP Task 2 needs ONE Hermes Desktop screenshot showing your request and the finished deck.
+
+<sub>Hermes Desktop: https://hermes-agent.nousresearch.com/desktop</sub>
+
+<sub>Hermes docs — desktop, providers, messaging, tools, skills, cron, web search: https://hermes-agent.nousresearch.com/docs/</sub>
+
+<sub>Nous Portal — Free tier (free models only, $0) and paid plans: https://portal.nousresearch.com/</sub>
+
+<sub>Nous Portal — use your ChatGPT plan for inference: https://portal.nousresearch.com/help/chatgpt-plan-sharing</sub>
+
+<sub>Hermes Bot Mode — bots, group chats, routines: https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
+
+<sub>Hermes connectors (managed apps such as Gmail, via a Nous sign-in): https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-search#connectors-remote-tools</sub>
+
+<sub>Firecrawl pricing (free 1,000 credits/month): https://www.firecrawl.dev/pricing</sub>
+
 ### Lab 3 — Activity 3 — One Agent Builds the Kopi Kaki Pitch Deck with a PPT Tool and Skill
 
 **Day 1 · 45 min · Single agent + PPT tool and skill · LO2** — On Friday you pitch the bank for a SGD 50,000 loan. Mia turns your brief, reviews and competitors into a professional, editable deck — with a real chart.
@@ -1010,7 +1072,7 @@ labs/lab03-kopi-kaki-pitch-deck/ — README.md, LAB-03-Instructions.pdf, COPY-PR
 
 **Step 1 — Ask Mia to install the deck skill (3 min)**
 
-In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). The tool writes the file (python-pptx); the skill says how to build a good deck. You install the skill by asking — no command line.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything, and drag it into your Desktop/kopi-kaki folder. If asked about files that already exist, choose Skip (do not replace). Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: Mia now has this lab's files and AGENTS.md. Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.' The tool writes the file (python-pptx); the skill says how to build a good deck. You install the skill by asking — no command line.
 
 Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
 
@@ -1096,13 +1158,30 @@ A multi-agent system splits one big goal into specialist jobs that hand work to 
 | Instructions | Who it is and its rules (SOUL.md + AGENTS.md) | the reviewer never approves on your behalf |
 | Context window | What it is holding in mind — its own memory and session | each bot keeps its own chat and memory |
 
-### 3.2 How agents talk: the damaged-order example and ACP
+### 3.2 How agents work together: hub-and-spoke, hand-offs and subagents
 
-“My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; a customer agent confirms the fix. Each hands a structured message to the next. At Kopi Kaki the same four hand-offs handle “My cold brew pre-order arrived spilled”, with refunds above SGD 20 waiting for you.
+**Hub-and-spoke.** Rather than giving every responsibility to one agent, a multi-agent system divides the work among specialist agents that work toward one goal. A coordinator (the hub) hands out the pieces and collects the results; the specialists (the spokes) each do one piece. In Activity 4 you are the hub, @mentioning Rafi, Lin, Farah, Ivy and Pixel in the Kopi Social Team group. In Activity 5 Mia is the hub: one prompt, five video agents, one board.
 
-Agent Communication Protocol (ACP) is a standardised framework that enables AI agents to communicate in a structured, secure and predictable way by defining how they exchange messages, interpret intent, share context, and coordinate actions reliably at scale. IBM Research launched ACP in March 2025 for its open-source BeeAI platform; BeeAI and ACP were donated to the Linux Foundation, and in August 2025 ACP merged into the A2A (Agent2Agent) protocol.
+![The hub-and-spoke model: one coordinator (hub) hands work to specialists (spokes) and combines what comes back](courseware/assets/workflows/hub-and-spoke.png)
+*The hub-and-spoke model: one coordinator (hub) hands work to specialists (spokes) and combines what comes back*
 
-<sub>LF AI & Data — ACP joins forces with A2A (29 Aug 2025): https://lfaidata.foundation/communityblog/2025/08/29/acp-joins-forces-with-a2a-under-the-linux-foundations-lf-ai-data/</sub>
+**How a request travels.** (1) Your request enters the coordinator; (2) the coordinator splits it into tasks; (3) the tasks move out to the subagents; (4) the results return to the coordinator; (5) one final response comes back to you. In Activity 5: you ask Mia for a 20-second launch video; she creates seven cards on the kopi-video board; the researcher, scriptwriter, voice-over, producer and reviewer each work their card; their files (research.md, script.md, the narration, the MP4, the review) come back; and Mia reports to you. Nothing ships until you approve the exact video.
+
+**Hand-offs in practice.** “My order arrived damaged. I need a replacement.” A support agent understands the complaint and opens a case; a logistics agent reserves a replacement; a shipping agent books the courier and returns a tracking number; a customer agent confirms the fix. Each hands a structured message to the next. At Kopi Kaki the same four hand-offs handle “My cold brew pre-order arrived spilled”, with refunds above SGD 20 waiting for you.
+
+**Task decomposition** turns one large objective into smaller, specialised tasks that subagents can do on their own: understand the request, identify logical subtasks, assign responsibilities, and make sure the outputs can be combined later. Ask five questions in order:
+
+| Step | Question | Answered for Kopi Kaki (Activity 5) |
+|---|---|---|
+| 1 · Understand the primary objective | What is the user actually asking for? | A 20-second cold brew launch video you can post on 1 Dec |
+| 2 · Identify independent subtasks | Which parts can be separated cleanly? | Research, script, voice-over, render and review |
+| 3 · Assign specialisation | Which subagent is best suited for each task? | video-researcher, scriptwriter, voice-over, video-producer, video-reviewer |
+| 4 · Define expected outputs | What should each subagent return? | research.md, script.md, the narration, the MP4, review notes |
+| 5 · Plan aggregation | How will the coordinator combine the results? | Mia follows the board; your two HUMAN cards close each stage |
+
+**Subagents.** A coordinator spawns a subagent through a task tool; in Hermes that tool is delegate_task. The subagent starts with a completely fresh conversation: it knows only the goal and context the coordinator writes, it inherits the coordinator's enabled tools, and only its final summary comes back. Hermes runs up to 10 subagents at once by default. Subagents are temporary helpers for one job; your named bots (Rafi and the team) and the video agents are profiles that stay, with their own role, memory and chat.
+
+<sub>Hermes subagent delegation (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation</sub>
 
 ### 3.3 Bots and group chats
 
@@ -1164,7 +1243,7 @@ labs/lab04-social-media-marketing-team/ — README.md, LAB-04-Instructions.pdf, 
 
 **Step 1 — Copy the team files into your company folder (3 min)**
 
-In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: Mia now has this lab's files and AGENTS.md. Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.' souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.
 
 ✓ Expected: souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files.
 
@@ -1353,7 +1432,7 @@ labs/lab05-video-production-team/ — README.md, LAB-05-Instructions.pdf, COPY-P
 
 **Step 1 — Copy the video team files (2 min)**
 
-In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist.
+In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the unzipped course files, select everything and drag it into your Desktop/kopi-kaki folder. Choose Skip (do not replace) for files that already exist. Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose Desktop/kopi-kaki: Mia now has this lab's files and AGENTS.md. Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.'
 
 ✓ Expected: souls/ now also lists video-researcher, scriptwriter, voice-over, video-producer and video-reviewer; tasks/ has v1–v5.
 

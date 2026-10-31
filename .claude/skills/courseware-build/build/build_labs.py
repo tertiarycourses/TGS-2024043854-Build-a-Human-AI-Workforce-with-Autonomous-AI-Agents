@@ -89,7 +89,7 @@ def data_pack(L, ddir, assets_src):
     return files
 
 DESCR = {
- "AGENTS.md": "Company context Hermes loads automatically", "brand-guide.md": "Brand voice, colours, platform formats",
+ "AGENTS.md": "Company rulebook: attach this folder with + → Folder… and tell Mia to follow it", "brand-guide.md": "Brand voice, colours, platform formats",
  "campaign-brief.md": "Gula Melaka Cold Brew campaign brief (offer, KPIs, timeline)", "compliance-rules.md": "C1–C10 brand-safety and escalation rules",
  "product-catalogue.csv": "12 products and prices", "competitors.csv": "6 fictional competitors", "customer-reviews.csv": "60 synthetic customer reviews",
  "social-comments.csv": "20 social comments incl. complaints, legal, PII, spam", "campaign-week1-metrics.csv": "Week-1 post metrics (12 posts)",
@@ -282,7 +282,7 @@ def labs_index():
           "- Task 2: ONE Hermes Desktop/dashboard screenshot of your professional PPT (Lab 3).",
           "- Task 3: TWO screenshots — your Hermes Kanban board and the video it produced (Lab 5).", "",
           "## Conventions", "- Prompts are plain English; terminal commands are marked `bash`.",
-          "- Hermes: start it inside `~/kopi-kaki` so `AGENTS.md` is loaded.",
+          "- Hermes: in the chat box click + → Folder… and choose your kopi-kaki folder, then ask Mia to read and follow `AGENTS.md`.",
           "- Nothing public is ever posted or sent without your explicit APPROVE.",
           "- Platforms move fast — if a command differs on your version, check `--help` and the official docs "
           "([Hermes](https://hermes-agent.nousresearch.com/docs/) · [Paperclip](https://github.com/paperclipai/paperclip) · [OpenAI Dots](https://learn.chatgpt.com/docs/dots/getting-started)).", "",
