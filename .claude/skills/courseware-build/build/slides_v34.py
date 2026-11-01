@@ -135,8 +135,62 @@ def kanban_board(D):
          'who goes next, what each card needs, and where the work stops for you. Use a board when the steps are known and the stakes are high.', 14, MUTED, minpt=11)
     tip(D, s, 'Kanban in the left sidebar shows the board live. Open a card for its run history and output; PP Task 3 screenshot A comes from here.', y=6.2)
     tag(D, 'ARCH', HK)
-    image(D, 'Topic 3 · Kanban', 'Watch the Board Work', asset('screenshots', 'hermes-kanban.png'),
-          caption='Reference Kanban view: cards move from waiting to running to done as their parents finish. Your board shows the kopi-video cards and your HUMAN gates.')
+    board_live(D)
+
+def desk(n): return asset('screenshots', 'desktop', n + '.png')
+
+def team_sidebar(D):
+    """Trainer screenshot (v3.8 hand edit): the five video agents in the Hermes Desktop sidebar."""
+    s = D.new(); header(D, s, 'Topic 3 · Activity 5', 'One Prompt, Five New Hires in Your Sidebar',
+                        'Mia read your brief and created the whole video team. Each agent gets its own avatar, chat and job.')
+    picture(s, desk('video-team-sidebar'), .7, 2.3, maxw=3.5, maxh=3.85)
+    crew = [('search', 'video-researcher', 'Finds the facts and writes claim | source | quote.'),
+            ('pen', 'scriptwriter', 'Turns the research into a four-scene, 20-second script.'),
+            ('chat', 'voice-over', 'Records the narration from the script you approved.'),
+            ('film', 'video-producer', 'Builds the HyperFrames scenes and renders the MP4.'),
+            ('eyecheck', 'video-reviewer', 'Checks the file against the QA list and sends you the link.')]
+    for i, (ic, who, job) in enumerate(crew):
+        y = 2.3 + i * .78
+        icon(s, ic, 4.75, y + .06, .5)
+        text(s, 5.4, y, 7.3, .36, who, 16, INK, bold=True, font=SERIF, autofit=False)
+        text(s, 5.4, y + .36, 7.3, .36, job, 12.5, MUTED, minpt=10)
+    tip(D, s, 'Above them sit Mia and the bots from Activity 4. One sidebar, two ways of working: a chat team and a board team.', y=6.3, label='SPOT IT')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 5 in Hermes Desktop, 1 Nov 2026')
+
+def board_live(D):
+    """Trainer screenshots (v3.8 hand edit): the kopi video board one step apart."""
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Kanban', 'Watch the Board Hand Off, With No One Pressing Go',
+                                 'Two screenshots, two minutes apart. Nobody dragged a card: each one moved when the card before it finished.')
+    shots = [('kanban-voiceover-running', '1', 'Voice-over is RUNNING', 'Your HUMAN card “approve the script” is done, so the voice-over agent starts recording.'),
+             ('kanban-render-ready', '2', 'Render moves to READY', 'Voice-over lands in DONE, so “Render the video” moves from Todo to Ready. Its assignee, video-producer, picks it up next.')]
+    for i, (n, num, head, body) in enumerate(shots):
+        x = .6 + i * 6.15
+        card(s, x, 2.3, 5.95, 4.05, fill=K.PANEL, shadow=False)
+        picture(s, desk(n), x + .15, 2.42, maxw=5.65, maxh=2.75, frame=False)
+        circle(s, x + .15, 5.3, .42, ACC)
+        text(s, x + .15, 5.3, .42, .42, num, 15, WHITE, bold=True, align='c', anchor='m', autofit=False)
+        text(s, x + .7, 5.25, 5.1, .34, head, 15, WHITE, bold=True, font=SERIF, autofit=False)
+        text(s, x + .7, 5.6, 5.1, .7, body, 11.5, SOFT, minpt=9)
+    tip(D, s, 'A card in Ready with an assignee runs within a minute; no assignee, no run. Your last HUMAN card, approve the exact video, stays in Todo until you sign it off.', y=6.45, label='RULE')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 5 in Hermes Desktop, 1 Nov 2026 ; ' + HK)
+
+def video_result(D):
+    """Trainer screenshots (v3.8 hand edit): two frames of the rendered vertical how-to video."""
+    s = D.new(); header(D, s, 'Topic 3 · Activity 5', 'What the Team Shipped: A Vertical How-To, Scene by Scene',
+                        'Research, script, voice and render, all by agents. You approved twice and touched no editing software.')
+    for i, n in enumerate(['video-frame-01', 'video-frame-02']):
+        picture(s, desk(n), .7 + i * 2.65, 2.3, maxw=2.45, maxh=3.95)
+    notes = [('01', 'Scene 1 hooks the viewer', '“How to brew coffee like a barista”: a big title, then beans dropping into the filter.'),
+             ('02', 'Each scene teaches one step', '“Steep for 12 hours”: a numbered card, a clock and a single fact the viewer remembers.'),
+             ('▶', 'You review the real file', 'The reviewer sends a local preview link. Watch it end to end before you approve that exact MP4.')]
+    for i, (num, head, body) in enumerate(notes):
+        y = 2.35 + i * 1.32
+        circle(s, 6.25, y, .55, ACC)
+        text(s, 6.25, y, .55, .55, num, 15, WHITE, bold=True, align='c', anchor='m', autofit=False)
+        text(s, 7.0, y - .02, 5.7, .38, head, 16.5, INK, bold=True, font=SERIF, autofit=False)
+        text(s, 7.0, y + .38, 5.7, .8, body, 12.5, MUTED, minpt=10)
+    tip(D, s, 'Task 3 asks for two screenshots: your Kanban board (like the previous slide) and your video playing (like this one).', y=6.45, label='PP')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 5: HyperFrames preview, 1 Nov 2026 ; ' + HF)
 
 def activity4_team(D):
     s = D.new(dark=True); header(D, s, 'Topic 3 · Activity 4', 'One Brief, Three Platforms, Three Voices',

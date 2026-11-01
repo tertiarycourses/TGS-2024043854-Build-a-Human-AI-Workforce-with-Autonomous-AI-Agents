@@ -1,5 +1,19 @@
 # Courseware change history
 
+## v3.9 — 1 November 2026
+
+- **Activity 5, from the trainer's own run.** Three Topic 3 slides now show real Hermes Desktop screenshots, each explained:
+  - "One Prompt, Five New Hires in Your Sidebar": the five video agents and what each one does.
+  - "Watch the Board Hand Off, With No One Pressing Go": two Kanban shots, two minutes apart, as voice-over finishes and render moves to Ready.
+  - "What the Team Shipped": two frames of the rendered vertical how-to video, plus the PP Task 3 screenshot reminder.
+- The generic reference Kanban image is gone. Learner Guide section 3.4 and the Activity 5 lab section use the same screenshots.
+- **Scenarios 1–3 lead with a use case** (Topic 1, slides 29, 30, 32), shown as a "USE CASE" pill:
+  - Scenario 1 · personal assistant: the Big Five, the 8:00 inbox summary on Telegram, a calendar guard.
+  - Scenario 2 · chatbot & customer service: the Tertiary WhatsApp Business account, Klarna's AI assistant (2.3 million chats in month one, Klarna press release 27 Feb 2024), a staff helpdesk bot.
+  - Scenario 3 · one-person company: Paperclip (CEO → Chief of Staff → marketing team), the Day 2 Kanban video studio, six Hermes profiles running a YouTube channel.
+  - Learner Guide 1.5 table matches.
+- FG and AP v15: slide ranges re-read (two slides added in Topic 3). Assessment v7 is unchanged.
+
 ## v3.8 — 1 November 2026
 
 - **Single agent or a team? The Big Five comparison now says.** The last row of the Topic 1 comparison was "At Kopi Kaki". It is now "Single or multi-agent": Meta Muse and OpenAI Dots run a single agent only, Grok Bot and Manus Cue run multi-agent teams, and Anthropic has not said for Claude Duet. The Learner Guide's section 1.7 table matches.

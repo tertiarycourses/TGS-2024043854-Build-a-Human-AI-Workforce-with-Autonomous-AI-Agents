@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -110,9 +110,9 @@ h2("1.5 Five collaboration scenarios")
 p("People and agents team up in five scenarios. Each step down the list adds more people or more agents, and with them more hand-offs, permissions and ownership to get right.")
 img(os.path.join(SHOTS, "topic1", "patterns-strip.jpg"), "The five collaboration scenarios, from one human with one agent (left) to inter-company collaboration (right)", 6.3)
 table(["Scenario","How it works","Where you see it today"],[
- ("1 · One human, one AI agent","Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning.","Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); Hermes Desktop on your laptop (Topic 2, Activities 2–3); Claude Code or OpenAI Codex for one developer."),
- ("2 · Multiple humans, one AI agent","One agent in the team chat becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the group.","An OpenClaw or Hermes bot in a Telegram or WhatsApp group; Claude in Slack or any bot a channel can @mention; one agent triaging a shared support inbox."),
- ("3 · One human, multiple AI agents","Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel.","Hermes profiles on a Kanban board (Activities 4 and 5); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat."),
+ ("1 · One human, one AI agent","Use case: personal assistant. Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning. Let it read and draft; you keep the Send button.","Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); your Hermes agent's 8:00 inbox summary on Telegram (Activity 2); an assistant that flags a calendar clash before you accept."),
+ ("2 · Multiple humans, one AI agent","Use case: chatbot and customer service. One agent on the front line answers every customer at once, clears the routine questions and hands the tricky ones to a person.","Tertiary Infotech Academy's WhatsApp Business account (try it below); Klarna's AI assistant, 2.3 million chats in its first month, two-thirds of its customer service chats (Klarna, 27 Feb 2024); a helpdesk bot in a staff group chat."),
+ ("3 · One human, multiple AI agents","Use case: one-person company. You are the only human on the payroll; specialist agents do the jobs a startup would hire for and work in parallel while you approve the hand-offs.","A Paperclip company where a CEO agent hires a Chief of Staff, who hires the marketing team (bonus topic); five Hermes agents making the Day 2 video on a Kanban board (Activity 5); six Hermes profiles running a YouTube channel."),
  ("4 · Multiple humans, multiple AI agents","A whole organisation runs on agents: many people build and run their own, all aimed at shared goals.","Singapore public healthcare: 80,000+ staff built 12,000+ AgentSea agents; Stanford's virtual biotech of 37,000 AI scientist agents; a department Kanban board where each card has a human owner and an agent assignee."),
  ("5 · Inter-company collaboration","Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off.","Grok Bots with their own @mail.grokbot.com inbox, where an outside company's email can start a routine; Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses.")])
 p("Real examples shown in class: an assistant flagging a weekend schedule clash (scenario 1), an OpenClaw agent in a trainers' group chat reassigning a course run and reporting a blocker (scenario 2), and six Hermes profiles running a YouTube channel (scenario 3). Third-party names in these screenshots are blurred. As scenarios scale, govern them with named owners, permissions for each role and an audit trail, and treat anything from another company's agent as untrusted until a person verifies it.")
@@ -191,7 +191,7 @@ LAB_SHOTS = {"01": ("workflows/activity-01.png", "Activity 1 workflow model — 
              "03": ("screenshots/desktop/install-skill-by-asking.png", "Install a skill by asking: “install the kopi pitch deck skill”"),
              "04": ("screenshots/desktop/bot-group-chat.png", "A bot group chat in Hermes Desktop (trainer's test room); yours is the Kopi Social Team"),
              "06": ("screenshots/desktop/scheduled-jobs.png", "Scheduled jobs: frequency, next run, prompt, Pause and Trigger now"),
-             "05": ("screenshots/hermes-kanban.png", "Reference Kanban interface; PP Task 3 uses your own board and video"),
+             "05": ("screenshots/desktop/kanban-voiceover-running.png", "The trainer's Activity 5 board: voice-over running after the HUMAN script approval. PP Task 3 uses your own board and video"),
              "B": ("paperclip/org-chart.png", "Paperclip org chart (trainer's demo company); yours shows Board → CEO → Chief of Staff → team")}
 
 
@@ -367,7 +367,9 @@ table(["Tool", "How it makes video", "How to install"], [
 bullets(["Kanban — the team's shared to-do list: assignee, parent dependencies, status and run history. A card runs only when every parent is done. HUMAN cards are unassigned and only you complete them (or tell Mia 'I approve — complete the card for me').",
          "Prompt method — in Activity 5 one prompt to Mia creates the five video agents (they also appear in the Bots tab) and the seven-card board with your two HUMAN gates. Open Kanban in the sidebar to watch it run.",
          "Group chat or board? Bots in a group talk their way to a result; a board makes the order explicit. Use a board when the steps are known and the stakes are high."])
-img(os.path.join(SHOTS, "screenshots", "hermes-kanban.png"), "Reference Hermes Kanban board", 5.2)
+img(os.path.join(SHOTS, "screenshots", "desktop", "video-team-sidebar.png"), "One prompt to Mia creates the five video agents; they appear in the Hermes Desktop sidebar (trainer's run)", 2.6)
+img(os.path.join(SHOTS, "screenshots", "desktop", "kanban-render-ready.png"), "Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)", 6.0)
+img(os.path.join(SHOTS, "screenshots", "desktop", "video-frame-01.png"), "Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)", 2.4)
 h2("3.5 Grounding: RAG versus a standard LLM")
 p("A standard LLM answers from what it learned: fluent and cheap, but it does not know your price, dates or latest policy and can state a wrong fact confidently. A retrieval-augmented (RAG) system answers from passages it retrieved, "
   "quotes the approved source and its version, and says INSUFFICIENT EVIDENCE when nothing supports a claim — but it needs source owners, indexing, access control and refresh. "
@@ -470,7 +472,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 3.8 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 3.9 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -160,9 +160,9 @@ People and agents team up in five scenarios. Each step down the list adds more p
 
 | Scenario | How it works | Where you see it today |
 |---|---|---|
-| 1 · One human, one AI agent | Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning. | Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); Hermes Desktop on your laptop (Topic 2, Activities 2–3); Claude Code or OpenAI Codex for one developer. |
-| 2 · Multiple humans, one AI agent | One agent in the team chat becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the group. | An OpenClaw or Hermes bot in a Telegram or WhatsApp group; Claude in Slack or any bot a channel can @mention; one agent triaging a shared support inbox. |
-| 3 · One human, multiple AI agents | Be the manager of your own AI department: split the goal and hand each piece to a specialist working in parallel. | Hermes profiles on a Kanban board (Activities 4 and 5); several Grok Bots sharing one cloud computer; a Manus Cue agent team in one group chat. |
+| 1 · One human, one AI agent | Use case: personal assistant. Your own chief of staff that never clocks off. It works through your inbox and calendar overnight and has a brief, a clash and a draft ready by morning. Let it read and draft; you keep the Send button. | Always-on assistants: OpenAI Dots, Meta Muse, Grok Bot, Claude Duet, Manus Cue (Activity 1); your Hermes agent's 8:00 inbox summary on Telegram (Activity 2); an assistant that flags a calendar clash before you accept. |
+| 2 · Multiple humans, one AI agent | Use case: chatbot and customer service. One agent on the front line answers every customer at once, clears the routine questions and hands the tricky ones to a person. | Tertiary Infotech Academy's WhatsApp Business account (try it below); Klarna's AI assistant, 2.3 million chats in its first month, two-thirds of its customer service chats (Klarna, 27 Feb 2024); a helpdesk bot in a staff group chat. |
+| 3 · One human, multiple AI agents | Use case: one-person company. You are the only human on the payroll; specialist agents do the jobs a startup would hire for and work in parallel while you approve the hand-offs. | A Paperclip company where a CEO agent hires a Chief of Staff, who hires the marketing team (bonus topic); five Hermes agents making the Day 2 video on a Kanban board (Activity 5); six Hermes profiles running a YouTube channel. |
 | 4 · Multiple humans, multiple AI agents | A whole organisation runs on agents: many people build and run their own, all aimed at shared goals. | Singapore public healthcare: 80,000+ staff built 12,000+ AgentSea agents; Stanford's virtual biotech of 37,000 AI scientist agents; a department Kanban board where each card has a human owner and an agent assignee. |
 | 5 · Inter-company collaboration | Your agent negotiates with their agent. Requests, quotes and data cross the company wall, and people on both sides sign off. | Grok Bots with their own @mail.grokbot.com inbox, where an outside company's email can start a routine; Meta Muse working with Singapore partners such as Grab and Singapore Airlines; Manus Cue agents with their own email, phone and wallet dealing with outside businesses. |
 
@@ -1366,8 +1366,14 @@ Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-
 - Prompt method — in Activity 5 one prompt to Mia creates the five video agents (they also appear in the Bots tab) and the seven-card board with your two HUMAN gates. Open Kanban in the sidebar to watch it run.
 - Group chat or board? Bots in a group talk their way to a result; a board makes the order explicit. Use a board when the steps are known and the stakes are high.
 
-![Reference Hermes Kanban board](courseware/assets/screenshots/hermes-kanban.png)
-*Reference Hermes Kanban board*
+![One prompt to Mia creates the five video agents; they appear in the Hermes Desktop sidebar (trainer's run)](courseware/assets/screenshots/desktop/video-team-sidebar.png)
+*One prompt to Mia creates the five video agents; they appear in the Hermes Desktop sidebar (trainer's run)*
+
+![Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)](courseware/assets/screenshots/desktop/kanban-render-ready.png)
+*Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)*
+
+![Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)](courseware/assets/screenshots/desktop/video-frame-01.png)
+*Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)*
 
 ### 3.5 Grounding: RAG versus a standard LLM
 
@@ -1401,8 +1407,8 @@ Run a multi-agent video team with Kanban dependencies, source checks and an inde
 - Lab laptops: Node.js 22+ and FFmpeg for HyperFrames — Mia checks them for you; the trainer installs anything missing before class
 - Settings → Voice → Text to speech set to Edge (free) from the Topic 2 setup
 
-![Reference Kanban interface; PP Task 3 uses your own board and video](courseware/assets/screenshots/hermes-kanban.png)
-*Reference Kanban interface; PP Task 3 uses your own board and video*
+![The trainer's Activity 5 board: voice-over running after the HUMAN script approval. PP Task 3 uses your own board and video](courseware/assets/screenshots/desktop/kanban-voiceover-running.png)
+*The trainer's Activity 5 board: voice-over running after the HUMAN script approval. PP Task 3 uses your own board and video*
 
 #### You will deliver
 

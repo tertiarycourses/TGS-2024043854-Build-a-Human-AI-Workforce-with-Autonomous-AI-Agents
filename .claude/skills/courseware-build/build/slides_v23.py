@@ -70,13 +70,20 @@ def brief(D,name,sub_,feats,steps,tipt,refs,logo=None,step=3.05,video=None):
   text(s,rx+.8,y+.28,rw-1.0,rh-.3,d,11.5 if not video else 10.5,SOFT,minpt=9)
  tip(D,s,tipt,y=6.38);tag(D,'CASE',' ; '.join(u for _,u in refs));links(D,refs,step=step)
 
-def scenario(D,n,title,pitch,hook,examples,img,shot=None,shot_cap=None,tipt=None):
- """One collaboration scenario: a vivid hook and three named real-world examples (left), illustration + optional screenshot (right)."""
+def scenario(D,n,title,pitch,hook,examples,img,shot=None,shot_cap=None,tipt=None,use=None):
+ """One collaboration scenario: a vivid hook and three named real-world examples (left), illustration + optional screenshot (right).
+ use: the headline use case, shown as a pill above the hook (v3.9: 1 personal assistant, 2 chatbot/customer service, 3 one-person company)."""
  s=D.new();header(D,s,'Topic 1 · Five collaboration scenarios',f'Scenario {n} · {title}',pitch)
  top,bot=2.3,6.3;side=bot-top
  lw=4.95 if shot else 12.1-side-.25
  card(s,.6,top,lw,bot-top)
- text(s,.85,top+.16,lw-.5,1.12,hook,13,INK,font=SERIF,minpt=10.5,lh=1.12)
+ if use:
+  lab='USE CASE  ·  '+use.upper();pw=min(lw-.5,.62+len(lab)*.083)
+  box(s,.85,top+.18,pw,.36,fill=ACC,shape=MSO_SHAPE.ROUNDED_RECTANGLE)
+  text(s,.85,top+.18,pw,.36,lab,10.5,WHITE,bold=True,align='c',anchor='m',autofit=False)
+  text(s,.85,top+.6,lw-.5,.72,hook,12.5,INK,font=SERIF,minpt=10,lh=1.1)
+ else:
+  text(s,.85,top+.16,lw-.5,1.12,hook,13,INK,font=SERIF,minpt=10.5,lh=1.12)
  text(s,.85,top+1.36,lw-.5,.26,'WHERE YOU SEE IT TODAY',10,TEAL,bold=True,autofit=False)
  y0=top+1.66;rh=(bot-.1-y0)/len(examples)
  for i,(ic,t,d) in enumerate(examples):
@@ -306,24 +313,28 @@ def topic1(D,C,mark):
  ('Digital worker','briefcase',['Performs a BUSINESS role: analyst, coder, bookkeeper.','Success: verified work products and a review trail.','A named owner accepts the result and exceptions.']),tipt='These are work roles, not two different kinds of language model.');tag(D,'MODEL','IBM; BULDRR job-fit framing; course design')
  # Five collaboration scenarios (Scenario 2 is followed by a live WhatsApp try-it): from one person and one agent to agents working across companies.
  scenario(D,1,'One Human, One AI Agent','Your own chief of staff that never clocks off',
-  'One person, one always-on agent. It works through your inbox and calendar overnight and is waiting with a brief, a clash and a draft before you wake up.',
+  'One person, one always-on agent. It works through your inbox and calendar overnight and has a brief, a clash and a draft waiting before you wake up.',
   [('sparkles','Always-on personal assistants','OpenAI Dots, Meta Muse, Grok Bot, Claude Duet and Manus Cue: the Big Five you meet later today.'),
-   ('server','A desktop agent on your own laptop','Hermes Desktop, the single office worker you run this afternoon.'),
-   ('code','A coding partner for one developer','Claude Code or OpenAI Codex working through one person’s repository.')],
-  'pattern1.jpg','p1-assistant-chat.png','Real example · names blurred',tipt='On the right: an assistant spots a weekend clash between two booked course days and a new teaching request.')
- scenario(D,2,'Multiple Humans, One AI Agent','One agent, a whole team asking it for help',
-  'Drop one agent into the team chat and it becomes the colleague everyone pings. It updates systems, chases blockers and reports back to the whole group.',
-  [('chat','A bot in the team group chat','An OpenClaw or Hermes agent in Telegram or WhatsApp, like the trainers’ chat on the right.'),
-   ('users','An assistant the whole channel can call','Claude in Slack, or any bot a channel can @mention.'),
-   ('inbox','A shared front desk','One agent triaging a shared support inbox for the whole service team.')],
-  'pattern2.jpg','p2-group-chat.png','Real example · names blurred',tipt='The best shared agents say out loud what they verified and what is still unknown.')
+   ('phone','A morning brief on your phone','Your Hermes agent reads Gmail and sends an 8:00 inbox summary to Telegram before you open your laptop (Activity 2).'),
+   ('calendar','A guard on your calendar','It spots the double-booking before you say yes, like the weekend clash in the real chat on the right.')],
+  'pattern1.jpg','p1-assistant-chat.png','Real example · names blurred',use='Personal assistant',
+  tipt='Let it read your inbox and calendar, but keep the Send button: it drafts, you commit.')
+ scenario(D,2,'Multiple Humans, One AI Agent','One chatbot answers every customer at once',
+  'Put one agent on the front line and every customer gets an answer, even at 2 am. It clears the routine questions and hands the tricky ones to a person.',
+  [('chat','A WhatsApp Business chatbot','Tertiary Infotech Academy answers course questions on one WhatsApp account. You try it on the next slide.'),
+   ('users','Klarna’s AI assistant','2.3 million chats in its first month: two-thirds of Klarna’s customer service chats (Klarna, Feb 2024).'),
+   ('inbox','A helpdesk bot in the team chat','Staff ask it too: an OpenClaw agent in the trainers’ group chat reassigns a course run and reports a blocker (right).')],
+  'pattern2.jpg','p2-group-chat.png','Real example · names blurred',use='Chatbot & customer service',
+  tipt='Give every chatbot an exit: when it cannot answer, it says so and passes the chat to a person.')
+ tag(D,'CASE','https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/')
  whatsapp_try(D)
- scenario(D,3,'One Human, Multiple AI Agents','Be the manager of your own AI department',
-  'One person splits the goal and hands each piece to a specialist: a researcher, a writer, a producer and an auditor. The work runs in parallel while you approve the hand-offs.',
-  [('kanban','Hermes profiles on a Kanban board','Your Day 2 video studio: research → script → video → audit.'),
-   ('users','Several Grok Bots on one cloud computer','Each bot has its own screen while sharing files and logins.'),
-   ('robot','A Manus Cue agent team','Agents share a group chat and a goal; you make the final call.')],
-  'pattern3.jpg','p3-hermes-profiles.png','Real example · Hermes profiles',tipt='On the right: six Hermes profiles that run a YouTube channel from research to upload.')
+ scenario(D,3,'One Human, Multiple AI Agents','One founder, a whole AI staff',
+  'You are the only human on the payroll. Specialist agents do the jobs a startup would hire for, in parallel, while you approve the hand-offs.',
+  [('building','A company run in Paperclip','A CEO agent hires a Chief of Staff, who hires the marketing team: Kopi Kaki in the bonus topic.'),
+   ('kanban','A video studio on a Kanban board','Five Hermes agents take your Day 2 video from research to script, voice-over, render and review.'),
+   ('film','A YouTube channel with no staff','Six Hermes profiles run a channel from research to upload, shown on the right.')],
+  'pattern3.jpg','p3-hermes-profiles.png','Real example · Hermes profiles',use='One-person company',
+  tipt='One-person does not mean no oversight: you are the Board, and every spend and every post waits for your yes.')
  scenario(D,4,'Multiple Humans, Multiple AI Agents','When a whole organisation runs on agents',
   'Many people, each building and running their own agents, all pointed at shared goals. This is where agents stop being a gadget and become part of the workforce.',
   [('hospital','Singapore public healthcare','80,000+ staff have built 12,000+ AgentSea agents and shared 300+ for colleagues to reuse.'),

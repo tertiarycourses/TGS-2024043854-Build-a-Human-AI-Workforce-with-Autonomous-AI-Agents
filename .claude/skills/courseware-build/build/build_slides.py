@@ -258,7 +258,7 @@ V34.each_can(D); V34.handoff(D)   # trainer-added v3.3 slides, recreated nativel
 V34.decomposition(D); V34.framework(D); V34.subagents(D)   # trainer screenshots (v3.5): task decomposition, subagents
 V34.bots_and_groups(D)   # Part A: hire bots with New Agent; group chats (LP row)
 mark("lab04"); V34.social_team(D); V34.activity4_team(D); lab_block(LAB["04"], 3)
-mark("lab05"); V34.video_tools(D); V34.kanban_board(D); V34.video_team(D); lab_block(LAB["05"], 3)
+mark("lab05"); V34.video_tools(D); V34.team_sidebar(D); V34.kanban_board(D); V34.video_team(D); V34.video_result(D); lab_block(LAB["05"], 3)   # v3.9: trainer Activity 5 screenshots
 mark("lab06"); V34.crons_week(D); lab_block(LAB["06"], 2)
 mark("t3b"); V34.security(D); V34.grounding(D); V34.evaluation(D)   # Part B: security, RAG, metrics (LP row)
 mark("t3sum")
