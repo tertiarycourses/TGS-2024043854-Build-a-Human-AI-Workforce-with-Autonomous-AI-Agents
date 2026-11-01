@@ -430,19 +430,19 @@ MUSE_WONDER='https://research.meta.ai/blog/muse-wonder'
 DOTS_NEWS='https://openai.com/index/introducing-dots/'
 GROK47='https://x.ai/news/grok-4-7'
 def big_five_compare(D):
- """The Big Five side by side: maker, the model inside, what to hand it, a Kopi Kaki job and access (models checked 31 Oct 2026)."""
+ """The Big Five side by side: maker, the model inside, what to hand it, single or multi-agent and pricing (v3.8) (models checked 31 Oct 2026)."""
  s=D.new(dark=True);header(D,s,'Topic 1 · The Big Five','Same Always-On Idea, Five Different Brains',
   'The model decides how it thinks; the use case decides whether it fits your job. Pick by the job, then check who can get it.')
  five=[('logo-muse.png','Meta Muse','Meta','Muse Spark','Muse Wonder coming soon, subscribers first',
-        'Personal email, schedules and goals; errands with Grab, Shopee and SIA as partners roll out','Sort your inbox and calendar before the Saturday pop-up','Singapore · free core use'),
+        'Personal email, schedules and goals; errands with Grab, Shopee and SIA as partners roll out',('Single agent only','one assistant works for you'),('Free','core use, Singapore')),
        ('logo-dots.png','OpenAI Dots','OpenAI','GPT-6 Astra','its own cloud computer, 24/7',
-        'Ongoing goals inside ChatGPT, Slack and Teams; hands code to Codex','Check pre-orders every morning and flag a dip','ChatGPT Pro · Business Premium'),
+        'Ongoing goals inside ChatGPT, Slack and Teams; hands code to Codex',('Single agent only','one agent per goal'),('Paid','ChatGPT Pro · Business Premium')),
        ('logo-grok.png','Grok Bot','xAI','Grok 4.6 → 4.7','4.7 is trained for the Grok Bot harness',
-        'A team of named bots (Research, Sales, Ops) on one shared cloud computer','A Research bot and a Sales bot share one supplier list','Paid plans · check yours'),
+        'A team of named bots (Research, Sales, Ops) on one shared cloud computer',('Multi-agent','named bots work as a team'),('Paid','Premium from US$30/mo')),
        ('logo-duet.png','Claude Duet','Anthropic','Claude Opus 5.5','chosen for judgement: what needs you',
-        'A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays or signs','A 7 am brief: overdue invoices and supplier emails','US Pro/Max · waitlist'),
+        'A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays or signs',('Unknown','Anthropic has not said'),('Paid','US Pro/Max · waitlist')),
        ('logo-cue.png','Manus Cue','Manus','Manus 2.0 harness','model not published by Manus',
-        'Agents with their own email, phone and wallet: calls, bookings, payments within a budget','Call three venues and shortlist the launch party','Early access · invite code')]
+        'Agents with their own email, phone and wallet: calls, bookings, capped payments',('Multi-agent','agents share a group chat and a goal'),('Free for now','early access · invite code'))]
  w=2.36;gap=.07
  for k,(logo,name,maker,model,note,use,kk,acc) in enumerate(five):
   x=.6+k*(w+gap)
@@ -454,12 +454,15 @@ def big_five_compare(D):
   text(s,x+.15,3.34,w-.3,.38,model,15.5,WHITE,bold=True,font=SERIF,minpt=11)
   text(s,x+.15,3.72,w-.3,.36,note,9.5,SOFT,minpt=8)
   text(s,x+.15,4.12,w-.3,.22,'USE IT FOR',9,ACC,bold=True,autofit=False)
-  text(s,x+.15,4.34,w-.3,.92,use,10.5,LIGHT,minpt=8.5)
-  text(s,x+.15,5.28,w-.3,.22,'AT KOPI KAKI',9,ACC,bold=True,autofit=False)
-  text(s,x+.15,5.5,w-.3,.62,kk,10.5,SOFT,minpt=8.5)
-  text(s,x+.15,6.17,w-.3,.4,acc,10,TEAL,bold=True,minpt=8)
- text(s,.6,6.72,12.1,.24,'Models checked 31 Oct 2026 from Meta, OpenAI, xAI, Anthropic and Manus; vendors swap models without notice. Comparison: BULDRR, 22 Oct 2026.',9.5,SOFT,autofit=False)
- tag(D,'EVIDENCE',' ; '.join([MUSE_SPARK,MUSE_WONDER,DOTS_NEWS,GROK47,DUET,MANUS,ARTICLE]))
+  text(s,x+.15,4.34,w-.3,.8,use,10.5,LIGHT,minpt=8.5)
+  text(s,x+.15,5.12,w-.3,.22,'SINGLE OR MULTI-AGENT',9,ACC,bold=True,autofit=False)
+  text(s,x+.15,5.32,w-.3,.3,kk[0],14,WHITE if kk[0]!='Unknown' else SOFT,bold=True,font=SERIF,minpt=11)
+  text(s,x+.15,5.62,w-.3,.24,kk[1],9.5,SOFT,minpt=8)
+  text(s,x+.15,5.9,w-.3,.22,'PRICING',9,ACC,bold=True,autofit=False)
+  text(s,x+.15,6.1,w-.3,.3,acc[0],14,TEAL if acc[0].startswith('Free') else WHITE,bold=True,font=SERIF,minpt=11)
+  text(s,x+.15,6.38,w-.3,.24,acc[1],9.5,SOFT,minpt=8)
+ text(s,.6,6.72,12.1,.24,'Models checked 31 Oct, pricing 1 Nov 2026, from Meta, OpenAI, xAI, Anthropic and Manus; vendors change both without notice. Comparison: BULDRR, 22 Oct 2026.',9.5,SOFT,autofit=False)
+ tag(D,'EVIDENCE',' ; '.join([MUSE_SPARK,MUSE_WONDER,DOTS_NEWS,GROK47,'https://x.ai/bot',DUET,MANUS,ARTICLE]))
 
 def agent_components(D,kick):
  """What makes an AI agent (moved from Topic 1 to open Topic 2 in v3.6, trainer order)."""

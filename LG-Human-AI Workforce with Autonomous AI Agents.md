@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 3.7 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 3.8 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -224,13 +224,13 @@ Compare the agents with a job-fit, control, access and limits framework (BULDRR)
 
 **The Big Five side by side.** The model decides how the agent thinks; the use case decides whether it fits your job. Models below were checked on 31 October 2026 against each maker's own announcement; vendors change models without notice, so check again before you rely on one.
 
-| Agent (maker) | Model inside | Use it for | At Kopi Kaki |
-|---|---|---|---|
-| Meta Muse (Meta) | Muse Spark; Meta says Muse Wonder will power Muse soon, subscribers first | Personal email, schedules and goals; errands with Singapore partners such as Grab, Shopee and Singapore Airlines as they roll out | Sort your inbox and calendar before the Saturday pop-up |
-| OpenAI Dots (OpenAI) | GPT-6 Astra | Ongoing goals inside ChatGPT, Slack and Teams; hands coding work to Codex | Check pre-orders every morning and flag a dip |
-| Grok Bot (xAI) | Launched on Grok 4.6; Grok 4.7 (21 Sep 2026) is trained for the Grok Bot harness | A team of named bots (Research, Sales, Ops) sharing one cloud computer | A Research bot and a Sales bot working from one supplier list |
-| Claude Duet (Anthropic) | Claude Opus 5.5 | A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays, signs or deletes | A 7 am brief: overdue invoices and supplier emails that need you |
-| Manus Cue (Manus) | Runs on the Manus 2.0 Cascade agent harness; Manus does not publish the model | Agents with their own email, phone and wallet: calls, bookings and payments within a budget | Call three venues and shortlist the launch party |
+| Agent (maker) | Model inside | Use it for | Single or multi-agent | Pricing |
+|---|---|---|---|---|
+| Meta Muse (Meta) | Muse Spark; Meta says Muse Wonder will power Muse soon, subscribers first | Personal email, schedules and goals; errands with Singapore partners such as Grab, Shopee and Singapore Airlines as they roll out | Single agent only | Free: core use in Singapore |
+| OpenAI Dots (OpenAI) | GPT-6 Astra | Ongoing goals inside ChatGPT, Slack and Teams; hands coding work to Codex | Single agent only | Paid: ChatGPT Pro or Business Premium |
+| Grok Bot (xAI) | Launched on Grok 4.6; Grok 4.7 (21 Sep 2026) is trained for the Grok Bot harness | A team of named bots (Research, Sales, Ops) sharing one cloud computer | Multi-agent: named bots work as a team | Paid: included from Premium (US$30 a month); the free Grok plan covers chat only |
+| Claude Duet (Anthropic) | Claude Opus 5.5 | A morning brief, business inbox, invoices and follow-ups; asks before it sends, pays, signs or deletes | Unknown: Anthropic has not said | Paid: Pro or Max (US), waitlist |
+| Manus Cue (Manus) | Runs on the Manus 2.0 Cascade agent harness; Manus does not publish the model | Agents with their own email, phone and wallet: calls, bookings and payments within a budget | Multi-agent: agents share a group chat and a goal | Free for now: early access with an invite code |
 
 <sub>Models: Meta — https://ai.meta.com/blog/introducing-muse-spark-msl/ and https://research.meta.ai/blog/muse-wonder ; OpenAI — https://openai.com/index/introducing-dots/ ; xAI — https://x.ai/news/grok-4-7 ; Anthropic — https://claude.com/resources/articles/claude-duet ; Manus — https://manus.im/blog/introducing-manus-2-0</sub>
 

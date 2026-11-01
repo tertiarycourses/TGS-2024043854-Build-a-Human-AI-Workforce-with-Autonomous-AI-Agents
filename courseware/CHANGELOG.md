@@ -1,5 +1,11 @@
 # Courseware change history
 
+## v3.8 — 1 November 2026
+
+- **Single agent or a team? The Big Five comparison now says.** The last row of the Topic 1 comparison was "At Kopi Kaki". It is now "Single or multi-agent": Meta Muse and OpenAI Dots run a single agent only, Grok Bot and Manus Cue run multi-agent teams, and Anthropic has not said for Claude Duet. The Learner Guide's section 1.7 table matches.
+- **What each one costs.** A new Pricing row, checked against each maker's page on 1 Nov 2026: Muse is free (core use in Singapore). Dots, Grok Bot and Duet are paid; Grok Bot is included from Premium at US$30 a month, and the free Grok plan covers chat only. Cue is free for now (early access with an invite code). The Learner Guide table gains a Pricing column.
+- Assessment v7 is unchanged. FG and AP v14.
+
 ## v3.7 — 1 November 2026
 
 - **A COPY THE PROMPTS button on every lab slide.** A large orange button sits at the top right of each lab intro slide and each prompt slide. Click it in Slide Show to open that lab's section of the Lab Prompts page (for example prompts/#lab-S2), where every prompt has a Copy button.

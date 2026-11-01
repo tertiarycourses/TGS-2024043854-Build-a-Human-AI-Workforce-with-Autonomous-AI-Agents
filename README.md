@@ -9,7 +9,7 @@ Learn to delegate real work to always-on AI agents and Hermes agent teams, while
 | Duration | 2 days, 9:30 am–6:30 pm (16 scheduled hours including 2 hours of assessment) |
 | Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-build-a-human-ai-workforce-with-autonomous-ai-agents.html) |
 | Funding | Up to 70% WSQ course-fee funding (50% baseline for Singapore Citizens/PRs aged 21+; 70% for Singapore Citizens aged 40+ or SME-sponsored). Eligibility and terms apply. |
-| Courseware | v3.7 · 1 November 2026 |
+| Courseware | v3.8 · 1 November 2026 |
 
 [Open the lab steps and copyable prompts](https://tertiarycourses.github.io/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/prompts/index.html) · [Sources](prompts/resources.html) · [Download the course ZIP](https://github.com/tertiarycourses/TGS-2024043854-Build-a-Human-AI-Workforce-with-Autonomous-AI-Agents/archive/refs/heads/main.zip)
 
@@ -53,7 +53,7 @@ Every lab folder holds a README, a printable instructions PDF with every step an
 
 | Material | Files |
 |---|---|
-| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.7.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.7.pdf) |
+| Slide deck | [PPTX](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.8.pptx) · [PDF](courseware/Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents-v3.8.pdf) |
 | Learner Guide | [DOCX](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) · [Markdown](LG-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.md) |
 | Lesson Plan | [DOCX](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.docx) · [PDF](courseware/LP-Human-AI%20Workforce%20with%20Autonomous%20AI%20Agents.pdf) |
 | Labs | [labs/](labs/) · [Lab Prompts page](prompts/index.html) · [Sources](prompts/resources.html) |
