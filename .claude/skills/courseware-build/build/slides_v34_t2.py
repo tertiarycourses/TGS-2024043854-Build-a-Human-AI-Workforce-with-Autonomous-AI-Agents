@@ -8,6 +8,7 @@ from slides_2026 import tag
 from slides_v34 import asset, link, big_number, before_after
 
 DOCS = 'https://hermes-agent.nousresearch.com/docs/'
+FIRECRAWL_REF = 'https://www.firecrawl.dev/referral?rid=UABU3LG6'
 PORTAL = 'https://portal.nousresearch.com/'
 KK = 'Topic 2 · Your first AI employee'
 def shot(n): return asset('screenshots', 'desktop', n + '.png')
@@ -185,10 +186,14 @@ def skills(D, T2S):
     T2S['Create a Reusable Skill from a Real Correction'](KK + ' · Skills')
 
 def firecrawl(D):
-    big_number(D, KK + ' · Web search', '1,000', 'free Firecrawl credits a month: Mia can now read the web.',
+    s = big_number(D, KK + ' · Web search', '1,000', 'free Firecrawl credits a month: Mia can now read the web.',
                'Firecrawl is Hermes’s default web search. Create a free key at firecrawl.dev (no card), paste it in Settings → Tools & Keys, '
                'and ask for cold-brew trends with dated, linked sources. Keys go in Settings, never in a chat.', dark=False)
-    tag(D, 'SETUP', 'https://www.firecrawl.dev/pricing ; ' + DOCS + 'user-guide/features/web-search')
+    # Trainer's Firecrawl referral (added 8 Nov 2026): sign-ups through it get bonus credits (20K per the trainer)
+    t = text(s, .9, 6.45, 10.5, .4, 'BONUS  Sign up through the course link for 20,000 credits ▸ firecrawl.dev/referral?rid=UABU3LG6',
+             15, TEAL, bold=True, autofit=False)
+    t.click_action.hyperlink.address = FIRECRAWL_REF
+    tag(D, 'SETUP', FIRECRAWL_REF + ' ; https://www.firecrawl.dev/pricing ; ' + DOCS + 'user-guide/features/web-search')
 
 def gmail(D):
     image(D, KK + ' · Gmail', 'Gmail in One Click: Sign In with Google, No OAuth Set-up', shot('connectors'),
