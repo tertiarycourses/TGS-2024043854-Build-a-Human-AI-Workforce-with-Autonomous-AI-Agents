@@ -1,5 +1,17 @@
 # Courseware change history
 
+## v3.10 — 12 November 2026
+
+- **The trainer's new Hermes Desktop screenshots, each on its own explained slide.**
+  - Topic 2: the official download page (hermes-agent.nousresearch.com/desktop); the real **+ → Folder…** attach menu on the company-rulebook slide; **Settings → Providers → Accounts** with ChatGPT or Codex Subscription connected. That slide explains the **Applies to** chips: sign-ins are not copied to new bots, so each new bot is signed in there.
+  - Topic 3: the Kopi Social Team in the Bots tab, hired by one prompt; the three approved posts (LinkedIn, Facebook edited then re-approved, Instagram) replace the sample copy; a "Blocked Means It's Your Turn" Kanban slide; the "Weekly video draft" scheduled job (0 10 * * 5, delivered to Telegram, draft-only).
+  - A third-party name in one roster screenshot is blurred, and a video-call overlay is cropped out.
+- **Lab 4 hires the team by prompt.** One prompt to Mia creates the five bots (Rafi, Lin, Farah, Ivy, Pixel), each with its role file as SOUL.md, and the "Kopi Social Team" group chat, the same way Lab 5 hires the video team. Learners no longer fill in New Agent five times or paste SOUL.md files. Manage groups stays as the fallback if Mia cannot create the room. The lab still takes 60 minutes.
+- Lab 4 in the deck shows five prompt slides, now including the review gate (APPROVE, EDIT or REJECT).
+- The cover carries a course badge (AI AGENTS · WSQ) beside the Tertiary logo.
+- LG (2.3, 2.4, 3.3, 3.4, 3.6), LP rows, lab README/PDF/COPY-PROMPTS, the Lab Prompts page and labs.zip match. 167 slides (7 added).
+- FG and AP v16: slide ranges re-read; the FG no longer carries suggested answers (house rule, 7 Nov 2026). Assessment v7 is unchanged.
+
 ## v3.9 — 1 November 2026
 
 - **Activity 5, from the trainer's own run.** Three Topic 3 slides now show real Hermes Desktop screenshots, each explained:

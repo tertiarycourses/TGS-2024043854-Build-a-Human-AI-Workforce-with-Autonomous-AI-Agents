@@ -91,13 +91,13 @@ def bots_and_groups(D):
           side=[('users', 'Bots tab → New Agent', 'Three fields: Name, Title, Description. The bot introduces itself.'),
                 ('file', 'Advanced', 'Paste its role file as Custom SOUL.md; pick its model, skills and tools.'),
                 ('sparkles', 'Give it a face', 'Right-click → Edit Profile: Bot, Generate, Upload or a Pet.')],
-          caption='A bot is a Hermes profile with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat.')
+          caption='A bot is a Hermes profile you can @mention. This is the by-hand way; in Lab 4, one prompt to Mia hires all five.')
     tag(D, 'ARCH', BM)
     image(D, 'Topic 3 · Group chats', 'Put Your Bots in One Room and Let Them Hand Off', asset('screenshots', 'desktop', 'bot-group-chat.png'),
           side=[('users', 'Manage groups', 'Right-click a bot → Manage groups → create one. 2–6 bots per room.'),
                 ('chat', '@name hands off', 'Bots pull teammates in with @name; @user asks you to decide.'),
                 ('shield', 'Built-in brakes', 'Up to 3 rounds and 10 messages per send. Stop, Rename, Disband.')],
-          caption='Trainer’s test room: Eve and Dalong answer the same message and tag each other. Your room has five marketers.')
+          caption='Trainer’s test room: two bots answer the same message and tag each other. In Lab 4, Mia builds your five-marketer room.')
     tag(D, 'ARCH', BM)
 
 def social_team(D):
@@ -171,7 +171,7 @@ def board_live(D):
         text(s, x + .15, 5.3, .42, .42, num, 15, WHITE, bold=True, align='c', anchor='m', autofit=False)
         text(s, x + .7, 5.25, 5.1, .34, head, 15, WHITE, bold=True, font=SERIF, autofit=False)
         text(s, x + .7, 5.6, 5.1, .7, body, 11.5, SOFT, minpt=9)
-    tip(D, s, 'A card in Ready with an assignee runs within a minute; no assignee, no run. Your last HUMAN card, approve the exact video, stays in Todo until you sign it off.', y=6.45, label='RULE')
+    tip(D, s, 'A card in Ready with an assignee runs within a minute; no assignee, no run. Your last HUMAN card, approve the exact video, waits in Todo or Blocked until you sign it off.', y=6.45, label='RULE')
     tag(D, 'SCREENSHOT', 'Trainer run of Activity 5 in Hermes Desktop, 1 Nov 2026 ; ' + HK)
 
 def video_result(D):
@@ -193,18 +193,17 @@ def video_result(D):
     tag(D, 'SCREENSHOT', 'Trainer run of Activity 5: HyperFrames preview, 1 Nov 2026 ; ' + HF)
 
 def activity4_team(D):
+    """Trainer screenshot (v3.10): the three approved posts in outputs/social/gallery.html."""
     s = D.new(dark=True); header(D, s, 'Topic 3 · Activity 4', 'One Brief, Three Platforms, Three Voices',
-                                 'The same launch fact, written by the specialist for each audience.')
-    posts = [('LinkedIn', 'linkedin', 'Founder story', '“I quit my bank job to bring back the kopitiam I grew up with. On 1 Dec our Tiong Bahru flagship opens…”'),
-             ('Facebook', 'users', 'The neighbourhood', '“Tiong Bahru kakis! Catch our last pop-up this Saturday, then come say hi on 1 Dec. Gula Melaka Cold Brew, SGD 6.80.”'),
-             ('Instagram', 'image', 'The scroll-stopper', '“Slow-brewed. Shiok cold. 12 hours, real gula melaka, coconut cream. #ShiokColdBrew”')]
-    for i, (pl, ic, aud, q) in enumerate(posts):
-        x = .6 + i * 4.1
-        card(s, x, 2.45, 3.9, 3.7, fill=K.PANEL, shadow=False); icon(s, ic, x + .3, 2.7, .56)
-        text(s, x + 1.05, 2.68, 2.6, .4, pl, 19, WHITE, bold=True, font=SERIF, autofit=False)
-        text(s, x + 1.05, 3.08, 2.6, .3, aud, 11.5, ACC, bold=True, autofit=False)
-        text(s, x + .3, 3.65, 3.3, 2.3, q, 14, SOFT, font=SERIF, minpt=10, lh=1.2)
-    tip(D, s, 'Sample copy for illustration. Your team writes its own from the brief, and you approve every post.', y=6.35)
+                                 'The trainer’s run: the same launch facts, a different voice for each audience, and every post approved before anything goes out.')
+    picture(s, desk('social-posts-approved'), .6, 2.3, maxw=4.4, maxh=4.05)
+    _numbered(s, 5.4, 2.35, 7.3, [
+        ('in', 'LinkedIn · Lin, the founder story', 'Why you started, what seven tasters asked for, the 1 Dec flagship. 145 words against a 150 limit, three hashtags, no promo code.'),
+        ('f', 'Facebook · Farah, edited then re-approved', 'Your EDIT put the Raffles Place pop-up dates in the first line and cut 95 words to 76. The gallery keeps v1 so you can compare.'),
+        ('ig', 'Instagram · Ivy, the scroll-stopper', '“12 hours in the making. Gone in a few sips.” SHIOK20 with its terms, five hashtags, and an image brief handed to Pixel.')],
+        step=1.32, dark=True, size=12.5)
+    tip(D, s, 'The green chips are the rules in compliance-rules.md (C1 no health claims, C4 no halal claim …). A tick means the post passed that check.', y=6.45, label='CHECKS')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 4: outputs/social/gallery.html, Nov 2026')
 
 def video_team(D):
     s = D.new(); header(D, s, 'Topic 3 · Activity 5', 'Your Production Line: Five Agents, Two Human Gates',
@@ -371,7 +370,7 @@ def multi_intro(D):
         text(s, x + .15, 3.95, 2.0, .55, q, 12, ACC, bold=True, align='c', minpt=9)
         text(s, x + .15, 4.55, 2.0, .75, how, 12, SOFT if dark else MUTED, align='c', minpt=9)
         text(s, x + .15, 5.35, 2.0, .9, eg, 11, LIGHT if dark else INK, align='c', minpt=8.5)
-    tip(D, s, 'Hermes Desktop: Bots tab → New Agent → Name, Title, Description; Advanced for its SOUL.md, skills, tools and model.', y=6.55)
+    tip(D, s, 'Hire one by hand (Bots tab → New Agent), or ask Mia to hire a whole team from one prompt, as you will in Activities 4 and 5.', y=6.55)
     tag(D, 'ARCH', HP)
 
 def each_can(D):
@@ -532,3 +531,46 @@ def subagents(D):
         text(s, x + 1.9, 5.27, 3.9, .34, t, 14, WHITE, bold=True, font=SERIF, minpt=11)
         text(s, x + .3, 5.7, 5.5, .65, d, 12, SOFT, minpt=9.5)
     tag(D, 'ARCH', HD + ' ; redrawn from trainer-supplied screenshot (v3.5)')
+
+
+def _numbered(*a, **k):
+    from slides_v34_t2 import numbered   # slides_v34_t2 imports this module, so import late
+    numbered(*a, **k)
+
+def social_hired(D):
+    """Trainer screenshots (v3.10): the Kopi Social Team hired by one prompt to Mia."""
+    s = D.new(); header(D, s, 'Topic 3 · Activity 4', 'One Prompt to Mia: Five Bots and Their Room',
+                        'No New Agent forms, no role files pasted by hand. In the trainer’s run, Mia hired the whole team from one message.')
+    picture(s, desk('social-team-created'), .7, 2.3, maxw=2.15, maxh=3.95)
+    picture(s, desk('social-team-intros'), 3.05, 2.3, maxw=2.15, maxh=3.95)
+    _numbered(s, 5.75, 2.35, 6.95, [
+        ('1', 'Five bots, one job each', 'Market Researcher, LinkedIn, Facebook and Instagram Writers, Image Creator: each a Hermes profile with its souls/ file as its SOUL.md.'),
+        ('2', 'Each one says hello', 'Mia asks every bot to introduce itself. They answer in role: “Hi founder, I’m Ivy, the Instagram writer…”'),
+        ('3', 'Their room is ready', 'Kopi Social Team · 5 bots: the group chat where they hand off by @name and ask you with @user.')], step=1.3, size=12.5)
+    tip(D, s, 'Activity 5 hires the video team the same way. You can see those five agents below the social bots on the right.', y=6.45, label='SAME METHOD')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 4 in Hermes Desktop, Nov 2026 (a third-party name blurred) ; ' + BM)
+
+def board_blocked(D):
+    """Trainer screenshot (v3.10): both HUMAN gates in Blocked while research runs."""
+    s = D.new(dark=True); header(D, s, 'Topic 3 · Kanban', 'Blocked Means It’s Your Turn',
+                                 'The board’s own legend: “Blocked: it’s waiting on you.” This is the trainer’s board a few minutes after the hiring prompt.')
+    picture(s, desk('kanban-blocked-notice-crop'), .6, 2.35, maxw=7.6, maxh=3.9)
+    _numbered(s, 8.5, 2.4, 4.2, [
+        ('1', 'Desktop taps your shoulder', '“Task blocked — needs your input”, with Open Kanban to jump straight to the board.'),
+        ('2', 'Both gates wait from the start', '“HUMAN: approve the script” and “HUMAN: approve the exact video” sit in BLOCKED, unassigned.'),
+        ('3', 'The agents carry on', 'Research the launch video is RUNNING; script, voice-over, render and review queue in TODO behind it.')],
+        step=1.3, dark=True, size=12)
+    tip(D, s, 'A HUMAN card has no assignee, so no agent ever picks it up. It moves to Done only when you tell Mia APPROVE.', y=6.45, label='RULE')
+    tag(D, 'SCREENSHOT', 'Trainer run of Activity 5 in Hermes Desktop, Nov 2026 ; ' + HK)
+
+def cron_job(D):
+    """Trainer screenshot (v3.10): the Weekly video draft scheduled job, before its first run."""
+    s = D.new(); header(D, s, 'Topic 3 · Activity 6', 'Friday 10:00, Already in the Diary',
+                        'Scheduled jobs → Weekly video draft: the job Mia set up from your Lab 6 prompt, before it has run once.')
+    picture(s, desk('cron-weekly-video'), .6, 2.35, maxw=7.4, maxh=3.95)
+    _numbered(s, 8.4, 2.4, 4.3, [
+        ('1', '0 10 * * 5', 'Cron for minute 0, hour 10, day 5 of the week: every Friday at 10:00. Next run: Fri 13 Nov 2026.'),
+        ('2', 'Deliver to Telegram', 'The result lands on your phone, not in a chat you might never open.'),
+        ('3', 'Draft-only, fresh approval', 'The prompt says NEVER publish and reuse no old approvals: each Friday’s video needs two new APPROVEs from you.')], step=1.3, size=12)
+    tip(D, s, 'Trigger now runs it today; Pause stops it without deleting it. “Last: —” means it has never run.', y=6.45, label='TEST IT')
+    tag(D, 'SCREENSHOT', 'Trainer’s Hermes Desktop scheduled job, Nov 2026 ; https://hermes-agent.nousresearch.com/docs/user-guide/features/cron')

@@ -45,6 +45,28 @@ def what_is_hermes(D):
                 ('kanban', 'Kanban · Bots', 'Your Day 2 teams live here.')],
           caption='The left sidebar is your control panel. You will not open a terminal in this course: Mia runs the technical steps for you.')
 
+def numbered(s, x, y, w, items, step=1.3, dark=False, size=12.5):
+    """Numbered call-outs beside a screenshot: [(num, head, body)]."""
+    for i, (num, head, body) in enumerate(items):
+        yy = y + i * step
+        circle(s, x, yy, .5, ACC)
+        text(s, x, yy, .5, .5, num, 14, WHITE, bold=True, align='c', anchor='m', autofit=False)
+        text(s, x + .68, yy - .03, w - .68, .38, head, 16, WHITE if dark else INK, bold=True, font=SERIF, minpt=12)
+        text(s, x + .68, yy + .37, w - .68, step - .45, body, size, SOFT if dark else MUTED, minpt=9.5)
+
+def download_page(D):
+    """Trainer screenshot (v3.10): the official Hermes Desktop page."""
+    s = D.new(); header(D, s, KK + ' · Set up', 'Download Hermes Desktop From One Page Only',
+                        'hermes-agent.nousresearch.com/desktop is the official home of the app for macOS, Windows and Linux. Bookmark it before you search for anything.')
+    picture(s, shot('desktop-download-page'), .6, 2.45, maxw=7.5, maxh=3.6)
+    numbered(s, 8.45, 2.45, 4.25, [
+        ('1', 'Windows: Microsoft Store', 'The trainer’s Windows laptop gets one button, Get from Microsoft Store; the ▾ beside it lists the other downloads.'),
+        ('2', 'No terminal needed', '“Memory, skills, agents and tools, outside the terminal.” That line is why this course runs on Desktop.'),
+        ('3', 'Check the address', 'Look-alike “free Hermes” sites and search ads are where fake installers hide. Type the address yourself.')], step=1.25, size=12)
+    link(s, .6, 6.2, 7.5, 'Open the official page  →  hermes-agent.nousresearch.com/desktop · click', 'https://hermes-agent.nousresearch.com/desktop', 12)
+    tip(D, s, 'Install, then open Settings → About to confirm the version (next slide).', y=6.55)
+    tag(D, 'SETUP', 'https://hermes-agent.nousresearch.com/desktop ; trainer screenshot of the download page, Nov 2026')
+
 def desktop(D):
     s = D.new(); header(D, s, KK + ' · Set up', 'Install Hermes Desktop in Three Moves',
                         'Download, open, check the version. If you can install Zoom, you can install your first AI employee.')
@@ -71,17 +93,12 @@ def folder(D):
         text(s, .6, y - .08, .7, .9, n, 40, ACC, bold=True, font=SERIF, autofit=False)
         text(s, 1.3, y, 4.6, .4, t, 17, INK, bold=True, font=SERIF)
         text(s, 1.3, y + .42, 4.6, .62, d, 12, MUTED, minpt=9.5)
-    card(s, 6.3, 2.35, 6.4, 1.75, fill=K.CHAR)
-    text(s, 6.55, 2.47, 5.9, .26, 'ATTACH', 9.5, K.DIM, bold=True, autofit=False)
-    for i, (ic, t) in enumerate([('file', 'Files…'), ('folder', 'Folder…'), ('image', 'Images…'), ('globe', 'URL…')]):
-        x = 6.55 + i * 1.5; hi = t == 'Folder…'
-        card(s, x, 2.85, 1.38, .95, fill=ACC_D if hi else K.PANEL, shadow=False)
-        s.shapes.add_picture(K.icon_png(ic, WHITE), Inches(x + .5), Inches(2.93), Inches(.38), Inches(.38))
-        text(s, x, 3.36, 1.38, .32, t, 12, WHITE, bold=hi, align='c', autofit=False)
-    code_card(s, 6.3, 4.3, 6.4, 1.75, 'Read AGENTS.md in the attached folder and follow it for this session. '
+    picture(s, shot('attach-menu'), 6.3, 2.35, maxw=2.95, maxh=3.1)
+    text(s, 6.3, 5.55, 2.95, .7, 'The real menu: + in the chat box → Folder…', 11, MUTED, align='c', minpt=9)
+    code_card(s, 9.45, 2.35, 3.25, 3.85, 'Read AGENTS.md in the attached folder and follow it for this session. '
               'In three bullets: who Kopi Kaki is and the rules you must never break.', 12.5, 'FIRST PROMPT IN EVERY NEW SESSION')
     tip(D, s, 'Do this at the start of every lab: + → Folder… → kopi-kaki. Type @ to point Mia at one file, e.g. @AGENTS.md.', y=6.45)
-    tag(D, 'SETUP', 'https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files ; trainer screenshot (chat box + → Attach)')
+    tag(D, 'SETUP', 'https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files ; trainer screenshot of the chat box + → Attach menu, Nov 2026')
 
 def model(D):
     s = D.new(); header(D, s, KK + ' · Provider and model', 'Provider and Model: Free Solar Mini 4 or Your ChatGPT Plus',
@@ -98,6 +115,18 @@ def model(D):
     picture(s, shot('model'), 5.95, 2.3, maxw=6.75, maxh=4.0)
     tip(D, s, 'Solar Mini 4 is the most-used free model on Nous Portal (31 Oct 2026). “Applies to” sets the brain per bot: right-sized models are Principle 5.', y=6.45)
     tag(D, 'SETUP', PORTAL + ' ; https://portal.nousresearch.com/models (Upstage: Solar Mini 4 — FREE, checked 31 Oct 2026; also free: Beam 1.0, Step 3.7 Flash, Ornith 1.5) ; trainer screenshot')
+
+def providers(D):
+    """Trainer screenshot (v3.10): Settings → Providers → Accounts with ChatGPT or Codex Subscription connected."""
+    s = D.new(); header(D, s, KK + ' · Provider and model', 'Sign In Once With ChatGPT Plus. No API Key to Copy.',
+                        'Settings → Providers → Accounts. Hermes opens the sign-in page in your browser and connects itself.')
+    picture(s, shot('providers-accounts'), .6, 2.45, maxw=7.5, maxh=3.75)
+    numbered(s, 8.45, 2.45, 4.25, [
+        ('1', 'ChatGPT or Codex Subscription', 'Connect another provider ▾ → ChatGPT or Codex Subscription. Sign in with your ChatGPT Plus account; the row turns Connected.'),
+        ('2', 'Applies to: one chip per agent', 'Mia, then every bot you hire. Sign-ins are not copied to new bots: on Day 2, click a new bot’s chip and sign it in here.'),
+        ('3', 'Or skip the account', 'Nous Portal (recommended, 300+ models) or Run models locally, with no account at all.')], step=1.3, size=12)
+    tip(D, s, 'The Anthropic sign-in says “Required Extra Usage Credits”: a Claude plan alone will not run Hermes, so this class runs on ChatGPT Plus.', y=6.45)
+    tag(D, 'SETUP', 'https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode (OAuth logins are not copied to cloned profiles) ; trainer screenshot, Nov 2026')
 
 def _shot_or(n, fallback):
     return shot(n) if os.path.exists(shot(n)) else shot(fallback)

@@ -18,7 +18,7 @@ from data_labs import LABS
 import workflow_visuals
 workflow_visuals.build()
 import prodoc
-from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39
+from version_history import PRIOR, V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39, V310
 
 def _find_repo(start):
     env = os.environ.get("COURSE_REPO")
@@ -265,6 +265,8 @@ p("**Hand Mia the company rulebook: + → Folder….** AGENTS.md is Kopi Kaki's 
   "In Hermes Desktop: (1) drag the lab's data/ files into Desktop/kopi-kaki; (2) in the chat box click + (left of 'Ask anything') → Folder… and choose kopi-kaki; "
   "(3) send 'Read AGENTS.md in the attached folder and follow it for this session' and check her answer matches the rules. Do this at the start of every lab. Type @ to point Mia at a single file, e.g. @AGENTS.md.")
 src("Context files: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files")
+img(os.path.join(SHOTS, "screenshots", "desktop", "desktop-download-page.png"), "The official download page, hermes-agent.nousresearch.com/desktop. On Windows it offers Get from Microsoft Store; type the address yourself, because look-alike sites carry fake installers (trainer screenshot)", 5.6)
+img(os.path.join(SHOTS, "screenshots", "desktop", "attach-menu.png"), "The chat box + menu: Folder… attaches Desktop/kopi-kaki; Paste image, URL and Prompt snippets live here too (trainer screenshot)", 2.4)
 img(os.path.join(SHOTS, "screenshots", "desktop", "version.png"), "Settings → About → Version & updates", 4.6)
 h2("2.4 Provider and model")
 p("The provider serves the model; the model is the brain. Pick one route:")
@@ -273,8 +275,10 @@ table(["Route", "How", "Cost"], [
     ("Free: Upstage Solar Mini 4", "Status bar → Sign in next to Nous → free Nous Portal account → Settings → Model → Provider: Nous Portal → Solar Mini 4", "$0 — free models only, standard rate limits; Solar Mini 4 is the most-used free model on Nous Portal (31 Oct 2026)"),
     ("Paid", "Nous Portal Plus, or another provider's key in Settings → Providers", "Nous Plus USD 20/month (Super USD 100, Ultra USD 200)")])
 p("'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.")
-src("Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models")
+p("**Sign in once, no API key.** Settings → Providers → Accounts lists every account Hermes can use: Nous Portal (recommended, 300+ models), Run models locally, and the accounts you have connected. Connect another provider → ChatGPT or Codex Subscription opens a verification page in your browser; sign in with your ChatGPT Plus account and the row shows Connected. The Applies to row has one chip for Mia and one for each bot you hire. Sign-ins are not copied to new bots, so on Day 2 click each new bot's chip and sign it in. The Anthropic sign-in shows 'Required Extra Usage Credits': a Claude plan alone will not run Hermes, which is why this class uses ChatGPT Plus.")
+src("Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models ; OAuth sign-ins are not copied to new bots: https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode")
 img(os.path.join(SHOTS, "screenshots", "desktop", "model.png"), "Settings → Model → Main model with the ChatGPT or Codex Subscription provider", 5.0)
+img(os.path.join(SHOTS, "screenshots", "desktop", "providers-accounts.png"), "Settings → Providers → Accounts: ChatGPT or Codex Subscription Connected, and the Applies to chips for Mia and the video agents (trainer screenshot)", 5.6)
 h2("2.5 Telegram messaging and voice")
 p("Give Mia a phone number. Left sidebar → Messaging → Telegram offers two ways to create her bot.")
 p("**Quick way (recommended): Create with QR.** Quick setup → Create with QR. Scan the code with the Telegram app on your phone, or open the link on this computer (the code expires in 30 minutes), and confirm in Telegram. Hermes creates the bot and detects your Telegram user ID automatically. Switch on Enabled and click Save changes.")
@@ -353,10 +357,12 @@ table(["Step", "Question", "Answered for Kopi Kaki (Activity 5)"], [
 p("**Subagents.** A coordinator spawns a subagent through a task tool; in Hermes that tool is delegate_task. The subagent starts with a completely fresh conversation: it knows only the goal and context the coordinator writes, it inherits the coordinator's enabled tools, and only its final summary comes back. Hermes runs up to 10 subagents at once by default. Subagents are temporary helpers for one job; your named bots (Rafi and the team) and the video agents are profiles that stay, with their own role, memory and chat.")
 src("Hermes subagent delegation (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation")
 h2("3.3 Bots and group chats")
-bullets(["Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. Hire one in the Bots tab → New Agent: Name, Title, Description; Advanced takes its role file as Custom SOUL.md. Right-click → Edit Profile gives it an avatar.",
-         "Group chat — right-click a bot → Manage groups → create a room for 2–6 bots. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.",
-         "Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), in the group 'Kopi Social Team'. You approve every post."])
+bullets(["Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. You can hire one by hand in the Bots tab → New Agent (Name, Title, Description; Advanced takes its role file as Custom SOUL.md), but in Activity 4 one prompt to Mia hires the whole team, each bot with its role file as its SOUL.md. Right-click → Edit Profile gives a bot an avatar.",
+         "Group chat — a room for 2–6 bots. Mia creates Kopi Social Team in the same hiring prompt; by hand, right-click a bot → Manage groups → create one. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.",
+         "Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), hired by one prompt to Mia (the same method as the Activity 5 video team) and placed in the group 'Kopi Social Team'. You approve every post."])
 src("Hermes Bot Mode (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode")
+img(os.path.join(SHOTS, "screenshots", "desktop", "social-team-created.png"), "One prompt to Mia: the five social bots and the Kopi Social Team group appear in the Bots tab, each greeting the founder (trainer's run; a third-party name blurred)", 2.2)
+img(os.path.join(SHOTS, "screenshots", "desktop", "social-posts-approved.png"), "What the team shipped: Lin's LinkedIn founder story, Farah's Facebook post (edited, then re-approved) and Ivy's Instagram post, each with its compliance checks C1–C9 (trainer's run)", 5.6)
 img(os.path.join(SHOTS, "screenshots", "desktop", "bot-edit-profile.png"), "Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description", 4.4)
 lab_section(LAB["04"])
 h2("3.4 Video skills and tools, and the Kanban board")
@@ -369,6 +375,8 @@ bullets(["Kanban — the team's shared to-do list: assignee, parent dependencies
          "Group chat or board? Bots in a group talk their way to a result; a board makes the order explicit. Use a board when the steps are known and the stakes are high."])
 img(os.path.join(SHOTS, "screenshots", "desktop", "video-team-sidebar.png"), "One prompt to Mia creates the five video agents; they appear in the Hermes Desktop sidebar (trainer's run)", 2.6)
 img(os.path.join(SHOTS, "screenshots", "desktop", "kanban-render-ready.png"), "Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)", 6.0)
+img(os.path.join(SHOTS, "screenshots", "desktop", "kanban-blocked-notice.png"), "Blocked means it's your turn: both HUMAN cards wait in BLOCKED from the start and Desktop pops Task blocked — needs your input (trainer's run)", 5.6)
+img(os.path.join(SHOTS, "screenshots", "desktop", "kanban-review-running.png"), "Five cards done, one decision left: the reviewer checks final.mp4 while HUMAN: approve the exact video stays BLOCKED for you (trainer's run)", 5.6)
 img(os.path.join(SHOTS, "screenshots", "desktop", "video-frame-01.png"), "Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)", 2.4)
 h2("3.5 Grounding: RAG versus a standard LLM")
 p("A standard LLM answers from what it learned: fluent and cheap, but it does not know your price, dates or latest policy and can state a wrong fact confidently. A retrieval-augmented (RAG) system answers from passages it retrieved, "
@@ -385,6 +393,7 @@ lab_section(LAB["05"])
 h2("3.6 Activity 6 — crons make next week's content")
 p("A cron (scheduled job) starts the team's work without you: every Monday at 9:00 the week's three social drafts, every Friday at 10:00 a new video run on the Kanban board. "
   "Automate the start of the work, never the approval: drafts wait for your APPROVE, the video still stops at both HUMAN gates. Test every job with Trigger now, pause what you cannot watch, and log what each job produced in cron-log.md.")
+img(os.path.join(SHOTS, "screenshots", "desktop", "cron-weekly-video.png"), "Scheduled jobs → Weekly video draft: 0 10 * * 5 (every Friday 10:00), delivered to Telegram, draft-only with fresh approval each run; Trigger now and Pause at the top (trainer screenshot)", 5.6)
 lab_section(LAB["06"])
 h2("3.7 Evaluate and improve the team")
 table(["Metric", "What to measure"], [("Cycle time", "Brief to accepted output, including reviews and retries"), ("First-pass acceptance", "Share of outputs approved without revision"),
@@ -472,7 +481,7 @@ normal = doc.styles["Normal"]; normal.font.name = "Arial"; normal.font.size = Pt
 prodoc.style_headings(doc)
 prodoc.add_cover_page(doc, "Learner Guide", C.TITLE, C.VERSION.lstrip("v"),
                       org_logo=os.path.join(ASSETS, "tertiary-infotech-logo.png"), course_logo=None, course_code=C.COURSE_CODE)
-prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39])
+prodoc.add_version_control(doc, PRIOR + [V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32, V33, V34, V35, V36, V37, V38, V39, V310])
 prodoc.add_toc(doc)
 
 def add_md_runs(par, text, size=None, color=None):

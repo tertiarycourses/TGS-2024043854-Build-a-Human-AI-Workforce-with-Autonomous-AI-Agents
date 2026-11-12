@@ -150,7 +150,7 @@ def assets(L, ddir):
         put(f"skills/{name}/SKILL.md", f"---\nname: {name}\ndescription: {desc}\n---\n# {name}\n\n{steps}\n")
     if code == "04":
         for k in ("rafi", "lin", "farah", "ivy", "pixel"):
-            put(f"souls/{k}.SOUL.md", f"# {k.title()} — SOUL.md (paste into New Agent → Advanced → Custom SOUL.md)\n\n{SOULS[k]}\n")
+            put(f"souls/{k}.SOUL.md", f"# {k.title()} — SOUL.md (Mia uses this as the bot's SOUL.md when she hires it in Lab 4)\n\n{SOULS[k]}\n")
         put("tools/make_post_image.py", MAKE_IMAGE)
     if code == "05":
         for k in ("video-researcher", "scriptwriter", "voice-over", "video-producer", "video-reviewer"):

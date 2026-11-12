@@ -11,8 +11,8 @@ Plan, Learner Guide, labs/ folder, lab PDFs and the Lab Prompts page.
 TITLE        = "Build a Human-AI Workforce with Autonomous AI Agents"
 SHORT_TITLE  = "Human-AI Workforce with Autonomous AI Agents"   # used in output filenames
 COURSE_CODE  = "TGS-2024043854"
-VERSION      = "v3.9"
-VERSION_DATE = "1 November 2026"
+VERSION      = "v3.10"
+VERSION_DATE = "12 November 2026"
 ORG          = "Tertiary Infotech Academy Pte Ltd"
 UEN          = "UEN: 201200696W"
 TRAINER      = "Dr. Alfred Ang"
@@ -32,7 +32,7 @@ LEARNING_OUTCOMES = [
 TOPICS = [
  dict(num=1,code="01",weighting="30%",title="Human–AI Collaboration & Always-On AI Agents",short="Landscape & Always-On",items=["Brief AI history and what agentic AI is", "Under the hood: the model in a harness, tools, skills and the agentic loop; humans decide", "Two work modes, five collaboration scenarios, use cases and the Big Five always-on agents", "Activity 1 · Join Meta Muse (invite code) and set up an OpenAI Dot"]),
  dict(num=2,code="02",weighting="35%",title="Hermes Agent — Your First AI Employee: Setup, Tools, Skills & Schedules",short="Hermes Agent",items=["What an AI agent is, part by part; what Hermes Agent is; install Hermes Desktop and point it at your kopi-kaki folder", "Provider and model: Nous Portal free (Upstage Solar Mini 4) or your ChatGPT Plus plan; Telegram bot by QR code or BotFather", "Tools and skills: the difference, then Gmail, web design and PPTX; Firecrawl web search; scheduled jobs", "Activity 2 · One agent + UX skills build the Kopi Kaki website", "Activity 3 · One agent + PPT tool and skill build the Kopi Kaki deck (PP Task 2)"]),
- dict(num=3,code="03",weighting="35%",title="Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video",short="Hermes Teams",items=["Multiple agents: own tools, skills, model, instructions and context window; hub-and-spoke, task decomposition and subagents", "Activity 4 · Hire five named bots, put them in one group chat, get LinkedIn, Facebook and Instagram posts", "Activity 5 · One prompt builds a video team and its Kanban board: research → script → video → review → your approval (PP Task 3)", "Activity 6 · Crons auto-generate next week’s posts and video drafts, still behind your approval", "Five principles of AI security"]),
+ dict(num=3,code="03",weighting="35%",title="Hermes Teams — Bots, Group Chats, Kanban & Crons for Marketing and Video",short="Hermes Teams",items=["Multiple agents: own tools, skills, model, instructions and context window; hub-and-spoke, task decomposition and subagents", "Activity 4 · One prompt hires five named bots and their group chat; get LinkedIn, Facebook and Instagram posts", "Activity 5 · One prompt builds a video team and its Kanban board: research → script → video → review → your approval (PP Task 3)", "Activity 6 · Crons auto-generate next week’s posts and video drafts, still behind your approval", "Five principles of AI security"]),
 ]
 BONUS = dict(num=4,code="B",title="Bonus (optional) — Paperclip: Kopi Kaki as a One-Person Company",short="Bonus · Paperclip",items=["What Paperclip is; install it", "Set up the company and the CEO (with instructions)", "CEO hires a Chief of Staff; the Chief of Staff hires the marketing team", "Org chart, then the team produces the video", "Compare Paperclip with the Hermes Kanban team"])
 DAY_THEMES = {1:"Human–AI overview → always-on assistants → Hermes Agent setup, tools, skills and schedules (Activities 1–3)",2:"Hermes bots in a group chat, a Kanban video team and content crons (Activities 4–6), AI security, optional Paperclip bonus, then assessment"}
@@ -73,8 +73,8 @@ SCHEDULE = {
  ],
  2: [
   ("9:30", "9:45", 15, "recap", "Day 1 recap and AM attendance", "LU2"),
-  ("9:45", "10:15", 30, "topic", "Topic 3 (Part A) — introduction to multiple agents (each with its own tools, skills, model, instructions and context window); hub-and-spoke, task decomposition and subagents; hire bots with New Agent; group chats", "LU2"),
-  ("10:15", "11:15", 60, "lab", "Lab 4: Activity 4 — five named bots (researcher, LinkedIn, Facebook and Instagram writers, image creator) in one group chat write the launch posts; you approve each", "LU2"),
+  ("9:45", "10:15", 30, "topic", "Topic 3 (Part A) — introduction to multiple agents (each with its own tools, skills, model, instructions and context window); hub-and-spoke, task decomposition and subagents; bots and group chats (by hand, or hired by one prompt to Mia)", "LU2"),
+  ("10:15", "11:15", 60, "lab", "Lab 4: Activity 4 — one prompt to Mia hires five named bots (researcher, LinkedIn, Facebook and Instagram writers, image creator) and their group chat; they write the launch posts; you approve each", "LU2"),
   ("11:15", "11:30", 15, "break", "Tea break (included in scheduled LU time)", "LU2"),
   ("11:30", "12:15", 45, "lab", "Lab 5: Activity 5A — video skills and tools; one prompt creates the video team and its Kanban board; researcher source checks and script", "LU3"),
   ("12:15", "13:15", 60, "lunch", "Lunch break", ""),

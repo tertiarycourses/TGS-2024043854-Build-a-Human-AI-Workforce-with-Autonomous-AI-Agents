@@ -39,7 +39,7 @@ cover(D, f"WSQ Course Code: {C.COURSE_CODE}", "Build a Human–AI Workforce\nwit
       f"Version {VER}  ·  {C.VERSION_DATE}",
       f"{C.ORG}\n{C.UEN}",
       "www.tertiarycourses.com.sg   |   enquiry@tertiaryinfotech.com   |   +65 6100 0613",
-      logo=os.path.join(os.path.dirname(HERE), "assets", "tertiary-infotech-logo.png"))
+      logo=os.path.join(os.path.dirname(HERE), "assets", "tertiary-infotech-logo.png"), badge=("AI AGENTS", "WSQ · HUMAN–AI WORKFORCE"))
 
 s = D.new(); header(D, s, "Housekeeping", "Digital Attendance")
 card(s, 0.6, 1.95, 7.6, 3.6); icon(s, "phone", 0.95, 2.25, 0.62)
@@ -241,7 +241,7 @@ table(D, "The course scenario", "The Kopi Kaki Company Pack (data/ in every lab)
 # Topic 2 order (trainer, v3.6): what an agent is -> what Hermes is -> install -> provider and model -> Telegram
 #   -> tools and skills (the difference; Gmail, web design, PPTX; Firecrawl kept for Topic 3) -> activities (website, PPT)
 V23.agent_components(D, "Topic 2 · What is an AI agent?")   # moved from Topic 1
-T2.what_is_hermes(D); T2.desktop(D); T2.folder(D); T2.model(D); T2.telegram(D)
+T2.what_is_hermes(D); T2.download_page(D); T2.desktop(D); T2.folder(D); T2.model(D); T2.providers(D); T2.telegram(D)   # v3.10: trainer screenshots (download page, Providers → Accounts)
 mark("t2b"); T2.voice(D); V23.tools_vs_skills(D, "Topic 2 · Tools and skills")   # moved from Topic 1
 T2.tools(D); T2.skills(D, T2S); T2.firecrawl(D)
 mark("t2c"); T2.gmail(D); T2.cron(D); T2.web_skills(D); T2.pptx_skill(D)
@@ -256,10 +256,10 @@ V34.multi_intro(D)   # general introduction to multiple agents + the five things
 V34.hub_spoke(D); V34.comm_flow(D)   # trainer screenshots (v3.5 hand edit): hub-and-spoke
 V34.each_can(D); V34.handoff(D)   # trainer-added v3.3 slides, recreated natively
 V34.decomposition(D); V34.framework(D); V34.subagents(D)   # trainer screenshots (v3.5): task decomposition, subagents
-V34.bots_and_groups(D)   # Part A: hire bots with New Agent; group chats (LP row)
-mark("lab04"); V34.social_team(D); V34.activity4_team(D); lab_block(LAB["04"], 3)
-mark("lab05"); V34.video_tools(D); V34.team_sidebar(D); V34.kanban_board(D); V34.video_team(D); V34.video_result(D); lab_block(LAB["05"], 3)   # v3.9: trainer Activity 5 screenshots
-mark("lab06"); V34.crons_week(D); lab_block(LAB["06"], 2)
+V34.bots_and_groups(D)   # Part A: bots and group chats by hand (concept); Lab 4 hires them by prompt
+mark("lab04"); V34.social_team(D); V34.social_hired(D); V34.activity4_team(D); lab_block(LAB["04"], 5)   # v3.10 (5 prompt slides incl. the review gate): team hired by one prompt; real posts
+mark("lab05"); V34.video_tools(D); V34.team_sidebar(D); V34.kanban_board(D); V34.board_blocked(D); V34.video_team(D); V34.video_result(D); lab_block(LAB["05"], 3)   # v3.9: trainer Activity 5 screenshots
+mark("lab06"); V34.crons_week(D); V34.cron_job(D); lab_block(LAB["06"], 2)
 mark("t3b"); V34.security(D); V34.grounding(D); V34.evaluation(D)   # Part B: security, RAG, metrics (LP row)
 mark("t3sum")
 # ====================================================================== BONUS · PAPERCLIP (optional)
@@ -271,7 +271,7 @@ section(D, "Wrap-up", "Course Summary & Next Steps", ["What you can now do", "As
 cards(D, "Wrap-up", "Summary & Q&A", [
     ("Topic 1", "An always-on CEO assistant checked your schedule and drafted your email; the harness and the human make agents reliable.", "brain"),
     ("Topic 2", "One Hermes agent — Mia — got a model, Telegram, voice, tools, skills, web search, Gmail and a schedule, all from one app, then built the website and the pitch deck.", "robot"),
-    ("Topic 3", "Five bots in a group chat wrote the posts, a Kanban team made the video, and crons now start both every week; you approved everything. Bonus: Paperclip ran it as a company.", "building"),
+    ("Topic 3", "Five bots, hired by one prompt, wrote the posts in a group chat, a Kanban team made the video, and crons now start both every week; you approved everything. Bonus: Paperclip ran it as a company.", "building"),
     ("Your workforce", "Decide per task: agent, agent team or human — and where the human approves.", "handshake")],
     cols=4)
 rows(D, "Wrap-up", "Continue Building Your Human–AI Workforce", [

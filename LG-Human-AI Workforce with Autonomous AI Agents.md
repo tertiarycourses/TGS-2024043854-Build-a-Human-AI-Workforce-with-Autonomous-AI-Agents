@@ -1,6 +1,6 @@
 # Learner Guide — Build a Human-AI Workforce with Autonomous AI Agents
 
-**TGS-2024043854 · Version 3.9 · 1 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
+**TGS-2024043854 · Version 3.10 · 12 November 2026 · Tertiary Infotech Academy Pte Ltd (UEN: 201200696W)**
 
 > Markdown mirror of `courseware/LG-Human-AI Workforce with Autonomous AI Agents.docx` — generated from the same source.
 
@@ -563,6 +563,12 @@ Download Hermes-Setup.dmg (Mac, Apple Silicon only) or Hermes-Setup.exe (Windows
 
 <sub>Context files: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files</sub>
 
+![The official download page, hermes-agent.nousresearch.com/desktop. On Windows it offers Get from Microsoft Store; type the address yourself, because look-alike sites carry fake installers (trainer screenshot)](courseware/assets/screenshots/desktop/desktop-download-page.png)
+*The official download page, hermes-agent.nousresearch.com/desktop. On Windows it offers Get from Microsoft Store; type the address yourself, because look-alike sites carry fake installers (trainer screenshot)*
+
+![The chat box + menu: Folder… attaches Desktop/kopi-kaki; Paste image, URL and Prompt snippets live here too (trainer screenshot)](courseware/assets/screenshots/desktop/attach-menu.png)
+*The chat box + menu: Folder… attaches Desktop/kopi-kaki; Paste image, URL and Prompt snippets live here too (trainer screenshot)*
+
 ![Settings → About → Version & updates](courseware/assets/screenshots/desktop/version.png)
 *Settings → About → Version & updates*
 
@@ -578,10 +584,15 @@ The provider serves the model; the model is the brain. Pick one route:
 
 'Applies to' at the top of the Model page chooses which bot you are setting: each bot can have its own brain. Right-sized models (Security Principle 5): a small, fast model is often enough for inbox triage.
 
-<sub>Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models</sub>
+**Sign in once, no API key.** Settings → Providers → Accounts lists every account Hermes can use: Nous Portal (recommended, 300+ models), Run models locally, and the accounts you have connected. Connect another provider → ChatGPT or Codex Subscription opens a verification page in your browser; sign in with your ChatGPT Plus account and the row shows Connected. The Applies to row has one chip for Mia and one for each bot you hire. Sign-ins are not copied to new bots, so on Day 2 click each new bot's chip and sign it in. The Anthropic sign-in shows 'Required Extra Usage Credits': a Claude plan alone will not run Hermes, which is why this class uses ChatGPT Plus.
+
+<sub>Nous Portal plans and free models (checked 31 Oct 2026): https://portal.nousresearch.com/ ; https://portal.nousresearch.com/models ; OAuth sign-ins are not copied to new bots: https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
 
 ![Settings → Model → Main model with the ChatGPT or Codex Subscription provider](courseware/assets/screenshots/desktop/model.png)
 *Settings → Model → Main model with the ChatGPT or Codex Subscription provider*
+
+![Settings → Providers → Accounts: ChatGPT or Codex Subscription Connected, and the Applies to chips for Mia and the video agents (trainer screenshot)](courseware/assets/screenshots/desktop/providers-accounts.png)
+*Settings → Providers → Accounts: ChatGPT or Codex Subscription Connected, and the Applies to chips for Mia and the video agents (trainer screenshot)*
 
 ### 2.5 Telegram messaging and voice
 
@@ -1185,22 +1196,28 @@ A multi-agent system splits one big goal into specialist jobs that hand work to 
 
 ### 3.3 Bots and group chats
 
-- Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. Hire one in the Bots tab → New Agent: Name, Title, Description; Advanced takes its role file as Custom SOUL.md. Right-click → Edit Profile gives it an avatar.
-- Group chat — right-click a bot → Manage groups → create a room for 2–6 bots. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.
-- Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), in the group 'Kopi Social Team'. You approve every post.
+- Bot — a Hermes agent with a name you can @mention: its own role, model, memory and skills, and one permanent Bot Chat. You can hire one by hand in the Bots tab → New Agent (Name, Title, Description; Advanced takes its role file as Custom SOUL.md), but in Activity 4 one prompt to Mia hires the whole team, each bot with its role file as its SOUL.md. Right-click → Edit Profile gives a bot an avatar.
+- Group chat — a room for 2–6 bots. Mia creates Kopi Social Team in the same hiring prompt; by hand, right-click a bot → Manage groups → create one. Your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user. Built-in caps (3 rounds, 10 messages per send) stop a room from spinning; Stop, Rename and Disband are in the room header.
+- Activity 4 team: Rafi (Market Researcher), Lin (LinkedIn Writer), Farah (Facebook Writer), Ivy (Instagram Writer) and Pixel (Image Creator), hired by one prompt to Mia (the same method as the Activity 5 video team) and placed in the group 'Kopi Social Team'. You approve every post.
 
 <sub>Hermes Bot Mode (checked 31 Oct 2026): https://hermes-agent.nousresearch.com/docs/user-guide/bot-mode</sub>
+
+![One prompt to Mia: the five social bots and the Kopi Social Team group appear in the Bots tab, each greeting the founder (trainer's run; a third-party name blurred)](courseware/assets/screenshots/desktop/social-team-created.png)
+*One prompt to Mia: the five social bots and the Kopi Social Team group appear in the Bots tab, each greeting the founder (trainer's run; a third-party name blurred)*
+
+![What the team shipped: Lin's LinkedIn founder story, Farah's Facebook post (edited, then re-approved) and Ivy's Instagram post, each with its compliance checks C1–C9 (trainer's run)](courseware/assets/screenshots/desktop/social-posts-approved.png)
+*What the team shipped: Lin's LinkedIn founder story, Farah's Facebook post (edited, then re-approved) and Ivy's Instagram post, each with its compliance checks C1–C9 (trainer's run)*
 
 ![Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description](courseware/assets/screenshots/desktop/bot-edit-profile.png)
 *Edit Profile: avatar (Bot, Generate, Upload, Pet), title and description*
 
 ### Lab 4 — Activity 4 — Your Social Media Team: Five Bots in One Group Chat
 
-**Day 2 · 60 min · Multiple named bots in one group chat · LO2** — Hire five bots with names and job titles, put them in one group chat, and post one brief. They hand off by @mention; you approve every post.
+**Day 2 · 60 min · Multiple named bots in one group chat · LO2** — One prompt to Mia hires five named bots, each with its own role file, and puts them in one group chat. Post one brief: they hand off by @mention; you approve every post.
 
 #### Business scenario
 
-You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you hire a team of bots: each specialist owns one platform, they talk in one group chat, and you approve every post before anything goes public.
+You are the founder-CEO of Kopi Kaki Co., a fictional Singapore kopi startup. The Tiong Bahru flagship opens on 1 Dec 2026 with the Gula Melaka Cold Brew (SGD 6.80, #ShiokColdBrew); until then you sell at weekend pop-ups and take app pre-orders. Your team is two baristas — and the AI agents you set up in this course. Two weeks to launch. LinkedIn needs a founder story for investors and corporate catering buyers, Facebook needs the neighbourhood and the pop-up dates, Instagram needs a scroll-stopping image. One agent writing all three sounds the same everywhere, so you ask Mia to hire a team of bots for you, the same way she hires the video team in Activity 5: each specialist owns one platform, they talk in one group chat, and you approve every post before anything goes public.
 
 #### Goal
 
@@ -1217,15 +1234,15 @@ Design a multi-agent team of named bots with clear roles, coordinate them in a g
 
 #### You will deliver
 
-- Five bots created with New Agent: Rafi (researcher), Lin (LinkedIn), Farah (Facebook), Ivy (Instagram), Pixel (images)
-- A group chat 'Kopi Social Team' where the bots hand off by @mention and ask you (@user) for decisions
+- Five bots hired by Mia from one prompt, each with its role file as SOUL.md: Rafi (researcher), Lin (LinkedIn), Farah (Facebook), Ivy (Instagram), Pixel (images)
+- A group chat 'Kopi Social Team' with all five, where they hand off by @mention and ask you (@user) for decisions
 - outputs/social/research.md, linkedin.md, facebook.md, instagram.md and images/*.png
 - outputs/social/gallery.html — every post shown as it would appear on its platform
 - outputs/social/approval-log.md — APPROVE / EDIT / REJECT per post
 
 | Who | Role |
 |---|---|
-| Agents | 5 named bots in one group chat: Rafi → Lin, Farah, Ivy → Pixel |
+| Agents | 5 named bots created by Mia from one prompt, in one group chat: Rafi → Lin, Farah, Ivy → Pixel |
 | You (human) | Post the brief, approve or edit each post; nothing is posted publicly |
 
 #### Concepts in action
@@ -1247,20 +1264,30 @@ In Finder (Mac) or File Explorer (Windows), open this lab's data folder from the
 
 ✓ Expected: souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files.
 
-**Step 2 — Hire five bots with New Agent (12 min)**
+**Step 2 — One prompt: hire the social team and its group chat (12 min)**
 
-Open the Bots tab (next to Sessions) and click New Agent. For each bot fill in Name, Title and Description below, open Advanced → Custom SOUL.md and paste the text of its souls/<name>.SOUL.md file, then create it. Each bot introduces itself in its own Bot Chat. Right-click a bot → Edit Profile to give it an avatar (Bot, Generate, Upload or a Pet).
-- Rafi · Market Researcher · Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact.
-- Lin · LinkedIn Writer · Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English.
-- Farah · Facebook Writer · Writes the neighbourhood Facebook post: pop-up dates, the 1 Dec opening, friendly kopitiam voice.
-- Ivy · Instagram Writer · Writes the Instagram hook, caption and hashtags, plus a one-line image brief.
-- Pixel · Image Creator · Makes one on-brand 1080x1350 image per post and the review gallery that shows every post as it will look.
+This is the prompt method you will use again for the video team in Activity 5: you describe the team; Mia creates every bot with its role file as its SOUL.md, so you never paste a role file by hand. Each new bot appears in the Bots tab and says hello in its own Bot Chat; the roster may list a bot by its title (Instagram Writer) but it still answers as Ivy. If Mia says she cannot make the group chat from chat, right-click Rafi → Manage groups → create 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). If a bot says it has no model, open Settings → Providers → Accounts, click that bot under 'Applies to' and sign in with ChatGPT or Codex Subscription: sign-ins are not copied to new bots.
 
-✓ Expected: Rafi, Lin, Farah, Ivy and Pixel appear in the Bots roster, each with its own title.
+Prompt — paste into *Hermes Desktop — Mia, folder Desktop/kopi-kaki*:
+
+```text
+Hire my social media team as five bots and put them in one group chat. Workspace: Desktop/kopi-kaki.
+1. Create these five bots (Hermes profiles) by cloning your settings. Give each the name, title and description shown, and use its role file as its SOUL.md:
+- Rafi · Market Researcher · Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact. (role file souls/rafi.SOUL.md)
+- Lin · LinkedIn Writer · Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English. (role file souls/lin.SOUL.md)
+- Farah · Facebook Writer · Writes the neighbourhood Facebook post: pop-up dates, the 1 Dec opening, friendly kopitiam voice. (role file souls/farah.SOUL.md)
+- Ivy · Instagram Writer · Writes the Instagram hook, caption and hashtags, plus a one-line image brief. (role file souls/ivy.SOUL.md)
+- Pixel · Image Creator · Makes one on-brand 1080x1350 image per post and the review gallery that shows every post as it will look. (role file souls/pixel.SOUL.md)
+2. Create a group chat called 'Kopi Social Team' with all five bots.
+3. Ask each bot to introduce itself to the founder of Kopi Kaki Co. in two sentences.
+4. Show me the team as one table: name, title, role file, in the group (yes/no). Never post anything publicly.
+```
+
+✓ Expected: A five-row table. The Bots tab lists the five bots, each with a hello in its Bot Chat, and 'Kopi Social Team · 5 bots'.
 
 **Step 3 — Meet your team (5 min)**
 
-Click each bot to open its Bot Chat and check that it answers in its own role. If a bot says it has no model, open Settings → Model, pick that bot under 'Applies to', choose your provider, sign in and Apply.
+Click each bot to open its Bot Chat and check that it answers in its own role. Then click Kopi Social Team → Open chat: the room should list all five members. In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.
 
 Prompt — paste into *Hermes Desktop → Bots tab → Rafi (then Lin)*:
 
@@ -1270,13 +1297,7 @@ Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my ma
 
 ✓ Expected: Each bot describes its own role and names AGENTS.md, campaign-brief.md and brand-guide.md.
 
-**Step 4 — Put the team in one group chat (5 min)**
-
-Right-click Rafi → Manage groups → create a group called 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). Click the group row → Open chat. In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.
-
-✓ Expected: The roster shows 'Kopi Social Team · 5 bots'; the room opens with all five members.
-
-**Step 5 — Post the brief and watch them hand off (15 min)**
+**Step 4 — Post the brief and watch them hand off (15 min)**
 
 One message briefs the whole team. Rafi researches first; the three writers start when Rafi hands off. Watch the room: who speaks, who passes, who asks you.
 
@@ -1291,7 +1312,7 @@ Never post anything. If you are unsure about a fact, ask me with @user.
 
 ✓ Expected: research.md first, then three platform drafts; anything uncertain comes to you as an @user question.
 
-**Step 6 — Ask Pixel for the images and the gallery (8 min)**
+**Step 5 — Ask Pixel for the images and the gallery (8 min)**
 
 Pixel makes one image per post with the small image tool in your folder and builds one page that shows every post the way it would look on its platform.
 
@@ -1303,7 +1324,7 @@ Prompt — paste into *Hermes Desktop → Kopi Social Team*:
 
 ✓ Expected: gallery.html opens: three platform cards, each with its image, copy and hashtags.
 
-**Step 7 — Review like the founder: APPROVE, EDIT or REJECT (8 min)**
+**Step 6 — Review like the founder: APPROVE, EDIT or REJECT (10 min)**
 
 Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit.
 
@@ -1319,7 +1340,7 @@ My decisions:
 
 ✓ Expected: Farah revises; the gallery shows the edited Facebook post; approval-log.md has three rows.
 
-**Step 8 — Reflect: team versus one agent (4 min)**
+**Step 7 — Reflect: team versus one agent (7 min)**
 
 Compare the bots with Mia working alone in Activities 2 and 3.
 
@@ -1335,7 +1356,7 @@ Compare today's five-bot group chat with you working alone on Day 1: time to fir
 
 > **✓ Test it:** The group chat shows Rafi's research first, three platform drafts, Pixel's gallery, and every post in approval-log.md has your decision.
 >
-> - [ ] Five bots in the roster with names, titles and role files
+> - [ ] Five bots hired by one prompt, each with its title and role file as SOUL.md
 > - [ ] The group 'Kopi Social Team' shows the hand-off: research → three writers → images
 > - [ ] gallery.html shows three platform posts with images
 > - [ ] approval-log.md records a decision for every post; nothing was posted publicly
@@ -1344,7 +1365,9 @@ Compare today's five-bot group chat with you working alone on Day 1: time to fir
 
 | Symptom | Fix |
 |---|---|
-| A bot has no model | Settings → Model → pick the bot under 'Applies to' → choose the provider, sign in, Apply. |
+| A bot has no model | Settings → Providers → Accounts → click the bot under 'Applies to' → ChatGPT or Codex Subscription → sign in. Sign-ins are not copied to new bots. |
+| Mia cannot create the group chat | Right-click Rafi → Manage groups → create 'Kopi Social Team' inline, then add the other four bots the same way. |
+| A bot ignores its role | Ask Mia: 'Show me the SOUL.md of <bot>. Does it match souls/<name>.SOUL.md?' and ask her to fix it. |
 | Nobody answers in the group | @mention the bot you want (@rafi …). A message with no mention lets each bot decide whether to speak. |
 | The room stops after three rounds | That is the safety cap. Send a short follow-up: '@lin @farah @ivy please continue from research.md'. |
 | Image tool fails | Ask Mia in your own session: 'Install Pillow into .office-venv in Desktop/kopi-kaki.' |
@@ -1352,7 +1375,7 @@ Compare today's five-bot group chat with you working alone on Day 1: time to fir
 
 #### Stretch challenge
 
-Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?
+Ask Mia to hire a sixth bot, Tash the TikTok Writer, and add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?
 
 ### 3.4 Video skills and tools, and the Kanban board
 
@@ -1371,6 +1394,12 @@ Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-
 
 ![Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)](courseware/assets/screenshots/desktop/kanban-render-ready.png)
 *Voice-over done, so Render the video moves to Ready for video-producer; the HUMAN approve-the-video card waits in Todo for you (trainer's run)*
+
+![Blocked means it's your turn: both HUMAN cards wait in BLOCKED from the start and Desktop pops Task blocked — needs your input (trainer's run)](courseware/assets/screenshots/desktop/kanban-blocked-notice.png)
+*Blocked means it's your turn: both HUMAN cards wait in BLOCKED from the start and Desktop pops Task blocked — needs your input (trainer's run)*
+
+![Five cards done, one decision left: the reviewer checks final.mp4 while HUMAN: approve the exact video stays BLOCKED for you (trainer's run)](courseware/assets/screenshots/desktop/kanban-review-running.png)
+*Five cards done, one decision left: the reviewer checks final.mp4 while HUMAN: approve the exact video stays BLOCKED for you (trainer's run)*
 
 ![Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)](courseware/assets/screenshots/desktop/video-frame-01.png)
 *Scene 1 of the rendered vertical how-to video in the reviewer's preview (trainer's run)*
@@ -1585,6 +1614,9 @@ Ask Mia to add a second cut: a 1:1 square version from the same script. How much
 ### 3.6 Activity 6 — crons make next week's content
 
 A cron (scheduled job) starts the team's work without you: every Monday at 9:00 the week's three social drafts, every Friday at 10:00 a new video run on the Kanban board. Automate the start of the work, never the approval: drafts wait for your APPROVE, the video still stops at both HUMAN gates. Test every job with Trigger now, pause what you cannot watch, and log what each job produced in cron-log.md.
+
+![Scheduled jobs → Weekly video draft: 0 10 * * 5 (every Friday 10:00), delivered to Telegram, draft-only with fresh approval each run; Trigger now and Pause at the top (trainer screenshot)](courseware/assets/screenshots/desktop/cron-weekly-video.png)
+*Scheduled jobs → Weekly video draft: 0 10 * * 5 (every Friday 10:00), delivered to Telegram, draft-only with fresh approval each run; Trigger now and Pause at the top (trainer screenshot)*
 
 ### Lab 6 — Activity 6 — Crons Make Next Week's Posts and Video While You Sleep
 

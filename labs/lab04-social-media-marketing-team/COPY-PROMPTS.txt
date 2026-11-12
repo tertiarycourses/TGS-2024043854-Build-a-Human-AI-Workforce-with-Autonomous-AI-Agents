@@ -2,22 +2,35 @@ LAB 4 — Activity 4 — Your Social Media Team: Five Bots in One Group Chat
 Build a Human-AI Workforce with Autonomous AI Agents (TGS-2024043854)
 ========================================================================
 
-[1] PROMPT — Meet your team (5 min)  (paste into: Hermes Desktop → Bots tab → Rafi (then Lin))
+[1] PROMPT — One prompt: hire the social team and its group chat (12 min)  (paste into: Hermes Desktop — Mia, folder Desktop/kopi-kaki)
+------------------------------------------------------------------------
+Hire my social media team as five bots and put them in one group chat. Workspace: Desktop/kopi-kaki.
+1. Create these five bots (Hermes profiles) by cloning your settings. Give each the name, title and description shown, and use its role file as its SOUL.md:
+- Rafi · Market Researcher · Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact. (role file souls/rafi.SOUL.md)
+- Lin · LinkedIn Writer · Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English. (role file souls/lin.SOUL.md)
+- Farah · Facebook Writer · Writes the neighbourhood Facebook post: pop-up dates, the 1 Dec opening, friendly kopitiam voice. (role file souls/farah.SOUL.md)
+- Ivy · Instagram Writer · Writes the Instagram hook, caption and hashtags, plus a one-line image brief. (role file souls/ivy.SOUL.md)
+- Pixel · Image Creator · Makes one on-brand 1080x1350 image per post and the review gallery that shows every post as it will look. (role file souls/pixel.SOUL.md)
+2. Create a group chat called 'Kopi Social Team' with all five bots.
+3. Ask each bot to introduce itself to the founder of Kopi Kaki Co. in two sentences.
+4. Show me the team as one table: name, title, role file, in the group (yes/no). Never post anything publicly.
+
+[2] PROMPT — Meet your team (5 min)  (paste into: Hermes Desktop → Bots tab → Rafi (then Lin))
 ------------------------------------------------------------------------
 Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in my Desktop/kopi-kaki folder will you read first?
 
-[2] PROMPT — Post the brief and watch them hand off (15 min)  (paste into: Hermes Desktop → Kopi Social Team (group chat))
+[3] PROMPT — Post the brief and watch them hand off (15 min)  (paste into: Hermes Desktop → Kopi Social Team (group chat))
 ------------------------------------------------------------------------
 Team, we launch the Gula Melaka Cold Brew on 1 Dec 2026. Work in Desktop/kopi-kaki and follow AGENTS.md, brand-guide.md and compliance-rules.md.
 @rafi research first: write outputs/social/research.md with 3 launch angles, the top 3 things tasters loved (with review IDs) and 5 approved facts with their source file. Then hand off to @lin @farah @ivy.
 @lin write outputs/social/linkedin.md, @farah write outputs/social/facebook.md, @ivy write outputs/social/instagram.md — each from research.md and your own role file.
 Never post anything. If you are unsure about a fact, ask me with @user.
 
-[3] PROMPT — Ask Pixel for the images and the gallery (8 min)  (paste into: Hermes Desktop → Kopi Social Team)
+[4] PROMPT — Ask Pixel for the images and the gallery (8 min)  (paste into: Hermes Desktop → Kopi Social Team)
 ------------------------------------------------------------------------
 @pixel make one 1080x1350 image for each of linkedin.md, facebook.md and instagram.md with tools/make_post_image.py (Python from .office-venv), save them in outputs/social/images/, then build outputs/social/gallery.html with one card per platform and open it for me.
 
-[4] PROMPT — Review like the founder: APPROVE, EDIT or REJECT (8 min)  (paste into: Hermes Desktop → Kopi Social Team)
+[5] PROMPT — Review like the founder: APPROVE, EDIT or REJECT (10 min)  (paste into: Hermes Desktop → Kopi Social Team)
 ------------------------------------------------------------------------
 My decisions:
 - LinkedIn: APPROVE
@@ -25,6 +38,6 @@ My decisions:
 - Instagram: APPROVE
 @pixel when Farah is done, refresh the gallery and record every decision with today's date and my reason in outputs/social/approval-log.md.
 
-[5] PROMPT — Reflect: team versus one agent (4 min)  (paste into: Hermes Desktop → Mia (your first session))
+[6] PROMPT — Reflect: team versus one agent (7 min)  (paste into: Hermes Desktop → Mia (your first session))
 ------------------------------------------------------------------------
 Compare today's five-bot group chat with you working alone on Day 1: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a group of bots, and when one agent?

@@ -1,5 +1,5 @@
 """Detailed steps and copy-ready prompts for the Day 2 labs (v3.5: Hermes Desktop only — no command lines for learners).
-Activity 4: five named bots in one group chat. Activity 5: one prompt builds the video team and its Kanban board.
+Activity 4: one prompt hires five named bots and their group chat (v3.10, same method as Activity 5). Activity 5: one prompt builds the video team and its Kanban board.
 Activity 6: scheduled jobs auto-generate next week's content. Bot Mode facts checked against the Hermes docs
 (user-guide/bot-mode) on 31 Oct 2026; Desktop screens match the trainer's Hermes Desktop v0.22.5 screenshots."""
 from labs_v22 import step
@@ -18,7 +18,7 @@ COPY = ("In Finder (Mac) or File Explorer (Windows), open this lab's data folder
         f"Then in Hermes Desktop click + (left of Ask anything) → Folder… and choose {WSF}: Mia now has this lab's files and AGENTS.md. "
         "Start the session with: 'Read AGENTS.md in the attached folder and follow it for this session.'")
 
-# The Activity 4 team: name, title, one-line description (pasted into New Agent), soul file
+# The Activity 4 team: name, title, one-line description and soul file; Mia hires them from one prompt (v3.10)
 SOCIAL_TEAM = [
  ("Rafi", "Market Researcher", "Finds launch angles, audience insights and facts for Kopi Kaki posts; cites the source file for every fact.", "rafi"),
  ("Lin", "LinkedIn Writer", "Writes the founder's LinkedIn post: story, one proof point, call to action; professional Singapore English.", "lin"),
@@ -37,23 +37,29 @@ def act4(L):
     L["prereq"] = ["Topic 2 setup done: Hermes Desktop with a working model; Telegram connected",
                    "Activity 2 website and Activity 3 deck saved — the team reuses their facts",
                    f"This lab's data/ dragged into {WSF} (souls/ holds the five role files; tools/make_post_image.py makes the images)"]
-    hire = "\n".join(f"- {n} · {t} · {d}" for n, t, d, _ in SOCIAL_TEAM)
+    hire = "\n".join(f"- {n} · {t} · {d} (role file souls/{f}.SOUL.md)" for n, t, d, f in SOCIAL_TEAM)
     L["steps"] = [
      S("Copy the team files into your company folder (3 min)", COPY + " souls/ holds one role file per bot: who it is, what it writes and the rules it must never break.",
        expect="souls/ lists rafi, lin, farah, ivy and pixel .SOUL.md files."),
-     S("Hire five bots with New Agent (12 min)",
-       "Open the Bots tab (next to Sessions) and click New Agent. For each bot fill in Name, Title and Description below, open Advanced → Custom SOUL.md and paste the text of its souls/<name>.SOUL.md file, then create it. "
-       "Each bot introduces itself in its own Bot Chat. Right-click a bot → Edit Profile to give it an avatar (Bot, Generate, Upload or a Pet).\n" + hire,
-       expect="Rafi, Lin, Farah, Ivy and Pixel appear in the Bots roster, each with its own title."),
+     S("One prompt: hire the social team and its group chat (12 min)",
+       "This is the prompt method you will use again for the video team in Activity 5: you describe the team; Mia creates every bot with its role file as its SOUL.md, so you never paste a role file by hand. "
+       "Each new bot appears in the Bots tab and says hello in its own Bot Chat; the roster may list a bot by its title (Instagram Writer) but it still answers as Ivy. "
+       "If Mia says she cannot make the group chat from chat, right-click Rafi → Manage groups → create 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). "
+       "If a bot says it has no model, open Settings → Providers → Accounts, click that bot under 'Applies to' and sign in with ChatGPT or Codex Subscription: sign-ins are not copied to new bots.",
+       where=f"Hermes Desktop — Mia, folder {WSF}",
+       prompt="Hire my social media team as five bots and put them in one group chat. Workspace: Desktop/kopi-kaki.\n"
+              "1. Create these five bots (Hermes profiles) by cloning your settings. Give each the name, title and description shown, and use its role file as its SOUL.md:\n" + hire + "\n"
+              "2. Create a group chat called 'Kopi Social Team' with all five bots.\n"
+              "3. Ask each bot to introduce itself to the founder of Kopi Kaki Co. in two sentences.\n"
+              "4. Show me the team as one table: name, title, role file, in the group (yes/no). Never post anything publicly.",
+       expect="A five-row table. The Bots tab lists the five bots, each with a hello in its Bot Chat, and 'Kopi Social Team · 5 bots'.",
+       decide="Check the table: five bots, each with the right role file, all five in Kopi Social Team."),
      S("Meet your team (5 min)",
-       "Click each bot to open its Bot Chat and check that it answers in its own role. If a bot says it has no model, open Settings → Model, pick that bot under 'Applies to', choose your provider, sign in and Apply.",
+       "Click each bot to open its Bot Chat and check that it answers in its own role. Then click Kopi Social Team → Open chat: the room should list all five members. "
+       "In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.",
        where="Hermes Desktop → Bots tab → Rafi (then Lin)",
        prompt="Hi, I'm the founder of Kopi Kaki Co. In two sentences: what is your job on my marketing team, and which files in my Desktop/kopi-kaki folder will you read first?",
        expect="Each bot describes its own role and names AGENTS.md, campaign-brief.md and brand-guide.md."),
-     S("Put the team in one group chat (5 min)",
-       "Right-click Rafi → Manage groups → create a group called 'Kopi Social Team' inline, then add Lin, Farah, Ivy and Pixel the same way (a group holds 2–6 bots). Click the group row → Open chat. "
-       "In a group, your message starts up to three rounds of bot turns; bots hand work to each other with @name and ask you with @user.",
-       expect="The roster shows 'Kopi Social Team · 5 bots'; the room opens with all five members."),
      S("Post the brief and watch them hand off (15 min)",
        "One message briefs the whole team. Rafi researches first; the three writers start when Rafi hands off. Watch the room: who speaks, who passes, who asks you.",
        where="Hermes Desktop → Kopi Social Team (group chat)",
@@ -67,26 +73,28 @@ def act4(L):
        where="Hermes Desktop → Kopi Social Team",
        prompt="@pixel make one 1080x1350 image for each of linkedin.md, facebook.md and instagram.md with tools/make_post_image.py (Python from .office-venv), save them in outputs/social/images/, then build outputs/social/gallery.html with one card per platform and open it for me.",
        expect="gallery.html opens: three platform cards, each with its image, copy and hashtags."),
-     S("Review like the founder: APPROVE, EDIT or REJECT (8 min)",
+     S("Review like the founder: APPROVE, EDIT or REJECT (10 min)",
        "Check every post against brand-guide.md and compliance-rules.md: price SGD 6.80, launch 1 Dec 2026, SHIOK20 terms if the code appears, no health or halal claims, no competitor bashing. Send one post back with a concrete edit.",
        where="Hermes Desktop → Kopi Social Team",
        prompt="My decisions:\n- LinkedIn: APPROVE\n- Facebook: EDIT — @farah put the first pop-up date in the first line and cut the post to 80 words\n- Instagram: APPROVE\n"
               "@pixel when Farah is done, refresh the gallery and record every decision with today's date and my reason in outputs/social/approval-log.md.",
        expect="Farah revises; the gallery shows the edited Facebook post; approval-log.md has three rows.",
        decide="Which posts are ready, which need a concrete change; nothing is published."),
-     S("Reflect: team versus one agent (4 min)", "Compare the bots with Mia working alone in Activities 2 and 3.",
+     S("Reflect: team versus one agent (7 min)", "Compare the bots with Mia working alone in Activities 2 and 3.",
        where="Hermes Desktop → Mia (your first session)",
        prompt="Compare today's five-bot group chat with you working alone on Day 1: time to first draft, how different the three posts sound, number of my edits, and coordination overhead. Give me a 5-row table and one recommendation: when should Kopi Kaki use a group of bots, and when one agent?",
        expect="A short evidence-based comparison you can discuss in class."),
     ]
-    L["verify"] = ["Five bots in the roster with names, titles and role files", "The group 'Kopi Social Team' shows the hand-off: research → three writers → images",
+    L["verify"] = ["Five bots hired by one prompt, each with its title and role file as SOUL.md", "The group 'Kopi Social Team' shows the hand-off: research → three writers → images",
                    "gallery.html shows three platform posts with images", "approval-log.md records a decision for every post; nothing was posted publicly"]
-    L["trouble"] = [("A bot has no model", "Settings → Model → pick the bot under 'Applies to' → choose the provider, sign in, Apply."),
+    L["trouble"] = [("A bot has no model", "Settings → Providers → Accounts → click the bot under 'Applies to' → ChatGPT or Codex Subscription → sign in. Sign-ins are not copied to new bots."),
+                    ("Mia cannot create the group chat", "Right-click Rafi → Manage groups → create 'Kopi Social Team' inline, then add the other four bots the same way."),
+                    ("A bot ignores its role", "Ask Mia: 'Show me the SOUL.md of <bot>. Does it match souls/<name>.SOUL.md?' and ask her to fix it."),
                     ("Nobody answers in the group", "@mention the bot you want (@rafi …). A message with no mention lets each bot decide whether to speak."),
                     ("The room stops after three rounds", "That is the safety cap. Send a short follow-up: '@lin @farah @ivy please continue from research.md'."),
                     ("Image tool fails", "Ask Mia in your own session: 'Install Pillow into .office-venv in Desktop/kopi-kaki.'"),
                     ("A writer invents a price or promo", "Reply '@<writer> use only product-catalogue.csv and campaign-brief.md' and add the rule to its role file (Edit Profile → SOUL.md).")]
-    L["challenge"] = "Hire a sixth bot, Tash the TikTok Writer, add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?"
+    L["challenge"] = "Ask Mia to hire a sixth bot, Tash the TikTok Writer, and add her to the group and ask for a 15-second script. What did the extra specialist cost in time and review effort, and was it worth it?"
 
 # ---------------------------------------------------------------- Activity 5 · Kanban video team built by prompt (PP Task 3)
 def act5(L):

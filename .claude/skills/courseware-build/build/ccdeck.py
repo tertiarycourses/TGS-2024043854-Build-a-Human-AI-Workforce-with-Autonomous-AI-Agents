@@ -233,14 +233,21 @@ def tip(D, s, t, y=6.4, label="TIP"):
                                  (t, dict(color=SOFT if D.dark else MUTED, size=13))]])
 
 # ---------------------------------------------------------------- slide types
-def cover(D, kicker, title, version_line, org_lines, contact, logo=None):
+def cover(D, kicker, title, version_line, org_lines, contact, logo=None, badge=None):
     s = D.new(dark=True)
     circle(s, 10.4, -1.6, 4.6, ACC); circle(s, 11.6, 4.4, 3.4, TEAL)
+    if not badge:   # courseware-qa fails a cover with only the org logo ("both logos": org logo + course badge)
+        print("WARNING ccdeck.cover: no course badge — pass badge=(\"SHORT NAME\", \"WSQ · SUBTITLE\") or courseware-qa will fail the cover")
     if logo and os.path.exists(logo):
         from PIL import Image
         iw, ih = Image.open(logo).size; h = 0.62; w = h * iw / ih
         card(s, 0.82, 0.42, w + 0.3, h + 0.2, fill=WHITE, shadow=False)
         s.shapes.add_picture(logo, Inches(0.97), Inches(0.52), Inches(w), Inches(h))
+        if badge:   # course badge beside the logo (house cover: org logo + course badge)
+            bx = 0.82 + w + 0.3 + 0.2
+            card(s, bx, 0.42, 2.3, h + 0.2, fill=ACC, shadow=False)
+            text(s, bx, 0.47, 2.3, 0.42, badge[0], 17, WHITE, bold=True, font=SERIF, align="c", autofit=False)
+            text(s, bx, 0.86, 2.3, 0.26, badge[1], 8.5, WHITE, bold=True, align="c", autofit=False)
     text(s, 0.5, 7.08, 7.0, 0.3, "© Tertiary Infotech Academy Pte Ltd. All rights reserved.", 9, FOOT, autofit=False)
     text(s, 0.9, 1.5, 8.5, 0.4, kicker, 14, ACC, bold=True, autofit=False)
     text(s, 0.85, 2.0, 10.4, 2.6, title, 48, WHITE, bold=True, font=SERIF, cw=0.52, lh=1.02)
